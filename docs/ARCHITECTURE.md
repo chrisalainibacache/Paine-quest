@@ -30,7 +30,9 @@ res://
 │  ├─ enemies/      Infectado, jefe
 │  └─ companion/    Leo
 ├─ levels/          Una carpeta por zona; una escena por sala
-│  └─ station/      platform.tscn, waiting_room.tscn, ...
+│  ├─ kit/          Piezas modulares (KitBlock, vías, CameraZone, Room)
+│  ├─ station/      Capítulo 1: platform.tscn, waiting_room.tscn, ...
+│  └─ tracks/       Capítulo 2: vías y tren destruido
 ├─ systems/         Autoloads (ver abajo)
 ├─ ui/              hud/, inventory/, menus/, reader/
 ├─ data/            Recursos .tres: items/, weapons/, enemies/, dialogue/

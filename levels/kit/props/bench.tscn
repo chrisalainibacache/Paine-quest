@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="2_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="3_metal"]
+
+[node name="Bench" type="Node3D"]
+
+[node name="Seat" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.45, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.07, 0.42)
+surface = ExtResource("2_wood")
+
+[node name="Back" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.78, 0.2)
+rotation = Vector3(-0.15, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.45, 0.06)
+surface = ExtResource("2_wood")
+
+[node name="Leg0" type="StaticBody3D" parent="."]
+position = Vector3(-0.68, 0.22, 0.02)
+script = ExtResource("1_kit_block")
+size = Vector3(0.06, 0.44, 0.42)
+surface = ExtResource("3_metal")
+
+[node name="Leg1" type="StaticBody3D" parent="."]
+position = Vector3(0.68, 0.22, 0.02)
+script = ExtResource("1_kit_block")
+size = Vector3(0.06, 0.44, 0.42)
+surface = ExtResource("3_metal")

@@ -1,0 +1,2 @@
+Cony: modelo "Erika Archer" de Mixamo (Adobe), uso permitido en juegos.
+Convertido a GLB con texturas de 512 px por tools/convert_character.gd.

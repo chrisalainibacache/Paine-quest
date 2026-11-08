@@ -45,11 +45,11 @@ cambios. Termina en un punto de corte (el camino sigue → capítulo 3 en el fut
 
 ## 4. Controles (táctil)
 
-- **Stick virtual** izquierdo: mover. Dirección relativa a la cámara activa al empezar
+- **Stick virtual flotante** (mitad izquierda de la pantalla): mover. Empujar poco =
+  caminar, empujar a fondo = trotar. Dirección relativa a la cámara activa al empezar
   a empujar (evita giros bruscos en el corte de cámara).
 - **Apuntar** (mantener): Cony se planta y apunta al infectado más cercano.
 - **Disparar**: mientras apunta.
-- **Correr**: mantener.
 - **Acción**: examinar, abrir puertas, recoger.
 - **Mochila**: arriba a la derecha.
 - Sin salto, sin cuerpo a cuerpo.

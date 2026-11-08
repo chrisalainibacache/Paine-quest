@@ -13,3 +13,4 @@
 *.wav binary
 *.ttf binary
 *.otf binary
+*.keystore binary

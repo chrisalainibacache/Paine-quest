@@ -1,0 +1,89 @@
+# Compila el APK de Android en cada cambio a main y lo publica en
+# Releases → "Latest" (link fijo para descargar en el teléfono).
+name: APK Android
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GODOT_VERSION: "4.7.2"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Caché de Godot y plantillas
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/godot
+            ~/.local/share/godot/export_templates
+          key: godot-${{ env.GODOT_VERSION }}-stable
+
+      - name: Descargar Godot ${{ env.GODOT_VERSION }}
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          set -e
+          base="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable"
+          mkdir -p ~/godot
+          curl -sSL -o /tmp/godot.zip "$base/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q /tmp/godot.zip -d ~/godot
+          curl -sSL -o /tmp/templates.tpz "$base/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          unzip -q /tmp/templates.tpz -d /tmp/tpl
+          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          mv /tmp/tpl/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
+
+      - name: Configurar editor (SDK de Android y Java)
+        run: |
+          echo "GODOT=$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64" >> $GITHUB_ENV
+          mkdir -p ~/.config/godot
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' \
+            "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-4.7.tres
+          cat ~/.config/godot/editor_settings-4.7.tres
+
+      - name: Importar el proyecto
+        run: |
+          "$GODOT" --headless --import || true
+          "$GODOT" --headless --import
+
+      - name: Pruebas automáticas
+        run: |
+          "$GODOT" --headless --path . -s res://tests/smoke_test.gd
+
+      - name: Exportar APK
+        env:
+          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: ${{ github.workspace }}/tools/android/paine.keystore
+          GODOT_ANDROID_KEYSTORE_RELEASE_USER: paine
+          GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: paine-android
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ github.workspace }}/tools/android/paine.keystore
+          GODOT_ANDROID_KEYSTORE_DEBUG_USER: paine
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: paine-android
+        run: |
+          set -e
+          sed -i "s/^version\/code=.*/version\/code=${{ github.run_number }}/" export_presets.cfg
+          sed -i "s/^version\/name=.*/version\/name=\"0.1.${{ github.run_number }}\"/" export_presets.cfg
+          mkdir -p build
+          "$GODOT" --headless --export-release "Android" build/paine.apk
+          ls -la build
+
+      - name: Publicar en Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Paine 0.1.${{ github.run_number }}
+          body: ${{ github.event.head_commit.message }}
+          files: build/paine.apk
+          make_latest: true

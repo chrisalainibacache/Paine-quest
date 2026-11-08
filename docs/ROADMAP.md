@@ -5,14 +5,15 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 ## Hito 0 — Cimientos
 - [x] Documentos de diseño, arquitectura y arte.
 - [x] Estructura de carpetas y `project.godot`.
-- [ ] Compilación automática del APK en GitHub (descargar e instalar en el teléfono).
-- [ ] Pruebas automáticas headless.
+- [x] Compilación automática del APK en GitHub (descargar e instalar en el teléfono).
+- [x] Pruebas automáticas headless (`tests/smoke_test.gd`).
 
 ## Hito 1 — Sala de prueba ("caja gris" con texturas)
-- [ ] Kit modular de muros/pisos/techo en grilla + shader de variación.
-- [ ] Una sala cerrada (andén norte) con 2 cámaras fijas.
-- [ ] Cony camina con el stick (control relativo a la cámara).
-- [ ] Filtro PS1 + niebla + luz de sodio.
+- [x] Kit modular de muros/pisos/techo en grilla + shader de variación.
+- [x] Una sala cerrada (andén norte) con 2 cámaras fijas.
+- [x] Cony camina/trota con el stick (control relativo a la cámara) con animaciones Quaternius reasignadas a su esqueleto.
+- [x] Filtro PS1 + niebla + luz de sodio.
+- [x] Leo sigue a Cony (versión simple, sin esqueleto).
 - **Prueba en el teléfono:** caminar por la sala, cortes de cámara, 60 fps.
 
 ## Hito 2 — Combate base

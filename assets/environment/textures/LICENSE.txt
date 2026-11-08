@@ -1,0 +1,2 @@
+Texturas: ambientCG (https://ambientcg.com), licencia CC0 1.0.
+Convertidas a 256 px con color de 15 bits (estilo PS1) por tools/ps1_textures.gd.

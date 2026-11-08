@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Shader" path="res://shaders/stain.gdshader" id="1_stain"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2"]
+render_priority = 0
+shader = ExtResource("1_stain")
+
+[node name="Stain" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_1")
+material_override = SubResource("ShaderMaterial_2")
+cast_shadow = 0
