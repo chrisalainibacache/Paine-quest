@@ -3,6 +3,8 @@ extends Resource
 ## Datos de un arma de fuego. Cambiar el balance = editar el .tres, no el código.
 
 @export var display_name: String = "Pistola"
+## Ítem de munición que usa (se descuenta de la mochila al recargar).
+@export var ammo_item: ItemData
 @export var damage: int = 1
 @export var clip_size: int = 10
 ## Segundos mínimos entre disparos.

@@ -62,6 +62,7 @@ jobs:
       - name: Pruebas automáticas
         run: |
           "$GODOT" --headless --path . -s res://tests/smoke_test.gd
+          "$GODOT" --headless --path . -s res://tests/systems_test.gd
 
       - name: Exportar APK
         env:

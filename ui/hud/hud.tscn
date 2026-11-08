@@ -60,6 +60,40 @@ label = "DISPARAR"
 radius = 58.0
 color = Color(1, 0.7, 0.55, 1)
 
+[node name="ActionButton" type="Control" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -208.0
+offset_right = -92.0
+offset_bottom = -92.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("3_touch_button")
+action = &"interact"
+label = "ACCIÓN"
+radius = 58.0
+color = Color(0.7, 0.85, 1, 1)
+
+[node name="BagButton" type="Control" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -132.0
+offset_top = 20.0
+offset_right = -32.0
+offset_bottom = 120.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("3_touch_button")
+action = &"inventory"
+label = "MOCHILA"
+radius = 50.0
+
 [node name="AmmoLabel" type="Label" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
@@ -74,9 +108,9 @@ grow_horizontal = 0
 grow_vertical = 0
 horizontal_alignment = 1
 text = "10  /  20"
-theme_override_font_sizes_font_size = 28
-theme_override_colors_font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants_outline_size = 6
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
 
 [node name="ConditionLabel" type="Label" parent="."]
 offset_left = 28.0
@@ -84,9 +118,9 @@ offset_top = 20.0
 offset_right = 320.0
 offset_bottom = 56.0
 text = "BIEN"
-theme_override_font_sizes_font_size = 24
-theme_override_colors_font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants_outline_size = 6
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
 
 [node name="DeathScreen" type="Control" parent="."]
 anchors_preset = 15
@@ -118,8 +152,8 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 text = "ESTÁS MUERTA"
-theme_override_font_sizes_font_size = 56
-theme_override_colors_font_color = Color(0.85, 0.12, 0.08, 1)
+theme_override_font_sizes/font_size = 56
+theme_override_colors/font_color = Color(0.85, 0.12, 0.08, 1)
 
 [node name="Retry" type="Button" parent="DeathScreen"]
 anchors_preset = 8
@@ -134,4 +168,4 @@ offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "REINTENTAR"
-theme_override_font_sizes_font_size = 30
+theme_override_font_sizes/font_size = 30

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://data/items/item_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/key.tscn" id="2_model"]
+
+[resource]
+script = ExtResource("1_data")
+id = "boleteria_key"
+display_name = "Llave de la boletería"
+description = "Llave de bronce con una etiqueta escrita a mano: «BOLETERÍA»."
+kind = 3
+max_stack = 1
+heal_amount = 0
+model = ExtResource("2_model")

@@ -1,0 +1,95 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.86, 0.83, 0.72, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.18, 0.17, 0.2, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(0.21, 0.002, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.16, 0.0024, 0.006)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.16, 0.0024, 0.006)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.16, 0.0024, 0.006)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.09, 0.0024, 0.006)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+size = Vector3(0.16, 0.0024, 0.006)
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+size = Vector3(0.16, 0.0024, 0.006)
+
+[sub_resource type="BoxMesh" id="BoxMesh_10"]
+size = Vector3(0.16, 0.0024, 0.006)
+
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+size = Vector3(0.09, 0.0024, 0.006)
+
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+size = Vector3(0.16, 0.0024, 0.006)
+
+[node name="Paper" type="Node3D"]
+
+[node name="Sheet" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.001, 0)
+mesh = SubResource("BoxMesh_3")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Line0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.0012, -0.11)
+mesh = SubResource("BoxMesh_4")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Line1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.0012, -0.085)
+mesh = SubResource("BoxMesh_5")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Line2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.0012, -0.06)
+mesh = SubResource("BoxMesh_6")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Line3" type="MeshInstance3D" parent="."]
+position = Vector3(-0.035, 0.0012, -0.035)
+mesh = SubResource("BoxMesh_7")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Line4" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.0012, -0.01)
+mesh = SubResource("BoxMesh_8")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Line5" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.0012, 0.015)
+mesh = SubResource("BoxMesh_9")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Line6" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.0012, 0.04)
+mesh = SubResource("BoxMesh_10")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Line7" type="MeshInstance3D" parent="."]
+position = Vector3(-0.035, 0.0012, 0.065)
+mesh = SubResource("BoxMesh_11")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Line8" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.0012, 0.09)
+mesh = SubResource("BoxMesh_12")
+material_override = SubResource("StandardMaterial3D_2")

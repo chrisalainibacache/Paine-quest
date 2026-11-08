@@ -48,10 +48,12 @@ cambios. Termina en un punto de corte (el camino sigue → capítulo 3 en el fut
 - **Stick virtual flotante** (mitad izquierda de la pantalla): mover. Empujar poco =
   caminar, empujar a fondo = trotar. Dirección relativa a la cámara activa al empezar
   a empujar (evita giros bruscos en el corte de cámara).
-- **Apuntar** (mantener): Cony se planta y apunta al infectado más cercano.
-- **Disparar**: mientras apunta.
-- **Acción**: examinar, abrir puertas, recoger.
-- **Mochila**: arriba a la derecha.
+- **APUNTAR** (mantener, pulgar izquierdo, sobre el stick): Cony se planta y apunta
+  sola al infectado más cercano.
+- **DISPARAR** (pulgar derecho, botón pequeño abajo a la derecha): aparece mientras apunta.
+- **ACCIÓN** (mismo lugar que DISPARAR, cuando no apunta): aparece solo si hay algo a
+  mano y dice qué hace: RECOGER, LEER, ABRIR, USAR, EXAMINAR.
+- **MOCHILA**: arriba a la derecha. Pausa el juego.
 - Sin salto, sin cuerpo a cuerpo.
 
 ## 5. Armas (solo armas de fuego)
@@ -71,13 +73,15 @@ Recarga automática al vaciar el cargador (animación corta). Sin munición: Con
 
 | Mecánica | Descripción |
 | --- | --- |
-| Salud | Bien / Precaución / Peligro (se ve en la mochila y en el andar de Cony). |
-| Curación | Comida: sushi (poco) y handroll (mucho). |
-| Mochila | 8 casillas. Munición e ítems clave ocupan espacio. |
-| Guardado | Máquina de escribir (manual) + punto de control al empezar cada capítulo. |
-| Documentos | Notas legibles que cuentan qué pasó en Paine. |
-| Leo | Sigue a Cony; bufa cuando hay infectados cerca (aviso). No pelea, no muere. |
-| Puertas | Fundido corto entre salas (oculta la carga). Algunas piden llave. |
+| Salud | Bien / Precaución / Peligro (electrocardiograma en la mochila, cojea en Peligro). |
+| Curación | Comida, se come desde la mochila: sushi (+30) y handroll (+70). |
+| Mochila | 8 casillas. Las balas se apilan (60 por casilla); armas, comida y llaves usan una casilla cada una. La munición de reserva es la que hay en la mochila. |
+| Examinar | Cualquier ítem se ve en 3D y se gira con el dedo. |
+| Guardado | Máquina de escribir (una ranura, sin cintas de tinta). Al morir, REINTENTAR vuelve a la última partida guardada. |
+| Documentos | Notas legibles (papel en pantalla) que cuentan qué pasó en Paine; quedan en NOTAS. |
+| Leo | Sigue a Cony y entra con ella a cada sala. Bufa y mira a cualquier infectado vivo a menos de 5,5 m, aunque se esté haciendo el muerto (es la pista para el jugador). No pelea, no muere. |
+| Puertas | Fundido corto entre salas (oculta la carga). Las que piden llave quedan abiertas para siempre al usarla. |
+| Memoria de las salas | Lo recogido no vuelve a aparecer y los infectados muertos siguen en el suelo al volver. |
 
 ## 7. Enemigos y daño
 
@@ -98,8 +102,11 @@ Regla: **cada sala cabe en 1–3 cámaras** y está cerrada por todos lados.
 
 ### Capítulo 1 — Estación de Paine
 1. **Andén norte** — inicio. Leo, primera nota. Vía bloqueada por rejas.
-2. **Sala de espera** — máquina de escribir, primer infectado.
-3. **Boletería** — pistola + munición, nota del boletero.
+2. **Sala de espera** — máquina de escribir, infectado de espaldas mirando la ventanilla,
+   sushi, balas, aviso de la estación (dice que la pistola quedó en la boletería y la
+   llave en la bodega).
+3. **Boletería** — pistola + munición, nota del boletero. (Hasta el Hito 4 Cony empieza
+   con la pistola.)
 4. **Pasillo de servicio** — infectado haciéndose el muerto.
 5. **Bodega** — llave del portón.
 6. **Andén sur / portón a la vía** — sale del capítulo.

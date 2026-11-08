@@ -9,10 +9,14 @@ const KEYS := {
     &"move_back": [KEY_S, KEY_DOWN],
     &"aim": [KEY_K, KEY_SHIFT],
     &"fire": [KEY_J, KEY_SPACE],
+    &"interact": [KEY_E, KEY_ENTER],
+    &"inventory": [KEY_I, KEY_TAB],
 }
 const BUTTONS := {
     &"aim": JOY_BUTTON_LEFT_SHOULDER,
     &"fire": JOY_BUTTON_RIGHT_SHOULDER,
+    &"interact": JOY_BUTTON_A,
+    &"inventory": JOY_BUTTON_Y,
 }
 const AXES := {
     &"move_left": [JOY_AXIS_LEFT_X, -1.0],

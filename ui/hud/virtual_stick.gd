@@ -15,6 +15,7 @@ var _vector := Vector2.ZERO
 
 
 func _ready() -> void:
+    process_mode = Node.PROCESS_MODE_ALWAYS
     mouse_filter = Control.MOUSE_FILTER_IGNORE
     set_anchors_preset(Control.PRESET_FULL_RECT)
 
@@ -22,7 +23,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
     if event is InputEventScreenTouch:
         var touch := event as InputEventScreenTouch
-        if touch.pressed and _touch_index == -1 and touch.position.x < get_viewport_rect().size.x * 0.5:
+        if touch.pressed and _touch_index == -1 and not get_tree().paused and touch.position.x < get_viewport_rect().size.x * 0.5:
             _touch_index = touch.index
             _center = touch.position
             _set_knob(touch.position)

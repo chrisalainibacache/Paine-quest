@@ -25,10 +25,15 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 - [x] Trote natural (Mixamo) en vez del "salto de zanja".
 
 ## Hito 3 — Sistemas
-- [ ] Puertas y cambio de sala (fundido + `SpawnPoint`).
-- [ ] Recoger ítems, mochila de 8 casillas, examinar.
-- [ ] Notas legibles, máquina de escribir y guardado.
-- [ ] Leo sigue a Cony y avisa de infectados.
+- [x] Botón ACCIÓN contextual (RECOGER / LEER / ABRIR / USAR / EXAMINAR) en el lugar de DISPARAR.
+- [x] Puertas y cambio de sala (fundido a negro + punto de aparición). Puertas con llave.
+- [x] Sala de espera (2 cámaras): ventanillas de la boletería, bancas, máquina de bebidas, reloj detenido.
+- [x] Recoger ítems, mochila de 8 casillas (balas apiladas), comer para curarse, examinar en 3D.
+- [x] Notas legibles (lector de papel) guardadas en NOTAS.
+- [x] Máquina de escribir: guardar partida. Pantalla de título con NUEVA PARTIDA / CONTINUAR.
+- [x] Lo recogido y los infectados muertos se recuerdan al volver a una sala y al cargar.
+- [x] Leo bufa y mira a los infectados cercanos (también a los que se hacen los muertos).
+- **Prueba en el teléfono:** recoger, leer, pasar a la sala de espera y volver, guardar, cerrar la app y CONTINUAR.
 
 ## Hito 4 — Capítulo 1 completo (estación, 6 salas)
 

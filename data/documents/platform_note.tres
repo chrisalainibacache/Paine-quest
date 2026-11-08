@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "platform_note"
+title = "Nota arrugada"
+pages = PackedStringArray("Viernes, 6:40.\n\nEl tren de las siete no llegó. Nadie contesta el teléfono de la estación.\n\nEl jefe de estación dijo que hubo un accidente más al norte, pasado Hospital, y que esperáramos adentro.", "Hay un hombre tirado en el andén. Alguien dijo que estaba borracho.\n\nNo se mueve, pero cuando pasé a su lado juro que me siguió con los ojos.\n\nMe voy a la sala de espera. Si alguien lee esto: no se acerquen a él.")

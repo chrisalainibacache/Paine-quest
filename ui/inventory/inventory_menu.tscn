@@ -1,0 +1,262 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/inventory/inventory_menu.gd" id="1_inventory_me"]
+[ext_resource type="Script" path="res://ui/inventory/ecg.gd" id="2_ecg"]
+[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="3_item_view"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.04, 0.045, 0.05, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.37, 0.3, 0.8)
+
+[node name="InventoryMenu" type="CanvasLayer"]
+script = ExtResource("1_inventory_me")
+layer = 20
+
+[node name="Root" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shade" type="ColorRect" parent="Root"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.01, 0.012, 0.016, 0.93)
+
+[node name="Header" type="HBoxContainer" parent="Root"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/separation = 14
+offset_left = 40
+offset_top = 22
+offset_right = -40
+offset_bottom = 92
+
+[node name="Title" type="Label" parent="Root/Header"]
+text = "MOCHILA"
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(0.85, 0.72, 0.5, 1)
+size_flags_horizontal = 3
+vertical_alignment = 1
+
+[node name="ItemsTab" type="Button" parent="Root/Header"]
+text = "OBJETOS"
+theme_override_font_sizes/font_size = 24
+focus_mode = 0
+toggle_mode = true
+custom_minimum_size = Vector2(170, 64)
+
+[node name="NotesTab" type="Button" parent="Root/Header"]
+text = "NOTAS"
+theme_override_font_sizes/font_size = 24
+focus_mode = 0
+toggle_mode = true
+custom_minimum_size = Vector2(170, 64)
+
+[node name="Close" type="Button" parent="Root/Header"]
+text = "CERRAR"
+theme_override_font_sizes/font_size = 24
+focus_mode = 0
+custom_minimum_size = Vector2(170, 64)
+
+[node name="Status" type="Panel" parent="Root"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+offset_left = 40
+offset_top = 118
+offset_right = 330
+offset_bottom = 430
+
+[node name="Label" type="Label" parent="Root/Status"]
+text = "ESTADO"
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.6, 0.57, 0.5, 1)
+offset_left = 18
+offset_top = 12
+offset_right = 270
+offset_bottom = 42
+
+[node name="Ecg" type="Control" parent="Root/Status"]
+script = ExtResource("2_ecg")
+offset_left = 18
+offset_top = 48
+offset_right = 272
+offset_bottom = 150
+
+[node name="Condition" type="Label" parent="Root/Status"]
+text = "BIEN"
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.9, 0.87, 0.8, 1)
+offset_left = 18
+offset_top = 158
+offset_right = 272
+offset_bottom = 198
+
+[node name="WeaponTitle" type="Label" parent="Root/Status"]
+text = "ARMA"
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.6, 0.57, 0.5, 1)
+offset_left = 18
+offset_top = 214
+offset_right = 272
+offset_bottom = 242
+
+[node name="Weapon" type="Label" parent="Root/Status"]
+text = "Pistola"
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.9, 0.87, 0.8, 1)
+autowrap_mode = 3
+offset_left = 18
+offset_top = 244
+offset_right = 272
+offset_bottom = 306
+
+[node name="Grid" type="GridContainer" parent="Root"]
+columns = 4
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+offset_left = 360
+offset_top = 118
+offset_right = 890
+offset_bottom = 390
+
+[node name="Info" type="Panel" parent="Root"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+offset_left = 360
+offset_top = 404
+offset_right = 1240
+offset_bottom = 694
+
+[node name="Name" type="Label" parent="Root/Info"]
+text = ""
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.85, 0.72, 0.5, 1)
+offset_left = 24
+offset_top = 14
+offset_right = 840
+offset_bottom = 54
+
+[node name="Description" type="Label" parent="Root/Info"]
+text = ""
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.87, 0.8, 1)
+autowrap_mode = 3
+offset_left = 24
+offset_top = 60
+offset_right = 600
+offset_bottom = 274
+
+[node name="Buttons" type="VBoxContainer" parent="Root/Info"]
+theme_override_constants/separation = 14
+offset_left = 640
+offset_top = 60
+offset_right = 856
+offset_bottom = 274
+
+[node name="Use" type="Button" parent="Root/Info/Buttons"]
+text = "USAR"
+theme_override_font_sizes/font_size = 26
+focus_mode = 0
+custom_minimum_size = Vector2(0, 80)
+
+[node name="Examine" type="Button" parent="Root/Info/Buttons"]
+text = "EXAMINAR"
+theme_override_font_sizes/font_size = 26
+focus_mode = 0
+custom_minimum_size = Vector2(0, 80)
+
+[node name="Notes" type="ScrollContainer" parent="Root"]
+offset_left = 360
+offset_top = 118
+offset_right = 1240
+offset_bottom = 694
+
+[node name="List" type="VBoxContainer" parent="Root/Notes"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Examine" type="Control" parent="Root"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shade" type="ColorRect" parent="Root/Examine"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.92)
+
+[node name="View" type="SubViewportContainer" parent="Root/Examine"]
+script = ExtResource("3_item_view")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+spin_speed = 0.25
+draggable = true
+offset_left = -330
+offset_top = 30
+offset_right = 330
+offset_bottom = 500
+
+[node name="Name" type="Label" parent="Root/Examine"]
+text = ""
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.85, 0.72, 0.5, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+horizontal_alignment = 1
+offset_left = -500
+offset_top = 505
+offset_right = 500
+offset_bottom = 545
+
+[node name="Description" type="Label" parent="Root/Examine"]
+text = ""
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.87, 0.8, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+horizontal_alignment = 1
+autowrap_mode = 3
+offset_left = -500
+offset_top = 548
+offset_right = 500
+offset_bottom = 650
+
+[node name="Hint" type="Label" parent="Root/Examine"]
+text = "Arrastra para girar"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.6, 0.57, 0.5, 1)
+offset_left = 40
+offset_top = 660
+offset_right = 400
+offset_bottom = 690
+
+[node name="Close" type="Button" parent="Root/Examine"]
+text = "VOLVER"
+theme_override_font_sizes/font_size = 24
+focus_mode = 0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+custom_minimum_size = Vector2(170, 64)
+offset_left = -210
+offset_top = 22
+offset_right = -40
+offset_bottom = 86

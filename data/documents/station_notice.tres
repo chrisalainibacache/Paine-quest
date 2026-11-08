@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "station_notice"
+title = "Aviso de la estación"
+pages = PackedStringArray("AVISO A LOS PASAJEROS\n\nPor una emergencia sanitaria en la comuna, los servicios a Santiago quedan suspendidos hasta nuevo aviso.\n\nSe ruega mantener la calma y no abandonar la estación. Personal de salud vendrá a buscarlos.\n\n— Jefatura de Estación Paine", "(Escrito a mano, abajo del aviso)\n\nNadie vino.\n\nDejé la pistola del guardia en la boletería y la cerré con llave. La llave quedó en la bodega.\n\nNo abran la puerta del andén.\n\n— R.")

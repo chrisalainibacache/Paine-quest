@@ -52,6 +52,9 @@ func _ready() -> void:
     _anim.root_node = _anim.get_path_to(model)
     _anim.add_animation_library(&"z", ANIMATIONS)
     _groan_timer = randf_range(2.0, 6.0)
+    if GameState.has_flag(_dead_flag()):
+        _lie_dead()
+        return
     match start_state:
         "feeding": _enter(State.FEEDING)
         "lying": _enter(State.LYING)
@@ -186,14 +189,34 @@ func _die() -> void:
     _enter(State.DEAD)
     remove_from_group("enemies")
     collision_layer = 0
+    GameState.set_flag(_dead_flag())
     Sfx.play("fall", global_position, -2.0)
     died.emit(self)
-    # Mancha de sangre que queda en el piso.
+    _spawn_stain()
+
+
+## Ya había muerto antes (se volvió a la sala): queda tirado donde cayó.
+func _lie_dead() -> void:
+    state = State.DEAD
+    remove_from_group("enemies")
+    collision_layer = 0
+    _anim.play("z/Death01")
+    _anim.seek(_anim_length("Death01"), true)
+    _anim.pause()
+    _spawn_stain.call_deferred()
+
+
+## Mancha de sangre que queda en el piso.
+func _spawn_stain() -> void:
     var stain := STAIN_SCENE.instantiate() as Node3D
     get_parent().add_child(stain)
     stain.global_position = global_position + Vector3(0, 0.013, 0) + _forward() * -0.6
     stain.scale = Vector3(1.6, 1, 1.6)
     stain.rotation.y = randf() * TAU
+
+
+func _dead_flag() -> String:
+    return "dead:" + GameState.node_key(self)
 
 
 func _can_see_target() -> bool:

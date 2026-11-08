@@ -1,0 +1,74 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.72, 0.56, 0.24, 1)
+roughness = 0.35
+metallic = 0.85
+specular_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.86, 0.8, 0.62, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.15, 0.1, 0.08, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.065, 0.006, 0.006)
+
+[sub_resource type="TorusMesh" id="TorusMesh_5"]
+inner_radius = 0.009
+outer_radius = 0.017
+rings = 10
+ring_segments = 5
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.006, 0.006, 0.016)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.008, 0.006, 0.011)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+size = Vector3(0.05, 0.002, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+size = Vector3(0.03, 0.0025, 0.006)
+
+[node name="Key" type="Node3D"]
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.004, 0)
+mesh = SubResource("BoxMesh_4")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Bow" type="MeshInstance3D" parent="."]
+position = Vector3(-0.045, 0.004, 0)
+mesh = SubResource("TorusMesh_5")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Bit1" type="MeshInstance3D" parent="."]
+position = Vector3(0.025, 0.004, 0.009)
+mesh = SubResource("BoxMesh_6")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Bit2" type="MeshInstance3D" parent="."]
+position = Vector3(0.012, 0.004, 0.007)
+mesh = SubResource("BoxMesh_7")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Tag" type="MeshInstance3D" parent="."]
+position = Vector3(-0.085, 0.002, 0.012)
+rotation = Vector3(0, 0.4, 0)
+mesh = SubResource("BoxMesh_8")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="TagInk" type="MeshInstance3D" parent="."]
+position = Vector3(-0.085, 0.002, 0.012)
+rotation = Vector3(0, 0.4, 0)
+mesh = SubResource("BoxMesh_9")
+material_override = SubResource("StandardMaterial3D_3")

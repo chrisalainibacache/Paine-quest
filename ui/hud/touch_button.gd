@@ -11,6 +11,9 @@ var _touch_index := -1
 
 
 func _ready() -> void:
+    # Sigue recibiendo toques en pausa para soltar la acción al levantar el
+    # dedo (si no, quedaría "presionada" al cerrar un menú).
+    process_mode = Node.PROCESS_MODE_ALWAYS
     mouse_filter = Control.MOUSE_FILTER_IGNORE
     custom_minimum_size = Vector2(radius, radius) * 2.0
     size = custom_minimum_size
@@ -23,7 +26,7 @@ func _input(event: InputEvent) -> void:
         return
     if event is InputEventScreenTouch:
         var touch := event as InputEventScreenTouch
-        if touch.pressed and _touch_index == -1 and _contains(touch.position):
+        if touch.pressed and _touch_index == -1 and not get_tree().paused and _contains(touch.position):
             _touch_index = touch.index
             Input.action_press(action)
             queue_redraw()

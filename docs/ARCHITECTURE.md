@@ -30,48 +30,61 @@ res://
 │  ├─ enemies/      Infectado, jefe
 │  └─ companion/    Leo
 ├─ levels/          Una carpeta por zona; una escena por sala
-│  ├─ kit/          Piezas modulares (KitBlock, vías, CameraZone, Room)
+│  ├─ kit/          Piezas modulares (KitBlock, vías, CameraZone, Room, interact/, items/, props/)
 │  ├─ station/      Capítulo 1: platform.tscn, waiting_room.tscn, ...
 │  └─ tracks/       Capítulo 2: vías y tren destruido
 ├─ systems/         Autoloads (ver abajo)
-├─ ui/              hud/, inventory/, menus/, reader/
-├─ data/            Recursos .tres: items/, weapons/, enemies/, dialogue/
+├─ ui/              hud/, inventory/, dialogue/, title/, theme/
+├─ data/            Recursos .tres: items/, weapons/, enemies/, documents/
 ├─ shaders/         Filtro PS1, materiales especiales
 ├─ tests/           Pruebas automáticas (headless)
 ├─ tools/           Scripts de apoyo (export, importación)
 └─ docs/            GDD, arquitectura, assets, convenciones
 ```
 
-## Autoloads (systems/)
+## Sistemas globales (systems/)
 
-| Autoload | Responsabilidad |
-| --- | --- |
-| `Events` | Bus de señales globales (`item_picked`, `door_used`, `player_died`, ...). |
-| `GameState` | Banderas de historia, inventario, salud, sala actual. Fuente única de verdad del progreso. |
-| `SaveSystem` | Serializa `GameState` a `user://` (máquina de escribir y puntos de control). |
-| `SceneLoader` | Cambia de sala: fundido, carga en segundo plano, coloca a Cony en el `SpawnPoint` indicado. |
-| `AudioManager` | Música, ambiente por zona y efectos con pool de reproductores. |
-| `Dialogue` | Muestra diálogos y documentos; pausa el juego cuando corresponde. |
+Los scripts que corren con `godot -s` (pruebas) no ven los autoloads al compilar, así
+que el estado global es **estático** (`class_name` + `static var/func`) y los nodos que
+necesitan el árbol registran su instancia al iniciar.
+
+| Pieza | Tipo | Responsabilidad |
+| --- | --- | --- |
+| `InputSetup` | autoload | Registra las acciones (`move_*`, `aim`, `fire`, `interact`, `inventory`). |
+| `Sfx` (`SfxPlayer`) | autoload + `Sfx.play()` estático | Efectos sintetizados con pool de reproductores. |
+| `GameState` | estático | Mochila, arma equipada, notas, banderas, salud, cargador, sala actual. |
+| `Inventory` | clase | 8 casillas con apilado; se serializa a rutas de recursos. |
+| `SaveSystem` | estático | Guarda/carga `GameState` en `user://partida.json` (una ranura). |
+| `SceneLoader` | nodo en `Main` | Cambia de sala: fundido, descarga, instancia, ubica a Cony y Leo, elige cámara. |
+| `Dialogue` | escena en `Main` | Mensajes, preguntas (`ask`) y lector de documentos. Pausa el juego. |
+| `InventoryMenu` | escena en `Main` | Mochila: casillas 3D, estado, usar/equipar/examinar, NOTAS. |
 
 ## Piezas reutilizables de una sala
 
 | Nodo/escena | Uso |
 | --- | --- |
-| `Room` (script base) | Raíz de cada sala. Declara zona, música y ambiente. |
-| `CameraZone` | Area3D + Camera3D fija (o en riel). Corte de cámara al entrar. |
-| `Door` | Lleva a otra sala (`target_room`, `target_spawn`), puede pedir llave. |
-| `SpawnPoint` | Dónde aparece Cony al entrar desde una puerta concreta. |
-| `Pickup` | Ítem en el suelo (referencia a un `ItemData`). |
-| `Interactable` | Examinar objetos, notas, máquina de escribir. |
-| `EnemySpawn` | Infectado que aparece según banderas de `GameState`. |
+| `Room` (script base) | Raíz de cada sala. Cámaras fijas y puntos de aparición (`Spawns/<id>`). |
+| `CameraZone` | Area3D + Camera3D fija. Corte de cámara al entrar. |
+| `Interactable` | Base de todo lo que usa el botón ACCIÓN (`prompt`, `reach`, `interact()`). |
+| `Door` | Lleva a otra sala (`target_room`, `target_spawn`); puede pedir llave (`key_item`, `lock_id`). |
+| `Pickup` | Ítem en el suelo (`ItemData` + cantidad) con brillo; se recuerda al recogerlo. |
+| `note.gd` | Documento legible (`DocumentData`). |
+| `examine_spot.gd` | Objeto que solo muestra mensajes. |
+| `typewriter.gd` | Guardar partida. |
+
+Cada sala se arma en `levels/<zona>/` con nodos `Interactables`, `Enemies`, `Cameras`
+y `Spawns`. Las banderas de progreso usan `GameState.node_key(nodo)` =
+`"<archivo de la sala>:<ruta del nodo>"`, así que **no renombres nodos de ítems o
+infectados en salas ya publicadas** (se perdería lo guardado).
 
 ## Flujo de una sala
 
-1. `SceneLoader.go_to(room_path, spawn_id)` → fundido a negro.
-2. Se libera la sala anterior; se instancia la nueva.
-3. Cony se coloca en el `SpawnPoint` con ese `spawn_id`.
-4. La `CameraZone` que contiene a Cony se activa.
-5. Fundido de entrada. `Events.room_entered` se emite.
+1. Una `Door` llama `SceneLoader.go_to(sala, spawn)` (sin esperar: la puerta se borra con su sala).
+2. Fundido a negro; Cony queda sin controles.
+3. Se saca la sala anterior del árbol; se instancia la nueva. Infectados y pickups
+   consultan `GameState` en su `_ready` (muertos / ya recogidos).
+4. Cony y Leo se ubican en `Spawns/<spawn>`; se elige la `CameraZone` que contiene a Cony.
+5. Fundido de entrada y vuelven los controles.
 
 ## Convenciones de código
 

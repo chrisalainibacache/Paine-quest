@@ -1,7 +1,8 @@
 extends CharacterBody3D
 ## Leo, la gatita de Cony. La sigue a una distancia cómoda, camina o corre
 ## según qué tan lejos quedó, y se queda sentada mirando cuando Cony se detiene.
-## (Hito 3: bufar cuando hay infectados cerca.)
+## Si hay un infectado cerca (aunque se esté haciendo el muerto), Leo lo mira
+## y le bufa: es el aviso para el jugador.
 
 const FOLLOW_DISTANCE := 1.3
 const WALK_SPEED := 1.4
@@ -9,12 +10,21 @@ const RUN_SPEED := 3.8
 const TURN_SPEED := 8.0
 const GRAVITY := 18.0
 const LOOPING := ["Idle", "Idle_Eating", "Walk", "Run"]
+## Distancia a la que Leo nota a un infectado.
+const WARN_RANGE := 5.5
+const HISS_INTERVAL := 2.8
+const SCAN_INTERVAL := 0.3
 
 @onready var model: Node3D = $Model
 
 var target: Node3D
 var _anim: AnimationPlayer
 var _current := ""
+## Infectado al que Leo le está bufando (null = tranquila).
+var threat: Node3D
+var _scan_timer := 0.0
+var _hiss_timer := 0.0
+var _hiss_anim_time := 0.0
 
 
 func _ready() -> void:
@@ -28,7 +38,12 @@ func _ready() -> void:
     _play("Idle")
 
 
+func is_alert() -> bool:
+    return threat != null
+
+
 func _physics_process(delta: float) -> void:
+    _update_threat(delta)
     var move := Vector3.ZERO
     if target:
         var to_target := target.global_position - global_position
@@ -45,12 +60,48 @@ func _physics_process(delta: float) -> void:
     var horizontal := Vector2(velocity.x, velocity.z).length()
     if horizontal > 0.1:
         model.rotation.y = lerp_angle(model.rotation.y, atan2(velocity.x, velocity.z), minf(TURN_SPEED * delta, 1.0))
-    if horizontal > WALK_SPEED * 1.4:
+    elif threat:
+        var to_threat := threat.global_position - global_position
+        model.rotation.y = lerp_angle(model.rotation.y, atan2(to_threat.x, to_threat.z), minf(TURN_SPEED * delta, 1.0))
+    if _hiss_anim_time > 0.0 and horizontal <= 0.15:
+        _play("Headbutt", 0.7)
+    elif horizontal > WALK_SPEED * 1.4:
         _play("Run", clampf(horizontal / RUN_SPEED, 0.7, 1.2))
     elif horizontal > 0.15:
         _play("Walk", clampf(horizontal / WALK_SPEED, 0.6, 1.3))
     else:
         _play("Idle")
+
+
+func _update_threat(delta: float) -> void:
+    _scan_timer -= delta
+    _hiss_anim_time = maxf(_hiss_anim_time - delta, 0.0)
+    if _scan_timer <= 0.0:
+        _scan_timer = SCAN_INTERVAL
+        var previous := threat
+        threat = _find_threat()
+        if threat and previous == null:
+            _hiss_timer = 0.0
+    if threat == null:
+        return
+    _hiss_timer -= delta
+    if _hiss_timer <= 0.0:
+        _hiss_timer = HISS_INTERVAL
+        _hiss_anim_time = 0.9
+        Sfx.play("hiss", global_position + Vector3.UP * 0.3, -3.0, 0.1)
+
+
+func _find_threat() -> Node3D:
+    var best: Node3D = null
+    var best_distance := WARN_RANGE
+    for enemy: Node3D in get_tree().get_nodes_in_group("enemies"):
+        if not enemy.is_alive():
+            continue
+        var distance := global_position.distance_to(enemy.global_position)
+        if distance < best_distance:
+            best_distance = distance
+            best = enemy
+    return best
 
 
 func _play(anim_name: String, speed_scale: float = 1.0) -> void:

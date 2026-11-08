@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://data/items/item_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/sushi.tscn" id="2_model"]
+
+[resource]
+script = ExtResource("1_data")
+id = "sushi"
+display_name = "Sushi"
+description = "Tres piezas en una bandeja. Siguen frescas.
+Recupera un poco de salud."
+kind = 2
+max_stack = 1
+heal_amount = 30
+model = ExtResource("2_model")

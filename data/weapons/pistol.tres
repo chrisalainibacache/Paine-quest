@@ -2,9 +2,12 @@
 
 [ext_resource type="Script" path="res://data/weapons/weapon_data.gd" id="1_data"]
 
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="2_ammo"]
+
 [resource]
 script = ExtResource("1_data")
 display_name = "Pistola 9 mm"
+ammo_item = ExtResource("2_ammo")
 damage = 1
 clip_size = 10
 fire_interval = 0.45

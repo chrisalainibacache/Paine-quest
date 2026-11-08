@@ -1,0 +1,538 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/room.gd" id="1_room"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="2_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/concrete_floor.tres" id="3_concrete_flo"]
+[ext_resource type="Material" path="res://levels/kit/materials/concrete_wall.tres" id="4_concrete_wal"]
+[ext_resource type="Material" path="res://levels/kit/materials/plaster_wall.tres" id="5_plaster_wall"]
+[ext_resource type="Material" path="res://levels/kit/materials/tiles_wall.tres" id="6_tiles_wall"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="7_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/window_glow.tres" id="8_window_glow"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="9_metal"]
+[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="10_planks"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/wall_clock.tscn" id="11_wall_clock"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/bench.tscn" id="12_bench"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/vending_machine.tscn" id="13_vending_mach"]
+[ext_resource type="Material" path="res://levels/kit/materials/rust.tres" id="14_rust"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/typewriter_desk.tscn" id="15_typewriter_d"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/crate.tscn" id="16_crate"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/stain.tscn" id="17_stain"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/sodium_lamp.tscn" id="18_sodium_lamp"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="19_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/typewriter.gd" id="20_typewriter"]
+[ext_resource type="Resource" path="res://data/documents/station_notice.tres" id="21_station_noti"]
+[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="22_note"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="23_paper"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="24_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="25_pickup"]
+[ext_resource type="Resource" path="res://data/items/sushi.tres" id="26_sushi"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="27_ammo_9mm"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="28_infected"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="29_camera_zone"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.02, 0.02, 0.025, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.34, 0.33, 0.36, 1)
+ambient_light_energy = 0.5
+fog_enabled = true
+fog_light_color = Color(0.04, 0.04, 0.05, 1)
+fog_density = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(1.2, 0.85, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(1.2, 0.85, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
+albedo_color = Color(0.8, 0.85, 0.9, 1)
+emission_enabled = true
+emission = Color(0.75, 0.85, 1, 1)
+emission_energy_multiplier = 1.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(1.4, 0.05, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6"]
+size = Vector3(5, 3, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7"]
+size = Vector3(4, 3, 7)
+
+[node name="WaitingRoom" type="Node3D"]
+script = ExtResource("1_room")
+room_name = "Sala de espera"
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, -0.5, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(9.6, 1, 7.6)
+surface = ExtResource("3_concrete_flo")
+
+[node name="Ceiling" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 3.25, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(9.6, 0.1, 7.6)
+surface = ExtResource("4_concrete_wal")
+
+[node name="NorthWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 1.6, -3.65)
+script = ExtResource("2_kit_block")
+size = Vector3(9.6, 3.2, 0.3)
+surface = ExtResource("5_plaster_wall")
+
+[node name="SouthWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 1.6, 3.65)
+script = ExtResource("2_kit_block")
+size = Vector3(9.6, 3.2, 0.3)
+surface = ExtResource("5_plaster_wall")
+
+[node name="WestWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(-4.65, 1.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 3.2, 7)
+surface = ExtResource("5_plaster_wall")
+
+[node name="EastWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(4.65, 1.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 3.2, 7)
+surface = ExtResource("5_plaster_wall")
+
+[node name="TilesN" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 0.6, -3.48)
+script = ExtResource("2_kit_block")
+size = Vector3(9, 1.2, 0.04)
+surface = ExtResource("6_tiles_wall")
+solid = false
+
+[node name="TrimN" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 1.22, -3.48)
+script = ExtResource("2_kit_block")
+size = Vector3(9, 0.06, 0.06)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="TilesS" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 0.6, 3.48)
+script = ExtResource("2_kit_block")
+size = Vector3(9, 1.2, 0.04)
+surface = ExtResource("6_tiles_wall")
+solid = false
+
+[node name="TrimS" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 1.22, 3.48)
+script = ExtResource("2_kit_block")
+size = Vector3(9, 0.06, 0.06)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="TilesW" type="StaticBody3D" parent="Shell"]
+position = Vector3(-4.48, 0.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 1.2, 7)
+surface = ExtResource("6_tiles_wall")
+solid = false
+
+[node name="TrimW" type="StaticBody3D" parent="Shell"]
+position = Vector3(-4.48, 1.22, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 0.06, 7)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="TilesE" type="StaticBody3D" parent="Shell"]
+position = Vector3(4.48, 0.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 1.2, 7)
+surface = ExtResource("6_tiles_wall")
+solid = false
+
+[node name="TrimE" type="StaticBody3D" parent="Shell"]
+position = Vector3(4.48, 1.22, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 0.06, 7)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="TicketOffice" type="Node3D" parent="."]
+
+[node name="Window0" type="MeshInstance3D" parent="TicketOffice"]
+position = Vector3(-2.2, 1.65, -3.49)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("8_window_glow")
+
+[node name="Counter0" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-2.2, 1.18, -3.35)
+script = ExtResource("2_kit_block")
+size = Vector3(1.4, 0.06, 0.3)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="Frame0" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-2.2, 2.1, -3.46)
+script = ExtResource("2_kit_block")
+size = Vector3(1.4, 0.08, 0.08)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="Bar0_0" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-2.7, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Bar0_1" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-2.45, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Bar0_2" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-2.2, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Bar0_3" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-1.95, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Bar0_4" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-1.7, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Window1" type="MeshInstance3D" parent="TicketOffice"]
+position = Vector3(-0.2, 1.65, -3.49)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("8_window_glow")
+
+[node name="Counter1" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-0.2, 1.18, -3.35)
+script = ExtResource("2_kit_block")
+size = Vector3(1.4, 0.06, 0.3)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="Frame1" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-0.2, 2.1, -3.46)
+script = ExtResource("2_kit_block")
+size = Vector3(1.4, 0.08, 0.08)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="Bar1_0" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-0.7, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Bar1_1" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-0.45, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Bar1_2" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(-0.2, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Bar1_3" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(0.05, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Bar1_4" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(0.3, 1.65, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.03, 0.85, 0.03)
+surface = ExtResource("9_metal")
+solid = false
+
+[node name="Sign" type="Label3D" parent="TicketOffice"]
+position = Vector3(-1.2, 2.55, -3.47)
+text = "BOLETERÍA"
+font_size = 72
+pixel_size = 0.004
+modulate = Color(0.85, 0.8, 0.65, 1)
+outline_size = 0
+
+[node name="Hours" type="Label3D" parent="TicketOffice"]
+position = Vector3(-1.2, 2.3, -3.47)
+text = "Lunes a domingo · 6:00 a 22:00"
+font_size = 40
+pixel_size = 0.004
+modulate = Color(0.6, 0.58, 0.5, 1)
+outline_size = 0
+
+[node name="DoorPanel" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(2.9, 1.1, -3.46)
+script = ExtResource("2_kit_block")
+size = Vector3(1, 2.2, 0.06)
+surface = ExtResource("10_planks")
+solid = false
+
+[node name="DoorFrameL" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(2.34, 1.18, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.36, 0.1)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="DoorFrameR" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(3.46, 1.18, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.36, 0.1)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="DoorLintel" type="StaticBody3D" parent="TicketOffice"]
+position = Vector3(2.9, 2.32, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(1.22, 0.1, 0.1)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="DoorSign" type="Label3D" parent="TicketOffice"]
+position = Vector3(2.9, 1.75, -3.42)
+text = "SOLO PERSONAL"
+font_size = 22
+pixel_size = 0.004
+modulate = Color(0.75, 0.2, 0.15, 1)
+outline_size = 0
+
+[node name="Tube" type="MeshInstance3D" parent="TicketOffice"]
+position = Vector3(-1.2, 3.1, -2.6)
+mesh = SubResource("BoxMesh_5")
+material_override = SubResource("StandardMaterial3D_4")
+
+[node name="TubeLight" type="OmniLight3D" parent="TicketOffice"]
+position = Vector3(-1.2, 2.8, -2.4)
+light_color = Color(0.72, 0.82, 1, 1)
+light_energy = 0.9
+omni_range = 5.0
+
+[node name="SouthDetails" type="Node3D" parent="."]
+
+[node name="DoorPanel" type="StaticBody3D" parent="SouthDetails"]
+position = Vector3(-2.5, 1.1, 3.46)
+script = ExtResource("2_kit_block")
+size = Vector3(1.2, 2.2, 0.06)
+surface = ExtResource("10_planks")
+solid = false
+
+[node name="DoorFrameL" type="StaticBody3D" parent="SouthDetails"]
+position = Vector3(-3.16, 1.2, 3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.12, 2.4, 0.12)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="DoorFrameR" type="StaticBody3D" parent="SouthDetails"]
+position = Vector3(-1.84, 1.2, 3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.12, 2.4, 0.12)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="DoorLintel" type="StaticBody3D" parent="SouthDetails"]
+position = Vector3(-2.5, 2.46, 3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(1.44, 0.12, 0.12)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="ExitSign" type="Label3D" parent="SouthDetails"]
+position = Vector3(-2.5, 2.75, 3.47)
+rotation = Vector3(0, 3.1416, 0)
+text = "ANDÉN 1"
+font_size = 48
+pixel_size = 0.004
+modulate = Color(0.85, 0.8, 0.65, 1)
+outline_size = 0
+
+[node name="Clock" parent="SouthDetails" instance=ExtResource("11_wall_clock")]
+position = Vector3(0.6, 2.45, 3.47)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Bench0" parent="Props" instance=ExtResource("12_bench")]
+position = Vector3(-3.4, 0, 0.7)
+
+[node name="Bench1" parent="Props" instance=ExtResource("12_bench")]
+position = Vector3(-1.5, 0, 0.7)
+
+[node name="Bench2" parent="Props" instance=ExtResource("12_bench")]
+position = Vector3(-3.4, 0, -1)
+
+[node name="Bench3" parent="Props" instance=ExtResource("12_bench")]
+position = Vector3(-1.5, 0, -1)
+
+[node name="Vending" parent="Props" instance=ExtResource("13_vending_mach")]
+position = Vector3(-4.08, 0, -2.6)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="TrashBin" type="StaticBody3D" parent="Props"]
+position = Vector3(-4.15, 0.4, 2.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.42, 0.8, 0.42)
+surface = ExtResource("14_rust")
+
+[node name="Desk" parent="Props" instance=ExtResource("15_typewriter_d")]
+position = Vector3(4.1, 0, 1.4)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="CrateA" parent="Props" instance=ExtResource("16_crate")]
+position = Vector3(3.9, 0, -1.4)
+rotation = Vector3(0, 0.3, 0)
+
+[node name="Stain0" parent="Props" instance=ExtResource("17_stain")]
+position = Vector3(1.2, 0.012, -2)
+rotation = Vector3(0, 2.1, 0)
+scale = Vector3(1.6, 1, 1.6)
+
+[node name="Stain1" parent="Props" instance=ExtResource("17_stain")]
+position = Vector3(2.3, 0.012, -2.9)
+rotation = Vector3(0, 5.2, 0)
+scale = Vector3(1, 1, 1)
+
+[node name="Stain2" parent="Props" instance=ExtResource("17_stain")]
+position = Vector3(-0.4, 0.012, 1.9)
+rotation = Vector3(0, 8.3, 0)
+scale = Vector3(1.2, 1, 1.2)
+
+[node name="Stain3" parent="Props" instance=ExtResource("17_stain")]
+position = Vector3(3.2, 0.012, 2.6)
+rotation = Vector3(0, 1.7, 0)
+scale = Vector3(0.8, 1, 0.8)
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Lamp" parent="Lights" instance=ExtResource("18_sodium_lamp")]
+position = Vector3(-1, 3.15, 0.6)
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="DoorToPlatform" type="Node3D" parent="Interactables"]
+position = Vector3(-2.5, 0, 3.15)
+script = ExtResource("19_door")
+target_room = "res://levels/station/platform.tscn"
+target_spawn = "from_waiting_room"
+reach = 1.3
+
+[node name="DoorToTicketOffice" type="Node3D" parent="Interactables"]
+position = Vector3(2.9, 0, -3.15)
+script = ExtResource("19_door")
+reach = 1.3
+locked_text = "La puerta de la boletería. Está cerrada con llave."
+
+[node name="Typewriter" type="Node3D" parent="Interactables"]
+position = Vector3(3.75, 0.8, 1.4)
+script = ExtResource("20_typewriter")
+reach = 1.4
+
+[node name="Notice" type="Node3D" parent="Interactables"]
+position = Vector3(1.4, 1.45, -3.47)
+script = ExtResource("22_note")
+document = ExtResource("21_station_noti")
+reach = 1.4
+
+[node name="Paper" parent="Interactables/Notice" instance=ExtResource("23_paper")]
+rotation = Vector3(1.5708, 0, 0.05)
+scale = Vector3(1.6, 1.6, 1.6)
+
+[node name="Clock" type="Node3D" parent="Interactables"]
+position = Vector3(0.6, 0, 3.3)
+script = ExtResource("24_examine_spot")
+reach = 1.6
+lines = PackedStringArray("Un reloj de pared. Se detuvo a las 7:12.", "El tren de las siete nunca llegó.")
+
+[node name="Vending" type="Node3D" parent="Interactables"]
+position = Vector3(-3.6, 0, -2.6)
+script = ExtResource("24_examine_spot")
+reach = 1.3
+lines = PackedStringArray("Una máquina de bebidas. Alguien rompió el vidrio y se llevó todo.", "Hay sangre seca en los bordes.")
+
+[node name="Ticket" type="Node3D" parent="Interactables"]
+position = Vector3(-1.2, 0, -3.05)
+script = ExtResource("24_examine_spot")
+reach = 1.5
+lines = PackedStringArray("Las ventanillas tienen rejas. Adentro está oscuro.", "Me pareció ver algo moverse... o fue mi reflejo.")
+
+[node name="Sushi" type="Node3D" parent="Interactables"]
+position = Vector3(-1, 0.49, -1)
+script = ExtResource("25_pickup")
+item = ExtResource("26_sushi")
+model_rotation = Vector3(0, 0.4, 0)
+
+[node name="Ammo" type="Node3D" parent="Interactables"]
+position = Vector3(-3.55, 0, -1.9)
+script = ExtResource("25_pickup")
+item = ExtResource("27_ammo_9mm")
+count = 15
+model_rotation = Vector3(0, 0.9, 0)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Standing" parent="Enemies" instance=ExtResource("28_infected")]
+position = Vector3(-0.4, 0.05, -2.55)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="Entrance" type="Area3D" parent="Cameras"]
+position = Vector3(-2, 1.5, 0)
+script = ExtResource("29_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/Entrance"]
+shape = SubResource("BoxShape3D_6")
+
+[node name="Camera" type="Camera3D" parent="Cameras/Entrance"]
+position = Vector3(4.4, 1.3, 3.15)
+rotation = Vector3(-0.3433, 0.89, 0)
+fov = 62.0
+near = 0.1
+far = 30.0
+
+[node name="Desk" type="Area3D" parent="Cameras"]
+position = Vector3(2.5, 1.5, 0)
+script = ExtResource("29_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/Desk"]
+shape = SubResource("BoxShape3D_7")
+
+[node name="Camera" type="Camera3D" parent="Cameras/Desk"]
+position = Vector3(-4.4, 1.3, 3.15)
+rotation = Vector3(-0.3471, -0.8801, 0)
+fov = 62.0
+near = 0.1
+far = 30.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_platform" type="Marker3D" parent="Spawns"]
+position = Vector3(-2.5, 0.05, 2.6)

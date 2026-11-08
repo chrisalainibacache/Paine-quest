@@ -33,8 +33,11 @@ const ANIMATIONS := preload("res://actors/player/cony_animations.res")
 @onready var model: Node3D = $Model
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var combat: PlayerCombat = $Combat
+@onready var interaction: PlayerInteraction = $Interaction
 
 var health := MAX_HEALTH
+## Bloquea los controles (puertas, menús, mensajes).
+var controls_locked := false
 var _camera: Camera3D
 ## Base de referencia congelada mientras el stick está empujado.
 var _reference: Basis = Basis.IDENTITY
@@ -67,6 +70,13 @@ func set_camera(camera: Camera3D) -> void:
         _cut_pending = true
 
 
+## Olvida la referencia de cámara (al entrar a otra sala).
+func reset_motion() -> void:
+    _reference_locked = false
+    _cut_pending = false
+    _action_anim = ""
+
+
 func is_alive() -> bool:
     return health > 0
 
@@ -88,6 +98,7 @@ func take_damage(amount: int, from_position: Vector3) -> void:
     if not is_alive() or _invulnerable_time > 0.0:
         return
     health = maxi(health - amount, 0)
+    GameState.health = health
     _invulnerable_time = INVULNERABLE_TIME
     Sfx.play("hurt", null, -2.0)
     Input.vibrate_handheld(180)
@@ -106,6 +117,7 @@ func take_damage(amount: int, from_position: Vector3) -> void:
 
 func heal(amount: int) -> void:
     health = mini(health + amount, MAX_HEALTH)
+    GameState.health = health
     health_changed.emit(health, MAX_HEALTH)
 
 
@@ -140,7 +152,7 @@ func _physics_process(delta: float) -> void:
 
     var input := Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
     var strength := minf(input.length(), 1.0)
-    if not is_alive() or is_hurt():
+    if not is_alive() or is_hurt() or controls_locked:
         input = Vector2.ZERO
         strength = 0.0
     _update_reference(input, strength)

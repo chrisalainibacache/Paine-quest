@@ -5,7 +5,7 @@ config_version=5
 
 config/name="Paine"
 config/description="Survival horror 2.5D con cámaras fijas."
-run/main_scene="res://main.tscn"
+run/main_scene="res://ui/title/title_screen.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
@@ -38,3 +38,7 @@ pointing/emulate_touch_from_mouse=true
 3d_physics/layer_2="jugador"
 3d_physics/layer_3="leo"
 3d_physics/layer_4="enemigos"
+
+[gui]
+
+theme/custom="res://ui/theme/paine_theme.tres"

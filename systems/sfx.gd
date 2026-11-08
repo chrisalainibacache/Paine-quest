@@ -30,6 +30,14 @@ func _ready() -> void:
     _streams["bite"] = _make(0.35, _bite)
     _streams["hurt"] = _make(0.3, _hurt)
     _streams["fall"] = _make(0.45, _fall)
+    _streams["hiss"] = _make(0.7, _hiss)
+    _streams["door"] = _make(0.9, _door)
+    _streams["locked"] = _make(0.3, _locked)
+    _streams["unlock"] = _make(0.35, _unlock)
+    _streams["pickup"] = _make(0.3, _pickup)
+    _streams["menu"] = _make(0.07, _menu)
+    _streams["page"] = _make(0.3, _page)
+    _streams["typewriter"] = _make(1.1, _typewriter)
     for i in POOL_SIZE:
         var p3 := AudioStreamPlayer3D.new()
         p3.unit_size = 4.0
@@ -134,3 +142,57 @@ func _hurt(t: float, length: float, _prev: float) -> float:
 func _fall(t: float, _length: float, prev: float) -> float:
     var noise := lerpf(prev, randf_range(-1.0, 1.0), 0.12)
     return (noise * 2.2 + sin(TAU * 55.0 * t) * 0.6) * exp(-t * 9.0)
+
+
+func _hiss(t: float, length: float, prev: float) -> float:
+    # Bufido de gata: ruido agudo con ataque rápido y cola larga.
+    var noise := randf_range(-1.0, 1.0) - prev * 0.6
+    var envelope := minf(t / 0.03, 1.0) * pow(1.0 - t / length, 1.5)
+    return noise * envelope * 0.45
+
+
+func _door(t: float, _length: float, prev: float) -> float:
+    # Chirrido de bisagra + golpe de la puerta al cerrarse.
+    var creak_f := 240.0 + sin(TAU * 7.0 * t) * 60.0
+    var creak := signf(sin(TAU * creak_f * t)) * 0.12 * exp(-t * 3.0) * (1.0 if t < 0.6 else 0.0)
+    var t2 := maxf(t - 0.62, 0.0)
+    var thud := (lerpf(prev, randf_range(-1.0, 1.0), 0.15) * 1.5 + sin(TAU * 60.0 * t2) * 0.7) * exp(-t2 * 14.0) * (1.0 if t > 0.62 else 0.0)
+    return creak + thud
+
+
+func _locked(t: float, _length: float, prev: float) -> float:
+    # Manilla que no gira: dos golpecitos metálicos secos.
+    var a := sin(TAU * 900.0 * t) * exp(-t * 70.0)
+    var t2 := maxf(t - 0.12, 0.0)
+    var b := sin(TAU * 820.0 * t2) * exp(-t2 * 70.0) * (1.0 if t > 0.12 else 0.0)
+    return (a + b) * 0.4 + lerpf(prev, randf_range(-1.0, 1.0), 0.3) * exp(-t * 40.0) * 0.3
+
+
+func _unlock(t: float, _length: float, _prev: float) -> float:
+    var a := sin(TAU * 1500.0 * t) * exp(-t * 60.0)
+    var t2 := maxf(t - 0.16, 0.0)
+    var b := sin(TAU * 1100.0 * t2) * exp(-t2 * 40.0) * (1.0 if t > 0.16 else 0.0)
+    return (a * 0.5 + b * 0.6) * 0.6
+
+
+func _pickup(t: float, length: float, _prev: float) -> float:
+    var f := 660.0 if t < length * 0.4 else 990.0
+    return sin(TAU * f * t) * exp(-fmod(t, length * 0.4) * 12.0) * 0.3
+
+
+func _menu(t: float, _length: float, _prev: float) -> float:
+    return sin(TAU * 1200.0 * t) * exp(-t * 60.0) * 0.35
+
+
+func _page(t: float, length: float, prev: float) -> float:
+    var noise := lerpf(prev, randf_range(-1.0, 1.0), 0.6)
+    return noise * sin(PI * t / length) * 0.35
+
+
+func _typewriter(t: float, _length: float, prev: float) -> float:
+    # Teclazos irregulares y la campanita al final.
+    var beat := fmod(t * 9.0, 1.0)
+    var keys := lerpf(prev, randf_range(-1.0, 1.0), 0.7) * exp(-beat * 18.0) * (1.0 if t < 0.8 else 0.0)
+    var t2 := maxf(t - 0.85, 0.0)
+    var bell := sin(TAU * 2100.0 * t2) * exp(-t2 * 9.0) * (1.0 if t > 0.85 else 0.0)
+    return keys * 0.6 + bell * 0.3

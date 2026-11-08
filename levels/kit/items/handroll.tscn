@@ -1,0 +1,91 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.07, 0.11, 0.07, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.93, 0.91, 0.85, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.96, 0.46, 0.26, 1)
+roughness = 0.5
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
+albedo_color = Color(0.55, 0.7, 0.25, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5"]
+albedo_color = Color(0.85, 0.82, 0.72, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6"]
+top_radius = 0.042
+bottom_radius = 0.004
+height = 0.17
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7"]
+top_radius = 0.039
+bottom_radius = 0.039
+height = 0.012
+radial_segments = 10
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+size = Vector3(0.03, 0.03, 0.018)
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+size = Vector3(0.02, 0.025, 0.014)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10"]
+top_radius = 0.02
+bottom_radius = 0.01
+height = 0.05
+radial_segments = 8
+rings = 1
+
+[node name="Handroll" type="Node3D"]
+
+[node name="Roll" type="Node3D" parent="."]
+position = Vector3(0, 0.035, 0)
+rotation = Vector3(0, 0, -1.35)
+
+[node name="Cone" type="MeshInstance3D" parent="Roll"]
+position = Vector3(0, 0, 0)
+mesh = SubResource("CylinderMesh_6")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Rice" type="MeshInstance3D" parent="Roll"]
+position = Vector3(0, 0.082, 0)
+mesh = SubResource("CylinderMesh_7")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Salmon" type="MeshInstance3D" parent="Roll"]
+position = Vector3(0.008, 0.094, 0.006)
+rotation = Vector3(0.2, 0.3, 0)
+mesh = SubResource("BoxMesh_8")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Avocado" type="MeshInstance3D" parent="Roll"]
+position = Vector3(-0.012, 0.092, -0.01)
+rotation = Vector3(-0.2, 0.5, 0)
+mesh = SubResource("BoxMesh_9")
+material_override = SubResource("StandardMaterial3D_4")
+
+[node name="Wrap" type="MeshInstance3D" parent="Roll"]
+position = Vector3(0, -0.06, 0)
+mesh = SubResource("CylinderMesh_10")
+material_override = SubResource("StandardMaterial3D_5")

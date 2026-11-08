@@ -2,7 +2,8 @@ class_name PlayerCombat
 extends Node
 ## Arma de Cony: apuntar (mantener), disparar, munición y recarga.
 ## Como en RE: mientras apunta no camina; el auto-apuntado elige al infectado
-## más cercano frente a ella que esté a la vista.
+## más cercano frente a ella que esté a la vista. El arma equipada y las balas
+## de reserva vienen de la mochila (GameState).
 
 signal ammo_changed(clip: int, reserve: int)
 signal aiming_changed(aiming: bool)
@@ -12,11 +13,15 @@ const PISTOL_SCENE := preload("res://actors/player/pistol.tscn")
 const AIM_TURN_SPEED := 9.0
 const RETARGET_INTERVAL := 0.2
 
-@export var weapon: WeaponData = preload("res://data/weapons/pistol.tres")
-@export var start_reserve: int = 20
-
+## Arma equipada (null = Cony no tiene arma y no puede apuntar).
+var weapon: WeaponData
 var clip := 0
-var reserve := 0
+## Balas de reserva: las que hay en la mochila.
+var reserve: int:
+    get:
+        if weapon == null or weapon.ammo_item == null:
+            return 0
+        return GameState.inventory.count_of(weapon.ammo_item)
 var aiming := false
 var target: Node3D
 var reloading := false
@@ -29,9 +34,25 @@ var _retarget_timer := 0.0
 
 
 func _ready() -> void:
-    clip = weapon.clip_size
-    reserve = start_reserve
+    GameState.inventory.changed.connect(_emit_ammo)
+    sync_from_state()
     _attach_pistol.call_deferred()
+
+
+## Toma el arma equipada y la munición del cargador desde GameState.
+func sync_from_state() -> void:
+    var item := GameState.equipped
+    weapon = item.weapon if item else null
+    clip = GameState.clip if weapon else 0
+    _emit_ammo()
+
+
+func has_weapon() -> bool:
+    return weapon != null
+
+
+func _emit_ammo() -> void:
+    ammo_changed.emit(clip, reserve)
 
 
 func _attach_pistol() -> void:
@@ -42,17 +63,11 @@ func _attach_pistol() -> void:
     _pistol = PISTOL_SCENE.instantiate()
     hand.add_child(_pistol)
     _pistol.visible = false
-    ammo_changed.emit(clip, reserve)
-
-
-func add_ammo(amount: int) -> void:
-    reserve += amount
-    ammo_changed.emit(clip, reserve)
 
 
 func _physics_process(delta: float) -> void:
     _fire_timer = maxf(_fire_timer - delta, 0.0)
-    var can_act := player.is_alive() and not player.is_hurt()
+    var can_act := weapon != null and player.is_alive() and not player.is_hurt() and not player.controls_locked
 
     if reloading:
         _reload_timer -= delta
@@ -91,7 +106,8 @@ func _fire() -> void:
             Sfx.play("click", null, -4.0)
         return
     clip -= 1
-    ammo_changed.emit(clip, reserve)
+    GameState.clip = clip
+    _emit_ammo()
     Sfx.play("shot", player.global_position + Vector3.UP * 1.3, 2.0)
     player.play_action("Pistol_Shoot", 0.35)
     if _pistol and _pistol.has_method("flash"):
@@ -117,10 +133,9 @@ func _start_reload() -> void:
 func _finish_reload() -> void:
     reloading = false
     var needed := weapon.clip_size - clip
-    var taken := mini(needed, reserve)
-    clip += taken
-    reserve -= taken
-    ammo_changed.emit(clip, reserve)
+    clip += GameState.inventory.take(weapon.ammo_item, needed)
+    GameState.clip = clip
+    _emit_ammo()
 
 
 func _set_target(new_target: Node3D) -> void:

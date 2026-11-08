@@ -1,0 +1,157 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.05, 0.05, 0.05, 1)
+roughness = 0.4
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.93, 0.91, 0.85, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.07, 0.11, 0.07, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
+albedo_color = Color(0.96, 0.46, 0.26, 1)
+roughness = 0.5
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5"]
+albedo_color = Color(0.55, 0.7, 0.25, 1)
+roughness = 0.85
+metallic = 0
+specular_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.2, 0.012, 0.09)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.205, 0.02, 0.003)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8"]
+top_radius = 0.024
+bottom_radius = 0.024
+height = 0.036
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_9"]
+top_radius = 0.0262
+bottom_radius = 0.0262
+height = 0.032
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10"]
+top_radius = 0.011
+bottom_radius = 0.011
+height = 0.038
+radial_segments = 6
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_11"]
+top_radius = 0.024
+bottom_radius = 0.024
+height = 0.036
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_12"]
+top_radius = 0.0262
+bottom_radius = 0.0262
+height = 0.032
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_13"]
+top_radius = 0.011
+bottom_radius = 0.011
+height = 0.038
+radial_segments = 6
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_14"]
+top_radius = 0.024
+bottom_radius = 0.024
+height = 0.036
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_15"]
+top_radius = 0.0262
+bottom_radius = 0.0262
+height = 0.032
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_16"]
+top_radius = 0.011
+bottom_radius = 0.011
+height = 0.038
+radial_segments = 6
+rings = 1
+
+[node name="Sushi" type="Node3D"]
+
+[node name="Tray" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.006, 0)
+mesh = SubResource("BoxMesh_6")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="TrayRim" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.01, 0.045)
+mesh = SubResource("BoxMesh_7")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Rice0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.06, 0.03, 0)
+mesh = SubResource("CylinderMesh_8")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Nori0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.06, 0.028, 0)
+mesh = SubResource("CylinderMesh_9")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Fill0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.06, 0.031, 0)
+mesh = SubResource("CylinderMesh_10")
+material_override = SubResource("StandardMaterial3D_4")
+
+[node name="Rice1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 0)
+mesh = SubResource("CylinderMesh_11")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Nori1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.028, 0)
+mesh = SubResource("CylinderMesh_12")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Fill1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.031, 0)
+mesh = SubResource("CylinderMesh_13")
+material_override = SubResource("StandardMaterial3D_5")
+
+[node name="Rice2" type="MeshInstance3D" parent="."]
+position = Vector3(0.06, 0.03, 0)
+mesh = SubResource("CylinderMesh_14")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Nori2" type="MeshInstance3D" parent="."]
+position = Vector3(0.06, 0.028, 0)
+mesh = SubResource("CylinderMesh_15")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Fill2" type="MeshInstance3D" parent="."]
+position = Vector3(0.06, 0.031, 0)
+mesh = SubResource("CylinderMesh_16")
+material_override = SubResource("StandardMaterial3D_4")
