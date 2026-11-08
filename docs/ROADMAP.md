@@ -13,7 +13,8 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 - [x] Una sala cerrada (andén norte) con 2 cámaras fijas.
 - [x] Cony camina/trota con el stick (control relativo a la cámara) con animaciones Quaternius reasignadas a su esqueleto.
 - [x] Filtro PS1 + niebla + luz de sodio.
-- [x] Leo sigue a Cony (versión simple, sin esqueleto).
+- [x] Leo (gatita gris, Quaternius CC0) sigue a Cony con animaciones de caminar/correr.
+- [x] Ajustes tras la primera prueba: trote más natural y dirección inteligente en los cortes de cámara.
 - **Prueba en el teléfono:** caminar por la sala, cortes de cámara, 60 fps.
 
 ## Hito 2 — Combate base

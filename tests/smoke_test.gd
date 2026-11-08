@@ -32,6 +32,33 @@ func _run() -> void:
     await _seconds(0.3)
     _check(player.get_current_animation() == "Idle", "vuelve a Idle al soltar")
 
+    # Leo la sigue con animación (no una pose fija).
+    var leo: Node3D = main.leo
+    player.global_position = leo.global_position + Vector3(4.0, 0.0, 0.0)
+    await _seconds(0.4)
+    _check(leo._current in ["Walk", "Run"], "Leo camina/corre al seguirla (está: %s)" % leo._current)
+
+    # Corte de cámara con el stick sostenido: la dirección se mantiene...
+    var cameras: Array = room.find_children("*", "CameraZone", true, false)
+    player.global_position = Vector3(-2.0, 0.05, 2.5)
+    player.set_camera(cameras[0].get_camera())
+    Input.action_press(&"move_right", 1.0)
+    await _seconds(0.3)
+    var before := Vector3(player.velocity.x, 0, player.velocity.z).normalized()
+    player.set_camera(cameras[1].get_camera())
+    await _seconds(0.2)
+    var after := Vector3(player.velocity.x, 0, player.velocity.z).normalized()
+    _check(before.dot(after) > 0.95, "tras el corte, la dirección se mantiene con el stick quieto")
+    # ...y al girar el stick manda la cámara nueva.
+    Input.action_release(&"move_right")
+    Input.action_press(&"move_forward", 1.0)
+    await _seconds(0.2)
+    var expected := -Player._flat_basis(cameras[1].get_camera().global_basis).z
+    var now := Vector3(player.velocity.x, 0, player.velocity.z).normalized()
+    _check(now.dot(expected) > 0.95, "al corregir el stick, se usa la cámara nueva")
+    Input.action_release(&"move_forward")
+    await _seconds(0.3)
+
     # Corte de cámara al cruzar a la otra mitad del andén.
     var first_camera := room.get_active_camera()
     player.global_position = Vector3(4.0, 0.05, 2.5)

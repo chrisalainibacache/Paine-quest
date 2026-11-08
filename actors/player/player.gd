@@ -1,13 +1,19 @@
 class_name Player
 extends CharacterBody3D
 ## Cony. Movimiento relativo a la cámara fija activa, al estilo de los RE
-## modernos con cámaras fijas: la dirección se "congela" mientras el stick
-## sigue empujado, así un corte de cámara no la hace dar media vuelta.
+## modernos con cámaras fijas. Al cortar la cámara, la dirección anterior se
+## mantiene mientras el stick siga apuntando más o menos igual (así Cony no da
+## media vuelta); apenas el jugador corrige el stick, manda la cámara nueva.
 
 const WALK_SPEED := 1.5
-const JOG_SPEED := 3.3
+const JOG_SPEED := 2.8
+## La animación de trote de la biblioteca es muy amplia; un poco más lenta
+## se ve menos forzada.
+const JOG_ANIM_SPEED := 0.85
 ## Bajo este empuje del stick camina; sobre él, trota.
 const JOG_THRESHOLD := 0.75
+## Cuánto hay que girar el stick tras un corte para tomar la cámara nueva.
+const RELOCK_ANGLE := deg_to_rad(30.0)
 const TURN_SPEED := 10.0
 const GRAVITY := 18.0
 const ANIM_BLEND := 0.2
@@ -20,6 +26,10 @@ var _camera: Camera3D
 ## Base de referencia congelada mientras el stick está empujado.
 var _reference: Basis = Basis.IDENTITY
 var _reference_locked := false
+## Stick en el momento del último corte de cámara (mientras se mantiene).
+var _input_at_cut := Vector2.ZERO
+var _cut_pending := false
+var _last_input := Vector2.ZERO
 var _current_anim := ""
 
 
@@ -34,6 +44,9 @@ func _ready() -> void:
 
 func set_camera(camera: Camera3D) -> void:
     _camera = camera
+    if _reference_locked:
+        _input_at_cut = _last_input
+        _cut_pending = true
 
 
 func _physics_process(delta: float) -> void:
@@ -42,9 +55,15 @@ func _physics_process(delta: float) -> void:
 
     if strength < 0.15:
         _reference_locked = false
+        _cut_pending = false
     elif not _reference_locked and _camera:
         _reference = _flat_basis(_camera.global_basis)
         _reference_locked = true
+    elif _cut_pending and absf(input.angle_to(_input_at_cut)) > RELOCK_ANGLE:
+        # El jugador corrigió el stick: ahora manda la cámara nueva.
+        _reference = _flat_basis(_camera.global_basis)
+        _cut_pending = false
+    _last_input = input
 
     var direction := Vector3.ZERO
     if strength >= 0.15:
@@ -67,7 +86,7 @@ func _physics_process(delta: float) -> void:
     elif speed == WALK_SPEED:
         _play("Walk", clampf(strength / JOG_THRESHOLD, 0.6, 1.0))
     else:
-        _play("Jog_Fwd")
+        _play("Jog_Fwd", JOG_ANIM_SPEED)
 
 
 func get_current_animation() -> String:

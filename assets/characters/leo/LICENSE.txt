@@ -1,1 +1,2 @@
-Leo: modelo de gato (Quaternius, CC0), versión optimizada del proyecto anterior.
+Leo: gato animado de Quaternius (CC0 1.0), recoloreado gris por tools/convert_leo.gd.
+Animaciones: Idle, Idle_Eating, Walk, Run, Jump, Jump_Start, Headbutt, Death.
