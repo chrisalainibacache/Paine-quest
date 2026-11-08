@@ -29,6 +29,26 @@ func _run() -> void:
     await _wait(1.2)
     _shot("04_caminando")
     Input.action_release(&"move_forward")
+
+    # Combate: Cony frente al infectado que come junto al portón.
+    var main := current_scene
+    var player: Player = main.player
+    player.global_position = Vector3(1.0, 0.05, 3.0)
+    player.model.rotation.y = PI / 2.0
+    await _wait(1.0)
+    Input.action_press(&"aim")
+    await _wait(0.8)
+    _shot("05_apuntando")
+    for i in 5:
+        Input.action_press(&"fire")
+        await _wait(0.05)
+        if i == 0:
+            _shot("06_disparo")
+        Input.action_release(&"fire")
+        await _wait(0.5)
+    await _wait(1.5)
+    _shot("07_infectado_muerto")
+    Input.action_release(&"aim")
     quit()
 
 

@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://actors/player/player.gd" id="1_player"]
 [ext_resource type="PackedScene" path="res://assets/characters/cony/cony.glb" id="2_cony"]
-[ext_resource type="Shader" path="res://shaders/blob_shadow.gdshader" id="3_blob_shadow"]
+[ext_resource type="Script" path="res://actors/player/player_combat.gd" id="3_player_comba"]
+[ext_resource type="Shader" path="res://shaders/blob_shadow.gdshader" id="4_blob_shadow"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 0.28
@@ -13,7 +14,7 @@ size = Vector2(0.9, 0.9)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3"]
 render_priority = 0
-shader = ExtResource("3_blob_shadow")
+shader = ExtResource("4_blob_shadow")
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_player")
@@ -26,6 +27,9 @@ shape = SubResource("CapsuleShape3D_1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Model")
+
+[node name="Combat" type="Node" parent="."]
+script = ExtResource("3_player_comba")
 
 [node name="BlobShadow" type="MeshInstance3D" parent="."]
 position = Vector3(0, 0.02, 0)

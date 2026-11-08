@@ -25,6 +25,7 @@ func _ready() -> void:
     player.model.rotation.y = player.rotation.y + PI
     player.rotation = Vector3.ZERO
     room.camera_changed.connect(player.set_camera)
+    $HUD.bind(player)
 
     leo = LEO_SCENE.instantiate()
     $World.add_child(leo)

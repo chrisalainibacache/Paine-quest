@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/stain.tscn" id="20_stain"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/sodium_lamp.tscn" id="21_sodium_lamp"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="22_camera_zone"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="23_infected"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -524,6 +525,17 @@ rotation = Vector3(-0.3321, -1.1903, 0)
 fov = 58.0
 near = 0.1
 far = 40.0
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Feeding" parent="Enemies" instance=ExtResource("23_infected")]
+position = Vector3(5.2, 0.05, 2.4)
+start_state = "feeding"
+
+[node name="Lying" parent="Enemies" instance=ExtResource("23_infected")]
+position = Vector3(2.4, 0.05, 1.2)
+rotation = Vector3(0, 2.2, 0)
+start_state = "lying"
 
 [node name="Spawns" type="Node3D" parent="."]
 

@@ -1,0 +1,5 @@
+Infectados: personajes "PSX" del proyecto anterior (carpeta characters_psx_v72 del Drive;
+licencia por confirmar). Convertidos a GLB, texturas 256 px, altura 1.75 m.
+- infected_psx_05.glb: infectado común.
+- character_monster_07.glb: variante pesada.
+Animaciones: Quaternius UAL2 (CC0) + UAL1 (CC0), ver actors/enemies/infected_animations.res.

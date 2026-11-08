@@ -12,3 +12,4 @@ https://www.patreon.com/quaternius
 
 Cony: trote "Jogging" de Mixamo (Adobe), hecho para el mismo esqueleto de Cony.
 Extraído in-place con tools/extract_mixamo_animation.gd -> cony_jog.res.
+Quaternius UAL2 (CC0): Zombie_Idle, Zombie_Walk_Fwd, Zombie_Scratch, Hit_Knockback, LayToIdle, Consume.

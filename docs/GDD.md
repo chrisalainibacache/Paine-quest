@@ -61,7 +61,7 @@ desde la mochila; recoger un arma nueva pregunta si equiparla.
 
 | Arma | Capítulo | Munición | Rol |
 | --- | --- | --- | --- |
-| Pistola | 1 | Balas 9 mm | Arma base. 3–4 tiros por infectado. |
+| Pistola | 1 | Balas 9 mm | Arma base. Cargador de 10, 5 tiros por infectado común. |
 | Escopeta | 2 | Cartuchos | Escasa, derriba de un tiro a corta distancia. |
 
 Recarga automática al vaciar el cargador (animación corta). Sin munición: Cony hace

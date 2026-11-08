@@ -1,0 +1,218 @@
+class_name Infected
+extends CharacterBody3D
+## Infectado. Lento y persistente: camina hacia Cony, la ataca de cerca y se
+## tambalea con los disparos. Puede empezar de pie, comiendo o tirado en el
+## suelo haciéndose el muerto.
+
+signal died(infected: Infected)
+
+enum State { IDLE, FEEDING, LYING, RISING, CHASE, ATTACK, STAGGER, DEAD }
+
+const ANIMATIONS := preload("res://actors/enemies/infected_animations.res")
+const STAIN_SCENE := preload("res://levels/kit/props/stain.tscn")
+const GRAVITY := 18.0
+## Velocidad a la que avanza la animación de caminar a ritmo normal.
+const WALK_ANIM_SPEED := 0.9
+## Distancia a la que se levanta si estaba tirado.
+const LYING_WAKE_RANGE := 3.2
+## Distancia a la que deja de comer.
+const FEEDING_WAKE_RANGE := 4.0
+
+@export var data: EnemyData = preload("res://data/enemies/infected.tres")
+@export_enum("idle", "feeding", "lying") var start_state: String = "idle"
+
+var health := 1
+var state := State.IDLE
+var target: Node3D
+var model: Node3D
+var _anim: AnimationPlayer
+var _state_time := 0.0
+var _cooldown := 0.0
+var _attack_landed := false
+var _groan_timer := 0.0
+
+
+func _ready() -> void:
+    add_to_group("enemies")
+    collision_layer = 8
+    collision_mask = 1 | 2
+    health = data.health
+    model = data.model_scene.instantiate() as Node3D
+    model.name = "Model"
+    add_child(model)
+    Player._make_textures_crisp(model)
+    _anim = AnimationPlayer.new()
+    _anim.name = "AnimationPlayer"
+    add_child(_anim)
+    _anim.root_node = _anim.get_path_to(model)
+    _anim.add_animation_library(&"z", ANIMATIONS)
+    _groan_timer = randf_range(2.0, 6.0)
+    match start_state:
+        "feeding": _enter(State.FEEDING)
+        "lying": _enter(State.LYING)
+        _: _enter(State.IDLE)
+
+
+func is_alive() -> bool:
+    return state != State.DEAD
+
+
+## Punto al que apunta Cony (pecho).
+func get_aim_point() -> Vector3:
+    return global_position + Vector3(0, 1.25 if state != State.LYING else 0.3, 0)
+
+
+func take_hit(damage: int, from_position: Vector3, hit_point: Vector3, stagger_chance: float) -> void:
+    if state == State.DEAD:
+        return
+    health -= damage
+    BloodBurst.spawn(get_parent(), hit_point, hit_point - from_position)
+    Sfx.play("hit", hit_point, -2.0)
+    if health <= 0:
+        _die()
+        return
+    match state:
+        State.LYING:
+            _enter(State.RISING)
+        State.IDLE, State.FEEDING:
+            _enter(State.CHASE)
+        State.CHASE, State.ATTACK:
+            if randf() < stagger_chance:
+                _enter(State.STAGGER)
+
+
+func _physics_process(delta: float) -> void:
+    if target == null:
+        target = get_tree().get_first_node_in_group("player") as Node3D
+    _state_time += delta
+    _cooldown = maxf(_cooldown - delta, 0.0)
+    var to_target := Vector3.ZERO
+    var distance := INF
+    if target and is_instance_valid(target):
+        to_target = target.global_position - global_position
+        to_target.y = 0.0
+        distance = to_target.length()
+    var target_alive: bool = target != null and target.has_method("is_alive") and target.is_alive()
+
+    var move := Vector3.ZERO
+    match state:
+        State.IDLE:
+            if target_alive and distance < data.notice_range and _can_see_target():
+                _enter(State.CHASE)
+        State.FEEDING:
+            if target_alive and distance < FEEDING_WAKE_RANGE:
+                _enter(State.CHASE)
+        State.LYING:
+            if target_alive and distance < LYING_WAKE_RANGE:
+                _enter(State.RISING)
+        State.RISING:
+            if _state_time > _anim_length("LayToIdle") * 0.95:
+                _enter(State.CHASE)
+        State.CHASE:
+            if not target_alive:
+                _enter(State.IDLE)
+            else:
+                _face(to_target, delta)
+                if distance <= data.attack_range and _cooldown <= 0.0:
+                    _enter(State.ATTACK)
+                elif distance > data.attack_range * 0.8:
+                    move = _forward() * data.walk_speed
+        State.ATTACK:
+            _face(to_target, delta * 0.5)
+            var length := _anim_length("Zombie_Scratch")
+            if not _attack_landed and _state_time > length * 0.45:
+                _attack_landed = true
+                if target_alive and distance < data.attack_range + 0.35 and target.has_method("take_damage"):
+                    target.take_damage(data.attack_damage, global_position)
+                    Sfx.play("bite", target.global_position + Vector3.UP * 1.4)
+            if _state_time > length:
+                _cooldown = data.attack_cooldown
+                _enter(State.CHASE)
+        State.STAGGER:
+            if _state_time > _anim_length("Hit_Chest") * 0.9:
+                _enter(State.CHASE)
+        State.DEAD:
+            pass
+
+    velocity.x = move.x
+    velocity.z = move.z
+    velocity.y = 0.0 if is_on_floor() else velocity.y - GRAVITY * delta
+    move_and_slide()
+
+    if state in [State.CHASE, State.IDLE, State.FEEDING]:
+        _groan_timer -= delta
+        if _groan_timer <= 0.0:
+            _groan_timer = randf_range(4.0, 9.0)
+            Sfx.play("groan" if randf() < 0.5 else "groan_short", global_position + Vector3.UP * 1.5, -6.0, 0.15)
+
+
+func _enter(new_state: State) -> void:
+    state = new_state
+    _state_time = 0.0
+    match new_state:
+        State.IDLE:
+            _play("Zombie_Idle", 0.3)
+        State.FEEDING:
+            _play("Consume", 0.3)
+        State.LYING:
+            # Tirado en el suelo: primer cuadro de "levantarse", detenido.
+            _anim.speed_scale = 1.0
+            _anim.play("z/LayToIdle")
+            _anim.seek(0.0, true)
+            _anim.pause()
+        State.RISING:
+            _anim.speed_scale = 1.0
+            _anim.play("z/LayToIdle", 0.1)
+            Sfx.play("groan", global_position + Vector3.UP, -3.0)
+        State.CHASE:
+            _play("Zombie_Walk_Fwd", 0.35, data.walk_speed / WALK_ANIM_SPEED)
+            if randf() < 0.5:
+                Sfx.play("groan_short", global_position + Vector3.UP * 1.5, -4.0, 0.15)
+        State.ATTACK:
+            _attack_landed = false
+            _play("Zombie_Scratch", 0.15)
+        State.STAGGER:
+            _play("Hit_Chest", 0.1)
+        State.DEAD:
+            _play("Death01", 0.15)
+
+
+func _die() -> void:
+    _enter(State.DEAD)
+    remove_from_group("enemies")
+    collision_layer = 0
+    Sfx.play("fall", global_position, -2.0)
+    died.emit(self)
+    # Mancha de sangre que queda en el piso.
+    var stain := STAIN_SCENE.instantiate() as Node3D
+    get_parent().add_child(stain)
+    stain.global_position = global_position + Vector3(0, 0.013, 0) + _forward() * -0.6
+    stain.scale = Vector3(1.6, 1, 1.6)
+    stain.rotation.y = randf() * TAU
+
+
+func _can_see_target() -> bool:
+    var space := get_world_3d().direct_space_state
+    var query := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP * 1.5, target.global_position + Vector3.UP * 1.2)
+    query.collision_mask = 1
+    return space.intersect_ray(query).is_empty()
+
+
+func _face(direction: Vector3, delta: float) -> void:
+    if direction.length() < 0.01:
+        return
+    var goal := atan2(direction.x, direction.z)
+    model.rotation.y = lerp_angle(model.rotation.y, goal, minf(data.turn_speed * delta, 1.0))
+
+
+func _forward() -> Vector3:
+    return Vector3(sin(model.rotation.y), 0.0, cos(model.rotation.y))
+
+
+func _play(anim_name: String, blend: float, speed: float = 1.0) -> void:
+    _anim.speed_scale = speed
+    _anim.play("z/" + anim_name, blend)
+
+
+func _anim_length(anim_name: String) -> float:
+    return _anim.get_animation("z/" + anim_name).length / maxf(_anim.speed_scale, 0.01)

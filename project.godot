@@ -26,6 +26,7 @@ textures/vram_compression/import_etc2_astc=true
 [autoload]
 
 InputSetup="*res://systems/input_setup.gd"
+SfxPlayer="*res://systems/sfx.gd"
 
 [input_devices]
 

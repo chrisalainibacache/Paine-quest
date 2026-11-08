@@ -18,10 +18,11 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 - **Prueba en el teléfono:** caminar por la sala, cortes de cámara, 60 fps.
 
 ## Hito 2 — Combate base
-- [ ] Apuntar y disparar con la pistola, munición y recarga.
-- [ ] Un infectado: caminar, agarrar/morder, recibir daño, morir.
-- [ ] Sangre, tambaleo, sonidos, vibración.
-- [ ] Salud de Cony y pantalla de muerte.
+- [x] Apuntar (mantener) y disparar con la pistola, auto-apuntado, munición (10 + 20) y recarga automática.
+- [x] Infectado (modelo PSX + animaciones zombi Quaternius): de pie, comiendo o haciéndose el muerto; camina, ataca, se tambalea y muere.
+- [x] Sangre, mancha en el piso, sonidos sintetizados y vibración al recibir daño.
+- [x] Salud de Cony (Bien / Precaución / Peligro, cojea en Peligro) y pantalla de muerte con reintentar.
+- [x] Trote natural (Mixamo) en vez del "salto de zanja".
 
 ## Hito 3 — Sistemas
 - [ ] Puertas y cambio de sala (fundido + `SpawnPoint`).

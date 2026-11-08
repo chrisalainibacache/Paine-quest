@@ -17,6 +17,10 @@ func _run() -> void:
     await _frames(10)
     var player: Player = main.player
     var room: Room = main.room
+    _check(room.get_tree().get_nodes_in_group("enemies").size() == 2, "la sala trae 2 infectados")
+    # Las pruebas de movimiento se hacen sin infectados; el combate se prueba aparte.
+    for enemy in room.get_tree().get_nodes_in_group("enemies"):
+        enemy.free()
 
     _check(room != null and player != null, "la sala y Cony se cargan")
     _check(room.get_active_camera() != null, "hay una cámara fija activa al empezar")
@@ -81,10 +85,84 @@ func _run() -> void:
         var misses := await _count_void_rays(zone.get_camera())
         _check(misses == 0, "la cámara %s no ve huecos (rayos perdidos: %d)" % [zone.name, misses])
 
+    await _combat_tests(player, room)
+
     for failure in failures:
         printerr("FALLA: ", failure)
     print("RESULTADO: %s (%d fallas)" % ["OK" if failures.is_empty() else "ERROR", failures.size()])
     quit(0 if failures.is_empty() else 1)
+
+
+func _combat_tests(player: Player, room: Room) -> void:
+    var combat := player.combat
+    player.global_position = Vector3(-4.0, 0.05, 2.5)
+    player.model.rotation.y = PI / 2.0  # mirando hacia +X
+    await _frames(3)
+
+    # Apuntar sin infectados: se planta con la pose de apuntar.
+    Input.action_press(&"aim")
+    Input.action_press(&"move_right", 1.0)
+    var before := player.global_position
+    await _seconds(0.5)
+    _check(combat.aiming, "mantener APUNTAR activa la puntería")
+    _check(player.get_current_animation() == "Pistol_Aim_Neutral", "pose de apuntar (está: %s)" % player.get_current_animation())
+    _check(player.global_position.distance_to(before) < 0.05, "apuntando no camina")
+    Input.action_release(&"move_right")
+    player.model.rotation.y = PI / 2.0
+
+    # Un infectado de pie a 4 m: el auto-apuntado lo toma y 5 tiros lo matan.
+    var infected: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
+    room.add_child(infected)
+    infected.global_position = player.global_position + Vector3(4.0, 0.0, 0.0)
+    await _seconds(0.4)
+    _check(combat.target == infected, "el auto-apuntado elige al infectado")
+    var clip_before := combat.clip
+    for i in 5:
+        await _tap(&"fire")
+        await _seconds(0.5)
+    _check(combat.clip == clip_before - 5, "cada disparo gasta una bala (%d -> %d)" % [clip_before, combat.clip])
+    _check(not infected.is_alive(), "5 tiros de pistola matan al infectado (vida: %d)" % infected.health)
+    await _seconds(0.3)
+    _check(combat.target == null, "al morir, deja de ser blanco")
+
+    # Recarga automática al vaciar el cargador.
+    combat.clip = 1
+    var reserve_before := combat.reserve
+    await _tap(&"fire")
+    await _seconds(0.5 + combat.weapon.reload_time)
+    _check(combat.clip == combat.weapon.clip_size, "recarga automática (cargador: %d)" % combat.clip)
+    _check(combat.reserve == reserve_before - combat.weapon.clip_size, "la recarga usa la munición de reserva")
+    Input.action_release(&"aim")
+    await _frames(3)
+
+    # Un infectado pegado a Cony la ataca y le quita vida.
+    var biter: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
+    room.add_child(biter)
+    biter.global_position = player.global_position + Vector3(1.0, 0.0, 0.0)
+    await _seconds(3.0)
+    _check(player.health < Player.MAX_HEALTH, "el infectado muerde a Cony (vida: %d)" % player.health)
+    biter.free()
+
+    # Infectado haciéndose el muerto: se levanta al acercarse Cony.
+    var liar: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
+    liar.start_state = "lying"
+    room.add_child(liar)
+    liar.global_position = player.global_position + Vector3(2.5, 0.0, 0.0)
+    await _frames(5)
+    _check(liar.state == Infected.State.RISING, "el que se hace el muerto se levanta al acercarse")
+    liar.free()
+
+    # Muerte de Cony y pantalla de reintentar.
+    player.take_damage(1000, player.global_position + Vector3.RIGHT)
+    _check(not player.is_alive(), "Cony muere con daño suficiente")
+    await _seconds(2.8)
+    _check(main.get_node("HUD/DeathScreen").visible, "aparece la pantalla de muerte")
+
+
+func _tap(action: StringName) -> void:
+    Input.action_press(action)
+    await _frames(2)
+    Input.action_release(action)
 
 
 func _count_void_rays(camera: Camera3D) -> int:

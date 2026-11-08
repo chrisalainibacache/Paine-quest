@@ -7,6 +7,12 @@ const KEYS := {
     &"move_right": [KEY_D, KEY_RIGHT],
     &"move_forward": [KEY_W, KEY_UP],
     &"move_back": [KEY_S, KEY_DOWN],
+    &"aim": [KEY_K, KEY_SHIFT],
+    &"fire": [KEY_J, KEY_SPACE],
+}
+const BUTTONS := {
+    &"aim": JOY_BUTTON_LEFT_SHOULDER,
+    &"fire": JOY_BUTTON_RIGHT_SHOULDER,
 }
 const AXES := {
     &"move_left": [JOY_AXIS_LEFT_X, -1.0],
@@ -25,7 +31,12 @@ func _enter_tree() -> void:
             var event := InputEventKey.new()
             event.physical_keycode = key
             InputMap.action_add_event(action, event)
-        var axis := InputEventJoypadMotion.new()
-        axis.axis = AXES[action][0]
-        axis.axis_value = AXES[action][1]
-        InputMap.action_add_event(action, axis)
+        if AXES.has(action):
+            var axis := InputEventJoypadMotion.new()
+            axis.axis = AXES[action][0]
+            axis.axis_value = AXES[action][1]
+            InputMap.action_add_event(action, axis)
+        if BUTTONS.has(action):
+            var button := InputEventJoypadButton.new()
+            button.button_index = BUTTONS[action]
+            InputMap.action_add_event(action, button)

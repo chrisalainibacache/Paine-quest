@@ -13,8 +13,8 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Cony (modelo con rig Mixamo) | ⚠️ | `models/Erika_Walking.fbx` + `psx_character/`. Revisar cuál es la versión final. |
 | Animaciones de Cony: idle, caminar, correr, apuntar pistola, disparar, recargar, recibir daño, morir | ⚠️ | `animations/` (Mixamo + UAL2). Falta apuntar/disparar/recargar/morir (Mixamo las tiene gratis). |
 | Leo (gatita) | ✅ | Gato animado Quaternius (CC0) recoloreado gris: Idle, Walk, Run, Headbutt... |
-| Infectado (modelo + rig) | ⚠️ | `characters_psx_v72/` (Character_Killer). |
-| Animaciones infectado: idle, caminar, atacar/morder, recibir daño, morir, levantarse | ⚠️ | `animations/combat/UAL2_Standard.glb`. Revisar si están todas. |
+| Infectado (modelo + rig) | ✅ | `infected/infected_psx_05.glb` (PSX, ~850 triángulos). Licencia del pack por confirmar. |
+| Animaciones infectado | ✅ | Quaternius UAL2: Zombie_Idle/Walk/Scratch, LayToIdle, Consume, Hit_Knockback + UAL1: Hit_Chest, Death01. |
 | Infectado rápido (cap. 2) | ⚠️ | Mismo rig con otra textura y animación de correr. |
 
 ## Escenarios (kits modulares)
@@ -32,7 +32,8 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 
 | Asset | Estado | Origen / nota |
 | --- | --- | --- |
-| Modelos de armas (pistola, escopeta) | ⚠️ | `weapons/`. |
+| Pistola | ✅ | Low poly hecha con piezas (`actors/player/pistol.tscn`). |
+| Escopeta | ❌ | Pendiente (capítulo 2). |
 | Íconos de inventario | ✅ | `inventory/` (+ íconos vectoriales hechos en código). |
 | Llaves, notas, comida | ⚠️ | Íconos sí; modelos 3D simples por hacer. |
 

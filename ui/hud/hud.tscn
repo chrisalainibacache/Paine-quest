@@ -1,15 +1,140 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://ui/hud/virtual_stick.gd" id="1_virtual_stic"]
+[ext_resource type="Script" path="res://ui/hud/hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://ui/hud/virtual_stick.gd" id="2_virtual_stic"]
+[ext_resource type="Script" path="res://ui/hud/touch_button.gd" id="3_touch_button"]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 10
+script = ExtResource("1_hud")
 
-[node name="VirtualStick" type="Control" parent="."]
+[node name="DamageFlash" type="ColorRect" parent="."]
+color = Color(0.75, 0, 0, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_virtual_stic")
+
+[node name="VirtualStick" type="Control" parent="."]
+script = ExtResource("2_virtual_stic")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AimButton" type="Control" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -250.0
+offset_right = -70.0
+offset_bottom = -70.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("3_touch_button")
+action = &"aim"
+label = "APUNTAR"
+radius = 85.0
+
+[node name="FireButton" type="Control" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -430.0
+offset_top = -330.0
+offset_right = -290.0
+offset_bottom = -190.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("3_touch_button")
+action = &"fire"
+label = "DISPARAR"
+radius = 68.0
+color = Color(1, 0.7, 0.55, 1)
+
+[node name="AmmoLabel" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -300.0
+offset_right = -70.0
+offset_bottom = -260.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 1
+text = "10  /  20"
+theme_override_font_sizes_font_size = 28
+theme_override_colors_font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants_outline_size = 6
+
+[node name="ConditionLabel" type="Label" parent="."]
+offset_left = 28.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 56.0
+text = "BIEN"
+theme_override_font_sizes_font_size = 24
+theme_override_colors_font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants_outline_size = 6
+
+[node name="DeathScreen" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shade" type="ColorRect" parent="DeathScreen"]
+color = Color(0.12, 0, 0, 0.78)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="DeathScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -120.0
+offset_right = 300.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+text = "ESTÁS MUERTA"
+theme_override_font_sizes_font_size = 56
+theme_override_colors_font_color = Color(0.85, 0.12, 0.08, 1)
+
+[node name="Retry" type="Button" parent="DeathScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = 20.0
+offset_right = 140.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "REINTENTAR"
+theme_override_font_sizes_font_size = 30

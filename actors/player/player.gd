@@ -4,24 +4,37 @@ extends CharacterBody3D
 ## modernos con cámaras fijas. Al cortar la cámara, la dirección anterior se
 ## mantiene mientras el stick siga apuntando más o menos igual (así Cony no da
 ## media vuelta); apenas el jugador corrige el stick, manda la cámara nueva.
+## El arma vive en el nodo hijo Combat (player_combat.gd).
+
+signal health_changed(health: int, max_health: int)
+signal damaged(amount: int)
+signal died
 
 const WALK_SPEED := 1.5
 const JOG_SPEED := 2.5
 ## Velocidad a la que avanza la animación de trote (Mixamo) a ritmo normal:
 ## se usa para que los pies no patinen.
 const JOG_NATURAL_SPEED := 1.9
+## En "Peligro" Cony cojea: todo más lento.
+const DANGER_SPEED_FACTOR := 0.7
 ## Bajo este empuje del stick camina; sobre él, trota.
 const JOG_THRESHOLD := 0.75
 ## Cuánto hay que girar el stick tras un corte para tomar la cámara nueva.
 const RELOCK_ANGLE := deg_to_rad(30.0)
 const TURN_SPEED := 10.0
+const AIM_STICK_TURN_SPEED := 3.5
 const GRAVITY := 18.0
 const ANIM_BLEND := 0.2
+const MAX_HEALTH := 100
+const HURT_TIME := 0.55
+const INVULNERABLE_TIME := 0.9
 const ANIMATIONS := preload("res://actors/player/cony_animations.res")
 
 @onready var model: Node3D = $Model
 @onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var combat: PlayerCombat = $Combat
 
+var health := MAX_HEALTH
 var _camera: Camera3D
 ## Base de referencia congelada mientras el stick está empujado.
 var _reference: Basis = Basis.IDENTITY
@@ -31,12 +44,17 @@ var _input_at_cut := Vector2.ZERO
 var _cut_pending := false
 var _last_input := Vector2.ZERO
 var _current_anim := ""
+## Animación de acción en curso (disparo, recarga, golpe) y cuánto le queda.
+var _action_anim := ""
+var _action_time := 0.0
+var _hurt_time := 0.0
+var _invulnerable_time := 0.0
 
 
 func _ready() -> void:
     add_to_group("player")
     collision_layer = 2
-    collision_mask = 1
+    collision_mask = 1 | 8
     anim.add_animation_library(&"cony", ANIMATIONS)
     _make_textures_crisp(model)
     _play("Idle")
@@ -49,10 +67,108 @@ func set_camera(camera: Camera3D) -> void:
         _cut_pending = true
 
 
+func is_alive() -> bool:
+    return health > 0
+
+
+func is_hurt() -> bool:
+    return _hurt_time > 0.0
+
+
+## "Bien", "Precaución" o "Peligro" (como el electrocardiograma de RE).
+func get_condition() -> String:
+    if health > 60:
+        return "Bien"
+    if health > 25:
+        return "Precaución"
+    return "Peligro"
+
+
+func take_damage(amount: int, from_position: Vector3) -> void:
+    if not is_alive() or _invulnerable_time > 0.0:
+        return
+    health = maxi(health - amount, 0)
+    _invulnerable_time = INVULNERABLE_TIME
+    Sfx.play("hurt", null, -2.0)
+    Input.vibrate_handheld(180)
+    face_direction(from_position - global_position, 1.0)
+    health_changed.emit(health, MAX_HEALTH)
+    damaged.emit(amount)
+    if health <= 0:
+        _action_anim = ""
+        _play("Death01")
+        Sfx.play("fall", global_position, -2.0)
+        died.emit()
+    else:
+        _hurt_time = HURT_TIME
+        play_action("Hit_Chest", HURT_TIME)
+
+
+func heal(amount: int) -> void:
+    health = mini(health + amount, MAX_HEALTH)
+    health_changed.emit(health, MAX_HEALTH)
+
+
+## Animación de una acción (disparar, recargar, recibir golpe) por encima del
+## movimiento; al terminar se vuelve sola a la pose que corresponda.
+func play_action(anim_name: String, duration: float) -> void:
+    _action_anim = anim_name
+    _action_time = duration
+    _current_anim = ""
+    _play(anim_name)
+
+
+## Gira a Cony hacia una dirección (weight 1 = de golpe).
+func face_direction(direction: Vector3, weight: float) -> void:
+    direction.y = 0.0
+    if direction.length() < 0.01:
+        return
+    model.rotation.y = lerp_angle(model.rotation.y, atan2(direction.x, direction.z), clampf(weight, 0.0, 1.0))
+
+
+## Hacia dónde mira Cony (horizontal).
+func get_forward() -> Vector3:
+    return Vector3(sin(model.rotation.y), 0.0, cos(model.rotation.y))
+
+
 func _physics_process(delta: float) -> void:
+    _hurt_time = maxf(_hurt_time - delta, 0.0)
+    _invulnerable_time = maxf(_invulnerable_time - delta, 0.0)
+    _action_time = maxf(_action_time - delta, 0.0)
+    if _action_time <= 0.0:
+        _action_anim = ""
+
     var input := Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
     var strength := minf(input.length(), 1.0)
+    if not is_alive() or is_hurt():
+        input = Vector2.ZERO
+        strength = 0.0
+    _update_reference(input, strength)
 
+    var direction := Vector3.ZERO
+    if strength >= 0.15:
+        direction = (_reference.x * input.x + _reference.z * input.y).normalized()
+
+    var speed := 0.0
+    var aiming := combat.aiming or combat.reloading
+    if aiming:
+        # Apuntando no camina: el stick sólo la gira (si no hay blanco).
+        if direction != Vector3.ZERO and combat.target == null:
+            face_direction(direction, AIM_STICK_TURN_SPEED * delta)
+    elif strength >= 0.15:
+        speed = JOG_SPEED if strength >= JOG_THRESHOLD else WALK_SPEED
+        if get_condition() == "Peligro":
+            speed *= DANGER_SPEED_FACTOR
+        face_direction(direction, TURN_SPEED * delta)
+
+    velocity.x = direction.x * speed
+    velocity.z = direction.z * speed
+    velocity.y = 0.0 if is_on_floor() else velocity.y - GRAVITY * delta
+    move_and_slide()
+    _update_animation(speed, strength, aiming)
+
+
+func _update_reference(input: Vector2, strength: float) -> void:
     if strength < 0.15:
         _reference_locked = false
         _cut_pending = false
@@ -65,28 +181,19 @@ func _physics_process(delta: float) -> void:
         _cut_pending = false
     _last_input = input
 
-    var direction := Vector3.ZERO
-    if strength >= 0.15:
-        direction = (_reference.x * input.x + _reference.z * input.y).normalized()
 
-    var speed := 0.0
-    if strength >= 0.15:
-        speed = JOG_SPEED if strength >= JOG_THRESHOLD else WALK_SPEED
-    velocity.x = direction.x * speed
-    velocity.z = direction.z * speed
-    velocity.y = 0.0 if is_on_floor() else velocity.y - GRAVITY * delta
-    move_and_slide()
-
-    if direction != Vector3.ZERO:
-        var target := atan2(direction.x, direction.z)
-        model.rotation.y = lerp_angle(model.rotation.y, target, minf(TURN_SPEED * delta, 1.0))
-
-    if speed == 0.0:
+func _update_animation(speed: float, strength: float, aiming: bool) -> void:
+    if not is_alive() or _action_anim != "":
+        return
+    var danger := get_condition() == "Peligro"
+    if aiming:
+        _play("Pistol_Aim_Neutral")
+    elif speed == 0.0:
         _play("Idle")
-    elif speed == WALK_SPEED:
-        _play("Walk", clampf(strength / JOG_THRESHOLD, 0.6, 1.0))
+    elif speed < WALK_SPEED * 1.01:
+        _play("Walk", clampf(strength / JOG_THRESHOLD, 0.6, 1.0) * (DANGER_SPEED_FACTOR if danger else 1.0))
     else:
-        _play("Jog", JOG_SPEED / JOG_NATURAL_SPEED)
+        _play("Jog", speed / JOG_NATURAL_SPEED)
 
 
 func get_current_animation() -> String:
