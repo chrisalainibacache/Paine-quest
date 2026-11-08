@@ -6,10 +6,10 @@ extends CharacterBody3D
 ## media vuelta); apenas el jugador corrige el stick, manda la cámara nueva.
 
 const WALK_SPEED := 1.5
-const JOG_SPEED := 2.8
-## La animación de trote de la biblioteca es muy amplia; un poco más lenta
-## se ve menos forzada.
-const JOG_ANIM_SPEED := 0.85
+const JOG_SPEED := 2.5
+## Velocidad a la que avanza la animación de trote (Mixamo) a ritmo normal:
+## se usa para que los pies no patinen.
+const JOG_NATURAL_SPEED := 1.9
 ## Bajo este empuje del stick camina; sobre él, trota.
 const JOG_THRESHOLD := 0.75
 ## Cuánto hay que girar el stick tras un corte para tomar la cámara nueva.
@@ -86,7 +86,7 @@ func _physics_process(delta: float) -> void:
     elif speed == WALK_SPEED:
         _play("Walk", clampf(strength / JOG_THRESHOLD, 0.6, 1.0))
     else:
-        _play("Jog_Fwd", JOG_ANIM_SPEED)
+        _play("Jog", JOG_SPEED / JOG_NATURAL_SPEED)
 
 
 func get_current_animation() -> String:

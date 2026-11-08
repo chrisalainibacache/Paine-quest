@@ -10,3 +10,5 @@ Consider supporting me on Patreon!
 
 https://www.patreon.com/quaternius
 
+Cony: trote "Jogging" de Mixamo (Adobe), hecho para el mismo esqueleto de Cony.
+Extraído in-place con tools/extract_mixamo_animation.gd -> cony_jog.res.

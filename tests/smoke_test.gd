@@ -27,7 +27,7 @@ func _run() -> void:
     Input.action_press(&"move_left", 1.0)
     await _seconds(1.0)
     _check(player.global_position.distance_to(start) > 1.5, "Cony trota con el stick a fondo (avanzó %.2f m)" % player.global_position.distance_to(start))
-    _check(player.get_current_animation() == "Jog_Fwd", "animación de trote (está: %s)" % player.get_current_animation())
+    _check(player.get_current_animation() == "Jog", "animación de trote (está: %s)" % player.get_current_animation())
     Input.action_release(&"move_left")
     await _seconds(0.3)
     _check(player.get_current_animation() == "Idle", "vuelve a Idle al soltar")
