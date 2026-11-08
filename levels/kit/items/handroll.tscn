@@ -1,91 +1,130 @@
 [gd_scene format=3]
 
+[ext_resource type="Texture2D" path="res://assets/items/food/nori.png" id="1_nori"]
+[ext_resource type="Texture2D" path="res://assets/items/food/handroll_top.png" id="2_handroll_top"]
+[ext_resource type="Texture2D" path="res://assets/items/food/paper_sleeve.png" id="3_paper_sleeve"]
+[ext_resource type="Texture2D" path="res://assets/items/food/salmon.png" id="4_salmon"]
+[ext_resource type="Texture2D" path="res://assets/items/food/rice.png" id="5_rice"]
+[ext_resource type="Texture2D" path="res://assets/items/food/avocado_wrap.png" id="6_avocado_wrap"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
-albedo_color = Color(0.07, 0.11, 0.07, 1)
-roughness = 0.85
-metallic = 0
+albedo_texture = ExtResource("1_nori")
+texture_filter = 0
+roughness = 0.5
 specular_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
-albedo_color = Color(0.93, 0.91, 0.85, 1)
-roughness = 0.85
-metallic = 0
+albedo_texture = ExtResource("2_handroll_top")
+texture_filter = 0
+roughness = 0.6
 specular_mode = 2
+transparency = 2
+alpha_scissor_threshold = 0.5
+cull_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
-albedo_color = Color(0.96, 0.46, 0.26, 1)
-roughness = 0.5
-metallic = 0
+albedo_texture = ExtResource("3_paper_sleeve")
+texture_filter = 0
+roughness = 0.9
 specular_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
-albedo_color = Color(0.55, 0.7, 0.25, 1)
-roughness = 0.85
-metallic = 0
+albedo_texture = ExtResource("4_salmon")
+texture_filter = 0
+roughness = 0.4
 specular_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5"]
-albedo_color = Color(0.85, 0.82, 0.72, 1)
-roughness = 0.85
-metallic = 0
+albedo_texture = ExtResource("5_rice")
+texture_filter = 0
+roughness = 0.8
 specular_mode = 2
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_6"]
-top_radius = 0.042
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6"]
+albedo_color = Color(0.97, 0.96, 0.9, 1)
+roughness = 0.6
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7"]
+albedo_texture = ExtResource("6_avocado_wrap")
+texture_filter = 0
+roughness = 0.45
+specular_mode = 2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8"]
+top_radius = 0.037
 bottom_radius = 0.004
-height = 0.17
-radial_segments = 10
+height = 0.16
+radial_segments = 14
 rings = 1
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_7"]
-top_radius = 0.039
-bottom_radius = 0.039
-height = 0.012
-radial_segments = 10
+[sub_resource type="CylinderMesh" id="CylinderMesh_9"]
+top_radius = 0.035
+bottom_radius = 0.035
+height = 0.008
+radial_segments = 14
 rings = 1
 
-[sub_resource type="BoxMesh" id="BoxMesh_8"]
-size = Vector3(0.03, 0.03, 0.018)
+[sub_resource type="PlaneMesh" id="PlaneMesh_10"]
+size = Vector2(0.07, 0.07)
 
-[sub_resource type="BoxMesh" id="BoxMesh_9"]
-size = Vector3(0.02, 0.025, 0.014)
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+size = Vector3(0.03, 0.035, 0.016)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_10"]
-top_radius = 0.02
-bottom_radius = 0.01
-height = 0.05
-radial_segments = 8
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+size = Vector3(0.012, 0.03, 0.014)
+
+[sub_resource type="BoxMesh" id="BoxMesh_13"]
+size = Vector3(0.032, 0.028, 0.007)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_14"]
+top_radius = 0.0245
+bottom_radius = 0.0065
+height = 0.09
+radial_segments = 14
 rings = 1
 
 [node name="Handroll" type="Node3D"]
 
 [node name="Roll" type="Node3D" parent="."]
-position = Vector3(0, 0.035, 0)
-rotation = Vector3(0, 0, -1.35)
+position = Vector3(0, 0.05, 0)
+rotation = Vector3(0.35, 0, -0.95)
 
 [node name="Cone" type="MeshInstance3D" parent="Roll"]
 position = Vector3(0, 0, 0)
-mesh = SubResource("CylinderMesh_6")
+mesh = SubResource("CylinderMesh_8")
 material_override = SubResource("StandardMaterial3D_1")
 
-[node name="Rice" type="MeshInstance3D" parent="Roll"]
-position = Vector3(0, 0.082, 0)
-mesh = SubResource("CylinderMesh_7")
+[node name="RiceRim" type="MeshInstance3D" parent="Roll"]
+position = Vector3(0, 0.078, 0)
+mesh = SubResource("CylinderMesh_9")
+material_override = SubResource("StandardMaterial3D_5")
+
+[node name="Top" type="MeshInstance3D" parent="Roll"]
+position = Vector3(0, 0.0825, 0)
+rotation = Vector3(0, 0.4, 0)
+mesh = SubResource("PlaneMesh_10")
 material_override = SubResource("StandardMaterial3D_2")
 
 [node name="Salmon" type="MeshInstance3D" parent="Roll"]
-position = Vector3(0.008, 0.094, 0.006)
-rotation = Vector3(0.2, 0.3, 0)
-mesh = SubResource("BoxMesh_8")
-material_override = SubResource("StandardMaterial3D_3")
-
-[node name="Avocado" type="MeshInstance3D" parent="Roll"]
-position = Vector3(-0.012, 0.092, -0.01)
-rotation = Vector3(-0.2, 0.5, 0)
-mesh = SubResource("BoxMesh_9")
+position = Vector3(-0.006, 0.095, -0.004)
+rotation = Vector3(0.25, 0.2, 0.1)
+mesh = SubResource("BoxMesh_11")
 material_override = SubResource("StandardMaterial3D_4")
 
-[node name="Wrap" type="MeshInstance3D" parent="Roll"]
-position = Vector3(0, -0.06, 0)
-mesh = SubResource("CylinderMesh_10")
-material_override = SubResource("StandardMaterial3D_5")
+[node name="Cheese" type="MeshInstance3D" parent="Roll"]
+position = Vector3(0.016, 0.092, 0.006)
+rotation = Vector3(-0.15, 0.4, -0.1)
+mesh = SubResource("BoxMesh_12")
+material_override = SubResource("StandardMaterial3D_6")
+
+[node name="Avocado" type="MeshInstance3D" parent="Roll"]
+position = Vector3(-0.002, 0.092, 0.016)
+rotation = Vector3(-0.35, 0, 0.05)
+mesh = SubResource("BoxMesh_13")
+material_override = SubResource("StandardMaterial3D_7")
+
+[node name="Paper" type="MeshInstance3D" parent="Roll"]
+position = Vector3(0, -0.035, 0)
+mesh = SubResource("CylinderMesh_14")
+material_override = SubResource("StandardMaterial3D_3")

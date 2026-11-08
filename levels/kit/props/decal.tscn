@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/props/decal.gd" id="1_decal"]
+
+[node name="Decal" type="MeshInstance3D"]
+script = ExtResource("1_decal")

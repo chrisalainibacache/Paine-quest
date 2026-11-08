@@ -51,6 +51,7 @@ func _ready() -> void:
     global_rotation = Vector3.ZERO
     add_child(model)
     Player._make_textures_crisp(model)
+    _vary_look()
     _anim = AnimationPlayer.new()
     _anim.name = "AnimationPlayer"
     add_child(_anim)
@@ -64,6 +65,18 @@ func _ready() -> void:
         "feeding": _enter(State.FEEDING)
         "lying": _enter(State.LYING)
         _: _enter(State.IDLE)
+
+
+## Cada infectado se ve un poco distinto: tono, brillo y estatura al azar.
+func _vary_look() -> void:
+    var shade := randf_range(0.85, 1.08)
+    var tint := data.tint * Color(shade * randf_range(0.95, 1.05), shade, shade * randf_range(0.92, 1.02))
+    for mesh_instance: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
+        for i in mesh_instance.mesh.get_surface_count():
+            var material := mesh_instance.get_surface_override_material(i) as BaseMaterial3D
+            if material:
+                material.albedo_color = material.albedo_color * tint
+    model.scale *= randf_range(0.94, 1.06)
 
 
 func is_alive() -> bool:

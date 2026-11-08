@@ -18,7 +18,12 @@
 [ext_resource type="Resource" path="res://data/documents/ticket_log.tres" id="16_ticket_log"]
 [ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="17_paper"]
 [ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="18_examine_spot"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="19_camera_zone"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/bullet_holes.png" id="19_bullet_holes"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="20_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_smear.png" id="21_blood_smear"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="22_debris"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="23_blood_footpr"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="24_camera_zone"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -537,11 +542,37 @@ script = ExtResource("18_examine_spot")
 reach = 1
 lines = PackedStringArray("Por la ventanilla se ve la sala de espera.", "Desde aquí todo parece más tranquilo.")
 
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="Bullets" parent="Decals" instance=ExtResource("20_decal")]
+position = Vector3(1.3, 2.15, -1.98)
+rotation = Vector3(0, 0, 0)
+texture = ExtResource("19_bullet_holes")
+size = Vector2(0.9, 0.9)
+
+[node name="SmearDesk" parent="Decals" instance=ExtResource("20_decal")]
+position = Vector3(-2.48, 1.5, 0.95)
+rotation = Vector3(0, 1.5708, -0.2)
+texture = ExtResource("21_blood_smear")
+size = Vector2(1, 0.5)
+
+[node name="Debris" parent="Decals" instance=ExtResource("20_decal")]
+position = Vector3(0.4, 0.016, 0.6)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("22_debris")
+size = Vector2(1.2, 1.2)
+
+[node name="Footprints" parent="Decals" instance=ExtResource("20_decal")]
+position = Vector3(1.25, 0.018, 0.35)
+rotation = Vector3(-1.5708, 1.57, 0)
+texture = ExtResource("23_blood_footpr")
+size = Vector2(1.6, 0.8)
+
 [node name="Cameras" type="Node3D" parent="."]
 
 [node name="West" type="Area3D" parent="Cameras"]
 position = Vector3(-1.1, 1.4, 0)
-script = ExtResource("19_camera_zone")
+script = ExtResource("24_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/West"]
 shape = SubResource("BoxShape3D_6")
@@ -555,7 +586,7 @@ far = 30.0
 
 [node name="East" type="Area3D" parent="Cameras"]
 position = Vector3(1.4, 1.4, 0)
-script = ExtResource("19_camera_zone")
+script = ExtResource("24_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/East"]
 shape = SubResource("BoxShape3D_7")

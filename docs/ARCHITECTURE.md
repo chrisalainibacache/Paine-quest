@@ -73,6 +73,7 @@ necesitan el árbol registran su instancia al iniciar.
 | `typewriter.gd` | Guardar partida. |
 | `chapter_exit.gd` | Salida que cierra un capítulo (pregunta antes; `SceneLoader.end_chapter`). |
 | `flicker_light.gd` | OmniLight3D que parpadea de vez en cuando. |
+| `props/decal.tscn` | Calcomanía (grafiti, sangre, hoyo, mancha) en un QuadMesh pegado al muro o al piso (shader `decal`, con `wear` para pintura gastada). |
 | `Infected` | `start_state` idle / feeding / lying / corpse; `requires_flag` lo hace aparecer según el progreso. |
 
 ### Pruebas

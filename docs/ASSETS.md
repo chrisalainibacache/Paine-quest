@@ -15,6 +15,7 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Leo (gatita) | ✅ | Gato animado Quaternius (CC0) recoloreado gris: Idle, Walk, Run, Headbutt... |
 | Infectado (modelo + rig) | ✅ | `infected/infected_psx_05.glb` (PSX, ~850 triángulos). Licencia del pack por confirmar. |
 | Animaciones infectado | ✅ | Quaternius UAL2: Zombie_Idle/Walk/Scratch, LayToIdle, Consume, Hit_Knockback + UAL1: Hit_Chest, Death01. |
+| Infectados variados | ✅ | `infected_pale`, `infected_worker`, `infected_burnt` (PSX del Drive, textura "infectada" generada). Cada infectado varía al azar tono y estatura. |
 | Infectado rápido (cap. 2) | ⚠️ | Mismo rig con otra textura y animación de correr. |
 
 ## Escenarios (kits modulares)
@@ -27,6 +28,8 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Interior de vagón | ⚠️ | Se arma con el kit modular + asientos de `railway_v69/`. |
 | Paso bajo nivel / casa de cambios | ⚠️ | Kit modular de concreto + props. |
 | Texturas PS1 (concreto, grafiti, grava, metal) | ✅ | `textures/`, `materials/`. |
+| Grafitis y murales | ✅ | `assets/environment/graffiti/` (6 grafitis + 2 murales de la estación, del Drive). Se gastan con el shader `decal`. |
+| Calcomanías (sangre, mano, huellas, arrastre, hoyos, impactos, grietas, aceite, humedad, escombros) | ✅ | `assets/environment/decals/`, generadas con `tools/make_decals.gd`. |
 
 ## Armas e ítems
 
@@ -35,7 +38,7 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Pistola | ✅ | Low poly hecha con piezas (`actors/player/pistol.tscn`). |
 | Escopeta | ❌ | Pendiente (capítulo 2). |
 | Íconos de inventario | ✅ | `inventory/` (+ íconos vectoriales hechos en código). |
-| Llaves, notas, comida | ⚠️ | Íconos sí; modelos 3D simples por hacer. |
+| Llaves, notas, comida | ✅ | Modelos en `levels/kit/items/`. Sushi y handroll al estilo chileno (salmón, palta, queso crema) con texturas de `tools/make_food_textures.gd`. |
 
 ## Interfaz
 

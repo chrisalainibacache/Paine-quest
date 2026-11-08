@@ -13,3 +13,5 @@ extends Resource
 ## Segundos de espera entre ataques.
 @export var attack_cooldown: float = 1.4
 @export var model_scene: PackedScene
+## Tinte de la textura (para aclarar modelos oscuros o darles un tono).
+@export var tint: Color = Color.WHITE

@@ -23,13 +23,27 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/sodium_lamp.tscn" id="21_sodium_lamp"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="22_camera_zone"]
 [ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="23_infected"]
-[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="24_door"]
-[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="25_note"]
-[ext_resource type="Resource" path="res://data/documents/platform_note.tres" id="26_platform_not"]
-[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="27_paper"]
-[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="28_pickup"]
-[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="29_ammo_9mm"]
-[ext_resource type="Resource" path="res://data/items/gate_key.tres" id="30_gate_key"]
+[ext_resource type="Resource" path="res://data/enemies/infected_burnt.tres" id="24_infected_bur"]
+[ext_resource type="Texture2D" path="res://assets/environment/graffiti/mural_station_a.png" id="25_mural_statio"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="26_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_paine.png" id="27_graffiti_pai"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_splatter_a.png" id="28_blood_splatt"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_handprint.png" id="29_blood_handpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/bullet_holes.png" id="30_bullet_holes"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/wall_hole_a.png" id="31_wall_hole_a"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/cracks.png" id="32_cracks"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="33_blood_drag"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="34_blood_footpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/oil_stain.png" id="35_oil_stain"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="36_debris"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/damp_stain.png" id="37_damp_stain"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="38_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="39_note"]
+[ext_resource type="Resource" path="res://data/documents/platform_note.tres" id="40_platform_not"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="41_paper"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="42_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="43_ammo_9mm"]
+[ext_resource type="Resource" path="res://data/items/gate_key.tres" id="44_gate_key"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -539,6 +553,7 @@ far = 40.0
 position = Vector3(5.2, 0.05, 2.4)
 start_state = "feeding"
 requires_flag = "found:pistol"
+data = ExtResource("24_infected_bur")
 
 [node name="Lying" parent="Enemies" instance=ExtResource("23_infected")]
 position = Vector3(2.4, 0.05, 1.2)
@@ -546,38 +561,113 @@ rotation = Vector3(0, 2.2, 0)
 start_state = "lying"
 requires_flag = "found:pistol"
 
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="MuralTracks" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(0, 1.45, -5.29)
+rotation = Vector3(0, 0, 0)
+texture = ExtResource("25_mural_statio")
+size = Vector2(14.4, 3.6)
+
+[node name="GraffitiPaine" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(0.9, 1.75, 5.28)
+rotation = Vector3(0, 3.1416, 0)
+texture = ExtResource("27_graffiti_pai")
+size = Vector2(2.7, 1.35)
+wear = 0.3
+
+[node name="BloodDoor" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(4.25, 1.15, 5.28)
+rotation = Vector3(0, 3.1416, 0)
+texture = ExtResource("28_blood_splatt")
+size = Vector2(1.1, 1.1)
+
+[node name="HandDoor" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(3.3, 1.25, 5.205)
+rotation = Vector3(0, 3.1416, 0.2)
+texture = ExtResource("29_blood_handpr")
+size = Vector2(0.38, 0.38)
+
+[node name="BulletsEast" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(6.99, 1.5, 0.9)
+rotation = Vector3(0, -1.5708, 0)
+texture = ExtResource("30_bullet_holes")
+size = Vector2(1.2, 1.2)
+
+[node name="HoleWest" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(-6.99, 0.95, 0.9)
+rotation = Vector3(0, 1.5708, 0)
+texture = ExtResource("31_wall_hole_a")
+size = Vector2(1.1, 1.1)
+
+[node name="CracksWest" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(-6.99, 2.4, 4)
+rotation = Vector3(0, 1.5708, 0)
+texture = ExtResource("32_cracks")
+size = Vector2(1.3, 1.3)
+
+[node name="DragFloor" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(1.9, 0.016, 1.7)
+rotation = Vector3(-1.5708, 0.35, 0)
+texture = ExtResource("33_blood_drag")
+size = Vector2(2.3, 1.1)
+
+[node name="Footprints" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(-1.4, 0.018, 3.5)
+rotation = Vector3(-1.5708, 0.15, 0)
+texture = ExtResource("34_blood_footpr")
+size = Vector2(2, 1)
+
+[node name="OilFloor" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(-3.9, 0.014, 0.1)
+rotation = Vector3(-1.5708, 1, 0)
+texture = ExtResource("35_oil_stain")
+size = Vector2(1.3, 1.3)
+
+[node name="DebrisFloor" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(-6, 0.017, 4.4)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("36_debris")
+size = Vector2(1.5, 1.5)
+
+[node name="DampFloor" parent="Decals" instance=ExtResource("26_decal")]
+position = Vector3(1.6, 0.013, 4.5)
+rotation = Vector3(-1.5708, 2, 0)
+texture = ExtResource("37_damp_stain")
+size = Vector2(1.8, 1.8)
+
 [node name="Interactables" type="Node3D" parent="."]
 
 [node name="DoorToWaitingRoom" type="Node3D" parent="Interactables"]
 position = Vector3(3, 0, 4.95)
-script = ExtResource("24_door")
+script = ExtResource("38_door")
 target_room = "res://levels/station/waiting_room.tscn"
 target_spawn = "from_platform"
 reach = 1.3
 
 [node name="Note" type="Node3D" parent="Interactables"]
 position = Vector3(-2.8, 0.49, 4.62)
-script = ExtResource("25_note")
-document = ExtResource("26_platform_not")
+script = ExtResource("39_note")
+document = ExtResource("40_platform_not")
 reach = 1.4
 
-[node name="Paper" parent="Interactables/Note" instance=ExtResource("27_paper")]
+[node name="Paper" parent="Interactables/Note" instance=ExtResource("41_paper")]
 rotation = Vector3(0, 0.5, 0)
 
 [node name="Ammo" type="Node3D" parent="Interactables"]
 position = Vector3(-5.9, 0, 1.35)
-script = ExtResource("28_pickup")
-item = ExtResource("29_ammo_9mm")
+script = ExtResource("42_pickup")
+item = ExtResource("43_ammo_9mm")
 count = 10
 model_rotation = Vector3(0, 2.2, 0)
 
 [node name="Gate" type="Node3D" parent="Interactables"]
 position = Vector3(6.55, 0, 2.6)
-script = ExtResource("24_door")
+script = ExtResource("38_door")
 reach = 1.4
 target_room = "res://levels/station/south_platform.tscn"
 target_spawn = "from_north_platform"
-key_item = ExtResource("30_gate_key")
+key_item = ExtResource("44_gate_key")
 lock_id = "gate_south"
 locked_text = "El portón hacia el andén sur. Tiene una cadena con un candado nuevo."
 

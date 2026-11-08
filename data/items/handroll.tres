@@ -7,7 +7,7 @@
 script = ExtResource("1_data")
 id = "handroll"
 display_name = "Handroll"
-description = "Handroll de salmón y palta.
+description = "Handroll de salmón, queso crema y palta, todavía en su papel.
 Recupera bastante salud."
 kind = 2
 max_stack = 1

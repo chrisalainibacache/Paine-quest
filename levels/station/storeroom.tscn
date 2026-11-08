@@ -23,7 +23,17 @@
 [ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="21_examine_spot"]
 [ext_resource type="Resource" path="res://data/enemies/infected_heavy.tres" id="22_infected_hea"]
 [ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="23_infected"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="24_camera_zone"]
+[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_km42.png" id="24_graffiti_km4"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="25_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_splatter_a.png" id="26_blood_splatt"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_handprint.png" id="27_blood_handpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/wall_hole_b.png" id="28_wall_hole_b"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/cracks.png" id="29_cracks"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/oil_stain.png" id="30_oil_stain"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="31_blood_pool"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="32_blood_drag"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="33_debris"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="34_camera_zone"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -432,11 +442,68 @@ position = Vector3(2.4, 0.05, -2.2)
 rotation = Vector3(0, 3.1416, 0)
 data = ExtResource("22_infected_hea")
 
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="GraffitiKm" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(-3.48, 1.9, -1.2)
+rotation = Vector3(0, 1.5708, 0)
+texture = ExtResource("24_graffiti_km4")
+size = Vector2(2.8, 1.4)
+wear = 0.45
+
+[node name="BloodGuard" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(2.7, 1.35, -2.98)
+rotation = Vector3(0, 0, 0.3)
+texture = ExtResource("26_blood_splatt")
+size = Vector2(1.4, 1.4)
+
+[node name="HandTable" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(3.48, 1.3, 0.35)
+rotation = Vector3(0, -1.5708, 0.5)
+texture = ExtResource("27_blood_handpr")
+size = Vector2(0.4, 0.4)
+
+[node name="HoleSouth" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(-1.8, 1.45, 2.98)
+rotation = Vector3(0, 3.1416, 0)
+texture = ExtResource("28_wall_hole_b")
+size = Vector2(1, 1)
+
+[node name="CracksSouth" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(1, 2.3, 2.98)
+rotation = Vector3(0, 3.1416, 0)
+texture = ExtResource("29_cracks")
+size = Vector2(1.3, 1.3)
+
+[node name="Oil" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(-1.5, 0.016, 0.7)
+rotation = Vector3(-1.5708, 0.4, 0)
+texture = ExtResource("30_oil_stain")
+size = Vector2(1.4, 1.4)
+
+[node name="PoolGuard" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(2, 0.017, -1.55)
+rotation = Vector3(-1.5708, 2.1, 0)
+texture = ExtResource("31_blood_pool")
+size = Vector2(1.5, 1.5)
+
+[node name="Drag" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(0.1, 0.018, -0.7)
+rotation = Vector3(-1.5708, -0.5, 0)
+texture = ExtResource("32_blood_drag")
+size = Vector2(3, 1)
+
+[node name="Debris" parent="Decals" instance=ExtResource("25_decal")]
+position = Vector3(-2.5, 0.015, -1.6)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("33_debris")
+size = Vector2(1.3, 1.3)
+
 [node name="Cameras" type="Node3D" parent="."]
 
 [node name="West" type="Area3D" parent="Cameras"]
 position = Vector3(-1.6, 1.5, 0)
-script = ExtResource("24_camera_zone")
+script = ExtResource("34_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/West"]
 shape = SubResource("BoxShape3D_6")
@@ -450,7 +517,7 @@ far = 30.0
 
 [node name="East" type="Area3D" parent="Cameras"]
 position = Vector3(1.9, 1.5, 0)
-script = ExtResource("24_camera_zone")
+script = ExtResource("34_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/East"]
 shape = SubResource("BoxShape3D_7")

@@ -7,7 +7,7 @@
 script = ExtResource("1_data")
 id = "sushi"
 display_name = "Sushi"
-description = "Tres piezas en una bandeja. Siguen frescas.
+description = "Bandeja de sushi: envueltos en palta, makis de salmón con queso crema y uno apanado. Con jengibre y wasabi.
 Recupera un poco de salud."
 kind = 2
 max_stack = 1

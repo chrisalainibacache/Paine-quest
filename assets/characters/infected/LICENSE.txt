@@ -1,5 +1,11 @@
-Infectados: personajes "PSX" del proyecto anterior (carpeta characters_psx_v72 del Drive;
-licencia por confirmar). Convertidos a GLB, texturas 256 px, altura 1.75 m.
+Infectados: personajes "PSX" del proyecto anterior (carpetas characters_psx_v72 e
+infected_candidates del Drive; licencia por confirmar). Convertidos a GLB, texturas
+256 px, altura 1,75 m, esqueleto Mixamo reasignado al perfil humanoide de Godot.
 - infected_psx_05.glb: infectado común.
-- character_monster_07.glb: variante pesada.
+- character_monster_07.glb: variante pesada (el guardia).
+- infected_pale.glb (Character_Monster_02): infectado pálido con costillas expuestas.
+- infected_worker.glb (Character_Killer_08): obrero con la camisa rota.
+- infected_burnt.glb (Character_Killer_03): infectado quemado.
+Los tres últimos llevan la textura "infectada" (piel pálida verdosa, mugre y sangre)
+hecha con un script de conversión (registro en docs/ASSETS.md).
 Animaciones: Quaternius UAL2 (CC0) + UAL1 (CC0), ver actors/enemies/infected_animations.res.
