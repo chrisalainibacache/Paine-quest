@@ -14,10 +14,13 @@ func _run() -> void:
     pass
 
 
-func _start_game(save_path: String) -> void:
+## Partida nueva; por defecto con la pistola (como si ya la hubiera encontrado).
+func _start_game(save_path: String, armed: bool = true) -> void:
     SaveSystem.save_path = save_path
     SaveSystem.delete_save()
     GameState.new_game()
+    if armed:
+        GameState.give_pistol()
     main = (load("res://main.tscn") as PackedScene).instantiate()
     root.add_child(main)
     await _frames(10)

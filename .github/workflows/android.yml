@@ -63,6 +63,7 @@ jobs:
         run: |
           "$GODOT" --headless --path . -s res://tests/smoke_test.gd
           "$GODOT" --headless --path . -s res://tests/systems_test.gd
+          "$GODOT" --headless --path . -s res://tests/levels_test.gd
 
       - name: Exportar APK
         env:

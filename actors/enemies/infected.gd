@@ -2,7 +2,7 @@ class_name Infected
 extends CharacterBody3D
 ## Infectado. Lento y persistente: camina hacia Cony, la ataca de cerca y se
 ## tambalea con los disparos. Puede empezar de pie, comiendo o tirado en el
-## suelo haciéndose el muerto.
+## suelo haciéndose el muerto. "corpse" es un cadáver de verdad (decorado).
 
 signal died(infected: Infected)
 
@@ -19,7 +19,9 @@ const LYING_WAKE_RANGE := 3.2
 const FEEDING_WAKE_RANGE := 4.0
 
 @export var data: EnemyData = preload("res://data/enemies/infected.tres")
-@export_enum("idle", "feeding", "lying") var start_state: String = "idle"
+@export_enum("idle", "feeding", "lying", "corpse") var start_state: String = "idle"
+## Solo aparece si esta bandera de GameState ya existe (p. ej. "found:pistol").
+@export var requires_flag: String = ""
 
 var health := 1
 var state := State.IDLE
@@ -33,6 +35,9 @@ var _groan_timer := 0.0
 
 
 func _ready() -> void:
+    if not requires_flag.is_empty() and not GameState.has_flag(requires_flag):
+        queue_free()
+        return
     add_to_group("enemies")
     collision_layer = 8
     collision_mask = 1 | 2
@@ -52,7 +57,7 @@ func _ready() -> void:
     _anim.root_node = _anim.get_path_to(model)
     _anim.add_animation_library(&"z", ANIMATIONS)
     _groan_timer = randf_range(2.0, 6.0)
-    if GameState.has_flag(_dead_flag()):
+    if start_state == "corpse" or GameState.has_flag(_dead_flag()):
         _lie_dead()
         return
     match start_state:

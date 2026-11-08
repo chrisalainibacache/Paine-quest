@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource("1_data")
-id = "boleteria_key"
-display_name = "Llave de la boletería"
-description = "Llave de bronce con una etiqueta escrita a mano: «BOLETERÍA»."
+id = "gate_key"
+display_name = "Llave del portón"
+description = "Llave de candado con una etiqueta escrita a mano: «PORTÓN ANDÉN SUR»."
 kind = 3
 max_stack = 1
 heal_amount = 0

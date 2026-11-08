@@ -41,11 +41,18 @@ static func new_game() -> void:
     use_spawn_transform = false
     play_time = 0.0
     started = true
-    # Por ahora Cony empieza armada (en el Hito 4 la pistola se encuentra en la boletería).
+    # Cony empieza sin arma: la pistola se encuentra en la boletería.
+    equipped = null
+    clip = 0
+
+
+## Le da la pistola cargada y balas (pruebas y capturas).
+static func give_pistol(ammo: int = 20) -> void:
     inventory.add(PISTOL)
-    inventory.add(AMMO_9MM, 20)
+    inventory.add(AMMO_9MM, ammo)
     equipped = PISTOL
     clip = PISTOL.weapon.clip_size
+    set_flag("found:pistol")
 
 
 static func set_flag(flag: String, value: Variant = true) -> void:

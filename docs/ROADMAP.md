@@ -36,6 +36,12 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 - **Prueba en el teléfono:** recoger, leer, pasar a la sala de espera y volver, guardar, cerrar la app y CONTINUAR.
 
 ## Hito 4 — Capítulo 1 completo (estación, 6 salas)
+- [x] Cony empieza sin arma; la pistola se encuentra cargada en la boletería y se equipa sola.
+- [x] Salas nuevas: boletería, pasillo de servicio, bodega y andén sur (con el kit `roomkit`).
+- [x] Infectados que aparecen según el progreso (`requires_flag`), cadáveres de verdad, luz que parpadea.
+- [x] Portón del andén sur con la llave de la bodega; bajar a la vía cierra el capítulo.
+- [x] Prueba de niveles: puertas y apariciones conectadas, sin huecos de cámara, capítulo completable.
+- **Prueba en el teléfono:** jugar el capítulo 1 de principio a fin.
 
 ## Hito 5 — Capítulo 2 completo (vías y tren destruido, 6 salas)
 

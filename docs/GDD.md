@@ -100,16 +100,19 @@ Recarga automática al vaciar el cargador (animación corta). Sin munición: Con
 
 Regla: **cada sala cabe en 1–3 cámaras** y está cerrada por todos lados.
 
-### Capítulo 1 — Estación de Paine
-1. **Andén norte** — inicio. Leo, primera nota. Vía bloqueada por rejas.
-2. **Sala de espera** — máquina de escribir, infectado de espaldas mirando la ventanilla,
-   sushi, balas, aviso de la estación (dice que la pistola quedó en la boletería y la
-   llave en la bodega).
-3. **Boletería** — pistola + munición, nota del boletero. (Hasta el Hito 4 Cony empieza
-   con la pistola.)
-4. **Pasillo de servicio** — infectado haciéndose el muerto.
-5. **Bodega** — llave del portón.
-6. **Andén sur / portón a la vía** — sale del capítulo.
+### Capítulo 1 — Estación de Paine (Hito 4: completo)
+Cony empieza **sin arma**. Recorrido:
+
+| # | Sala (`levels/station/`) | Qué pasa |
+| --- | --- | --- |
+| 1 | Andén norte (`platform`) | Inicio tranquilo, nota en la banca, balas junto a los cajones. El portón al andén sur tiene candado. Al volver con la pistola, llegaron 2 infectados desde la vía (uno comiendo, uno haciéndose el muerto). |
+| 2 | Sala de espera (`waiting_room`) | Máquina de escribir. Un infectado come junto a la máquina de bebidas: se puede pasar por el lado este sin despertarlo. Aviso de la estación (pistola en la boletería, llave en la bodega). |
+| 3 | Boletería (`ticket_office`) | Sala segura. **Pistola cargada** + 15 balas en el escritorio del guardia, libro de la boletería. |
+| 4 | Pasillo de servicio (`service_corridor`) | 3 cámaras, luz que parpadea. Un cadáver de verdad (Leo no le bufa), uno haciéndose el muerto (Leo sí) y uno de espaldas. Handroll y balas. |
+| 5 | Bodega (`storeroom`) | El guardia convertido (infectado pesado, 11 balazos). **Llave del portón** y diario del jefe de estación sobre la mesa. |
+| 6 | Andén sur (`south_platform`) | Por el portón del andén norte. Infectados, carro de equipaje, túnel con resplandor rojo. **Bajar a la vía** cierra el capítulo (pantalla de fin). |
+
+Munición del capítulo: 10 (cargador) + 75 en cajas; hacen falta ~60 balazos para matar a todos.
 
 ### Capítulo 2 — Las vías
 1. **Vía con el tren descarrilado** — se ve el convoy volcado; el paso está cortado por los vagones.

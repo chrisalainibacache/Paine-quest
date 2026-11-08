@@ -8,6 +8,8 @@ extends Interactable
 @export var count: int = 1
 ## Giro del modelo sobre la superficie.
 @export var model_rotation: Vector3 = Vector3.ZERO
+## Bandera que se anota al recogerlo (p. ej. "found:pistol" hace aparecer infectados).
+@export var sets_flag: String = ""
 
 var _glint: MeshInstance3D
 var _time := randf() * TAU
@@ -40,7 +42,7 @@ func _process(delta: float) -> void:
     _glint.visible = pulse > 0.02
 
 
-func interact(_player: Player) -> void:
+func interact(player: Player) -> void:
     var space := GameState.inventory.space_for(item)
     if space <= 0:
         await Dialogue.say(["Es: %s." % _describe(count), "No me cabe nada más en la mochila."])
@@ -50,7 +52,15 @@ func interact(_player: Player) -> void:
     count -= taken
     GameState.set_flag(_flag_key(), count)
     Sfx.play("pickup", null, -4.0)
+    if not sets_flag.is_empty():
+        GameState.set_flag(sets_flag)
     var lines := ["Recogí: %s." % _describe(taken)]
+    if item.kind == ItemData.Kind.WEAPON and GameState.equipped == null:
+        # El arma encontrada viene cargada y queda lista para usar.
+        GameState.equipped = item
+        GameState.clip = item.weapon.clip_size
+        player.combat.sync_from_state()
+        lines.append("Está cargada. La llevo lista: mantén APUNTAR y toca DISPARAR.")
     if count > 0:
         lines.append("No me cabe el resto en la mochila.")
     else:

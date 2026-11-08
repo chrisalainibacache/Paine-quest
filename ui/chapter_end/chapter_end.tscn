@@ -1,0 +1,106 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/chapter_end/chapter_end.gd" id="1_chapter_end"]
+
+[node name="ChapterEnd" type="Control"]
+script = ExtResource("1_chapter_end")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+offset_left = -520.0
+offset_top = 110
+offset_right = 520.0
+offset_bottom = 190
+horizontal_alignment = 1
+text = "FIN DEL CAPÍTULO 1"
+theme_override_font_sizes/font_size = 64
+theme_override_colors/font_color = Color(0.62, 0.08, 0.06, 1)
+
+[node name="Subtitle" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+offset_left = -520.0
+offset_top = 195
+offset_right = 520.0
+offset_bottom = 235
+horizontal_alignment = 1
+text = "La estación"
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.6, 0.57, 0.5, 1)
+
+[node name="Story" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+offset_left = -520.0
+offset_top = 270
+offset_right = 520.0
+offset_bottom = 420
+horizontal_alignment = 1
+text = "Cony y Leo bajan a la vía y siguen hacia el norte, hacia el resplandor rojo.\nDetrás queda la estación de Paine, en silencio."
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+autowrap_mode = 3
+
+[node name="Summary" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+offset_left = -520.0
+offset_top = 440
+offset_right = 520.0
+offset_bottom = 480
+horizontal_alignment = 1
+text = ""
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.6, 0.57, 0.5, 1)
+
+[node name="Next" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+offset_left = -520.0
+offset_top = 500
+offset_right = 520.0
+offset_bottom = 540
+horizontal_alignment = 1
+text = "Continuará en el Capítulo 2: Las vías"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.85, 0.72, 0.5, 1)
+
+[node name="Back" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+offset_left = -190.0
+offset_top = -130.0
+offset_right = 190.0
+offset_bottom = -56.0
+text = "VOLVER AL TÍTULO"
+theme_override_font_sizes/font_size = 28
+focus_mode = 0

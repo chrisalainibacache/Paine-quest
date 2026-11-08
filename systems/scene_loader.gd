@@ -36,6 +36,12 @@ static func go_to(room_path: String, spawn_id: String) -> void:
         _instance._go_to(room_path, spawn_id)
 
 
+## Cierra un capítulo: fundido y pantalla de fin.
+static func end_chapter(chapter: int) -> void:
+    if _instance:
+        _instance._end_chapter(chapter)
+
+
 static func is_busy() -> bool:
     return _instance != null and _instance.busy
 
@@ -66,6 +72,17 @@ func _go_to(room_path: String, spawn_id: String) -> void:
     player.controls_locked = false
     await _fade_to(0.0)
     busy = false
+
+
+func _end_chapter(chapter: int) -> void:
+    if busy:
+        return
+    busy = true
+    player.controls_locked = true
+    GameState.set_flag("chapter_done:%d" % chapter)
+    GameState.health = player.health
+    await _fade_to(1.0)
+    get_tree().change_scene_to_file("res://ui/chapter_end/chapter_end.tscn")
 
 
 func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool) -> void:

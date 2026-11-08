@@ -29,7 +29,7 @@
 [ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="27_paper"]
 [ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="28_pickup"]
 [ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="29_ammo_9mm"]
-[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="30_examine_spot"]
+[ext_resource type="Resource" path="res://data/items/gate_key.tres" id="30_gate_key"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -538,11 +538,13 @@ far = 40.0
 [node name="Feeding" parent="Enemies" instance=ExtResource("23_infected")]
 position = Vector3(5.2, 0.05, 2.4)
 start_state = "feeding"
+requires_flag = "found:pistol"
 
 [node name="Lying" parent="Enemies" instance=ExtResource("23_infected")]
 position = Vector3(2.4, 0.05, 1.2)
 rotation = Vector3(0, 2.2, 0)
 start_state = "lying"
+requires_flag = "found:pistol"
 
 [node name="Interactables" type="Node3D" parent="."]
 
@@ -571,9 +573,13 @@ model_rotation = Vector3(0, 2.2, 0)
 
 [node name="Gate" type="Node3D" parent="Interactables"]
 position = Vector3(6.55, 0, 2.6)
-script = ExtResource("30_examine_spot")
+script = ExtResource("24_door")
 reach = 1.4
-lines = PackedStringArray("El portón hacia las vías. Está cerrado con una cadena gruesa.", "Tengo que encontrar otra forma de salir.")
+target_room = "res://levels/station/south_platform.tscn"
+target_spawn = "from_north_platform"
+key_item = ExtResource("30_gate_key")
+lock_id = "gate_south"
+locked_text = "El portón hacia el andén sur. Tiene una cadena con un candado nuevo."
 
 [node name="Spawns" type="Node3D" parent="."]
 
@@ -583,3 +589,7 @@ rotation = Vector3(0, -1.5708, 0)
 
 [node name="from_waiting_room" type="Marker3D" parent="Spawns"]
 position = Vector3(3, 0.05, 4.35)
+
+[node name="from_south_platform" type="Marker3D" parent="Spawns"]
+position = Vector3(6, 0.05, 2.6)
+rotation = Vector3(0, 1.5708, 0)

@@ -24,7 +24,7 @@ func _run() -> void:
     GameState.new_game()
     GameState.inventory.add(load("res://data/items/sushi.tres"))
     GameState.inventory.add(load("res://data/items/handroll.tres"))
-    GameState.inventory.add(load("res://data/items/boleteria_key.tres"))
+    GameState.inventory.add(load("res://data/items/gate_key.tres"))
     change_scene_to_file("res://main.tscn")
     await _wait(1.5)
     var main := current_scene

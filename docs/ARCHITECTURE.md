@@ -71,6 +71,17 @@ necesitan el árbol registran su instancia al iniciar.
 | `note.gd` | Documento legible (`DocumentData`). |
 | `examine_spot.gd` | Objeto que solo muestra mensajes. |
 | `typewriter.gd` | Guardar partida. |
+| `chapter_exit.gd` | Salida que cierra un capítulo (pregunta antes; `SceneLoader.end_chapter`). |
+| `flicker_light.gd` | OmniLight3D que parpadea de vez en cuando. |
+| `Infected` | `start_state` idle / feeding / lying / corpse; `requires_flag` lo hace aparecer según el progreso. |
+
+### Pruebas
+
+- `tests/smoke_test.gd`: movimiento, cámaras, Leo y combate.
+- `tests/systems_test.gd`: mochila, recoger, notas, puertas, guardado, recorrido del capítulo.
+- `tests/levels_test.gd`: revisa **todas** las salas de `levels/station/` (puertas y apariciones
+  conectadas, Cony aparece sobre el piso y dentro de una cámara, ninguna cámara ve huecos, el
+  capítulo se puede terminar). Una sala nueva queda cubierta solo por existir en la carpeta.
 
 Cada sala se arma en `levels/<zona>/` con nodos `Interactables`, `Enemies`, `Cameras`
 y `Spawns`. Las banderas de progreso usan `GameState.node_key(nodo)` =

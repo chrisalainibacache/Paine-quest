@@ -14,6 +14,7 @@ const CONDITION_COLORS := {
 
 @onready var fire_button: Control = $FireButton
 @onready var action_button: Control = $ActionButton
+@onready var aim_button: Control = $AimButton
 @onready var ammo_label: Label = $AmmoLabel
 @onready var condition_label: Label = $ConditionLabel
 @onready var damage_flash: ColorRect = $DamageFlash
@@ -62,6 +63,7 @@ func _on_focus_changed(target: Interactable) -> void:
 
 func _on_ammo_changed(clip: int, reserve: int) -> void:
     ammo_label.visible = player.combat.has_weapon()
+    aim_button.visible = player.combat.has_weapon()
     ammo_label.text = "%d  /  %d" % [clip, reserve]
     ammo_label.modulate = Color(1, 0.4, 0.35) if clip == 0 else Color.WHITE
 

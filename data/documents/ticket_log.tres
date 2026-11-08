@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "ticket_log"
+title = "Libro de la boletería"
+pages = PackedStringArray("6:55 — Se cortó la luz dos minutos. Volvió sola.\n\n7:05 — Llamaron de Hospital: el tren de las 6:30 no pasó por allá. Nadie sabe dónde está.\n\n7:12 — Un pasajero mordió a otro en el andén. El guardia le disparó seis veces y seguía caminando.", "7:20 — El guardia está herido en el brazo. Lo llevamos a la bodega para que descanse. Dice que tiene frío.\n\n7:40 — Ya no contesta cuando le hablamos por la puerta.\n\nDejé su pistola aquí. Yo no sé usarla.\n\n— Rosa, boletería")

@@ -5,12 +5,17 @@ extends "res://tests/test_case.gd"
 
 const AMMO := preload("res://data/items/ammo_9mm.tres")
 const SUSHI := preload("res://data/items/sushi.tres")
-const KEY := preload("res://data/items/boleteria_key.tres")
+const KEY := preload("res://data/items/gate_key.tres")
 const PISTOL := preload("res://data/items/pistol.tres")
 const WAITING_ROOM := "res://levels/station/waiting_room.tscn"
+const TICKET_OFFICE := "res://levels/station/ticket_office.tscn"
+const SOUTH_PLATFORM := "res://levels/station/south_platform.tscn"
 
 
 func _run() -> void:
+    GameState.new_game()
+    _check(GameState.equipped == null and GameState.inventory.count_of(AMMO) == 0 and not GameState.inventory.has_id("pistol"),
+        "partida nueva: Cony empieza sin arma ni balas")
     await _start_game("user://test_sistemas.json")
     var player: Player = main.player
     _inventory_rules()
@@ -21,11 +26,12 @@ func _run() -> void:
     await _backpack_menu(player)
     await _doors_and_rooms(player)
     await _locked_door(player)
+    await _chapter_route(player)
     _finish()
 
 
 func _inventory_rules() -> void:
-    _check(GameState.inventory.has_id("pistol") and GameState.equipped == PISTOL, "Cony empieza con la pistola equipada")
+    _check(GameState.inventory.has_id("pistol") and GameState.equipped == PISTOL, "con la pistola, queda equipada")
     _check(GameState.inventory.count_of(AMMO) == 20, "y 20 balas de reserva en la mochila")
     var inventory := Inventory.new()
     _check(inventory.add(AMMO, 70) == 0 and inventory.get_count(0) == 60 and inventory.get_count(1) == 10,
@@ -142,7 +148,7 @@ func _doors_and_rooms(player: Player) -> void:
         _check(misses == 0, "la cámara %s de la sala de espera no ve huecos (rayos perdidos: %d)" % [zone.name, misses])
 
     # El infectado de la sala muere y eso queda anotado.
-    var standing: Infected = room.get_node("Enemies/Standing")
+    var standing: Infected = room.get_node("Enemies/Feeding")
     standing.take_hit(100, player.global_position, standing.get_aim_point(), 0.0)
     _check(GameState.has_flag("dead:" + GameState.node_key(standing)), "la muerte del infectado queda anotada")
 
@@ -170,7 +176,7 @@ func _doors_and_rooms(player: Player) -> void:
     # Y otra vez a la sala: el infectado sigue muerto en el suelo.
     player.interaction.use(main.room.get_node("Interactables/DoorToWaitingRoom"))
     await _seconds(1.4)
-    var corpse: Infected = main.room.get_node("Enemies/Standing")
+    var corpse: Infected = main.room.get_node("Enemies/Feeding")
     _check(corpse.state == Infected.State.DEAD and not corpse.is_in_group("enemies"), "el infectado muerto sigue muerto al volver")
 
     # Cargar la partida restaura la mochila y la sala de la máquina de escribir.
@@ -197,3 +203,59 @@ func _locked_door(player: Player) -> void:
     await _close_dialogues()
     _check(not door.is_locked() and GameState.has_flag("unlocked:prueba"), "con la llave la puerta se abre y queda abierta")
     door.free()
+
+
+## Recorrido del capítulo sin arma: encontrar la pistola, abrir el portón con
+## la llave y bajar a la vía.
+func _chapter_route(player: Player) -> void:
+    GameState.inventory.clear()
+    GameState.equipped = null
+    GameState.clip = 0
+    GameState.flags.clear()
+    player.combat.sync_from_state()
+    await _frames(2)
+    _check(not main.get_node("HUD/AimButton").visible, "sin arma no aparece APUNTAR")
+
+    SceneLoader.go_to(TICKET_OFFICE, "from_waiting_room")
+    await _seconds(1.4)
+    _check(main.room.scene_file_path == TICKET_OFFICE, "se puede entrar a la boletería")
+    var pistol: Pickup = main.room.get_node("Interactables/Pistol")
+    player.global_position = Vector3(pistol.global_position.x + 0.65, 0.05, pistol.global_position.z)
+    player.face_direction(Vector3.LEFT, 1.0)
+    await _frames(3)
+    _check(player.interaction.focus == pistol, "Cony tiene a mano la pistola del escritorio")
+    player.interaction.use(pistol)
+    await _close_dialogues()
+    _check(GameState.equipped == PISTOL and player.combat.clip == 10, "la pistola encontrada queda equipada y cargada")
+    _check(GameState.has_flag("found:pistol"), "encontrar la pistola queda anotado")
+    _check(main.get_node("HUD/AimButton").visible, "con la pistola aparece APUNTAR")
+
+    # Con la pistola, el andén ya tiene infectados.
+    SceneLoader.go_to(GameState.START_ROOM, "from_south_platform")
+    await _seconds(1.4)
+    _check(main.room.get_tree().get_nodes_in_group("enemies").size() == 2, "al volver armada, llegaron infectados al andén")
+    for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
+        enemy.free()
+    var gate: Door = main.room.get_node("Interactables/Gate")
+    _check(gate.is_locked(), "el portón al andén sur tiene candado")
+    GameState.inventory.add(KEY)
+    player.interaction.use(gate)
+    await _close_dialogues()
+    await _seconds(1.4)
+    _check(main.room.scene_file_path == SOUTH_PLATFORM, "con la llave, el portón lleva al andén sur")
+
+    for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
+        enemy.free()
+    var exit: Interactable = main.room.get_node("Interactables/TrackExit")
+    player.global_position = Vector3(exit.global_position.x, 0.05, exit.global_position.z + 0.7)
+    player.face_direction(Vector3.FORWARD, 1.0)
+    await _frames(3)
+    _check(player.interaction.focus == exit, "Cony tiene a mano la bajada a la vía")
+    player.interaction.use(exit)
+    await _frames(4)
+    _check(Dialogue._instance._asking, "bajar a la vía pide confirmación")
+    Dialogue.choose(0)
+    await _seconds(1.2)
+    _check(current_scene != null and current_scene.scene_file_path == "res://ui/chapter_end/chapter_end.tscn",
+        "bajar a la vía cierra el capítulo 1")
+    _check(GameState.has_flag("chapter_done:1"), "el capítulo 1 queda anotado como terminado")

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "stationmaster_diary"
+title = "Diario del jefe de estación"
+pages = PackedStringArray("Viernes.\n\nEl tren de las 6:30 a Santiago descarriló pasado Linderos. Los que alcanzaron a bajar caminaron de vuelta por la vía.\n\nLlegaron mordidos. Al rato ya no eran ellos.", "Cerré el portón del andén sur con candado para que no entren más desde la vía. La llave queda aquí, en la mesa de la bodega.\n\nSi alguien lee esto y quiere llegar a Santiago: la única forma ahora es caminar por la vía hacia el norte.\n\nQue Dios los acompañe.")
