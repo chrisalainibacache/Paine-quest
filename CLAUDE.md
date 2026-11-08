@@ -3,7 +3,8 @@
 Proyecto: survival horror 2.5D con cámaras fijas (estilo Resident Evil PS1) en
 **Godot 4.7.2**, renderer *Compatibility*, **Android horizontal**.
 
-Antes de trabajar, lee `docs/GDD.md` (diseño) y `docs/ARCHITECTURE.md` (código).
+Antes de trabajar, lee `docs/GDD.md` (diseño), `docs/ARCHITECTURE.md` (código),
+`docs/ART_PIPELINE.md` (escenarios) y `docs/ROADMAP.md` (en qué hito vamos).
 
 ## Cómo trabaja el equipo
 - Actúa como estudio completo: diseño, programación, niveles, arte técnico y QA.

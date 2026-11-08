@@ -5,102 +5,124 @@
 ## 1. Concepto
 
 **Paine** es un survival horror en 3D con **cámaras fijas por sala** (2.5D al estilo
-*Resident Evil 2/3* de PlayStation 1), para **Android en horizontal**.
+*Resident Evil 3* de PlayStation 1), para **Android en horizontal**.
 
-Cony y su gato Leo viajan por Paine (Chile) después de un brote. Siguen las vías hacia
-Santiago: estación de trenes → accidente del tren → fábrica → mina.
+**Cony** y su gatita **Leo** despiertan en Paine (Chile) después de que *algo pasó*:
+la gente se convirtió en infectados. Intentan salir siguiendo la línea del tren hacia
+Santiago.
 
 ### Pilares
-1. **Espacios cortos y cerrados.** Nada de mundo abierto: salas pequeñas unidas por
-   puertas, pasillos y callejones. El escenario guía al jugador.
+1. **Espacios cortos y cerrados.** Nada de mundo abierto: salas pequeñas con muros,
+   rejas, vagones o escombros que las cierran. El escenario guía al jugador.
 2. **Cámara cercana y cinematográfica.** Cada sala tiene 1–3 cámaras fijas que encuadran
-   a Cony de cerca; la cámara cambia al cruzar zonas invisibles.
+   a Cony de cerca; la cámara cambia (corte seco) al cruzar zonas invisibles.
 3. **Tensión con recursos escasos.** Poca munición, curación limitada, guardado manual
    en máquinas de escribir.
-4. **Rendimiento primero.** 60 fps estables en el teléfono del jugador. Cada sala se
-   carga por separado; lo que no se ve no existe.
+4. **Look PS1, no "Roblox".** Texturas sucias de baja resolución, niebla, luz cálida de
+   sodio, filtro de pantalla con tramado. Nada de colores planos ni bloques lisos.
+5. **Rendimiento primero.** 60 fps estables en el teléfono. Una sala cargada a la vez.
 
-## 2. Cámara (decisión clave)
+## 2. Historia (capítulos 1 y 2)
+
+### Capítulo 1 — La estación
+Cony llega con Leo a la estación de trenes de Paine buscando un tren a Santiago.
+La estación está vacía y algo anda mal. Recorre el andén, la sala de espera y la
+boletería; encuentra la pistola, notas de lo que pasó y la llave del portón que da a
+las vías. Cierra el capítulo saliendo a la vía.
+
+### Capítulo 2 — Las vías
+Siguiendo las vías encuentran **el tren ya destruido** (descarrilado y volcado; no se
+ve el choque, se encuentra así). No sirve para viajar: hay que seguir a pie por el
+costado de las vías, atravesando el convoy, un paso bajo nivel y una casa de
+cambios. Termina en un punto de corte (el camino sigue → capítulo 3 en el futuro).
+
+## 3. Cámara
 
 - Cada sala (`Room`) es una escena propia con sus `CameraZone` (Area3D + Camera3D).
-- Al entrar Cony en una `CameraZone`, esa cámara pasa a ser la actual (corte seco,
-  como en RE).
-- Opcional por zona: cámara que **sigue** a Cony solo en un riel (pasillos largos).
-- La cámara nunca la controla el jugador.
-- FOV 50–60, a 3–6 m de Cony: se ve el personaje de cerca.
+- Al entrar Cony en una `CameraZone`, esa cámara pasa a ser la actual (corte seco).
+- Opcional por zona: cámara que **sigue** a Cony solo sobre un riel (pasillos largos).
+- La cámara nunca la controla el jugador. FOV 50–60, a 3–6 m de Cony.
 
-## 3. Controles (táctil)
+## 4. Controles (táctil)
 
-- Stick virtual izquierdo: mover. Movimiento **relativo a la cámara** que estaba activa
-  al empezar a empujar el stick (evita cambios bruscos de dirección al cortar cámara).
-- Botones derechos: **Atacar/Disparar**, **Apuntar** (mantener), **Correr**, **Acción**
-  (examinar, abrir, recoger).
-- Botón **Mochila** arriba a la derecha.
-- Sin salto: el juego no tiene plataformas.
+- **Stick virtual** izquierdo: mover. Dirección relativa a la cámara activa al empezar
+  a empujar (evita giros bruscos en el corte de cámara).
+- **Apuntar** (mantener): Cony se planta y apunta al infectado más cercano.
+- **Disparar**: mientras apunta.
+- **Correr**: mantener.
+- **Acción**: examinar, abrir puertas, recoger.
+- **Mochila**: arriba a la derecha.
+- Sin salto, sin cuerpo a cuerpo.
 
-## 4. Mecánicas
+## 5. Armas (solo armas de fuego)
+
+Decisión: **nada de espadas ni barra de cambio rápido**. Como en RE: el arma se elige
+desde la mochila; recoger un arma nueva pregunta si equiparla.
+
+| Arma | Capítulo | Munición | Rol |
+| --- | --- | --- | --- |
+| Pistola | 1 | Balas 9 mm | Arma base. 3–4 tiros por infectado. |
+| Escopeta | 2 | Cartuchos | Escasa, derriba de un tiro a corta distancia. |
+
+Recarga automática al vaciar el cargador (animación corta). Sin munición: Cony hace
+"clic" y hay que huir o buscar más.
+
+## 6. Mecánicas
 
 | Mecánica | Descripción |
 | --- | --- |
-| Movimiento | Caminar / correr. Sin salto. |
-| Combate cuerpo a cuerpo | Cuchillo/espada, combo corto de 2–3 golpes. |
-| Armas a distancia | Pistola, escopeta, ballesta. Auto-apuntado al infectado más cercano en el cono de visión. |
-| Salud | Estados RE: Bien / Precaución / Peligro. Se cura con comida (sushi, handroll). |
-| Inventario | Casillas limitadas (8 al inicio, ampliable). |
-| Guardado | Máquinas de escribir (manual) + punto de control al cambiar de zona. |
-| Documentos | Notas legibles que cuentan la historia. |
-| Leo (gato) | Sigue a Cony, maúlla/bufa cuando hay infectados cerca. No combate. |
-| Puertas | Transición con animación/fundido corto entre salas (oculta la carga). |
-| Llaves | Ítems clave que abren puertas concretas. |
+| Salud | Bien / Precaución / Peligro (se ve en la mochila y en el andar de Cony). |
+| Curación | Comida: sushi (poco) y handroll (mucho). |
+| Mochila | 8 casillas. Munición e ítems clave ocupan espacio. |
+| Guardado | Máquina de escribir (manual) + punto de control al empezar cada capítulo. |
+| Documentos | Notas legibles que cuentan qué pasó en Paine. |
+| Leo | Sigue a Cony; bufa cuando hay infectados cerca (aviso). No pelea, no muere. |
+| Puertas | Fundido corto entre salas (oculta la carga). Algunas piden llave. |
 
-## 5. Enemigos
+## 7. Enemigos y daño
 
 | Enemigo | Comportamiento |
 | --- | --- |
-| Infectado | Lento, agarra y muerde. Puede hacerse el muerto y levantarse. |
-| Infectado grande (jefe cap. 1) | Lento, mucha vida, golpe fuerte. Bloquea el montacargas. |
+| Infectado | Camina lento hacia Cony, la agarra y muerde. Algunos están en el suelo haciéndose los muertos. |
+| Infectado rápido (cap. 2) | Corre a ráfagas cortas. |
 
-## 6. Capítulo 1 — estructura de salas
+**Respuesta al daño (lo que se ve y se siente):**
+- Impacto: salpicadura de sangre oscura (partículas pequeñas), el infectado se
+  tambalea hacia atrás, sonido seco.
+- Muerte: cae de rodillas y al suelo; queda una mancha en el piso.
+- Cony herida: pantalla con borde rojo breve, vibración del teléfono, cojea en Peligro.
 
-Cada zona = 3–6 salas cortas. Primer objetivo: **la estación** (rebanada vertical).
+## 8. Estructura de salas
 
-### Zona 1: Estación de Paine
-1. Andén (inicio, Leo, primera nota).
-2. Sala de espera (máquina de escribir, primer infectado).
-3. Boletería (llave del portón).
-4. Callejón lateral (salida hacia la vía).
+Regla: **cada sala cabe en 1–3 cámaras** y está cerrada por todos lados.
 
-### Zona 2: Accidente del tren
-1. Vía con el convoy volcado (cinemática de entrada).
-2. Interior de un vagón (ítems, infectado escondido).
-3. Patio del desvío (escopeta junto a la camioneta).
+### Capítulo 1 — Estación de Paine
+1. **Andén norte** — inicio. Leo, primera nota. Vía bloqueada por rejas.
+2. **Sala de espera** — máquina de escribir, primer infectado.
+3. **Boletería** — pistola + munición, nota del boletero.
+4. **Pasillo de servicio** — infectado haciéndose el muerto.
+5. **Bodega** — llave del portón.
+6. **Andén sur / portón a la vía** — sale del capítulo.
 
-### Zona 3: Fábrica
-1. Portón principal (bloqueado).
-2. Patio de carga (ballesta, caseta del guardia con llave).
-3. Sala de máquinas (máquina de escribir).
+### Capítulo 2 — Las vías
+1. **Vía con el tren descarrilado** — se ve el convoy volcado; el paso está cortado por los vagones.
+2. **Interior del vagón** — se atraviesa por dentro (pasillo estrecho, asientos), escopeta.
+3. **Costado del convoy** — infectados entre los vagones.
+4. **Paso bajo nivel** — túnel corto, apagón (solo la linterna).
+5. **Casa de cambios de vía** — máquina de escribir, nota del maquinista.
+6. **Salida por la vía** — fin del capítulo 2.
 
-### Zona 4: Mina
-1. Acceso minero.
-2. Túnel con rieles (apagón y emboscada).
-3. Sala de acopio.
-4. Montacargas (jefe) → fin del capítulo 1.
+## 9. Estilo visual
 
-## 7. Estilo visual
+Ver `docs/ART_PIPELINE.md` (texturas, variación sin repetición visible, sin huecos negros).
 
-- Look PS1: texturas de baja resolución con filtro *nearest*, filtro de pantalla con
-  color de 15 bits y tramado, niebla densa, iluminación de sodio cálida.
-- Modelos low-poly (Quaternius, packs PSX).
-- Interfaz sobria estilo RE (fuente serif/mono, paneles oscuros).
-
-## 8. Técnico
+## 10. Técnico
 
 - **Motor:** Godot 4.7.2 (renderer *Compatibility*, Android).
-- **Resolución interna:** 3D renderizado a baja resolución y escalado (look PS1 + rendimiento).
-- **Presupuesto por sala:** ≤ 30k triángulos visibles, ≤ 4 luces dinámicas, sombras
-  solo de la luz principal o ninguna.
+- **Presupuesto por sala:** ≤ 30k triángulos visibles, ≤ 4 luces dinámicas.
 - Ver `docs/ARCHITECTURE.md` para la organización del código.
 
-## 9. Fuera de alcance (por ahora)
+## 11. Fuera de alcance (por ahora)
 
-- Multijugador, mundo abierto, salto/plataformas, crafting.
+- Cuerpo a cuerpo, cambio rápido de armas, salto, mundo abierto, multijugador.
+- Cinemática del choque del tren (el tren ya está destruido cuando llegan).

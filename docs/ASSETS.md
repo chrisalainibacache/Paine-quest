@@ -11,11 +11,11 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Asset | Estado | Origen / nota |
 | --- | --- | --- |
 | Cony (modelo con rig Mixamo) | ⚠️ | `models/Erika_Walking.fbx` + `psx_character/`. Revisar cuál es la versión final. |
-| Animaciones de Cony: idle, caminar, correr, golpe x3, apuntar, disparar, recibir daño, morir | ⚠️ | `animations/` (Mixamo + UAL2). Falta apuntar/disparar/morir. |
-| Leo (gato) | ✅ | `cat/` (Quaternius Cat). |
+| Animaciones de Cony: idle, caminar, correr, apuntar pistola, disparar, recargar, recibir daño, morir | ⚠️ | `animations/` (Mixamo + UAL2). Falta apuntar/disparar/recargar/morir (Mixamo las tiene gratis). |
+| Leo (gatita) | ✅ | `cat/` (Quaternius Cat). |
 | Infectado (modelo + rig) | ⚠️ | `characters_psx_v72/` (Character_Killer). |
 | Animaciones infectado: idle, caminar, atacar/morder, recibir daño, morir, levantarse | ⚠️ | `animations/combat/UAL2_Standard.glb`. Revisar si están todas. |
-| Infectado grande (jefe) | ⚠️ | Mismo modelo escalado; ideal un modelo propio. |
+| Infectado rápido (cap. 2) | ⚠️ | Mismo rig con otra textura y animación de correr. |
 
 ## Escenarios (kits modulares)
 
@@ -24,15 +24,15 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Estación (andén, muros, techos, bancas) | ⚠️ | `psx_buildings/`, `railway/`, `railway_v69/`, `signs/`. |
 | Tren y vagones | ✅ | `railway_v69/` (locomotora, vagones b y c, vías). |
 | Calle/callejón (vehículos, barreras, conos) | ✅ | `urban_apocalypse/`, `atomic_realm_post_apocalyptic/`. |
-| Fábrica | ❌ | Falta kit industrial (muros metálicos, portones, tuberías). |
-| Mina | ✅ | `mine_pack/`, `mine_v71/`. |
+| Interior de vagón | ⚠️ | Se arma con el kit modular + asientos de `railway_v69/`. |
+| Paso bajo nivel / casa de cambios | ⚠️ | Kit modular de concreto + props. |
 | Texturas PS1 (concreto, grafiti, grava, metal) | ✅ | `textures/`, `materials/`. |
 
 ## Armas e ítems
 
 | Asset | Estado | Origen / nota |
 | --- | --- | --- |
-| Modelos de armas (espada, pistola, escopeta, ballesta) | ⚠️ | `weapons/`. |
+| Modelos de armas (pistola, escopeta) | ⚠️ | `weapons/`. |
 | Íconos de inventario | ✅ | `inventory/` (+ íconos vectoriales hechos en código). |
 | Llaves, notas, comida | ⚠️ | Íconos sí; modelos 3D simples por hacer. |
 
