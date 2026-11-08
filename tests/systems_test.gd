@@ -100,6 +100,19 @@ func _backpack_menu(player: Player) -> void:
     menu._use_selected()
     _check(player.health == 50 + SUSHI.heal_amount and GameState.inventory.count_of(SUSHI) == 0,
         "comer sushi cura (vida: %d) y lo gasta" % player.health)
+    # Leer una nota desde NOTAS: mientras está abierta, los toques no llegan
+    # a la mochila de abajo (antes la nota se volvía a abrir sola).
+    menu._show_tab(true)
+    await _frames(2)
+    var note_button := menu.notes_list.get_child(0) as Button
+    note_button.pressed.emit()
+    await _frames(2)
+    var blocker: Control = main.get_node("Dialogue/Blocker")
+    _check(main.get_node("Dialogue/Reader").visible and blocker.visible and blocker.mouse_filter == Control.MOUSE_FILTER_STOP,
+        "la nota se lee desde NOTAS y bloquea los toques a la mochila")
+    await _close_dialogues()
+    _check(not Dialogue.is_open() and paused and menu.visible, "al cerrar la nota se vuelve a la mochila")
+    menu._show_tab(false)
     menu.select(0)
     menu._examine_selected()
     _check(menu.examine.visible, "EXAMINAR muestra el ítem en grande")

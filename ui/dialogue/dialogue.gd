@@ -14,6 +14,7 @@ const INPUT_GRACE := 0.18
 
 static var _instance: Dialogue
 
+@onready var blocker: Control = $Blocker
 @onready var box: Control = $Box
 @onready var text: Label = $Box/Margin/Text
 @onready var next_mark: Label = $Box/Next
@@ -36,6 +37,7 @@ func _ready() -> void:
     box.visible = false
     choices.visible = false
     reader.visible = false
+    blocker.visible = false
 
 
 static func is_open() -> bool:
@@ -125,12 +127,21 @@ func _begin() -> void:
         _paused_before = get_tree().paused
         get_tree().paused = true
     _depth += 1
+    blocker.visible = true
 
 
 func _end() -> void:
     _depth -= 1
     if _depth == 0:
         get_tree().paused = _paused_before
+        # Un cuadro después: el toque que cerró la nota no debe llegar a la mochila.
+        _hide_blocker.call_deferred()
+
+
+func _hide_blocker() -> void:
+    await get_tree().process_frame
+    if _depth == 0:
+        blocker.visible = false
 
 
 func _show_text(line: String) -> void:

@@ -98,18 +98,22 @@ func _combat_tests(player: Player, room: Room) -> void:
     Input.action_release(&"move_right")
     player.model.rotation.y = PI / 2.0
 
-    # Un infectado de pie a 4 m: el auto-apuntado lo toma y 5 tiros lo matan.
+    # Un infectado de pie a 4 m: el auto-apuntado lo toma y 7 tiros lo matan.
     var infected: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
     room.add_child(infected)
     infected.global_position = player.global_position + Vector3(4.0, 0.0, 0.0)
     await _seconds(0.4)
     _check(combat.target == infected, "el auto-apuntado elige al infectado")
     var clip_before := combat.clip
-    for i in 5:
+    var shots_to_kill := ceili(float(infected.data.health) / combat.weapon.damage)
+    _check(shots_to_kill == 7, "un infectado común aguanta 7 balazos de pistola (aguanta %d)" % shots_to_kill)
+    for i in shots_to_kill:
+        if i == shots_to_kill - 1:
+            _check(infected.is_alive(), "con %d balazos todavía sigue en pie" % i)
         await _tap(&"fire")
         await _seconds(0.5)
-    _check(combat.clip == clip_before - 5, "cada disparo gasta una bala (%d -> %d)" % [clip_before, combat.clip])
-    _check(not infected.is_alive(), "5 tiros de pistola matan al infectado (vida: %d)" % infected.health)
+    _check(combat.clip == clip_before - shots_to_kill, "cada disparo gasta una bala (%d -> %d)" % [clip_before, combat.clip])
+    _check(not infected.is_alive(), "%d tiros de pistola matan al infectado (vida: %d)" % [shots_to_kill, infected.health])
     await _seconds(0.3)
     _check(combat.target == null, "al morir, deja de ser blanco")
 

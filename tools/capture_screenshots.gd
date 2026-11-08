@@ -39,7 +39,7 @@ func _run() -> void:
     Input.action_press(&"aim")
     await _wait(0.8)
     _shot("05_apuntando")
-    for i in 5:
+    for i in 7:
         Input.action_press(&"fire")
         await _wait(0.05)
         if i == 0:
