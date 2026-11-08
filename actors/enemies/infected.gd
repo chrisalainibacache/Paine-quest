@@ -39,6 +39,11 @@ func _ready() -> void:
     health = data.health
     model = data.model_scene.instantiate() as Node3D
     model.name = "Model"
+    # El giro con que se colocó en la sala pasa al modelo: así el cuerpo queda
+    # sin rotar y "hacia adelante" del modelo coincide con el avance global
+    # (si no, un infectado girado en el editor camina de espaldas).
+    model.rotation.y = global_rotation.y
+    global_rotation = Vector3.ZERO
     add_child(model)
     Player._make_textures_crisp(model)
     _anim = AnimationPlayer.new()

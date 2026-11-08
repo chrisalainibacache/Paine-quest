@@ -152,6 +152,22 @@ func _combat_tests(player: Player, room: Room) -> void:
     _check(liar.state == Infected.State.RISING, "el que se hace el muerto se levanta al acercarse")
     liar.free()
 
+    # Un infectado colocado girado en la sala camina de frente hacia Cony.
+    var turned: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
+    turned.rotation.y = 2.2
+    room.add_child(turned)
+    turned.global_position = player.global_position + Vector3(3.5, 0.0, 0.0)
+    await _frames(2)
+    turned._enter(Infected.State.CHASE)
+    var gap_before := turned.global_position.distance_to(player.global_position)
+    await _seconds(1.2)
+    var to_player := player.global_position - turned.global_position
+    to_player.y = 0.0
+    _check(turned.global_position.distance_to(player.global_position) < gap_before - 0.3,
+        "el infectado girado se acerca a Cony")
+    _check(turned._forward().dot(to_player.normalized()) > 0.9, "y la mira de frente (no camina de espaldas)")
+    turned.free()
+
     # Muerte de Cony y pantalla de reintentar.
     player.take_damage(1000, player.global_position + Vector3.RIGHT)
     _check(not player.is_alive(), "Cony muere con daño suficiente")

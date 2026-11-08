@@ -53,7 +53,7 @@ func _draw() -> void:
     draw_circle(center, radius, Color(color, 0.32 if pressed else 0.14))
     draw_arc(center, radius, 0.0, TAU, 48, Color(color, 0.7), 3.0)
     var font := get_theme_default_font()
-    var font_size := 20
+    var font_size := int(clampf(radius * 0.3, 14.0, 22.0))
     var text_size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size)
     draw_string(font, center + Vector2(-text_size.x * 0.5, text_size.y * 0.3), label,
         HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, Color(color, 0.9))
