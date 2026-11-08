@@ -21,6 +21,12 @@ Antes de trabajar, lee `docs/GDD.md` (diseño), `docs/ARCHITECTURE.md` (código)
 - Scripts de más de ~300 líneas se dividen.
 - `class_name` solo en clases base reutilizables.
 
+## Cómo se arman las salas
+- Las salas se generan con `tools/level_gen/` (ver su README): editar el `.py` y
+  regenerar, no el `.tscn` a mano. Salas nuevas con `roomkit.Kit`.
+- Revisar el arte con `tools/capture_rooms.gd` (necesita xvfb).
+
 ## Verificación antes de cada commit
-- Ejecutar las pruebas headless de `tests/` (ver `tests/README.md` cuando exista).
+- Ejecutar las 3 pruebas headless: `tests/smoke_test.gd`, `tests/systems_test.gd`,
+  `tests/levels_test.gd` (las mismas que corre GitHub antes de publicar el APK).
 - No subir archivos de `.godot/` ni builds.

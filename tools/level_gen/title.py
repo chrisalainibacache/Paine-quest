@@ -1,0 +1,27 @@
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
+from tscn import *
+s = Scene()
+s.node("TitleScreen", "Control", script=s.res("res://ui/title/title_screen.gd", "Script"), anchors_preset="15", anchor_right="1.0",
+       anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2")
+s.node("Background", "ColorRect", ".", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2",
+       color=col((0.02, 0.018, 0.02)))
+s.node("Title", "Label", ".", anchors_preset="5", anchor_left="0.5", anchor_right="0.5", grow_horizontal="2",
+       offset_left="-500.0", offset_top="120.0", offset_right="500.0", offset_bottom="260.0", horizontal_alignment="1",
+       text='"P A I N E"', theme_override_font_sizes_font_size="110", theme_override_colors_font_color=col((0.62, 0.08, 0.06)),
+       theme_override_colors_font_shadow_color=col((0, 0, 0, 1)), theme_override_constants_shadow_offset_x="4", theme_override_constants_shadow_offset_y="4")
+s.node("Subtitle", "Label", ".", anchors_preset="5", anchor_left="0.5", anchor_right="0.5", grow_horizontal="2",
+       offset_left="-500.0", offset_top="262.0", offset_right="500.0", offset_bottom="300.0", horizontal_alignment="1",
+       text='"Capítulo 1 · La estación"', theme_override_font_sizes_font_size="28", theme_override_colors_font_color=col((0.6, 0.57, 0.5)))
+s.node("Menu", "VBoxContainer", ".", anchors_preset="5", anchor_left="0.5", anchor_right="0.5", grow_horizontal="2",
+       offset_left="-180.0", offset_top="380.0", offset_right="180.0", offset_bottom="560.0", theme_override_constants_separation="18")
+for name, text in [("NewGame", "NUEVA PARTIDA"), ("Continue", "CONTINUAR")]:
+    s.node(name, "Button", "Menu", custom_minimum_size="Vector2(0, 76)", text='"%s"' % text, theme_override_font_sizes_font_size="30",
+           focus_mode="0")
+s.node("Credits", "Label", ".", anchors_preset="3", anchor_left="1.0", anchor_top="1.0", anchor_right="1.0", anchor_bottom="1.0",
+       grow_horizontal="0", grow_vertical="0", offset_left="-520.0", offset_top="-50.0", offset_right="-24.0", offset_bottom="-16.0",
+       horizontal_alignment="2", text='"Cony y Leo · Paine, Chile"', theme_override_font_sizes_font_size="18",
+       theme_override_colors_font_color=col((0.4, 0.38, 0.34)))
+s.node("Filter", None, ".", instance=s.res("res://ui/ps1_filter.tscn", "PackedScene"))
+s.save(REPO + "/ui/title/title_screen.tscn")
+print("title ok")
