@@ -1,0 +1,12 @@
+# Godot
+.godot/
+*.translation
+.import/
+export_credentials.cfg
+*.tmp
+*.bak
+
+# Builds
+build/
+*.apk
+*.aab

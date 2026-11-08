@@ -1,0 +1,15 @@
+# Texto con fin de línea Unix
+* text=auto eol=lf
+
+# Binarios (sin LFS por ahora: las apps git de Android no lo soportan bien;
+# se revisa si los assets pasan de ~300 MB)
+*.glb binary
+*.gltf binary
+*.bin binary
+*.fbx binary
+*.png binary
+*.jpg binary
+*.ogg binary
+*.wav binary
+*.ttf binary
+*.otf binary
