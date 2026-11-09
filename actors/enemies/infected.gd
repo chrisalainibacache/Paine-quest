@@ -164,7 +164,7 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
                 continue
             var target_bone: String = UAL_TO_HUMANOID_BONES.get(source_bone, source_bone)
             if skeleton.find_bone(target_bone) < 0:
-                push_warning("Animación %s: el hueso %s no existe en %s." % [anim_name, source_bone, data.display_name])
+                # Algunos modelos no incluyen falanges opcionales; se omiten.
                 continue
             animation.track_set_path(track, NodePath("%s:%s" % [skeleton_path, target_bone]))
             mapped_tracks += 1
