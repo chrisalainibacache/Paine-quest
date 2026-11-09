@@ -153,8 +153,12 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
     var mapped_tracks := 0
     for anim_name: StringName in library.get_animation_list():
         var animation := library.get_animation(anim_name)
+        if anim_name == &"Zombie_Walk_Fwd":
+            print("ZOMBIE_WALK_TRACK_COUNT: ", animation.get_track_count())
         for track in animation.get_track_count():
             var source_path := animation.track_get_path(track)
+            if anim_name == &"Zombie_Walk_Fwd":
+                print("ZOMBIE_WALK_TRACK: ", str(source_path), " names=", source_path.get_name_count(), " subnames=", source_path.get_subname_count())
             if not str(source_path).contains("Skeleton3D") or source_path.get_subname_count() == 0:
                 continue
             var source_bone := String(source_path.get_subname(0))
