@@ -228,13 +228,20 @@ func _fill_notes() -> void:
         return
     for path in GameState.documents:
         var document := load(path) as DocumentData
+        if document == null or document.pages.is_empty():
+            push_warning("No se pudo cargar la nota guardada: %s" % path)
+            continue
         var button := Button.new()
         button.text = document.title
         button.alignment = HORIZONTAL_ALIGNMENT_LEFT
         button.custom_minimum_size = Vector2(0, 64)
         button.add_theme_font_size_override("font_size", 26)
-        button.pressed.connect(func() -> void: Dialogue.read(document))
+        button.pressed.connect(_open_document.bind(document))
         notes_list.add_child(button)
+
+
+func _open_document(document: DocumentData) -> void:
+    Dialogue.read(document)
 
 
 func _first_filled() -> int:

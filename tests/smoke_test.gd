@@ -61,6 +61,16 @@ func _run() -> void:
     _check(room.get_active_camera() != first_camera, "corte de cámara al cruzar al lado este")
     _check(room.get_active_camera() == root.get_viewport().get_camera_3d(), "la cámara activa es la que se ve")
 
+    # Incluso si la física todavía no registró ninguna zona, siempre hay cámara.
+    var position_before_fallback := player.global_position
+    player.global_position = Vector3(100.0, 0.05, 100.0)
+    room.pick_camera_for(player)
+    _check(room.get_active_camera() != null, "hay cámara de respaldo si Cony aparece fuera de las zonas")
+    _check(room.get_active_camera() == root.get_viewport().get_camera_3d(), "la cámara de respaldo queda activa en el viewport")
+    player.global_position = position_before_fallback
+    room.pick_camera_for(player)
+    await _frames(2)
+
     # Cony no puede caer a la vía.
     player.global_position = Vector3(0.0, 0.05, -0.4)
     var cam_basis := Player._flat_basis(room.get_active_camera().global_basis)
@@ -94,6 +104,15 @@ func _combat_tests(player: Player, room: Room) -> void:
     await _seconds(0.5)
     _check(combat.aiming, "mantener APUNTAR activa la puntería")
     _check(player.get_current_animation() == "Pistol_Aim_Neutral", "pose de apuntar (está: %s)" % player.get_current_animation())
+    var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
+    _check(skeleton != null and skeleton.find_bone("RightHand") >= 0,
+        "el modelo de Cony tiene el hueso RightHand")
+    _check(combat._pistol != null, "la escena de la pistola queda montada en la mano")
+    if combat._pistol != null:
+        var attachment := combat._pistol.get_parent() as BoneAttachment3D
+        _check(attachment != null and attachment.bone_name == "RightHand",
+            "la pistola se ancla al hueso correcto")
+        _check(combat._pistol.visible, "la pistola se muestra al apuntar")
     _check(player.global_position.distance_to(before) < 0.05, "apuntando no camina")
     Input.action_release(&"move_right")
     player.model.rotation.y = PI / 2.0
@@ -104,9 +123,72 @@ func _combat_tests(player: Player, room: Room) -> void:
     infected.global_position = player.global_position + Vector3(4.0, 0.0, 0.0)
     await _seconds(0.4)
     _check(combat.target == infected, "el auto-apuntado elige al infectado")
+    var zombie_skeleton := infected._find_model_skeleton(infected.model)
+    var walk_animation := infected._anim.get_animation("z/Zombie_Walk_Fwd")
+    var left_arm_mapped := false
+    var right_arm_mapped := false
+    var mapped_bones := 0
+    if zombie_skeleton:
+        for track in walk_animation.get_track_count():
+            var track_path := walk_animation.track_get_path(track)
+            if track_path.get_subname_count() == 0:
+                continue
+            var bone_name := String(track_path.get_subname(0))
+            if zombie_skeleton.find_bone(bone_name) < 0:
+                continue
+            mapped_bones += 1
+            left_arm_mapped = left_arm_mapped or bone_name == "LeftUpperArm"
+            right_arm_mapped = right_arm_mapped or bone_name == "RightUpperArm"
+    _check(zombie_skeleton != null and mapped_bones > 0,
+        "la animación de caminar está vinculada al esqueleto del modelo")
+    _check(left_arm_mapped and right_arm_mapped,
+        "la animación de caminar incluye ambos brazos")
+    if zombie_skeleton and left_arm_mapped and right_arm_mapped:
+        infected._enter(Infected.State.CHASE)
+        infected._anim.speed_scale = 1.0
+        infected._anim.play("z/Zombie_Walk_Fwd")
+        await _frames(1)
+        var left_arm_index := zombie_skeleton.find_bone("LeftUpperArm")
+        var right_arm_index := zombie_skeleton.find_bone("RightUpperArm")
+        infected._anim.seek(0.0, true)
+        var left_start := zombie_skeleton.get_bone_pose_rotation(left_arm_index)
+        var right_start := zombie_skeleton.get_bone_pose_rotation(right_arm_index)
+        infected._anim.seek(walk_animation.length * 0.5, true)
+        var left_mid := zombie_skeleton.get_bone_pose_rotation(left_arm_index)
+        var right_mid := zombie_skeleton.get_bone_pose_rotation(right_arm_index)
+        _check(left_start.angle_to(left_mid) > 0.01,
+            "el brazo izquierdo cambia de pose durante la caminata")
+        _check(right_start.angle_to(right_mid) > 0.01,
+            "el brazo derecho cambia de pose durante la caminata")
     var clip_before := combat.clip
     var shots_to_kill := ceili(float(infected.data.health) / combat.weapon.damage)
-    _check(shots_to_kill == 7, "un infectado común aguanta 7 balazos de pistola (aguanta %d)" % shots_to_kill)
+    _check(shots_to_kill == 5, "un infectado común aguanta 5 balazos de pistola (aguanta %d)" % shots_to_kill)
+    var heavy_data := load("res://data/enemies/infected_heavy.tres") as EnemyData
+    _check(ceili(float(heavy_data.health) / combat.weapon.damage) == 7,
+        "un infectado pesado aguanta 7 balazos de pistola")
+    for variant_name in ["infected_burnt", "infected_pale", "infected_worker"]:
+        var variant_data := load("res://data/enemies/%s.tres" % variant_name) as EnemyData
+        _check(ceili(float(variant_data.health) / combat.weapon.damage) == 5,
+            "%s aguanta 5 balazos" % variant_data.display_name)
+        var variant := (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate() as Infected
+        variant.data = variant_data
+        room.add_child(variant)
+        await _frames(2)
+        var variant_skeleton := variant._find_model_skeleton(variant.model)
+        var variant_walk := variant._anim.get_animation("z/Zombie_Walk_Fwd")
+        var variant_left := false
+        var variant_right := false
+        for track in variant_walk.get_track_count():
+            var path := variant_walk.track_get_path(track)
+            if path.get_subname_count() == 0:
+                continue
+            var bone := String(path.get_subname(0))
+            if variant_skeleton and variant_skeleton.find_bone(bone) >= 0:
+                variant_left = variant_left or bone == "LeftUpperArm"
+                variant_right = variant_right or bone == "RightUpperArm"
+        _check(variant_skeleton != null and variant_left and variant_right,
+            "%s tiene ambos brazos animados" % variant_data.display_name)
+        variant.free()
     for i in shots_to_kill:
         if i == shots_to_kill - 1:
             _check(infected.is_alive(), "con %d balazos todavía sigue en pie" % i)

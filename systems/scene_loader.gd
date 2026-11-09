@@ -106,6 +106,9 @@ func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool)
     player.velocity = Vector3.ZERO
     player.reset_motion()
     room.camera_changed.connect(player.set_camera)
+    # Selección inmediata con la geometría del spawn; _settle la confirma
+    # de nuevo después de que el servidor de física actualice las áreas.
+    room.pick_camera_for(player)
 
     var forward := Vector3(sin(yaw), 0.0, cos(yaw))
     var right := Vector3(cos(yaw), 0.0, -sin(yaw))

@@ -57,8 +57,16 @@ func _emit_ammo() -> void:
 
 func _attach_pistol() -> void:
     var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
+    if skeleton == null:
+        push_warning("No se encontró GeneralSkeleton para montar la pistola.")
+        return
+    const RIGHT_HAND_BONE := "RightHand"
+    if skeleton.find_bone(RIGHT_HAND_BONE) < 0:
+        push_warning("El esqueleto no tiene el hueso %s." % RIGHT_HAND_BONE)
+        return
     var hand := BoneAttachment3D.new()
-    hand.bone_name = "RightHand"
+    hand.name = "PistolHandAttachment"
+    hand.bone_name = RIGHT_HAND_BONE
     skeleton.add_child(hand)
     _pistol = PISTOL_SCENE.instantiate()
     hand.add_child(_pistol)

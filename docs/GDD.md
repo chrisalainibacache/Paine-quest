@@ -63,7 +63,7 @@ desde la mochila; recoger un arma nueva pregunta si equiparla.
 
 | Arma | Capítulo | Munición | Rol |
 | --- | --- | --- | --- |
-| Pistola | 1 | Balas 9 mm | Arma base. Cargador de 10, 7 tiros por infectado común (11 el pesado). |
+| Pistola | 1 | Balas 9 mm | Arma base. Cargador de 10, 5 tiros por infectado común (7 el pesado). |
 | Escopeta | 2 | Cartuchos | Escasa, derriba de un tiro a corta distancia. |
 
 Recarga automática al vaciar el cargador (animación corta). Sin munición: Cony hace
@@ -109,10 +109,10 @@ Cony empieza **sin arma**. Recorrido:
 | 2 | Sala de espera (`waiting_room`) | Máquina de escribir. Un infectado come junto a la máquina de bebidas: se puede pasar por el lado este sin despertarlo. Aviso de la estación (pistola en la boletería, llave en la bodega). |
 | 3 | Boletería (`ticket_office`) | Sala segura. **Pistola cargada** + 15 balas en el escritorio del guardia, libro de la boletería. |
 | 4 | Pasillo de servicio (`service_corridor`) | 3 cámaras, luz que parpadea. Un cadáver de verdad (Leo no le bufa), uno haciéndose el muerto (Leo sí) y uno de espaldas. Handroll y balas. |
-| 5 | Bodega (`storeroom`) | El guardia convertido (infectado pesado, 11 balazos). **Llave del portón** y diario del jefe de estación sobre la mesa. |
+| 5 | Bodega (`storeroom`) | El guardia convertido (infectado pesado, 7 balazos). **Llave del portón** y diario del jefe de estación sobre la mesa. |
 | 6 | Andén sur (`south_platform`) | Por el portón del andén norte. Infectados, carro de equipaje, túnel con resplandor rojo. **Bajar a la vía** cierra el capítulo (pantalla de fin). |
 
-Munición del capítulo: 10 (cargador) + 75 en cajas; hacen falta ~60 balazos para matar a todos.
+Munición del capítulo: 10 (cargador) + 75 en cajas. La resistencia queda en 5 disparos para infectados comunes y 7 para el pesado, dejando margen para fallar tiros.
 
 ### Capítulo 2 — Las vías
 1. **Vía con el tren descarrilado** — se ve el convoy volcado; el paso está cortado por los vagones.

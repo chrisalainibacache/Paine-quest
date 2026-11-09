@@ -2,31 +2,109 @@
 
 [ext_resource type="Script" path="res://actors/player/pistol.gd" id="1_pistol"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
-albedo_color = Color(0.12, 0.12, 0.13, 1)
-roughness = 0.5
-metallic = 0.6
+[sub_resource type="StandardMaterial3D" id="Steel"]
+albedo_color = Color(0.105, 0.115, 0.125, 1)
+roughness = 0.42
+metallic = 0.72
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
-albedo_color = Color(0.07, 0.06, 0.05, 1)
-roughness = 0.9
+[sub_resource type="StandardMaterial3D" id="SteelEdge"]
+albedo_color = Color(0.22, 0.23, 0.22, 1)
+roughness = 0.34
+metallic = 0.78
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
-shading_mode = 0
-albedo_color = Color(1, 0.8, 0.35, 1)
-billboard_mode = 1
+[sub_resource type="StandardMaterial3D" id="Polymer"]
+albedo_color = Color(0.055, 0.047, 0.04, 1)
+roughness = 0.92
 
-[sub_resource type="BoxMesh" id="BoxMesh_4"]
-size = Vector3(0.03, 0.035, 0.19)
+[sub_resource type="StandardMaterial3D" id="GripInset"]
+albedo_color = Color(0.09, 0.075, 0.06, 1)
+roughness = 1.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_5"]
-size = Vector3(0.028, 0.1, 0.045)
+[sub_resource type="StandardMaterial3D" id="Recess"]
+albedo_color = Color(0.018, 0.02, 0.023, 1)
+roughness = 0.85
+metallic = 0.25
 
-[sub_resource type="BoxMesh" id="BoxMesh_6"]
-size = Vector3(0.012, 0.025, 0.05)
+[sub_resource type="Shader" id="MuzzleFlashShader"]
+code = "shader_type spatial;\nrender_mode unshaded, cull_disabled, blend_add, depth_draw_never;\n\nvoid fragment() {\n    vec2 p = UV * 2.0 - vec2(1.0);\n    float radius = length(p);\n    float angle = atan(p.y, p.x);\n    float rays = 0.5 + 0.5 * cos(angle * 4.0);\n    float edge = 0.32 + 0.58 * pow(rays, 5.0);\n    float alpha = 1.0 - smoothstep(edge - 0.06, edge + 0.03, radius);\n    float core = 1.0 - smoothstep(0.0, 0.75, radius);\n    vec3 orange = vec3(1.0, 0.18, 0.015);\n    vec3 hot = vec3(1.0, 0.88, 0.54);\n    ALBEDO = mix(orange, hot, core);\n    EMISSION = ALBEDO * 3.2;\n    ALPHA = alpha;\n}"
 
-[sub_resource type="QuadMesh" id="QuadMesh_7"]
-size = Vector2(0.18, 0.18)
+[sub_resource type="ShaderMaterial" id="MuzzleOuter"]
+shader = SubResource("MuzzleFlashShader")
+
+[sub_resource type="Shader" id="MuzzleCoreShader"]
+code = "shader_type spatial;\nrender_mode unshaded, cull_disabled, blend_add, depth_draw_never;\n\nvoid fragment() {\n    vec2 p = UV * 2.0 - vec2(1.0);\n    float radius = length(p);\n    float alpha = 1.0 - smoothstep(0.48, 1.0, radius);\n    float hot = 1.0 - smoothstep(0.0, 0.82, radius);\n    ALBEDO = mix(vec3(1.0, 0.34, 0.025), vec3(1.0, 0.96, 0.72), hot);\n    EMISSION = ALBEDO * 4.0;\n    ALPHA = alpha;\n}"
+
+[sub_resource type="ShaderMaterial" id="MuzzleCore"]
+shader = SubResource("MuzzleCoreShader")
+
+[sub_resource type="BoxMesh" id="SlideMesh"]
+size = Vector3(0.034, 0.038, 0.205)
+
+[sub_resource type="BoxMesh" id="FrameMesh"]
+size = Vector3(0.031, 0.018, 0.145)
+
+[sub_resource type="BoxMesh" id="HandleMesh"]
+size = Vector3(0.03, 0.105, 0.052)
+
+[sub_resource type="BoxMesh" id="GripPanelMesh"]
+size = Vector3(0.006, 0.078, 0.043)
+
+[sub_resource type="BoxMesh" id="GripRibMesh"]
+size = Vector3(0.0025, 0.0035, 0.037)
+
+[sub_resource type="BoxMesh" id="SightMesh"]
+size = Vector3(0.012, 0.009, 0.018)
+
+[sub_resource type="BoxMesh" id="PortMesh"]
+size = Vector3(0.002, 0.012, 0.055)
+
+[sub_resource type="BoxMesh" id="SlideGrooveMesh"]
+size = Vector3(0.002, 0.024, 0.003)
+
+[sub_resource type="BoxMesh" id="GuardTopMesh"]
+size = Vector3(0.012, 0.004, 0.052)
+
+[sub_resource type="BoxMesh" id="GuardLegMesh"]
+size = Vector3(0.012, 0.031, 0.004)
+
+[sub_resource type="BoxMesh" id="TriggerMesh"]
+size = Vector3(0.006, 0.023, 0.007)
+
+[sub_resource type="BoxMesh" id="ControlMesh"]
+size = Vector3(0.004, 0.009, 0.024)
+
+[sub_resource type="BoxMesh" id="MagazineBaseMesh"]
+size = Vector3(0.033, 0.012, 0.058)
+
+[sub_resource type="CylinderMesh" id="BarrelMesh"]
+top_radius = 0.009
+bottom_radius = 0.009
+height = 0.12
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="MuzzleRingMesh"]
+top_radius = 0.013
+bottom_radius = 0.013
+height = 0.012
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="BoreMesh"]
+top_radius = 0.0065
+bottom_radius = 0.0065
+height = 0.002
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="PinMesh"]
+top_radius = 0.0038
+bottom_radius = 0.0038
+height = 0.0025
+radial_segments = 8
+
+[sub_resource type="QuadMesh" id="FlashMesh"]
+size = Vector2(0.13, 0.095)
+
+[sub_resource type="QuadMesh" id="CoreMesh"]
+size = Vector2(0.065, 0.052)
 
 [node name="Pistol" type="Node3D"]
 script = ExtResource("1_pistol")
@@ -35,34 +113,252 @@ script = ExtResource("1_pistol")
 position = Vector3(0.022, 0.045, 0)
 rotation = Vector3(-1.3828, -1.732, 0.1165)
 
+[node name="Frame" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, 0.025, 0.018)
+mesh = SubResource("FrameMesh")
+material_override = SubResource("Steel")
+cast_shadow = 0
+
 [node name="Slide" type="MeshInstance3D" parent="Grip"]
-position = Vector3(0, 0.05, 0.05)
-mesh = SubResource("BoxMesh_4")
-material_override = SubResource("StandardMaterial3D_1")
+position = Vector3(0, 0.05, 0.045)
+mesh = SubResource("SlideMesh")
+material_override = SubResource("Steel")
+cast_shadow = 0
+
+[node name="SlideGrooveL1" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0175, 0.05, -0.025)
+mesh = SubResource("SlideGrooveMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="SlideGrooveL2" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0175, 0.05, -0.014)
+mesh = SubResource("SlideGrooveMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="SlideGrooveL3" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0175, 0.05, -0.003)
+mesh = SubResource("SlideGrooveMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="SlideGrooveL4" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0175, 0.05, 0.008)
+mesh = SubResource("SlideGrooveMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="SlideGrooveR1" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0175, 0.05, -0.025)
+mesh = SubResource("SlideGrooveMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="SlideGrooveR2" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0175, 0.05, -0.014)
+mesh = SubResource("SlideGrooveMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="SlideGrooveR3" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0175, 0.05, -0.003)
+mesh = SubResource("SlideGrooveMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="SlideGrooveR4" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0175, 0.05, 0.008)
+mesh = SubResource("SlideGrooveMesh")
+material_override = SubResource("Recess")
 cast_shadow = 0
 
 [node name="Handle" type="MeshInstance3D" parent="Grip"]
-position = Vector3(0, -0.01, -0.01)
+position = Vector3(0, -0.012, -0.015)
 rotation = Vector3(0.3, 0, 0)
-mesh = SubResource("BoxMesh_5")
-material_override = SubResource("StandardMaterial3D_2")
+mesh = SubResource("HandleMesh")
+material_override = SubResource("Polymer")
 cast_shadow = 0
 
-[node name="Guard" type="MeshInstance3D" parent="Grip"]
-position = Vector3(0, 0.015, 0.035)
-mesh = SubResource("BoxMesh_6")
-material_override = SubResource("StandardMaterial3D_1")
+[node name="GripPanelLeft" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.018, -0.012, -0.015)
+mesh = SubResource("GripPanelMesh")
+material_override = SubResource("GripInset")
+cast_shadow = 0
+
+[node name="GripPanelRight" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.018, -0.012, -0.015)
+mesh = SubResource("GripPanelMesh")
+material_override = SubResource("GripInset")
+cast_shadow = 0
+
+[node name="GripRibL1" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0212, -0.043, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibL2" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0212, -0.032, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibL3" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0212, -0.021, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibL4" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0212, -0.01, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibL5" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.0212, 0.001, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibR1" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0212, -0.043, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibR2" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0212, -0.032, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibR3" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0212, -0.021, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibR4" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0212, -0.01, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="GripRibR5" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.0212, 0.001, -0.015)
+mesh = SubResource("GripRibMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="MagazineBase" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, -0.067, -0.015)
+mesh = SubResource("MagazineBaseMesh")
+material_override = SubResource("Steel")
+cast_shadow = 0
+
+[node name="Barrel" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, 0.05, 0.145)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("BarrelMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="MuzzleRing" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, 0.05, 0.205)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("MuzzleRingMesh")
+material_override = SubResource("Steel")
+cast_shadow = 0
+
+[node name="Bore" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, 0.05, 0.212)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("BoreMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="RearSight" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, 0.073, -0.04)
+mesh = SubResource("SightMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="FrontSight" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, 0.073, 0.125)
+mesh = SubResource("SightMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="EjectionPort" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.018, 0.052, 0.065)
+mesh = SubResource("PortMesh")
+material_override = SubResource("Recess")
+cast_shadow = 0
+
+[node name="SlideStopLeft" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.019, 0.026, 0.012)
+rotation = Vector3(0, 0, 1.5708)
+mesh = SubResource("PinMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="SlideStopRight" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0.019, 0.026, 0.012)
+rotation = Vector3(0, 0, 1.5708)
+mesh = SubResource("PinMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="Safety" type="MeshInstance3D" parent="Grip"]
+position = Vector3(-0.019, 0.036, -0.034)
+mesh = SubResource("ControlMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="TriggerGuardTop" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, 0.001, 0.03)
+mesh = SubResource("GuardTopMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="TriggerGuardFront" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, -0.014, 0.054)
+mesh = SubResource("GuardLegMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="TriggerGuardRear" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, -0.012, 0.006)
+mesh = SubResource("GuardLegMesh")
+material_override = SubResource("SteelEdge")
+cast_shadow = 0
+
+[node name="Trigger" type="MeshInstance3D" parent="Grip"]
+position = Vector3(0, -0.01, 0.03)
+rotation = Vector3(0.18, 0, 0)
+mesh = SubResource("TriggerMesh")
+material_override = SubResource("SteelEdge")
 cast_shadow = 0
 
 [node name="Muzzle" type="Node3D" parent="Grip"]
-position = Vector3(0, 0.05, 0.16)
+position = Vector3(0, 0.05, 0.215)
 
 [node name="Light" type="OmniLight3D" parent="Grip/Muzzle"]
-light_color = Color(1, 0.75, 0.4, 1)
-light_energy = 3.0
-omni_range = 4.0
+light_color = Color(1, 0.42, 0.12, 1)
+light_energy = 2.7
+omni_range = 2.8
+shadow_enabled = false
 
 [node name="Flash" type="MeshInstance3D" parent="Grip/Muzzle"]
-mesh = SubResource("QuadMesh_7")
-material_override = SubResource("StandardMaterial3D_3")
+position = Vector3(0, 0, 0.025)
+mesh = SubResource("FlashMesh")
+material_override = SubResource("MuzzleOuter")
+cast_shadow = 0
+
+[node name="Core" type="MeshInstance3D" parent="Grip/Muzzle"]
+position = Vector3(0, 0, 0.03)
+mesh = SubResource("CoreMesh")
+material_override = SubResource("MuzzleCore")
 cast_shadow = 0

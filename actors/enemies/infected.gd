@@ -13,6 +13,62 @@ const STAIN_SCENE := preload("res://levels/kit/props/stain.tscn")
 const GRAVITY := 18.0
 ## Velocidad a la que avanza la animación de caminar a ritmo normal.
 const WALK_ANIM_SPEED := 0.9
+## Correspondencia entre los nombres UAL de las animaciones y el perfil humanoide
+## usado por los modelos Mixamo de infectados.
+const UAL_TO_HUMANOID_BONES := {
+    "pelvis": "Hips",
+    "spine_01": "Spine",
+    "spine_02": "Chest",
+    "spine_03": "UpperChest",
+    "neck_01": "Neck",
+    "Head": "Head",
+    "clavicle_l": "LeftShoulder",
+    "upperarm_l": "LeftUpperArm",
+    "lowerarm_l": "LeftLowerArm",
+    "hand_l": "LeftHand",
+    "thigh_l": "LeftUpperLeg",
+    "calf_l": "LeftLowerLeg",
+    "foot_l": "LeftFoot",
+    "ball_l": "LeftToes",
+    "thumb_01_l": "LeftThumbMetacarpal",
+    "thumb_02_l": "LeftThumbProximal",
+    "thumb_03_l": "LeftThumbDistal",
+    "index_01_l": "LeftIndexProximal",
+    "index_02_l": "LeftIndexIntermediate",
+    "index_03_l": "LeftIndexDistal",
+    "middle_01_l": "LeftMiddleProximal",
+    "middle_02_l": "LeftMiddleIntermediate",
+    "middle_03_l": "LeftMiddleDistal",
+    "ring_01_l": "LeftRingProximal",
+    "ring_02_l": "LeftRingIntermediate",
+    "ring_03_l": "LeftRingDistal",
+    "pinky_01_l": "LeftLittleProximal",
+    "pinky_02_l": "LeftLittleIntermediate",
+    "pinky_03_l": "LeftLittleDistal",
+    "clavicle_r": "RightShoulder",
+    "upperarm_r": "RightUpperArm",
+    "lowerarm_r": "RightLowerArm",
+    "hand_r": "RightHand",
+    "thigh_r": "RightUpperLeg",
+    "calf_r": "RightLowerLeg",
+    "foot_r": "RightFoot",
+    "ball_r": "RightToes",
+    "thumb_01_r": "RightThumbMetacarpal",
+    "thumb_02_r": "RightThumbProximal",
+    "thumb_03_r": "RightThumbDistal",
+    "index_01_r": "RightIndexProximal",
+    "index_02_r": "RightIndexIntermediate",
+    "index_03_r": "RightIndexDistal",
+    "middle_01_r": "RightMiddleProximal",
+    "middle_02_r": "RightMiddleIntermediate",
+    "middle_03_r": "RightMiddleDistal",
+    "ring_01_r": "RightRingProximal",
+    "ring_02_r": "RightRingIntermediate",
+    "ring_03_r": "RightRingDistal",
+    "pinky_01_r": "RightLittleProximal",
+    "pinky_02_r": "RightLittleIntermediate",
+    "pinky_03_r": "RightLittleDistal",
+}
 ## Distancia a la que se levanta si estaba tirado.
 const LYING_WAKE_RANGE := 3.2
 ## Distancia a la que deja de comer.
@@ -56,7 +112,15 @@ func _ready() -> void:
     _anim.name = "AnimationPlayer"
     add_child(_anim)
     _anim.root_node = _anim.get_path_to(model)
-    _anim.add_animation_library(&"z", ANIMATIONS)
+    var skeleton := _find_model_skeleton(model)
+    if skeleton:
+        _anim.add_animation_library(&"z", _retarget_animation_library(skeleton))
+    else:
+        var model_nodes: Array[String] = []
+        for child: Node in model.find_children("*", "", true, false):
+            model_nodes.append("%s (%s)" % [str(model.get_path_to(child)), child.get_class()])
+        push_warning("El modelo %s no contiene Skeleton3D. Jerarquía: %s" % [data.display_name, str(model_nodes)])
+        _anim.add_animation_library(&"z", ANIMATIONS)
     _groan_timer = randf_range(2.0, 6.0)
     if start_state == "corpse" or GameState.has_flag(_dead_flag()):
         _lie_dead()
@@ -68,6 +132,48 @@ func _ready() -> void:
 
 
 ## Cada infectado se ve un poco distinto: tono, brillo y estatura al azar.
+
+## Busca cualquier esqueleto, aunque el importador cambie el nombre del nodo.
+func _find_model_skeleton(root_node: Node) -> Skeleton3D:
+    if root_node is Skeleton3D:
+        return root_node as Skeleton3D
+    for child: Node in root_node.get_children():
+        var found := _find_model_skeleton(child)
+        if found:
+            return found
+    return null
+
+
+## Reasigna las pistas de huesos a la ruta real del esqueleto del modelo.
+## Los clips UAL llegan desde otra escena: no se asume que su ruta Armature
+## coincida con el nodo Skeleton3D del modelo Mixamo instanciado.
+func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
+    var library := ANIMATIONS.duplicate(true) as AnimationLibrary
+    var skeleton_path := str(model.get_path_to(skeleton))
+    var mapped_tracks := 0
+    for anim_name: StringName in library.get_animation_list():
+        var animation := library.get_animation(anim_name)
+        for track in animation.get_track_count():
+            var source_path := animation.track_get_path(track)
+            if source_path.get_subname_count() == 0:
+                continue
+            var source_bone := String(source_path.get_subname(0))
+            # El root de movimiento no existe en los esqueletos Mixamo: la
+            # traslación del enemigo la resuelve CharacterBody3D.
+            if source_bone.to_lower() == "root":
+                continue
+            var target_bone: String = UAL_TO_HUMANOID_BONES.get(source_bone, source_bone)
+            if skeleton.find_bone(target_bone) < 0:
+                # Algunos modelos no incluyen falanges opcionales; se omiten.
+                continue
+            var target_path := NodePath("%s:%s" % [skeleton_path, target_bone])
+            animation.track_set_path(track, target_path)
+            mapped_tracks += 1
+    if mapped_tracks == 0:
+        push_warning("No se encontraron pistas de huesos para las animaciones de %s." % data.display_name)
+    return library
+
+
 func _vary_look() -> void:
     var shade := randf_range(0.85, 1.08)
     var tint := data.tint * Color(shade * randf_range(0.95, 1.05), shade, shade * randf_range(0.92, 1.02))

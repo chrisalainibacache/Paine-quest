@@ -7,6 +7,7 @@ extends CanvasLayer
 
 signal _advanced
 signal _chosen(index: int)
+signal _reader_closed
 
 const CHARS_PER_SECOND := 55.0
 ## Tiempo en que se ignoran toques (evita saltarse un mensaje con el mismo toque que lo abrió).
@@ -23,12 +24,17 @@ static var _instance: Dialogue
 @onready var reader_title: Label = $Reader/Paper/Title
 @onready var reader_body: Label = $Reader/Paper/Body
 @onready var reader_page: Label = $Reader/Paper/Page
+@onready var reader_previous: Button = $Reader/Paper/Previous
+@onready var reader_next: Button = $Reader/Paper/Next
+@onready var reader_close: Button = $Reader/Paper/Close
 
 var _depth := 0
 var _paused_before := false
 var _grace := 0.0
 var _asking := false
 var _reveal := 0.0
+var _reader_document: DocumentData
+var _reader_page_index := 0
 
 
 func _ready() -> void:
@@ -37,6 +43,9 @@ func _ready() -> void:
     box.visible = false
     choices.visible = false
     reader.visible = false
+    reader_previous.pressed.connect(_previous_reader_page)
+    reader_next.pressed.connect(_next_reader_page)
+    reader_close.pressed.connect(_close_reader)
     blocker.visible = false
 
 
@@ -108,18 +117,56 @@ func _ask(question: String, options: Array) -> int:
 
 
 func _read(document: DocumentData) -> void:
+    if document == null or document.pages.is_empty():
+        push_warning("Se intentó abrir una nota sin contenido.")
+        return
     _begin()
+    _reader_document = document
+    _reader_page_index = 0
+    _grace = INPUT_GRACE
+    _refresh_reader_page()
     reader.visible = true
-    reader_title.text = document.title
-    var total := document.pages.size()
-    for i in total:
-        reader_body.text = document.pages[i]
-        reader_page.text = "%d / %d" % [i + 1, total] if total > 1 else ""
-        _grace = INPUT_GRACE
-        await _advanced
-        Sfx.play("page", null, -10.0)
+    await _reader_closed
     reader.visible = false
+    _reader_document = null
     _end()
+
+
+func _refresh_reader_page() -> void:
+    if _reader_document == null:
+        return
+    var total := _reader_document.pages.size()
+    reader_title.text = _reader_document.title
+    reader_body.text = _reader_document.pages[_reader_page_index]
+    reader_page.text = "%d / %d" % [_reader_page_index + 1, total] if total > 1 else ""
+    reader_previous.disabled = _reader_page_index == 0
+    reader_next.text = "CERRAR" if _reader_page_index >= total - 1 else "SIGUIENTE"
+
+
+func _previous_reader_page() -> void:
+    if not reader.visible or _reader_document == null or _reader_page_index <= 0:
+        return
+    _reader_page_index -= 1
+    _refresh_reader_page()
+    Sfx.play("page", null, -10.0)
+
+
+func _next_reader_page() -> void:
+    if not reader.visible or _reader_document == null:
+        return
+    if _reader_page_index >= _reader_document.pages.size() - 1:
+        _close_reader()
+        return
+    _reader_page_index += 1
+    _refresh_reader_page()
+    Sfx.play("page", null, -10.0)
+
+
+func _close_reader() -> void:
+    if not reader.visible:
+        return
+    reader.visible = false
+    _reader_closed.emit()
 
 
 func _begin() -> void:
@@ -164,13 +211,18 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-    if _depth > 0 and not _asking and event is InputEventScreenTouch and event.pressed:
+    # Los mensajes aceptan toque en pantalla; el lector usa botones propios.
+    # Así el manejador global no consume el evento antes de que llegue al botón.
+    if _depth > 0 and box.visible and not _asking and event is InputEventScreenTouch and event.pressed:
         _advance(false)
         get_viewport().set_input_as_handled()
 
 
 func _advance(forced: bool) -> void:
     if _asking or _depth == 0 or (_grace > 0.0 and not forced):
+        return
+    if reader.visible:
+        _next_reader_page()
         return
     if box.visible and _reveal < 1.0:
         # Primer toque: muestra el texto completo.

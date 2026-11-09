@@ -147,9 +147,9 @@ color = Color(0.35, 0.3, 0.22, 0.6)
 
 [node name="Body" type="Label" parent="Reader/Paper"]
 offset_left = 44.0
-offset_top = 100.0
+offset_top = 120.0
 offset_right = 756.0
-offset_bottom = 560.0
+offset_bottom = 510.0
 autowrap_mode = 3
 text = "..."
 theme_override_font_sizes/font_size = 25
@@ -157,19 +157,44 @@ theme_override_colors/font_color = Color(0.16, 0.13, 0.1, 1)
 
 [node name="Page" type="Label" parent="Reader/Paper"]
 offset_left = 560.0
-offset_top = 570.0
+offset_top = 88.0
 offset_right = 756.0
-offset_bottom = 604.0
+offset_bottom = 112.0
 horizontal_alignment = 2
 text = "1 / 2"
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.35, 0.3, 0.22, 1)
 
+[node name="Previous" type="Button" parent="Reader/Paper"]
+offset_left = 44.0
+offset_top = 554.0
+offset_right = 248.0
+offset_bottom = 604.0
+text = "ANTERIOR"
+theme_override_font_sizes/font_size = 20
+
+[node name="Close" type="Button" parent="Reader/Paper"]
+offset_left = 298.0
+offset_top = 554.0
+offset_right = 502.0
+offset_bottom = 604.0
+text = "CERRAR"
+theme_override_font_sizes/font_size = 20
+
+[node name="Next" type="Button" parent="Reader/Paper"]
+offset_left = 552.0
+offset_top = 554.0
+offset_right = 756.0
+offset_bottom = 604.0
+text = "SIGUIENTE"
+theme_override_font_sizes/font_size = 20
+
 [node name="Hint" type="Label" parent="Reader/Paper"]
 offset_left = 44.0
-offset_top = 570.0
-offset_right = 500.0
-offset_bottom = 604.0
-text = "Toca para continuar"
-theme_override_font_sizes/font_size = 18
+offset_top = 520.0
+offset_right = 756.0
+offset_bottom = 544.0
+horizontal_alignment = 1
+text = "Puedes volver a leerla desde NOTAS"
+theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(0.35, 0.3, 0.22, 1)
