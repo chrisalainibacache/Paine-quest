@@ -171,8 +171,9 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
             var target_path := NodePath("%s:%s" % [skeleton_path, target_bone])
             if anim_name == &"Zombie_Walk_Fwd" and target_bone in ["LeftUpperArm", "RightUpperArm"]:
                 var key_count := animation.track_get_key_count(track)
-                print("ARM_TRACK: ", source_path, " -> ", target_path, " keys=", key_count,
-                    " first=", animation.track_get_key_value(track, 0),
+                print("ARM_TRACK: ", source_path, " -> ", target_path, " type=", animation.track_get_type(track),
+                    " keys=", key_count, " first=", animation.track_get_key_value(track, 0),
+                    " middle=", animation.track_get_key_value(track, key_count / 2),
                     " last=", animation.track_get_key_value(track, key_count - 1))
             animation.track_set_path(track, target_path)
             mapped_tracks += 1
