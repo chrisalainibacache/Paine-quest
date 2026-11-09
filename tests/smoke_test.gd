@@ -95,6 +95,11 @@ func _combat_tests(player: Player, room: Room) -> void:
     _check(combat.aiming, "mantener APUNTAR activa la puntería")
     _check(player.get_current_animation() == "Pistol_Aim_Neutral", "pose de apuntar (está: %s)" % player.get_current_animation())
     var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
+    if skeleton != null:
+        var bone_names: Array[String] = []
+        for bone_index in skeleton.get_bone_count():
+            bone_names.append(skeleton.get_bone_name(bone_index))
+        print("HUESOS_CONY: ", bone_names)
     _check(skeleton != null and skeleton.find_bone("mixamorig_RightHand") >= 0,
         "el modelo de Cony tiene el hueso derecho con nombre Mixamo")
     _check(combat._pistol != null, "la escena de la pistola queda montada en la mano")
