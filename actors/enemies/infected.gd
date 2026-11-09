@@ -16,7 +16,6 @@ const WALK_ANIM_SPEED := 0.9
 ## Correspondencia entre los nombres UAL de las animaciones y el perfil humanoide
 ## usado por los modelos Mixamo de infectados.
 const UAL_TO_HUMANOID_BONES := {
-    "root": "Root",
     "pelvis": "Hips",
     "spine_01": "Spine",
     "spine_02": "Chest",
@@ -145,6 +144,10 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
             if not str(source_path).contains("Skeleton3D") or source_path.get_subname_count() == 0:
                 continue
             var source_bone := String(source_path.get_subname(0))
+            # El root de movimiento no existe en los esqueletos Mixamo: la
+            # traslación del enemigo la resuelve CharacterBody3D.
+            if source_bone.to_lower() == "root":
+                continue
             var target_bone: String = UAL_TO_HUMANOID_BONES.get(source_bone, source_bone)
             if skeleton.find_bone(target_bone) < 0:
                 push_warning("Animación %s: el hueso %s no existe en %s." % [anim_name, source_bone, data.display_name])
@@ -154,6 +157,7 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
     if mapped_tracks == 0:
         push_warning("No se encontraron pistas de huesos para las animaciones de %s." % data.display_name)
     return library
+
 
 func _vary_look() -> void:
     var shade := randf_range(0.85, 1.08)
