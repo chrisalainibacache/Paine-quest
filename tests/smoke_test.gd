@@ -100,12 +100,12 @@ func _combat_tests(player: Player, room: Room) -> void:
         for bone_index in skeleton.get_bone_count():
             bone_names.append(skeleton.get_bone_name(bone_index))
         print("HUESOS_CONY: ", bone_names)
-    _check(skeleton != null and skeleton.find_bone("mixamorig_RightHand") >= 0,
-        "el modelo de Cony tiene el hueso derecho con nombre Mixamo")
+    _check(skeleton != null and skeleton.find_bone("RightHand") >= 0,
+        "el modelo de Cony tiene el hueso RightHand")
     _check(combat._pistol != null, "la escena de la pistola queda montada en la mano")
     if combat._pistol != null:
         var attachment := combat._pistol.get_parent() as BoneAttachment3D
-        _check(attachment != null and attachment.bone_name == "mixamorig_RightHand",
+        _check(attachment != null and attachment.bone_name == "RightHand",
             "la pistola se ancla al hueso correcto")
         _check(combat._pistol.visible, "la pistola se muestra al apuntar")
     _check(player.global_position.distance_to(before) < 0.05, "apuntando no camina")
@@ -120,7 +120,10 @@ func _combat_tests(player: Player, room: Room) -> void:
     _check(combat.target == infected, "el auto-apuntado elige al infectado")
     var clip_before := combat.clip
     var shots_to_kill := ceili(float(infected.data.health) / combat.weapon.damage)
-    _check(shots_to_kill == 7, "un infectado común aguanta 7 balazos de pistola (aguanta %d)" % shots_to_kill)
+    _check(shots_to_kill == 5, "un infectado común aguanta 5 balazos de pistola (aguanta %d)" % shots_to_kill)
+    var heavy_data := load("res://data/enemies/infected_heavy.tres") as EnemyData
+    _check(ceili(float(heavy_data.health) / combat.weapon.damage) == 7,
+        "un infectado pesado aguanta 7 balazos de pistola")
     for i in shots_to_kill:
         if i == shots_to_kill - 1:
             _check(infected.is_alive(), "con %d balazos todavía sigue en pie" % i)
