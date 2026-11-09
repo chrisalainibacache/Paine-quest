@@ -76,7 +76,7 @@ func _pickup_and_note(player: Player) -> void:
     player.global_position = Vector3(note.global_position.x, 0.05, 3.9)
     player.face_direction(Vector3.FORWARD, 1.0)
     await _frames(3)
-    _check(note.get_node_or_null("Glint") != null or note.get_child_count() > 0, "la nota tiene un destello visible")
+    _check(note.get("_glint") != null, "la nota tiene un destello visible")
     _check(player.interaction.focus == note, "la nota se detecta por proximidad aunque Cony mire hacia otro lado")
     var note_action: Control = main.get_node("HUD/ActionButton")
     _check(note_action.visible and note_action.label == "LEER", "aparece ACCIÓN con «LEER» al acercarse a un documento")
