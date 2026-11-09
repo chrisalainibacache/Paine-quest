@@ -43,3 +43,15 @@ jobs:
           "$GODOT" --headless --path . -s res://tests/smoke_test.gd
           "$GODOT" --headless --path . -s res://tests/systems_test.gd
           "$GODOT" --headless --path . -s res://tests/levels_test.gd
+
+      - name: Capturar el arma en juego y al disparar
+        run: |
+          mkdir -p build/pistol-preview
+          xvfb-run "$GODOT" --path . --rendering-driver opengl3 -s res://tools/capture_screenshots.gd -- build/pistol-preview
+
+      - name: Guardar capturas de revisión
+        uses: actions/upload-artifact@v4
+        with:
+          name: paine-pistol-preview
+          path: build/pistol-preview/*.png
+          if-no-files-found: error
