@@ -147,7 +147,22 @@ func _combat_tests(player: Player, room: Room) -> void:
     _check(zombie_skeleton != null and mapped_bones > 0,
         "la animación de caminar está vinculada al esqueleto del modelo")
     _check(left_arm_mapped and right_arm_mapped,
-        "la animación de caminar mueve ambos brazos y no los deja en pose de reposo")
+        "la animación de caminar incluye ambos brazos")
+    if zombie_skeleton and left_arm_mapped and right_arm_mapped:
+        infected._enter(Infected.State.CHASE)
+        infected._anim.speed_scale = 1.0
+        var left_arm_index := zombie_skeleton.find_bone("LeftUpperArm")
+        var right_arm_index := zombie_skeleton.find_bone("RightUpperArm")
+        infected._anim.seek(0.0, true)
+        var left_start := zombie_skeleton.get_bone_pose_rotation(left_arm_index)
+        var right_start := zombie_skeleton.get_bone_pose_rotation(right_arm_index)
+        infected._anim.seek(walk_animation.length * 0.5, true)
+        var left_mid := zombie_skeleton.get_bone_pose_rotation(left_arm_index)
+        var right_mid := zombie_skeleton.get_bone_pose_rotation(right_arm_index)
+        _check(left_start.angle_to(left_mid) > 0.01,
+            "el brazo izquierdo cambia de pose durante la caminata")
+        _check(right_start.angle_to(right_mid) > 0.01,
+            "el brazo derecho cambia de pose durante la caminata")
     var clip_before := combat.clip
     var shots_to_kill := ceili(float(infected.data.health) / combat.weapon.damage)
     _check(shots_to_kill == 5, "un infectado común aguanta 5 balazos de pistola (aguanta %d)" % shots_to_kill)
