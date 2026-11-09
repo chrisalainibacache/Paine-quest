@@ -112,11 +112,14 @@ func _ready() -> void:
     _anim.name = "AnimationPlayer"
     add_child(_anim)
     _anim.root_node = _anim.get_path_to(model)
-    var skeleton := model.find_child("Skeleton3D", true, false) as Skeleton3D
+    var skeleton := _find_model_skeleton(model)
     if skeleton:
         _anim.add_animation_library(&"z", _retarget_animation_library(skeleton))
     else:
-        push_warning("El modelo %s no contiene Skeleton3D para sus animaciones." % data.display_name)
+        var model_nodes: Array[String] = []
+        for child: Node in model.find_children("*", "", true, false):
+            model_nodes.append("%s (%s)" % [str(model.get_path_to(child)), child.get_class()])
+        push_warning("El modelo %s no contiene Skeleton3D. Jerarquía: %s" % [data.display_name, str(model_nodes)])
         _anim.add_animation_library(&"z", ANIMATIONS)
     _groan_timer = randf_range(2.0, 6.0)
     if start_state == "corpse" or GameState.has_flag(_dead_flag()):
@@ -129,6 +132,17 @@ func _ready() -> void:
 
 
 ## Cada infectado se ve un poco distinto: tono, brillo y estatura al azar.
+
+## Busca cualquier esqueleto, aunque el importador cambie el nombre del nodo.
+func _find_model_skeleton(root_node: Node) -> Skeleton3D:
+    if root_node is Skeleton3D:
+        return root_node as Skeleton3D
+    for child: Node in root_node.get_children():
+        var found := _find_model_skeleton(child)
+        if found:
+            return found
+    return null
+
 
 ## Reasigna las pistas de huesos a la ruta real del esqueleto del modelo.
 ## Los clips UAL llegan desde otra escena: no se asume que su ruta Armature
