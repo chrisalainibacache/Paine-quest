@@ -131,6 +131,7 @@ func _backpack_menu(player: Player) -> void:
     _check(main.get_node("Dialogue/Reader").visible and blocker.visible and blocker.mouse_filter == Control.MOUSE_FILTER_STOP,
         "la nota se lee desde NOTAS y bloquea los toques a la mochila")
     var dialogue := main.get_node("Dialogue") as Dialogue
+    var platform_document := load("res://data/documents/platform_note.tres") as DocumentData
     dialogue.reader_next.pressed.emit()
     await _frames(1)
     _check(dialogue.reader_body.text == platform_document.pages[1], "desde la mochila también se puede cambiar de página")
