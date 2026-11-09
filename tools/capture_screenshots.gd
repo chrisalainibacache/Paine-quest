@@ -10,6 +10,8 @@ func _init() -> void:
     if args.size() > 0:
         out_dir = args[0]
     DirAccess.make_dir_recursive_absolute(out_dir)
+    GameState.new_game()
+    GameState.give_pistol()
     change_scene_to_file("res://main.tscn")
     _run.call_deferred()
 
@@ -39,7 +41,7 @@ func _run() -> void:
     Input.action_press(&"aim")
     await _wait(0.8)
     _shot("05_apuntando")
-    for i in 7:
+    for i in 5:
         Input.action_press(&"fire")
         await _wait(0.05)
         if i == 0:
