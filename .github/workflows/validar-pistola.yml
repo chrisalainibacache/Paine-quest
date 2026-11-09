@@ -7,10 +7,16 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "actors/player/pistol.gd"
-      - "actors/player/pistol.tscn"
-      - "actors/player/player_combat.gd"
-      - "levels/kit/items/pistol_item.tscn"
+      - "actors/player/**"
+      - "actors/enemies/**"
+      - "data/enemies/**"
+      - "docs/GDD.md"
+      - "levels/kit/room.gd"
+      - "levels/kit/interact/note.gd"
+      - "systems/scene_loader.gd"
+      - "ui/dialogue/**"
+      - "ui/inventory/inventory_menu.gd"
+      - "tools/capture_screenshots.gd"
       - "tests/**"
       - ".github/workflows/validar-pistola.yml"
 
