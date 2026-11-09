@@ -9,6 +9,7 @@ on:
     paths:
       - "actors/player/pistol.gd"
       - "actors/player/pistol.tscn"
+      - "actors/player/player_combat.gd"
       - "levels/kit/items/pistol_item.tscn"
       - "tests/**"
       - ".github/workflows/validar-pistola.yml"
