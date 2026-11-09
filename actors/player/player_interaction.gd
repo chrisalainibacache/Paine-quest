@@ -51,7 +51,7 @@ func _find_focus() -> Interactable:
         if distance > target.reach:
             continue
         var angle := 0.0 if distance < CLOSE_DISTANCE else forward.angle_to(to_target)
-        if angle > FACING_ANGLE:
+        if target.requires_facing and angle > FACING_ANGLE:
             continue
         var score := distance + angle * 0.6
         if score < best_score:

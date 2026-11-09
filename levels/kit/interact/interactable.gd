@@ -7,6 +7,8 @@ extends Node3D
 ## Texto del botón ACCIÓN cuando este objeto está a mano.
 @export var prompt: String = "EXAMINAR"
 @export var reach: float = 1.3
+## Algunos objetos pequeños (documentos) se detectan por proximidad sin exigir orientación.
+@export var requires_facing: bool = true
 
 
 func _ready() -> void:
