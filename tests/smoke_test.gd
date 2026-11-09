@@ -94,6 +94,15 @@ func _combat_tests(player: Player, room: Room) -> void:
     await _seconds(0.5)
     _check(combat.aiming, "mantener APUNTAR activa la puntería")
     _check(player.get_current_animation() == "Pistol_Aim_Neutral", "pose de apuntar (está: %s)" % player.get_current_animation())
+    var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
+    _check(skeleton != null and skeleton.find_bone("mixamorig_RightHand") >= 0,
+        "el modelo de Cony tiene el hueso derecho con nombre Mixamo")
+    _check(combat._pistol != null, "la escena de la pistola queda montada en la mano")
+    if combat._pistol != null:
+        var attachment := combat._pistol.get_parent() as BoneAttachment3D
+        _check(attachment != null and attachment.bone_name == "mixamorig_RightHand",
+            "la pistola se ancla al hueso correcto")
+        _check(combat._pistol.visible, "la pistola se muestra al apuntar")
     _check(player.global_position.distance_to(before) < 0.05, "apuntando no camina")
     Input.action_release(&"move_right")
     player.model.rotation.y = PI / 2.0
