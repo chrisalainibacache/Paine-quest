@@ -128,7 +128,7 @@ func _combat_tests(player: Player, room: Room) -> void:
     infected.global_position = player.global_position + Vector3(4.0, 0.0, 0.0)
     await _seconds(0.4)
     _check(combat.target == infected, "el auto-apuntado elige al infectado")
-    var zombie_skeleton := infected.model.find_child("Skeleton3D", true, false) as Skeleton3D
+    var zombie_skeleton := infected._find_model_skeleton(infected.model)
     var walk_animation := infected._anim.get_animation("z/Zombie_Walk_Fwd")
     var left_arm_mapped := false
     var right_arm_mapped := false
