@@ -60,7 +60,7 @@ func _attach_pistol() -> void:
     if skeleton == null:
         push_warning("No se encontró GeneralSkeleton para montar la pistola.")
         return
-    const RIGHT_HAND_BONE := "mixamorig_RightHand"
+    const RIGHT_HAND_BONE := "RightHand"
     if skeleton.find_bone(RIGHT_HAND_BONE) < 0:
         push_warning("El esqueleto no tiene el hueso %s." % RIGHT_HAND_BONE)
         return
