@@ -80,6 +80,20 @@ func _pickup_and_note(player: Player) -> void:
     player.interaction.use(note)
     await _frames(3)
     _check(main.get_node("Dialogue/Reader").visible, "la nota se abre en el lector")
+    var dialogue := main.get_node("Dialogue") as Dialogue
+    var platform_document := load("res://data/documents/platform_note.tres") as DocumentData
+    _check(dialogue.reader_body.text == platform_document.pages[0], "el lector muestra la primera página")
+    dialogue.reader_next.pressed.emit()
+    await _frames(1)
+    _check(dialogue.reader_body.text == platform_document.pages[1], "SIGUIENTE muestra la segunda página")
+    dialogue.reader_previous.pressed.emit()
+    await _frames(1)
+    _check(dialogue.reader_body.text == platform_document.pages[0], "ANTERIOR permite volver a la primera página")
+    dialogue.reader_next.pressed.emit()
+    await _frames(1)
+    dialogue.reader_close.pressed.emit()
+    await _frames(2)
+    _check(not dialogue.reader.visible, "CERRAR sale del lector de la nota")
     await _close_dialogues()
     _check(GameState.documents.has("res://data/documents/platform_note.tres"), "la nota queda guardada en NOTAS")
 
@@ -116,6 +130,13 @@ func _backpack_menu(player: Player) -> void:
     var blocker: Control = main.get_node("Dialogue/Blocker")
     _check(main.get_node("Dialogue/Reader").visible and blocker.visible and blocker.mouse_filter == Control.MOUSE_FILTER_STOP,
         "la nota se lee desde NOTAS y bloquea los toques a la mochila")
+    var dialogue := main.get_node("Dialogue") as Dialogue
+    dialogue.reader_next.pressed.emit()
+    await _frames(1)
+    _check(dialogue.reader_body.text == platform_document.pages[1], "desde la mochila también se puede cambiar de página")
+    dialogue.reader_close.pressed.emit()
+    await _frames(2)
+    _check(not dialogue.reader.visible, "el botón CERRAR funciona al leer desde la mochila")
     await _close_dialogues()
     _check(not Dialogue.is_open() and paused and menu.visible, "al cerrar la nota se vuelve a la mochila")
     menu._show_tab(false)
