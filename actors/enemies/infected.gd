@@ -150,8 +150,6 @@ func _find_model_skeleton(root_node: Node) -> Skeleton3D:
 func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
     var library := ANIMATIONS.duplicate(true) as AnimationLibrary
     var skeleton_path := str(model.get_path_to(skeleton))
-    print("ANIM_ROOT_PATH: ", _anim.root_node, " | model_to_skeleton: ", skeleton_path,
-        " | skeleton: ", skeleton.name, " | unique: ", skeleton.unique_name_in_owner)
     var mapped_tracks := 0
     for anim_name: StringName in library.get_animation_list():
         var animation := library.get_animation(anim_name)
@@ -170,12 +168,7 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
                 continue
             var target_path := NodePath("%s:%s" % [skeleton_path, target_bone])
             if anim_name == &"Zombie_Walk_Fwd" and target_bone in ["LeftUpperArm", "RightUpperArm"]:
-                var key_count := animation.track_get_key_count(track)
-                print("ARM_TRACK: ", source_path, " -> ", target_path, " type=", animation.track_get_type(track),
-                    " keys=", key_count, " first=", animation.track_get_key_value(track, 0),
-                    " middle=", animation.track_get_key_value(track, key_count / 2),
-                    " last=", animation.track_get_key_value(track, key_count - 1))
-            animation.track_set_path(track, target_path)
+                animation.track_set_path(track, target_path)
             mapped_tracks += 1
     if mapped_tracks == 0:
         push_warning("No se encontraron pistas de huesos para las animaciones de %s." % data.display_name)
