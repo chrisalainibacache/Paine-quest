@@ -61,6 +61,16 @@ func _run() -> void:
     _check(room.get_active_camera() != first_camera, "corte de cámara al cruzar al lado este")
     _check(room.get_active_camera() == root.get_viewport().get_camera_3d(), "la cámara activa es la que se ve")
 
+    # Incluso si la física todavía no registró ninguna zona, siempre hay cámara.
+    var position_before_fallback := player.global_position
+    player.global_position = Vector3(100.0, 0.05, 100.0)
+    room.pick_camera_for(player)
+    _check(room.get_active_camera() != null, "hay cámara de respaldo si Cony aparece fuera de las zonas")
+    _check(room.get_active_camera() == root.get_viewport().get_camera_3d(), "la cámara de respaldo queda activa en el viewport")
+    player.global_position = position_before_fallback
+    room.pick_camera_for(player)
+    await _frames(2)
+
     # Cony no puede caer a la vía.
     player.global_position = Vector3(0.0, 0.05, -0.4)
     var cam_basis := Player._flat_basis(room.get_active_camera().global_basis)
@@ -118,6 +128,24 @@ func _combat_tests(player: Player, room: Room) -> void:
     infected.global_position = player.global_position + Vector3(4.0, 0.0, 0.0)
     await _seconds(0.4)
     _check(combat.target == infected, "el auto-apuntado elige al infectado")
+    var zombie_skeleton := infected.model.find_child("Skeleton3D", true, false) as Skeleton3D
+    var walk_animation := infected._anim.get_animation("z/Zombie_Walk_Fwd")
+    var left_arm_mapped := false
+    var right_arm_mapped := false
+    var unresolved_bones: Array[String] = []
+    for track in walk_animation.get_track_count():
+        var track_path := walk_animation.track_get_path(track)
+        if not str(track_path).contains("Skeleton3D") or track_path.get_subname_count() == 0:
+            continue
+        var bone_name := String(track_path.get_subname(0))
+        if zombie_skeleton == null or zombie_skeleton.find_bone(bone_name) < 0:
+            unresolved_bones.append(bone_name)
+        left_arm_mapped = left_arm_mapped or bone_name == "LeftUpperArm"
+        right_arm_mapped = right_arm_mapped or bone_name == "RightUpperArm"
+    _check(zombie_skeleton != null and unresolved_bones.is_empty(),
+        "las pistas de caminar apuntan a huesos reales del modelo (%s)" % ", ".join(unresolved_bones))
+    _check(left_arm_mapped and right_arm_mapped,
+        "la animación de caminar mueve ambos brazos y no los deja en pose de reposo")
     var clip_before := combat.clip
     var shots_to_kill := ceili(float(infected.data.health) / combat.weapon.damage)
     _check(shots_to_kill == 5, "un infectado común aguanta 5 balazos de pistola (aguanta %d)" % shots_to_kill)
