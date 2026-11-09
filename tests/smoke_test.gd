@@ -151,6 +151,10 @@ func _combat_tests(player: Player, room: Room) -> void:
     if zombie_skeleton and left_arm_mapped and right_arm_mapped:
         infected._enter(Infected.State.CHASE)
         infected._anim.speed_scale = 1.0
+        infected._anim.play("z/Zombie_Walk_Fwd")
+        await _frames(1)
+        print("ANIM_PLAYER: playing=", infected._anim.is_playing(), " current=", infected._anim.current_animation,
+            " position=", infected._anim.current_animation_position, " length=", walk_animation.length)
         var left_arm_index := zombie_skeleton.find_bone("LeftUpperArm")
         var right_arm_index := zombie_skeleton.find_bone("RightUpperArm")
         print("ANIM_RESOLVE_ROOT: ", infected._anim.get_node_or_null(infected._anim.root_node))
