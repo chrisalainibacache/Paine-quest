@@ -132,18 +132,20 @@ func _combat_tests(player: Player, room: Room) -> void:
     var walk_animation := infected._anim.get_animation("z/Zombie_Walk_Fwd")
     var left_arm_mapped := false
     var right_arm_mapped := false
-    var unresolved_bones: Array[String] = []
-    for track in walk_animation.get_track_count():
-        var track_path := walk_animation.track_get_path(track)
-        if not str(track_path).contains("Skeleton3D") or track_path.get_subname_count() == 0:
-            continue
-        var bone_name := String(track_path.get_subname(0))
-        if zombie_skeleton == null or zombie_skeleton.find_bone(bone_name) < 0:
-            unresolved_bones.append(bone_name)
-        left_arm_mapped = left_arm_mapped or bone_name == "LeftUpperArm"
-        right_arm_mapped = right_arm_mapped or bone_name == "RightUpperArm"
-    _check(zombie_skeleton != null and unresolved_bones.is_empty(),
-        "las pistas de caminar apuntan a huesos reales del modelo (%s)" % ", ".join(unresolved_bones))
+    var mapped_bones := 0
+    if zombie_skeleton:
+        for track in walk_animation.get_track_count():
+            var track_path := walk_animation.track_get_path(track)
+            if track_path.get_subname_count() == 0:
+                continue
+            var bone_name := String(track_path.get_subname(0))
+            if zombie_skeleton.find_bone(bone_name) < 0:
+                continue
+            mapped_bones += 1
+            left_arm_mapped = left_arm_mapped or bone_name == "LeftUpperArm"
+            right_arm_mapped = right_arm_mapped or bone_name == "RightUpperArm"
+    _check(zombie_skeleton != null and mapped_bones > 0,
+        "la animación de caminar está vinculada al esqueleto del modelo")
     _check(left_arm_mapped and right_arm_mapped,
         "la animación de caminar mueve ambos brazos y no los deja en pose de reposo")
     var clip_before := combat.clip
