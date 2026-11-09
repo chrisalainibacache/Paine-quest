@@ -59,8 +59,8 @@ func _nearest_camera_zone(position: Vector3, zones: Array) -> CameraZone:
                 clampf(local.y, -half.y, half.y),
                 clampf(local.z, -half.z, half.z)
             )
-            distance = shape.global_transform * closest
-            distance = (distance - position).length_squared()
+            var closest_world := shape.global_transform * closest
+            distance = (closest_world - position).length_squared()
         if distance < best_distance:
             best_distance = distance
             best = zone
