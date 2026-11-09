@@ -105,11 +105,6 @@ func _combat_tests(player: Player, room: Room) -> void:
     _check(combat.aiming, "mantener APUNTAR activa la puntería")
     _check(player.get_current_animation() == "Pistol_Aim_Neutral", "pose de apuntar (está: %s)" % player.get_current_animation())
     var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
-    if skeleton != null:
-        var bone_names: Array[String] = []
-        for bone_index in skeleton.get_bone_count():
-            bone_names.append(skeleton.get_bone_name(bone_index))
-        print("HUESOS_CONY: ", bone_names)
     _check(skeleton != null and skeleton.find_bone("RightHand") >= 0,
         "el modelo de Cony tiene el hueso RightHand")
     _check(combat._pistol != null, "la escena de la pistola queda montada en la mano")
@@ -153,20 +148,14 @@ func _combat_tests(player: Player, room: Room) -> void:
         infected._anim.speed_scale = 1.0
         infected._anim.play("z/Zombie_Walk_Fwd")
         await _frames(1)
-        print("ANIM_PLAYER: playing=", infected._anim.is_playing(), " current=", infected._anim.current_animation,
-            " position=", infected._anim.current_animation_position, " length=", walk_animation.length)
         var left_arm_index := zombie_skeleton.find_bone("LeftUpperArm")
         var right_arm_index := zombie_skeleton.find_bone("RightUpperArm")
-        print("ANIM_RESOLVE_ROOT: ", infected._anim.get_node_or_null(infected._anim.root_node))
-        print("ANIM_SKELETON_PATH: ", infected.model.get_path_to(zombie_skeleton),
-            " | resolved: ", infected._anim.get_node_or_null(infected._anim.root_node).get_node_or_null(infected.model.get_path_to(zombie_skeleton)))
         infected._anim.seek(0.0, true)
         var left_start := zombie_skeleton.get_bone_pose_rotation(left_arm_index)
         var right_start := zombie_skeleton.get_bone_pose_rotation(right_arm_index)
         infected._anim.seek(walk_animation.length * 0.5, true)
         var left_mid := zombie_skeleton.get_bone_pose_rotation(left_arm_index)
         var right_mid := zombie_skeleton.get_bone_pose_rotation(right_arm_index)
-        print("ARM_POSES: left ", left_start, " -> ", left_mid, " | right ", right_start, " -> ", right_mid)
         _check(left_start.angle_to(left_mid) > 0.01,
             "el brazo izquierdo cambia de pose durante la caminata")
         _check(right_start.angle_to(right_mid) > 0.01,
