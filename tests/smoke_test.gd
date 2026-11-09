@@ -166,6 +166,29 @@ func _combat_tests(player: Player, room: Room) -> void:
     var heavy_data := load("res://data/enemies/infected_heavy.tres") as EnemyData
     _check(ceili(float(heavy_data.health) / combat.weapon.damage) == 7,
         "un infectado pesado aguanta 7 balazos de pistola")
+    for variant_name in ["infected_burnt", "infected_pale", "infected_worker"]:
+        var variant_data := load("res://data/enemies/%s.tres" % variant_name) as EnemyData
+        _check(ceili(float(variant_data.health) / combat.weapon.damage) == 5,
+            "%s aguanta 5 balazos" % variant_data.display_name)
+        var variant := (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate() as Infected
+        variant.data = variant_data
+        room.add_child(variant)
+        await _frames(2)
+        var variant_skeleton := variant._find_model_skeleton(variant.model)
+        var variant_walk := variant._anim.get_animation("z/Zombie_Walk_Fwd")
+        var variant_left := false
+        var variant_right := false
+        for track in variant_walk.get_track_count():
+            var path := variant_walk.track_get_path(track)
+            if path.get_subname_count() == 0:
+                continue
+            var bone := String(path.get_subname(0))
+            if variant_skeleton and variant_skeleton.find_bone(bone) >= 0:
+                variant_left = variant_left or bone == "LeftUpperArm"
+                variant_right = variant_right or bone == "RightUpperArm"
+        _check(variant_skeleton != null and variant_left and variant_right,
+            "%s tiene ambos brazos animados" % variant_data.display_name)
+        variant.free()
     for i in shots_to_kill:
         if i == shots_to_kill - 1:
             _check(infected.is_alive(), "con %d balazos todavía sigue en pie" % i)
