@@ -167,8 +167,7 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
                 # Algunos modelos no incluyen falanges opcionales; se omiten.
                 continue
             var target_path := NodePath("%s:%s" % [skeleton_path, target_bone])
-            if anim_name == &"Zombie_Walk_Fwd" and target_bone in ["LeftUpperArm", "RightUpperArm"]:
-                animation.track_set_path(track, target_path)
+            animation.track_set_path(track, target_path)
             mapped_tracks += 1
     if mapped_tracks == 0:
         push_warning("No se encontraron pistas de huesos para las animaciones de %s." % data.display_name)
