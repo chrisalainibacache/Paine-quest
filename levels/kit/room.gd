@@ -29,10 +29,42 @@ func get_spawn(spawn_id: String) -> Transform3D:
 ## Elige la cámara inicial según dónde quedó Cony (se llama tras ubicarla).
 func pick_camera_for(body: Node3D) -> void:
     _inside.clear()
-    for zone: CameraZone in find_children("*", "CameraZone", true, false):
-        if zone.overlaps_body(body):
+    var zones: Array = find_children("*", "CameraZone", true, false)
+    for zone: CameraZone in zones:
+        if zone.get_camera() != null and zone.overlaps_body(body):
             _inside.append(zone)
+    # En el primer frame de una sala, el motor de física puede no haber
+    # actualizado overlaps_body todavía. Usa la zona geométricamente más
+    # cercana para que nunca quede Cony sin cámara durante el fundido.
+    if _inside.is_empty():
+        var fallback := _nearest_camera_zone(body.global_position, zones)
+        if fallback:
+            _inside.append(fallback)
     _refresh()
+
+
+func _nearest_camera_zone(position: Vector3, zones: Array) -> CameraZone:
+    var best: CameraZone
+    var best_distance := INF
+    for zone: CameraZone in zones:
+        if zone.get_camera() == null:
+            continue
+        var distance := zone.global_position.distance_squared_to(position)
+        var shape := zone.get_node_or_null("Zone") as CollisionShape3D
+        if shape and shape.shape is BoxShape3D:
+            var local := shape.global_transform.affine_inverse() * position
+            var half := (shape.shape as BoxShape3D).size * 0.5
+            var closest := Vector3(
+                clampf(local.x, -half.x, half.x),
+                clampf(local.y, -half.y, half.y),
+                clampf(local.z, -half.z, half.z)
+            )
+            distance = shape.global_transform * closest
+            distance = (distance - position).length_squared()
+        if distance < best_distance:
+            best_distance = distance
+            best = zone
+    return best
 
 
 func get_active_camera() -> Camera3D:
@@ -60,10 +92,13 @@ func _refresh() -> void:
     for zone in _inside:
         if zone.camera_priority > best.camera_priority:
             best = zone
+    var camera := best.get_camera()
+    if camera == null:
+        return
     if best == _active:
+        if not camera.current:
+            camera.make_current()
         return
     _active = best
-    var camera := best.get_camera()
-    if camera:
-        camera.make_current()
-        camera_changed.emit(camera)
+    camera.make_current()
+    camera_changed.emit(camera)
