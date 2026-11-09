@@ -153,12 +153,16 @@ func _combat_tests(player: Player, room: Room) -> void:
         infected._anim.speed_scale = 1.0
         var left_arm_index := zombie_skeleton.find_bone("LeftUpperArm")
         var right_arm_index := zombie_skeleton.find_bone("RightUpperArm")
+        print("ANIM_RESOLVE_ROOT: ", infected._anim.get_node_or_null(infected._anim.root_node))
+        print("ANIM_SKELETON_PATH: ", infected.model.get_path_to(zombie_skeleton),
+            " | resolved: ", infected._anim.get_node_or_null(infected._anim.root_node).get_node_or_null(infected.model.get_path_to(zombie_skeleton)))
         infected._anim.seek(0.0, true)
         var left_start := zombie_skeleton.get_bone_pose_rotation(left_arm_index)
         var right_start := zombie_skeleton.get_bone_pose_rotation(right_arm_index)
         infected._anim.seek(walk_animation.length * 0.5, true)
         var left_mid := zombie_skeleton.get_bone_pose_rotation(left_arm_index)
         var right_mid := zombie_skeleton.get_bone_pose_rotation(right_arm_index)
+        print("ARM_POSES: left ", left_start, " -> ", left_mid, " | right ", right_start, " -> ", right_mid)
         _check(left_start.angle_to(left_mid) > 0.01,
             "el brazo izquierdo cambia de pose durante la caminata")
         _check(right_start.angle_to(right_mid) > 0.01,
