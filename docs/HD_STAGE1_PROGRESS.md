@@ -6,3 +6,5 @@
 - The first albedo comparison shows insufficient perceptual improvement on concrete and asphalt; do not integrate as-is.
 - Brick detail is more visible but currently relies on sharpening/upscaling and is not yet a true source-detail reconstruction.
 - Next gate: inspect height/normal outputs and validate tiling before any shader or material integration.
+
+- Added normal/height-map candidates for inspection; no runtime assets changed.
