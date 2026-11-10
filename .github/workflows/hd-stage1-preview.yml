@@ -20,7 +20,7 @@ jobs:
         run: python -m pip install pillow numpy
       - name: Generate isolated HD candidates
         run: python tools/graphics/hd_stage1_materials.py
-      - name: Validate dimensions and source preservation
+      - name: Generate height and normal map candidates\n        run: python tools/graphics/hd_stage1_normal_maps.py\n      - name: Validate dimensions and source preservation
         run: |
           python - <<'PY'
           from pathlib import Path
