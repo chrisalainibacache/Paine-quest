@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "artifacts/texture_pilot"
+OUT = ROOT / "artifacts/hd_stage1"
 OUT.mkdir(parents=True, exist_ok=True)
 
 SOURCES = {
