@@ -1,7 +1,6 @@
 from pathlib import Path
 
-import numpy as np
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
+from PIL import Image, ImageChops, ImageEnhance, ImageFilter, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCES = {
@@ -12,78 +11,56 @@ SOURCES = {
 OUT = ROOT / "artifacts/texture_pilot"
 OUT.mkdir(parents=True, exist_ok=True)
 
+# Faithful 2x restoration: recover only high-frequency information already present
+# in the source. No procedural grain, generated cracks, colorization or geometry edits.
+SETTINGS = {
+    "concrete": {"detail": 0.78, "contrast": 1.025},
+    "old_bricks": {"detail": 0.62, "contrast": 1.025},
+    "asphalt_cracked": {"detail": 0.72, "contrast": 1.035},
+}
 
-def periodic_microdetail(width: int, height: int, seed: int, strength: float) -> np.ndarray:
-    """Tile-periodic fine grain built from many low-amplitude integer harmonics."""
-    rng = np.random.default_rng(seed)
-    yy, xx = np.mgrid[0:height, 0:width]
-    field = np.zeros((height, width), dtype=np.float32)
-    # Integer cycles in both axes guarantee that the added grain joins at all four edges.
-    # Many weak harmonics avoid the obvious crosshatch caused by a few strong waves.
-    for _ in range(48):
-        kx = int(rng.integers(17, 145))
-        ky = int(rng.integers(17, 145))
-        phase = float(rng.uniform(0, 2 * np.pi))
-        amplitude = float(rng.uniform(0.65, 1.0))
-        field += amplitude * np.sin(
-            2 * np.pi * (kx * xx / width + ky * yy / height) + phase
-        )
-    field /= max(float(np.std(field)), 1e-5)
-    return field * strength
 
-def remaster(path: Path, material: str, seed: int) -> Image.Image:
-    source = Image.open(path).convert("RGB")
-    width, height = source.width * 2, source.height * 2
-    # Upscale without changing silhouettes, cracks, joints or stone boundaries.
-    base = source.resize((width, height), Image.Resampling.LANCZOS)
-    base = base.filter(ImageFilter.UnsharpMask(radius=1.0, percent=32, threshold=5))
-    rgb = np.asarray(base, dtype=np.float32)
+def remaster(path: Path, material: str) -> Image.Image:
+    original = Image.open(path).convert("RGB")
+    cfg = SETTINGS[material]
+    # Separate existing fine detail from broad lighting and material color.
+    low_frequency = original.filter(ImageFilter.GaussianBlur(radius=1.15))
+    high_frequency = ImageChops.subtract(original, low_frequency, scale=1.0, offset=128)
+    # Resample base and residual independently, retaining source color and silhouettes.
+    size = (original.width * 2, original.height * 2)
+    base = original.resize(size, Image.Resampling.LANCZOS)
+    detail = high_frequency.resize(size, Image.Resampling.BICUBIC)
+    # Residual is centered at 128; blend it back gently to restore existing surface detail.
+    detail = ImageChops.subtract(detail, Image.new("RGB", size, (128, 128, 128)))
+    restored = ImageChops.add(base, ImageEnhance.Brightness(detail).enhance(cfg["detail"]))
+    restored = ImageEnhance.Contrast(restored).enhance(cfg["contrast"])
+    return restored
 
-    # Each material receives its own restrained albedo treatment.
-    settings = {
-        "concrete": {"grain": 3.4, "contrast": 1.035, "edge_guard": False},
-        "old_bricks": {"grain": 2.8, "contrast": 1.045, "edge_guard": True},
-        "asphalt_cracked": {"grain": 4.8, "contrast": 1.055, "edge_guard": False},
-    }[material]
 
-    detail = periodic_microdetail(width, height, seed, settings["grain"])
-    if settings["edge_guard"]:
-        # Protect stone contours and mortar gaps: add grain mostly inside stone faces.
-        edges = np.asarray(base.filter(ImageFilter.FIND_EDGES).convert("L"), dtype=np.float32) / 255.0
-        mask = np.clip(1.0 - edges * 2.4, 0.12, 1.0)
-        detail *= mask
-
-    # Luminance-correlated grain retains original material hue and palette.
-    rgb += detail[:, :, None]
-    rgb = np.clip(rgb, 0, 255).astype(np.uint8)
-    result = Image.fromarray(rgb, "RGB")
-    result = ImageEnhance.Contrast(result).enhance(settings["contrast"])
+def card(name: str, original: Image.Image, candidate: Image.Image) -> Image.Image:
+    # Same display dimensions: left is nearest-neighbor reference, right is restored.
+    left = original.resize((512, 512), Image.Resampling.NEAREST)
+    right = candidate.resize((512, 512), Image.Resampling.LANCZOS)
+    result = Image.new("RGB", (1040, 570), (22, 22, 26))
+    result.paste(left, (8, 42))
+    result.paste(right, (520, 42))
+    draw = ImageDraw.Draw(result)
+    draw.text((12, 12), f"{name} — ORIGINAL", fill=(235, 235, 235))
+    draw.text((524, 12), f"{name} — FAITHFUL 2x DETAIL RESTORE", fill=(235, 235, 235))
     return result
 
 
-def comparison_card(name: str, original: Image.Image, candidate: Image.Image) -> Image.Image:
-    left = original.resize((512, 512), Image.Resampling.NEAREST)
-    right = candidate.resize((512, 512), Image.Resampling.LANCZOS)
-    card = Image.new("RGB", (1040, 570), (22, 22, 26))
-    card.paste(left, (8, 42))
-    card.paste(right, (520, 42))
-    draw = ImageDraw.Draw(card)
-    draw.text((12, 12), f"{name} — ORIGINAL (nearest enlarged)", fill=(235, 235, 235))
-    draw.text((524, 12), f"{name} — MATERIAL DETAIL 2x", fill=(235, 235, 235))
-    return card
-
-
 cards = []
-for index, (name, path) in enumerate(SOURCES.items(), start=1):
+for name, path in SOURCES.items():
     if not path.exists():
         raise FileNotFoundError(path)
     original = Image.open(path).convert("RGB")
-    candidate = remaster(path, name, index * 7919)
+    candidate = remaster(path, name)
     candidate.save(OUT / f"{name}_hd_candidate.png", optimize=True)
-    cards.append(comparison_card(name, original, candidate))
+    cards.append(card(name, original, candidate))
 
 sheet = Image.new("RGB", (1040, 570 * len(cards)), (12, 12, 16))
-for index, card in enumerate(cards):
-    sheet.paste(card, (0, index * 570))
+for index, item in enumerate(cards):
+    sheet.paste(item, (0, index * 570))
 sheet.save(OUT / "comparison.png", optimize=True)
-print("PILOT_OK: 3 material-specific candidates + comparison.png")
+print("PILOT_OK: faithful 2x detail restoration; no synthetic grain")
