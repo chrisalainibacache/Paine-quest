@@ -12,9 +12,9 @@ OUT = ROOT / "artifacts/hd_stage1"
 OUT.mkdir(parents=True, exist_ok=True)
 
 SOURCES = {
-    "concrete": ("assets/environment/textures/concrete.png", 0.42, 0.55),
-    "old_bricks": ("assets/environment/textures/bricks_old.png", 0.72, 0.82),
-    "asphalt_cracked": ("assets/environment/textures/asphalt_cracked.png", 0.60, 0.72),
+    "concrete": ("assets/environment/textures/concrete.png", 0.42, 2.8),
+    "old_bricks": ("assets/environment/textures/bricks_old.png", 0.72, 3.6),
+    "asphalt_cracked": ("assets/environment/textures/asphalt_cracked.png", 0.60, 2.5),
 }
 
 
@@ -30,25 +30,27 @@ def make_maps(path: Path, gain: float, normal_strength: float):
     detail = lum - blurred
     height = np.clip(0.5 + (lum - 0.5) * 0.42 + detail * gain, 0.0, 1.0)
 
-    # Repeat-aware central differences. This exposes any source-edge mismatch
-    # in the seam report instead of silently hiding it.
-    dx = (np.roll(height, -1, axis=1) - np.roll(height, 1, axis=1)) * 0.5
-    dy = (np.roll(height, -1, axis=0) - np.roll(height, 1, axis=0)) * 0.5
+    # Upscale the scalar height field first, then derive normals at final
+    # resolution so the 512 map carries actual per-pixel gradients.
+    size = (rgb.width * 2, rgb.height * 2)
+    height_u16 = np.round(height * 65535).astype("<u2")
+    h_img = Image.frombytes("I;16", (rgb.width, rgb.height), height_u16.tobytes())
+    h_img = h_img.resize(size, Image.Resampling.BICUBIC)
+    height_512 = np.asarray(h_img, dtype=np.float32) / 65535.0
+
+    # Repeat-aware central differences at 512px. Strength is deliberately
+    # stronger than the first diagnostic pass; validate in engine before use.
+    dx = (np.roll(height_512, -1, axis=1) - np.roll(height_512, 1, axis=1)) * 0.5
+    dy = (np.roll(height_512, -1, axis=0) - np.roll(height_512, 1, axis=0)) * 0.5
     nx = -dx * normal_strength
     ny = -dy * normal_strength
-    nz = np.ones_like(height)
+    nz = np.ones_like(height_512)
     length = np.sqrt(nx * nx + ny * ny + nz * nz)
     normal = np.stack(
         (nx / length * 0.5 + 0.5, ny / length * 0.5 + 0.5,
          nz / length * 0.5 + 0.5), axis=-1
     )
-
-    height_u16 = np.round(height * 65535).astype("<u2")
-    h_img = Image.frombytes("I;16", (rgb.width, rgb.height), height_u16.tobytes())
     n_img = Image.fromarray(np.round(np.clip(normal, 0, 1) * 255).astype(np.uint8), "RGB")
-    size = (rgb.width * 2, rgb.height * 2)
-    h_img = h_img.resize(size, Image.Resampling.BICUBIC)
-    n_img = n_img.resize(size, Image.Resampling.BICUBIC)
     return h_img, n_img, height
 
 
