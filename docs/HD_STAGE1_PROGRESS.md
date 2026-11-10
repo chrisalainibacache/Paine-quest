@@ -10,3 +10,5 @@
 - Added normal/height-map candidates for inspection; no runtime assets changed.
 
 - The workflow was hardened to keep generated normal maps in the same review artifact and remove a malformed duplicate step.
+
+- Normal maps now derive gradients at final 512px resolution with controlled stronger strength; this remains an isolated diagnostic candidate.
