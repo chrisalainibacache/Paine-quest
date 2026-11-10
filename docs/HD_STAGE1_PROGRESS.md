@@ -8,3 +8,5 @@
 - Next gate: inspect height/normal outputs and validate tiling before any shader or material integration.
 
 - Added normal/height-map candidates for inspection; no runtime assets changed.
+
+- The workflow was hardened to keep generated normal maps in the same review artifact and remove a malformed duplicate step.
