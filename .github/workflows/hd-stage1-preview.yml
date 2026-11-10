@@ -31,11 +31,17 @@ jobs:
           mkdir -p /opt/godot
           unzip -q /tmp/godot.zip -d /opt/godot
           echo "GODOT=/opt/godot/Godot_v${version}-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Install software rendering for visual comparison
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1-mesa-dri
       - name: Import project and validate HD shader
         run: |
           set -e
           "$GODOT" --headless --path . --import
           "$GODOT" --headless --path . -s res://tools/graphics/validate_hd_shader.gd
+          mkdir -p artifacts/hd_stage1
+          xvfb-run -a env LIBGL_ALWAYS_SOFTWARE=1 "$GODOT" --path . -s res://tools/graphics/render_hd_comparison.gd
       - name: Validate dimensions and source preservation
         run: |
           python - <<'PY'
