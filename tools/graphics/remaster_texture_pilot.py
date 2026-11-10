@@ -14,22 +14,22 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 
 def periodic_microdetail(width: int, height: int, seed: int, strength: float) -> np.ndarray:
-    """Tile-periodic, low-amplitude material grain; no large forms or hue shifts."""
+    """Tile-periodic fine grain built from many low-amplitude integer harmonics."""
     rng = np.random.default_rng(seed)
     yy, xx = np.mgrid[0:height, 0:width]
     field = np.zeros((height, width), dtype=np.float32)
-    # Integer-frequency harmonics make the added detail seamless at texture borders.
-    for frequency, amplitude in ((13, 0.42), (29, 0.30), (61, 0.20), (113, 0.08)):
-        phase_x, phase_y = rng.uniform(0, 2 * np.pi, size=2)
-        angle = rng.uniform(0, 2 * np.pi)
-        u = (xx * np.cos(angle) + yy * np.sin(angle)) / max(width, height)
-        v = (-xx * np.sin(angle) + yy * np.cos(angle)) / max(width, height)
-        field += amplitude * np.sin(2 * np.pi * frequency * u + phase_x)
-        field += amplitude * np.cos(2 * np.pi * frequency * v + phase_y)
-    field += rng.normal(0, 0.22, size=(height, width)).astype(np.float32)
+    # Integer cycles in both axes guarantee that the added grain joins at all four edges.
+    # Many weak harmonics avoid the obvious crosshatch caused by a few strong waves.
+    for _ in range(48):
+        kx = int(rng.integers(17, 145))
+        ky = int(rng.integers(17, 145))
+        phase = float(rng.uniform(0, 2 * np.pi))
+        amplitude = float(rng.uniform(0.65, 1.0))
+        field += amplitude * np.sin(
+            2 * np.pi * (kx * xx / width + ky * yy / height) + phase
+        )
     field /= max(float(np.std(field)), 1e-5)
     return field * strength
-
 
 def remaster(path: Path, material: str, seed: int) -> Image.Image:
     source = Image.open(path).convert("RGB")
