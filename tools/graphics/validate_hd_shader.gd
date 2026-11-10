@@ -10,9 +10,9 @@ func _run_validation() -> void:
     var material := ShaderMaterial.new()
     material.shader = shader
 
-    var albedo_image := Image.load_from_file("res://assets/environment/textures/concrete.png")
-    assert(not albedo_image.is_empty(), "No se pudo cargar la textura de concreto")
-    material.set_shader_parameter("albedo_tex", ImageTexture.create_from_image(albedo_image))
+    var albedo_texture := load("res://assets/environment/textures/concrete.png") as Texture2D
+    assert(albedo_texture != null, "No se pudo cargar la textura de concreto")
+    material.set_shader_parameter("albedo_tex", albedo_texture)
 
     var normal_image := Image.load_from_file("artifacts/hd_stage1/concrete_normal_512.png")
     assert(not normal_image.is_empty(), "No se pudo cargar la normal HD de prueba")
