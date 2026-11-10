@@ -15,7 +15,7 @@ uniform float grime_strength : hint_range(0.0, 1.0) = 0.5;
 uniform vec3 grime_color : source_color = vec3(0.32, 0.27, 0.2);
 uniform float floor_y = 0.0;
 // Mantener en 0 hasta validar el mapa y la iluminación en el dispositivo.
-uniform float normal_strength : hint_range(0.0, 2.0) = 0.0;
+uniform float normal_strength : hint_range(0.0, 1.0) = 0.0;
 
 varying vec3 world_pos;
 varying vec3 world_normal;
