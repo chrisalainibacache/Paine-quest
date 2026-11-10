@@ -3,7 +3,7 @@ extends SceneTree
 const OUTPUT := "artifacts/hd_stage1/comparacion_hd.png"
 const MATERIALS := [
     {"name": "CONCRETO", "source": "res://levels/kit/materials/concrete_wall.tres", "albedo": "artifacts/hd_stage1/concrete_hd_2x.png", "normal": "artifacts/hd_stage1/concrete_normal_512.png"},
-    {"name": "LADRILLO", "source": "res://levels/kit/materials/old_bricks_wall.tres", "albedo": "artifacts/hd_stage1/bricks_old_hd_2x.png", "normal": "artifacts/hd_stage1/bricks_old_normal_512.png"},
+    {"name": "LADRILLO", "source": "res://levels/kit/materials/old_bricks_wall.tres", "albedo": "artifacts/hd_stage1/bricks_old_hd_2x.png", "normal": "artifacts/hd_stage1/old_bricks_normal_512.png"},
     {"name": "ASFALTO", "source": "res://levels/kit/materials/asphalt.tres", "albedo": "artifacts/hd_stage1/asphalt_cracked_hd_2x.png", "normal": "artifacts/hd_stage1/asphalt_cracked_normal_512.png"}
 ]
 
