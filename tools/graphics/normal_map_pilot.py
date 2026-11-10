@@ -43,7 +43,8 @@ def make_maps(path: Path, gain: float, normal_strength: float):
          nz / length * 0.5 + 0.5), axis=-1
     )
 
-    h_img = Image.fromarray(np.round(height * 65535).astype(np.uint16), mode="I;16")
+    height_u16 = np.round(height * 65535).astype("<u2")
+    h_img = Image.frombytes("I;16", (rgb.width, rgb.height), height_u16.tobytes())
     n_img = Image.fromarray(np.round(np.clip(normal, 0, 1) * 255).astype(np.uint8), "RGB")
     size = (rgb.width * 2, rgb.height * 2)
     h_img = h_img.resize(size, Image.Resampling.BICUBIC)
