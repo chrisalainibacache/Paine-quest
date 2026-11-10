@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageEnhance, ImageFilter, ImageDraw
+import numpy as np
+from PIL import Image, ImageEnhance, ImageFilter, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCES = {
@@ -23,19 +24,23 @@ SETTINGS = {
 def remaster(path: Path, material: str) -> Image.Image:
     original = Image.open(path).convert("RGB")
     cfg = SETTINGS[material]
-    # Separate existing fine detail from broad lighting and material color.
-    low_frequency = original.filter(ImageFilter.GaussianBlur(radius=1.15))
-    high_frequency = ImageChops.subtract(original, low_frequency, scale=1.0, offset=128)
-    # Resample base and residual independently, retaining source color and silhouettes.
+    source = np.asarray(original, dtype=np.float32)
+    low = np.asarray(
+        original.filter(ImageFilter.GaussianBlur(radius=1.15)),
+        dtype=np.float32,
+    )
+    # Keep signed high-frequency residuals; positive and negative detail both matter.
+    residual = source - low
     size = (original.width * 2, original.height * 2)
-    base = original.resize(size, Image.Resampling.LANCZOS)
-    detail = high_frequency.resize(size, Image.Resampling.BICUBIC)
-    # Residual is centered at 128; blend it back gently to restore existing surface detail.
-    detail = ImageChops.subtract(detail, Image.new("RGB", size, (128, 128, 128)))
-    restored = ImageChops.add(base, ImageEnhance.Brightness(detail).enhance(cfg["detail"]))
-    restored = ImageEnhance.Contrast(restored).enhance(cfg["contrast"])
-    return restored
-
+    base = np.asarray(original.resize(size, Image.Resampling.LANCZOS), dtype=np.float32)
+    residual_image = Image.fromarray(np.clip(residual + 128.0, 0, 255).astype(np.uint8), "RGB")
+    residual_up = np.asarray(
+        residual_image.resize(size, Image.Resampling.BICUBIC),
+        dtype=np.float32,
+    ) - 128.0
+    restored = np.clip(base + residual_up * cfg["detail"], 0, 255).astype(np.uint8)
+    result = Image.fromarray(restored, "RGB")
+    return ImageEnhance.Contrast(result).enhance(cfg["contrast"])
 
 def card(name: str, original: Image.Image, candidate: Image.Image) -> Image.Image:
     # Same display dimensions: left is nearest-neighbor reference, right is restored.
