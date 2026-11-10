@@ -4,7 +4,7 @@ on:
     branches:
       - feature/remaster-hd-textures-pilot
     paths:
-      - "tools/graphics/remaster_texture_pilot.py"
+      - "tools/graphics/remaster_texture_pilot.py"\n      - "tools/graphics/normal_map_pilot.py"
       - ".github/workflows/texture-remaster-pilot-push.yml"
   workflow_dispatch:
 permissions:
