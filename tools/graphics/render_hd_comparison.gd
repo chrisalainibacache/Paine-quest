@@ -80,7 +80,8 @@ func _add_panel(parent: Node3D, position: Vector3, material: Material) -> void:
     var plane := PlaneMesh.new()
     plane.size = Vector2(1.55, 2.05)
     panel.mesh = plane
-    panel.rotation_degrees.x = 90.0
+    # PlaneMesh ya está en XY y mira hacia la cámara situada en +Z.
+    # Rotarlo 90° en X lo dejaba de canto y anulaba la comparación.
     panel.position = position
     panel.material_override = material
     parent.add_child(panel)
