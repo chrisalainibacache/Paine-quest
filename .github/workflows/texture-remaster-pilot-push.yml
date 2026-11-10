@@ -4,7 +4,8 @@ on:
     branches:
       - feature/remaster-hd-textures-pilot
     paths:
-      - "tools/graphics/remaster_texture_pilot.py"\n      - "tools/graphics/normal_map_pilot.py"
+      - "tools/graphics/remaster_texture_pilot.py"
+      - "tools/graphics/normal_map_pilot.py"
       - ".github/workflows/texture-remaster-pilot-push.yml"
   workflow_dispatch:
 permissions:
@@ -21,7 +22,9 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install --upgrade pip pillow numpy
       - name: Generate isolated texture candidates
-        run: python tools/graphics/remaster_texture_pilot.py
+        run: |
+          python tools/graphics/remaster_texture_pilot.py
+          python tools/graphics/normal_map_pilot.py
       - uses: actions/upload-artifact@v4
         with:
           name: paine-hd-texture-pilot
