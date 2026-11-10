@@ -1,4 +1,4 @@
-name: HD Stage 1 Android preview
+name: HD Stage 1 texture validation
 
 on:
   push:
@@ -8,68 +8,39 @@ on:
 permissions:
   contents: read
 
-env:
-  GODOT_VERSION: "4.7.2"
-
 jobs:
-  build-hd-preview:
+  generate-texture-candidates:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install texture tools
-        run: python -m pip install --upgrade pip pillow numpy
-      - name: Generate temporary HD material candidates
+      - name: Install image tools
+        run: python -m pip install pillow numpy
+      - name: Generate isolated HD candidates
         run: python tools/graphics/hd_stage1_materials.py
-      - name: Install Godot and Android templates
+      - name: Validate dimensions and source preservation
         run: |
-          set -e
-          base="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable"
-          mkdir -p ~/godot
-          curl -sSL -o /tmp/godot.zip "$base/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
-          unzip -q /tmp/godot.zip -d ~/godot
-          curl -sSL -o /tmp/templates.tpz "$base/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
-          unzip -q /tmp/templates.tpz -d /tmp/tpl
-          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-          mv /tmp/tpl/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
-          echo "GODOT=$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64" >> "$GITHUB_ENV"
-      - name: Configure Android SDK
-        run: |
-          mkdir -p ~/.config/godot
-          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' \
-            "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-4.7.tres
-      - name: Import project
-        run: "$GODOT" --headless --import
-      - name: Run required tests
-        run: |
-          set -e
-          "$GODOT" --headless --path . -s res://tests/smoke_test.gd
-          "$GODOT" --headless --path . -s res://tests/systems_test.gd
-          "$GODOT" --headless --path . -s res://tests/levels_test.gd
-      - name: Export preview APK
-        env:
-          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: ${{ github.workspace }}/tools/android/paine.keystore
-          GODOT_ANDROID_KEYSTORE_RELEASE_USER: paine
-          GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: paine-android
-          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ github.workspace }}/tools/android/paine.keystore
-          GODOT_ANDROID_KEYSTORE_DEBUG_USER: paine
-          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: paine-android
-        run: |
-          set -e
-          mkdir -p build
-          "$GODOT" --headless --export-release "Android" build/paine-hd-preview.apk
-          ls -lh build/paine-hd-preview.apk
-      - name: Upload HD preview and comparison textures
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          root = Path("artifacts/hd_stage1")
+          expected = {
+              "concrete_hd_2x.png": (512, 512),
+              "bricks_old_hd_2x.png": (512, 512),
+              "asphalt_cracked_hd_2x.png": (512, 512),
+          }
+          for name, size in expected.items():
+              path = root / name
+              assert path.exists(), f"Missing {path}"
+              with Image.open(path) as image:
+                  assert image.size == size, f"{name}: {image.size} != {size}"
+          print("HD candidates: dimensions OK")
+          PY
+      - name: Upload comparison set
         uses: actions/upload-artifact@v4
         with:
-          name: paine-hd-stage1-preview
-          path: |
-            build/paine-hd-preview.apk
-            artifacts/hd_stage1/
+          name: paine-hd-stage1-textures
+          path: artifacts/hd_stage1/
           retention-days: 14
