@@ -41,9 +41,9 @@ def remaster(path: Path, material: str, seed: int) -> Image.Image:
 
     # Each material receives its own restrained albedo treatment.
     settings = {
-        "concrete": {"grain": 1.8, "contrast": 1.025, "edge_guard": False},
-        "old_bricks": {"grain": 1.35, "contrast": 1.035, "edge_guard": True},
-        "asphalt_cracked": {"grain": 2.1, "contrast": 1.045, "edge_guard": False},
+        "concrete": {"grain": 3.4, "contrast": 1.035, "edge_guard": False},
+        "old_bricks": {"grain": 2.8, "contrast": 1.045, "edge_guard": True},
+        "asphalt_cracked": {"grain": 4.8, "contrast": 1.055, "edge_guard": False},
     }[material]
 
     detail = periodic_microdetail(width, height, seed, settings["grain"])
