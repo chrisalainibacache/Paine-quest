@@ -48,7 +48,6 @@ for index, (name, (relative, amplitude, seed, contrast)) in enumerate(MATERIALS.
     modulation = 0.72 + np.clip(edge * 3.0, 0.0, 0.7)
     textured = np.clip(rgb + (detail * amplitude * modulation)[..., None], 0.0, 1.0)
     result = Image.fromarray(np.round(textured * 255.0).astype(np.uint8), "RGB")
-    result.save(source, optimize=True)
     result.save(OUT / f"{name}_hd_2x.png", optimize=True)
     report.append(f"{name}: {original.width}x{original.height} -> {size[0]}x{size[1]}; grain_amp={amplitude:.3f}")
 (OUT / "README.txt").write_text("\n".join(report) + "\n", encoding="utf-8")
