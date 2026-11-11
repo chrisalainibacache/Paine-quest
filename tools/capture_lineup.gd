@@ -12,6 +12,10 @@ func _init() -> void:
 func _run() -> void:
     var out: String = OS.get_cmdline_user_args()[0]
     GameState.new_game()
+    # PAINE_GRAFICOS=moderno|retro elige el modo (modelos y materiales).
+    var mode := OS.get_environment("PAINE_GRAFICOS")
+    if mode != "":
+        GraphicsSettings.set_modern(mode == "moderno")
     var room := Node3D.new()
     root.add_child(room)
     var floor := MeshInstance3D.new()
@@ -44,6 +48,7 @@ func _run() -> void:
     light.global_position = Vector3(0, 2.4, 3.6)
     light.omni_range = 6.0
     light.light_energy = 1.4
+    GraphicsSettings.apply(room)
     await create_timer(1.3).timeout
     root.get_viewport().get_texture().get_image().save_png(out)
     quit()

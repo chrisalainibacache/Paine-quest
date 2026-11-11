@@ -79,6 +79,11 @@ func _graphics_modes() -> void:
     for light: OmniLight3D in main.room.find_children("*", "OmniLight3D", true, false):
         shadows += 1 if light.shadow_enabled else 0
     _check(shadows == GraphicsSettings.SHADOW_LIGHTS, "gráficos modernos: %d luz con sombra" % shadows)
+    var zombie := (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate() as Infected
+    main.room.add_child(zombie)
+    _check(zombie.model.scene_file_path.ends_with("infected_city.glb") and zombie._anim.has_animation("z/Zombie_Walk_Fwd"),
+        "gráficos modernos: infectado detallado con sus animaciones")
+    zombie.free()
     GraphicsSettings.set_modern(false)
     GraphicsSettings.apply(main)
     mat = mesh.material_override as ShaderMaterial

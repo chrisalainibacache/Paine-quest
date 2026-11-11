@@ -100,7 +100,8 @@ func _ready() -> void:
     collision_layer = 8
     collision_mask = 1 | 2
     health = data.health
-    model = data.model_scene.instantiate() as Node3D
+    var modern := GraphicsSettings.is_modern() and data.modern_model_scene != null
+    model = (data.modern_model_scene if modern else data.model_scene).instantiate() as Node3D
     model.name = "Model"
     # El giro con que se colocó en la sala pasa al modelo: así el cuerpo queda
     # sin rotar y "hacia adelante" del modelo coincide con el avance global
@@ -109,6 +110,8 @@ func _ready() -> void:
     global_rotation = Vector3.ZERO
     add_child(model)
     Player._make_textures_crisp(model)
+    if modern:
+        _enable_specular()
     _vary_look()
     _anim = AnimationPlayer.new()
     _anim.name = "AnimationPlayer"
@@ -174,6 +177,15 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
     if mapped_tracks == 0:
         push_warning("No se encontraron pistas de huesos para las animaciones de %s." % data.display_name)
     return library
+
+
+## El modelo moderno tiene relieve y rugosidad: necesita brillos.
+func _enable_specular() -> void:
+    for mesh_instance: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
+        for i in mesh_instance.get_surface_override_material_count():
+            var material := mesh_instance.get_surface_override_material(i) as BaseMaterial3D
+            if material:
+                material.specular_mode = BaseMaterial3D.SPECULAR_SCHLICK_GGX
 
 
 func _vary_look() -> void:

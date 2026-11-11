@@ -16,6 +16,7 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Infectado (modelo + rig) | ✅ | `infected/infected_psx_05.glb` (PSX, ~850 triángulos). Licencia del pack por confirmar. |
 | Animaciones infectado | ✅ | Quaternius UAL2: Zombie_Idle/Walk/Scratch, LayToIdle, Consume, Hit_Knockback + UAL1: Hit_Chest, Death01. |
 | Infectados variados | ✅ | `infected_pale`, `infected_worker`, `infected_burnt` (PSX del Drive, textura "infectada" generada). Cada infectado varía al azar tono y estatura. |
+| Infectado detallado (modo Moderno) | ✅ | `infected/infected_city.glb`: Male City Zombie (OpenGameArt, CC0), 7k triángulos, re-teñido. |
 | Infectado rápido (cap. 2) | ⚠️ | Mismo rig con otra textura y animación de correr. |
 
 ## Escenarios (kits modulares)

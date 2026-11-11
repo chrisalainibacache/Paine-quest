@@ -13,6 +13,8 @@ extends Resource
 ## Segundos de espera entre ataques.
 @export var attack_cooldown: float = 1.4
 @export var model_scene: PackedScene
+## Modelo detallado para el modo gráfico Moderno (vacío = usa model_scene).
+@export var modern_model_scene: PackedScene
 ## Infectado rápido: corre a ráfagas a esta velocidad (0 = nunca corre).
 @export var sprint_speed: float = 0.0
 @export var sprint_time: float = 1.2

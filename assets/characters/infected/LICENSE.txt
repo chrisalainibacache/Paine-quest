@@ -9,3 +9,7 @@ infected_candidates del Drive; licencia por confirmar). Convertidos a GLB, textu
 Los tres últimos llevan la textura "infectada" (piel pálida verdosa, mugre y sangre)
 hecha con un script de conversión (registro en docs/ASSETS.md).
 Animaciones: Quaternius UAL2 (CC0) + UAL1 (CC0), ver actors/enemies/infected_animations.res.
+- infected_city.glb: "Male City Zombie" de Rikindle3D (OpenGameArt, CC0 1.0),
+  https://opengameart.org/content/male-city-zombie-ready-for-use-in-game-engines
+  Reducido de 24k a 7k triángulos y texturas 1024/512 (tools/convert_infected_city.gd),
+  re-teñido (tools/tint_infected_city.py). Se usa en el modo gráfico Moderno.
