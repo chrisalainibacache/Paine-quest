@@ -2,44 +2,33 @@
 
 ## Estado
 - Rama experimental: `feature/hd-remaster-stage1-textures`.
-- La rama se mantiene aislada de `main`; no se han reemplazado texturas, escenas ni materiales de producción.
+- Aislada de `main`; no se han reemplazado texturas, escenas ni materiales de producción.
 - El shader base `ps1_surface.gdshader` permanece intacto.
 - `ps1_surface_hd_pilot.gdshader` es una variante de prueba, no aprobada para producción.
 
-## Qué prueba
-- Conserva el muestreo triplanar, el color, la variación macro y la suciedad del shader original.
-- Añade un canal de normal map triplanar en espacio mundo.
-- La intensidad `normal_strength` parte en 0.0: no cambia el aspecto hasta asignar un mapa y habilitarlo expresamente.
-- Mantiene `ROUGHNESS = 1.0` y el render simple compatible con Compatibility.
+## Resultados comprobados
+- Dos ejecuciones recientes del workflow completaron con Godot 4.7.2, importación, validador de shader, comparativos y captura de cámaras reales.
+- Una ejecución anterior falló en validación de dimensiones/preservación; las dos posteriores finalizaron correctamente.
+- El artefacto contiene capturas de las cámaras Oeste y Este a 1280x720.
+- El candidato 2x es un cambio sutil, no una reconstrucción artística HD.
+- Los mapas normales derivados de luminancia son diagnósticos, no mapas físicos ni aptos para producción.
+- La imagen de orientación del shader no demuestra por sí sola las seis orientaciones; falta mejorar su composición.
 
-## Resultados comprobados en GitHub Actions
-- Las dos ejecuciones más recientes del workflow terminaron correctamente con Godot 4.7.2, importación del proyecto, validador del shader, comparativos y captura de las dos cámaras reales.
-- Una ejecución anterior falló en la etapa de validación de dimensiones/preservación; las dos ejecuciones posteriores sí completaron y publicaron artefactos.
-- El artefacto revisado contiene `anden_real_camara_west.png` y `anden_real_camara_east.png`, ambos de 1280x720. Son capturas base auténticas de la escena original, sin sustitución de materiales.
-- La imagen `comparacion_hd.png` confirma que el reescalado 2x produce cambios muy sutiles. No es una reconstrucción artística HD ni está aprobado como mejora final.
-- La imagen `comparacion_normales_luz.png` permite ver diferencias A/B, pero el encuadre de diagnóstico deja los objetos pequeños y no es suficiente para aprobar el relieve.
-- `shader_orientaciones.png` se genera correctamente, pero la inspección visual muestra cobertura/encuadre insuficiente para considerar demostradas las seis orientaciones. Se debe mejorar la composición del validador.
+## Auditoría completa de entorno
+- Se revisaron las 14 texturas de `assets/environment/textures/`; todas son 256x256.
+- El suelo dominante de la estación usa `paving.png`, ausente del primer piloto.
+- La auditoría calcula diferencias medias RGB entre bordes opuestos y ordena los materiales por mayor diferencia. Es un indicador diagnóstico, sin umbral de aprobación calibrado.
+- Hallazgo: `paving.png` presenta X=0.0678 e Y=0.1224; `gravel.png` X=0.0580 e Y=0.0625. No debemos ampliarlas ni repetirlas sin revisar continuidad visual.
+- Se documentó el orden de materiales en `HD_STAGE1_MATERIAL_PRIORITY.md`.
 
-## Auditoría y prioridad de materiales
-- El primer piloto generaba candidatos para concreto, mampostería antigua y asfalto agrietado.
-- La revisión de `platform.tscn` y sus materiales encontró una omisión importante: el suelo dominante del andén usa `paving.png`, no concreto. El asfalto agrietado no es dominante en la escena principal capturada.
-- Se añadió `HD_STAGE1_MATERIAL_PRIORITY.md` con el orden recomendado para el andén: pavimento, mampostería antigua, revoque, baldosas, madera/metal y grava/seguridad.
-- La auditoría automatizada se amplía para medir las 14 texturas de entorno sin modificarlas.
-
-## Qué significa el piloto 2x
-- La ampliación Lanczos y el microdetalle procedural son experimentos de comparación. No equivalen a reconstrucción artística HD.
-- Las métricas estructurales son barreras de regresión para preservar apariencia macro, no aprobación artística.
-- Los mapas de normales se derivan de luminancia del albedo; el color no equivale a altura física. Son diagnósticos y no se habilitan en producción.
-- La mampostería de `bricks_old.png` es piedra irregular, no ladrillo convencional. Preservar piedras, juntas, proporciones y distribución.
-
-## Próximas puertas de validación
-1. Ejecutar la auditoría completa de las 14 texturas y priorizar por presencia real en la estación.
-2. Construir comparaciones A/B usando la escena real y las cámaras Oeste/Este; mantener geometría y luz idénticas.
-3. Mejorar el encuadre del validador de normales para que las seis orientaciones sean visibles y verificables.
-4. Crear candidatos artísticos de `paving.png`, `bricks_old.png` y `plaster.png`; no aplicar ruido genérico ni alterar patrones reconocibles.
-5. Revisar visualmente los artefactos, validar Compatibility y probar en Android antes de promover cualquier recurso.
+## Próximas puertas
+1. Probar visualmente la continuidad de `paving.png` en el suelo real, conservando adoquines y juntas.
+2. Preparar una comparación A/B del material del pavimento desde las cámaras Oeste/Este.
+3. Crear candidatos artísticos para pavimento, mampostería y revoque solo después de resolver la continuidad.
+4. Mejorar el encuadre del validador de normales; no activar normales en producción.
+5. Revisar visualmente, validar Compatibility y probar Android antes de promover cualquier recurso.
 
 ## Decisión de integración
-- Ninguna textura candidata se integra todavía en los assets del juego.
-- No se cambia geometría, cámara, proporciones de personajes, paleta artística ni interfaz móvil.
-- La aprobación visual humana y la prueba Android son obligatorias antes de promover cualquier recurso.
+- Ninguna textura candidata se integra todavía en assets del juego.
+- No se cambia geometría, cámara, proporciones de personajes, paleta ni interfaz móvil.
+- La aprobación visual humana y la prueba Android son obligatorias.
