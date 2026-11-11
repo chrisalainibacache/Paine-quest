@@ -53,3 +53,9 @@
 - Diferencia media absoluta de imagen completa: Oeste 0.647/255; Este 0.692/255. El porcentaje de píxeles con algún cambio fue ~28.3% y ~28.6%, respectivamente; la magnitud es baja.
 - Decisión: rechazar el remuestreo 2x como mejora visual del pavimento. Se conservan intactos `paving.png` y `paving_floor.tres`.
 - Las capturas A/B quedan como evidencia reproducible, no como material de producción.
+
+
+## Siguiente comparación: mampostería y revoque
+- Se añadió `render_wall_ab_preview.gd` para probar dos superficies del andén real: `Walls/RetainingWall/Mesh` con `bricks_old_hd_2x.png`, y `Walls/Facade/Mesh` con `concrete_hd_2x.png`.
+- Cada material se compara original/candidato desde Oeste y Este. El candidato duplica el ShaderMaterial original y sustituye únicamente `albedo_tex`; no se guardan ni modifican recursos de producción.
+- CI valida las ocho capturas nuevas. La prueba permitirá decidir si el remuestreo tiene algún efecto útil en superficies verticales, sin asumir que el resultado del pavimento se repite en otros materiales.
