@@ -24,6 +24,8 @@ jobs:
         run: python tools/graphics/hd_stage1_materials.py
       - name: Generate height and normal map candidates
         run: python tools/graphics/hd_stage1_normal_maps.py
+      - name: Validate candidate structure and palette preservation
+        run: python tools/graphics/validate_hd_candidates.py
       - name: Validate generated normal-map filenames and dimensions
         run: |
           python - <<'PY'
