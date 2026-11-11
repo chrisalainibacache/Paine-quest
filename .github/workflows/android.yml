@@ -75,8 +75,9 @@ jobs:
           GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: paine-android
         run: |
           set -e
-          sed -i "s/^version\/code=.*/version\/code=${{ github.run_number }}/" export_presets.cfg
-          sed -i "s/^version\/name=.*/version\/name=\"0.1.${{ github.run_number }}\"/" export_presets.cfg
+          # 1000 + número de ejecución: siempre mayor que el APK 0.2.0 (1016) armado a mano.
+          sed -i "s/^version\/code=.*/version\/code=$((1000 + ${{ github.run_number }}))/" export_presets.cfg
+          sed -i "s/^version\/name=.*/version\/name=\"0.2.${{ github.run_number }}\"/" export_presets.cfg
           mkdir -p build
           "$GODOT" --headless --export-release "Android" build/paine.apk
           ls -la build
