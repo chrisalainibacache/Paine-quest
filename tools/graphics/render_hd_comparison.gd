@@ -3,7 +3,7 @@ extends SceneTree
 const OUTPUT := "artifacts/hd_stage1/comparacion_hd.png"
 const MATERIALS := [
     {"name": "CONCRETO", "source_texture": "res://assets/environment/textures/concrete.png", "albedo": "artifacts/hd_stage1/concrete_hd_2x.png"},
-    {"name": "LADRILLO", "source_texture": "res://assets/environment/textures/bricks_old.png", "albedo": "artifacts/hd_stage1/bricks_old_hd_2x.png"},
+    {"name": "MAMPOSTERÍA", "source_texture": "res://assets/environment/textures/bricks_old.png", "albedo": "artifacts/hd_stage1/bricks_old_hd_2x.png"},
     {"name": "ASFALTO", "source_texture": "res://assets/environment/textures/asphalt_cracked.png", "albedo": "artifacts/hd_stage1/asphalt_cracked_hd_2x.png"}
 ]
 
@@ -40,11 +40,14 @@ func _render_preview() -> void:
         var original_texture := load(str(entry.source_texture)) as Texture2D
         assert(original_texture != null, "Textura original no encontrada: " + str(entry.source_texture))
         _add_panel(scene_root, Vector3(x - 0.82, 0.0, 0.0), original_texture)
+        _add_label(scene_root, Vector3(x - 0.82, 1.22, 0.12), "ORIGINAL")
 
         var hd_image := Image.load_from_file(str(entry.albedo))
         assert(not hd_image.is_empty(), "Albedo HD no encontrado: " + str(entry.albedo))
         var hd_texture := ImageTexture.create_from_image(hd_image)
         _add_panel(scene_root, Vector3(x + 0.82, 0.0, 0.0), hd_texture)
+        _add_label(scene_root, Vector3(x + 0.82, 1.22, 0.12), "CANDIDATO 2X")
+        _add_label(scene_root, Vector3(x, 2.05, 0.12), str(entry.name))
 
     await process_frame
     await process_frame
@@ -70,3 +73,13 @@ func _add_panel(parent: Node3D, position: Vector3, texture: Texture2D) -> void:
     panel.position = position
     parent.add_child(panel)
 
+
+func _add_label(parent: Node3D, position: Vector3, value: String) -> void:
+    var label := Label3D.new()
+    label.text = value
+    label.position = position
+    label.font_size = 30
+    label.pixel_size = 0.004
+    label.modulate = Color(0.92, 0.88, 0.76)
+    label.outline_size = 5
+    parent.add_child(label)
