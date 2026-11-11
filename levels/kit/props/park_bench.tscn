@@ -1,0 +1,102 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/iron_green.tres" id="2_iron_green"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="3_wood"]
+
+[node name="ParkBench" type="Node3D"]
+
+[node name="LegFront0" type="StaticBody3D" parent="."]
+position = Vector3(-0.72, 0.22, 0.17)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 0.44, 0.05)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="LegBack0" type="StaticBody3D" parent="."]
+position = Vector3(-0.72, 0.42, -0.2)
+rotation = Vector3(-0.12, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 0.84, 0.05)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="Arm0" type="StaticBody3D" parent="."]
+position = Vector3(-0.72, 0.64, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.06, 0.04, 0.45)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="LegFront1" type="StaticBody3D" parent="."]
+position = Vector3(0.72, 0.22, 0.17)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 0.44, 0.05)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="LegBack1" type="StaticBody3D" parent="."]
+position = Vector3(0.72, 0.42, -0.2)
+rotation = Vector3(-0.12, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 0.84, 0.05)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="Arm1" type="StaticBody3D" parent="."]
+position = Vector3(0.72, 0.64, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.06, 0.04, 0.45)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="Slat0" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.45, -0.15)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.035, 0.08)
+surface = ExtResource("3_wood")
+solid = false
+
+[node name="Slat1" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.45, -0.045)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.035, 0.08)
+surface = ExtResource("3_wood")
+
+[node name="Slat2" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.45, 0.06)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.035, 0.08)
+surface = ExtResource("3_wood")
+solid = false
+
+[node name="Slat3" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.45, 0.165)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.035, 0.08)
+surface = ExtResource("3_wood")
+solid = false
+
+[node name="BackSlat0" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.6, -0.24)
+rotation = Vector3(-0.12, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.07, 0.03)
+surface = ExtResource("3_wood")
+solid = false
+
+[node name="BackSlat1" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.72, -0.255)
+rotation = Vector3(-0.12, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.07, 0.03)
+surface = ExtResource("3_wood")
+solid = false
+
+[node name="BackSlat2" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.84, -0.27)
+rotation = Vector3(-0.12, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(1.6, 0.07, 0.03)
+surface = ExtResource("3_wood")
+solid = false

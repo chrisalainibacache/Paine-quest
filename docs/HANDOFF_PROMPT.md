@@ -133,7 +133,7 @@ godot --headless --path . --import || true
   - **DISPARAR** es un botón pequeño a la derecha.
   - **ACCIÓN** es contextual (RECOGER, LEER, ABRIR, USAR, EXAMINAR) y aparece en el lugar de DISPARAR.
   - **MOCHILA** está arriba a la derecha.
-- **Pistola:** cargador de 10. La reserva son las balas de la mochila. Recarga automática.
+- **Arsenal:** Cony empieza con 7 armas en la mochila (pistola, Mauser C96, escopeta, fusil de asalto, rifle de francotirador, lanzagranadas, bazuca) y munición de 5 tipos; mochila de 16 casillas. Cada arma guarda su cargador. Ver `docs/GDD.md` §5.
 - **Salud:** Bien / Precaución / Peligro, con vibración y pantalla de muerte. REINTENTAR carga la última partida guardada.
 - **Infectados:** estados idle, feeding, lying (se hace el muerto), corpse, rising, chase, attack, stagger y dead.
   - `requires_flag` hace que aparezcan según el progreso.
@@ -149,6 +149,8 @@ godot --headless --path . --import || true
   - Máquina de escribir para guardar (una ranura, en `user://partida.json`).
   - Pantalla de título.
   - Fin de capítulo.
+- **Capítulo 2 (completo):** vía norte, tren descarrilado, interior del vagón, costado del convoy, paso bajo nivel (apagón con linterna) y casa de cambios (final del juego). Infectado rápido.
+- **Remaster:** decisiones en `docs/REMASTER_DIRECTION.md` (noche se mantiene; detalle de arquitectura permitido sin cambiar la planta; texturas 512 desde ambientCG pendiente).
 - **Capítulo 1:**
   1. **Andén norte:** inicio, sin arma.
   2. **Sala de espera:** máquina de escribir.
@@ -162,6 +164,8 @@ godot --headless --path . --import || true
   - Sonidos sintetizados en `systems/sfx.gd`.
 
 ## 5. Siguientes cambios, en orden de prioridad
+
+> Ya hecho (noviembre): capítulo 2 completo, arsenal de 7 armas y detalle de arquitectura en los andenes. Lo que queda: texturas a 512 px desde los originales de ambientCG, más detalle de utilería en salas interiores, audio real y pulido.
 
 1. **Detalle de la utilería.** Hoy las bancas, estantes, mesas y cajas son bloques con textura. Hay que darles forma:
    - patas de fierro y tablas separadas;

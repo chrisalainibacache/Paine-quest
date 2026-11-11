@@ -1,0 +1,116 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/iron_green.tres" id="2_iron_green"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.12
+bottom_radius = 0.17
+height = 0.14
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 0.085
+bottom_radius = 0.1
+height = 2.7
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 0.115
+bottom_radius = 0.115
+height = 0.06
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 0.115
+bottom_radius = 0.115
+height = 0.06
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5"]
+top_radius = 0.2
+bottom_radius = 0.1
+height = 0.24
+radial_segments = 8
+rings = 1
+
+[node name="IronColumn" type="Node3D"]
+
+[node name="Plinth" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.15, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.38, 0.3, 0.38)
+surface = ExtResource("2_iron_green")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.72, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.2, 3.44, 0.2)
+surface = ExtResource("2_iron_green")
+visible = false
+
+[node name="BaseMould" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.36, 0)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("2_iron_green")
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.75, 0)
+mesh = SubResource("CylinderMesh_2")
+material_override = ExtResource("2_iron_green")
+
+[node name="Ring0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.9, 0)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("2_iron_green")
+
+[node name="Ring1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.6, 0)
+mesh = SubResource("CylinderMesh_4")
+material_override = ExtResource("2_iron_green")
+
+[node name="Capital" type="MeshInstance3D" parent="."]
+position = Vector3(0, 3.2, 0)
+mesh = SubResource("CylinderMesh_5")
+material_override = ExtResource("2_iron_green")
+
+[node name="Abacus" type="StaticBody3D" parent="."]
+position = Vector3(0, 3.36, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.42, 0.08, 0.42)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="BracketF" type="StaticBody3D" parent="."]
+position = Vector3(0, 2.95, 0.42)
+rotation = Vector3(0.62, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 0.05, 0.95)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="BracketRibF" type="StaticBody3D" parent="."]
+position = Vector3(0, 3.25, 0.5)
+script = ExtResource("1_kit_block")
+size = Vector3(0.04, 0.04, 0.85)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="BracketB" type="StaticBody3D" parent="."]
+position = Vector3(0, 2.95, -0.42)
+rotation = Vector3(-0.62, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 0.05, 0.95)
+surface = ExtResource("2_iron_green")
+solid = false
+
+[node name="BracketRibB" type="StaticBody3D" parent="."]
+position = Vector3(0, 3.25, -0.5)
+script = ExtResource("1_kit_block")
+size = Vector3(0.04, 0.04, 0.85)
+surface = ExtResource("2_iron_green")
+solid = false

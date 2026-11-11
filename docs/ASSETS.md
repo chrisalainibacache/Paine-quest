@@ -23,7 +23,8 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Zona | Estado | Origen / nota |
 | --- | --- | --- |
 | Estación (andén, muros, techos, bancas) | ⚠️ | `psx_buildings/`, `railway/`, `railway_v69/`, `signs/`. |
-| Tren y vagones | ✅ | `railway_v69/` (locomotora, vagones b y c, vías). |
+| Tren y vagones | ✅ | Hechos con el kit: `levels/kit/props/train_wagon`, `locomotive`, `seat_pair`, `fire` (`tools/level_gen/train_props.py`). |
+| Detalle de estación | ✅ | Columna de fierro, banca de andén, farol, arco, afiche y macetero (`tools/level_gen/station_props.py`; texturas con `tools/make_station_textures.gd`). |
 | Calle/callejón (vehículos, barreras, conos) | ✅ | `urban_apocalypse/`, `atomic_realm_post_apocalyptic/`. |
 | Interior de vagón | ⚠️ | Se arma con el kit modular + asientos de `railway_v69/`. |
 | Paso bajo nivel / casa de cambios | ⚠️ | Kit modular de concreto + props. |
@@ -36,7 +37,8 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | Asset | Estado | Origen / nota |
 | --- | --- | --- |
 | Pistola | ✅ | Low poly hecha con piezas (`actors/player/pistol.tscn`). |
-| Escopeta | ❌ | Pendiente (capítulo 2). |
+| Arsenal (7 armas) | ✅ | `assets/weapons/`: Heavy Weapons Pack (Mauser, lanzagranadas, bazuca; licencia por confirmar) + Quaternius CC0 (escopeta, fusil, rifle). Ver su `LICENSE.txt`. |
+| Munición nueva | ✅ | Cartuchos, balas de fusil, granadas y cohetes: modelos en `levels/kit/items/` (`tools/level_gen/ammo_items.py`). |
 | Íconos de inventario | ✅ | `inventory/` (+ íconos vectoriales hechos en código). |
 | Llaves, notas, comida | ✅ | Modelos en `levels/kit/items/`. Sushi y handroll al estilo chileno (salmón, palta, queso crema) con texturas de `tools/make_food_textures.gd`. |
 

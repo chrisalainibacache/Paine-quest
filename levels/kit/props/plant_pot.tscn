@@ -1,0 +1,82 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://levels/kit/materials/concrete_wall.tres" id="1_concrete_wal"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="2_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/gravel.tres" id="3_gravel"]
+[ext_resource type="Texture2D" path="res://assets/environment/station/foliage.png" id="4_foliage"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.26
+bottom_radius = 0.2
+height = 0.6
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 0.24
+bottom_radius = 0.24
+height = 0.02
+radial_segments = 10
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_texture = ExtResource("4_foliage")
+texture_filter = 0
+transparency = 2
+alpha_scissor_threshold = 0.5
+cull_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_4"]
+size = Vector2(0.85, 0.8)
+
+[sub_resource type="QuadMesh" id="QuadMesh_5"]
+size = Vector2(0.85, 0.8)
+
+[sub_resource type="QuadMesh" id="QuadMesh_6"]
+size = Vector2(0.85, 0.8)
+
+[sub_resource type="QuadMesh" id="QuadMesh_7"]
+size = Vector2(0.85, 0.8)
+
+[node name="PlantPot" type="Node3D"]
+
+[node name="Pot" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.3, 0)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("1_concrete_wal")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.3, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.42, 0.6, 0.42)
+surface = ExtResource("1_concrete_wal")
+visible = false
+
+[node name="Soil" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.6, 0)
+mesh = SubResource("CylinderMesh_2")
+material_override = ExtResource("3_gravel")
+
+[node name="Leaves0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.98, 0)
+rotation = Vector3(0, 0, 0)
+mesh = SubResource("QuadMesh_4")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Leaves1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.98, 0)
+rotation = Vector3(0, 0.7854, 0)
+mesh = SubResource("QuadMesh_5")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Leaves2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.98, 0)
+rotation = Vector3(0, 1.5708, 0)
+mesh = SubResource("QuadMesh_6")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Leaves3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.98, 0)
+rotation = Vector3(0, 2.3562, 0)
+mesh = SubResource("QuadMesh_7")
+material_override = SubResource("StandardMaterial3D_3")

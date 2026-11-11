@@ -32,7 +32,7 @@ res://
 ├─ levels/          Una carpeta por zona; una escena por sala
 │  ├─ kit/          Piezas modulares (KitBlock, vías, CameraZone, Room, interact/, items/, props/)
 │  ├─ station/      Capítulo 1: platform.tscn, waiting_room.tscn, ...
-│  └─ tracks/       Capítulo 2: vías y tren destruido
+│  └─ tracks/       Capítulo 2: vía norte, tren descarrilado, vagón, convoy, paso bajo nivel, casa de cambios
 ├─ systems/         Autoloads (ver abajo)
 ├─ ui/              hud/, inventory/, dialogue/, title/, theme/
 ├─ data/            Recursos .tres: items/, weapons/, enemies/, documents/
@@ -71,7 +71,10 @@ necesitan el árbol registran su instancia al iniciar.
 | `note.gd` | Documento legible (`DocumentData`). |
 | `examine_spot.gd` | Objeto que solo muestra mensajes. |
 | `typewriter.gd` | Guardar partida. |
-| `chapter_exit.gd` | Salida que cierra un capítulo (pregunta antes; `SceneLoader.end_chapter`). |
+| `chapter_exit.gd` | Salida que cierra un capítulo (pregunta antes; `SceneLoader.end_chapter`). El fin del capítulo 1 ofrece CONTINUAR al 2 (guarda un punto de control); el del 2 es el final. |
+| `Room.dark` | Sala a oscuras: Cony enciende la linterna (`Player.set_flashlight`). |
+| `WeaponData` | Daño, cargador, caída de daño, ráfaga, explosivos (`explosive_radius`), modelo en la mano (`held_scene` o `held_model` + `muzzle_offset`) y sonido. `GameState.equip()` guarda el cargador de cada arma. |
+| `actors/fx/` | `Explosion` (fuego, humo, esquirlas, mancha) y `Projectile` (granada/cohete en vuelo). |
 | `flicker_light.gd` | OmniLight3D que parpadea de vez en cuando. |
 | `props/decal.tscn` | Calcomanía (grafiti, sangre, hoyo, mancha) en un QuadMesh pegado al muro o al piso (shader `decal`, con `wear` para pintura gastada). |
 | `Infected` | `start_state` idle / feeding / lying / corpse; `requires_flag` lo hace aparecer según el progreso. |

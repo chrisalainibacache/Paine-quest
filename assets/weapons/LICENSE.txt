@@ -1,0 +1,6 @@
+Armas (convertidas a GLB con tools/convert_weapons en el registro de docs/ASSETS.md):
+- mauser.glb, grenade_launcher.glb, bazooka.glb: "Heavy Weapons Pack" entregado por Chris
+  (zip sin archivo de licencia; licencia por confirmar). El cuchillo del pack no se usa.
+- shotgun.glb, assault_rifle.glb, sniper_rifle.glb: Quaternius (CC0 1.0), carpeta
+  weapons/quaternius del Drive.
+Cañón hacia +Z, arriba +Y, empuñadura en el origen, largo real en metros.

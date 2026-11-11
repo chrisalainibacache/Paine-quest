@@ -40,7 +40,11 @@ s.node("Track", "Node3D", "Ground", position=v3((0, -1.0, -3.3)), script=s.res("
 # --- Muros: la sala queda cerrada por los 4 lados ----------------------
 s.node("Walls", "Node3D", ".")
 block("Facade", "Walls", (0, 2.0, 5.45), (14.6, 4.0, 0.3), "plaster_wall")
-block("Wainscot", "Walls", (0, 0.55, 5.29), (14.0, 1.1, 0.04), "tiles_wall", solid=False)
+block("Wainscot", "Walls", (0, 0.55, 5.29), (14.0, 1.1, 0.04), "paint_red", solid=False)
+block("WainscotCap", "Walls", (0, 1.12, 5.27), (14.0, 0.06, 0.08), "wood", solid=False)
+# Pilastras rojas entre puertas y ventanas (como la estación real).
+for i, x in enumerate((-6.6, -2.9, 0.7, 4.3, 6.85)):
+    block("Pilaster%d" % i, "Walls", (x, 1.8, 5.27), (0.32, 3.6, 0.06), "paint_red", solid=False)
 block("Baseboard", "Walls", (0, 0.08, 5.27), (14.0, 0.16, 0.08), "concrete_wall", solid=False)
 block("RetainingWall", "Walls", (0, 1.25, -5.45), (14.6, 4.5, 0.3), "old_bricks_wall")
 block("WestWall", "Walls", (-7.15, 1.3, 0), (0.3, 4.6, 11.2), "concrete_wall")
@@ -52,21 +56,32 @@ block("DoorPanel", "Facade_Details", (3, 1.1, 5.26), (1.2, 2.2, 0.08), "planks")
 block("DoorFrameL", "Facade_Details", (2.34, 1.2, 5.24), (0.12, 2.4, 0.16), "wood")
 block("DoorFrameR", "Facade_Details", (3.66, 1.2, 5.24), (0.12, 2.4, 0.16), "wood")
 block("DoorLintel", "Facade_Details", (3, 2.46, 5.24), (1.44, 0.12, 0.16), "wood")
+prop("DoorArch", "Facade_Details", "window_arch", (3, 2.48, 5.27), rot=(0, math.pi, 0))
+prop("Clock", "Facade_Details", "wall_clock", (1.65, 2.62, 5.26), rot=(0, math.pi, 0))
+prop("Poster", "Facade_Details", "travel_poster", (-6.0, 1.75, 5.27), rot=(0, math.pi, 0))
+for i, x in enumerate((-2.9, 0.7, 4.3)):
+    prop("Lantern%d" % i, "Facade_Details", "wall_lantern", (x, 2.35, 5.24), rot=(0, math.pi, 0))
 for i, x in enumerate((-4.6, -1.2, 5.6)):
     s.node("Window%d" % i, "MeshInstance3D", "Facade_Details", position=v3((x, 1.85, 5.29)),
            mesh=s.subres("BoxMesh", {"size": v3((1.3, 1.1, 0.03))}), material_override=s.res(M("window_glow"), "Material"))
     block("WindowSill%d" % i, "Facade_Details", (x, 1.25, 5.24), (1.5, 0.08, 0.16), "wood", solid=False)
     block("WindowTop%d" % i, "Facade_Details", (x, 2.45, 5.24), (1.5, 0.1, 0.16), "wood", solid=False)
+    prop("Arch%d" % i, "Facade_Details", "window_arch", (x, 2.42, 5.27), rot=(0, math.pi, 0))
     for j in range(4):
         block("Bar%d_%d" % (i, j), "Facade_Details", (x - 0.45 + j * 0.3, 1.85, 5.22), (0.035, 1.1, 0.035), "metal", solid=False)
 
 # --- Andén: reja de borde, techo y pilares -----------------------------
 s.node("Canopy", "Node3D", ".")
 block("Roof", "Canopy", (0, 3.6, 2.5), (14.6, 0.12, 5.9), "rust")
+# Cielo del alero: tablas de madera con vigas a la vista y tapa del borde.
+block("RoofBoards", "Canopy", (0, 3.535, 2.5), (14.5, 0.02, 5.8), "planks", solid=False)
+for i in range(12):
+    block("Rafter%d" % i, "Canopy", (-6.6 + i * 1.2, 3.46, 2.5), (0.08, 0.12, 5.8), "wood", solid=False)
+block("Fascia", "Canopy", (0, 3.5, -0.42), (14.6, 0.26, 0.05), "wood", solid=False)
 for i, z in enumerate((0.15, 2.5, 4.85)):
     block("Beam%d" % i, "Canopy", (0, 3.44, z), (14.0, 0.2, 0.12), "metal", solid=False)
 for i, x in enumerate((-5.0, -1.6, 1.6, 5.0)):
-    block("Pillar%d" % i, "Canopy", (x, 1.72, 0.15), (0.18, 3.44, 0.18), "rust")
+    prop("Pillar%d" % i, "Canopy", "iron_column", (x, 0, 0.15))
 
 s.node("EdgeFence", "Node3D", ".")
 for i in range(8):
@@ -80,8 +95,10 @@ s.node("Shape", "CollisionShape3D", "EdgeBlocker", shape=s.subres("BoxShape3D", 
 
 # --- Utilería -----------------------------------------------------------
 s.node("Props", "Node3D", ".")
-prop("BenchA", "Props", "bench", (-3.2, 0, 4.6), rot=(0, math.pi, 0))
-prop("BenchB", "Props", "bench", (0.4, 0, 4.6), rot=(0, math.pi, 0))
+prop("BenchA", "Props", "park_bench", (-3.2, 0, 4.6), rot=(0, math.pi, 0))
+prop("BenchB", "Props", "park_bench", (0.4, 0, 4.6), rot=(0, math.pi, 0))
+prop("PlantA", "Props", "plant_pot", (1.95, 0, 4.9))
+prop("PlantB", "Props", "plant_pot", (4.05, 0, 4.9))
 block("TrashBin", "Props", (-0.9, 0.4, 4.85), (0.42, 0.8, 0.42), "rust")
 prop("Sign", "Props", "station_sign", (0, 2.95, 0.15))
 prop("CrateA", "Props", "crate", (-6.2, 0, 2.2), rot=(0, 0.2, 0))

@@ -1,0 +1,19 @@
+# Remaster de la estación — decisiones (contradicciones resueltas)
+
+La imagen de referencia ("Remaster HD Etapa 1") es una foto generada por IA: de día,
+con otra arquitectura y luz solar real. El brief que la acompañaba pedía a la vez "no
+rediseñar la estación, no cambiar geometría ni iluminación". Esas dos cosas se
+contradicen; esto es lo que se decidió y por qué.
+
+| Tema | Contradicción | Decisión |
+| --- | --- | --- |
+| Día vs. noche | La imagen es de día; el juego es terror nocturno. | Se mantiene **la noche, la niebla y la luz de sodio** (identidad del juego). |
+| Geometría | El brief la prohíbe; lo que da riqueza a la imagen es justamente geometría. | Se permite **geometría de detalle** si la planta no cambia: colisiones, cámaras y puntos de aparición iguales (lo verifica `tests/levels_test.gd`). |
+| Qué se toma de la imagen | — | Columnas de fierro con capitel y ménsulas, alero de tablas con vigas, zócalo y pilastras rojas, ventanas y puerta en arco, reloj, afiche turístico de Paine con la cordillera, maceteros, faroles de pared, bancas de fierro y madera. |
+| Texturas HD | Reescalar las de 256 px no agrega detalle (lo comprobó la rama de ChatGPT). | Se rehacen a 512 px **desde los originales de ambientCG (CC0)**, que existen en alta resolución. Pendiente. |
+| Fotorrealismo | Imposible a 60 fps en Android con el renderer Compatibility. | Estilo PS1 con más detalle; nada de reflejos ni materiales fotográficos. |
+| Dificultad | Un cambio posterior bajó a 5 balazos; Chris pidió 7. | **7 balazos** el infectado común (11 el pesado). Manda lo que pidió Chris. |
+| Armas | El GDD decía "la pistola se encuentra en la boletería" y "solo armas de fuego". | Chris pidió **todas las armas en la mochila al inicio**: la boletería ahora tiene la munición del guardia. Se mantiene "solo armas de fuego": el cuchillo del pack no se usa. |
+
+Revisión visual: `tools/capture_rooms.gd` (cada cámara de cada sala) y
+`tools/capture_weapons.gd` (cada arma).

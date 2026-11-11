@@ -28,14 +28,21 @@ k.s.node("Shape", "CollisionShape3D", "EdgeBlocker", shape=k.s.subres("BoxShape3
 k.block("Ramp", "Ground", (5.0, -0.5, -1.6), (1.6, 0.1, 1.4), "concrete_floor", solid=False, rot=(0.6, 0, 0))
 # Techo y pilares.
 k.block("Roof", "Canopy", (0, 3.6, 2.2), (12.4, 0.12, 5.6), "rust")
+k.block("RoofBoards", "Canopy", (0, 3.535, 2.2), (12.3, 0.02, 5.5), "planks", solid=False)
+for i in range(10):
+    k.block("Rafter%d" % i, "Canopy", (-5.4 + i * 1.2, 3.46, 2.2), (0.08, 0.12, 5.5), "wood", solid=False)
+k.block("Fascia", "Canopy", (0, 3.5, -0.58), (12.4, 0.26, 0.05), "wood", solid=False)
 for i, x in enumerate((-4.0, 0.0, 4.0)):
-    k.block("Pillar%d" % i, "Canopy", (x, 1.72, 0.15), (0.18, 3.44, 0.18), "rust")
+    k.prop("Pillar%d" % i, "Canopy", "iron_column", (x, 0, 0.15))
 # Portón de vuelta al andén norte (muro oeste).
 k.block("GateFrame", "Walls", (-6.0, 1.4, 2.0), (0.1, 2.8, 2.6), "rust", solid=False)
 for j in range(7):
     k.block("GateBar%d" % j, "Walls", (-5.95, 1.4, 0.85 + j * 0.38), (0.04, 2.6, 0.04), "metal", solid=False)
 # Utilería.
-k.prop("Bench", "Props", "bench", (-2.0, 0, 4.4), rot=(0, math.pi, 0))
+k.prop("Bench", "Props", "park_bench", (-2.0, 0, 4.4), rot=(0, math.pi, 0))
+k.prop("Plant", "Props", "plant_pot", (0.2, 0, 4.55))
+for i, x in enumerate((-4.6, 2.4)):
+    k.prop("Lantern%d" % i, "Props", "wall_lantern", (x, 2.4, 4.89), rot=(0, math.pi, 0))
 k.prop("Sign", "Props", "station_sign", (0, 2.95, 0.15))
 k.block("CartBed", "Props", (1.6, 0.45, 3.6), (2.0, 0.08, 1.0), "planks")
 for i, (x, z) in enumerate([(0.75, 3.2), (2.45, 3.2), (0.75, 4.0), (2.45, 4.0)]):
