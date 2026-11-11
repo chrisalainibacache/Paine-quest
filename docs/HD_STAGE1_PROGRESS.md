@@ -59,3 +59,10 @@
 - Se añadió `render_wall_ab_preview.gd` para probar dos superficies del andén real: `Walls/RetainingWall/Mesh` con `bricks_old_hd_2x.png`, y `Walls/Facade/Mesh` con `concrete_hd_2x.png`.
 - Cada material se compara original/candidato desde Oeste y Este. El candidato duplica el ShaderMaterial original y sustituye únicamente `albedo_tex`; no se guardan ni modifican recursos de producción.
 - CI valida las ocho capturas nuevas. La prueba permitirá decidir si el remuestreo tiene algún efecto útil en superficies verticales, sin asumir que el resultado del pavimento se repite en otros materiales.
+
+
+## Resultado A/B de muros — ejecución 88
+- El workflow terminó correctamente en Godot 4.7.2 y produjo ocho capturas para mampostería antigua y revoque/concreto, en ambas cámaras.
+- `bricks_old`: diferencia media absoluta de 0.015/255 en Oeste y 0.013/255 en Este; el remuestreo 2x prácticamente no cambia la lectura del muro. Se descarta como mejora.
+- `concrete`: diferencia media absoluta de 1.092/255 en Oeste y 1.443/255 en Este. El microdetalle es perceptible de cerca, pero sigue siendo sutil; no se aprueba integración todavía.
+- Decisión: mantener todos los recursos de producción. Si se continúa con concreto, el siguiente experimento debe ser una variante artística moderada con A/B/C y control de paleta, no subir resolución sin más.
