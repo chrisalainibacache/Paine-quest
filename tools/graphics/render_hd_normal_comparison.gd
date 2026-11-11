@@ -49,7 +49,10 @@ func _render() -> void:
         material.shader = load("res://shaders/ps1_surface_hd_pilot.gdshader") as Shader
         var albedo := load(str(entry.albedo)) as Texture2D
         var normal_image := Image.load_from_file(str(entry.normal))
-        assert(albedo != null and not normal_image.is_empty(), "Textura faltante: " + str(entry.name))
+        assert(albedo != null, "Albedo faltante: " + str(entry.name))
+        assert(not normal_image.is_empty(), "Mapa normal faltante: " + str(entry.normal))
+        assert(normal_image.get_width() == 512 and normal_image.get_height() == 512,
+            "Mapa normal debe ser 512x512: " + str(entry.normal))
         material.set_shader_parameter("albedo_tex", albedo)
         material.set_shader_parameter("normal_tex", ImageTexture.create_from_image(normal_image))
         material.set_shader_parameter("normal_strength", 0.55)
