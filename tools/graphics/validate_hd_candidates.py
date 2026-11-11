@@ -27,6 +27,19 @@ def luma(image: np.ndarray) -> np.ndarray:
     return image[..., 0] * 0.2126 + image[..., 1] * 0.7152 + image[..., 2] * 0.0722
 
 
+def edge_correlation(a: np.ndarray, b: np.ndarray) -> float:
+    # Compare gradient structure after returning the candidate to source size.
+    ax = np.diff(a, axis=1).ravel()
+    ay = np.diff(a, axis=0).ravel()
+    bx = np.diff(b, axis=1).ravel()
+    by = np.diff(b, axis=0).ravel()
+    ga = np.concatenate((ax, ay))
+    gb = np.concatenate((bx, by))
+    if float(ga.std()) < 1e-8 or float(gb.std()) < 1e-8:
+        return 1.0 if np.allclose(ga, gb) else 0.0
+    return float(np.corrcoef(ga, gb)[0, 1])
+
+
 reports = ["HD CANDIDATE STRUCTURE VALIDATION", "Regression checks only; visual review is still mandatory."]
 for name, source_rel in MATERIALS.items():
     source_path = ROOT / source_rel
@@ -49,13 +62,15 @@ for name, source_rel in MATERIALS.items():
     ) / 255.0
     mae = float(np.mean(np.abs(reduced - source)))
     drift = abs(float(luma(candidate).mean() - luma(source).mean()))
+    structure = edge_correlation(luma(source), luma(reduced))
     if mae > MAX_DOWNSAMPLED_MAE:
         raise AssertionError(f"{name}: downsampled RGB MAE {mae:.5f} exceeds {MAX_DOWNSAMPLED_MAE:.5f}")
     if drift > MAX_MEAN_LUMA_DRIFT:
         raise AssertionError(f"{name}: mean luminance drift {drift:.5f} exceeds {MAX_MEAN_LUMA_DRIFT:.5f}")
     reports.append(
         f"{name}: size={candidate.shape[1]}x{candidate.shape[0]}; "
-        f"downsampled_rgb_mae={mae:.5f}; mean_luma_drift={drift:.5f}; PASS"
+        f"downsampled_rgb_mae={mae:.5f}; mean_luma_drift={drift:.5f}; "
+        f"edge_structure_correlation={structure:.5f}; PASS"
     )
 
 report = "\n".join(reports) + "\n"
