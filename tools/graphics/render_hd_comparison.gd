@@ -68,7 +68,7 @@ func _render_preview() -> void:
 
     await process_frame
     await process_frame
-    var image: Image = root.get_root().get_texture().get_image()
+    var image: Image = root.get_texture().get_image()
     var error: Error = image.save_png(OUTPUT)
     assert(error == OK, "No se pudo guardar la comparacion: " + str(error))
     print("HD_VISUAL_PREVIEW: " + OUTPUT)
