@@ -21,11 +21,12 @@ Subir definición material sin cambiar la identidad survival horror de Paine. La
 - Evitar ruido uniforme tipo televisión y relieves redondeados/plásticos.
 - No inventar fisuras profundas.
 
-### Ladrillo antiguo
-- Preservar siluetas, tamaño y distribución de ladrillos y mortero.
-- Añadir grano cerámico y erosión pequeña dentro de cada ladrillo.
-- No desplazar juntas, redibujar el patrón ni aumentar el contraste del mortero.
-- Revisar especialmente la continuidad de juntas entre bordes.
+### Muro de piedra antiguo (`bricks_old.png`)
+- Corrección de clasificación visual: el recurso muestra mampostería de piedras irregulares, no ladrillos convencionales.
+- Preservar siluetas, tamaño, orientación y distribución de cada piedra, además del trazado y ancho de las juntas.
+- Añadir únicamente microdetalle mineral y erosión discreta dentro de las piedras, respetando sus tonos ocres y grises existentes.
+- No regularizar las piezas, convertirlas en bloques uniformes, desplazar juntas ni aumentar artificialmente el contraste del mortero.
+- Revisar especialmente la continuidad de juntas entre bordes y que el relieve no deforme la lectura de la mampostería.
 
 ### Asfalto agrietado
 - Mantener exactamente los recorridos y bifurcaciones de las grietas.
