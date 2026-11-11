@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3]
+
+[ext_resource type="Script" path="res://data/enemies/enemy_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://assets/characters/infected/infected_pale.glb" id="2_model"]
+
+[resource]
+script = ExtResource("1_data")
+display_name = "Infectado rápido"
+health = 6
+walk_speed = 0.8
+turn_speed = 5.0
+notice_range = 11.0
+attack_range = 1.15
+attack_damage = 15
+attack_cooldown = 1.1
+model_scene = ExtResource("2_model")
+tint = Color(1.15, 0.92, 0.88, 1)
+sprint_speed = 3.2
+sprint_time = 1.1
+rest_time = 1.4

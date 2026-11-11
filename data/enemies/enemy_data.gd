@@ -13,5 +13,9 @@ extends Resource
 ## Segundos de espera entre ataques.
 @export var attack_cooldown: float = 1.4
 @export var model_scene: PackedScene
+## Infectado rápido: corre a ráfagas a esta velocidad (0 = nunca corre).
+@export var sprint_speed: float = 0.0
+@export var sprint_time: float = 1.2
+@export var rest_time: float = 1.6
 ## Tinte de la textura (para aclarar modelos oscuros o darles un tono).
 @export var tint: Color = Color.WHITE

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "conductor_log"
+title = "Planilla del conductor"
+pages = PackedStringArray("Servicio 6:30 Paine – Alameda.\n\nPasajeros a bordo: 212.\n\n6:41 — Incidente en el coche 3: pasajero agresivo muerde a otro. Se pide apoyo de carabineros en Buin.\n\n6:44 — Ya son cuatro. Cierro el coche 3 con llave. La llave del maquinista la dejo en mi asiento.", "6:46 — Golpean las puertas del coche 3.\n\n6:47 — El maquinista no contesta por radio.\n\n6:48 — Frenamos de golpe. Algo en la vía.\n\n(La letra se corta aquí.)")

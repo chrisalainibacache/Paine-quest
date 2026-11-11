@@ -1,0 +1,184 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/rust.tres" id="2_rust"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="3_metal"]
+[ext_resource type="Material" path="res://levels/kit/materials/train_red.tres" id="4_train_red"]
+[ext_resource type="Material" path="res://levels/kit/materials/train_cream.tres" id="5_train_cream"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.06, 0.08, 0.1, 1)
+emission_enabled = true
+emission = Color(0.06, 0.08, 0.1, 1)
+emission_energy_multiplier = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(0.02, 0.8, 2.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(1.6, 0.8, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+size = Vector3(1.6, 0.8, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_10"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_13"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_14"]
+size = Vector3(0.9, 0.6, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_15"]
+albedo_color = Color(1, 0.85, 0.5, 1)
+emission_enabled = true
+emission = Color(1, 0.85, 0.5, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_16"]
+size = Vector3(0.02, 0.3, 0.3)
+
+[node name="Locomotive" type="Node3D"]
+
+[node name="Chassis" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.6, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11, 0.6, 2.5)
+surface = ExtResource("2_rust")
+
+[node name="Bogie0" type="StaticBody3D" parent="."]
+position = Vector3(-3.7, 0.4, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(3, 0.65, 2.7)
+surface = ExtResource("3_metal")
+
+[node name="Bogie1" type="StaticBody3D" parent="."]
+position = Vector3(3.7, 0.4, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(3, 0.65, 2.7)
+surface = ExtResource("3_metal")
+
+[node name="Hood" type="StaticBody3D" parent="."]
+position = Vector3(-1.4, 2, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(8.8, 2.2, 2.3)
+surface = ExtResource("4_train_red")
+
+[node name="Cab" type="StaticBody3D" parent="."]
+position = Vector3(4.6, 2.35, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(2.8, 2.9, 3)
+surface = ExtResource("4_train_red")
+
+[node name="CabRoof" type="StaticBody3D" parent="."]
+position = Vector3(4.6, 3.85, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(2.9, 0.15, 3.1)
+surface = ExtResource("3_metal")
+
+[node name="Stripe" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.15, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(12, 0.18, 3.02)
+surface = ExtResource("5_train_cream")
+solid = false
+
+[node name="Windshield" type="MeshInstance3D" parent="."]
+position = Vector3(6.005, 2.95, 0)
+mesh = SubResource("BoxMesh_2")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="CabWinN" type="MeshInstance3D" parent="."]
+position = Vector3(4.6, 2.95, -1.505)
+mesh = SubResource("BoxMesh_3")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="VentN0" type="MeshInstance3D" parent="."]
+position = Vector3(-5.2, 2.2, -1.1889)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_metal")
+
+[node name="VentN1" type="MeshInstance3D" parent="."]
+position = Vector3(-3.6, 2.2, -1.1889)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("3_metal")
+
+[node name="VentN2" type="MeshInstance3D" parent="."]
+position = Vector3(-2, 2.2, -1.1889)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("3_metal")
+
+[node name="VentN3" type="MeshInstance3D" parent="."]
+position = Vector3(-0.4, 2.2, -1.1889)
+mesh = SubResource("BoxMesh_7")
+material_override = ExtResource("3_metal")
+
+[node name="VentN4" type="MeshInstance3D" parent="."]
+position = Vector3(1.2, 2.2, -1.1889)
+mesh = SubResource("BoxMesh_8")
+material_override = ExtResource("3_metal")
+
+[node name="CabWinS" type="MeshInstance3D" parent="."]
+position = Vector3(4.6, 2.95, 1.505)
+mesh = SubResource("BoxMesh_9")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="VentS0" type="MeshInstance3D" parent="."]
+position = Vector3(-5.2, 2.2, 1.1889)
+mesh = SubResource("BoxMesh_10")
+material_override = ExtResource("3_metal")
+
+[node name="VentS1" type="MeshInstance3D" parent="."]
+position = Vector3(-3.6, 2.2, 1.1889)
+mesh = SubResource("BoxMesh_11")
+material_override = ExtResource("3_metal")
+
+[node name="VentS2" type="MeshInstance3D" parent="."]
+position = Vector3(-2, 2.2, 1.1889)
+mesh = SubResource("BoxMesh_12")
+material_override = ExtResource("3_metal")
+
+[node name="VentS3" type="MeshInstance3D" parent="."]
+position = Vector3(-0.4, 2.2, 1.1889)
+mesh = SubResource("BoxMesh_13")
+material_override = ExtResource("3_metal")
+
+[node name="VentS4" type="MeshInstance3D" parent="."]
+position = Vector3(1.2, 2.2, 1.1889)
+mesh = SubResource("BoxMesh_14")
+material_override = ExtResource("3_metal")
+
+[node name="Headlight" type="MeshInstance3D" parent="."]
+position = Vector3(6.01, 3.55, 0)
+mesh = SubResource("BoxMesh_16")
+material_override = SubResource("StandardMaterial3D_15")
+
+[node name="Number" type="Label3D" parent="."]
+position = Vector3(4.6, 1.6, 1.52)
+text = "D-16008"
+font_size = 30
+pixel_size = 0.005
+modulate = Color(0.9, 0.88, 0.8, 1)
+outline_size = 0

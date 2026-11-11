@@ -77,6 +77,26 @@ func reset_motion() -> void:
     _action_anim = ""
 
 
+## Linterna para salas a oscuras (apagón).
+func set_flashlight(on: bool) -> void:
+    var light := model.get_node_or_null("Flashlight") as SpotLight3D
+    if light == null:
+        if not on:
+            return
+        light = SpotLight3D.new()
+        light.name = "Flashlight"
+        light.position = Vector3(0.15, 1.3, 0.25)
+        # El SpotLight alumbra hacia -Z; el modelo mira hacia +Z.
+        light.rotation = Vector3(-0.12, PI, 0)
+        light.light_color = Color(1.0, 0.95, 0.82)
+        light.light_energy = 3.2
+        light.spot_range = 11.0
+        light.spot_angle = 30.0
+        light.spot_attenuation = 0.8
+        model.add_child(light)
+    light.visible = on
+
+
 func is_alive() -> bool:
     return health > 0
 

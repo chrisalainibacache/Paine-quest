@@ -12,6 +12,7 @@ func interact(player: Player) -> void:
         return
     GameState.room_path = SceneLoader.current_room_path()
     GameState.spawn_transform = Transform3D(Basis(Vector3.UP, player.model.rotation.y), player.global_position)
+    GameState.use_spawn_transform = true
     GameState.health = player.health
     GameState.clip = player.combat.clip
     Sfx.play("typewriter", null, -3.0)

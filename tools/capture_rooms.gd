@@ -24,6 +24,8 @@ func _run() -> void:
         ["ticket_office", "service_corridor", "storeroom", "south_platform", "waiting_room", "platform"]
     for room_name: String in rooms:
         var path := "res://levels/station/%s.tscn" % room_name
+        if not ResourceLoader.exists(path):
+            path = "res://levels/tracks/%s.tscn" % room_name
         var probe := (load(path) as PackedScene).instantiate()
         var spawn: String = probe.get_node("Spawns").get_child(0).name
         probe.free()

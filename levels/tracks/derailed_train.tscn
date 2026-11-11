@@ -1,0 +1,277 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/room.gd" id="1_room"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="2_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/gravel.tres" id="3_gravel"]
+[ext_resource type="Script" path="res://levels/kit/rail_track.gd" id="4_rail_track"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="5_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="6_metal"]
+[ext_resource type="Material" path="res://levels/kit/materials/old_bricks_wall.tres" id="7_old_bricks_w"]
+[ext_resource type="Material" path="res://levels/kit/materials/concrete_wall.tres" id="8_concrete_wal"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/locomotive.tscn" id="9_locomotive"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/train_wagon.tscn" id="10_train_wagon"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/fire.tscn" id="11_fire"]
+[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="12_planks"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="13_blood_pool"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="14_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="15_blood_drag"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/oil_stain.png" id="16_oil_stain"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="17_debris"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="18_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="19_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="20_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_rifle.tres" id="21_ammo_rifle"]
+[ext_resource type="Resource" path="res://data/enemies/infected_heavy.tres" id="22_infected_hea"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="23_infected"]
+[ext_resource type="Resource" path="res://data/enemies/infected_pale.tres" id="24_infected_pal"]
+[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="25_infected_wor"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="26_camera_zone"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.04, 0.045, 0.06, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.32, 0.34, 0.42, 1)
+ambient_light_energy = 0.5
+fog_enabled = true
+fog_light_color = Color(0.05, 0.05, 0.065, 1)
+fog_density = 0.055
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
+size = Vector3(9, 3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3"]
+size = Vector3(9, 3, 3)
+
+[node name="DerailedTrain" type="Node3D"]
+script = ExtResource("1_room")
+room_name = "Tren descarrilado"
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.95, 0.6, 0)
+light_color = Color(0.55, 0.62, 0.8, 1)
+light_energy = 0.28
+
+[node name="Ground" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Ground"]
+position = Vector3(0, -0.5, 0.4)
+script = ExtResource("2_kit_block")
+size = Vector3(18.6, 1, 9.8)
+surface = ExtResource("3_gravel")
+
+[node name="Trackm5" type="Node3D" parent="Ground"]
+position = Vector3(-5, 0, 0.9)
+script = ExtResource("4_rail_track")
+length = 8
+sleeper_material = ExtResource("5_wood")
+rail_material = ExtResource("6_metal")
+
+[node name="TrackBent" type="Node3D" parent="Ground"]
+position = Vector3(1.8, 0, 0.3)
+rotation = Vector3(0, 0.18, 0)
+script = ExtResource("4_rail_track")
+length = 6.0
+sleeper_material = ExtResource("5_wood")
+rail_material = ExtResource("6_metal")
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="NorthWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(0, 2.6, -4.35)
+script = ExtResource("2_kit_block")
+size = Vector3(18.6, 5.8, 0.3)
+surface = ExtResource("7_old_bricks_w")
+
+[node name="SouthWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(0, 2.6, 5.15)
+script = ExtResource("2_kit_block")
+size = Vector3(18.6, 5.8, 0.3)
+surface = ExtResource("8_concrete_wal")
+
+[node name="WestWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(-9.15, 2.6, 0.4)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.8, 9.2)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.6, 0.4)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.8, 9.2)
+surface = ExtResource("8_concrete_wal")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Locomotive" parent="Props" instance=ExtResource("9_locomotive")]
+position = Vector3(1.2, 1.5, -0.25)
+rotation = Vector3(-1.5708, 0, 0)
+
+[node name="Wagon" parent="Props" instance=ExtResource("10_train_wagon")]
+position = Vector3(-1, 0, 3.25)
+
+[node name="Step" type="StaticBody3D" parent="Props"]
+position = Vector3(5.25, 0.2, 1.6)
+script = ExtResource("2_kit_block")
+size = Vector3(0.7, 0.4, 0.35)
+surface = ExtResource("6_metal")
+
+[node name="JackknifeWagon" parent="Props" instance=ExtResource("10_train_wagon")]
+position = Vector3(8.6, 0, 1.6)
+rotation = Vector3(0, 1.15, 0.12)
+
+[node name="FireCab" parent="Props" instance=ExtResource("11_fire")]
+position = Vector3(6.6, 0, 0.6)
+
+[node name="FireMid" parent="Props" instance=ExtResource("11_fire")]
+position = Vector3(-3.2, 0, 0.5)
+
+[node name="Luggage0" type="StaticBody3D" parent="Props"]
+position = Vector3(-6.5, 0.2, 1.3)
+rotation = Vector3(0, 0.3, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.6, 0.4, 0.35)
+surface = ExtResource("12_planks")
+solid = false
+
+[node name="Luggage1" type="StaticBody3D" parent="Props"]
+position = Vector3(0.5, 0.2, 1.4)
+rotation = Vector3(0, 1.7, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.6, 0.4, 0.35)
+surface = ExtResource("12_planks")
+solid = false
+
+[node name="Luggage2" type="StaticBody3D" parent="Props"]
+position = Vector3(3.4, 0.2, 0.7)
+rotation = Vector3(0, -0.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.6, 0.4, 0.35)
+surface = ExtResource("12_planks")
+solid = false
+
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="Pool" parent="Decals" instance=ExtResource("14_decal")]
+position = Vector3(2, 0.03, 0.9)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("13_blood_pool")
+size = Vector2(1.5, 1.5)
+
+[node name="Drag" parent="Decals" instance=ExtResource("14_decal")]
+position = Vector3(-1.2, 0.03, 1)
+rotation = Vector3(-1.5708, -0.2, 0)
+texture = ExtResource("15_blood_drag")
+size = Vector2(2.6, 0.9)
+
+[node name="Oil" parent="Decals" instance=ExtResource("14_decal")]
+position = Vector3(4.6, 0.025, 0.4)
+rotation = Vector3(-1.5708, 0.8, 0)
+texture = ExtResource("16_oil_stain")
+size = Vector2(1.8, 1.8)
+
+[node name="Debris" parent="Decals" instance=ExtResource("14_decal")]
+position = Vector3(-5.5, 0.028, 0.6)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("17_debris")
+size = Vector2(1.6, 1.6)
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="ToTrackNorth" type="Node3D" parent="Interactables"]
+position = Vector3(-8.4, 0, 0.9)
+script = ExtResource("18_door")
+reach = 1.4
+target_room = "res://levels/tracks/track_north.tscn"
+target_spawn = "from_derailed"
+prompt = "VOLVER"
+
+[node name="ToWagon" type="Node3D" parent="Interactables"]
+position = Vector3(5.25, 0, 1.25)
+script = ExtResource("18_door")
+reach = 1.3
+target_room = "res://levels/tracks/wagon_interior.tscn"
+target_spawn = "from_derailed"
+prompt = "ENTRAR"
+
+[node name="Cab" type="Node3D" parent="Interactables"]
+position = Vector3(6, 0, 0.2)
+script = ExtResource("19_examine_spot")
+reach = 1.4
+lines = PackedStringArray("La cabina de la locomotora está aplastada contra el suelo.", "El asiento del maquinista está vacío. Hay sangre en la palanca de freno.")
+
+[node name="Jackknife" type="Node3D" parent="Interactables"]
+position = Vector3(7.3, 0, 1.4)
+script = ExtResource("19_examine_spot")
+reach = 1.3
+lines = PackedStringArray("Otro vagón atravesado. Por aquí no se puede pasar.", "Tendré que cruzar por dentro del vagón.")
+
+[node name="RifleAmmo" type="Node3D" parent="Interactables"]
+position = Vector3(-5.6, 0, 0.2)
+script = ExtResource("20_pickup")
+item = ExtResource("21_ammo_rifle")
+count = 15
+model_rotation = Vector3(0, 0.6, 0)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Heavy" parent="Enemies" instance=ExtResource("23_infected")]
+position = Vector3(2.2, 0.05, 1)
+rotation = Vector3(0, -1.5708, 0)
+data = ExtResource("22_infected_hea")
+start_state = "feeding"
+
+[node name="Lying" parent="Enemies" instance=ExtResource("23_infected")]
+position = Vector3(-1.8, 0.05, 0.6)
+rotation = Vector3(0, 1, 0)
+data = ExtResource("24_infected_pal")
+start_state = "lying"
+
+[node name="Body" parent="Enemies" instance=ExtResource("23_infected")]
+position = Vector3(0.3, 0.05, 1.2)
+rotation = Vector3(0, 2, 0)
+data = ExtResource("25_infected_wor")
+start_state = "corpse"
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="West" type="Area3D" parent="Cameras"]
+position = Vector3(-4.5, 1.5, 0.8)
+script = ExtResource("26_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/West"]
+shape = SubResource("BoxShape3D_2")
+
+[node name="Camera" type="Camera3D" parent="Cameras/West"]
+position = Vector3(6.9, 1.8, 0.8)
+rotation = Vector3(-0.3073, 1.4648, 0)
+fov = 58
+near = 0.1
+far = 30.0
+
+[node name="East" type="Area3D" parent="Cameras"]
+position = Vector3(4.5, 1.5, 0.8)
+script = ExtResource("26_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/East"]
+shape = SubResource("BoxShape3D_3")
+
+[node name="Camera" type="Camera3D" parent="Cameras/East"]
+position = Vector3(-6.9, 1.8, 0.8)
+rotation = Vector3(-0.2982, -1.4859, 0)
+fov = 58
+near = 0.1
+far = 30.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_track_north" type="Marker3D" parent="Spawns"]
+position = Vector3(-7.7, 0.05, 0.9)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="from_wagon" type="Marker3D" parent="Spawns"]
+position = Vector3(4.6, 0.05, 0.9)
+rotation = Vector3(0, 1.5708, 0)

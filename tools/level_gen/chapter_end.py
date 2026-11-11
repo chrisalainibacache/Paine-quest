@@ -16,8 +16,12 @@ centered("Subtitle", 195, 235, "La estación", 30, (0.6, 0.57, 0.5))
 centered("Story", 270, 420, "Cony y Leo bajan a la vía y siguen hacia el norte, hacia el resplandor rojo.\\nDetrás queda la estación de Paine, en silencio.", 26, (0.85, 0.82, 0.75), True)
 centered("Summary", 440, 480, "", 22, (0.6, 0.57, 0.5))
 centered("Next", 500, 540, "Continuará en el Capítulo 2: Las vías", 24, (0.85, 0.72, 0.5))
-s.node("Back", "Button", ".", anchors_preset="7", anchor_left="0.5", anchor_top="1.0", anchor_right="0.5", anchor_bottom="1.0",
-       grow_horizontal="2", grow_vertical="0", offset_left="-190.0", offset_top="-130.0", offset_right="190.0", offset_bottom="-56.0",
-       text='"VOLVER AL TÍTULO"', theme_override_font_sizes_font_size="28", focus_mode="0")
+s.node("Buttons", "HBoxContainer", ".", anchors_preset="7", anchor_left="0.5", anchor_top="1.0", anchor_right="0.5", anchor_bottom="1.0",
+       grow_horizontal="2", grow_vertical="0", offset_left="-420.0", offset_top="-130.0", offset_right="420.0", offset_bottom="-56.0",
+       alignment="1", theme_override_constants_separation="24")
+s.node("Continue", "Button", "Buttons", custom_minimum_size="Vector2(400, 74)", text='"CONTINUAR: CAPÍTULO 2"',
+       theme_override_font_sizes_font_size="28", focus_mode="0")
+s.node("Back", "Button", "Buttons", custom_minimum_size="Vector2(340, 74)", text='"VOLVER AL TÍTULO"',
+       theme_override_font_sizes_font_size="28", focus_mode="0")
 s.save(REPO + "/ui/chapter_end/chapter_end.tscn")
 print("chapter end ok")

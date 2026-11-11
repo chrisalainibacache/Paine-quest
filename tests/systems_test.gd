@@ -34,6 +34,7 @@ func _run() -> void:
     await _locked_door(player)
     await _weapons(player)
     await _chapter_route(player)
+    await _chapter_two()
     _finish()
 
 
@@ -358,3 +359,67 @@ func _weapons(player: Player) -> void:
         infected.free()
     GameState.equip(PISTOL)
     combat.sync_from_state()
+
+    # Infectado rápido: alterna carreras y pausas.
+    var runner: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
+    runner.data = load("res://data/enemies/infected_fast.tres")
+    room.add_child(runner)
+    runner.set_physics_process(false)
+    var fastest := 0.0
+    var slowest := INF
+    for i in 300:
+        var speed := runner._chase_speed(0.02)
+        fastest = maxf(fastest, speed)
+        slowest = minf(slowest, speed)
+    _check(fastest >= 3.0 and slowest < 1.0, "el infectado rápido corre a ráfagas (%.1f / %.1f m/s)" % [fastest, slowest])
+    runner.free()
+
+
+## Capítulo 2: continuar desde el fin del capítulo 1 (punto de control), la
+## linterna en el apagón, la reja con la llave del maquinista y el final.
+func _chapter_two() -> void:
+    var end_screen := current_scene
+    _check(end_screen != null and end_screen.has_method("continue_to_next_chapter"), "el fin del capítulo 1 ofrece seguir al capítulo 2")
+    main.queue_free()
+    await _frames(2)
+    end_screen.continue_to_next_chapter()
+    await _seconds(2.0)
+    main = current_scene
+    _check(main != null and main.has_method("retry") and main.room != null, "el capítulo 2 carga")
+    if main == null or main.room == null:
+        return
+    var player: Player = main.player
+    _check(main.room.scene_file_path == "res://levels/tracks/track_north.tscn", "el capítulo 2 empieza en la vía norte")
+    _check(SaveSystem.has_save() and GameState.has_flag("chapter_started:2"), "al empezar el capítulo 2 se guarda un punto de control")
+    var flashlight := player.model.get_node_or_null("Flashlight") as SpotLight3D
+    _check(flashlight == null or not flashlight.visible, "en la vía (con luna) la linterna va apagada")
+
+    SceneLoader.go_to("res://levels/tracks/underpass.tscn", "from_convoy")
+    await _seconds(1.4)
+    flashlight = player.model.get_node_or_null("Flashlight") as SpotLight3D
+    _check(main.room.dark and flashlight != null and flashlight.visible, "en el paso bajo nivel (apagón) Cony enciende la linterna")
+
+    SceneLoader.go_to("res://levels/tracks/convoy_side.tscn", "from_underpass")
+    await _seconds(1.4)
+    for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
+        enemy.free()
+    var gate: Door = main.room.get_node("Interactables/ToUnderpass")
+    _check(gate.is_locked(), "la reja del paso bajo nivel tiene candado")
+    GameState.inventory.add(load("res://data/items/engineer_key.tres"))
+    player.interaction.use(gate)
+    await _close_dialogues()
+    await _seconds(1.4)
+    _check(main.room.scene_file_path == "res://levels/tracks/underpass.tscn", "con la llave del maquinista se baja al paso")
+
+    SceneLoader.go_to("res://levels/tracks/switch_house.tscn", "from_underpass")
+    await _seconds(1.4)
+    var exit: Interactable = main.room.get_node("Interactables/TrackExit")
+    player.interaction.use(exit)
+    await _frames(4)
+    Dialogue.choose(0)
+    await _seconds(1.2)
+    _check(current_scene != null and current_scene.scene_file_path == "res://ui/chapter_end/chapter_end.tscn"
+        and GameState.has_flag("chapter_done:2"), "salir de la casa de cambios termina el juego")
+    if current_scene and current_scene.has_node("Title"):
+        _check(current_scene.get_node("Title").text == "FIN" and not current_scene.get_node("Buttons/Continue").visible,
+            "la pantalla final dice FIN y no ofrece otro capítulo")

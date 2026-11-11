@@ -12,7 +12,7 @@ s.node("Title", "Label", ".", anchors_preset="5", anchor_left="0.5", anchor_righ
        theme_override_colors_font_shadow_color=col((0, 0, 0, 1)), theme_override_constants_shadow_offset_x="4", theme_override_constants_shadow_offset_y="4")
 s.node("Subtitle", "Label", ".", anchors_preset="5", anchor_left="0.5", anchor_right="0.5", grow_horizontal="2",
        offset_left="-500.0", offset_top="262.0", offset_right="500.0", offset_bottom="300.0", horizontal_alignment="1",
-       text='"Capítulo 1 · La estación"', theme_override_font_sizes_font_size="28", theme_override_colors_font_color=col((0.6, 0.57, 0.5)))
+       text='"Capítulo 1 · La estación   ·   Capítulo 2 · Las vías"', theme_override_font_sizes_font_size="28", theme_override_colors_font_color=col((0.6, 0.57, 0.5)))
 s.node("Menu", "VBoxContainer", ".", anchors_preset="5", anchor_left="0.5", anchor_right="0.5", grow_horizontal="2",
        offset_left="-180.0", offset_top="380.0", offset_right="180.0", offset_bottom="560.0", theme_override_constants_separation="18")
 for name, text in [("NewGame", "NUEVA PARTIDA"), ("Continue", "CONTINUAR")]:

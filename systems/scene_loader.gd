@@ -80,6 +80,7 @@ func _end_chapter(chapter: int) -> void:
     busy = true
     player.controls_locked = true
     GameState.set_flag("chapter_done:%d" % chapter)
+    GameState.set_flag("last_chapter_done", chapter)
     GameState.health = player.health
     await _fade_to(1.0)
     get_tree().change_scene_to_file("res://ui/chapter_end/chapter_end.tscn")
@@ -106,6 +107,7 @@ func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool)
     player.velocity = Vector3.ZERO
     player.reset_motion()
     room.camera_changed.connect(player.set_camera)
+    player.set_flashlight(room.dark)
     # Selección inmediata con la geometría del spawn; _settle la confirma
     # de nuevo después de que el servidor de física actualice las áreas.
     room.pick_camera_for(player)

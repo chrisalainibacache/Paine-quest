@@ -1,0 +1,321 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/rust.tres" id="2_rust"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="3_metal"]
+[ext_resource type="Material" path="res://levels/kit/materials/train_blue.tres" id="4_train_blue"]
+[ext_resource type="Material" path="res://levels/kit/materials/train_cream.tres" id="5_train_cream"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.12
+radial_segments = 10
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.12
+radial_segments = 10
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.12
+radial_segments = 10
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.12
+radial_segments = 10
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.12
+radial_segments = 10
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.12
+radial_segments = 10
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.12
+radial_segments = 10
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.12
+radial_segments = 10
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_9"]
+albedo_color = Color(0.05, 0.07, 0.09, 1)
+emission_enabled = true
+emission = Color(0.05, 0.07, 0.09, 1)
+emission_energy_multiplier = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_10"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_13"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_14"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_15"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_16"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_17"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_18"]
+size = Vector3(0.8, 1.9, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_19"]
+size = Vector3(0.8, 1.9, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_20"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_21"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_22"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_23"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_24"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_25"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_26"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_27"]
+size = Vector3(1.15, 0.7, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_28"]
+size = Vector3(0.8, 1.9, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_29"]
+size = Vector3(0.8, 1.9, 0.03)
+
+[node name="TrainWagon" type="Node3D"]
+
+[node name="Chassis" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.55, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(12, 0.5, 2.3)
+surface = ExtResource("2_rust")
+
+[node name="Bogie0" type="StaticBody3D" parent="."]
+position = Vector3(-4.8, 0.38, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(2.6, 0.62, 2.6)
+surface = ExtResource("3_metal")
+
+[node name="Wheel0_0_0" type="MeshInstance3D" parent="."]
+position = Vector3(-5.6, 0.4, -1.25)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("3_metal")
+
+[node name="Wheel0_0_1" type="MeshInstance3D" parent="."]
+position = Vector3(-4, 0.4, -1.25)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_2")
+material_override = ExtResource("3_metal")
+
+[node name="Wheel0_1_0" type="MeshInstance3D" parent="."]
+position = Vector3(-5.6, 0.4, 1.25)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("3_metal")
+
+[node name="Wheel0_1_1" type="MeshInstance3D" parent="."]
+position = Vector3(-4, 0.4, 1.25)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_4")
+material_override = ExtResource("3_metal")
+
+[node name="Bogie1" type="StaticBody3D" parent="."]
+position = Vector3(4.8, 0.38, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(2.6, 0.62, 2.6)
+surface = ExtResource("3_metal")
+
+[node name="Wheel1_0_0" type="MeshInstance3D" parent="."]
+position = Vector3(4, 0.4, -1.25)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_5")
+material_override = ExtResource("3_metal")
+
+[node name="Wheel1_0_1" type="MeshInstance3D" parent="."]
+position = Vector3(5.6, 0.4, -1.25)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_6")
+material_override = ExtResource("3_metal")
+
+[node name="Wheel1_1_0" type="MeshInstance3D" parent="."]
+position = Vector3(4, 0.4, 1.25)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_7")
+material_override = ExtResource("3_metal")
+
+[node name="Wheel1_1_1" type="MeshInstance3D" parent="."]
+position = Vector3(5.6, 0.4, 1.25)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_8")
+material_override = ExtResource("3_metal")
+
+[node name="BodyLow" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.45, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(14, 1.1, 2.9)
+surface = ExtResource("4_train_blue")
+
+[node name="BodyWindow" type="StaticBody3D" parent="."]
+position = Vector3(0, 2.45, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(14, 0.9, 2.9)
+surface = ExtResource("5_train_cream")
+
+[node name="BodyTop" type="StaticBody3D" parent="."]
+position = Vector3(0, 3.1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(14, 0.4, 2.9)
+surface = ExtResource("4_train_blue")
+
+[node name="Roof" type="StaticBody3D" parent="."]
+position = Vector3(0, 3.4, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(13.8, 0.22, 2.6)
+surface = ExtResource("3_metal")
+
+[node name="WinN0" type="MeshInstance3D" parent="."]
+position = Vector3(-5.4, 2.48, -1.455)
+mesh = SubResource("BoxMesh_10")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinN1" type="MeshInstance3D" parent="."]
+position = Vector3(-3.85, 2.48, -1.455)
+mesh = SubResource("BoxMesh_11")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinN2" type="MeshInstance3D" parent="."]
+position = Vector3(-2.3, 2.48, -1.455)
+mesh = SubResource("BoxMesh_12")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinN3" type="MeshInstance3D" parent="."]
+position = Vector3(-0.75, 2.48, -1.455)
+mesh = SubResource("BoxMesh_13")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinN4" type="MeshInstance3D" parent="."]
+position = Vector3(0.8, 2.48, -1.455)
+mesh = SubResource("BoxMesh_14")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinN5" type="MeshInstance3D" parent="."]
+position = Vector3(2.35, 2.48, -1.455)
+mesh = SubResource("BoxMesh_15")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinN6" type="MeshInstance3D" parent="."]
+position = Vector3(3.9, 2.48, -1.455)
+mesh = SubResource("BoxMesh_16")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinN7" type="MeshInstance3D" parent="."]
+position = Vector3(5.45, 2.48, -1.455)
+mesh = SubResource("BoxMesh_17")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="DoorN0" type="MeshInstance3D" parent="."]
+position = Vector3(-6.25, 1.95, -1.455)
+mesh = SubResource("BoxMesh_18")
+material_override = ExtResource("2_rust")
+
+[node name="DoorN1" type="MeshInstance3D" parent="."]
+position = Vector3(6.25, 1.95, -1.455)
+mesh = SubResource("BoxMesh_19")
+material_override = ExtResource("2_rust")
+
+[node name="WinS0" type="MeshInstance3D" parent="."]
+position = Vector3(-5.4, 2.48, 1.455)
+mesh = SubResource("BoxMesh_20")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinS1" type="MeshInstance3D" parent="."]
+position = Vector3(-3.85, 2.48, 1.455)
+mesh = SubResource("BoxMesh_21")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinS2" type="MeshInstance3D" parent="."]
+position = Vector3(-2.3, 2.48, 1.455)
+mesh = SubResource("BoxMesh_22")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinS3" type="MeshInstance3D" parent="."]
+position = Vector3(-0.75, 2.48, 1.455)
+mesh = SubResource("BoxMesh_23")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinS4" type="MeshInstance3D" parent="."]
+position = Vector3(0.8, 2.48, 1.455)
+mesh = SubResource("BoxMesh_24")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinS5" type="MeshInstance3D" parent="."]
+position = Vector3(2.35, 2.48, 1.455)
+mesh = SubResource("BoxMesh_25")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinS6" type="MeshInstance3D" parent="."]
+position = Vector3(3.9, 2.48, 1.455)
+mesh = SubResource("BoxMesh_26")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="WinS7" type="MeshInstance3D" parent="."]
+position = Vector3(5.45, 2.48, 1.455)
+mesh = SubResource("BoxMesh_27")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="DoorS0" type="MeshInstance3D" parent="."]
+position = Vector3(-6.25, 1.95, 1.455)
+mesh = SubResource("BoxMesh_28")
+material_override = ExtResource("2_rust")
+
+[node name="DoorS1" type="MeshInstance3D" parent="."]
+position = Vector3(6.25, 1.95, 1.455)
+mesh = SubResource("BoxMesh_29")
+material_override = ExtResource("2_rust")
+
+[node name="Number" type="Label3D" parent="."]
+position = Vector3(2, 1.55, 1.47)
+text = "EFE  S-2214"
+font_size = 30
+pixel_size = 0.005
+modulate = Color(0.9, 0.88, 0.8, 1)
+outline_size = 0

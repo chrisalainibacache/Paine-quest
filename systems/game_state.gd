@@ -126,6 +126,8 @@ static func to_data() -> Dictionary:
         "clips": clips.duplicate(),
         "room_path": room_path,
         "spawn_transform": var_to_str(spawn_transform),
+        "spawn_id": spawn_id,
+        "use_spawn_transform": use_spawn_transform,
         "play_time": play_time,
     }
 
@@ -142,8 +144,8 @@ static func from_data(data: Dictionary) -> void:
     clip = int(data.get("clip", 0))
     clips = (data.get("clips", {}) as Dictionary).duplicate()
     room_path = data.get("room_path", START_ROOM)
-    spawn_id = START_SPAWN
+    spawn_id = data.get("spawn_id", START_SPAWN)
     spawn_transform = str_to_var(data.get("spawn_transform", "Transform3D()"))
-    use_spawn_transform = true
+    use_spawn_transform = bool(data.get("use_spawn_transform", true))
     play_time = float(data.get("play_time", 0.0))
     started = true

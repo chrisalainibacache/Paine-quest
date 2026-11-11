@@ -88,6 +88,8 @@ var _state_time := 0.0
 var _cooldown := 0.0
 var _attack_landed := false
 var _groan_timer := 0.0
+var _sprinting := false
+var _sprint_timer := 0.0
 
 
 func _ready() -> void:
@@ -248,7 +250,7 @@ func _physics_process(delta: float) -> void:
                 if distance <= data.attack_range and _cooldown <= 0.0:
                     _enter(State.ATTACK)
                 elif distance > data.attack_range * 0.8:
-                    move = _forward() * data.walk_speed
+                    move = _forward() * _chase_speed(delta)
         State.ATTACK:
             _face(to_target, delta * 0.5)
             var length := _anim_length("Zombie_Scratch")
@@ -276,6 +278,21 @@ func _physics_process(delta: float) -> void:
         if _groan_timer <= 0.0:
             _groan_timer = randf_range(4.0, 9.0)
             Sfx.play("groan" if randf() < 0.5 else "groan_short", global_position + Vector3.UP * 1.5, -6.0, 0.15)
+
+
+## Velocidad de persecución. Los rápidos alternan carreras cortas y pausas.
+func _chase_speed(delta: float) -> float:
+    if data.sprint_speed <= 0.0:
+        return data.walk_speed
+    _sprint_timer -= delta
+    if _sprint_timer <= 0.0:
+        _sprinting = not _sprinting
+        _sprint_timer = data.sprint_time if _sprinting else data.rest_time * randf_range(0.7, 1.3)
+        var speed := data.sprint_speed if _sprinting else data.walk_speed
+        _anim.speed_scale = speed / WALK_ANIM_SPEED
+        if _sprinting:
+            Sfx.play("groan_short", global_position + Vector3.UP * 1.5, -2.0, 0.2)
+    return data.sprint_speed if _sprinting else data.walk_speed
 
 
 func _enter(new_state: State) -> void:

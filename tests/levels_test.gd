@@ -5,28 +5,34 @@ extends "res://tests/test_case.gd"
 ## antes de las puertas que abren).
 ## Uso: godot --headless --path . -s res://tests/levels_test.gd
 
-const ROOMS_DIR := "res://levels/station/"
-const START_ROOM := "res://levels/station/platform.tscn"
-const START_SPAWN := "start"
+## Cada capítulo: carpeta de salas, sala inicial y llave necesaria para avanzar.
+const CHAPTERS := [
+    ["res://levels/station/", "res://levels/station/platform.tscn", "gate_key"],
+    ["res://levels/tracks/", "res://levels/tracks/track_north.tscn", "engineer_key"],
+]
 
 
 func _run() -> void:
     SaveSystem.save_path = "user://test_niveles.json"
     GameState.new_game()
     GameState.give_pistol()
-    var rooms := _room_paths()
-    _check(rooms.size() >= 6, "el capítulo 1 tiene sus 6 salas (hay %d)" % rooms.size())
-    for path in rooms:
-        await _check_room(path)
-    _check_chapter_flow()
+    for i in CHAPTERS.size():
+        var chapter: Array = CHAPTERS[i]
+        var rooms := _room_paths(chapter[0])
+        _check(rooms.size() >= 6, "el capítulo %d tiene sus 6 salas (hay %d)" % [i + 1, rooms.size()])
+        for path in rooms:
+            await _check_room(path)
+        _check_chapter_flow(i + 1, chapter[0], chapter[1], chapter[2])
+    _check((load(CHAPTERS[1][1]) as PackedScene).instantiate().get_node_or_null("Spawns/start") != null,
+        "el capítulo 2 tiene su punto de inicio")
     _finish()
 
 
-func _room_paths() -> Array[String]:
+func _room_paths(dir: String) -> Array[String]:
     var paths: Array[String] = []
-    for file in DirAccess.get_files_at(ROOMS_DIR):
+    for file in DirAccess.get_files_at(dir):
         if file.ends_with(".tscn"):
-            paths.append(ROOMS_DIR + file)
+            paths.append(dir + file)
     return paths
 
 
@@ -85,8 +91,8 @@ func _check_room(path: String) -> void:
 
 ## Recorre las salas desde el inicio como lo haría el jugador: una puerta con
 ## llave solo se cruza si la llave está en alguna sala ya alcanzada.
-func _check_chapter_flow() -> void:
-    var reached := {START_ROOM: true}
+func _check_chapter_flow(chapter: int, dir: String, start_room: String, needed_key: String) -> void:
+    var reached := {start_room: true}
     var keys := {}
     var exit_found := false
     var changed := true
@@ -108,6 +114,7 @@ func _check_chapter_flow() -> void:
                     reached[door.target_room] = true
                     changed = true
             room.free()
-    _check(reached.size() == _room_paths().size(), "desde el andén se llega a todas las salas (%d de %d)" % [reached.size(), _room_paths().size()])
-    _check(keys.has("gate_key"), "la llave del portón se encuentra antes del portón")
-    _check(exit_found, "se llega a la salida que cierra el capítulo")
+    var total := _room_paths(dir).size()
+    _check(reached.size() == total, "capítulo %d: desde el inicio se llega a todas las salas (%d de %d)" % [chapter, reached.size(), total])
+    _check(keys.has(needed_key), "capítulo %d: la llave %s se encuentra antes de su puerta" % [chapter, needed_key])
+    _check(exit_found, "capítulo %d: se llega a la salida que cierra el capítulo" % chapter)

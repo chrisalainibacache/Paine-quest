@@ -6,6 +6,8 @@ extends Node3D
 signal camera_changed(camera: Camera3D)
 
 @export var room_name: String = ""
+## Sala a oscuras (apagón): Cony enciende la linterna.
+@export var dark: bool = false
 
 var _inside: Array[CameraZone] = []
 var _active: CameraZone

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "passenger_ticket"
+title = "Boleto con un mensaje"
+pages = PackedStringArray("Boleto Paine – Santiago, 6:30. Asiento 14.\n\nAtrás, escrito con lápiz:\n\n«El hombre del asiento de enfrente empezó a toser sangre pasado Linderos. Le dije al conductor y se rió.\n\nAhora ya nadie se ríe.»")
