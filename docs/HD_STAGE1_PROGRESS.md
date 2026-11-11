@@ -45,3 +45,11 @@
 - Las cuatro capturas se generan en CI: `paving_ab_west_original.png`, `paving_ab_west_candidate.png`, `paving_ab_east_original.png` y `paving_ab_east_candidate.png`.
 - El material de producción se restaura al finalizar y no se escribe ningún recurso de escena/material/textura original.
 - Próxima decisión: inspeccionar las cuatro capturas a escala real. Si el remuestreo no aporta una diferencia perceptible y limpia, se descarta como mejora; después se aborda la repetición con una propuesta artística de pavimento más grande, no con escalado cosmético.
+
+
+## Resultado A/B del pavimento — ejecución 84
+- El workflow de commit `468384a74781b77741e14e4770b0b997c54a3379` terminó con éxito en Godot 4.7.2 y generó las cuatro capturas A/B.
+- Inspección de Oeste y Este: el candidato Lanczos 2x muestra una variación muy sutil, sin una mejora visual suficiente para justificar integración.
+- Diferencia media absoluta de imagen completa: Oeste 0.647/255; Este 0.692/255. El porcentaje de píxeles con algún cambio fue ~28.3% y ~28.6%, respectivamente; la magnitud es baja.
+- Decisión: rechazar el remuestreo 2x como mejora visual del pavimento. Se conservan intactos `paving.png` y `paving_floor.tres`.
+- Las capturas A/B quedan como evidencia reproducible, no como material de producción.
