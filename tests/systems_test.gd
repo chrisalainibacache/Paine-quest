@@ -84,6 +84,12 @@ func _graphics_modes() -> void:
     _check(zombie.model.scene_file_path.ends_with("infected_city.glb") and zombie._anim.has_animation("z/Zombie_Walk_Fwd"),
         "gráficos modernos: infectado detallado con sus animaciones")
     zombie.free()
+    var worker := (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate() as Infected
+    worker.data = load("res://data/enemies/infected_worker.tres")
+    main.room.add_child(worker)
+    _check(worker.model.scene_file_path.ends_with("infected_shirt.glb") and worker._anim.has_animation("z/Zombie_Walk_Fwd"),
+        "gráficos modernos: obrero con modelo detallado (Biped) y animaciones")
+    worker.free()
     GraphicsSettings.set_modern(false)
     GraphicsSettings.apply(main)
     mat = mesh.material_override as ShaderMaterial

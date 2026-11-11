@@ -13,3 +13,7 @@ Animaciones: Quaternius UAL2 (CC0) + UAL1 (CC0), ver actors/enemies/infected_ani
   https://opengameart.org/content/male-city-zombie-ready-for-use-in-game-engines
   Reducido de 24k a 7k triángulos y texturas 1024/512 (tools/convert_infected_city.gd),
   re-teñido (tools/tint_infected_city.py). Se usa en el modo gráfico Moderno.
+- infected_shirt.glb: "Zombie" de Pixelhouse (pixelhouse.com.ar), OpenGameArt, CC-BY 3.0
+  (pide crédito), https://opengameart.org/content/zombie
+  Esqueleto Biped (bone map biped_bone_map.tres), escalado a 1,75 m y texturas 1024/512
+  (tools/convert_infected_shirt.gd). Se usa en el modo gráfico Moderno.

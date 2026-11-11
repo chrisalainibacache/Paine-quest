@@ -148,8 +148,9 @@ el título y en la mochila; cambia al tiro y queda guardado. La jugabilidad es l
   luces y MSAA 4x; sin filtro PS1. Pensado para un Redmi 13C (Mali-G52): una sola luz con
   sombra, texturas comprimidas (ETC2), normal y rugosidad con 2 muestras por píxel.
 - En Moderno el infectado común y el rápido usan un modelo detallado (*Male City Zombie*,
-  CC0, 7k triángulos, piel pálida y ropa oscura con sangre). Los demás tipos (pálido,
-  obrero, quemado, el guardia) siguen con su modelo PSX. El cambio de modelo se nota al
+  CC0, 7k triángulos, piel pálida y ropa oscura con sangre); el pálido y el obrero usan el
+  *Zombie* de Pixelhouse (CC-BY 3.0, polera y jeans, 3,6k triángulos; crédito en el título
+  y en `CREDITS.md`). El quemado y el guardia siguen con su modelo PSX. El cambio de modelo se nota al
   entrar a la siguiente sala.
 
 ## 10. Técnico
