@@ -1,12 +1,12 @@
 extends SceneTree
 
-## A/B/C del revoque de la fachada real.
-## A = original; B = candidato sutil; C = microdetalle artístico reforzado.
+## A/B/C de la pared lateral de concreto real.
+## A = original; B = candidato sutil; C = microdetalle reforzado.
 ## Cada variante usa una copia aislada del ShaderMaterial. No se modifica producción.
 const SCENE_PATH := "res://levels/station/platform.tscn"
 const OUTPUT_DIR := "artifacts/hd_stage1"
 const CAMERAS := ["West", "East"]
-const TARGET_NODE := "Walls/Facade/Mesh"
+const TARGET_NODE := "Walls/WestWall/Mesh"
 const VARIANTS := [
     {"key": "original", "texture": ""},
     {"key": "subtle", "texture": "concrete_hd_2x.png"},
