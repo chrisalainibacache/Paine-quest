@@ -33,6 +33,28 @@ func _run_validation() -> void:
     var scene := Node3D.new()
     root.add_child(scene)
 
+    var camera := Camera3D.new()
+    camera.position = Vector3(0.0, 3.8, 11.5)
+    camera.look_at(Vector3.ZERO)
+    camera.current = true
+    camera.fov = 48.0
+    scene.add_child(camera)
+
+    var light := DirectionalLight3D.new()
+    light.rotation_degrees = Vector3(-48.0, -28.0, 0.0)
+    light.light_energy = 1.25
+    scene.add_child(light)
+
+    var environment_node := WorldEnvironment.new()
+    var environment := Environment.new()
+    environment.background_mode = Environment.BG_COLOR
+    environment.background_color = Color(0.045, 0.05, 0.06)
+    environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+    environment.ambient_light_color = Color(0.55, 0.55, 0.55)
+    environment.ambient_light_energy = 0.65
+    environment_node.environment = environment
+    scene.add_child(environment_node)
+
     # Caja rotada y con escala no uniforme: detecta errores de matriz normal.
     var box := MeshInstance3D.new()
     box.mesh = BoxMesh.new()
@@ -57,6 +79,13 @@ func _run_validation() -> void:
 
     await process_frame
     await process_frame
+    await process_frame
+    var preview := root.get_texture().get_image()
+    assert(not preview.is_empty(), "El viewport no produjo imagen para validar")
+    var save_error := preview.save_png("artifacts/hd_stage1/shader_orientaciones.png")
+    assert(save_error == OK, "No se pudo guardar shader_orientaciones.png")
+    print("HD_SHADER_PILOT: PREVIEW=artifacts/hd_stage1/shader_orientaciones.png")
+    print("HD_SHADER_PILOT: PREVIEW_SIZE=" + str(preview.get_width()) + "x" + str(preview.get_height()))
     print("HD_SHADER_PILOT: RESOURCE_AND_MATERIAL_OK")
     print("HD_SHADER_PILOT: ROTATED_NON_UNIFORM_BOX_CONFIGURED")
     print("HD_SHADER_PILOT: SIX_ORIENTED_PLANES_CONFIGURED")
