@@ -15,10 +15,10 @@ func _render() -> void:
     root.add_child(scene)
 
     var camera := Camera3D.new()
-    camera.position = Vector3(0.0, 2.0, 8.5)
+    camera.position = Vector3(0.0, 3.2, 13.0)
     camera.look_at(Vector3.ZERO)
     camera.current = true
-    camera.fov = 42.0
+    camera.fov = 44.0
     scene.add_child(camera)
 
     var light := DirectionalLight3D.new()
@@ -45,37 +45,44 @@ func _render() -> void:
 
     for index in range(ENTRIES.size()):
         var entry: Dictionary = ENTRIES[index]
-        var material := ShaderMaterial.new()
-        material.shader = load("res://shaders/ps1_surface_hd_pilot.gdshader") as Shader
         var albedo := load(str(entry.albedo)) as Texture2D
         var normal_image := Image.load_from_file(str(entry.normal))
         assert(albedo != null, "Albedo faltante: " + str(entry.name))
         assert(not normal_image.is_empty(), "Mapa normal faltante: " + str(entry.normal))
         assert(normal_image.get_width() == 512 and normal_image.get_height() == 512,
             "Mapa normal debe ser 512x512: " + str(entry.normal))
-        material.set_shader_parameter("albedo_tex", albedo)
-        material.set_shader_parameter("normal_tex", ImageTexture.create_from_image(normal_image))
-        material.set_shader_parameter("normal_strength", 0.55)
-        material.set_shader_parameter("tile_meters", 1.5)
-        material.set_shader_parameter("detail_mix", 0.0)
-        material.set_shader_parameter("macro_strength", 0.0)
-        material.set_shader_parameter("grime_strength", 0.0)
+        var normal_texture := ImageTexture.create_from_image(normal_image)
 
-        var cube := MeshInstance3D.new()
-        var mesh := BoxMesh.new()
-        mesh.size = Vector3(1.75, 1.75, 1.75)
-        cube.mesh = mesh
-        cube.material_override = material
-        cube.position = Vector3((float(index) - 1.0) * 2.45, 0.0, 0.0)
-        scene.add_child(cube)
-        var label := Label3D.new()
-        label.text = str(entry.name)
-        label.position = cube.position + Vector3(0.0, 1.25, 0.0)
-        label.font_size = 30
-        label.pixel_size = 0.004
-        label.modulate = Color(0.92, 0.88, 0.76)
-        label.outline_size = 5
-        scene.add_child(label)
+        # Par A/B: mismo albedo e iluminación; solo cambia la intensidad de normales.
+        for side in range(2):
+            var material := ShaderMaterial.new()
+            material.shader = load("res://shaders/ps1_surface_hd_pilot.gdshader") as Shader
+            material.set_shader_parameter("albedo_tex", albedo)
+            material.set_shader_parameter("normal_tex", normal_texture)
+            material.set_shader_parameter("normal_strength", 0.0 if side == 0 else 0.55)
+            material.set_shader_parameter("tile_meters", 1.5)
+            material.set_shader_parameter("detail_mix", 0.0)
+            material.set_shader_parameter("macro_strength", 0.0)
+            material.set_shader_parameter("grime_strength", 0.0)
+
+            var cube := MeshInstance3D.new()
+            var mesh := BoxMesh.new()
+            mesh.size = Vector3(1.35, 1.35, 1.35)
+            cube.mesh = mesh
+            cube.material_override = material
+            var x := (float(index) - 1.0) * 3.15
+            var z := 1.05 if side == 0 else -1.05
+            cube.position = Vector3(x, 0.0, z)
+            scene.add_child(cube)
+
+            var label := Label3D.new()
+            label.text = str(entry.name) + (" | SIN NORMAL" if side == 0 else " | NORMAL 0.55")
+            label.position = cube.position + Vector3(0.0, 1.0, 0.0)
+            label.font_size = 22
+            label.pixel_size = 0.004
+            label.modulate = Color(0.92, 0.88, 0.76)
+            label.outline_size = 5
+            scene.add_child(label)
 
     await process_frame
     await process_frame
