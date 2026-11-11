@@ -1,6 +1,7 @@
-"""Audit source texture dimensions, palette and opposite-edge continuity.
+"""Read-only audit of every environment texture used by the kit materials.
 
-Produces a text report only; it does not alter source assets.
+Reports dimensions, luminance range and opposing-edge continuity. It never
+modifies source assets.
 """
 from pathlib import Path
 
@@ -12,21 +13,32 @@ OUT = ROOT / "artifacts/hd_stage1"
 OUT.mkdir(parents=True, exist_ok=True)
 
 SOURCES = {
-    "concrete": "assets/environment/textures/concrete.png",
-    "bricks_old": "assets/environment/textures/bricks_old.png",
+    "asphalt": "assets/environment/textures/asphalt.png",
     "asphalt_cracked": "assets/environment/textures/asphalt_cracked.png",
+    "bricks_old": "assets/environment/textures/bricks_old.png",
+    "bricks_red": "assets/environment/textures/bricks_red.png",
+    "concrete": "assets/environment/textures/concrete.png",
+    "gravel": "assets/environment/textures/gravel.png",
+    "metal": "assets/environment/textures/metal.png",
+    "paving": "assets/environment/textures/paving.png",
+    "planks": "assets/environment/textures/planks.png",
+    "plaster": "assets/environment/textures/plaster.png",
+    "roof_tiles": "assets/environment/textures/roof_tiles.png",
+    "rust": "assets/environment/textures/rust.png",
+    "tiles": "assets/environment/textures/tiles.png",
+    "wood": "assets/environment/textures/wood.png",
 }
 
 
 def edge_delta(a: np.ndarray) -> tuple[float, float]:
-    # Compare corresponding opposing border pixels, RGB normalized to [0, 1].
+    # Mean absolute RGB difference between corresponding opposing borders.
     x = np.abs(a[:, 0, :] - a[:, -1, :]).mean()
     y = np.abs(a[0, :, :] - a[-1, :, :]).mean()
     return float(x), float(y)
 
 
 lines = [
-    "PAINE QUEST — SOURCE TEXTURE AUDIT",
+    "PAINE QUEST — COMPLETE ENVIRONMENT TEXTURE AUDIT",
     "Read-only analysis. Source files are never modified.",
     "Edge deltas are mean absolute RGB differences on a 0..1 scale.",
 ]
