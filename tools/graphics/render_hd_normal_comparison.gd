@@ -70,14 +70,14 @@ func _render() -> void:
             mesh.size = Vector3(1.35, 1.35, 1.35)
             cube.mesh = mesh
             cube.material_override = material
-            var x := (float(index) - 1.0) * 3.15
-            var z := 1.05 if side == 0 else -1.05
-            cube.position = Vector3(x, 0.0, z)
+            var x := (float(index * 2 + side) - 2.5) * 1.9
+            cube.position = Vector3(x, 0.0, 0.0)
             scene.add_child(cube)
 
             var label := Label3D.new()
-            label.text = str(entry.name) + (" | SIN NORMAL" if side == 0 else " | NORMAL 0.55")
+            label.text = str(entry.name) + ("\\nSIN NORMAL" if side == 0 else "\\nNORMAL 0.55")
             label.position = cube.position + Vector3(0.0, 1.0, 0.0)
+            label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
             label.font_size = 22
             label.pixel_size = 0.004
             label.modulate = Color(0.92, 0.88, 0.76)
