@@ -16,6 +16,8 @@ MATERIALS = {
     "concrete": ("assets/environment/textures/concrete.png", 1.15, 0.60),
     "bricks_old": ("assets/environment/textures/bricks_old.png", 1.45, 0.72),
     "asphalt_cracked": ("assets/environment/textures/asphalt_cracked.png", 0.65, 0.35),
+    # Control candidate: pure 2x Lanczos, no synthetic detail, for an honest A/B.
+    "paving": ("assets/environment/textures/paving.png", 0.0, 0.0),
 }
 
 
@@ -79,6 +81,8 @@ for index, (name, (relative, amplitude, edge_guard)) in enumerate(MATERIALS.item
         f"{name}: {original.width}x{original.height} -> "
         f"{candidate.width}x{candidate.height}; microdetail={amplitude:.2f}/255"
     )
+    if name == "paving":
+        report.append("paving is a resampling-only control; it does not reduce the source tile repetition.")
 
 (OUT / "README.txt").write_text("\n".join(report) + "\n", encoding="utf-8")
 print("\n".join(report))
