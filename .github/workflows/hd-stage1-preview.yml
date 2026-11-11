@@ -85,7 +85,7 @@ jobs:
               assert path.exists(), f"Missing {path}"
               with Image.open(path) as image:
                   assert image.size == size, f"{name}: {image.size} != {size}"
-          previews = ["shader_orientaciones.png", "comparacion_hd.png", "comparacion_normales_luz.png", "andén_real_camara_oeste.png"]
+          previews = ["shader_orientaciones.png", "comparacion_hd.png", "comparacion_normales_luz.png", "anden_real_camara_west.png", "anden_real_camara_east.png"]
           for name in previews:
               path = root / name
               assert path.is_file(), f"Missing visual comparison: {path}"
