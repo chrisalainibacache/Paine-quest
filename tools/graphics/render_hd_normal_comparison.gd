@@ -75,7 +75,7 @@ func _render() -> void:
             scene.add_child(cube)
 
             var label := Label3D.new()
-            label.text = str(entry.name) + ("\\nSIN NORMAL" if side == 0 else "\\nNORMAL 0.55")
+            label.text = str(entry.name) + ("\nSIN NORMAL" if side == 0 else "\nNORMAL 0.55")
             label.position = cube.position + Vector3(0.0, 1.0, 0.0)
             label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
             label.font_size = 22
