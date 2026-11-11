@@ -36,8 +36,6 @@ func _render_preview() -> void:
     for index in range(MATERIALS.size()):
         var entry: Dictionary = MATERIALS[index]
         var x := (float(index) - 1.0) * 4.1
-        _add_label(scene_root, str(entry.name) + "\nORIGINAL", Vector3(x - 0.82, 1.55, 0.0), label_material)
-        _add_label(scene_root, str(entry.name) + "\nHD PILOTO", Vector3(x + 0.82, -1.55, 0.0), label_material)
 
         var original_texture := load(str(entry.source_texture)) as Texture2D
         assert(original_texture != null, "Textura original no encontrada: " + str(entry.source_texture))
@@ -72,13 +70,3 @@ func _add_panel(parent: Node3D, position: Vector3, texture: Texture2D) -> void:
     panel.position = position
     parent.add_child(panel)
 
-func _add_label(parent: Node3D, value: String, position: Vector3, material: StandardMaterial3D) -> void:
-    var label := Label3D.new()
-    label.text = value
-    label.font_size = 48
-    label.pixel_size = 0.01
-    label.modulate = Color(0.95, 0.9, 0.78)
-    label.position = position
-    label.billboard = BaseMaterial3D.BILLBOARD_DISABLED
-    label.material_override = material
-    parent.add_child(label)
