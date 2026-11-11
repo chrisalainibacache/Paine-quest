@@ -83,6 +83,10 @@ for index, (name, (relative, amplitude, edge_guard)) in enumerate(MATERIALS.item
     )
     if name == "paving":
         report.append("paving is a resampling-only control; it does not reduce the source tile repetition.")
+    if name == "concrete":
+        stronger = build_candidate("concrete", original, 2.50, 0.85, 99173)
+        stronger.save(OUT / "concrete_hd_2x_artdirected.png", optimize=True)
+        report.append("concrete art-directed test: microdetail=2.50/255, edge_guard=0.85; experimental only.")
 
 (OUT / "README.txt").write_text("\n".join(report) + "\n", encoding="utf-8")
 print("\n".join(report))
