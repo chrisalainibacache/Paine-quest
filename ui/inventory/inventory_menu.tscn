@@ -120,13 +120,13 @@ offset_right = 272
 offset_bottom = 306
 
 [node name="Grid" type="GridContainer" parent="Root"]
-columns = 4
-theme_override_constants/h_separation = 12
-theme_override_constants/v_separation = 12
+columns = 8
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 offset_left = 360
 offset_top = 118
-offset_right = 890
-offset_bottom = 390
+offset_right = 1240
+offset_bottom = 330
 
 [node name="Info" type="Panel" parent="Root"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_1")

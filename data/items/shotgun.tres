@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://data/items/item_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/weapons/shotgun.tres" id="2_weapon"]
+[ext_resource type="PackedScene" path="res://assets/weapons/shotgun.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_data")
+id = "shotgun"
+display_name = "Escopeta"
+description = "Escopeta de corredera. Derriba de un tiro a corta distancia; de lejos casi no hace daño."
+kind = 0
+max_stack = 1
+heal_amount = 0
+weapon = ExtResource("2_weapon")
+model = ExtResource("3_model")

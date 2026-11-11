@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://data/weapons/weapon_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="2_ammo"]
+[ext_resource type="PackedScene" path="res://assets/weapons/mauser.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_data")
+ammo_item = ExtResource("2_ammo")
+held_model = ExtResource("3_model")
+display_name = "Mauser C96"
+damage = 2
+clip_size = 10
+fire_interval = 0.6
+reload_time = 2.0
+max_range = 16.0
+stagger_chance = 0.45
+muzzle_offset = Vector3(0, 0.106, 0.278)
+flash_scale = 1.0
+sound = "shot"

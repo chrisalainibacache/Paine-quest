@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://data/items/item_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/rifle_box.tscn" id="3_model"]
+
+[resource]
+script = ExtResource("1_data")
+id = "ammo_rifle"
+display_name = "Balas de fusil"
+description = "Munición de fusil. Sirve para el fusil de asalto y para el rifle de francotirador."
+kind = 1
+max_stack = 90
+heal_amount = 0
+model = ExtResource("3_model")

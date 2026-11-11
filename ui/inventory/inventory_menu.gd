@@ -3,7 +3,7 @@ extends CanvasLayer
 ## arma equipada, usar/equipar/examinar y la lista de NOTAS leídas.
 
 const ITEM_VIEW := preload("res://ui/inventory/item_view.gd")
-const SLOT_SIZE := Vector2(124, 124)
+const SLOT_SIZE := Vector2(98, 98)
 
 @onready var root: Control = $Root
 @onready var grid: GridContainer = $Root/Grid
@@ -190,9 +190,9 @@ func _use_selected() -> void:
             _refresh()
             item_text.text = "Comí: %s. Me siento mejor." % item.display_name
         ItemData.Kind.WEAPON:
-            GameState.equipped = item
-            GameState.clip = 0
+            GameState.equip(item)
             player.combat.sync_from_state()
+            Sfx.play("reload", null, -6.0)
             _refresh()
 
 

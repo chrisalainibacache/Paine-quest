@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://data/weapons/weapon_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/items/ammo_grenades.tres" id="2_ammo"]
+[ext_resource type="PackedScene" path="res://assets/weapons/grenade_launcher.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_data")
+ammo_item = ExtResource("2_ammo")
+held_model = ExtResource("3_model")
+display_name = "Lanzagranadas"
+damage = 9
+clip_size = 6
+fire_interval = 1.0
+reload_time = 3.0
+max_range = 18.0
+stagger_chance = 1.0
+explosive_radius = 2.6
+projectile_speed = 20.0
+muzzle_offset = Vector3(0, 0.089, 0.585)
+flash_scale = 1.4
+sound = "launcher"

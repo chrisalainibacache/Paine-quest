@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "ticket_log"
 title = "Libro de la boletería"
-pages = PackedStringArray("6:55 — Se cortó la luz dos minutos. Volvió sola.\n\n7:05 — Llamaron de Hospital: el tren de las 6:30 no pasó por allá. Nadie sabe dónde está.\n\n7:12 — Un pasajero mordió a otro en el andén. El guardia le disparó seis veces y seguía caminando.", "7:20 — El guardia está herido en el brazo. Lo llevamos a la bodega para que descanse. Dice que tiene frío.\n\n7:40 — Ya no contesta cuando le hablamos por la puerta.\n\nDejé su pistola aquí. Yo no sé usarla.\n\n— Rosa, boletería")
+pages = PackedStringArray("6:55 — Se cortó la luz dos minutos. Volvió sola.\n\n7:05 — Llamaron de Hospital: el tren de las 6:30 no pasó por allá. Nadie sabe dónde está.\n\n7:12 — Un pasajero mordió a otro en el andén. El guardia le disparó seis veces y seguía caminando.", "7:20 — El guardia está herido en el brazo. Lo llevamos a la bodega para que descanse. Dice que tiene frío.\n\n7:40 — Ya no contesta cuando le hablamos por la puerta.\n\nDejé sus balas aquí, en el escritorio. Yo no sé disparar.\n\n— Rosa, boletería")

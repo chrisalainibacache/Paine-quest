@@ -1,0 +1,126 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.3, 0.33, 0.2, 1)
+roughness = 0.6
+metallic = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.72, 0.56, 0.28, 1)
+roughness = 0.4
+metallic = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.75, 0.65, 0.2, 1)
+roughness = 0.8
+metallic = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.04
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5"]
+top_radius = 0.012
+bottom_radius = 0.02
+height = 0.05
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6"]
+top_radius = 0.0202
+bottom_radius = 0.0202
+height = 0.006
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.04
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8"]
+top_radius = 0.012
+bottom_radius = 0.02
+height = 0.05
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_9"]
+top_radius = 0.0202
+bottom_radius = 0.0202
+height = 0.006
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.04
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_11"]
+top_radius = 0.012
+bottom_radius = 0.02
+height = 0.05
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_12"]
+top_radius = 0.0202
+bottom_radius = 0.0202
+height = 0.006
+radial_segments = 10
+rings = 1
+
+[node name="Grenades" type="Node3D"]
+
+[node name="Case0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.05, 0.02, 0)
+mesh = SubResource("CylinderMesh_4")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Head0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.05, 0.065, 0)
+mesh = SubResource("CylinderMesh_5")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Band0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.05, 0.044, 0)
+mesh = SubResource("CylinderMesh_6")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Case1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.02, 0)
+mesh = SubResource("CylinderMesh_7")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Head1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.065, 0)
+mesh = SubResource("CylinderMesh_8")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Band1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.044, 0)
+mesh = SubResource("CylinderMesh_9")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Case2" type="MeshInstance3D" parent="."]
+position = Vector3(0.05, 0.02, 0)
+mesh = SubResource("CylinderMesh_10")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Head2" type="MeshInstance3D" parent="."]
+position = Vector3(0.05, 0.065, 0)
+mesh = SubResource("CylinderMesh_11")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Band2" type="MeshInstance3D" parent="."]
+position = Vector3(0.05, 0.044, 0)
+mesh = SubResource("CylinderMesh_12")
+material_override = SubResource("StandardMaterial3D_3")

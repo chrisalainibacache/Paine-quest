@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://data/weapons/weapon_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/items/ammo_rockets.tres" id="2_ammo"]
+[ext_resource type="PackedScene" path="res://assets/weapons/bazooka.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_data")
+ammo_item = ExtResource("2_ammo")
+held_model = ExtResource("3_model")
+display_name = "Bazuca"
+damage = 16
+clip_size = 1
+fire_interval = 1.2
+reload_time = 2.6
+max_range = 22.0
+stagger_chance = 1.0
+explosive_radius = 4.0
+projectile_speed = 26.0
+muzzle_offset = Vector3(0, 0.06, 0.66)
+flash_scale = 2.0
+sound = "launcher"

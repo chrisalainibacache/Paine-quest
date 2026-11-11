@@ -14,8 +14,14 @@ const SOUTH_PLATFORM := "res://levels/station/south_platform.tscn"
 
 func _run() -> void:
     GameState.new_game()
-    _check(GameState.equipped == null and GameState.inventory.count_of(AMMO) == 0 and not GameState.inventory.has_id("pistol"),
-        "partida nueva: Cony empieza sin arma ni balas")
+    var weapons := 0
+    for i in Inventory.SIZE:
+        var item := GameState.inventory.get_item(i)
+        if item and item.kind == ItemData.Kind.WEAPON:
+            weapons += 1
+    _check(weapons == 7 and GameState.equipped == PISTOL, "partida nueva: Cony empieza con las 7 armas en la mochila (hay %d)" % weapons)
+    for ammo_id in ["ammo_9mm", "ammo_shells", "ammo_rifle", "ammo_grenades", "ammo_rockets"]:
+        _check(GameState.inventory.has_id(ammo_id), "y munición %s" % ammo_id)
     await _start_game("user://test_sistemas.json")
     var player: Player = main.player
     _inventory_rules()
@@ -26,6 +32,7 @@ func _run() -> void:
     await _backpack_menu(player)
     await _doors_and_rooms(player)
     await _locked_door(player)
+    await _weapons(player)
     await _chapter_route(player)
     _finish()
 
@@ -37,9 +44,9 @@ func _inventory_rules() -> void:
     _check(inventory.add(AMMO, 70) == 0 and inventory.get_count(0) == 60 and inventory.get_count(1) == 10,
         "las balas se apilan hasta 60 por casilla")
     _check(inventory.take(AMMO, 65) == 65 and inventory.count_of(AMMO) == 5, "sacar balas descuenta de las casillas")
-    for i in 7:
+    for i in Inventory.SIZE - 1:
         inventory.add(SUSHI)
-    _check(inventory.space_for(SUSHI) == 0 and inventory.add(SUSHI) == 1, "con las 8 casillas llenas no cabe nada más")
+    _check(inventory.space_for(SUSHI) == 0 and inventory.add(SUSHI) == 1, "con las %d casillas llenas no cabe nada más" % Inventory.SIZE)
 
 
 func _leo_warns(player: Player) -> void:
@@ -227,8 +234,8 @@ func _locked_door(player: Player) -> void:
     door.free()
 
 
-## Recorrido del capítulo sin arma: encontrar la pistola, abrir el portón con
-## la llave y bajar a la vía.
+## Recorrido del capítulo: munición del guardia en la boletería, abrir el
+## portón con la llave y bajar a la vía.
 func _chapter_route(player: Player) -> void:
     GameState.inventory.clear()
     GameState.equipped = null
@@ -238,19 +245,29 @@ func _chapter_route(player: Player) -> void:
     await _frames(2)
     _check(not main.get_node("HUD/AimButton").visible, "sin arma no aparece APUNTAR")
 
+    # Un arma recogida sin tener otra equipada queda lista y cargada.
+    var found := Pickup.new()
+    found.item = PISTOL
+    main.room.add_child(found)
+    found.global_position = player.global_position + player.get_forward() * 0.6
+    player.interaction.use(found)
+    await _close_dialogues()
+    _check(GameState.equipped == PISTOL and player.combat.clip == 10, "un arma recogida sin otra equipada queda equipada y cargada")
+    _check(main.get_node("HUD/AimButton").visible, "con un arma aparece APUNTAR")
+
     SceneLoader.go_to(TICKET_OFFICE, "from_waiting_room")
     await _seconds(1.4)
     _check(main.room.scene_file_path == TICKET_OFFICE, "se puede entrar a la boletería")
-    var pistol: Pickup = main.room.get_node("Interactables/Pistol")
-    player.global_position = Vector3(pistol.global_position.x + 0.65, 0.05, pistol.global_position.z)
+    var guard_ammo: Pickup = main.room.get_node("Interactables/GuardAmmo")
+    var ammo_before := GameState.inventory.count_of(AMMO)
+    player.global_position = Vector3(guard_ammo.global_position.x + 0.65, 0.05, guard_ammo.global_position.z)
     player.face_direction(Vector3.LEFT, 1.0)
     await _frames(3)
-    _check(player.interaction.focus == pistol, "Cony tiene a mano la pistola del escritorio")
-    player.interaction.use(pistol)
+    _check(player.interaction.focus == guard_ammo, "Cony tiene a mano la munición del guardia")
+    player.interaction.use(guard_ammo)
     await _close_dialogues()
-    _check(GameState.equipped == PISTOL and player.combat.clip == 10, "la pistola encontrada queda equipada y cargada")
-    _check(GameState.has_flag("found:pistol"), "encontrar la pistola queda anotado")
-    _check(main.get_node("HUD/AimButton").visible, "con la pistola aparece APUNTAR")
+    _check(GameState.inventory.count_of(AMMO) > ammo_before, "la munición del guardia queda en la mochila")
+    _check(GameState.has_flag("found:pistol"), "pasar por la boletería queda anotado")
 
     # Con la pistola, el andén ya tiene infectados.
     SceneLoader.go_to(GameState.START_ROOM, "from_south_platform")
@@ -281,3 +298,63 @@ func _chapter_route(player: Player) -> void:
     _check(current_scene != null and current_scene.scene_file_path == "res://ui/chapter_end/chapter_end.tscn",
         "bajar a la vía cierra el capítulo 1")
     _check(GameState.has_flag("chapter_done:1"), "el capítulo 1 queda anotado como terminado")
+
+
+## Armas del arsenal: daño de la escopeta según distancia, ráfaga del fusil,
+## cargador propio por arma y explosión que alcanza a varios infectados.
+func _weapons(player: Player) -> void:
+    var shotgun := load("res://data/weapons/shotgun.tres") as WeaponData
+    _check(shotgun.damage_at(1.5) == 5 and shotgun.damage_at(9.0) == 1, "la escopeta pega fuerte de cerca y casi nada de lejos")
+    for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
+        enemy.free()
+    var combat := player.combat
+    var room: Room = main.room
+    player.global_position = Vector3(-4.0, 0.05, 2.5)
+    player.model.rotation.y = PI / 2.0
+
+    # Fusil de asalto: un toque = ráfaga de 3.
+    var rifle_item := load("res://data/items/assault_rifle.tres") as ItemData
+    GameState.inventory.add(rifle_item)
+    GameState.inventory.add(load("res://data/items/ammo_rifle.tres"), 30)
+    var pistol_clip := combat.clip
+    GameState.equip(rifle_item)
+    combat.sync_from_state()
+    _check(combat.clip == 30 and combat.held != null, "el fusil se equipa con su cargador y su modelo en la mano")
+    var dummy: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
+    room.add_child(dummy)
+    dummy.global_position = player.global_position + Vector3(5.0, 0, 0)
+    dummy.data = dummy.data.duplicate()
+    dummy.health = 100
+    Input.action_press(&"aim")
+    await _seconds(0.5)
+    await _tap(&"fire")
+    await _seconds(0.5)
+    _check(combat.clip == 27, "una ráfaga del fusil gasta 3 balas (quedan %d)" % combat.clip)
+    Input.action_release(&"aim")
+    dummy.free()
+    GameState.equip(PISTOL)
+    combat.sync_from_state()
+    _check(combat.clip == pistol_clip, "al volver a la pistola conserva su cargador (%d)" % combat.clip)
+
+    # Lanzagranadas: una explosión mata a dos infectados juntos.
+    var launcher := load("res://data/items/grenade_launcher.tres") as ItemData
+    GameState.inventory.add(launcher)
+    GameState.equip(launcher)
+    combat.sync_from_state()
+    var group: Array[Infected] = []
+    for i in 2:
+        var infected: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
+        room.add_child(infected)
+        infected.global_position = player.global_position + Vector3(6.0, 0, -0.5 + i * 1.0)
+        infected.set_physics_process(false)
+        group.append(infected)
+    Input.action_press(&"aim")
+    await _seconds(0.5)
+    await _tap(&"fire")
+    await _seconds(1.0)
+    Input.action_release(&"aim")
+    _check(not group[0].is_alive() and not group[1].is_alive(), "una granada mata a los dos infectados juntos")
+    for infected in group:
+        infected.free()
+    GameState.equip(PISTOL)
+    combat.sync_from_state()

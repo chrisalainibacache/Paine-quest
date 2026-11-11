@@ -35,8 +35,8 @@ label("Condition", "Root/Status", "BIEN", 30, TXT, **rect(left=18, top=158, righ
 label("WeaponTitle", "Root/Status", "ARMA", 22, DIM, **rect(left=18, top=214, right=272, bottom=242))
 label("Weapon", "Root/Status", "Pistola", 22, TXT, autowrap_mode="3", **rect(left=18, top=244, right=272, bottom=306))
 # Casillas.
-s.node("Grid", "GridContainer", "Root", columns="4", theme_override_constants_h_separation="12",
-       theme_override_constants_v_separation="12", **rect(left=360, top=118, right=890, bottom=390))
+s.node("Grid", "GridContainer", "Root", columns="8", theme_override_constants_h_separation="10",
+       theme_override_constants_v_separation="10", **rect(left=360, top=118, right=1240, bottom=330))
 # Información del ítem.
 s.node("Info", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=360, top=404, right=1240, bottom=694))
 label("Name", "Root/Info", "", 30, col((0.85, 0.72, 0.5)), **rect(left=24, top=14, right=840, bottom=54))

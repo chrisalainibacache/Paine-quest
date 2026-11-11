@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://data/weapons/weapon_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="2_ammo"]
+[ext_resource type="PackedScene" path="res://assets/weapons/shotgun.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_data")
+ammo_item = ExtResource("2_ammo")
+held_model = ExtResource("3_model")
+display_name = "Escopeta"
+damage = 5
+clip_size = 6
+fire_interval = 1.0
+reload_time = 2.4
+max_range = 9.0
+stagger_chance = 1.0
+falloff_start = 2.5
+min_damage = 1
+muzzle_offset = Vector3(0, 0.081, 0.64)
+flash_scale = 1.6
+sound = "shotgun"

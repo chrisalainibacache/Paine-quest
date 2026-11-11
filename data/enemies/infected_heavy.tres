@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_data")
 display_name = "Infectado pesado"
-health = 7
+health = 11
 walk_speed = 0.6
 turn_speed = 2.2
 notice_range = 8.0

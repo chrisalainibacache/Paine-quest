@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "station_notice"
 title = "Aviso de la estación"
-pages = PackedStringArray("AVISO A LOS PASAJEROS\n\nPor una emergencia sanitaria en la comuna, los servicios a Santiago quedan suspendidos hasta nuevo aviso.\n\nSe ruega mantener la calma y no abandonar la estación. Personal de salud vendrá a buscarlos.\n\n— Jefatura de Estación Paine", "(Escrito a mano, abajo del aviso)\n\nNadie vino.\n\nLa pistola del guardia quedó en la boletería. Úsenla si vuelven a entrar.\n\nEl portón del andén sur tiene candado. La llave está en la bodega, al fondo del pasillo de servicio.\n\n— R.")
+pages = PackedStringArray("AVISO A LOS PASAJEROS\n\nPor una emergencia sanitaria en la comuna, los servicios a Santiago quedan suspendidos hasta nuevo aviso.\n\nSe ruega mantener la calma y no abandonar la estación. Personal de salud vendrá a buscarlos.\n\n— Jefatura de Estación Paine", "(Escrito a mano, abajo del aviso)\n\nNadie vino.\n\nLas balas del guardia quedaron en la boletería. Si alguien viene armado, que las use.\n\nEl portón del andén sur tiene candado. La llave está en la bodega, al fondo del pasillo de servicio.\n\n— R.")

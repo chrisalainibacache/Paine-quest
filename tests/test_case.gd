@@ -19,6 +19,11 @@ func _start_game(save_path: String, armed: bool = true) -> void:
     SaveSystem.save_path = save_path
     SaveSystem.delete_save()
     GameState.new_game()
+    # Las pruebas parten con una mochila simple (pistola y 20 balas) para que
+    # las cuentas sean fáciles; el arsenal inicial se prueba en systems_test.
+    GameState.inventory.clear()
+    GameState.equipped = null
+    GameState.clip = 0
     if armed:
         GameState.give_pistol()
     main = (load("res://main.tscn") as PackedScene).instantiate()

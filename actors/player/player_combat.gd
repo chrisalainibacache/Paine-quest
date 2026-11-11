@@ -9,7 +9,7 @@ signal ammo_changed(clip: int, reserve: int)
 signal aiming_changed(aiming: bool)
 signal target_changed(target: Node3D)
 
-const PISTOL_SCENE := preload("res://actors/player/pistol.tscn")
+const HELD_WEAPON_SCENE := preload("res://actors/player/held_weapon.tscn")
 const AIM_TURN_SPEED := 9.0
 const RETARGET_INTERVAL := 0.2
 
@@ -27,7 +27,10 @@ var target: Node3D
 var reloading := false
 
 @onready var player: Player = get_parent()
-var _pistol: Node3D
+## Arma visible en la mano derecha (cambia al equipar otra).
+var held: Node3D
+var _hand: BoneAttachment3D
+var _held_weapon: WeaponData
 var _fire_timer := 0.0
 var _reload_timer := 0.0
 var _retarget_timer := 0.0
@@ -36,7 +39,7 @@ var _retarget_timer := 0.0
 func _ready() -> void:
     GameState.inventory.changed.connect(_emit_ammo)
     sync_from_state()
-    _attach_pistol.call_deferred()
+    _attach_hand.call_deferred()
 
 
 ## Toma el arma equipada y la munición del cargador desde GameState.
@@ -44,7 +47,9 @@ func sync_from_state() -> void:
     var item := GameState.equipped
     weapon = item.weapon if item else null
     clip = GameState.clip if weapon else 0
+    reloading = false
     _emit_ammo()
+    _refresh_held()
 
 
 func has_weapon() -> bool:
@@ -55,22 +60,40 @@ func _emit_ammo() -> void:
     ammo_changed.emit(clip, reserve)
 
 
-func _attach_pistol() -> void:
+func _attach_hand() -> void:
     var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
     if skeleton == null:
-        push_warning("No se encontró GeneralSkeleton para montar la pistola.")
+        push_warning("No se encontró GeneralSkeleton para montar el arma.")
         return
     const RIGHT_HAND_BONE := "RightHand"
     if skeleton.find_bone(RIGHT_HAND_BONE) < 0:
         push_warning("El esqueleto no tiene el hueso %s." % RIGHT_HAND_BONE)
         return
-    var hand := BoneAttachment3D.new()
-    hand.name = "PistolHandAttachment"
-    hand.bone_name = RIGHT_HAND_BONE
-    skeleton.add_child(hand)
-    _pistol = PISTOL_SCENE.instantiate()
-    hand.add_child(_pistol)
-    _pistol.visible = false
+    _hand = BoneAttachment3D.new()
+    _hand.name = "WeaponHandAttachment"
+    _hand.bone_name = RIGHT_HAND_BONE
+    skeleton.add_child(_hand)
+    _refresh_held()
+
+
+## Pone en la mano el modelo del arma equipada.
+func _refresh_held() -> void:
+    if _hand == null or _held_weapon == weapon:
+        return
+    if held:
+        held.queue_free()
+        held = null
+    _held_weapon = weapon
+    if weapon == null:
+        return
+    if weapon.held_scene:
+        held = weapon.held_scene.instantiate()
+        _hand.add_child(held)
+    else:
+        held = HELD_WEAPON_SCENE.instantiate()
+        _hand.add_child(held)
+        held.setup(weapon)
+    held.visible = aiming or reloading
 
 
 func _physics_process(delta: float) -> void:
@@ -88,8 +111,8 @@ func _physics_process(delta: float) -> void:
         if not aiming:
             _set_target(null)
         aiming_changed.emit(aiming)
-    if _pistol:
-        _pistol.visible = aiming or reloading
+    if held:
+        held.visible = aiming or reloading
 
     if not aiming:
         return
@@ -113,20 +136,61 @@ func _fire() -> void:
         else:
             Sfx.play("click", null, -4.0)
         return
+    for shot in weapon.burst:
+        if clip <= 0 or not aiming or not player.is_alive():
+            break
+        if shot > 0:
+            await get_tree().create_timer(0.09).timeout
+        _fire_one()
+    if clip == 0 and reserve > 0:
+        get_tree().create_timer(0.35).timeout.connect(_start_reload)
+
+
+func _fire_one() -> void:
     clip -= 1
     GameState.clip = clip
     _emit_ammo()
-    Sfx.play("shot", player.global_position + Vector3.UP * 1.3, 2.0)
+    Sfx.play(weapon.sound, player.global_position + Vector3.UP * 1.3, 2.0)
     player.play_action("Pistol_Shoot", 0.35)
-    if _pistol and _pistol.has_method("flash"):
-        _pistol.flash()
-
+    if held and held.has_method("flash"):
+        held.flash()
     var origin := player.global_position + Vector3.UP * 1.35
+    if weapon.explosive_radius > 0.0:
+        _launch(origin)
+        return
     if target and _has_line_of_sight(origin, target.get_aim_point()):
         var point: Vector3 = target.get_aim_point() + Vector3(randf_range(-0.1, 0.1), randf_range(-0.15, 0.1), randf_range(-0.1, 0.1))
-        target.take_hit(weapon.damage, origin, point, weapon.stagger_chance)
-    if clip == 0 and reserve > 0:
-        get_tree().create_timer(0.35).timeout.connect(_start_reload)
+        var distance := origin.distance_to(point)
+        target.take_hit(weapon.damage_at(distance), origin, point, weapon.stagger_chance)
+
+
+## Granada o cohete: vuela hasta el blanco (o hasta lo primero que choque) y explota.
+func _launch(origin: Vector3) -> void:
+    var muzzle: Vector3 = held.get_muzzle_position() if held and held.has_method("get_muzzle_position") else origin
+    var aim: Vector3 = target.get_aim_point() if target else origin + player.get_forward() * weapon.max_range
+    var query := PhysicsRayQueryParameters3D.create(muzzle, aim)
+    query.collision_mask = 1
+    var hit := player.get_world_3d().direct_space_state.intersect_ray(query)
+    var impact: Vector3 = hit.position if not hit.is_empty() else aim
+    var is_rocket := weapon.explosive_radius >= 3.5
+    Projectile.launch(player.get_parent(), muzzle, impact, weapon.projectile_speed, is_rocket, _explode.bind(weapon))
+
+
+func _explode(at: Vector3, used: WeaponData) -> void:
+    if not is_inside_tree():
+        return
+    Explosion.spawn(player.get_parent(), at, used.explosive_radius)
+    for enemy: Node3D in get_tree().get_nodes_in_group("enemies"):
+        if not enemy.is_alive():
+            continue
+        var distance: float = enemy.get_aim_point().distance_to(at)
+        if distance > used.explosive_radius:
+            continue
+        var falloff: float = 1.0 - distance / used.explosive_radius * 0.6
+        enemy.take_hit(maxi(roundi(used.damage * falloff), 1), at, enemy.get_aim_point(), 1.0)
+    # Muy cerca, la explosión también alcanza a Cony.
+    if player.global_position.distance_to(at) < used.explosive_radius * 0.5:
+        player.take_damage(25, at)
 
 
 func _start_reload() -> void:

@@ -107,12 +107,12 @@ func _combat_tests(player: Player, room: Room) -> void:
     var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
     _check(skeleton != null and skeleton.find_bone("RightHand") >= 0,
         "el modelo de Cony tiene el hueso RightHand")
-    _check(combat._pistol != null, "la escena de la pistola queda montada en la mano")
-    if combat._pistol != null:
-        var attachment := combat._pistol.get_parent() as BoneAttachment3D
+    _check(combat.held != null, "la escena de la pistola queda montada en la mano")
+    if combat.held != null:
+        var attachment := combat.held.get_parent() as BoneAttachment3D
         _check(attachment != null and attachment.bone_name == "RightHand",
             "la pistola se ancla al hueso correcto")
-        _check(combat._pistol.visible, "la pistola se muestra al apuntar")
+        _check(combat.held.visible, "la pistola se muestra al apuntar")
     _check(player.global_position.distance_to(before) < 0.05, "apuntando no camina")
     Input.action_release(&"move_right")
     player.model.rotation.y = PI / 2.0
@@ -162,14 +162,15 @@ func _combat_tests(player: Player, room: Room) -> void:
             "el brazo derecho cambia de pose durante la caminata")
     var clip_before := combat.clip
     var shots_to_kill := ceili(float(infected.data.health) / combat.weapon.damage)
-    _check(shots_to_kill == 5, "un infectado común aguanta 5 balazos de pistola (aguanta %d)" % shots_to_kill)
+    # Dificultad pedida por Chris: 7 balazos de pistola el común (+2 sobre el original).
+    _check(shots_to_kill == 7, "un infectado común aguanta 7 balazos de pistola (aguanta %d)" % shots_to_kill)
     var heavy_data := load("res://data/enemies/infected_heavy.tres") as EnemyData
-    _check(ceili(float(heavy_data.health) / combat.weapon.damage) == 7,
-        "un infectado pesado aguanta 7 balazos de pistola")
+    _check(ceili(float(heavy_data.health) / combat.weapon.damage) == 11,
+        "un infectado pesado aguanta 11 balazos de pistola")
     for variant_name in ["infected_burnt", "infected_pale", "infected_worker"]:
         var variant_data := load("res://data/enemies/%s.tres" % variant_name) as EnemyData
-        _check(ceili(float(variant_data.health) / combat.weapon.damage) == 5,
-            "%s aguanta 5 balazos" % variant_data.display_name)
+        _check(ceili(float(variant_data.health) / combat.weapon.damage) >= 7,
+            "%s aguanta al menos 7 balazos" % variant_data.display_name)
         var variant := (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate() as Infected
         variant.data = variant_data
         room.add_child(variant)

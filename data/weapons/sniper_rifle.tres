@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://data/weapons/weapon_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/items/ammo_rifle.tres" id="2_ammo"]
+[ext_resource type="PackedScene" path="res://assets/weapons/sniper_rifle.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_data")
+ammo_item = ExtResource("2_ammo")
+held_model = ExtResource("3_model")
+display_name = "Rifle de francotirador"
+damage = 7
+clip_size = 5
+fire_interval = 1.5
+reload_time = 2.6
+max_range = 28.0
+aim_cone_degrees = 40.0
+stagger_chance = 1.0
+muzzle_offset = Vector3(0, 0.094, 0.805)
+flash_scale = 1.3
+sound = "rifle"

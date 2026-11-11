@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://data/items/item_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/weapons/bazooka.tres" id="2_weapon"]
+[ext_resource type="PackedScene" path="res://assets/weapons/bazooka.glb" id="3_model"]
+
+[resource]
+script = ExtResource("1_data")
+id = "bazooka"
+display_name = "Bazuca"
+description = "Un solo cohete por carga. Para cuando ya no queda otra salida."
+kind = 0
+max_stack = 1
+heal_amount = 0
+weapon = ExtResource("2_weapon")
+model = ExtResource("3_model")

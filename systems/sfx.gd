@@ -31,6 +31,10 @@ func _ready() -> void:
     _streams["hurt"] = _make(0.3, _hurt)
     _streams["fall"] = _make(0.45, _fall)
     _streams["hiss"] = _make(0.7, _hiss)
+    _streams["shotgun"] = _make(0.55, _shotgun)
+    _streams["rifle"] = _make(0.28, _rifle)
+    _streams["launcher"] = _make(0.4, _launcher)
+    _streams["explosion"] = _make(1.6, _explosion)
     _streams["door"] = _make(0.9, _door)
     _streams["locked"] = _make(0.3, _locked)
     _streams["unlock"] = _make(0.35, _unlock)
@@ -196,3 +200,31 @@ func _typewriter(t: float, _length: float, prev: float) -> float:
     var t2 := maxf(t - 0.85, 0.0)
     var bell := sin(TAU * 2100.0 * t2) * exp(-t2 * 9.0) * (1.0 if t > 0.85 else 0.0)
     return keys * 0.6 + bell * 0.3
+
+
+func _shotgun(t: float, _length: float, prev: float) -> float:
+    # Estampido más grave y largo que la pistola.
+    var noise := randf_range(-1.0, 1.0)
+    var body := lerpf(prev, noise, 0.22)
+    var thump := sin(TAU * 52.0 * t) * exp(-t * 9.0)
+    return (body * 1.8 + thump * 1.1 + noise * exp(-t * 70.0) * 0.7) * exp(-t * 6.5)
+
+
+func _rifle(t: float, _length: float, prev: float) -> float:
+    # Seco y agudo.
+    var noise := randf_range(-1.0, 1.0)
+    return (lerpf(prev, noise, 0.5) * 1.3 + noise * exp(-t * 120.0)) * exp(-t * 16.0)
+
+
+func _launcher(t: float, _length: float, prev: float) -> float:
+    # "Plop" del tubo más soplido.
+    var pop := sin(TAU * lerpf(160.0, 60.0, t * 3.0) * t) * exp(-t * 14.0)
+    var hiss := lerpf(prev, randf_range(-1.0, 1.0), 0.6) * exp(-t * 6.0) * 0.5
+    return pop * 1.2 + hiss
+
+
+func _explosion(t: float, _length: float, prev: float) -> float:
+    var noise := randf_range(-1.0, 1.0)
+    var rumble := lerpf(prev, noise, 0.06)
+    var boom := sin(TAU * lerpf(70.0, 30.0, t) * t) * exp(-t * 3.5)
+    return (rumble * 3.2 + boom * 1.2 + noise * exp(-t * 30.0) * 0.8) * exp(-t * 2.2)
