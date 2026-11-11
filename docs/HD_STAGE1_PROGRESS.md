@@ -39,3 +39,9 @@
 - Ninguna textura candidata se integra todavía en los assets del juego.
 - No se cambia geometría, cámara, proporciones de personajes, paleta artística ni interfaz móvil.
 - La aprobación visual humana y la prueba Android son obligatorias antes de promover cualquier recurso.
+
+## Captura del escenario real
+- La escena `levels/station/platform.tscn` utiliza cámaras fijas `Cameras/West/Camera` y `Cameras/East/Camera`; ambas rutas se verificaron contra el archivo de escena.
+- `render_real_station_preview.gd` captura ambas vistas de la escena original, sin sustituir geometría ni materiales. Esto permite revisar cobertura visual desde los dos encuadres reales.
+- El workflow exige ahora los dos PNG de cámara, además de los comparativos de materiales y shader.
+- Estas capturas son una línea base del escenario original; todavía no son una comparación A/B de materiales HD ni una aprobación visual. La ejecución de GitHub Actions y la inspección de sus artefactos siguen pendientes.
