@@ -27,6 +27,12 @@ def luma(image: np.ndarray) -> np.ndarray:
     return image[..., 0] * 0.2126 + image[..., 1] * 0.7152 + image[..., 2] * 0.0722
 
 
+def opposite_edge_delta(image: np.ndarray) -> tuple[float, float]:
+    x = float(np.mean(np.abs(image[:, 0, :] - image[:, -1, :])))
+    y = float(np.mean(np.abs(image[0, :, :] - image[-1, :, :])))
+    return x, y
+
+
 def edge_correlation(a: np.ndarray, b: np.ndarray) -> float:
     # Compare gradient structure after returning the candidate to source size.
     ax = np.diff(a, axis=1).ravel()
@@ -63,6 +69,8 @@ for name, source_rel in MATERIALS.items():
     mae = float(np.mean(np.abs(reduced - source)))
     drift = abs(float(luma(candidate).mean() - luma(source).mean()))
     structure = edge_correlation(luma(source), luma(reduced))
+    source_seam_x, source_seam_y = opposite_edge_delta(source)
+    candidate_seam_x, candidate_seam_y = opposite_edge_delta(candidate)
     if mae > MAX_DOWNSAMPLED_MAE:
         raise AssertionError(f"{name}: downsampled RGB MAE {mae:.5f} exceeds {MAX_DOWNSAMPLED_MAE:.5f}")
     if drift > MAX_MEAN_LUMA_DRIFT:
@@ -70,7 +78,9 @@ for name, source_rel in MATERIALS.items():
     reports.append(
         f"{name}: size={candidate.shape[1]}x{candidate.shape[0]}; "
         f"downsampled_rgb_mae={mae:.5f}; mean_luma_drift={drift:.5f}; "
-        f"edge_structure_correlation={structure:.5f}; PASS"
+        f"edge_structure_correlation={structure:.5f}; "
+        f"source_seam_xy=({source_seam_x:.4f},{source_seam_y:.4f}); "
+        f"candidate_seam_xy=({candidate_seam_x:.4f},{candidate_seam_y:.4f}); PASS"
     )
 
 report = "\n".join(reports) + "\n"
