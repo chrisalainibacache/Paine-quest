@@ -82,9 +82,22 @@ jobs:
               assert path.exists(), f"Missing {path}"
               with Image.open(path) as image:
                   assert image.size == size, f"{name}: {image.size} != {size}"
-          assert (root / "comparacion_hd.png").exists(), "Missing albedo comparison"
-          assert (root / "comparacion_normales_luz.png").exists(), "Missing lit normal comparison"
-          print("HD candidates and both visual comparisons: OK")
+          previews = ["comparacion_hd.png", "comparacion_normales_luz.png"]
+          for name in previews:
+              path = root / name
+              assert path.is_file(), f"Missing visual comparison: {path}"
+              with Image.open(path) as image:
+                  image.load()
+                  assert image.width >= 640 and image.height >= 360, (
+                      f"{name}: unexpected preview size {image.size}"
+                  )
+                  extrema = image.convert("RGB").getextrema()
+                  assert any(low != high for low, high in extrema), (
+                      f"{name}: preview appears completely flat"
+                  )
+          print("HD candidates and non-empty visual comparisons: OK")
+      - name: Confirm original textures remain unchanged
+        run: git diff --exit-code -- assets/environment/textures/concrete.png assets/environment/textures/bricks_old.png assets/environment/textures/asphalt_cracked.png
           PY
       - name: Upload comparison set
         uses: actions/upload-artifact@v4
