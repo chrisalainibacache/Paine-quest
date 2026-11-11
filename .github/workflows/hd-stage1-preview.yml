@@ -59,8 +59,8 @@ jobs:
               assert path.exists(), f"Missing {path}"
               with Image.open(path) as image:
                   assert image.size == size, f"{name}: {image.size} != {size}"
-          assert((root / "comparacion_hd.png").exists(), "Missing albedo comparison")
-          assert((root / "comparacion_normales_luz.png").exists(), "Missing lit normal comparison")
+          assert (root / "comparacion_hd.png").exists(), "Missing albedo comparison"
+          assert (root / "comparacion_normales_luz.png").exists(), "Missing lit normal comparison"
           print("HD candidates and both visual comparisons: OK")
           PY
       - name: Upload comparison set
