@@ -1,7 +1,7 @@
 """Read-only audit of every environment texture used by the kit materials.
 
 Reports dimensions, luminance range and opposing-edge continuity. It never
-modifies source assets.
+modifies source assets. Edge rankings are diagnostic, not pass/fail thresholds.
 """
 from pathlib import Path
 
@@ -41,7 +41,9 @@ lines = [
     "PAINE QUEST — COMPLETE ENVIRONMENT TEXTURE AUDIT",
     "Read-only analysis. Source files are never modified.",
     "Edge deltas are mean absolute RGB differences on a 0..1 scale.",
+    "Ranked continuity values are diagnostic only; no calibrated pass/fail threshold is applied.",
 ]
+ranked = []
 for name, relative in SOURCES.items():
     path = ROOT / relative
     if not path.is_file():
@@ -54,11 +56,18 @@ for name, relative in SOURCES.items():
         + rgb[..., 1] * 0.7152
         + rgb[..., 2] * 0.0722
     )
+    ranked.append((max(dx, dy), name, dx, dy))
     lines.append(
         f"{name}: size={rgb.shape[1]}x{rgb.shape[0]}; "
         f"luma_min={luminance.min():.3f}; luma_max={luminance.max():.3f}; "
         f"luma_mean={luminance.mean():.3f}; "
         f"edge_delta_x={dx:.4f}; edge_delta_y={dy:.4f}"
+    )
+
+lines.extend(["", "CONTINUITY REVIEW ORDER (largest opposing-edge delta first):"])
+for maximum, name, dx, dy in sorted(ranked, reverse=True):
+    lines.append(
+        f"{name}: max_edge_delta={maximum:.4f} (x={dx:.4f}, y={dy:.4f})"
     )
 
 report = "\n".join(lines) + "\n"
