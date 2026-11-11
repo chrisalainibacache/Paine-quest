@@ -5,8 +5,9 @@ shader_type canvas_item;
 render_mode unshaded;
 
 uniform sampler2D screen_tex : hint_screen_texture, filter_nearest;
-// Líneas verticales "virtuales" (la PS1 usaba 240).
-uniform float target_lines = 300.0;
+// Líneas verticales "virtuales" (la PS1 usaba 240; el remaster HD usa 480:
+// en un teléfono de 1080 px quedan píxeles de 2x2 en vez de 3x3).
+uniform float target_lines = 480.0;
 uniform float color_levels = 31.0;
 uniform float vignette = 0.35;
 

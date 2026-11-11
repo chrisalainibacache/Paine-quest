@@ -47,7 +47,7 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 - [x] 7 armas de dos packs (Heavy Weapons Pack + Quaternius) en la mochila desde el inicio; mochila de 16.
 - [x] Escopeta con caída de daño, fusil en ráfaga, rifle, lanzagranadas y bazuca con explosión en área.
 - [x] Detalle de arquitectura en los andenes (columnas de fierro, alero de tablas, fachada roja con arcos, reloj, afiche, maceteros, faroles, bancas de fierro). Ver `docs/REMASTER_DIRECTION.md`.
-- [ ] Texturas a 512 px desde los originales de ambientCG (no reescalando las de 256).
+- [x] Texturas a 512 px desde los originales de ambientCG (no reescalando las de 256) y filtro PS1 a 480 líneas.
 
 ## Hito 5 — Capítulo 2 completo (vías y tren destruido, 6 salas)
 - [x] 6 salas en `levels/tracks/`, tren descarrilado, llave del maquinista, linterna en el apagón.

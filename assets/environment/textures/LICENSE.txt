@@ -1,2 +1,4 @@
 Texturas: ambientCG (https://ambientcg.com), licencia CC0 1.0.
-Convertidas a 256 px con color de 15 bits (estilo PS1) por tools/ps1_textures.gd.
+Remasterizadas a 512 px desde los originales 1K de ambientCG, con el mismo tratamiento PS1
+(color de 15 bits, tinte cálido) por tools/remaster_textures.gd. Las de 256 px quedan en
+assets/environment/textures_ps1_256/ como respaldo.
