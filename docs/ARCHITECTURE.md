@@ -53,7 +53,8 @@ necesitan el árbol registran su instancia al iniciar.
 | `InputSetup` | autoload | Registra las acciones (`move_*`, `aim`, `fire`, `interact`, `inventory`). |
 | `Sfx` (`SfxPlayer`) | autoload + `Sfx.play()` estático | Efectos sintetizados con pool de reproductores. |
 | `GameState` | estático | Mochila, arma equipada, notas, banderas, salud, cargador, sala actual. |
-| `Inventory` | clase | 8 casillas con apilado; se serializa a rutas de recursos. |
+| `GraphicsSettings` | estático | Modo gráfico Retro/Moderno (`user://ajustes.cfg`). `apply(nodo)` cambia materiales `ps1_surface` ↔ `modern_surface`, filtrado de texturas, ambiente (tonemap, glow), sombra en la luz más fuerte, MSAA y el filtro PS1 (grupo `ps1_filter`). Lo llaman `SceneLoader` al cargar cada sala y el botón `ui/graphics_toggle.gd`. |
+| `Inventory` | clase | 16 casillas con apilado; se serializa a rutas de recursos. |
 | `SaveSystem` | estático | Guarda/carga `GameState` en `user://partida.json` (una ranura). |
 | `SceneLoader` | nodo en `Main` | Cambia de sala: fundido, descarga, instancia, ubica a Cony y Leo, elige cámara. |
 | `Dialogue` | escena en `Main` | Mensajes, preguntas (`ask`) y lector de documentos. Pausa el juego. |

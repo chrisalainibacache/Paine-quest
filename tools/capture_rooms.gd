@@ -15,6 +15,10 @@ func _init() -> void:
 
 func _run() -> void:
     SaveSystem.save_path = "user://captura.json"
+    # PAINE_GRAFICOS=moderno|retro elige el modo gráfico de las capturas.
+    var mode := OS.get_environment("PAINE_GRAFICOS")
+    if mode != "":
+        GraphicsSettings.set_modern(mode == "moderno")
     GameState.new_game()
     GameState.give_pistol()
     change_scene_to_file("res://main.tscn")

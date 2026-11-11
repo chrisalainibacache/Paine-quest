@@ -1,7 +1,8 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://ui/title/title_screen.gd" id="1_title_screen"]
-[ext_resource type="PackedScene" path="res://ui/ps1_filter.tscn" id="2_ps1_filter"]
+[ext_resource type="Script" path="res://ui/graphics_toggle.gd" id="2_graphics_tog"]
+[ext_resource type="PackedScene" path="res://ui/ps1_filter.tscn" id="3_ps1_filter"]
 
 [node name="TitleScreen" type="Control"]
 script = ExtResource("1_title_screen")
@@ -58,7 +59,7 @@ grow_horizontal = 2
 offset_left = -180.0
 offset_top = 380.0
 offset_right = 180.0
-offset_bottom = 560.0
+offset_bottom = 654.0
 theme_override_constants/separation = 18
 
 [node name="NewGame" type="Button" parent="Menu"]
@@ -72,6 +73,12 @@ custom_minimum_size = Vector2(0, 76)
 text = "CONTINUAR"
 theme_override_font_sizes/font_size = 30
 focus_mode = 0
+
+[node name="Graphics" type="Button" parent="Menu"]
+custom_minimum_size = Vector2(0, 76)
+text = "GRÁFICOS: RETRO"
+theme_override_font_sizes/font_size = 26
+script = ExtResource("2_graphics_tog")
 
 [node name="Credits" type="Label" parent="."]
 anchors_preset = 3
@@ -90,4 +97,4 @@ text = "Cony y Leo · Paine, Chile"
 theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(0.4, 0.38, 0.34, 1)
 
-[node name="Filter" parent="." instance=ExtResource("2_ps1_filter")]
+[node name="Filter" parent="." instance=ExtResource("3_ps1_filter")]

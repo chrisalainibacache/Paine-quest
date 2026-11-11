@@ -1,8 +1,9 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://ui/inventory/inventory_menu.gd" id="1_inventory_me"]
-[ext_resource type="Script" path="res://ui/inventory/ecg.gd" id="2_ecg"]
-[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="3_item_view"]
+[ext_resource type="Script" path="res://ui/graphics_toggle.gd" id="2_graphics_tog"]
+[ext_resource type="Script" path="res://ui/inventory/ecg.gd" id="3_ecg"]
+[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="4_item_view"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.04, 0.045, 0.05, 0.85)
@@ -48,6 +49,13 @@ theme_override_colors/font_color = Color(0.85, 0.72, 0.5, 1)
 size_flags_horizontal = 3
 vertical_alignment = 1
 
+[node name="Graphics" type="Button" parent="Root/Header"]
+text = "GRÁFICOS: RETRO"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
+custom_minimum_size = Vector2(260, 64)
+script = ExtResource("2_graphics_tog")
+
 [node name="ItemsTab" type="Button" parent="Root/Header"]
 text = "OBJETOS"
 theme_override_font_sizes/font_size = 24
@@ -85,7 +93,7 @@ offset_right = 270
 offset_bottom = 42
 
 [node name="Ecg" type="Control" parent="Root/Status"]
-script = ExtResource("2_ecg")
+script = ExtResource("3_ecg")
 offset_left = 18
 offset_top = 48
 offset_right = 272
@@ -199,7 +207,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.92)
 
 [node name="View" type="SubViewportContainer" parent="Root/Examine"]
-script = ExtResource("3_item_view")
+script = ExtResource("4_item_view")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

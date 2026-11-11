@@ -5,7 +5,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
 shader = ExtResource("1_ps1_screen")
 
-[node name="PS1Filter" type="CanvasLayer"]
+[node name="PS1Filter" type="CanvasLayer" groups=["ps1_filter"]]
 layer = 1
 
 [node name="Screen" type="ColorRect" parent="."]

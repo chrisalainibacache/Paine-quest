@@ -95,6 +95,8 @@ func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool)
     var scene := load(room_path) as PackedScene
     room = scene.instantiate() as Room
     world.add_child(room)
+    # Modo gráfico (Retro / Moderno) sobre la sala recién armada.
+    GraphicsSettings.apply(room)
     GameState.room_path = room_path
     GameState.spawn_id = spawn_id
 

@@ -85,7 +85,7 @@ munición: "clic".
 | --- | --- |
 | Salud | Bien / Precaución / Peligro (electrocardiograma en la mochila, cojea en Peligro). |
 | Curación | Comida, se come desde la mochila: sushi (+30) y handroll (+70). |
-| Mochila | 8 casillas. Las balas se apilan (60 por casilla); armas, comida y llaves usan una casilla cada una. La munición de reserva es la que hay en la mochila. |
+| Mochila | 16 casillas. Las balas se apilan (60 por casilla); armas, comida y llaves usan una casilla cada una. La munición de reserva es la que hay en la mochila. |
 | Examinar | Cualquier ítem se ve en 3D y se gira con el dedo. |
 | Guardado | Máquina de escribir (una ranura, sin cintas de tinta). Al morir, REINTENTAR vuelve a la última partida guardada. |
 | Documentos | Notas legibles (papel en pantalla) que cuentan qué pasó en Paine; quedan en NOTAS. |
@@ -139,6 +139,16 @@ Se llega con CONTINUAR al terminar el capítulo 1 (punto de control: guarda la p
 ## 9. Estilo visual
 
 Ver `docs/ART_PIPELINE.md` (texturas, variación sin repetición visible, sin huecos negros).
+
+**Dos modos gráficos (decisión de Chris, prototipo):** botón **GRÁFICOS: RETRO / MODERNO** en
+el título y en la mochila; cambia al tiro y queda guardado. La jugabilidad es la misma.
+- **Retro:** el look PS1 de siempre (texturas pixeladas, filtro de pantalla con tramado).
+- **Moderno:** texturas 1K con relieve (mapa normal) y rugosidad, filtrado suave, brillos,
+  sombras en tiempo real en la luz principal de cada sala, tonemap fílmico, resplandor en
+  luces y MSAA 4x; sin filtro PS1. Pensado para un Redmi 13C (Mali-G52): una sola luz con
+  sombra, texturas comprimidas (ETC2), normal y rugosidad con 2 muestras por píxel.
+Si el modo Moderno convence en el teléfono, el paso siguiente es cambiar los modelos de
+infectados (y Leo) por otros con más detalle.
 
 ## 10. Técnico
 

@@ -26,6 +26,7 @@ func _run() -> void:
     var player: Player = main.player
     _inventory_rules()
     await _leo_warns(player)
+    _graphics_modes()
     for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
         enemy.free()
     await _pickup_and_note(player)
@@ -61,6 +62,27 @@ func _leo_warns(player: Player) -> void:
     leo.global_position = Vector3(-5.5, 0.05, 3.4)
     await _seconds(0.8)
     _check(not leo.is_alert(), "lejos de los infectados, Leo se calma")
+
+
+## Interruptor Retro / Moderno: cambia materiales, ambiente y filtro, y vuelve.
+func _graphics_modes() -> void:
+    var block := main.room.find_children("*", "KitBlock", true, false)[0] as KitBlock
+    var mesh := block.get_child(0, true) as MeshInstance3D
+    var filter := main.get_node("PS1Filter") as CanvasLayer
+    GraphicsSettings.set_modern(true)
+    GraphicsSettings.apply(main)
+    var mat := mesh.material_override as ShaderMaterial
+    _check(mat.shader == GraphicsSettings.MODERN_SHADER and mat.get_shader_parameter("normal_tex") != null,
+        "gráficos modernos: muros con shader HD y relieve")
+    _check(not filter.visible, "gráficos modernos: sin filtro PS1")
+    var shadows := 0
+    for light: OmniLight3D in main.room.find_children("*", "OmniLight3D", true, false):
+        shadows += 1 if light.shadow_enabled else 0
+    _check(shadows == GraphicsSettings.SHADOW_LIGHTS, "gráficos modernos: %d luz con sombra" % shadows)
+    GraphicsSettings.set_modern(false)
+    GraphicsSettings.apply(main)
+    mat = mesh.material_override as ShaderMaterial
+    _check(mat.shader == GraphicsSettings.RETRO_SHADER and filter.visible, "gráficos retro: vuelve el look PS1")
 
 
 func _pickup_and_note(player: Player) -> void:

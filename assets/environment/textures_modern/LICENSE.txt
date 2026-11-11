@@ -1,0 +1,3 @@
+Texturas: ambientCG (https://ambientcg.com), licencia CC0 1.0.
+Modo gráfico Moderno: color 1024, normal 512, rugosidad 256.
+Generadas por tools/make_modern_textures.py.
