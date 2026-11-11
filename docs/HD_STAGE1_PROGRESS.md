@@ -37,3 +37,11 @@
 - Se inspeccionó la repetición 3x3 de `paving.png`: la textura conserva los adoquines y juntas, pero la repetición del motivo se reconoce en mosaico; no se considera aprobada como mejora HD ni se corrige con un simple escalado.
 - La captura real de cámara Oeste confirma que el pavimento ocupa gran parte del encuadre y que la lectura de sus juntas es importante bajo la iluminación nocturna. La captura es baseline; no contiene un material candidato.
 - Decisión: mantener `paving.png` y `paving_floor.tres` intactos. Próximo paso técnico: preparar A/B en la escena real usando una variante aislada del material y comparar ambas cámaras, sin sobrescribir recursos originales.
+
+
+## Comparación A/B real del pavimento — control de remuestreo
+- Se añadió `paving_hd_2x.png` como control de 512x512 generado por Lanczos, sin microdetalle sintético. No se presenta como reconstrucción HD ni como solución a la repetición.
+- Se añadió `render_paving_ab_preview.gd`: instancia `platform.tscn`, captura A (material original) y B (duplicado aislado del mismo ShaderMaterial con la textura 2x) desde cámaras Oeste y Este.
+- Las cuatro capturas se generan en CI: `paving_ab_west_original.png`, `paving_ab_west_candidate.png`, `paving_ab_east_original.png` y `paving_ab_east_candidate.png`.
+- El material de producción se restaura al finalizar y no se escribe ningún recurso de escena/material/textura original.
+- Próxima decisión: inspeccionar las cuatro capturas a escala real. Si el remuestreo no aporta una diferencia perceptible y limpia, se descarta como mejora; después se aborda la repetición con una propuesta artística de pavimento más grande, no con escalado cosmético.
