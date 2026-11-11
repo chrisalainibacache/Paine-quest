@@ -3,7 +3,7 @@ extends SceneTree
 const OUTPUT := "artifacts/hd_stage1/comparacion_normales_luz.png"
 const ENTRIES := [
     {"name": "CONCRETO", "albedo": "res://assets/environment/textures/concrete.png", "normal": "artifacts/hd_stage1/concrete_normal_512.png"},
-    {"name": "LADRILLO", "albedo": "res://assets/environment/textures/bricks_old.png", "normal": "artifacts/hd_stage1/old_bricks_normal_512.png"},
+    {"name": "MAMPOSTERÍA", "albedo": "res://assets/environment/textures/bricks_old.png", "normal": "artifacts/hd_stage1/old_bricks_normal_512.png"},
     {"name": "ASFALTO", "albedo": "res://assets/environment/textures/asphalt_cracked.png", "normal": "artifacts/hd_stage1/asphalt_cracked_normal_512.png"}
 ]
 
@@ -68,6 +68,14 @@ func _render() -> void:
         cube.material_override = material
         cube.position = Vector3((float(index) - 1.0) * 2.45, 0.0, 0.0)
         scene.add_child(cube)
+        var label := Label3D.new()
+        label.text = str(entry.name)
+        label.position = cube.position + Vector3(0.0, 1.25, 0.0)
+        label.font_size = 30
+        label.pixel_size = 0.004
+        label.modulate = Color(0.92, 0.88, 0.76)
+        label.outline_size = 5
+        scene.add_child(label)
 
     await process_frame
     await process_frame
