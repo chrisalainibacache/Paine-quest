@@ -82,6 +82,7 @@ jobs:
           root = Path("artifacts/hd_stage1")
           expected = {
               "concrete_hd_2x.png": (512, 512),
+              "concrete_hd_2x_artdirected.png": (512, 512),
               "bricks_old_hd_2x.png": (512, 512),
               "asphalt_cracked_hd_2x.png": (512, 512),
               "paving_hd_2x.png": (512, 512),
