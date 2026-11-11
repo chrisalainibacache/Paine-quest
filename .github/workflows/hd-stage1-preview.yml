@@ -70,6 +70,7 @@ jobs:
           xvfb-run -a env LIBGL_ALWAYS_SOFTWARE=1 "$GODOT" --path . -s res://tools/graphics/render_hd_normal_comparison.gd
           xvfb-run -a env LIBGL_ALWAYS_SOFTWARE=1 "$GODOT" --path . -s res://tools/graphics/render_real_station_preview.gd
           xvfb-run -a env LIBGL_ALWAYS_SOFTWARE=1 "$GODOT" --path . -s res://tools/graphics/render_paving_ab_preview.gd
+          xvfb-run -a env LIBGL_ALWAYS_SOFTWARE=1 "$GODOT" --path . -s res://tools/graphics/render_wall_ab_preview.gd
       - name: Render environment texture tiling diagnostics
         run: python tools/graphics/render_texture_tiling_diagnostics.py
       - name: Validate dimensions and source preservation
@@ -89,7 +90,7 @@ jobs:
               assert path.exists(), f"Missing {path}"
               with Image.open(path) as image:
                   assert image.size == size, f"{name}: {image.size} != {size}"
-          previews = ["shader_orientaciones.png", "comparacion_hd.png", "comparacion_normales_luz.png", "anden_real_camara_west.png", "anden_real_camara_east.png", "paving_ab_west_original.png", "paving_ab_west_candidate.png", "paving_ab_east_original.png", "paving_ab_east_candidate.png"]
+          previews = ["shader_orientaciones.png", "comparacion_hd.png", "comparacion_normales_luz.png", "anden_real_camara_west.png", "anden_real_camara_east.png", "paving_ab_west_original.png", "paving_ab_west_candidate.png", "paving_ab_east_original.png", "paving_ab_east_candidate.png", "wall_ab_old_bricks_west_original.png", "wall_ab_old_bricks_west_candidate.png", "wall_ab_old_bricks_east_original.png", "wall_ab_old_bricks_east_candidate.png", "wall_ab_concrete_west_original.png", "wall_ab_concrete_west_candidate.png", "wall_ab_concrete_east_original.png", "wall_ab_concrete_east_candidate.png"]
           for name in previews:
               path = root / name
               assert path.is_file(), f"Missing visual comparison: {path}"
