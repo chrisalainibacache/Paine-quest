@@ -58,6 +58,6 @@ for name, source_rel in MATERIALS.items():
         f"downsampled_rgb_mae={mae:.5f}; mean_luma_drift={drift:.5f}; PASS"
     )
 
-report = "\\n".join(reports) + "\\n"
+report = "\n".join(reports) + "\n"
 (OUT / "candidate_structure_validation.txt").write_text(report, encoding="utf-8")
 print(report)
