@@ -18,6 +18,8 @@
 - Existe una evaluación paralela en `feature/remaster-hd-textures-pilot` que recomienda no enviar ampliaciones automáticas como remaster final. La dirección de producción deberá ser reconstrucción artística a 512x512, usando los originales como referencia estricta.
 - Se corrigió el nombre del mapa normal del muro de piedra en el render comparativo: el generador produce `old_bricks_normal_512.png` y ahora el renderizador consume exactamente ese archivo.
 - La inspección visual de los PNG fuente confirmó que `bricks_old.png` representa mampostería de piedra irregular, no ladrillo convencional. La dirección artística quedó corregida para preservar las piedras y sus juntas originales.
+- Los comparativos rotulan `ORIGINAL` y `CANDIDATO 2X`, e identifican la mampostería correctamente para evitar confusiones durante la revisión.
+- Los mapas de normales actuales se derivan de la luminancia del albedo y son solo diagnósticos: el color no equivale a altura física. No se consideran mapas de relieve artísticos ni se habilitan en producción.
 - El workflow valida ahora la existencia y dimensiones 512x512 de los seis mapas de altura/normales antes de renderizar.
 
 ## Puertas de validación pendientes
