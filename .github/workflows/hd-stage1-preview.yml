@@ -22,6 +22,27 @@ jobs:
         run: python tools/graphics/hd_stage1_materials.py
       - name: Generate height and normal map candidates
         run: python tools/graphics/hd_stage1_normal_maps.py
+      - name: Validate generated normal-map filenames and dimensions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          root = Path("artifacts/hd_stage1")
+          expected = [
+              "concrete_normal_512.png",
+              "old_bricks_normal_512.png",
+              "asphalt_cracked_normal_512.png",
+              "concrete_height_512.png",
+              "old_bricks_height_512.png",
+              "asphalt_cracked_height_512.png",
+          ]
+          for name in expected:
+              path = root / name
+              assert path.is_file(), f"Missing generated map: {path}"
+              with Image.open(path) as image:
+                  assert image.size == (512, 512), f"{name}: expected 512x512, got {image.size}"
+          print("All six generated height/normal maps exist at 512x512.")
+          PY
       - name: Install Godot 4.7.2
         run: |
           set -e
