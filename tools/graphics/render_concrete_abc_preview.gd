@@ -71,4 +71,17 @@ func _render_abc() -> void:
             await _capture(camera, "%s_%s" % [camera_name.to_lower(), VARIANTS[index].key])
         mesh.material_override = original_material
 
+    # Diagnóstico adicional: primer plano frontal de la pared de concreto.
+    # No modifica la escena ni las cámaras de producción.
+    var close_camera := Camera3D.new()
+    close_camera.name = "ConcreteDiagnosticCamera"
+    close_camera.position = Vector3(-3.6, 2.2, 0.0)
+    close_camera.fov = 50.0
+    station.add_child(close_camera)
+    close_camera.look_at(Vector3(-7.0, 1.3, 0.0), Vector3.UP)
+    for index in range(VARIANTS.size()):
+        mesh.material_override = materials[index]
+        await _capture(close_camera, "closeup_%s" % VARIANTS[index].key)
+    mesh.material_override = original_material
+
     quit(0)
