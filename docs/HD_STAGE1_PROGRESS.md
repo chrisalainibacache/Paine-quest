@@ -32,3 +32,8 @@
 - Ninguna textura candidata se integra todavía en assets del juego.
 - No se cambia geometría, cámara, proporciones de personajes, paleta ni interfaz móvil.
 - La aprobación visual humana y la prueba Android son obligatorias.
+## Revisión visual de repetición — ejecución 80
+- El workflow ejecutado en el commit `cc75dc5623cf0a30cf5c2c5715024c7bb24d9d38` terminó correctamente y el artefacto ahora incluye `environment_texture_tiling_review.png`.
+- Se inspeccionó la repetición 3x3 de `paving.png`: la textura conserva los adoquines y juntas, pero la repetición del motivo se reconoce en mosaico; no se considera aprobada como mejora HD ni se corrige con un simple escalado.
+- La captura real de cámara Oeste confirma que el pavimento ocupa gran parte del encuadre y que la lectura de sus juntas es importante bajo la iluminación nocturna. La captura es baseline; no contiene un material candidato.
+- Decisión: mantener `paving.png` y `paving_floor.tres` intactos. Próximo paso técnico: preparar A/B en la escena real usando una variante aislada del material y comparar ambas cámaras, sin sobrescribir recursos originales.
