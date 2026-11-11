@@ -62,7 +62,8 @@ vec3 triplanar_normal(vec3 p, vec3 w, float scale, vec3 face_sign) {
 
 void vertex() {
     world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-    world_normal = normalize((MODEL_MATRIX * vec4(NORMAL, 0.0)).xyz);
+    // MODEL_NORMAL_MATRIX aplica la transformacion correcta tambien con escala no uniforme.
+    world_normal = normalize(MODEL_NORMAL_MATRIX * NORMAL);
 }
 
 void fragment() {
