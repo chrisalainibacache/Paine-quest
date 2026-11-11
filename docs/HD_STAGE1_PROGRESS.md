@@ -16,7 +16,8 @@
 - Se generan ampliaciones 2x y mapas de altura/normales en `artifacts/hd_stage1/`; los archivos fuente no se sobrescriben.
 - La ampliación 2x y el microdetalle procedural son experimentos de comparación. No equivalen a reconstrucción artística HD y no están aprobados para envío.
 - Existe una evaluación paralela en `feature/remaster-hd-textures-pilot` que recomienda no enviar ampliaciones automáticas como remaster final. La dirección de producción deberá ser reconstrucción artística a 512x512, usando los originales como referencia estricta.
-- Se corrigió el nombre del mapa normal de ladrillos en el render comparativo: el generador produce `old_bricks_normal_512.png` y ahora el renderizador consume exactamente ese archivo.
+- Se corrigió el nombre del mapa normal del muro de piedra en el render comparativo: el generador produce `old_bricks_normal_512.png` y ahora el renderizador consume exactamente ese archivo.
+- La inspección visual de los PNG fuente confirmó que `bricks_old.png` representa mampostería de piedra irregular, no ladrillo convencional. La dirección artística quedó corregida para preservar las piedras y sus juntas originales.
 - El workflow valida ahora la existencia y dimensiones 512x512 de los seis mapas de altura/normales antes de renderizar.
 
 ## Puertas de validación pendientes
