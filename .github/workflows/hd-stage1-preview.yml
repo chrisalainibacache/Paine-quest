@@ -64,8 +64,8 @@ jobs:
         run: |
           set -e
           "$GODOT" --headless --path . --import
-          "$GODOT" --headless --path . -s res://tools/graphics/validate_hd_shader.gd
           mkdir -p artifacts/hd_stage1
+          xvfb-run -a env LIBGL_ALWAYS_SOFTWARE=1 "$GODOT" --path . -s res://tools/graphics/validate_hd_shader.gd
           xvfb-run -a env LIBGL_ALWAYS_SOFTWARE=1 "$GODOT" --path . -s res://tools/graphics/render_hd_comparison.gd
           xvfb-run -a env LIBGL_ALWAYS_SOFTWARE=1 "$GODOT" --path . -s res://tools/graphics/render_hd_normal_comparison.gd
       - name: Validate dimensions and source preservation
@@ -84,7 +84,7 @@ jobs:
               assert path.exists(), f"Missing {path}"
               with Image.open(path) as image:
                   assert image.size == size, f"{name}: {image.size} != {size}"
-          previews = ["comparacion_hd.png", "comparacion_normales_luz.png"]
+          previews = ["shader_orientaciones.png", "comparacion_hd.png", "comparacion_normales_luz.png"]
           for name in previews:
               path = root / name
               assert path.is_file(), f"Missing visual comparison: {path}"
