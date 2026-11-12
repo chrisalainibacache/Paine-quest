@@ -31,6 +31,7 @@ func _ready() -> void:
     _streams["hurt"] = _make(0.3, _hurt)
     _streams["fall"] = _make(0.45, _fall)
     _streams["hiss"] = _make(0.7, _hiss)
+    _streams["meow"] = _make(0.62, _meow)
     _streams["shotgun"] = _make(0.55, _shotgun)
     _streams["rifle"] = _make(0.28, _rifle)
     _streams["launcher"] = _make(0.4, _launcher)
@@ -228,3 +229,16 @@ func _explosion(t: float, _length: float, prev: float) -> float:
     var rumble := lerpf(prev, noise, 0.06)
     var boom := sin(TAU * lerpf(70.0, 30.0, t) * t) * exp(-t * 3.5)
     return (rumble * 3.2 + boom * 1.2 + noise * exp(-t * 30.0) * 0.8) * exp(-t * 2.2)
+
+
+## Maullido corto: tono que sube y baja ("miau"), con armónicos y un poco de aire.
+func _meow(t: float, length: float, prev: float) -> float:
+    var base := 560.0
+    var bend := 420.0
+    var phase := TAU * (base * t + bend * length / PI * (1.0 - cos(PI * t / length)))
+    var tone := sin(phase) + 0.55 * sin(phase * 2.0) + 0.3 * sin(phase * 3.0) + 0.12 * sin(phase * 4.0)
+    var envelope := minf(t / 0.05, 1.0) * pow(1.0 - t / length, 1.4)
+    # "m" inicial: más apagado al principio.
+    var open := smoothstep(0.0, 0.12, t)
+    var breath := lerpf(prev, randf_range(-1.0, 1.0), 0.3) * 0.08
+    return (tone * 0.32 * lerpf(0.4, 1.0, open) + breath) * envelope

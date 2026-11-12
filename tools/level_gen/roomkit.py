@@ -9,6 +9,17 @@ DOC = lambda n: "res://data/documents/%s.tres" % n
 IA = lambda n: "res://levels/kit/interact/%s.gd" % n
 INF = "res://actors/enemies/infected.tscn"
 
+def add_leo_hint(s, name, pos, lines, show_if=None, hide_if=None, show_item=None, hide_item=None):
+    """Pista de Leo (levels/kit/leo_hint.gd): adonde guía a Cony y qué le dice."""
+    p = {"position": v3(pos), "script": s.res("res://levels/kit/leo_hint.gd", "Script"),
+         "lines": "PackedStringArray(%s)" % ", ".join('"%s"' % l for l in lines)}
+    if show_if: p["show_if_flag"] = '"%s"' % show_if
+    if hide_if: p["hide_if_flag"] = '"%s"' % hide_if
+    if show_item: p["show_if_item"] = '"%s"' % show_item
+    if hide_item: p["hide_if_item"] = '"%s"' % hide_item
+    s.node(name, "Marker3D", ".", **p)
+
+
 class Kit:
     def __init__(self, root_name, room_name, dark=False, intro=None):
         self.s = Scene()
@@ -168,6 +179,9 @@ class Kit:
             self.block(name + "FrameL", g, (x + off * 1.5, 1.2, z - width / 2 - 0.06), (0.1, 2.4, 0.1), "wood", solid=False)
             self.block(name + "FrameR", g, (x + off * 1.5, 1.2, z + width / 2 + 0.06), (0.1, 2.4, 0.1), "wood", solid=False)
             self.block(name + "Lintel", g, (x + off * 1.5, 2.45, z), (0.1, 0.1, width + 0.22), "wood", solid=False)
+
+    def leo_hint(self, name, pos, lines, **conditions):
+        add_leo_hint(self.s, name, pos, lines, **conditions)
 
     def save(self, path):
         self.s.save(path)

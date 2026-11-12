@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="21_debris"]
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="22_blood_footpr"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="23_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="24_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -606,3 +607,16 @@ rotation = Vector3(0, 0, 0)
 [node name="from_corridor" type="Marker3D" parent="Spawns"]
 position = Vector3(1.75, 0.05, -0.6)
 rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoGuardDesk" type="Marker3D" parent="."]
+position = Vector3(-1.5, 0, -0.65)
+script = ExtResource("24_leo_hint")
+lines = PackedStringArray("Leo: El escritorio de don Héctor. Rosa dejó aquí sus balas.", "Leo: No me gusta ese ruido, Cony. Pero es mejor que lo tengas tú.")
+hide_if_flag = "found:pistol"
+
+[node name="LeoCorridor" type="Marker3D" parent="."]
+position = Vector3(1.6, 0, -0.6)
+script = ExtResource("24_leo_hint")
+lines = PackedStringArray("Leo: La llave del portón está en la bodega. Este pasillo lleva allá.", "Leo: Yo voy adelante. Si me erizo y bufo, es que alguien nos espera.")
+show_if_flag = "found:pistol"
+hide_if_item = "gate_key"

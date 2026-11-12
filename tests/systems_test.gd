@@ -27,6 +27,7 @@ func _run() -> void:
     _inventory_rules()
     await _leo_warns(player)
     _graphics_modes()
+    _leo_guides(player)
     _documents_fit()
     for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
         enemy.free()
@@ -63,6 +64,27 @@ func _leo_warns(player: Player) -> void:
     leo.global_position = Vector3(-5.5, 0.05, 3.4)
     await _seconds(0.8)
     _check(not leo.is_alert(), "lejos de los infectados, Leo se calma")
+
+
+## Leo guía: con Cony quieta, elige la pista activa de la sala; al encontrar la
+## pistola, la pista del andén cambia (de la sala de espera al portón sur).
+func _leo_guides(player: Player) -> void:
+    var leo: Node3D = main.leo
+    var had_pistol_flag := GameState.has_flag("found:pistol")
+    GameState.flags.erase("found:pistol")
+    var hint: Node3D = leo.active_hint()
+    _check(hint != null and hint.name == "LeoWaitingRoom" and leo.has_news(), "Leo: en el andén guía a la sala de espera")
+    _check(String(hint.lines[0]).begins_with("Leo: "), "Leo: sus líneas van con su nombre")
+    GameState.set_flag("found:pistol")
+    hint = leo.active_hint()
+    _check(hint != null and hint.name == "LeoGateKey", "Leo: con la pistola, guía al portón sur y a la bodega")
+    if not had_pistol_flag:
+        GameState.flags.erase("found:pistol")
+    var dialogue := main.get_node("Dialogue")
+    dialogue._show_text("Leo: Hola, Cony.")
+    _check(dialogue.speaker.visible and dialogue.text.text == "Hola, Cony.", "Leo: el cuadro de diálogo muestra su nombre")
+    dialogue._show_text("Una línea normal.")
+    _check(not dialogue.speaker.visible, "diálogo normal sin nombre")
 
 
 ## Todas las notas caben en el papel del lector (se parten solas si son largas).

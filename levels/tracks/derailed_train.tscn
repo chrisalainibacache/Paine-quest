@@ -26,6 +26,7 @@
 [ext_resource type="Resource" path="res://data/enemies/infected_pale.tres" id="24_infected_pal"]
 [ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="25_infected_wor"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="26_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="27_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -275,3 +276,8 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="from_wagon" type="Marker3D" parent="Spawns"]
 position = Vector3(4.6, 0.05, 0.9)
 rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoWagon" type="Marker3D" parent="."]
+position = Vector3(4.6, 0, 1.25)
+script = ExtResource("27_leo_hint")
+lines = PackedStringArray("Leo: Por fuera no se pasa: el vagón quedó atravesado.", "Leo: Hay que cruzar por dentro. Yo cabía en todas partes, ¿te acuerdas? Tú no tanto.")

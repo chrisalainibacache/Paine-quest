@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="24_infected"]
 [ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="25_infected_wor"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="26_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="27_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -403,3 +404,9 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="from_underpass" type="Marker3D" parent="Spawns"]
 position = Vector3(7.6, 0.05, 1.2)
 rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoGate" type="Marker3D" parent="."]
+position = Vector3(7.7, 0, 1.2)
+script = ExtResource("27_leo_hint")
+lines = PackedStringArray("Leo: La reja del paso bajo nivel. La llave del maquinista la abre.", "Leo: Abajo está oscuro. No importa: yo veo en la oscuridad. Tú sigue mis ojos.")
+hide_if_flag = "unlocked:underpass_gate"

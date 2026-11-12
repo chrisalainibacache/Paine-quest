@@ -59,6 +59,31 @@ atravesando el convoy, un paso bajo nivel en apagón y una casa de cambios. El m
 frenó el tren contra el desvío para que los infectados no llegaran a la ciudad. Termina
 con Cony y Leo caminando por la vía hacia Santiago al amanecer: **fin del juego**.
 
+### Leo: guía y la última aventura (decisión de Chris)
+Leo es la gata de Cony. **Este juego es su última aventura**: todo lo que hace Leo se
+escribe con ese cariño.
+- **Guía:** si Cony se queda quieta ~5 s, Leo camina hasta la pista activa de la sala
+  (`levels/kit/leo_hint.gd`, grupo `leo_hints`), se sienta mirándola y maúlla. Al acercarse
+  Cony, Leo le explica qué hacer (una vez por pista). Si Leo tiene algo nuevo que decir,
+  el botón ACCIÓN muestra **LEO**.
+- **Habla:** sus líneas empiezan con `Leo: ` y salen en verde con su nombre. Habla bajito,
+  tierna y segura: conoce el camino, huele el peligro y ve en la oscuridad.
+- **Avisa:** bufa a los infectados cercanos, aunque se hagan los muertos.
+- **Pistas sembradas (no decirlas en voz alta):** nadie ataca a Leo; Leo nunca se cansa;
+  sus ojos brillan en la oscuridad; dice "siempre te he llevado yo".
+
+### Capítulos siguientes (dirección aprobada)
+- **Capítulo 3 — Buin (sábado en la mañana):** puente del Maipo, control militar abandonado,
+  estación de Buin, bodega agrícola, galpón de la viña. Rosa aparece viva (diálogos). Se
+  descubre que el "tren de evacuación" era para llevarse a los mordidos a cuarentena.
+  Enemigo nuevo: soldado infectado con casco y chaleco. Final: por una radio militar se
+  escucha a Javiera ("no vengas a Alameda, ven a…") y se corta.
+- **Capítulo 4 — Santiago (final):** Alameda es zona de cuarentena; se cierra el misterio
+  del pasajero del asiento 15. Cony encuentra a Javiera.
+- **Despedida de Leo (propuesta, por confirmar con Chris):** al amanecer, ya a salvo, Leo
+  camina unos pasos hacia la luz por la vía, se da vuelta, maúlla una última vez y se va.
+  Cony entiende. Texto final y dedicatoria: "Para Leo".
+
 ## 3. Cámara
 
 - Cada sala (`Room`) es una escena propia con sus `CameraZone` (Area3D + Camera3D).
@@ -111,7 +136,7 @@ munición: "clic".
 | Examinar | Cualquier ítem se ve en 3D y se gira con el dedo. |
 | Guardado | Máquina de escribir (una ranura, sin cintas de tinta). Al morir, REINTENTAR vuelve a la última partida guardada. |
 | Documentos | Notas legibles (papel en pantalla) que cuentan qué pasó en Paine; quedan en NOTAS. |
-| Leo | Gatita gris con pecho y patas blancas y ojos verdes que brillan en la oscuridad. Sigue a Cony y entra con ella a cada sala. Bufa y mira a cualquier infectado vivo a menos de 5,5 m, aunque se esté haciendo el muerto (es la pista para el jugador). No pelea, no muere. |
+| Leo | Gatita gris con pecho y patas blancas y ojos verdes que brillan en la oscuridad. Guía a Cony (ver sección 2). Sigue a Cony y entra con ella a cada sala. Bufa y mira a cualquier infectado vivo a menos de 5,5 m, aunque se esté haciendo el muerto (es la pista para el jugador). No pelea, no muere. |
 | Puertas | Fundido corto entre salas (oculta la carga). Las que piden llave quedan abiertas para siempre al usarla. |
 | Memoria de las salas | Lo recogido no vuelve a aparecer y los infectados muertos siguen en el suelo al volver. |
 

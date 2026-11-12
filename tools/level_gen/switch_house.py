@@ -40,5 +40,7 @@ k.infected("Engineer", (-2.0, 0.36, 1.6), yaw=1.57, state="corpse", kind="infect
 k.camera("West", (-1.5, 1.4, 0.0), (3.0, 2.8, 5.0), (2.6, 2.5, 2.1), (-2.4, 0.4, -0.6), fov=64)
 k.camera("East", (1.5, 1.4, 0.0), (3.0, 2.8, 5.0), (-2.6, 2.5, -2.1), (2.4, 0.4, 0.8), fov=64)
 k.spawn("from_underpass", (-2.1, 0.05, 0.0), (1, 0))
+# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+k.leo_hint('LeoDawn', (2.0, 0, 0.6), ['Leo: Ya casi amanece, Cony.', 'Leo: Guarda en la máquina antes de salir. Lo que viene es largo, y quiero que llegues.'])
 k.save(REPO + "/levels/tracks/switch_house.tscn")
 print("switch house ok")

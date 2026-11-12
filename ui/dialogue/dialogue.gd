@@ -19,6 +19,7 @@ static var _instance: Dialogue
 @onready var box: Control = $Box
 @onready var text: Label = $Box/Margin/Text
 @onready var next_mark: Label = $Box/Next
+@onready var speaker: Label = $Box/Speaker
 @onready var choices: VBoxContainer = $Choices
 @onready var reader: Control = $Reader
 @onready var reader_title: Label = $Reader/Paper/Title
@@ -222,7 +223,18 @@ func _hide_blocker() -> void:
         blocker.visible = false
 
 
+## Las líneas que empiezan con "Leo: " las dice Leo: van en verde y con su nombre.
+const LEO_PREFIX := "Leo: "
+const LEO_COLOR := Color(0.72, 0.93, 0.6)
+const TEXT_COLOR := Color(0.92, 0.9, 0.84)
+
+
 func _show_text(line: String) -> void:
+    var is_leo := line.begins_with(LEO_PREFIX)
+    speaker.visible = is_leo
+    text.add_theme_color_override("font_color", LEO_COLOR if is_leo else TEXT_COLOR)
+    if is_leo:
+        line = line.substr(LEO_PREFIX.length())
     text.text = line
     text.visible_ratio = 0.0
     _reveal = 0.0

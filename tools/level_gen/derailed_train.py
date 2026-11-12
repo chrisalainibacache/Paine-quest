@@ -42,5 +42,7 @@ k.camera("West", (-4.5, 1.5, 0.8), (9.0, 3.0, 3.0), (2.4, 3.3, 1.6), (-7.0, 0.3,
 k.camera("East", (4.5, 1.5, 0.8), (9.0, 3.0, 3.0), (-2.4, 3.3, 1.6), (7.0, 0.4, 0.8), fov=58)
 k.spawn("from_track_north", (-7.7, 0.05, 0.9), (1, 0))
 k.spawn("from_wagon", (4.6, 0.05, 0.9), (-1, 0))
+# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+k.leo_hint('LeoWagon', (4.6, 0, 1.25), ['Leo: Por fuera no se pasa: el vagón quedó atravesado.', 'Leo: Hay que cruzar por dentro. Yo cabía en todas partes, ¿te acuerdas? Tú no tanto.'])
 k.save(REPO + "/levels/tracks/derailed_train.tscn")
 print("derailed ok")

@@ -41,6 +41,7 @@
 [ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="39_infected"]
 [ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="40_infected_wor"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="41_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="42_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -618,3 +619,15 @@ position = Vector3(-2.5, 0.05, 2.6)
 [node name="from_ticket_office" type="Marker3D" parent="Spawns"]
 position = Vector3(2.9, 0.05, -2.6)
 rotation = Vector3(0, 3.1416, 0)
+
+[node name="LeoTicketOffice" type="Marker3D" parent="."]
+position = Vector3(2.6, 0, -2.6)
+script = ExtResource("42_leo_hint")
+lines = PackedStringArray("Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.", "Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.")
+hide_if_flag = "found:pistol"
+
+[node name="LeoTypewriter" type="Marker3D" parent="."]
+position = Vector3(3.2, 0, 1.4)
+script = ExtResource("42_leo_hint")
+lines = PackedStringArray("Leo: Esa máquina de escribir guarda lo que llevamos hecho.", "Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.")
+show_if_flag = "found:pistol"

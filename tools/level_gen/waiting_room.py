@@ -159,5 +159,9 @@ for name, zone_center, zone_size, cam_pos, target in [
 s.node("Spawns", "Node3D", ".")
 s.node("from_platform", "Marker3D", "Spawns", position=v3((-2.5, 0.05, D / 2 - 0.9)))
 s.node("from_ticket_office", "Marker3D", "Spawns", position=v3((2.9, 0.05, -D / 2 + 0.9)), rotation=v3((0, math.pi, 0)))
+from roomkit import add_leo_hint
+# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+add_leo_hint(s, 'LeoTicketOffice', (2.6, 0, -2.6), ['Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.', 'Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.'], hide_if='found:pistol')
+add_leo_hint(s, 'LeoTypewriter', (3.2, 0, 1.4), ['Leo: Esa máquina de escribir guarda lo que llevamos hecho.', 'Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.'], show_if='found:pistol')
 s.save(REPO + "/levels/station/waiting_room.tscn")
 print("waiting room ok")

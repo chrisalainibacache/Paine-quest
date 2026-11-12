@@ -54,5 +54,8 @@ k.camera("Middle", (0.1, 1.3, 0.0), (4.2, 2.6, 2.0), (-1.0, 2.2, 0.75), (2.8, 0.
 k.camera("East", (4.1, 1.3, 0.0), (3.8, 2.6, 2.0), (5.7, 2.35, 0.75), (1.4, 0.5, -0.3), fov=62)
 k.spawn("from_ticket_office", (-5.2, 0.05, 0.0), (1, 0))
 k.spawn("from_storeroom", (5.2, 0.05, 0.0), (-1, 0))
+# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+k.leo_hint('LeoStoreroom', (4.8, 0, 0.0), ['Leo: Cuidado. No todos los que están en el suelo están muertos.', 'Leo: Yo los huelo. Si les bufo, es que se van a levantar. Si no, déjalos dormir.'], hide_item='gate_key')
+k.leo_hint('LeoBack', (-4.8, 0, 0.0), ['Leo: Ya tienes la llave. Volvamos al andén: el portón sur nos espera.'], show_item='gate_key', hide_if='unlocked:gate_south')
 k.save(REPO + "/levels/station/service_corridor.tscn")
 print("corridor ok")

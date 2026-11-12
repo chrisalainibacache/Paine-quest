@@ -52,5 +52,8 @@ k.camera("Middle", (0.0, 1.25, 0.0), (4.8, 2.5, 2.7), (-2.6, 2.2, -1.05), (2.6, 
 k.camera("East", (4.7, 1.25, 0.0), (4.6, 2.5, 2.7), (6.6, 2.2, 1.05), (1.8, 0.5, -0.3), fov=64)
 k.spawn("from_derailed", (-6.2, 0.05, 0.0), (1, 0))
 k.spawn("from_convoy", (6.2, 0.05, 0.0), (-1, 0))
+# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+k.leo_hint('LeoKey', (-3.3, 0, -0.3), ['Leo: En ese asiento. El conductor dejó una llave: tiene el sello de EFE.', 'Leo: Él quería que alguien siguiera. Seamos nosotras.'], hide_item='engineer_key')
+k.leo_hint('LeoExit', (6.0, 0, 0.0), ['Leo: Ya la tienes. Salgamos por el otro lado.'], show_item='engineer_key', hide_if='unlocked:underpass_gate')
 k.save(REPO + "/levels/tracks/wagon_interior.tscn")
 print("wagon interior ok")

@@ -30,6 +30,7 @@
 [ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="28_infected_wor"]
 [ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="29_infected"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="30_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="31_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -429,3 +430,8 @@ far = 30.0
 [node name="from_underpass" type="Marker3D" parent="Spawns"]
 position = Vector3(-2.1, 0.05, 0)
 rotation = Vector3(0, -1.5708, 0)
+
+[node name="LeoDawn" type="Marker3D" parent="."]
+position = Vector3(2, 0, 0.6)
+script = ExtResource("31_leo_hint")
+lines = PackedStringArray("Leo: Ya casi amanece, Cony.", "Leo: Guarda en la máquina antes de salir. Lo que viene es largo, y quiero que llegues.")

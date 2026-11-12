@@ -23,6 +23,11 @@ s.node("Text", "Label", "Box/Margin", autowrap_mode="3", text='"..."', theme_ove
 s.node("Next", "Label", "Box", anchors_preset="3", anchor_left="1.0", anchor_top="1.0", anchor_right="1.0", anchor_bottom="1.0",
        offset_left="-50.0", offset_top="-40.0", offset_right="-18.0", offset_bottom="-8.0", text='"▼"',
        theme_override_font_sizes_font_size="22", theme_override_colors_font_color=col((0.85, 0.7, 0.45)))
+# Nombre de quien habla (por ahora solo Leo), sobre el borde del cuadro.
+s.node("Speaker", "Label", "Box", offset_left="24.0", offset_top="-40.0", offset_right="300.0", offset_bottom="-4.0",
+       text='"LEO"', visible="false", theme_override_font_sizes_font_size="24",
+       theme_override_colors_font_color=col((0.62, 0.9, 0.45)), theme_override_colors_font_shadow_color=col((0, 0, 0, 1)),
+       theme_override_constants_shadow_offset_x="2", theme_override_constants_shadow_offset_y="2")
 s.node("Choices", "VBoxContainer", ".", anchors_preset="3", anchor_left="1.0", anchor_top="1.0", anchor_right="1.0", anchor_bottom="1.0",
        offset_left="-400.0", offset_top="-400.0", offset_right="-130.0", offset_bottom="-225.0", grow_horizontal="0", grow_vertical="0",
        alignment="2", theme_override_constants_separation="12")

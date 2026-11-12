@@ -28,6 +28,7 @@
 [ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="26_infected_wor"]
 [ext_resource type="Resource" path="res://data/enemies/infected_burnt.tres" id="27_infected_bur"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="28_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="29_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -425,3 +426,8 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="from_switch" type="Marker3D" parent="Spawns"]
 position = Vector3(6.1, 0.05, 0)
 rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoExit" type="Marker3D" parent="."]
+position = Vector3(5.9, 0, 0)
+script = ExtResource("29_leo_hint")
+lines = PackedStringArray("Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.", "Leo: Al final hay una puerta. Arriba está la casa de cambios.")

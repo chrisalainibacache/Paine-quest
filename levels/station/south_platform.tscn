@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="41_debris"]
 [ext_resource type="Texture2D" path="res://assets/environment/decals/oil_stain.png" id="42_oil_stain"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="43_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="44_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -621,3 +622,8 @@ far = 30.0
 [node name="from_north_platform" type="Marker3D" parent="Spawns"]
 position = Vector3(-5.1, 0.05, 2)
 rotation = Vector3(0, -1.5708, 0)
+
+[node name="LeoTracks" type="Marker3D" parent="."]
+position = Vector3(4.3, 0, -0.75)
+script = ExtResource("44_leo_hint")
+lines = PackedStringArray("Leo: La vía va hacia el norte. Hacia Santiago. Hacia Javiera.", "Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.")

@@ -50,6 +50,7 @@
 [ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="48_pickup"]
 [ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="49_ammo_9mm"]
 [ext_resource type="Resource" path="res://data/items/gate_key.tres" id="50_gate_key"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="51_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -83,7 +84,7 @@ size = Vector3(7.6, 3, 6.8)
 [node name="Platform" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Andén norte"
-intro_lines = PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Javiera, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.")
+intro_lines = PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Javiera, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.", "Leo: Tranquila, Cony. Si no sabes por dónde seguir, quédate quieta un momento y mírame.", "Leo: Yo te llevo. Siempre te he llevado yo.")
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
@@ -860,3 +861,24 @@ position = Vector3(3, 0.05, 4.35)
 [node name="from_south_platform" type="Marker3D" parent="Spawns"]
 position = Vector3(6, 0.05, 2.6)
 rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoWaitingRoom" type="Marker3D" parent="."]
+position = Vector3(3, 0, 4.2)
+script = ExtResource("51_leo_hint")
+lines = PackedStringArray("Leo: Cony, aquí afuera no. Adentro hay luz.", "Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.")
+hide_if_flag = "found:pistol"
+
+[node name="LeoGateKey" type="Marker3D" parent="."]
+position = Vector3(5.9, 0, 2.6)
+script = ExtResource("51_leo_hint")
+lines = PackedStringArray("Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.", "Leo: Las llaves se guardan donde guardan todo: en la bodega, al fondo del pasillo de servicio.")
+show_if_flag = "found:pistol"
+hide_if_flag = "unlocked:gate_south"
+hide_if_item = "gate_key"
+
+[node name="LeoGateOpen" type="Marker3D" parent="."]
+position = Vector3(5.9, 0, 2.6)
+script = ExtResource("51_leo_hint")
+lines = PackedStringArray("Leo: Ya tienes la llave. Ábrelo, Cony. Yo voy contigo.")
+hide_if_flag = "unlocked:gate_south"
+show_if_item = "gate_key"

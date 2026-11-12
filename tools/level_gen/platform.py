@@ -27,7 +27,7 @@ env = s.subres("Environment", {
 })
 s.node("Platform", "Node3D", script=s.res("res://levels/kit/room.gd", "Script"), room_name='"Andén norte"',
        # Introducción del juego (lo que piensa Cony al llegar).
-       intro_lines='PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Javiera, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.")')
+       intro_lines='PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Javiera, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.", "Leo: Tranquila, Cony. Si no sabes por dónde seguir, quédate quieta un momento y mírame.", "Leo: Yo te llevo. Siempre te he llevado yo.")')
 s.node("Environment", "WorldEnvironment", ".", environment=env)
 s.node("Moon", "DirectionalLight3D", ".", rotation=v3((-0.9, 0.5, 0)), light_color=col((0.6, 0.68, 0.88)), light_energy="0.55")
 
@@ -171,5 +171,10 @@ s.node("Spawns", "Node3D", ".")
 s.node("start", "Marker3D", "Spawns", position=v3((-5.0, 0.05, 3.0)), rotation=v3((0, -math.pi / 2, 0)))
 s.node("from_waiting_room", "Marker3D", "Spawns", position=v3((3.0, 0.05, 4.35)))
 s.node("from_south_platform", "Marker3D", "Spawns", position=v3((6.0, 0.05, 2.6)), rotation=v3((0, math.pi / 2, 0)))
+from roomkit import add_leo_hint
+# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+add_leo_hint(s, 'LeoWaitingRoom', (3.0, 0, 4.2), ['Leo: Cony, aquí afuera no. Adentro hay luz.', 'Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.'], hide_if='found:pistol')
+add_leo_hint(s, 'LeoGateKey', (5.9, 0, 2.6), ['Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.', 'Leo: Las llaves se guardan donde guardan todo: en la bodega, al fondo del pasillo de servicio.'], show_if='found:pistol', hide_if='unlocked:gate_south', hide_item='gate_key')
+add_leo_hint(s, 'LeoGateOpen', (5.9, 0, 2.6), ['Leo: Ya tienes la llave. Ábrelo, Cony. Yo voy contigo.'], show_item='gate_key', hide_if='unlocked:gate_south')
 s.save(REPO + "/levels/station/platform.tscn")
 print("platform ok")

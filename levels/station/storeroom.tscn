@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="32_blood_drag"]
 [ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="33_debris"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="34_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="35_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -534,3 +535,9 @@ far = 30.0
 [node name="from_corridor" type="Marker3D" parent="Spawns"]
 position = Vector3(-2.7, 0.05, 1.6)
 rotation = Vector3(0, -1.5708, 0)
+
+[node name="LeoKey" type="Marker3D" parent="."]
+position = Vector3(2.4, 0, 1.55)
+script = ExtResource("35_leo_hint")
+lines = PackedStringArray("Leo: Ahí, en la mesa: la llave del portón.", "Leo: El que la cuida era don Héctor. Ya no es él, Cony. No le tengas pena.")
+hide_if_item = "gate_key"

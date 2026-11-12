@@ -33,6 +33,7 @@
 [ext_resource type="Resource" path="res://data/enemies/infected_fast.tres" id="31_infected_fas"]
 [ext_resource type="Resource" path="res://data/enemies/infected_burnt.tres" id="32_infected_bur"]
 [ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="33_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="34_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -71,7 +72,7 @@ size = Vector3(9, 3, 7)
 [node name="TrackNorth" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Vía norte"
-intro_lines = PackedStringArray("Pasada la medianoche. La vía hacia el norte.", "Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.", "Javi, aguanta. Vamos caminando.")
+intro_lines = PackedStringArray("Pasada la medianoche. La vía hacia el norte.", "Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.", "Javi, aguanta. Vamos caminando.", "Leo: Yo voy adelante, como siempre.")
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
@@ -498,3 +499,8 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="from_derailed" type="Marker3D" parent="Spawns"]
 position = Vector3(6.2, 0.05, 2.1)
 rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoFire" type="Marker3D" parent="."]
+position = Vector3(6.3, 0, 2.7)
+script = ExtResource("34_leo_hint")
+lines = PackedStringArray("Leo: Ese fuego es el tren de las 6:30. Huele a fierro quemado... y a ellos.", "Leo: Por ahí se sigue. Pégate a mí.")

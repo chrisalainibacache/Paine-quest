@@ -41,5 +41,7 @@ k.camera("Middle", (0.0, 1.4, 0.0), (4.8, 2.8, 3.6), (-2.6, 2.5, -1.5), (2.8, 0.
 k.camera("East", (4.7, 1.4, 0.0), (4.6, 2.8, 3.6), (6.6, 2.5, 1.5), (1.8, 0.4, -0.4), fov=64)
 k.spawn("from_convoy", (-6.1, 0.05, 0.0), (1, 0))
 k.spawn("from_switch", (6.1, 0.05, 0.0), (-1, 0))
+# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+k.leo_hint('LeoExit', (5.9, 0, 0.0), ['Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.', 'Leo: Al final hay una puerta. Arriba está la casa de cambios.'])
 k.save(REPO + "/levels/tracks/underpass.tscn")
 print("underpass ok")

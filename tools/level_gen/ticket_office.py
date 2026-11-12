@@ -51,5 +51,8 @@ k.camera("West", (-1.1, 1.4, 0.0), (2.8, 2.8, 4.0), (2.2, 2.6, 1.7), (-1.9, 0.5,
 k.camera("East", (1.4, 1.4, 0.0), (2.2, 2.8, 4.0), (-2.2, 2.6, -1.6), (1.8, 0.4, 1.0), fov=64)
 k.spawn("from_waiting_room", (1.7, 0.05, 1.15), (0, -1))
 k.spawn("from_corridor", (1.75, 0.05, -0.6), (-1, 0))
+# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+k.leo_hint('LeoGuardDesk', (-1.5, 0, -0.65), ['Leo: El escritorio de don Héctor. Rosa dejó aquí sus balas.', 'Leo: No me gusta ese ruido, Cony. Pero es mejor que lo tengas tú.'], hide_if='found:pistol')
+k.leo_hint('LeoCorridor', (1.6, 0, -0.6), ['Leo: La llave del portón está en la bodega. Este pasillo lleva allá.', 'Leo: Yo voy adelante. Si me erizo y bufo, es que alguien nos espera.'], show_if='found:pistol', hide_item='gate_key')
 k.save(REPO + "/levels/station/ticket_office.tscn")
 print("ticket office ok")
