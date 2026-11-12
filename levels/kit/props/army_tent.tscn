@@ -1,0 +1,85 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/canvas.tres" id="2_canvas"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="3_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/olive.tres" id="4_olive"]
+[ext_resource type="Material" path="res://levels/kit/materials/barrel_wood.tres" id="5_barrel_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="6_metal"]
+
+[node name="ArmyTent" type="Node3D"]
+
+[node name="RoofL" type="StaticBody3D" parent="."]
+position = Vector3(1, 2, 0)
+rotation = Vector3(0, 0, 0.55)
+script = ExtResource("1_kit_block")
+size = Vector3(2.3, 0.05, 3)
+surface = ExtResource("2_canvas")
+solid = false
+
+[node name="WallL" type="StaticBody3D" parent="."]
+position = Vector3(1.95, 0.75, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 1.5, 3)
+surface = ExtResource("2_canvas")
+
+[node name="RoofR" type="StaticBody3D" parent="."]
+position = Vector3(-1, 2, 0)
+rotation = Vector3(0, 0, -0.55)
+script = ExtResource("1_kit_block")
+size = Vector3(2.3, 0.05, 3)
+surface = ExtResource("2_canvas")
+solid = false
+
+[node name="WallR" type="StaticBody3D" parent="."]
+position = Vector3(-1.95, 0.75, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 1.5, 3)
+surface = ExtResource("2_canvas")
+
+[node name="Back" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.2, -1.5)
+script = ExtResource("1_kit_block")
+size = Vector3(3.9, 2.4, 0.05)
+surface = ExtResource("2_canvas")
+
+[node name="Ridge" type="StaticBody3D" parent="."]
+position = Vector3(0, 2.55, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.08, 0.08, 3.1)
+surface = ExtResource("3_wood")
+solid = false
+
+[node name="PoleB" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.3, -1.45)
+script = ExtResource("1_kit_block")
+size = Vector3(0.07, 2.6, 0.07)
+surface = ExtResource("3_wood")
+solid = false
+
+[node name="PoleF" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.3, 1.45)
+script = ExtResource("1_kit_block")
+size = Vector3(0.07, 2.6, 0.07)
+surface = ExtResource("3_wood")
+solid = false
+
+[node name="Cot" type="StaticBody3D" parent="."]
+position = Vector3(-1.2, 0.3, -0.3)
+script = ExtResource("1_kit_block")
+size = Vector3(0.7, 0.12, 1.8)
+surface = ExtResource("4_olive")
+solid = false
+
+[node name="Table" type="StaticBody3D" parent="."]
+position = Vector3(0.8, 0.72, -0.9)
+script = ExtResource("1_kit_block")
+size = Vector3(1.2, 0.05, 0.7)
+surface = ExtResource("5_barrel_wood")
+
+[node name="TableLegs" type="StaticBody3D" parent="."]
+position = Vector3(0.8, 0.36, -0.9)
+script = ExtResource("1_kit_block")
+size = Vector3(1.1, 0.7, 0.6)
+surface = ExtResource("6_metal")
+visible = false

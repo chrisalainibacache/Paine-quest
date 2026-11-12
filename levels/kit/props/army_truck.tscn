@@ -1,0 +1,149 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/olive.tres" id="2_olive"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="3_metal"]
+[ext_resource type="Material" path="res://levels/kit/materials/canvas.tres" id="4_canvas"]
+[ext_resource type="Material" path="res://levels/kit/materials/rust.tres" id="5_rust"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.48
+bottom_radius = 0.48
+height = 0.32
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 0.48
+bottom_radius = 0.48
+height = 0.32
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 0.48
+bottom_radius = 0.48
+height = 0.32
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 0.48
+bottom_radius = 0.48
+height = 0.32
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5"]
+top_radius = 0.48
+bottom_radius = 0.48
+height = 0.32
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6"]
+top_radius = 0.48
+bottom_radius = 0.48
+height = 0.32
+radial_segments = 12
+rings = 1
+
+[node name="ArmyTruck" type="Node3D"]
+
+[node name="Chassis" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.75, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(5.8, 0.35, 2.1)
+surface = ExtResource("2_olive")
+
+[node name="Cab" type="StaticBody3D" parent="."]
+position = Vector3(2.2, 1.55, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(1.5, 1.3, 2.1)
+surface = ExtResource("2_olive")
+
+[node name="Windshield" type="StaticBody3D" parent="."]
+position = Vector3(2.96, 1.75, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.04, 0.6, 1.8)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="Hood" type="StaticBody3D" parent="."]
+position = Vector3(2.95, 1.1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 1.9)
+surface = ExtResource("2_olive")
+solid = false
+
+[node name="Bed" type="StaticBody3D" parent="."]
+position = Vector3(-0.8, 1.15, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(4, 0.45, 2.1)
+surface = ExtResource("2_olive")
+
+[node name="CoverL" type="StaticBody3D" parent="."]
+position = Vector3(-0.8, 2, 0.75)
+rotation = Vector3(0.45, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(4, 0.05, 0.75)
+surface = ExtResource("4_canvas")
+solid = false
+
+[node name="CoverSideL" type="StaticBody3D" parent="."]
+position = Vector3(-0.8, 1.7, 1.04)
+script = ExtResource("1_kit_block")
+size = Vector3(4, 0.7, 0.04)
+surface = ExtResource("4_canvas")
+solid = false
+
+[node name="WheelLm2_2" type="MeshInstance3D" parent="."]
+position = Vector3(-2.2, 0.48, 1)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("5_rust")
+
+[node name="WheelLm0_9" type="MeshInstance3D" parent="."]
+position = Vector3(-0.9, 0.48, 1)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_2")
+material_override = ExtResource("5_rust")
+
+[node name="WheelL2_2" type="MeshInstance3D" parent="."]
+position = Vector3(2.2, 0.48, 1)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("5_rust")
+
+[node name="CoverR" type="StaticBody3D" parent="."]
+position = Vector3(-0.8, 2, -0.75)
+rotation = Vector3(-0.45, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(4, 0.05, 0.75)
+surface = ExtResource("4_canvas")
+solid = false
+
+[node name="CoverSideR" type="StaticBody3D" parent="."]
+position = Vector3(-0.8, 1.7, -1.04)
+script = ExtResource("1_kit_block")
+size = Vector3(4, 0.7, 0.04)
+surface = ExtResource("4_canvas")
+solid = false
+
+[node name="WheelRm2_2" type="MeshInstance3D" parent="."]
+position = Vector3(-2.2, 0.48, -1)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_4")
+material_override = ExtResource("5_rust")
+
+[node name="WheelRm0_9" type="MeshInstance3D" parent="."]
+position = Vector3(-0.9, 0.48, -1)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_5")
+material_override = ExtResource("5_rust")
+
+[node name="WheelR2_2" type="MeshInstance3D" parent="."]
+position = Vector3(2.2, 0.48, -1)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_6")
+material_override = ExtResource("5_rust")

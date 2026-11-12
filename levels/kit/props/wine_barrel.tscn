@@ -1,0 +1,61 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://levels/kit/materials/barrel_wood.tres" id="1_barrel_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="2_metal"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="3_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="4_wood"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 1
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 0.435
+bottom_radius = 0.435
+height = 0.05
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 0.435
+bottom_radius = 0.435
+height = 0.05
+radial_segments = 12
+rings = 1
+
+[node name="WineBarrel" type="Node3D"]
+
+[node name="Body" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.45, 0)
+rotation = Vector3(0, 0, 1.5708)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("1_barrel_wood")
+
+[node name="HoopL" type="MeshInstance3D" parent="."]
+position = Vector3(-0.38, 0.45, 0)
+rotation = Vector3(0, 0, 1.5708)
+mesh = SubResource("CylinderMesh_2")
+material_override = ExtResource("2_metal")
+
+[node name="HoopR" type="MeshInstance3D" parent="."]
+position = Vector3(0.38, 0.45, 0)
+rotation = Vector3(0, 0, 1.5708)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("2_metal")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.45, 0)
+script = ExtResource("3_kit_block")
+size = Vector3(1, 0.9, 0.85)
+surface = ExtResource("1_barrel_wood")
+visible = false
+
+[node name="Cradle" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.06, 0)
+script = ExtResource("3_kit_block")
+size = Vector3(0.9, 0.12, 0.7)
+surface = ExtResource("4_wood")
+solid = false

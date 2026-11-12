@@ -1,0 +1,350 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/room.gd" id="1_room"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="2_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="3_planks"]
+[ext_resource type="Material" path="res://levels/kit/materials/barrel_wood.tres" id="4_barrel_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="5_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/plaster_wall.tres" id="6_plaster_wall"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/wine_barrel.tscn" id="7_wine_barrel"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/typewriter_desk.tscn" id="8_typewriter_d"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/field_radio.tscn" id="9_field_radio"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/oil_stain.png" id="10_oil_stain"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="11_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_handprint.png" id="12_blood_handpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="13_blood_footpr"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="14_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/typewriter.gd" id="15_typewriter"]
+[ext_resource type="Script" path="res://levels/kit/interact/voice_door.gd" id="16_voice_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/chapter_exit.gd" id="17_chapter_exit"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="18_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="19_ammo_shells"]
+[ext_resource type="Resource" path="res://data/items/sushi.tres" id="20_sushi"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="21_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="22_leo_hint"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.03, 0.03, 0.03, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.5, 0.45, 0.4, 1)
+ambient_light_energy = 0.85
+fog_enabled = true
+fog_light_color = Color(0.08, 0.07, 0.06, 1)
+fog_density = 0.035
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(1, 0.85, 0.55, 1)
+emission_enabled = true
+emission = Color(1, 0.85, 0.55, 1)
+emission_energy_multiplier = 1.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(0.9, 0.03, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
+albedo_color = Color(1, 0.85, 0.6, 1)
+emission_enabled = true
+emission = Color(1, 0.85, 0.6, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.12, 0.16, 0.12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6"]
+size = Vector3(5, 3, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7"]
+size = Vector3(5, 3, 8)
+
+[node name="Shed" type="Node3D"]
+script = ExtResource("1_room")
+room_name = "Galpón de la viña"
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, -0.5, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(10.6, 1, 8.6)
+surface = ExtResource("3_planks")
+
+[node name="Ceiling" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 4.85, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(10.6, 0.1, 8.6)
+surface = ExtResource("3_planks")
+
+[node name="NorthWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 2.4, -4.15)
+script = ExtResource("2_kit_block")
+size = Vector3(10.6, 4.8, 0.3)
+surface = ExtResource("4_barrel_wood")
+
+[node name="SouthWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 2.4, 4.15)
+script = ExtResource("2_kit_block")
+size = Vector3(10.6, 4.8, 0.3)
+surface = ExtResource("4_barrel_wood")
+
+[node name="WestWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(-5.15, 2.4, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 4.8, 8)
+surface = ExtResource("4_barrel_wood")
+
+[node name="EastWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(5.15, 2.4, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 4.8, 8)
+surface = ExtResource("4_barrel_wood")
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="ToVineyardPanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-4.96, 1.1, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 1.8)
+surface = ExtResource("3_planks")
+solid = false
+
+[node name="ToVineyardFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(-4.94, 1.2, -0.96)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="ToVineyardFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(-4.94, 1.2, 0.96)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="ToVineyardLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-4.94, 2.45, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 2.02)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="Office" type="Node3D" parent="."]
+
+[node name="OfficeWall" type="StaticBody3D" parent="Office"]
+position = Vector3(2.8, 2.4, -1.6)
+script = ExtResource("2_kit_block")
+size = Vector3(4.4, 4.8, 0.2)
+surface = ExtResource("6_plaster_wall")
+
+[node name="OfficeWallE" type="StaticBody3D" parent="Office"]
+position = Vector3(0.6, 2.4, -2.8)
+script = ExtResource("2_kit_block")
+size = Vector3(0.2, 4.8, 2.4)
+surface = ExtResource("6_plaster_wall")
+
+[node name="OfficeDoor" type="StaticBody3D" parent="Office"]
+position = Vector3(2.6, 1.05, -1.48)
+script = ExtResource("2_kit_block")
+size = Vector3(0.95, 2.1, 0.05)
+surface = ExtResource("3_planks")
+solid = false
+
+[node name="OfficeSign" type="Label3D" parent="Office"]
+position = Vector3(2.6, 2.4, -1.47)
+text = "OFICINA"
+font_size = 26
+pixel_size = 0.004
+modulate = Color(0.2, 0.17, 0.12, 1)
+outline_size = 0
+
+[node name="DoorGap" type="MeshInstance3D" parent="Office"]
+position = Vector3(2.6, 0.02, -1.46)
+mesh = SubResource("BoxMesh_3")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Barrel0_0" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-3.2, 0, 3.1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Barrel0_1" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-3.2, 0.88, 3.1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Barrel1_0" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-2.05, 0, 3.1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Barrel1_1" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-2.05, 0.88, 3.1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Barrel2_0" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-0.9, 0, 3.1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Barrel2_1" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-0.9, 0.88, 3.1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Barrel3_0" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(0.25, 0, 3.1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Barrel3_1" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(0.25, 0.88, 3.1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="BarrelW0" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-4.3, 0, -3.2)
+
+[node name="BarrelW1" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-4.3, 0, -2.1)
+
+[node name="BarrelW2" parent="Props" instance=ExtResource("7_wine_barrel")]
+position = Vector3(-4.3, 0, -1)
+
+[node name="Desk" parent="Props" instance=ExtResource("8_typewriter_d")]
+position = Vector3(3.9, 0, 0.6)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="RadioTable" type="StaticBody3D" parent="Props"]
+position = Vector3(0.6, 0.38, 0.3)
+script = ExtResource("2_kit_block")
+size = Vector3(1.2, 0.76, 0.7)
+surface = ExtResource("5_wood")
+
+[node name="Radio" parent="Props" instance=ExtResource("9_field_radio")]
+position = Vector3(0.6, 0.76, 0.3)
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Lamp" type="OmniLight3D" parent="Lights"]
+position = Vector3(0, 4.3, 0.5)
+light_color = Color(1, 0.82, 0.6, 1)
+light_energy = 1.1
+omni_range = 7.5
+
+[node name="Bulb" type="MeshInstance3D" parent="Lights"]
+position = Vector3(0, 4.6, 0.5)
+mesh = SubResource("BoxMesh_5")
+material_override = SubResource("StandardMaterial3D_4")
+
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="Wine" parent="Decals" instance=ExtResource("11_decal")]
+position = Vector3(-1.8, 0.012, 1.8)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("10_oil_stain")
+size = Vector2(1.8, 1.8)
+
+[node name="Hand" parent="Decals" instance=ExtResource("11_decal")]
+position = Vector3(2, 1.2, -1.48)
+rotation = Vector3(0, 0, 0.3)
+texture = ExtResource("12_blood_handpr")
+size = Vector2(0.38, 0.38)
+
+[node name="Drops" parent="Decals" instance=ExtResource("11_decal")]
+position = Vector3(1.8, 0.012, -0.8)
+rotation = Vector3(-1.5708, 1.3, 0)
+texture = ExtResource("13_blood_footpr")
+size = Vector2(1.6, 0.8)
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="ToVineyard" type="Node3D" parent="Interactables"]
+position = Vector3(-4.6, 0, 0)
+script = ExtResource("14_door")
+reach = 1.3
+target_room = "res://levels/buin/vineyard.tscn"
+target_spawn = "from_shed"
+prompt = "SALIR"
+
+[node name="Typewriter" type="Node3D" parent="Interactables"]
+position = Vector3(3.55, 0.8, 0.6)
+script = ExtResource("15_typewriter")
+reach = 1.4
+
+[node name="RosaDoor" type="Node3D" parent="Interactables"]
+position = Vector3(2.6, 0, -1)
+script = ExtResource("16_voice_door")
+reach = 1.3
+sets_flag = "talked:rosa"
+lines = PackedStringArray("La puerta de la oficina tiene llave. Adentro alguien respira.", "Rosa: ¿Quién está ahí? ...No abras. Por favor, no abras.", "Rosa: Soy Rosa, de la boletería de Paine. Me mordieron en el puente, anoche. Ya tengo el frío del que hablaba don Héctor.", "Rosa: Escúchame bien, niña. Al hombre de la mano vendada yo le vendí el boleto del 6:30.", "Rosa: Llevaba una credencial colgando: «Centro de Investigación Sanitaria — Nos». Venía de ahí.", "Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta por una tal Constanza.", "Leo: Cony... ella ya no va a abrir. Déjala descansar. La radio está en la mesa.")
+repeat_lines = PackedStringArray("Rosa: Ándate, niña. Llévate al gato. Y escucha esa radio.")
+
+[node name="Radio" type="Node3D" parent="Interactables"]
+position = Vector3(0.6, 0, 0.9)
+script = ExtResource("17_chapter_exit")
+reach = 1.3
+chapter = 3
+accept_text = "ESCUCHAR"
+question = "Una radio militar encendida. Entre la estática se oye una voz de mujer.\n¿Escuchar?"
+before_lines = PackedStringArray("Javiera: ...Constanza... Cony, si me escuchas... soy yo, la Javi.", "Javiera: No vayas a Alameda. Allá ya no queda nadie.", "Javiera: Me trajeron a la Maestranza de San Bernardo a atender a los enfermos. Llegan en tren, de noche, amarrados.", "Javiera: Hay un vagón al fondo que nadie abre. Los militares dicen que es del Centro de Nos...", "Javiera: Ven por la vía. Te espero en la entrada de...", "La señal se corta.", "Leo: San Bernardo. Yo sé el camino, Cony. Vamos.")
+
+[node name="Shells" type="Node3D" parent="Interactables"]
+position = Vector3(-3, 0, 1.8)
+script = ExtResource("18_pickup")
+item = ExtResource("19_ammo_shells")
+count = 6
+model_rotation = Vector3(0, 0.8, 0)
+
+[node name="Sushi" type="Node3D" parent="Interactables"]
+position = Vector3(3.7, 0.77, 1)
+script = ExtResource("18_pickup")
+item = ExtResource("20_sushi")
+count = 1
+model_rotation = Vector3(0, 0.3, 0)
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="West" type="Area3D" parent="Cameras"]
+position = Vector3(-2.5, 1.5, 0)
+script = ExtResource("21_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/West"]
+shape = SubResource("BoxShape3D_6")
+
+[node name="Camera" type="Camera3D" parent="Cameras/West"]
+position = Vector3(4.9, 2.3, 3.4)
+rotation = Vector3(-0.4801, 0.8721, 0)
+fov = 64
+near = 0.1
+far = 30.0
+
+[node name="East" type="Area3D" parent="Cameras"]
+position = Vector3(2.5, 1.5, 0)
+script = ExtResource("21_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/East"]
+shape = SubResource("BoxShape3D_7")
+
+[node name="Camera" type="Camera3D" parent="Cameras/East"]
+position = Vector3(-4.3, 2.3, 3.4)
+rotation = Vector3(-0.5097, -0.8086, 0)
+fov = 64
+near = 0.1
+far = 30.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_vineyard" type="Marker3D" parent="Spawns"]
+position = Vector3(-4.1, 0.05, 0)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="LeoRosa" type="Marker3D" parent="."]
+position = Vector3(2.6, 0, -0.5)
+script = ExtResource("22_leo_hint")
+lines = PackedStringArray("Leo: Ahí adentro está Rosa. Huele a ella... y a frío.", "Leo: Háblale, Cony. Pero no abras esa puerta.")
+hide_if_flag = "talked:rosa"
+
+[node name="LeoRadio" type="Marker3D" parent="."]
+position = Vector3(0.6, 0, 1.2)
+script = ExtResource("22_leo_hint")
+lines = PackedStringArray("Leo: La radio. Alguien te está llamando, Cony.")
+show_if_flag = "talked:rosa"

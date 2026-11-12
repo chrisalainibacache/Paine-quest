@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "worker_letter"
+title = "Carta de una temporera"
+pages = PackedStringArray("A quien encuentre esto:\n\nMe llamo Ana. Trabajo en la viña Santa Rosa. Anoche se llevaron a mi Tomás en el tren de los militares. Tiene siete años. Dijeron que lo iban a curar en San Bernardo.", "Yo tengo fiebre. No le dije a nadie.\n\nDejé la llave del galpón en el gancho del tractor. Adentro está la Rosa, la de la boletería de Paine. Llegó caminando de noche. Ella sabe algo del primer enfermo.\n\nNo la dejen sola.")

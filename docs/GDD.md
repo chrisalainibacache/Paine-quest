@@ -73,14 +73,17 @@ escribe con ese cariño.
   sus ojos brillan en la oscuridad; dice "siempre te he llevado yo".
 
 ### Capítulos siguientes (dirección aprobada)
-- **Capítulo 3 — Buin (sábado en la mañana):** puente del Maipo, control militar abandonado,
+- **Capítulo 3 — Buin (hecho, ver sección 8):** puente del Maipo, control militar abandonado,
   estación de Buin, bodega agrícola, galpón de la viña. Rosa aparece viva (diálogos). Se
   descubre que el "tren de evacuación" era para llevarse a los mordidos a cuarentena.
   Enemigo nuevo: soldado infectado con casco y chaleco. Final: por una radio militar se
   escucha a Javiera ("no vengas a Alameda, ven a…") y se corta.
-- **Capítulo 4 — Santiago (final):** Alameda es zona de cuarentena; se cierra el misterio
-  del pasajero del asiento 15. Cony encuentra a Javiera.
-- **Despedida de Leo (propuesta, por confirmar con Chris):** al amanecer, ya a salvo, Leo
+- **Capítulo 4 — La Maestranza (San Bernardo):** el lugar de cuarentena del tren sanitario;
+  Javiera trabaja ahí. El vagón que nadie abre (del Centro de Nos).
+- **Capítulo 5 — Santiago / el Centro de Nos:** se cierra el misterio del pasajero del
+  asiento 15. Cony y Javiera juntas.
+- **Epílogo — La despedida de Leo** (aprobada por Chris).
+- **Despedida de Leo (aprobada por Chris):** al amanecer, ya a salvo, Leo
   camina unos pasos hacia la luz por la vía, se da vuelta, maúlla una última vez y se va.
   Cony entiende. Texto final y dedicatoria: "Para Leo".
 
@@ -182,6 +185,19 @@ Se llega con CONTINUAR al terminar el capítulo 1 (punto de control: guarda la p
 | 4 | Costado del convoy (`convoy_side`) | Infectados entre los vagones. Reja del paso bajo nivel (se abre con la llave del maquinista). |
 | 5 | Paso bajo nivel (`underpass`) | **Apagón**: Cony usa la linterna. Dos infectados rápidos. |
 | 6 | Casa de cambios (`switch_house`) | Sala segura: máquina de escribir, nota del maquinista. La salida a la vía termina el juego. |
+
+### Capítulo 3 — Buin (completo)
+Se llega con CONTINUAR al terminar el capítulo 2. Sábado en la mañana: luz de día nublado
+(contraste con la noche de los capítulos 1 y 2).
+
+| # | Sala (`levels/buin/`) | Qué pasa |
+| --- | --- | --- |
+| 1 | Puente del Maipo (`bridge`) | Inicio. Puente de fierro sobre el río crecido. |
+| 2 | Control militar (`checkpoint`) | Carpa, camión con camillas, **soldados infectados con casco** (10 balazos). **Orden del día**: el "tren de evacuación" era para los mordidos. Máquina de escribir. |
+| 3 | Estación de Buin (`station`) | Hall convertido en espera del tren sanitario. **Lista del tren** (Raúl, el capitán, un niño). |
+| 4 | Bodega agrícola (`warehouse`) | Apagón (linterna). Dos infectados rápidos. **Llave del galpón** en el tractor y la **carta de Ana**. |
+| 5 | Viña Santa Rosa (`vineyard`) | Hileras de parras; el galpón se abre con la llave. |
+| 6 | Galpón (`shed`) | Sala segura. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio**: Javiera está en la Maestranza de San Bernardo → fin del capítulo. |
 
 ## 9. Estilo visual
 

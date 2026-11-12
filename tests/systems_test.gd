@@ -495,7 +495,11 @@ func _chapter_two() -> void:
     Dialogue.choose(0)
     await _seconds(1.2)
     _check(current_scene != null and current_scene.scene_file_path == "res://ui/chapter_end/chapter_end.tscn"
-        and GameState.has_flag("chapter_done:2"), "salir de la casa de cambios termina el juego")
+        and GameState.has_flag("chapter_done:2"), "salir de la casa de cambios termina el capítulo 2")
     if current_scene and current_scene.has_node("Title"):
-        _check(current_scene.get_node("Title").text == "FIN" and not current_scene.get_node("Buttons/Continue").visible,
-            "la pantalla final dice FIN y no ofrece otro capítulo")
+        _check(current_scene.get_node("Title").text == "FIN DEL CAPÍTULO 2" and current_scene.get_node("Buttons/Continue").visible,
+            "fin del capítulo 2: se puede seguir al capítulo 3")
+        current_scene.continue_to_next_chapter()
+        await _seconds(1.5)
+        _check(current_scene != null and current_scene.has_node("SceneLoader") and current_scene.room.scene_file_path == "res://levels/buin/bridge.tscn",
+            "CONTINUAR lleva al puente del Maipo (capítulo 3)")

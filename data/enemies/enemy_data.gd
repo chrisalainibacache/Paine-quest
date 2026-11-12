@@ -21,3 +21,5 @@ extends Resource
 @export var rest_time: float = 1.6
 ## Tinte de la textura (para aclarar modelos oscuros o darles un tono).
 @export var tint: Color = Color.WHITE
+## Casco militar (soldado infectado).
+@export var helmet: bool = false

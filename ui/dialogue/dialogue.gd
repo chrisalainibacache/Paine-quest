@@ -223,18 +223,28 @@ func _hide_blocker() -> void:
         blocker.visible = false
 
 
-## Las líneas que empiezan con "Leo: " las dice Leo: van en verde y con su nombre.
-const LEO_PREFIX := "Leo: "
-const LEO_COLOR := Color(0.72, 0.93, 0.6)
+## Una línea que empieza con "Nombre: " la dice ese personaje: sale con su nombre
+## arriba y en su color (Leo en verde).
+const SPEAKERS := {
+    "Leo": Color(0.72, 0.93, 0.6),
+    "Rosa": Color(0.95, 0.78, 0.6),
+    "Javiera": Color(0.65, 0.8, 1.0),
+}
 const TEXT_COLOR := Color(0.92, 0.9, 0.84)
 
 
 func _show_text(line: String) -> void:
-    var is_leo := line.begins_with(LEO_PREFIX)
-    speaker.visible = is_leo
-    text.add_theme_color_override("font_color", LEO_COLOR if is_leo else TEXT_COLOR)
-    if is_leo:
-        line = line.substr(LEO_PREFIX.length())
+    var color := TEXT_COLOR
+    speaker.visible = false
+    for who: String in SPEAKERS:
+        if line.begins_with(who + ": "):
+            color = SPEAKERS[who]
+            speaker.text = who.to_upper()
+            speaker.add_theme_color_override("font_color", color)
+            speaker.visible = true
+            line = line.substr(who.length() + 2)
+            break
+    text.add_theme_color_override("font_color", color)
     text.text = line
     text.visible_ratio = 0.0
     _reveal = 0.0

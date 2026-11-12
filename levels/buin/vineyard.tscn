@@ -1,0 +1,281 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/room.gd" id="1_room"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="2_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/dirt.tres" id="3_dirt"]
+[ext_resource type="Material" path="res://levels/kit/materials/old_bricks_wall.tres" id="4_old_bricks_w"]
+[ext_resource type="Material" path="res://levels/kit/materials/plaster_wall.tres" id="5_plaster_wall"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/vine_row.tscn" id="6_vine_row"]
+[ext_resource type="Material" path="res://levels/kit/materials/barrel_wood.tres" id="7_barrel_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="8_planks"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="9_blood_pool"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="10_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="11_blood_drag"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="12_door"]
+[ext_resource type="Resource" path="res://data/items/shed_key.tres" id="13_shed_key"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="14_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="15_pickup"]
+[ext_resource type="Resource" path="res://data/items/handroll.tres" id="16_handroll"]
+[ext_resource type="Resource" path="res://data/items/ammo_rifle.tres" id="17_ammo_rifle"]
+[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="18_infected_wor"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="19_infected"]
+[ext_resource type="Resource" path="res://data/enemies/infected_soldier.tres" id="20_infected_sol"]
+[ext_resource type="Resource" path="res://data/enemies/infected_fast.tres" id="21_infected_fas"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="22_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="23_leo_hint"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.6, 0.62, 0.68, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.6, 0.64, 1)
+ambient_light_energy = 0.9
+fog_enabled = true
+fog_light_color = Color(0.56, 0.58, 0.64, 1)
+fog_density = 0.02
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
+size = Vector3(10, 3, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3"]
+size = Vector3(10, 3, 10)
+
+[node name="Vineyard" type="Node3D"]
+script = ExtResource("1_room")
+room_name = "Viña Santa Rosa"
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.55, 2.3, 0)
+light_color = Color(1, 0.86, 0.7, 1)
+light_energy = 1.15
+
+[node name="Ground" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Ground"]
+position = Vector3(0, -0.5, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(20.6, 1, 10.6)
+surface = ExtResource("3_dirt")
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="NorthWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(0, 2.6, -5.15)
+script = ExtResource("2_kit_block")
+size = Vector3(20.6, 5.8, 0.3)
+surface = ExtResource("4_old_bricks_w")
+
+[node name="SouthWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(0, 2.6, 5.15)
+script = ExtResource("2_kit_block")
+size = Vector3(20.6, 5.8, 0.3)
+surface = ExtResource("4_old_bricks_w")
+
+[node name="WestWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(-10.15, 2.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.8, 10)
+surface = ExtResource("5_plaster_wall")
+
+[node name="EastWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(10.15, 2.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.8, 10)
+surface = ExtResource("4_old_bricks_w")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Vines0" parent="Props" instance=ExtResource("6_vine_row")]
+position = Vector3(-6, 0, -3.6)
+
+[node name="Vines1" parent="Props" instance=ExtResource("6_vine_row")]
+position = Vector3(2, 0, -3.6)
+
+[node name="Vines2" parent="Props" instance=ExtResource("6_vine_row")]
+position = Vector3(-6, 0, -1.8)
+
+[node name="Vines3" parent="Props" instance=ExtResource("6_vine_row")]
+position = Vector3(2, 0, -1.8)
+
+[node name="Vines4" parent="Props" instance=ExtResource("6_vine_row")]
+position = Vector3(-6, 0, 1.8)
+
+[node name="Vines5" parent="Props" instance=ExtResource("6_vine_row")]
+position = Vector3(2, 0, 1.8)
+
+[node name="Vines6" parent="Props" instance=ExtResource("6_vine_row")]
+position = Vector3(-6, 0, 3.6)
+
+[node name="Vines7" parent="Props" instance=ExtResource("6_vine_row")]
+position = Vector3(2, 0, 3.6)
+
+[node name="Shed" type="Node3D" parent="."]
+
+[node name="ShedFront" type="StaticBody3D" parent="Shed"]
+position = Vector3(9.85, 2.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.2, 9.8)
+surface = ExtResource("7_barrel_wood")
+
+[node name="ShedDoor" type="StaticBody3D" parent="Shed"]
+position = Vector3(9.68, 1.3, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.6, 1.8)
+surface = ExtResource("8_planks")
+solid = false
+
+[node name="ShedSign" type="Label3D" parent="Shed"]
+position = Vector3(9.64, 3.4, 0)
+rotation = Vector3(0, -1.5708, 0)
+text = "GALPÓN · VIÑA SANTA ROSA"
+font_size = 30
+pixel_size = 0.004
+modulate = Color(0.92, 0.88, 0.75, 1)
+outline_size = 0
+
+[node name="Cart" type="StaticBody3D" parent="Props"]
+position = Vector3(-2.6, 0.45, 0.9)
+script = ExtResource("2_kit_block")
+size = Vector3(1.4, 0.5, 0.8)
+surface = ExtResource("7_barrel_wood")
+
+[node name="Basket0" type="StaticBody3D" parent="Props"]
+position = Vector3(-8.4, 0.2, -0.8)
+script = ExtResource("2_kit_block")
+size = Vector3(0.5, 0.4, 0.4)
+surface = ExtResource("8_planks")
+solid = false
+
+[node name="Basket1" type="StaticBody3D" parent="Props"]
+position = Vector3(5.6, 0.2, 0.7)
+script = ExtResource("2_kit_block")
+size = Vector3(0.5, 0.4, 0.4)
+surface = ExtResource("8_planks")
+solid = false
+
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="Pool" parent="Decals" instance=ExtResource("10_decal")]
+position = Vector3(0.4, 0.02, -0.4)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("9_blood_pool")
+size = Vector2(1.5, 1.5)
+
+[node name="Drag" parent="Decals" instance=ExtResource("10_decal")]
+position = Vector3(4, 0.02, 0.3)
+rotation = Vector3(-1.5708, 0.1, 0)
+texture = ExtResource("11_blood_drag")
+size = Vector2(2.8, 0.9)
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="ToStation" type="Node3D" parent="Interactables"]
+position = Vector3(-9.4, 0, 0)
+script = ExtResource("12_door")
+reach = 1.4
+target_room = "res://levels/buin/station.tscn"
+target_spawn = "from_vineyard"
+prompt = "VOLVER"
+
+[node name="ToShed" type="Node3D" parent="Interactables"]
+position = Vector3(9.2, 0, 0)
+script = ExtResource("12_door")
+reach = 1.4
+target_room = "res://levels/buin/shed.tscn"
+target_spawn = "from_vineyard"
+key_item = ExtResource("13_shed_key")
+lock_id = "shed_door"
+locked_text = "El portón del galpón. Tiene un candado grande y alguien lo trancó por dentro también."
+prompt = "ABRIR"
+
+[node name="Grapes" type="Node3D" parent="Interactables"]
+position = Vector3(-3, 0, -1.2)
+script = ExtResource("14_examine_spot")
+reach = 1
+lines = PackedStringArray("Racimos maduros que nadie cosechó.", "Ayer era la vendimia.")
+
+[node name="Handroll" type="Node3D" parent="Interactables"]
+position = Vector3(-2.5, 0.72, 0.9)
+script = ExtResource("15_pickup")
+item = ExtResource("16_handroll")
+count = 1
+model_rotation = Vector3(0, 0.4, 0)
+
+[node name="RifleAmmo" type="Node3D" parent="Interactables"]
+position = Vector3(6.4, 0, -0.6)
+script = ExtResource("15_pickup")
+item = ExtResource("17_ammo_rifle")
+count = 15
+model_rotation = Vector3(0, 1.1, 0)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Picker1" parent="Enemies" instance=ExtResource("19_infected")]
+position = Vector3(-1, 0.05, -0.4)
+rotation = Vector3(0, -1.5708, 0)
+data = ExtResource("18_infected_wor")
+
+[node name="Soldier" parent="Enemies" instance=ExtResource("19_infected")]
+position = Vector3(5, 0.05, 0.3)
+rotation = Vector3(0, -1.5708, 0)
+data = ExtResource("20_infected_sol")
+
+[node name="Picker2" parent="Enemies" instance=ExtResource("19_infected")]
+position = Vector3(1.8, 0.05, 0.5)
+rotation = Vector3(0, 1.8, 0)
+start_state = "lying"
+
+[node name="Runner" parent="Enemies" instance=ExtResource("19_infected")]
+position = Vector3(7.6, 0.05, -0.5)
+rotation = Vector3(0, -1.5708, 0)
+data = ExtResource("21_infected_fas")
+start_state = "feeding"
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="West" type="Area3D" parent="Cameras"]
+position = Vector3(-5, 1.5, 0)
+script = ExtResource("22_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/West"]
+shape = SubResource("BoxShape3D_2")
+
+[node name="Camera" type="Camera3D" parent="Cameras/West"]
+position = Vector3(4.5, 2.5, 4.6)
+rotation = Vector3(-0.4357, 0.8678, 0)
+fov = 60
+near = 0.1
+far = 30.0
+
+[node name="East" type="Area3D" parent="Cameras"]
+position = Vector3(5, 1.5, 0)
+script = ExtResource("22_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/East"]
+shape = SubResource("BoxShape3D_3")
+
+[node name="Camera" type="Camera3D" parent="Cameras/East"]
+position = Vector3(-4.5, 2.5, -4.6)
+rotation = Vector3(-0.3999, -2.2417, 0)
+fov = 60
+near = 0.1
+far = 30.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_station" type="Marker3D" parent="Spawns"]
+position = Vector3(-8.6, 0.05, 0)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="from_shed" type="Marker3D" parent="Spawns"]
+position = Vector3(8.4, 0.05, 0)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoShed" type="Marker3D" parent="."]
+position = Vector3(8.4, 0, 0)
+script = ExtResource("23_leo_hint")
+lines = PackedStringArray("Leo: El galpón. Rosa está ahí adentro, Cony. Respira despacio.", "Leo: Usa la llave del tractor.")
+hide_if_flag = "unlocked:shed_door"

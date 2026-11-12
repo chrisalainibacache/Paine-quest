@@ -113,6 +113,8 @@ func _ready() -> void:
     if modern:
         _enable_specular()
     _vary_look()
+    if data.helmet:
+        _add_helmet()
     _anim = AnimationPlayer.new()
     _anim.name = "AnimationPlayer"
     add_child(_anim)
@@ -177,6 +179,38 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
     if mapped_tracks == 0:
         push_warning("No se encontraron pistas de huesos para las animaciones de %s." % data.display_name)
     return library
+
+
+## Casco militar pegado al hueso de la cabeza.
+func _add_helmet() -> void:
+    var skeleton := _find_model_skeleton(model)
+    if skeleton == null or skeleton.find_bone("Head") < 0:
+        return
+    var attachment := BoneAttachment3D.new()
+    attachment.bone_name = "Head"
+    skeleton.add_child(attachment)
+    var olive := preload("res://levels/kit/materials/olive.tres")
+    var shell := MeshInstance3D.new()
+    var dome := SphereMesh.new()
+    dome.radius = 0.14
+    dome.height = 0.14
+    dome.is_hemisphere = true
+    dome.radial_segments = 12
+    dome.rings = 4
+    shell.mesh = dome
+    shell.material_override = olive
+    shell.position = Vector3(0, 0.12, 0.0)
+    attachment.add_child(shell)
+    var brim := MeshInstance3D.new()
+    var ring := CylinderMesh.new()
+    ring.top_radius = 0.16
+    ring.bottom_radius = 0.16
+    ring.height = 0.015
+    ring.radial_segments = 12
+    brim.mesh = ring
+    brim.material_override = olive
+    brim.position = Vector3(0, 0.12, 0.0)
+    attachment.add_child(brim)
 
 
 ## El modelo moderno tiene relieve y rugosidad: necesita brillos.

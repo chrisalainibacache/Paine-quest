@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "evacuee_list"
+title = "Lista del tren sanitario"
+pages = PackedStringArray("TREN SANITARIO — SALIDA 4:10 (sábado)\n\nCifuentes, Raúl — Paine — mordido (brazo)\nPizarro, Ana — Buin — fiebre\nMuñoz, Tomás (7 años) — Buin — mordido\nSoto, Rodrigo — EJÉRCITO — mordido (mano)", "(Escrito con otra letra, al reverso)\n\nEl capitán también iba en la lista. Lo subieron igual.\n\nDijeron que en la Maestranza hay médicos. Nadie volvió para contarlo.")

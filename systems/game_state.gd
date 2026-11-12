@@ -111,6 +111,8 @@ static func add_document(document: DocumentData) -> bool:
     if documents.has(document.resource_path):
         return false
     documents.append(document.resource_path)
+    # Bandera "read:<id>" (las pistas de Leo la usan para saber qué ya se leyó).
+    set_flag("read:" + document.id)
     return true
 
 

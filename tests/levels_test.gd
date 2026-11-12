@@ -9,6 +9,7 @@ extends "res://tests/test_case.gd"
 const CHAPTERS := [
     ["res://levels/station/", "res://levels/station/platform.tscn", "gate_key"],
     ["res://levels/tracks/", "res://levels/tracks/track_north.tscn", "engineer_key"],
+    ["res://levels/buin/", "res://levels/buin/bridge.tscn", "shed_key"],
 ]
 
 

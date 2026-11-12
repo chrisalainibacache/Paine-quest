@@ -1,0 +1,451 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/room.gd" id="1_room"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="2_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/tiles_wall.tres" id="3_tiles_wall"]
+[ext_resource type="Material" path="res://levels/kit/materials/concrete_wall.tres" id="4_concrete_wal"]
+[ext_resource type="Material" path="res://levels/kit/materials/plaster_wall.tres" id="5_plaster_wall"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="6_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="7_planks"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="8_metal"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/park_bench.tscn" id="9_park_bench"]
+[ext_resource type="Material" path="res://levels/kit/materials/olive.tres" id="10_olive"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/wall_clock.tscn" id="11_wall_clock"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="12_blood_pool"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="13_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_handprint.png" id="14_blood_handpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="15_debris"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="16_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="17_note"]
+[ext_resource type="Resource" path="res://data/documents/evacuee_list.tres" id="18_evacuee_list"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="19_paper"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="20_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="21_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="22_ammo_9mm"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="23_infected"]
+[ext_resource type="Resource" path="res://data/enemies/infected_pale.tres" id="24_infected_pal"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="25_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="26_leo_hint"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.08, 0.08, 0.09, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.62, 0.6, 0.58, 1)
+ambient_light_energy = 0.95
+fog_enabled = true
+fog_light_color = Color(0.25, 0.25, 0.27, 1)
+fog_density = 0.03
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.78, 0.8, 0.85, 1)
+emission_enabled = true
+emission = Color(0.78, 0.8, 0.85, 1)
+emission_energy_multiplier = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(1.3, 1.2, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
+albedo_color = Color(0.78, 0.8, 0.85, 1)
+emission_enabled = true
+emission = Color(0.78, 0.8, 0.85, 1)
+emission_energy_multiplier = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(1.3, 1.2, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6"]
+albedo_color = Color(0.78, 0.8, 0.85, 1)
+emission_enabled = true
+emission = Color(0.78, 0.8, 0.85, 1)
+emission_energy_multiplier = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(1.3, 1.2, 0.04)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8"]
+size = Vector3(5, 3, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_9"]
+size = Vector3(5, 3, 7)
+
+[node name="BuinStation" type="Node3D"]
+script = ExtResource("1_room")
+room_name = "Estación de Buin"
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, -0.5, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(10.6, 1, 7.6)
+surface = ExtResource("3_tiles_wall")
+
+[node name="Ceiling" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 3.65, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(10.6, 0.1, 7.6)
+surface = ExtResource("4_concrete_wal")
+
+[node name="NorthWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 1.8, -3.65)
+script = ExtResource("2_kit_block")
+size = Vector3(10.6, 3.6, 0.3)
+surface = ExtResource("5_plaster_wall")
+
+[node name="SouthWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 1.8, 3.65)
+script = ExtResource("2_kit_block")
+size = Vector3(10.6, 3.6, 0.3)
+surface = ExtResource("5_plaster_wall")
+
+[node name="WestWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(-5.15, 1.8, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 3.6, 7)
+surface = ExtResource("5_plaster_wall")
+
+[node name="EastWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(5.15, 1.8, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 3.6, 7)
+surface = ExtResource("5_plaster_wall")
+
+[node name="WainscotN" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 0.6, -3.48)
+script = ExtResource("2_kit_block")
+size = Vector3(10, 1.2, 0.04)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="WainscotS" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 0.6, 3.48)
+script = ExtResource("2_kit_block")
+size = Vector3(10, 1.2, 0.04)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="WainscotW" type="StaticBody3D" parent="Shell"]
+position = Vector3(-4.98, 0.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 1.2, 7)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="WainscotE" type="StaticBody3D" parent="Shell"]
+position = Vector3(4.98, 0.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 1.2, 7)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="ToCheckpointPanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-4.96, 1.1, 1.6)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 1.2)
+surface = ExtResource("7_planks")
+solid = false
+
+[node name="ToCheckpointFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(-4.94, 1.2, 0.94)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="ToCheckpointFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(-4.94, 1.2, 2.26)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="ToCheckpointLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-4.94, 2.45, 1.6)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 1.42)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="ToWarehousePanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-1.5, 1.1, -3.46)
+script = ExtResource("2_kit_block")
+size = Vector3(1.2, 2.2, 0.06)
+surface = ExtResource("8_metal")
+solid = false
+
+[node name="ToWarehouseFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(-2.16, 1.2, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="ToWarehouseFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(-0.84, 1.2, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="ToWarehouseLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-1.5, 2.45, -3.44)
+script = ExtResource("2_kit_block")
+size = Vector3(1.42, 0.1, 0.1)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="ToVineyardPanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(4.96, 1.1, -1.4)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 1.2)
+surface = ExtResource("7_planks")
+solid = false
+
+[node name="ToVineyardFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(4.94, 1.2, -2.06)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="ToVineyardFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(4.94, 1.2, -0.74)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="ToVineyardLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(4.94, 2.45, -1.4)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 1.42)
+surface = ExtResource("6_wood")
+solid = false
+
+[node name="Details" type="Node3D" parent="."]
+
+[node name="NameBoard" type="Label3D" parent="Details"]
+position = Vector3(0, 3, 3.46)
+rotation = Vector3(0, 3.1416, 0)
+text = "B U I N"
+font_size = 60
+pixel_size = 0.004
+modulate = Color(0.9, 0.86, 0.75, 1)
+outline_size = 0
+
+[node name="WarehouseSign" type="Label3D" parent="Details"]
+position = Vector3(-1.5, 2.6, -3.46)
+text = "BODEGA AGRÍCOLA"
+font_size = 26
+pixel_size = 0.004
+modulate = Color(0.85, 0.82, 0.7, 1)
+outline_size = 0
+
+[node name="VineyardSign" type="Label3D" parent="Details"]
+position = Vector3(4.96, 2.6, -1.4)
+rotation = Vector3(0, -1.5708, 0)
+text = "VIÑA SANTA ROSA"
+font_size = 26
+pixel_size = 0.004
+modulate = Color(0.85, 0.82, 0.7, 1)
+outline_size = 0
+
+[node name="Window0" type="MeshInstance3D" parent="Details"]
+position = Vector3(-3.4, 1.9, 3.47)
+mesh = SubResource("BoxMesh_3")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Window1" type="MeshInstance3D" parent="Details"]
+position = Vector3(1.6, 1.9, 3.47)
+mesh = SubResource("BoxMesh_5")
+material_override = SubResource("StandardMaterial3D_4")
+
+[node name="Window2" type="MeshInstance3D" parent="Details"]
+position = Vector3(3.6, 1.9, 3.47)
+mesh = SubResource("BoxMesh_7")
+material_override = SubResource("StandardMaterial3D_6")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Counter" type="StaticBody3D" parent="Props"]
+position = Vector3(-3.2, 0.55, -2.6)
+script = ExtResource("2_kit_block")
+size = Vector3(2.6, 1.1, 0.7)
+surface = ExtResource("6_wood")
+
+[node name="Bench1" parent="Props" instance=ExtResource("9_park_bench")]
+position = Vector3(1.2, 0, 1.2)
+
+[node name="Bench2" parent="Props" instance=ExtResource("9_park_bench")]
+position = Vector3(1.2, 0, -0.6)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="Cot1" type="StaticBody3D" parent="Props"]
+position = Vector3(-3, 0.3, 1.8)
+script = ExtResource("2_kit_block")
+size = Vector3(1.9, 0.12, 0.7)
+surface = ExtResource("10_olive")
+solid = false
+
+[node name="Cot1Legs" type="StaticBody3D" parent="Props"]
+position = Vector3(-3, 0.14, 1.8)
+script = ExtResource("2_kit_block")
+size = Vector3(1.8, 0.28, 0.6)
+surface = ExtResource("8_metal")
+
+[node name="Clock" parent="Props" instance=ExtResource("11_wall_clock")]
+position = Vector3(-4.95, 2.6, -1)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Lamp" type="OmniLight3D" parent="Lights"]
+position = Vector3(0, 3.2, 0)
+light_color = Color(1, 0.92, 0.8, 1)
+light_energy = 1
+omni_range = 7.5
+
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="Pool" parent="Decals" instance=ExtResource("13_decal")]
+position = Vector3(-0.4, 0.012, 2)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("12_blood_pool")
+size = Vector2(1.4, 1.4)
+
+[node name="Hand" parent="Decals" instance=ExtResource("13_decal")]
+position = Vector3(2.5, 1.3, -3.48)
+rotation = Vector3(0, 0, 0)
+texture = ExtResource("14_blood_handpr")
+size = Vector2(0.4, 0.4)
+
+[node name="Debris" parent="Decals" instance=ExtResource("13_decal")]
+position = Vector3(2.8, 0.013, 0.4)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("15_debris")
+size = Vector2(1.3, 1.3)
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="ToCheckpoint" type="Node3D" parent="Interactables"]
+position = Vector3(-4.6, 0, 1.6)
+script = ExtResource("16_door")
+reach = 1.3
+target_room = "res://levels/buin/checkpoint.tscn"
+target_spawn = "from_station"
+prompt = "SALIR"
+
+[node name="ToWarehouse" type="Node3D" parent="Interactables"]
+position = Vector3(-1.5, 0, -3.1)
+script = ExtResource("16_door")
+reach = 1.3
+target_room = "res://levels/buin/warehouse.tscn"
+target_spawn = "from_station"
+prompt = "ENTRAR"
+
+[node name="ToVineyard" type="Node3D" parent="Interactables"]
+position = Vector3(4.6, 0, -1.4)
+script = ExtResource("16_door")
+reach = 1.3
+target_room = "res://levels/buin/vineyard.tscn"
+target_spawn = "from_station"
+prompt = "SALIR"
+
+[node name="List" type="Node3D" parent="Interactables"]
+position = Vector3(-3.2, 1.12, -2.55)
+script = ExtResource("17_note")
+document = ExtResource("18_evacuee_list")
+reach = 1.3
+
+[node name="Paper" parent="Interactables/List" instance=ExtResource("19_paper")]
+rotation = Vector3(0, 0.2, 0)
+scale = Vector3(0.7, 0.7, 0.7)
+
+[node name="Clock" type="Node3D" parent="Interactables"]
+position = Vector3(-4.4, 0, -1)
+script = ExtResource("20_examine_spot")
+reach = 1.3
+lines = PackedStringArray("El reloj de la estación marca las 4:10.", "La hora en que salió el tren sanitario.")
+
+[node name="Ammo" type="Node3D" parent="Interactables"]
+position = Vector3(3.9, 0, 2.9)
+script = ExtResource("21_pickup")
+item = ExtResource("22_ammo_9mm")
+count = 15
+model_rotation = Vector3(0, 0.8, 0)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Feeder" parent="Enemies" instance=ExtResource("23_infected")]
+position = Vector3(-0.6, 0.05, 2.2)
+rotation = Vector3(0, 2.6, 0)
+start_state = "feeding"
+
+[node name="Lying" parent="Enemies" instance=ExtResource("23_infected")]
+position = Vector3(2.6, 0.05, 0.4)
+rotation = Vector3(0, 1, 0)
+data = ExtResource("24_infected_pal")
+start_state = "lying"
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="West" type="Area3D" parent="Cameras"]
+position = Vector3(-2.5, 1.5, 0)
+script = ExtResource("25_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/West"]
+shape = SubResource("BoxShape3D_8")
+
+[node name="Camera" type="Camera3D" parent="Cameras/West"]
+position = Vector3(4.5, 1.7, 3)
+rotation = Vector3(-0.3948, 0.9332, 0)
+fov = 64
+near = 0.1
+far = 30.0
+
+[node name="East" type="Area3D" parent="Cameras"]
+position = Vector3(2.5, 1.5, 0)
+script = ExtResource("25_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/East"]
+shape = SubResource("BoxShape3D_9")
+
+[node name="Camera" type="Camera3D" parent="Cameras/East"]
+position = Vector3(-4.5, 1.7, -3)
+rotation = Vector3(-0.3885, -2.2318, 0)
+fov = 64
+near = 0.1
+far = 30.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_checkpoint" type="Marker3D" parent="Spawns"]
+position = Vector3(-4.1, 0.05, 1.6)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="from_warehouse" type="Marker3D" parent="Spawns"]
+position = Vector3(-1.5, 0.05, -2.6)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="from_vineyard" type="Marker3D" parent="Spawns"]
+position = Vector3(4.1, 0.05, -1.4)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoWarehouse" type="Marker3D" parent="."]
+position = Vector3(-1.5, 0, -2.5)
+script = ExtResource("26_leo_hint")
+lines = PackedStringArray("Leo: La lista en el mesón dice quiénes subieron al tren. Léela.", "Leo: Y por esa puerta huele a tierra mojada y a tractor. Ahí guardan las llaves del campo.")
+hide_if_item = "shed_key"
+
+[node name="LeoVineyard" type="Marker3D" parent="."]
+position = Vector3(4, 0, -1.4)
+script = ExtResource("26_leo_hint")
+lines = PackedStringArray("Leo: Ya tienes la llave del galpón. La viña está por aquí.", "Leo: Rosa está allá, Cony. La huelo desde aquí.")
+show_if_item = "shed_key"

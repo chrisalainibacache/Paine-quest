@@ -1,0 +1,125 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/sandbag.tres" id="2_sandbag"]
+
+[node name="Sandbags" type="Node3D"]
+
+[node name="Collision" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.5, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(2.4, 1, 0.7)
+surface = ExtResource("2_sandbag")
+visible = false
+
+[node name="Bag0_0" type="StaticBody3D" parent="."]
+position = Vector3(-0.9, 0.13, 0)
+rotation = Vector3(0, -0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.62)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag0_1" type="StaticBody3D" parent="."]
+position = Vector3(-0.3, 0.13, 0)
+rotation = Vector3(0, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.62)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag0_2" type="StaticBody3D" parent="."]
+position = Vector3(0.3, 0.13, 0)
+rotation = Vector3(0, 0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.62)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag0_3" type="StaticBody3D" parent="."]
+position = Vector3(0.9, 0.13, 0)
+rotation = Vector3(0, -0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.62)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag1_0" type="StaticBody3D" parent="."]
+position = Vector3(-0.75, 0.38, -0.02)
+rotation = Vector3(0, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.58)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag1_1" type="StaticBody3D" parent="."]
+position = Vector3(-0.15, 0.38, -0.02)
+rotation = Vector3(0, 0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.58)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag1_2" type="StaticBody3D" parent="."]
+position = Vector3(0.45, 0.38, -0.02)
+rotation = Vector3(0, -0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.58)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag2_0" type="StaticBody3D" parent="."]
+position = Vector3(-0.9, 0.63, -0.04)
+rotation = Vector3(0, 0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.54)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag2_1" type="StaticBody3D" parent="."]
+position = Vector3(-0.3, 0.63, -0.04)
+rotation = Vector3(0, -0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.54)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag2_2" type="StaticBody3D" parent="."]
+position = Vector3(0.3, 0.63, -0.04)
+rotation = Vector3(0, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.54)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag2_3" type="StaticBody3D" parent="."]
+position = Vector3(0.9, 0.63, -0.04)
+rotation = Vector3(0, 0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.54)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag3_0" type="StaticBody3D" parent="."]
+position = Vector3(-0.75, 0.88, -0.06)
+rotation = Vector3(0, -0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.5)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag3_1" type="StaticBody3D" parent="."]
+position = Vector3(-0.15, 0.88, -0.06)
+rotation = Vector3(0, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.5)
+surface = ExtResource("2_sandbag")
+solid = false
+
+[node name="Bag3_2" type="StaticBody3D" parent="."]
+position = Vector3(0.45, 0.88, -0.06)
+rotation = Vector3(0, 0.04, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.58, 0.24, 0.5)
+surface = ExtResource("2_sandbag")
+solid = false

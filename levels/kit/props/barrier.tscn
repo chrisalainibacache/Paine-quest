@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/olive.tres" id="2_olive"]
+[ext_resource type="Material" path="res://levels/kit/materials/paint_red.tres" id="3_paint_red"]
+[ext_resource type="Material" path="res://levels/kit/materials/train_cream.tres" id="4_train_cream"]
+
+[node name="Barrier" type="Node3D"]
+
+[node name="Post" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.55, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.25, 1.1, 0.25)
+surface = ExtResource("2_olive")
+
+[node name="Arm0" type="StaticBody3D" parent="."]
+position = Vector3(0.35, 1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.5, 0.1, 0.1)
+surface = ExtResource("3_paint_red")
+solid = false
+
+[node name="Arm1" type="StaticBody3D" parent="."]
+position = Vector3(0.85, 1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.5, 0.1, 0.1)
+surface = ExtResource("4_train_cream")
+solid = false
+
+[node name="Arm2" type="StaticBody3D" parent="."]
+position = Vector3(1.35, 1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.5, 0.1, 0.1)
+surface = ExtResource("3_paint_red")
+solid = false
+
+[node name="Arm3" type="StaticBody3D" parent="."]
+position = Vector3(1.85, 1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.5, 0.1, 0.1)
+surface = ExtResource("4_train_cream")
+solid = false
+
+[node name="Arm4" type="StaticBody3D" parent="."]
+position = Vector3(2.35, 1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.5, 0.1, 0.1)
+surface = ExtResource("3_paint_red")
+solid = false
+
+[node name="Arm5" type="StaticBody3D" parent="."]
+position = Vector3(2.85, 1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.5, 0.1, 0.1)
+surface = ExtResource("4_train_cream")
+solid = false
