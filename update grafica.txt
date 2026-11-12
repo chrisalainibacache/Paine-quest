@@ -68,8 +68,8 @@ Juego (van en el APK):
 
 Herramientas (NO van en el APK):
   tools/prerender/fetch_polyhaven.py        Baja los modelos CC0 de Poly Haven.
-  tools/prerender/<sala>_detail.py          Coloca el detalle extra de una sala.
-                                            (hoy: platform_detail.py)
+  tools/prerender/room_details.py           Detalle extra de TODAS las salas (dict ROOMS:
+                                            modelo, posición, giro, escala + luces extra).
   tools/prerender/render_backgrounds.gd     Renderiza las imágenes de una sala.
 
 Fuentes del render (NO se suben al repo, se regeneran; están en .gitignore):
@@ -88,9 +88,9 @@ Requisitos en Linux (servidor sin GPU sirve):
 1) Bajar modelos:          python3 tools/prerender/fetch_polyhaven.py
    (agregar nombres a la lista MODELS; ver catálogo: https://api.polyhaven.com/assets?t=models)
 2) Importar en Godot:      godot --headless --path . --import
-3) Detalle de la sala:     copiar tools/prerender/platform_detail.py como <sala>_detail.py,
-                           cambiar ITEMS (modelo, posición, giro, escala) y la salida.
-                           python3 tools/prerender/<sala>_detail.py ; luego --import otra vez.
+3) Detalle de la sala:     agregar la sala al dict ROOMS de tools/prerender/room_details.py
+                           (modelo, posición, giro, escala; luces extra opcionales).
+                           python3 tools/prerender/room_details.py <sala> ; luego --import otra vez.
    Reglas para colocar detalle:
      - Pegado a muros y rincones, NO en el camino de Cony: los objetos de detalle no
        existen en el juego (sin choque ni oclusión). Si un objeto grande queda en

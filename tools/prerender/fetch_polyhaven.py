@@ -15,6 +15,13 @@ MODELS = [
     "barrel_03", "cement_bag", "korean_fire_extinguisher_01", "fire_alarm", "industrial_wall_lamp",
     "WetFloorSign_01", "plastic_bottle_gallon", "spray_paint_bottles", "wooden_bucket_01",
     "metal_jerrycan_green", "old_military_crate", "street_lamp_01", "modular_electric_cables",
+    # Capítulo 1 (interiores).
+    "plastic_monobloc_chair_01", "trashbag", "potted_plant_04", "standing_chalkboard_01",
+    "drawer_cabinet", "binder_notebook", "clipboard", "desk_lamp_arm_01", "vintage_telephone_wall_clock",
+    "painted_wooden_chair_02", "medical_box", "power_box_01", "utility_box_01", "plastic_broom",
+    "wooden_bucket_02", "bleach_bottle", "multi_cleaner_bottle", "portable_generator", "wooden_ladder",
+    "compost_bags", "oil_tin", "old_gas_mask", "pipe_wrench", "plastic_crate_01", "plastic_crate_02",
+    "portable_searchlight", "street_lamp_02", "wooden_military_crate",
 ]
 
 
@@ -25,6 +32,8 @@ def get(url: str) -> bytes:
 
 
 def fetch(model: str) -> None:
+    if (OUT / model / ("%s_1k.gltf" % model)).exists():
+        return
     files = json.loads(get("https://api.polyhaven.com/files/" + model))
     entry = files["gltf"]["1k"]["gltf"]
     dest = OUT / model
