@@ -12,7 +12,7 @@ Leyenda: ✅ lo tenemos · ⚠️ lo tenemos pero hay que revisar/adaptar · ❌
 | --- | --- | --- |
 | Cony (modelo con rig Mixamo) | ⚠️ | `models/Erika_Walking.fbx` + `psx_character/`. Revisar cuál es la versión final. |
 | Animaciones de Cony: idle, caminar, correr, apuntar pistola, disparar, recargar, recibir daño, morir | ⚠️ | `animations/` (Mixamo + UAL2). Falta apuntar/disparar/recargar/morir (Mixamo las tiene gratis). |
-| Leo (gatita) | ✅ | Gato animado Quaternius (CC0) recoloreado gris: Idle, Walk, Run, Headbutt... |
+| Leo (gatita) | ✅ | Gato del Animal Pack Vol.2 de Quaternius (CC0): proporciones de gato real, gris con pecho y patas blancas, ojos verdes con brillo (`tools/convert_leo.gd`). Idle, Walk, Run. |
 | Infectado (modelo + rig) | ✅ | `infected/infected_psx_05.glb` (PSX, ~850 triángulos). Licencia del pack por confirmar. |
 | Animaciones infectado | ✅ | Quaternius UAL2: Zombie_Idle/Walk/Scratch, LayToIdle, Consume, Hit_Knockback + UAL1: Hit_Chest, Death01. |
 | Infectados variados | ✅ | `infected_pale`, `infected_worker`, `infected_burnt` (PSX del Drive, textura "infectada" generada). Cada infectado varía al azar tono y estatura. |

@@ -12,6 +12,7 @@ func _init() -> void:
 func _run() -> void:
     var out: String = OS.get_cmdline_user_args()[0]
     DirAccess.make_dir_recursive_absolute(out)
+    SceneLoader.intros_enabled = false
     SaveSystem.save_path = "user://captura_armas.json"
     GameState.new_game()
     GameState.set_flag("found:pistol")

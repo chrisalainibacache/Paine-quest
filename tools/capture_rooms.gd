@@ -14,6 +14,7 @@ func _init() -> void:
 
 
 func _run() -> void:
+    SceneLoader.intros_enabled = false
     SaveSystem.save_path = "user://captura.json"
     # PAINE_GRAFICOS=moderno|retro elige el modo gráfico de las capturas.
     var mode := OS.get_environment("PAINE_GRAFICOS")

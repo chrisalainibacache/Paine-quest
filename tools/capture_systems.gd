@@ -15,6 +15,7 @@ func _init() -> void:
 
 
 func _run() -> void:
+    SceneLoader.intros_enabled = false
     SaveSystem.save_path = "user://captura.json"
     SaveSystem.delete_save()
     change_scene_to_file("res://ui/title/title_screen.tscn")

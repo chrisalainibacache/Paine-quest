@@ -12,6 +12,7 @@ func _init() -> void:
     DirAccess.make_dir_recursive_absolute(out_dir)
     GameState.new_game()
     GameState.give_pistol()
+    SceneLoader.intros_enabled = false
     change_scene_to_file("res://main.tscn")
     _run.call_deferred()
 
