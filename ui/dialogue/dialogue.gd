@@ -34,6 +34,8 @@ var _grace := 0.0
 var _asking := false
 var _reveal := 0.0
 var _reader_document: DocumentData
+## Páginas ya ajustadas al papel (una página larga se parte en varias).
+var _reader_pages := PackedStringArray()
 var _reader_page_index := 0
 
 
@@ -122,6 +124,7 @@ func _read(document: DocumentData) -> void:
         return
     _begin()
     _reader_document = document
+    _reader_pages = fit_pages(document.pages)
     _reader_page_index = 0
     _grace = INPUT_GRACE
     _refresh_reader_page()
@@ -135,12 +138,40 @@ func _read(document: DocumentData) -> void:
 func _refresh_reader_page() -> void:
     if _reader_document == null:
         return
-    var total := _reader_document.pages.size()
+    var total := _reader_pages.size()
     reader_title.text = _reader_document.title
-    reader_body.text = _reader_document.pages[_reader_page_index]
+    reader_body.text = _reader_pages[_reader_page_index]
     reader_page.text = "%d / %d" % [_reader_page_index + 1, total] if total > 1 else ""
     reader_previous.disabled = _reader_page_index == 0
-    reader_next.text = "CERRAR" if _reader_page_index >= total - 1 else "SIGUIENTE"
+    # En la última página queda solo CERRAR (antes salían dos).
+    reader_next.visible = _reader_page_index < total - 1
+
+
+## Reparte el texto en páginas que caben en el papel, cortando entre párrafos.
+func fit_pages(pages: PackedStringArray) -> PackedStringArray:
+    var fitted := PackedStringArray()
+    for page in pages:
+        var current := ""
+        for paragraph in page.split("\n\n"):
+            var candidate := paragraph if current.is_empty() else current + "\n\n" + paragraph
+            if current.is_empty() or _fits_on_paper(candidate):
+                current = candidate
+            else:
+                fitted.append(current)
+                current = paragraph
+        fitted.append(current)
+    return fitted
+
+
+func _fits_on_paper(body: String) -> bool:
+    var font := reader_body.get_theme_font("font")
+    var font_size := reader_body.get_theme_font_size("font_size")
+    var line_height := font.get_height(font_size) + reader_body.get_theme_constant("line_spacing")
+    var lines := 0
+    for line in body.split("\n"):
+        var width := font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+        lines += maxi(1, ceili(width / (reader_body.size.x * 0.9)))
+    return lines * line_height <= reader_body.size.y
 
 
 func _previous_reader_page() -> void:
@@ -154,7 +185,7 @@ func _previous_reader_page() -> void:
 func _next_reader_page() -> void:
     if not reader.visible or _reader_document == null:
         return
-    if _reader_page_index >= _reader_document.pages.size() - 1:
+    if _reader_page_index >= _reader_pages.size() - 1:
         _close_reader()
         return
     _reader_page_index += 1

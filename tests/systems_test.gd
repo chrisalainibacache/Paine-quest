@@ -27,6 +27,7 @@ func _run() -> void:
     _inventory_rules()
     await _leo_warns(player)
     _graphics_modes()
+    _documents_fit()
     for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
         enemy.free()
     await _pickup_and_note(player)
@@ -62,6 +63,19 @@ func _leo_warns(player: Player) -> void:
     leo.global_position = Vector3(-5.5, 0.05, 3.4)
     await _seconds(0.8)
     _check(not leo.is_alert(), "lejos de los infectados, Leo se calma")
+
+
+## Todas las notas caben en el papel del lector (se parten solas si son largas).
+func _documents_fit() -> void:
+    var dialogue := main.get_node("Dialogue")
+    for file in DirAccess.get_files_at("res://data/documents"):
+        if not file.ends_with(".tres"):
+            continue
+        var document := load("res://data/documents/" + file) as DocumentData
+        var ok := true
+        for page in dialogue.fit_pages(document.pages):
+            ok = ok and dialogue._fits_on_paper(page)
+        _check(ok, "nota legible sin cortes: %s" % document.title)
 
 
 ## Interruptor Retro / Moderno: cambia materiales, ambiente y filtro, y vuelve.

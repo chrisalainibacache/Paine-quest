@@ -10,6 +10,8 @@ const FADE_TIME := 0.35
 
 static var _instance: SceneLoader
 
+## Las pruebas automáticas las apagan (el diálogo pausa el juego).
+static var intros_enabled := true
 var room: Room
 var world: Node3D
 var player: Player
@@ -59,6 +61,7 @@ func enter_first_room() -> void:
     GameState.use_spawn_transform = false
     await _settle()
     await _fade_to(0.0)
+    await _play_intro()
 
 
 func _go_to(room_path: String, spawn_id: String) -> void:
@@ -72,6 +75,7 @@ func _go_to(room_path: String, spawn_id: String) -> void:
     player.controls_locked = false
     await _fade_to(0.0)
     busy = false
+    await _play_intro()
 
 
 func _end_chapter(chapter: int) -> void:
@@ -119,6 +123,17 @@ func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool)
     leo.global_position = spawn.origin - forward * 0.3 + right * 0.7
     leo.velocity = Vector3.ZERO
     room_changed.emit(room)
+
+
+## Primera visita a una sala con intro: Cony cuenta qué ve (una sola vez).
+func _play_intro() -> void:
+    if room == null or room.intro_lines.is_empty() or not intros_enabled:
+        return
+    var flag := "intro:" + GameState.room_path
+    if GameState.has_flag(flag):
+        return
+    GameState.set_flag(flag)
+    await Dialogue.say(Array(room.intro_lines))
 
 
 ## Las áreas de cámara detectan a Cony recién en el siguiente paso de física.

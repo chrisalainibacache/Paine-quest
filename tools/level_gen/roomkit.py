@@ -10,9 +10,11 @@ IA = lambda n: "res://levels/kit/interact/%s.gd" % n
 INF = "res://actors/enemies/infected.tscn"
 
 class Kit:
-    def __init__(self, root_name, room_name, dark=False):
+    def __init__(self, root_name, room_name, dark=False, intro=None):
         self.s = Scene()
         extra = {"dark": "true"} if dark else {}
+        if intro:
+            extra["intro_lines"] = "PackedStringArray(%s)" % ", ".join('"%s"' % l for l in intro)
         self.s.node(root_name, "Node3D", script=self.s.res("res://levels/kit/room.gd", "Script"), room_name='"%s"' % room_name, **extra)
         for n in ("Interactables", "Enemies", "Cameras", "Spawns"):
             pass

@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "passenger_ticket"
 title = "Boleto con un mensaje"
-pages = PackedStringArray("Boleto Paine – Santiago, 6:30. Asiento 14.\n\nAtrás, escrito con lápiz:\n\n«El hombre del asiento de enfrente empezó a toser sangre pasado Linderos. Le dije al conductor y se rió.\n\nAhora ya nadie se ríe.»")
+pages = PackedStringArray("Boleto Paine – Alameda, 6:30. Coche 3, asiento 14.\n\nAtrás, escrito con lápiz:\n\n«El caballero del asiento 15 subió en Paine con la mano vendada. Al rato empezó a toser sangre. Le avisé al conductor y se rió.\n\nAhora ya nadie se ríe.»")

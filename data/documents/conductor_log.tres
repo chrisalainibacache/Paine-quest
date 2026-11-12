@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "conductor_log"
 title = "Planilla del conductor"
-pages = PackedStringArray("Servicio 6:30 Paine – Alameda.\n\nPasajeros a bordo: 212.\n\n6:41 — Incidente en el coche 3: pasajero agresivo muerde a otro. Se pide apoyo de carabineros en Buin.\n\n6:44 — Ya son cuatro. Cierro el coche 3 con llave. La llave del maquinista la dejo en mi asiento.", "6:46 — Golpean las puertas del coche 3.\n\n6:47 — El maquinista no contesta por radio.\n\n6:48 — Frenamos de golpe. Algo en la vía.\n\n(La letra se corta aquí.)")
+pages = PackedStringArray("Servicio 6:30 Paine – Alameda. Tren D-16008, maquinista Jorge Muñoz. Pasajeros a bordo: 212.\n\n6:41 — Incidente en el coche 3: un pasajero muerde a otro. Pido apoyo de carabineros en Buin.\n\n6:44 — Ya son cuatro. Cierro el coche 3 con llave.", "6:45 — Dejo en mi asiento la llave del maquinista. Abre las rejas de EFE de la vía.\n\n6:46 — Golpean la puerta del coche 3.\n\n6:47 — Jorge me dice por radio que va a meter el tren al desvío. Que nos afirmemos.\n\n6:48 —\n\n(La letra se corta aquí.)")

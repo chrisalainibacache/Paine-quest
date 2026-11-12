@@ -7,6 +7,8 @@ var main: Node
 
 
 func _init() -> void:
+    # Las intros (diálogo al entrar) pausan el juego: las pruebas no las muestran.
+    SceneLoader.intros_enabled = false
     _run.call_deferred()
 
 

@@ -37,11 +37,16 @@ s.node("Title", "Label", "Reader/Paper", offset_left="44.0", offset_top="30.0", 
        text='"Título"', theme_override_font_sizes_font_size="32", theme_override_colors_font_color=ink)
 s.node("Rule", "ColorRect", "Reader/Paper", offset_left="44.0", offset_top="82.0", offset_right="756.0", offset_bottom="84.0",
        mouse_filter="2", color=col((0.35, 0.3, 0.22, 0.6)))
-s.node("Body", "Label", "Reader/Paper", offset_left="44.0", offset_top="100.0", offset_right="756.0", offset_bottom="560.0",
+s.node("Body", "Label", "Reader/Paper", offset_left="44.0", offset_top="120.0", offset_right="756.0", offset_bottom="510.0",
        autowrap_mode="3", text='"..."', theme_override_font_sizes_font_size="25", theme_override_colors_font_color=ink)
-s.node("Page", "Label", "Reader/Paper", offset_left="560.0", offset_top="570.0", offset_right="756.0", offset_bottom="604.0",
+s.node("Page", "Label", "Reader/Paper", offset_left="560.0", offset_top="88.0", offset_right="756.0", offset_bottom="112.0",
        horizontal_alignment="2", text='"1 / 2"', theme_override_font_sizes_font_size="20", theme_override_colors_font_color=col((0.35, 0.3, 0.22)))
-s.node("Hint", "Label", "Reader/Paper", offset_left="44.0", offset_top="570.0", offset_right="500.0", offset_bottom="604.0",
-       text='"Toca para continuar"', theme_override_font_sizes_font_size="18", theme_override_colors_font_color=col((0.35, 0.3, 0.22)))
+# Botones grandes para el dedo; en la última página se oculta SIGUIENTE.
+for name, text, left in [("Previous", "ANTERIOR", 44), ("Close", "CERRAR", 298), ("Next", "SIGUIENTE", 552)]:
+    s.node(name, "Button", "Reader/Paper", offset_left="%d.0" % left, offset_top="554.0", offset_right="%d.0" % (left + 204), offset_bottom="604.0",
+           text='"%s"' % text, theme_override_font_sizes_font_size="20")
+s.node("Hint", "Label", "Reader/Paper", offset_left="44.0", offset_top="520.0", offset_right="756.0", offset_bottom="544.0",
+       horizontal_alignment="1", text='"Puedes volver a leerla desde NOTAS"', theme_override_font_sizes_font_size="16",
+       theme_override_colors_font_color=col((0.35, 0.3, 0.22)))
 s.save(REPO + "/ui/dialogue/dialogue.tscn")
 print("dialogue ok")

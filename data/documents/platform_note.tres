@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "platform_note"
 title = "Nota arrugada"
-pages = PackedStringArray("Viernes, 6:40.\n\nEl tren de las siete no llegó. Nadie contesta el teléfono de la estación.\n\nEl jefe de estación dijo que hubo un accidente más al norte, pasado Hospital, y que esperáramos adentro.", "Hay un hombre tirado en el andén. Alguien dijo que estaba borracho.\n\nNo se mueve, pero cuando pasé a su lado juro que me siguió con los ojos.\n\nMe voy a la sala de espera. Si alguien lee esto: no se acerquen a él.")
+pages = PackedStringArray("Viernes, 7:50.\n\nEl tren de las 6:30 nunca llegó a Santiago. Mi hermano lo está esperando en Alameda y nadie le sabe decir nada.\n\nEl jefe de estación dice que hubo un accidente al norte, antes de Linderos, y que esperemos adentro.", "Hay un hombre tirado en el andén. Alguien dijo que estaba borracho.\n\nNo se mueve, pero cuando pasé a su lado juro que me siguió con los ojos.\n\nMe voy a la sala de espera. Si alguien lee esto: no se acerquen a él.")

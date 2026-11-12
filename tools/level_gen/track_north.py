@@ -4,7 +4,9 @@ from tracks_common import *
 T = "res://levels/tracks/%s.tscn"
 # Vía norte: Cony y Leo bajaron del andén sur y siguen por la vía. Al fondo,
 # un vagón volcado cruza la vía y hay fuego: el tren de las 6:30.
-k = Kit("TrackNorth", "Vía norte")
+# Lo que piensa Cony al empezar el capítulo 2.
+INTRO = ['Pasada la medianoche. La vía hacia el norte.', 'Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.', 'Javi, aguanta. Vamos caminando.']
+k = Kit("TrackNorth", "Vía norte", intro=INTRO)
 night(k)
 X0, X1, Z0, Z1 = -9.0, 9.0, -3.5, 3.5
 track_bed(k, X0, X1, Z0, Z1, track_z=0.0)
@@ -36,7 +38,7 @@ k.decal("Footprints", "blood_footprints", (-3.0, 0.03, 1.4), (2.0, 1.0), "up", r
 # Interactuables.
 k.door("ToDerailedTrain", (7.0, 0, 2.7), T % "derailed_train", "from_track_north", prompt="SEGUIR", reach=1.5)
 k.examine("Tunnel", (-8.3, 0, 0.0), ["El túnel de vuelta a la estación.", "Detrás quedó Paine. No hay vuelta atrás."], reach=1.4)
-k.examine("Signal", (-3.5, 0, -2.3), ["Una señal en rojo. Nadie la cambió desde anoche."], reach=1.2)
+k.examine("Signal", (-3.5, 0, -2.3), ["Una señal en rojo. Nadie la cambió desde la mañana."], reach=1.2)
 k.note("Ticket", (-1.2, 0.03, 2.5), "passenger_ticket", paper_rot=(0, 0.7, 0), paper_scale=0.6)
 k.pickup("Shells", (-4.2, 0.0, 3.0), "ammo_shells", 6, rot=(0, 0.4, 0))
 k.pickup("Sushi", (-6.3, 0.0, -3.0), "sushi", rot=(0, 1.2, 0))

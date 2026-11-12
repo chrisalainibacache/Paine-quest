@@ -83,6 +83,7 @@ size = Vector3(7.6, 3, 6.8)
 [node name="Platform" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Andén norte"
+intro_lines = PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Javiera, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.")
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

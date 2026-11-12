@@ -9,10 +9,10 @@ const CHAPTER_2_ROOM := "res://levels/tracks/track_north.tscn"
 
 const TEXTS := {
     1: ["FIN DEL CAPÍTULO 1", "La estación",
-        "Cony y Leo bajan a la vía y siguen hacia el norte, hacia el resplandor rojo.\nDetrás queda la estación de Paine, en silencio.",
+        "No va a pasar ningún tren. Cony y Leo bajan a la vía y caminan hacia el norte, hacia Santiago, hacia Javiera.\nDetrás queda la estación de Paine, en silencio.",
         "Continuará en el Capítulo 2: Las vías"],
     2: ["FIN", "Capítulo 2 · Las vías",
-        "El tren de las 6:30 quedó atrás, volcado y en llamas. Cony y Leo siguen caminando por la vía hacia Santiago.\nEmpieza a amanecer.",
+        "El tren de las 6:30 quedó atrás, volcado en el desvío. Cony y Leo siguen por la vía hacia Santiago.\nEmpieza a amanecer. En Alameda, Javiera las espera.",
         "Gracias por jugar PAINE"],
 }
 

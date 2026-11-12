@@ -8,6 +8,8 @@ signal camera_changed(camera: Camera3D)
 @export var room_name: String = ""
 ## Sala a oscuras (apagón): Cony enciende la linterna.
 @export var dark: bool = false
+## Lo que piensa Cony la primera vez que entra (se muestra una sola vez).
+@export var intro_lines: PackedStringArray = []
 
 var _inside: Array[CameraZone] = []
 var _active: CameraZone

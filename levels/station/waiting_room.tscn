@@ -545,7 +545,7 @@ scale = Vector3(1.6, 1.6, 1.6)
 position = Vector3(0.6, 0, 3.3)
 script = ExtResource("35_examine_spot")
 reach = 1.6
-lines = PackedStringArray("Un reloj de pared. Se detuvo a las 7:12.", "El tren de las siete nunca llegó.")
+lines = PackedStringArray("Un reloj de pared. Se detuvo a las 7:12.", "Tiene un agujero de bala en el vidrio.")
 
 [node name="Vending" type="Node3D" parent="Interactables"]
 position = Vector3(-3.6, 0, -2.6)

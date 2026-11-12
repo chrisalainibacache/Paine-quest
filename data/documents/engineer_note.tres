@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "engineer_note"
 title = "Nota del maquinista"
-pages = PackedStringArray("Si alguien llega hasta la casa de cambios: no vuelvan al tren.\n\nLos frené contra el desvío para que no llegaran a la ciudad. Fue lo único que se me ocurrió.\n\nPor la vía hacia el norte se llega a Santiago caminando en un día. Vayan de noche no, de día.\n\nYo ya no puedo caminar. Me mordieron en la mano.\n\n— Jorge, maquinista del D-16008")
+pages = PackedStringArray("Si alguien llega hasta la casa de cambios: no vuelvan al tren.\n\nMetí el tren al desvío a propósito. Si llegaba a Alameda con el coche 3 así, ya no lo paraba nadie.\n\nPor la vía hacia el norte se llega a Santiago caminando. De noche están más despiertos; avancen con la luz del día.", "Yo no puedo seguir. Me mordieron en la mano y ya siento el frío del que hablaba Héctor.\n\nVoy a cerrar la puerta por fuera. Que nadie me abra.\n\n— Jorge Muñoz, maquinista del D-16008")

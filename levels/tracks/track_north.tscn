@@ -71,6 +71,7 @@ size = Vector3(9, 3, 7)
 [node name="TrackNorth" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Vía norte"
+intro_lines = PackedStringArray("Pasada la medianoche. La vía hacia el norte.", "Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.", "Javi, aguanta. Vamos caminando.")
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
@@ -409,7 +410,7 @@ lines = PackedStringArray("El túnel de vuelta a la estación.", "Detrás quedó
 position = Vector3(-3.5, 0, -2.3)
 script = ExtResource("22_examine_spot")
 reach = 1.2
-lines = PackedStringArray("Una señal en rojo. Nadie la cambió desde anoche.")
+lines = PackedStringArray("Una señal en rojo. Nadie la cambió desde la mañana.")
 
 [node name="Ticket" type="Node3D" parent="Interactables"]
 position = Vector3(-1.2, 0.03, 2.5)

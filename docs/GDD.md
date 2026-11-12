@@ -24,6 +24,28 @@ Santiago.
 
 ## 2. Historia (capítulos 1 y 2)
 
+**Por qué viaja Cony:** su hermana **Javiera** vive en Santiago. A las 22:10 le escribe:
+«Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo.
+Te espero en Alameda.» El juego empieza con esa intro (se muestra una vez, al llegar).
+
+### Línea de tiempo (viernes) — las notas deben respetarla
+| Hora | Qué pasó | Dónde se cuenta |
+| --- | --- | --- |
+| 6:30 | Sale el tren D-16008 Paine–Alameda (212 pasajeros). Sube un hombre con la mano vendada (asiento 15, coche 3). | Boleto con un mensaje |
+| 6:41–6:48 | Mordidas en el coche 3. El conductor lo cierra. El maquinista **Jorge Muñoz** mete el tren al desvío a propósito, antes de Linderos, para que no llegue a Santiago. | Planilla del conductor, Nota del maquinista |
+| 7:05 | Llaman de Buin: el tren nunca pasó. | Libro de la boletería |
+| 7:12 | Pasajeros mordidos vuelven caminando por la vía. Uno muerde a otro en el andén; el guardia **don Héctor** dispara (el reloj de la sala de espera queda con un balazo, parado a las 7:12). | Libro de la boletería, reloj |
+| 7:20–7:40 | Héctor, herido, se encierra en la bodega y se convierte. **Rosa** (boletería) deja su pistola y balas en el escritorio. | Libro de la boletería |
+| 7:50 | Un pasajero escribe la nota del andén. | Nota arrugada |
+| 13:00 | El jefe de estación **Raúl** cierra el portón sur; la llave queda en la bodega con Héctor. | Diario del jefe de estación |
+| Tarde | Aviso oficial: «un tren de evacuación pasará esta noche». | Aviso de la estación |
+| 23:00 | Rosa escribe abajo: el tren no vendrá, cerraron la línea en Buin. | Aviso (2ª página) |
+| 23:40 | **Llega Cony** con Leo. Capítulo 1. | Intro del andén norte |
+| Medianoche → amanecer | Capítulo 2 por la vía hasta la casa de cambios. Final: caminan a Santiago, Javiera las espera. | Intro de la vía norte, finales |
+
+Geografía (Línea Sur, de sur a norte): Hospital – **Paine** – Linderos – Buin – … – Alameda.
+Santiago queda al **norte**; todo el viaje es hacia el norte por la vía.
+
 ### Capítulo 1 — La estación
 Cony llega con Leo a la estación de trenes de Paine buscando un tren a Santiago.
 La estación está vacía y algo anda mal. Recorre el andén, la sala de espera y la
