@@ -227,6 +227,10 @@ mochila (por defecto 3/5); se guarda en el teléfono. Las salas del capítulo 2 
 base (ambiente y luna más fuertes, niebla azulada en vez de negra, linterna más ancha).
 Meta: ninguna cámara con brillo medio bajo ~35/255 en el nivel 3.
 
+**Fondos prerenderizados (decisión de Chris, opción 2):** en modo Moderno cada cámara fija
+muestra una imagen renderizada con calidad de película (como RE3) y los personajes van en
+3D encima. Prototipo: andén norte. Detalle técnico y pasos: `update grafica.txt`.
+
 ## 10. Técnico
 
 - **Motor:** Godot 4.7.2 (renderer *Compatibility*, Android).

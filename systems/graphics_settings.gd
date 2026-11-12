@@ -10,6 +10,7 @@ const MODERN_SHADER := preload("res://shaders/modern_surface.gdshader")
 const MODERN_TEX := "res://assets/environment/textures_modern/"
 ## Luces con sombra en modo Moderno (además de la luna). Más es caro en el teléfono.
 const SHADOW_LIGHTS := 1
+const PRERENDERED := preload("res://systems/prerendered_background.gd")
 
 static var _modern := false
 ## Brillo elegido (índice en BRIGHTNESS_LEVELS); se ajusta a cada teléfono.
@@ -74,9 +75,20 @@ static func _load() -> void:
 ## y deja materiales, luces, ambiente y filtro según el modo actual.
 static func apply(root: Node) -> void:
     var modern := is_modern()
+    # Fondos prerenderizados: se quitan antes de recorrer la sala y se vuelven a
+    # poner después (si el modo es Moderno y la sala tiene imágenes).
+    var rooms: Array[Room] = []
+    if root is Room:
+        rooms.append(root as Room)
+    for node in root.find_children("*", "Room", true, false):
+        rooms.append(node as Room)
+    for room in rooms:
+        PRERENDERED.sync(room, false, 1.0)
     var lights: Array[OmniLight3D] = []
     _walk(root, modern, lights)
     _set_shadows(lights, modern)
+    for room in rooms:
+        PRERENDERED.sync(room, modern, BRIGHTNESS_LEVELS[_brightness])
     var viewport := root.get_viewport()
     if viewport:
         # MSAA es casi gratis en GPUs de celular (Mali) y quita los serruchos.

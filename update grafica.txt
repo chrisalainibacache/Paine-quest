@@ -1,0 +1,149 @@
+PAINE — UPDATE GRÁFICA: FONDOS PRERENDERIZADOS (estilo Resident Evil 3 de PS1)
+================================================================================
+Documento de traspaso técnico. Sirve para que cualquier asistente (ChatGPT, Claude,
+otra persona) pueda seguir este trabajo sin preguntar. Leer junto con:
+CLAUDE.md, docs/GDD.md, docs/ARCHITECTURE.md, docs/ART_PIPELINE.md.
+
+Proyecto: Godot 4.7.2, renderer Compatibility (OpenGL), Android horizontal.
+Teléfono de prueba del dueño (Chris): Redmi 13C (Helio G85, Mali-G52, 720x1600).
+Repositorio: https://github.com/chrisalainibacache/Paine-quest (rama main).
+
+
+1. QUÉ PROBLEMA RESUELVE
+------------------------
+El juego "se veía simple". La diferencia con RE3 de PS1 tiene nombre:
+  - FONDOS PRERENDERIZADOS: RE3 no dibujaba el escenario en vivo. Cada cámara fija
+    mostraba una IMAGEN hecha antes en computadores potentes (miles de objetos, luz
+    suave, sombras). Solo los personajes eran 3D.
+  - DENSIDAD DE DETALLE (ambientación / "set dressing"): cada rincón con objetos.
+Como nuestras cámaras ya son fijas, hacemos lo mismo: por cada cámara de cada sala
+se renderiza una "foto" de alta calidad y en el juego se muestra esa foto con
+Cony, Leo, infectados e ítems en 3D encima.
+
+Decisión de Chris: opción 2 (fondos prerenderizados). Se aplica en el modo
+gráfico MODERNO. El modo RETRO sigue igual que antes (look PS1 en vivo).
+
+
+2. CÓMO FUNCIONA (resumen técnico)
+---------------------------------
+a) RENDER (en el servidor, una vez por sala):
+   - Se carga la sala (levels/<zona>/<sala>.tscn) + una escena de DETALLE extra
+     (render_src/scenes/<sala>_detail.tscn) con modelos fotorrealistas de Poly Haven.
+   - Se usa el renderer Forward+ (Vulkan) con efectos caros que el teléfono no puede:
+     iluminación global SDFGI, oclusión ambiental (SSAO), SSIL, niebla volumétrica,
+     sombras en todas las luces, tonemap ACES, TAA + MSAA.
+   - Se ocultan lo que se mueve o se recoge (nodos "Enemies", "Interactables", "Spawns").
+   - Se saca una imagen por cada cámara fija (CameraZone) a 2520x1080 y se reduce a
+     1680x720 (formato 21:9, cubre cualquier teléfono).
+   - Salida: assets/backgrounds/<sala>/<NombreCámara>.png (ej: platform/West.png).
+
+b) EN EL JUEGO (modo Moderno):
+   - systems/prerendered_background.gd se instala como hijo de la sala si existen
+     imágenes para ella (lo llama GraphicsSettings.apply()).
+   - TODA la geometría fija de la sala sigue existiendo (choques y profundidad), pero
+     se pinta con shaders/prerendered_projection.gdshader: un shader sin luz que
+     muestra el píxel de la imagen en SCREEN_UV. Como la imagen se sacó desde la
+     misma cámara, coincide exacto y los personajes quedan tapados por columnas y
+     muros (oclusión correcta).
+   - La imagen es 21:9; el shader recorta a lo ancho según la pantalla
+     (uniform screen_aspect / image_aspect). Las cámaras usan altura fija (keep_height).
+   - El fondo (lo que no tiene geometría) se muestra con un CanvasLayer -1 y el
+     Environment en modo BG_CANVAS.
+   - Ambiente neutro (tonemap lineal, sin glow): la imagen ya trae su tono final.
+     El botón BRILLO sigue funcionando (adjustment_brightness).
+   - Las luces de la sala siguen iluminando a los personajes, pero sin sombras.
+   - Al cambiar de cámara (Room.camera_changed) se cambia la imagen.
+   - Al volver a RETRO todo se restaura (materiales, luces, ambiente).
+   - Rendimiento: MEJOR que antes en el teléfono (la sala es una imagen + shader
+     sin luz). Costo: memoria de las imágenes (~4,8 MB por imagen sin comprimir).
+
+
+3. ARCHIVOS
+-----------
+Juego (van en el APK):
+  shaders/prerendered_projection.gdshader   Shader de proyección de la imagen.
+  systems/prerendered_background.gd         Instala/quita el fondo en una sala.
+  systems/graphics_settings.gd              apply() llama a PRERENDERED.sync().
+  assets/backgrounds/<sala>/<Cámara>.png    Las imágenes renderizadas.
+
+Herramientas (NO van en el APK):
+  tools/prerender/fetch_polyhaven.py        Baja los modelos CC0 de Poly Haven.
+  tools/prerender/<sala>_detail.py          Coloca el detalle extra de una sala.
+                                            (hoy: platform_detail.py)
+  tools/prerender/render_backgrounds.gd     Renderiza las imágenes de una sala.
+
+Fuentes del render (NO se suben al repo, se regeneran; están en .gitignore):
+  render_src/polyhaven/<modelo>/            Modelos glTF 1K de Poly Haven.
+  render_src/scenes/<sala>_detail.tscn      Escena de detalle generada.
+  export_presets.cfg excluye "render_src/*" del APK.
+
+
+4. CÓMO REGENERAR / AGREGAR UNA SALA (paso a paso)
+-------------------------------------------------
+Requisitos en Linux (servidor sin GPU sirve):
+  - Godot 4.7.2 (linux.x86_64), xvfb, Python 3.
+  - Vulkan por software (lavapipe):  apt-get install -y mesa-vulkan-drivers libvulkan1
+  - Variable: VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json
+
+1) Bajar modelos:          python3 tools/prerender/fetch_polyhaven.py
+   (agregar nombres a la lista MODELS; ver catálogo: https://api.polyhaven.com/assets?t=models)
+2) Importar en Godot:      godot --headless --path . --import
+3) Detalle de la sala:     copiar tools/prerender/platform_detail.py como <sala>_detail.py,
+                           cambiar ITEMS (modelo, posición, giro, escala) y la salida.
+                           python3 tools/prerender/<sala>_detail.py ; luego --import otra vez.
+   Reglas para colocar detalle:
+     - Pegado a muros y rincones, NO en el camino de Cony: los objetos de detalle no
+       existen en el juego (sin choque ni oclusión). Si un objeto grande queda en
+       medio, hay que agregar un bloque invisible/colisión en el generador de la sala.
+     - No tapar puertas, ítems ni notas (siguen siendo 3D en el juego).
+     - Unidades en metros (Poly Haven ya viene en metros).
+4) Renderizar:
+   VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json xvfb-run -a -s "-screen 0 2560x1440x24" \
+     godot --path . --rendering-method forward_plus --rendering-driver vulkan --resolution 2520x1080 \
+     -s res://tools/prerender/render_backgrounds.gd -- res://levels/station/platform.tscn 40
+   (el último número = cuadros de espera para que converja la luz; 40 basta; en CPU
+    tarda ~2 min por cámara).
+5) Revisar las PNG en assets/backgrounds/<sala>/ y capturar en el juego:
+   PAINE_GRAFICOS=moderno xvfb-run -a -s "-screen 0 1280x720x24" godot --path . \
+     --rendering-driver opengl3 --resolution 1280x720 -s res://tools/capture_rooms.gd -- <carpeta> <sala>
+6) Correr las 3 pruebas (tests/smoke_test.gd, systems_test.gd, levels_test.gd).
+7) IMPORTANTE: si se mueve una cámara o se cambia la sala en su generador
+   (tools/level_gen/*.py), HAY QUE RENDERIZAR DE NUEVO esa sala (paso 4), o la
+   imagen no coincidirá con la geometría.
+
+
+5. ESTADO ACTUAL
+----------------
+  - Prototipo hecho: andén norte (levels/station/platform.tscn), cámaras West y East.
+    Detalle agregado: basurero metálico, cajas de cartón y de madera, maletas
+    antiguas, barril, sacos de cemento, extintor, alarma de incendio, lámpara
+    industrial, letrero de piso mojado, bidones, tarros de pintura, balde, faroles.
+  - Falta: las otras 17 salas (capítulos 1, 2 y 3). Orden sugerido: capítulo 1
+    completo (waiting_room, ticket_office, service_corridor, storeroom,
+    south_platform), luego capítulo 2 (levels/tracks/) y capítulo 3 (levels/buin/).
+
+
+6. PROBLEMAS CONOCIDOS Y CUIDADOS
+---------------------------------
+  - Lo dinámico NO va en la foto: fuego (partículas), luces que parpadean
+    (flicker_light.gd / fire_light.gd), infectados, ítems, notas. Se ven en 3D encima.
+    El shader de proyección ya ignora GPUParticles3D/CPUParticles3D y todo lo que
+    cuelga de "Enemies" e "Interactables".
+  - Los Label3D (letreros de texto) quedan en la foto y se ocultan en el juego.
+  - Las sombras de los personajes no caen sobre la foto (como en RE3). Leo tiene
+    sombra de mancha (blob); a futuro se puede agregar a Cony e infectados.
+  - Memoria: 1680x720 RGBA ≈ 4,8 MB por imagen. Con ~40 imágenes conviene
+    comprimir (importar como VRAM ETC2, o bajar a 1440x616) y cargar solo las
+    de la sala actual (ya es así: se cargan al entrar a la sala).
+  - Las pruebas automáticas (tests/) corren en modo Retro; systems_test verifica
+    que el andén usa su fondo en modo Moderno y que se quita al volver a Retro.
+  - Licencias: Poly Haven es CC0 (sin obligación de crédito; igual se menciona).
+
+
+7. IDEAS PARA SEGUIR MEJORANDO
+------------------------------
+  - Más detalle por sala (cables en techos, papeles, basura, botellas, graffitis).
+  - Capas animadas encima de la foto: lluvia, polvo, parpadeo de luz (sprites 2D
+    o un ColorRect con shader sobre el CanvasLayer).
+  - Pasar también el modo Retro a fondos prerenderizados con filtro PS1 encima.
+  - Sombras de mancha para Cony e infectados.

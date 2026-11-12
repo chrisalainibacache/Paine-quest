@@ -11,3 +11,6 @@ build/
 *.apk
 *.aab
 __pycache__/
+
+# Fuentes para fondos prerenderizados (se bajan con tools/prerender/fetch_polyhaven.py)
+render_src/

@@ -108,13 +108,15 @@ func _graphics_modes() -> void:
     GraphicsSettings.set_modern(true)
     GraphicsSettings.apply(main)
     var mat := mesh.material_override as ShaderMaterial
-    _check(mat.shader == GraphicsSettings.MODERN_SHADER and mat.get_shader_parameter("normal_tex") != null,
+    # El andén norte tiene fondos prerenderizados: sus muros muestran la imagen.
+    var prerendered: Node = main.room.get_node_or_null("PrerenderedBackground")
+    _check(prerendered != null and mat.shader == preload("res://shaders/prerendered_projection.gdshader")
+        and mat.get_shader_parameter("background") != null, "gráficos modernos: el andén usa su fondo prerenderizado")
+    # Las salas sin fondo usan el shader HD con relieve.
+    var hd := GraphicsSettings._material(load("res://levels/kit/materials/concrete_wall.tres"), true) as ShaderMaterial
+    _check(hd.shader == GraphicsSettings.MODERN_SHADER and hd.get_shader_parameter("normal_tex") != null,
         "gráficos modernos: muros con shader HD y relieve")
     _check(not filter.visible, "gráficos modernos: sin filtro PS1")
-    var shadows := 0
-    for light: OmniLight3D in main.room.find_children("*", "OmniLight3D", true, false):
-        shadows += 1 if light.shadow_enabled else 0
-    _check(shadows == GraphicsSettings.SHADOW_LIGHTS, "gráficos modernos: %d luz con sombra" % shadows)
     var zombie := (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate() as Infected
     main.room.add_child(zombie)
     _check(zombie.model.scene_file_path.ends_with("infected_city.glb") and zombie._anim.has_animation("z/Zombie_Walk_Fwd"),
@@ -129,7 +131,8 @@ func _graphics_modes() -> void:
     GraphicsSettings.set_modern(false)
     GraphicsSettings.apply(main)
     mat = mesh.material_override as ShaderMaterial
-    _check(mat.shader == GraphicsSettings.RETRO_SHADER and filter.visible, "gráficos retro: vuelve el look PS1")
+    _check(mat.shader == GraphicsSettings.RETRO_SHADER and filter.visible and main.room.get_node_or_null("PrerenderedBackground") == null,
+        "gráficos retro: vuelve el look PS1 (sin fondo prerenderizado)")
     var env := (main.room.get_node("Environment") as WorldEnvironment).environment
     var before := env.adjustment_brightness
     GraphicsSettings.cycle_brightness(main.get_tree())
