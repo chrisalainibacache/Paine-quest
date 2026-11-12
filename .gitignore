@@ -10,3 +10,4 @@ export_credentials.cfg
 build/
 *.apk
 *.aab
+__pycache__/

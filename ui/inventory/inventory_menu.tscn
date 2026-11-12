@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://ui/inventory/inventory_menu.gd" id="1_inventory_me"]
 [ext_resource type="Script" path="res://ui/graphics_toggle.gd" id="2_graphics_tog"]
-[ext_resource type="Script" path="res://ui/inventory/ecg.gd" id="3_ecg"]
-[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="4_item_view"]
+[ext_resource type="Script" path="res://ui/brightness_toggle.gd" id="3_brightness_t"]
+[ext_resource type="Script" path="res://ui/inventory/ecg.gd" id="4_ecg"]
+[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="5_item_view"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.04, 0.045, 0.05, 0.85)
@@ -53,28 +54,35 @@ vertical_alignment = 1
 text = "GRÁFICOS: RETRO"
 theme_override_font_sizes/font_size = 22
 focus_mode = 0
-custom_minimum_size = Vector2(260, 64)
+custom_minimum_size = Vector2(240, 64)
 script = ExtResource("2_graphics_tog")
+
+[node name="Brightness" type="Button" parent="Root/Header"]
+text = "BRILLO 3/5"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
+custom_minimum_size = Vector2(150, 64)
+script = ExtResource("3_brightness_t")
 
 [node name="ItemsTab" type="Button" parent="Root/Header"]
 text = "OBJETOS"
 theme_override_font_sizes/font_size = 24
 focus_mode = 0
 toggle_mode = true
-custom_minimum_size = Vector2(170, 64)
+custom_minimum_size = Vector2(150, 64)
 
 [node name="NotesTab" type="Button" parent="Root/Header"]
 text = "NOTAS"
 theme_override_font_sizes/font_size = 24
 focus_mode = 0
 toggle_mode = true
-custom_minimum_size = Vector2(170, 64)
+custom_minimum_size = Vector2(150, 64)
 
 [node name="Close" type="Button" parent="Root/Header"]
 text = "CERRAR"
 theme_override_font_sizes/font_size = 24
 focus_mode = 0
-custom_minimum_size = Vector2(170, 64)
+custom_minimum_size = Vector2(150, 64)
 
 [node name="Status" type="Panel" parent="Root"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_1")
@@ -93,7 +101,7 @@ offset_right = 270
 offset_bottom = 42
 
 [node name="Ecg" type="Control" parent="Root/Status"]
-script = ExtResource("3_ecg")
+script = ExtResource("4_ecg")
 offset_left = 18
 offset_top = 48
 offset_right = 272
@@ -207,7 +215,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.92)
 
 [node name="View" type="SubViewportContainer" parent="Root/Examine"]
-script = ExtResource("4_item_view")
+script = ExtResource("5_item_view")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

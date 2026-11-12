@@ -33,13 +33,13 @@
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
-background_color = Color(0.01, 0.012, 0.015, 1)
+background_color = Color(0.02, 0.022, 0.03, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.26, 0.28, 0.34, 1)
-ambient_light_energy = 0.45
+ambient_light_color = Color(0.34, 0.36, 0.43, 1)
+ambient_light_energy = 0.75
 fog_enabled = true
-fog_light_color = Color(0.03, 0.03, 0.04, 1)
-fog_density = 0.06
+fog_light_color = Color(0.05, 0.05, 0.065, 1)
+fog_density = 0.045
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
 albedo_color = Color(0.08, 0.1, 0.16, 1)

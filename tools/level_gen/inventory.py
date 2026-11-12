@@ -25,11 +25,13 @@ s.node("Header", "HBoxContainer", "Root", anchors_preset="10", anchor_right="1.0
        theme_override_constants_separation="14", **rect(left=40, top=22, right=-40, bottom=92))
 label("Title", "Root/Header", "MOCHILA", 38, col((0.85, 0.72, 0.5)), size_flags_horizontal="3", vertical_alignment="1")
 # Interruptor de gráficos (Retro / Moderno): se compara en la misma sala.
-button("Graphics", "Root/Header", "GRÁFICOS: RETRO", 22, custom_minimum_size="Vector2(260, 64)",
+button("Graphics", "Root/Header", "GRÁFICOS: RETRO", 22, custom_minimum_size="Vector2(240, 64)",
        script=s.res("res://ui/graphics_toggle.gd", "Script"))
-button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(170, 64)")
-button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(170, 64)")
-button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(170, 64)")
+button("Brightness", "Root/Header", "BRILLO 3/5", 22, custom_minimum_size="Vector2(150, 64)",
+       script=s.res("res://ui/brightness_toggle.gd", "Script"))
+button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(150, 64)")
+button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(150, 64)")
+button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(150, 64)")
 # Estado de Cony.
 s.node("Status", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=40, top=118, right=330, bottom=430))
 label("Label", "Root/Status", "ESTADO", 22, DIM, **rect(left=18, top=12, right=270, bottom=42))

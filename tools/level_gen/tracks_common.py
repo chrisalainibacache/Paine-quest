@@ -3,8 +3,9 @@ import math
 from roomkit import *
 
 def night(k, fog=0.05):
-    k.env((0.04, 0.045, 0.06), (0.32, 0.34, 0.42), 0.5, (0.05, 0.05, 0.065), fog)
-    k.s.node("Moon", "DirectionalLight3D", ".", rotation=v3((-0.95, 0.6, 0)), light_color=col((0.55, 0.62, 0.8)), light_energy="0.28")
+    # Noche legible en el teléfono: ambiente y luna fuertes, niebla azulada (no negra).
+    k.env((0.07, 0.08, 0.11), (0.42, 0.45, 0.55), 1.0, (0.13, 0.14, 0.19), fog * 0.7)
+    k.s.node("Moon", "DirectionalLight3D", ".", rotation=v3((-0.95, 0.6, 0)), light_color=col((0.6, 0.68, 0.88)), light_energy="0.75")
 
 def track_bed(k, x0, x1, z0, z1, track_z=None, track_len=None, track_x=None, track_rot=0.0):
     W, D = x1 - x0, z1 - z0

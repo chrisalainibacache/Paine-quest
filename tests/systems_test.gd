@@ -108,6 +108,13 @@ func _graphics_modes() -> void:
     GraphicsSettings.apply(main)
     mat = mesh.material_override as ShaderMaterial
     _check(mat.shader == GraphicsSettings.RETRO_SHADER and filter.visible, "gráficos retro: vuelve el look PS1")
+    var env := (main.room.get_node("Environment") as WorldEnvironment).environment
+    var before := env.adjustment_brightness
+    GraphicsSettings.cycle_brightness(main.get_tree())
+    _check(env.adjustment_enabled and env.adjustment_brightness != before, "brillo: el botón cambia la luz de la sala")
+    for i in GraphicsSettings.BRIGHTNESS_LEVELS.size() - 1:
+        GraphicsSettings.cycle_brightness(main.get_tree())
+    _check(is_equal_approx(env.adjustment_brightness, before), "brillo: después del último nivel vuelve al primero")
 
 
 func _pickup_and_note(player: Player) -> void:

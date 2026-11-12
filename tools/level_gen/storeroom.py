@@ -2,7 +2,7 @@ import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file_
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
 k = Kit("Storeroom", "Bodega")
-k.env((0.01, 0.01, 0.012), (0.3, 0.3, 0.34), 0.45, (0.03, 0.03, 0.035), 0.06)
+k.env((0.02, 0.02, 0.025), (0.36, 0.36, 0.4), 0.7, (0.05, 0.05, 0.06), 0.05)
 H = 3.2
 k.shell(-3.5, 3.5, -3.0, 3.0, H, floor="concrete_floor", wall="bricks_wall", ceiling="concrete_wall")
 k.door_frame("ToCorridor", -3.5, 1.6, "z", width=1.1, wall_side=1, panel="metal")

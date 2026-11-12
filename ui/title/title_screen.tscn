@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://ui/title/title_screen.gd" id="1_title_screen"]
 [ext_resource type="Script" path="res://ui/graphics_toggle.gd" id="2_graphics_tog"]
-[ext_resource type="PackedScene" path="res://ui/ps1_filter.tscn" id="3_ps1_filter"]
+[ext_resource type="Script" path="res://ui/brightness_toggle.gd" id="3_brightness_t"]
+[ext_resource type="PackedScene" path="res://ui/ps1_filter.tscn" id="4_ps1_filter"]
 
 [node name="TitleScreen" type="Control"]
 script = ExtResource("1_title_screen")
@@ -57,28 +58,34 @@ anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
 offset_left = -180.0
-offset_top = 380.0
+offset_top = 340.0
 offset_right = 180.0
-offset_bottom = 654.0
-theme_override_constants/separation = 18
+offset_bottom = 660.0
+theme_override_constants/separation = 14
 
 [node name="NewGame" type="Button" parent="Menu"]
-custom_minimum_size = Vector2(0, 76)
+custom_minimum_size = Vector2(0, 68)
 text = "NUEVA PARTIDA"
 theme_override_font_sizes/font_size = 30
 focus_mode = 0
 
 [node name="Continue" type="Button" parent="Menu"]
-custom_minimum_size = Vector2(0, 76)
+custom_minimum_size = Vector2(0, 68)
 text = "CONTINUAR"
 theme_override_font_sizes/font_size = 30
 focus_mode = 0
 
 [node name="Graphics" type="Button" parent="Menu"]
-custom_minimum_size = Vector2(0, 76)
+custom_minimum_size = Vector2(0, 68)
 text = "GRÁFICOS: RETRO"
 theme_override_font_sizes/font_size = 26
 script = ExtResource("2_graphics_tog")
+
+[node name="Brightness" type="Button" parent="Menu"]
+custom_minimum_size = Vector2(0, 68)
+text = "BRILLO 3/5"
+theme_override_font_sizes/font_size = 26
+script = ExtResource("3_brightness_t")
 
 [node name="Credits" type="Label" parent="."]
 anchors_preset = 3
@@ -110,4 +117,4 @@ text = "Modelos: Pixelhouse (CC-BY 3.0), Rikindle3D, Quaternius · Texturas: amb
 theme_override_font_sizes/font_size = 15
 theme_override_colors/font_color = Color(0.33, 0.31, 0.28, 1)
 
-[node name="Filter" parent="." instance=ExtResource("3_ps1_filter")]
+[node name="Filter" parent="." instance=ExtResource("4_ps1_filter")]

@@ -5,7 +5,7 @@ T = "res://levels/tracks/%s.tscn"
 # Paso bajo nivel en apagón: solo la linterna de Cony y una luz roja de
 # emergencia al fondo. Infectados rápidos.
 k = Kit("Underpass", "Paso bajo nivel", dark=True)
-k.env((0.0, 0.0, 0.0), (0.2, 0.2, 0.26), 0.42, (0.01, 0.01, 0.012), 0.07)
+k.env((0.02, 0.02, 0.03), (0.3, 0.31, 0.38), 0.75, (0.05, 0.05, 0.065), 0.05)
 X0, X1, Z0, Z1, H = -7.0, 7.0, -1.8, 1.8, 2.8
 k.shell(X0, X1, Z0, Z1, H, floor="concrete_floor", wall="concrete_wall", ceiling="concrete_wall", wainscot="tiles_wall")
 k.door_frame("ToConvoy", X0, 0.0, "z", width=1.2, wall_side=1, panel="metal")
@@ -14,8 +14,8 @@ for i in range(5):
     k.block("Step%d" % i, "Details", (-6.6 + i * 0.12, 0.05 + i * 0.0, 0.0), (0.12, 0.1, 1.4), "concrete_wall", solid=False)
 k.block("Pipe", "Details", (0.0, 2.5, -1.6), (14.0, 0.1, 0.1), "rust", solid=False)
 k.mesh("EmergencyLamp", "Lights", (0.25, 0.12, 0.08), k.emissive((1.0, 0.1, 0.05), 2.5), (6.2, 2.4, 1.7))
-k.light("Stairs", "Lights", (-6.4, 2.3, 0.0), (0.5, 0.6, 0.85), 0.5, 3.5)
-k.light("Emergency", "Lights", (6.0, 2.2, 1.2), (1.0, 0.12, 0.06), 0.9, 4.5, flicker=True)
+k.light("Stairs", "Lights", (-6.4, 2.3, 0.0), (0.5, 0.6, 0.85), 0.9, 5.0)
+k.light("Emergency", "Lights", (6.0, 2.2, 1.2), (1.0, 0.12, 0.06), 1.4, 5.5, flicker=True)
 k.decal("GraffitiNoche", "graffiti_noche", (-2.5, 1.8, -1.79), (2.6, 1.3), "+z", wear=0.3)
 k.decal("GraffitiPaine", "graffiti_paine", (2.5, 1.8, 1.79), (2.6, 1.3), "-z", wear=0.4)
 k.decal("HandNorth", "blood_handprint", (4.0, 1.2, -1.79), 0.4, "+z", rot=-0.3)

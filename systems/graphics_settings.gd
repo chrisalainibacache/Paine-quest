@@ -12,6 +12,10 @@ const MODERN_TEX := "res://assets/environment/textures_modern/"
 const SHADOW_LIGHTS := 1
 
 static var _modern := false
+## Brillo elegido (índice en BRIGHTNESS_LEVELS); se ajusta a cada teléfono.
+const BRIGHTNESS_LEVELS := [0.9, 1.05, 1.2, 1.4, 1.65]
+const DEFAULT_BRIGHTNESS := 2
+static var _brightness := DEFAULT_BRIGHTNESS
 static var _loaded := false
 ## Material retro -> su versión moderna (se crea una sola vez).
 static var _modern_of := {}
@@ -26,8 +30,27 @@ static func is_modern() -> bool:
 static func set_modern(value: bool) -> void:
     _load()
     _modern = value
+    _save()
+
+
+## Nivel de brillo: 1 a BRIGHTNESS_LEVELS.size() (para mostrar en el botón).
+static func brightness_level() -> int:
+    _load()
+    return _brightness + 1
+
+
+## Pasa al siguiente nivel de brillo (vuelve al primero después del último).
+static func cycle_brightness(tree: SceneTree) -> void:
+    _load()
+    _brightness = (_brightness + 1) % BRIGHTNESS_LEVELS.size()
+    _save()
+    apply(tree.root)
+
+
+static func _save() -> void:
     var cfg := ConfigFile.new()
-    cfg.set_value("graficos", "modo", "moderno" if value else "retro")
+    cfg.set_value("graficos", "modo", "moderno" if _modern else "retro")
+    cfg.set_value("graficos", "brillo", _brightness)
     cfg.save(PATH)
 
 
@@ -44,6 +67,7 @@ static func _load() -> void:
     var cfg := ConfigFile.new()
     if cfg.load(PATH) == OK:
         _modern = cfg.get_value("graficos", "modo", "retro") == "moderno"
+        _brightness = clampi(int(cfg.get_value("graficos", "brillo", DEFAULT_BRIGHTNESS)), 0, BRIGHTNESS_LEVELS.size() - 1)
 
 
 ## Recorre el árbol (incluidos los hijos internos, como la malla de KitBlock)
@@ -65,6 +89,9 @@ static func _walk(node: Node, modern: bool, lights: Array[OmniLight3D]) -> void:
     elif node is WorldEnvironment:
         var world_env := node as WorldEnvironment
         world_env.environment = _environment(world_env.environment, modern)
+        if world_env.environment:
+            world_env.environment.adjustment_enabled = true
+            world_env.environment.adjustment_brightness = BRIGHTNESS_LEVELS[_brightness]
     elif node is DirectionalLight3D:
         # La luna es débil: su sombra casi no se ve y cuesta un pase entero.
         (node as DirectionalLight3D).shadow_enabled = false

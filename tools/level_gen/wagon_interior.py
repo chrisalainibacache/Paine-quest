@@ -5,7 +5,7 @@ T = "res://levels/tracks/%s.tscn"
 # Interior del vagón: pasillo angosto entre asientos, ventanas rotas, luces
 # que parpadean. Aquí quedó la planilla del conductor y la llave del maquinista.
 k = Kit("WagonInterior", "Interior del vagón")
-k.env((0.01, 0.012, 0.015), (0.26, 0.28, 0.34), 0.45, (0.03, 0.03, 0.04), 0.06)
+k.env((0.02, 0.022, 0.03), (0.34, 0.36, 0.43), 0.75, (0.05, 0.05, 0.065), 0.045)
 X0, X1, Z0, Z1, H = -7.0, 7.0, -1.35, 1.35, 2.5
 k.shell(X0, X1, Z0, Z1, H, floor="planks", wall="train_cream", ceiling="train_cream", wainscot="train_blue")
 glass = k.emissive((0.08, 0.1, 0.16), 0.5)

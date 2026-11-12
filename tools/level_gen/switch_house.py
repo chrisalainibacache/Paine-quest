@@ -5,7 +5,7 @@ T = "res://levels/tracks/%s.tscn"
 # Casa de cambios: sala segura con máquina de escribir, la nota del
 # maquinista y la salida a la vía hacia Santiago (fin del capítulo 2).
 k = Kit("SwitchHouse", "Casa de cambios")
-k.env((0.02, 0.02, 0.025), (0.34, 0.32, 0.3), 0.5, (0.04, 0.035, 0.03), 0.05)
+k.env((0.03, 0.03, 0.035), (0.4, 0.38, 0.35), 0.8, (0.06, 0.055, 0.05), 0.04)
 X0, X1, Z0, Z1, H = -3.0, 3.0, -2.5, 2.5, 2.8
 k.shell(X0, X1, Z0, Z1, H, floor="planks", wall="bricks_wall", ceiling="concrete_wall", wainscot="wood")
 k.door_frame("ToUnderpass", X0, 0.0, "z", width=1.0, wall_side=1, panel="planks")
