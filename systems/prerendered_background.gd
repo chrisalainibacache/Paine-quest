@@ -19,6 +19,9 @@ var _env_node: WorldEnvironment
 var _saved_env: Environment
 var _canvas: CanvasLayer
 var _backdrop: TextureRect
+var _camera: Camera3D
+var _projecting := false
+var _brightness := 1.0
 
 
 ## Deja la sala con o sin fondo prerenderizado según el modo.
@@ -53,27 +56,8 @@ func setup(target: Room, brightness: float) -> void:
     _material = ShaderMaterial.new()
     _material.shader = SHADER
     _material.set_shader_parameter("image_aspect", IMAGE_ASPECT)
-    _project_geometry(room)
-    # Luces: solo iluminan a los personajes; sin sombras (no se verían).
-    for light: Light3D in room.find_children("*", "Light3D", true, false):
-        if light.shadow_enabled:
-            _shadow_lights.append(light)
-            light.shadow_enabled = false
-    # Ambiente neutro: la imagen ya trae su tono final.
+    _brightness = brightness
     _env_node = room.get_node_or_null("Environment") as WorldEnvironment
-    if _env_node:
-        _saved_env = _env_node.environment
-        var env := _saved_env.duplicate() as Environment
-        env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
-        env.tonemap_exposure = 1.0
-        env.glow_enabled = false
-        env.adjustment_enabled = true
-        env.adjustment_brightness = brightness
-        env.adjustment_contrast = 1.0
-        env.adjustment_saturation = 1.0
-        env.background_mode = Environment.BG_CANVAS
-        env.background_canvas_max_layer = -1
-        _env_node.environment = env
     _canvas = CanvasLayer.new()
     _canvas.layer = -1
     _backdrop = TextureRect.new()
@@ -83,15 +67,70 @@ func setup(target: Room, brightness: float) -> void:
     _backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
     _canvas.add_child(_backdrop)
     add_child(_canvas)
-    room.camera_changed.connect(_on_camera_changed)
     get_viewport().size_changed.connect(_update_aspect)
     _update_aspect()
+    _check_camera()
+
+
+## Cada cuadro: si cambió la cámara, cambia la imagen. Una cámara sin imagen
+## (p. ej. de una escena guionada) vuelve la sala al render en vivo.
+func _process(_delta: float) -> void:
+    _check_camera()
+
+
+func _check_camera() -> void:
     var camera := get_viewport().get_camera_3d()
-    if camera:
-        _on_camera_changed(camera)
+    if camera == _camera:
+        return
+    _camera = camera
+    var zone_name := String(camera.get_parent().name) if camera and camera.get_parent() else ""
+    var texture: Texture2D = _textures.get(zone_name)
+    if texture == null:
+        _set_projecting(false)
+        return
+    _material.set_shader_parameter("background", texture)
+    _backdrop.texture = texture
+    _set_projecting(true)
+
+
+func _set_projecting(on: bool) -> void:
+    if on == _projecting:
+        return
+    _projecting = on
+    _canvas.visible = on
+    if not on:
+        _restore()
+        return
+    _project_geometry(room)
+    # Luces: solo iluminan a los personajes; sin sombras (no se verían).
+    for light: Light3D in room.find_children("*", "Light3D", true, false):
+        if light.shadow_enabled:
+            _shadow_lights.append(light)
+            light.shadow_enabled = false
+    # Ambiente neutro: la imagen ya trae su tono final.
+    if _env_node:
+        _saved_env = _env_node.environment
+        var env := _saved_env.duplicate() as Environment
+        env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
+        env.tonemap_exposure = 1.0
+        env.glow_enabled = false
+        env.adjustment_enabled = true
+        env.adjustment_brightness = _brightness
+        env.adjustment_contrast = 1.0
+        env.adjustment_saturation = 1.0
+        env.background_mode = Environment.BG_CANVAS
+        env.background_canvas_max_layer = -1
+        _env_node.environment = env
 
 
 func teardown() -> void:
+    _restore()
+    if get_viewport() and get_viewport().size_changed.is_connected(_update_aspect):
+        get_viewport().size_changed.disconnect(_update_aspect)
+
+
+## Devuelve la sala al render en vivo (materiales, letreros, sombras, ambiente).
+func _restore() -> void:
     for node: GeometryInstance3D in _saved_overrides:
         if is_instance_valid(node):
             node.material_override = _saved_overrides[node]
@@ -106,10 +145,7 @@ func teardown() -> void:
     _shadow_lights.clear()
     if _env_node and is_instance_valid(_env_node) and _saved_env:
         _env_node.environment = _saved_env
-    if room and room.camera_changed.is_connected(_on_camera_changed):
-        room.camera_changed.disconnect(_on_camera_changed)
-    if get_viewport() and get_viewport().size_changed.is_connected(_update_aspect):
-        get_viewport().size_changed.disconnect(_update_aspect)
+    _saved_env = null
 
 
 ## Todo lo fijo de la sala pasa a mostrar la imagen; lo que se mueve o se
@@ -127,15 +163,6 @@ func _project_geometry(node: Node) -> void:
         geo.material_override = _material
     for i in node.get_child_count(true):
         _project_geometry(node.get_child(i, true))
-
-
-func _on_camera_changed(camera: Camera3D) -> void:
-    var zone_name := String(camera.get_parent().name) if camera.get_parent() else ""
-    var texture: Texture2D = _textures.get(zone_name)
-    if texture == null:
-        return
-    _material.set_shader_parameter("background", texture)
-    _backdrop.texture = texture
 
 
 func _update_aspect() -> void:

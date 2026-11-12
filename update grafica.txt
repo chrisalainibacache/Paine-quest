@@ -114,13 +114,15 @@ Requisitos en Linux (servidor sin GPU sirve):
 
 5. ESTADO ACTUAL
 ----------------
-  - Prototipo hecho: andén norte (levels/station/platform.tscn), cámaras West y East.
+  - Capítulo 1 COMPLETO (6 salas, 13 cámaras): platform, waiting_room, ticket_office,
+    service_corridor, storeroom, south_platform.
+  - El fondo sigue a la cámara activa cada cuadro; si la cámara no tiene imagen
+    (p. ej. la cámara de una escena guionada) la sala vuelve sola al render en vivo.
+  - Prototipo inicial: andén norte (levels/station/platform.tscn), cámaras West y East.
     Detalle agregado: basurero metálico, cajas de cartón y de madera, maletas
     antiguas, barril, sacos de cemento, extintor, alarma de incendio, lámpara
     industrial, letrero de piso mojado, bidones, tarros de pintura, balde, faroles.
-  - Falta: las otras 17 salas (capítulos 1, 2 y 3). Orden sugerido: capítulo 1
-    completo (waiting_room, ticket_office, service_corridor, storeroom,
-    south_platform), luego capítulo 2 (levels/tracks/) y capítulo 3 (levels/buin/).
+  - Falta: capítulo 2 (levels/tracks/, 6 salas) y capítulo 3 (levels/buin/, 7 salas).
 
 
 6. PROBLEMAS CONOCIDOS Y CUIDADOS
