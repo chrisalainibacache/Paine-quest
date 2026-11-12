@@ -22,7 +22,7 @@ for i, (x, z) in enumerate([(-8.4, -0.8), (5.6, 0.7)]):
 k.decal("Pool", "blood_pool", (0.4, 0.02, -0.4), 1.5, "up")
 k.decal("Drag", "blood_drag", (4.0, 0.02, 0.3), (2.8, 0.9), "up", rot=0.1)
 # Interactuables.
-k.door("ToStation", (-9.4, 0, 0.0), B % "station", "from_vineyard", prompt="VOLVER", reach=1.4)
+k.door("ToStation", (-9.4, 0, 0.0), B % "field", "from_vineyard", prompt="VOLVER", reach=1.4)
 k.door("ToShed", (9.2, 0, 0.0), B % "shed", "from_vineyard", key="shed_key", lock_id="shed_door", prompt="ABRIR", reach=1.4,
        locked_text="El portón del galpón. Tiene un candado grande y alguien lo trancó por dentro también.")
 k.examine("Grapes", (-3.0, 0, -1.2), ["Racimos maduros que nadie cosechó.", "Ayer era la vendimia."], reach=1.0)
@@ -34,7 +34,7 @@ k.infected("Picker2", (1.8, 0.05, 0.5), yaw=1.8, state="lying")
 k.infected("Runner", (7.6, 0.05, -0.5), yaw=-math.pi / 2, kind="infected_fast", state="feeding")
 k.camera("West", (-5.0, 1.5, 0.0), (10.0, 3.0, 10.0), (-0.5, 4.0, 4.6), (-6.4, 0.4, -0.4), fov=60)
 k.camera("East", (5.0, 1.5, 0.0), (10.0, 3.0, 10.0), (0.5, 4.0, -4.6), (6.8, 0.6, 0.4), fov=60)
-k.spawn("from_station", (-8.6, 0.05, 0.0), (1, 0))
+k.spawn("from_field", (-8.6, 0.05, 0.0), (1, 0))
 k.spawn("from_shed", (8.4, 0.05, 0.0), (-1, 0))
 k.leo_hint("LeoShed", (8.4, 0, 0.0), ["Leo: El galpón. Rosa está ahí adentro, Cony. Respira despacio.", "Leo: Usa la llave del tractor."], hide_if="unlocked:shed_door")
 k.save(REPO + "/levels/buin/vineyard.tscn")

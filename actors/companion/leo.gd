@@ -53,6 +53,7 @@ var _explaining := false
 
 
 func _ready() -> void:
+    add_to_group("leo")
     collision_layer = 4
     collision_mask = 1
     Player._make_textures_crisp(model)

@@ -32,6 +32,8 @@ func _ready() -> void:
     _streams["fall"] = _make(0.45, _fall)
     _streams["hiss"] = _make(0.7, _hiss)
     _streams["meow"] = _make(0.62, _meow)
+    _streams["bark"] = _make(0.3, _bark)
+    _streams["bark_deep"] = _make(0.42, _bark_deep)
     _streams["shotgun"] = _make(0.55, _shotgun)
     _streams["rifle"] = _make(0.28, _rifle)
     _streams["launcher"] = _make(0.4, _launcher)
@@ -242,3 +244,22 @@ func _meow(t: float, length: float, prev: float) -> float:
     var open := smoothstep(0.0, 0.12, t)
     var breath := lerpf(prev, randf_range(-1.0, 1.0), 0.3) * 0.08
     return (tone * 0.32 * lerpf(0.4, 1.0, open) + breath) * envelope
+
+
+## Ladrido: golpe de tono que baja rápido, con ruido de garganta.
+func _bark(t: float, length: float, prev: float) -> float:
+    return _bark_voice(t, length, prev, 520.0)
+
+
+## Ladrido grave (Kiara, perra grande).
+func _bark_deep(t: float, length: float, prev: float) -> float:
+    return _bark_voice(t, length, prev, 300.0)
+
+
+func _bark_voice(t: float, length: float, prev: float, pitch: float) -> float:
+    var f := pitch * (1.0 + 0.6 * exp(-t * 18.0))
+    var phase := TAU * f * t
+    var tone := sin(phase) + 0.6 * sin(phase * 2.0) + 0.35 * sin(phase * 3.0)
+    var growl := lerpf(prev, randf_range(-1.0, 1.0), 0.5) * 0.35
+    var envelope := minf(t / 0.012, 1.0) * exp(-t * 9.0 / length)
+    return (tone * 0.4 + growl) * envelope

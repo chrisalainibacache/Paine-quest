@@ -1,0 +1,4 @@
+Kiara y Nala, las perras de Chris: modelos "Wolf" y "Dog" del Animal Pack Vol.2 de
+Quaternius (CC0 1.0), https://opengameart.org/content/animated-animales-low-poly
+Pintadas por vértice (tools/convert_dogs.gd): Kiara, akita naranja con pecho, guata y
+hocico crema; Nala, bull terrier gris atigrado con café y hocico claro.

@@ -72,6 +72,11 @@ escribe con ese cariño.
 - **Pistas sembradas (no decirlas en voz alta):** nadie ataca a Leo; Leo nunca se cansa;
   sus ojos brillan en la oscuridad; dice "siempre te he llevado yo".
 
+### Kiara y Nala (las perras de Chris)
+Aparecen en el capítulo 3 (potrero) y salvan a Cony y Leo de una horda. Luego siguen
+rescatando gente: pueden volver a aparecer más adelante (por ejemplo, en el capítulo 4 o
+en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice).
+
 ### Capítulos siguientes (dirección aprobada)
 - **Capítulo 3 — Buin (hecho, ver sección 8):** puente del Maipo, control militar abandonado,
   estación de Buin, bodega agrícola, galpón de la viña. Rosa aparece viva (diálogos). Se
@@ -196,6 +201,7 @@ Se llega con CONTINUAR al terminar el capítulo 2. Sábado en la mañana: luz de
 | 2 | Control militar (`checkpoint`) | Carpa, camión con camillas, **soldados infectados con casco** (10 balazos). **Orden del día**: el "tren de evacuación" era para los mordidos. Máquina de escribir. |
 | 3 | Estación de Buin (`station`) | Hall convertido en espera del tren sanitario. **Lista del tren** (Raúl, el capitán, un niño). |
 | 4 | Bodega agrícola (`warehouse`) | Apagón (linterna). Dos infectados rápidos. **Llave del galpón** en el tractor y la **carta de Ana**. |
+| 4b | Potrero (`field`) | Despejado... demasiado. **Escena de Kiara y Nala** (`levels/kit/rescue_scene.gd`): aparece una horda, a Cony se le traba la pistola, Leo se pone delante ("Tranquila, Cony. Yo te protejo") y llegan **Kiara** (akita naranja, enorme: parada en dos patas es más alta que Cony) y **Nala** (bull terrier gris atigrado con café, más chica). Las salvan; Cony les da las gracias y les pide que sigan sacando gente; ladran y se van. Una sola vez. |
 | 5 | Viña Santa Rosa (`vineyard`) | Hileras de parras; el galpón se abre con la llave. |
 | 6 | Galpón (`shed`) | Sala segura. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio**: Javiera está en la Maestranza de San Bernardo → fin del capítulo. |
 

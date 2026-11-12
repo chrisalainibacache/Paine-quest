@@ -354,7 +354,7 @@ prompt = "ENTRAR"
 position = Vector3(4.6, 0, -1.4)
 script = ExtResource("16_door")
 reach = 1.3
-target_room = "res://levels/buin/vineyard.tscn"
+target_room = "res://levels/buin/field.tscn"
 target_spawn = "from_station"
 prompt = "SALIR"
 
@@ -434,7 +434,7 @@ rotation = Vector3(0, -1.5708, 0)
 position = Vector3(-1.5, 0.05, -2.6)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="from_vineyard" type="Marker3D" parent="Spawns"]
+[node name="from_field" type="Marker3D" parent="Spawns"]
 position = Vector3(4.1, 0.05, -1.4)
 rotation = Vector3(0, 1.5708, 0)
 

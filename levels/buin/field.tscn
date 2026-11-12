@@ -1,0 +1,342 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/room.gd" id="1_room"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="2_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/dirt.tres" id="3_dirt"]
+[ext_resource type="Material" path="res://levels/kit/materials/old_bricks_wall.tres" id="4_old_bricks_w"]
+[ext_resource type="Material" path="res://levels/kit/materials/plaster_wall.tres" id="5_plaster_wall"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="6_metal"]
+[ext_resource type="Material" path="res://levels/kit/materials/sandbag.tres" id="7_sandbag"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/plant_pot.tscn" id="8_plant_pot"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="9_blood_drag"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="10_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="11_blood_pool"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="12_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="13_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="14_ammo_9mm"]
+[ext_resource type="Resource" path="res://data/items/handroll.tres" id="15_handroll"]
+[ext_resource type="Script" path="res://levels/kit/rescue_scene.gd" id="16_rescue_scene"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="17_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="18_leo_hint"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.6, 0.62, 0.68, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.6, 0.64, 1)
+ambient_light_energy = 0.9
+fog_enabled = true
+fog_light_color = Color(0.56, 0.58, 0.64, 1)
+fog_density = 0.014
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
+size = Vector3(10, 3, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3"]
+size = Vector3(10, 3, 12)
+
+[node name="Field" type="Node3D"]
+script = ExtResource("1_room")
+room_name = "Potrero"
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.55, 2.3, 0)
+light_color = Color(1, 0.86, 0.7, 1)
+light_energy = 1.15
+
+[node name="Ground" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Ground"]
+position = Vector3(0, -0.5, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(20.6, 1, 12.6)
+surface = ExtResource("3_dirt")
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="NorthWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(0, 2.6, -6.15)
+script = ExtResource("2_kit_block")
+size = Vector3(20.6, 5.8, 0.3)
+surface = ExtResource("4_old_bricks_w")
+
+[node name="SouthWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(0, 2.6, 6.15)
+script = ExtResource("2_kit_block")
+size = Vector3(20.6, 5.8, 0.3)
+surface = ExtResource("4_old_bricks_w")
+
+[node name="WestWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(-10.15, 2.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.8, 12)
+surface = ExtResource("5_plaster_wall")
+
+[node name="EastWall" type="StaticBody3D" parent="Walls"]
+position = Vector3(10.15, 2.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.8, 12)
+surface = ExtResource("4_old_bricks_w")
+
+[node name="FencePost0" type="StaticBody3D" parent="Walls"]
+position = Vector3(-10, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost1" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.2, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost2" type="StaticBody3D" parent="Walls"]
+position = Vector3(-6.4, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost3" type="StaticBody3D" parent="Walls"]
+position = Vector3(-4.6, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost4" type="StaticBody3D" parent="Walls"]
+position = Vector3(-2.8, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost5" type="StaticBody3D" parent="Walls"]
+position = Vector3(-1, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost6" type="StaticBody3D" parent="Walls"]
+position = Vector3(0.8, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost7" type="StaticBody3D" parent="Walls"]
+position = Vector3(2.6, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost8" type="StaticBody3D" parent="Walls"]
+position = Vector3(4.4, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost9" type="StaticBody3D" parent="Walls"]
+position = Vector3(6.2, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost10" type="StaticBody3D" parent="Walls"]
+position = Vector3(8, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FencePost11" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.8, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 1, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FenceRail" type="StaticBody3D" parent="Walls"]
+position = Vector3(0, 0.95, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(20, 0.05, 0.05)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FenceRail2" type="StaticBody3D" parent="Walls"]
+position = Vector3(0, 0.5, -5.9)
+script = ExtResource("2_kit_block")
+size = Vector3(20, 0.04, 0.04)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Bale0" type="StaticBody3D" parent="Props"]
+position = Vector3(-7.5, 0.4, -4.2)
+rotation = Vector3(0, 0.2, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(1.2, 0.8, 0.8)
+surface = ExtResource("7_sandbag")
+
+[node name="Bale1" type="StaticBody3D" parent="Props"]
+position = Vector3(6.8, 0.4, 4.4)
+rotation = Vector3(0, 1.1, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(1.2, 0.8, 0.8)
+surface = ExtResource("7_sandbag")
+
+[node name="Bale2" type="StaticBody3D" parent="Props"]
+position = Vector3(-6.4, 0.4, 4.6)
+rotation = Vector3(0, 0.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(1.2, 0.8, 0.8)
+surface = ExtResource("7_sandbag")
+
+[node name="Bale3" type="StaticBody3D" parent="Props"]
+position = Vector3(7.6, 0.4, -4.6)
+rotation = Vector3(0, 2, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(1.2, 0.8, 0.8)
+surface = ExtResource("7_sandbag")
+
+[node name="PlantA" parent="Props" instance=ExtResource("8_plant_pot")]
+position = Vector3(-8.8, 0, -2.6)
+
+[node name="PlantB" parent="Props" instance=ExtResource("8_plant_pot")]
+position = Vector3(9, 0, 2.6)
+
+[node name="Trough" type="StaticBody3D" parent="Props"]
+position = Vector3(0, 0.3, -5.2)
+script = ExtResource("2_kit_block")
+size = Vector3(2.4, 0.6, 0.7)
+surface = ExtResource("6_metal")
+
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="Drag" parent="Decals" instance=ExtResource("10_decal")]
+position = Vector3(3, 0.02, -2)
+rotation = Vector3(-1.5708, 0.4, 0)
+texture = ExtResource("9_blood_drag")
+size = Vector2(3, 1)
+
+[node name="Pool" parent="Decals" instance=ExtResource("10_decal")]
+position = Vector3(-3.5, 0.02, 2.5)
+rotation = Vector3(-1.5708, 0, 0)
+texture = ExtResource("11_blood_pool")
+size = Vector2(1.6, 1.6)
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="ToStation" type="Node3D" parent="Interactables"]
+position = Vector3(-9.4, 0, 0)
+script = ExtResource("12_door")
+reach = 1.4
+target_room = "res://levels/buin/station.tscn"
+target_spawn = "from_field"
+prompt = "VOLVER"
+
+[node name="ToVineyard" type="Node3D" parent="Interactables"]
+position = Vector3(9.4, 0, 0)
+script = ExtResource("12_door")
+reach = 1.4
+target_room = "res://levels/buin/vineyard.tscn"
+target_spawn = "from_field"
+prompt = "SEGUIR"
+
+[node name="Details" type="Node3D" parent="."]
+
+[node name="VineyardSign" type="Label3D" parent="Details"]
+position = Vector3(9.96, 2.6, 0)
+rotation = Vector3(0, -1.5708, 0)
+text = "VIÑA SANTA ROSA →"
+font_size = 32
+pixel_size = 0.004
+modulate = Color(0.9, 0.86, 0.75, 1)
+outline_size = 0
+
+[node name="Ammo" type="Node3D" parent="Interactables"]
+position = Vector3(2, 0, 4.8)
+script = ExtResource("13_pickup")
+item = ExtResource("14_ammo_9mm")
+count = 20
+model_rotation = Vector3(0, 0.6, 0)
+
+[node name="Handroll" type="Node3D" parent="Interactables"]
+position = Vector3(-2.4, 0, -4.8)
+script = ExtResource("13_pickup")
+item = ExtResource("15_handroll")
+count = 1
+model_rotation = Vector3(0, 1, 0)
+
+[node name="Rescue" type="Node3D" parent="."]
+position = Vector3(0, 0, 0)
+script = ExtResource("16_rescue_scene")
+
+[node name="Camera" type="Camera3D" parent="Rescue"]
+position = Vector3(-0.6, 3.4, 4.6)
+rotation = Vector3(-0.4768, 0.0713, 0)
+fov = 62.0
+near = 0.1
+far = 40.0
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="West" type="Area3D" parent="Cameras"]
+position = Vector3(-5, 1.5, 0)
+script = ExtResource("17_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/West"]
+shape = SubResource("BoxShape3D_2")
+
+[node name="Camera" type="Camera3D" parent="Cameras/West"]
+position = Vector3(5.5, 2.9, 5.6)
+rotation = Vector3(-0.4372, 0.7532, 0)
+fov = 60
+near = 0.1
+far = 30.0
+
+[node name="East" type="Area3D" parent="Cameras"]
+position = Vector3(5, 1.5, 0)
+script = ExtResource("17_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/East"]
+shape = SubResource("BoxShape3D_3")
+
+[node name="Camera" type="Camera3D" parent="Cameras/East"]
+position = Vector3(-5.5, 2.9, 5.6)
+rotation = Vector3(-0.4372, -0.7532, 0)
+fov = 60
+near = 0.1
+far = 30.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_station" type="Marker3D" parent="Spawns"]
+position = Vector3(-8.6, 0.05, 0)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="from_vineyard" type="Marker3D" parent="Spawns"]
+position = Vector3(8.6, 0.05, 0)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="LeoQuiet" type="Marker3D" parent="."]
+position = Vector3(2.5, 0, 0)
+script = ExtResource("18_leo_hint")
+lines = PackedStringArray("Leo: Todo despejado... demasiado despejado, Cony.", "Leo: No me gusta. Camina conmigo.")
+hide_if_flag = "rescue:kiara_nala"
+
+[node name="LeoAfter" type="Marker3D" parent="."]
+position = Vector3(8.6, 0, 0)
+script = ExtResource("18_leo_hint")
+lines = PackedStringArray("Leo: Kiara y Nala van a estar bien. Ahora nos toca a nosotras.", "Leo: La viña está por aquí.")
+show_if_flag = "rescue:kiara_nala"

@@ -176,7 +176,7 @@ size = Vector2(2.8, 0.9)
 position = Vector3(-9.4, 0, 0)
 script = ExtResource("12_door")
 reach = 1.4
-target_room = "res://levels/buin/station.tscn"
+target_room = "res://levels/buin/field.tscn"
 target_spawn = "from_vineyard"
 prompt = "VOLVER"
 
@@ -266,7 +266,7 @@ far = 30.0
 
 [node name="Spawns" type="Node3D" parent="."]
 
-[node name="from_station" type="Marker3D" parent="Spawns"]
+[node name="from_field" type="Marker3D" parent="Spawns"]
 position = Vector3(-8.6, 0.05, 0)
 rotation = Vector3(0, -1.5708, 0)
 
