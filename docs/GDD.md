@@ -175,6 +175,11 @@ el título y en la mochila; cambia al tiro y queda guardado. La jugabilidad es l
   y en `CREDITS.md`). El quemado y el guardia siguen con su modelo PSX. El cambio de modelo se nota al
   entrar a la siguiente sala.
 
+**Brillo (pedido de Chris: "demasiado oscuro"):** botón **BRILLO 1/5…5/5** en el título y la
+mochila (por defecto 3/5); se guarda en el teléfono. Las salas del capítulo 2 tienen más luz
+base (ambiente y luna más fuertes, niebla azulada en vez de negra, linterna más ancha).
+Meta: ninguna cámara con brillo medio bajo ~35/255 en el nivel 3.
+
 ## 10. Técnico
 
 - **Motor:** Godot 4.7.2 (renderer *Compatibility*, Android).
