@@ -17,6 +17,7 @@ const TAP_MEMORY := 0.35
 const STUCK_AFTER := 2.5
 
 signal used(target: Interactable)
+signal finished(target: Interactable, seconds: float)
 
 var focus: Interactable
 var busy := false
@@ -64,7 +65,9 @@ func use(target: Interactable) -> void:
     player.controls_locked = true
     _set_focus(null)
     player.face_direction(target.global_position - player.global_position, 1.0)
+    var started := Time.get_ticks_msec()
     await target.interact(player)
+    finished.emit(target, (Time.get_ticks_msec() - started) / 1000.0)
     # Si la acción cambió de sala, el SceneLoader devuelve los controles al terminar.
     if not SceneLoader.is_busy():
         player.controls_locked = false

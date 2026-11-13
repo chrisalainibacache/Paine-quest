@@ -60,6 +60,7 @@ func _plan_room(path: String) -> Array:
     for i in 2:
         await physics_frame
     var space := room.get_world_3d().direct_space_state
+    _spawns = Check.spawn_positions(room)
     var points: Array = Check.reachable(Check.walkable_points(space, Check.SEARCH_BOUNDS, STEP), Check.spawn_positions(room), STEP)
     var area := _points_rect(points)
     var best_plan: Array = []
@@ -91,6 +92,9 @@ func _plan_room(path: String) -> Array:
     return best_plan
 
 
+var _spawns: Array = []
+
+
 func _plan_layout(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2, nx: int, nz: int) -> Array:
     var plan: Array = []
     var index := 1
@@ -106,7 +110,13 @@ func _plan_layout(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2, 
                     inside.append(p)
             if inside.size() < 3:
                 continue
-            var best := _best_camera(space, inside, area)
+            # Los puntos de aparición (donde llega Cony al cambiar de sala) cuentan ×8.
+            var weighted: Array = inside.duplicate()
+            for s: Vector3 in _spawns:
+                if s.x >= extended.position.x and s.x <= extended.end.x and s.z >= extended.position.y and s.z <= extended.end.y:
+                    for k in 8:
+                        weighted.append(s)
+            var best := _best_camera(space, weighted, area)
             # La búsqueda usa una muestra; el resultado se mide con todos los puntos.
             var pos := Vector3(best["cam_pos"][0], best["cam_pos"][1], best["cam_pos"][2])
             var tgt := Vector3(best["target"][0], best["target"][1], best["target"][2])
@@ -184,6 +194,14 @@ func _best_camera(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2) 
         if Check.void_rays(space, xf, c[2], FAR) == 0 and Check.near_rays(space, xf, c[2]) <= Check.MAX_NEAR_RAYS:
             var pos: Vector3 = c[1]
             return {"cam_pos": [pos.x, pos.y, pos.z], "target": [target.x, target.y, target.z], "fov": c[2], "coverage": c[3]}
+    # Ninguna cumple todo: la menos mala sin vacío, y si no, la mejor a secas.
+    for relaxed in [1, 2]:
+        for i in mini(candidates.size(), 400):
+            var c: Array = candidates[i]
+            var xf := Transform3D(Basis.looking_at(target - c[1], Vector3.UP), c[1])
+            if relaxed == 2 or Check.void_rays(space, xf, c[2], FAR) == 0:
+                var pos: Vector3 = c[1]
+                return {"cam_pos": [pos.x, pos.y, pos.z], "target": [target.x, target.y, target.z], "fov": c[2], "coverage": c[3]}
     return best
 
 
@@ -192,11 +210,11 @@ func _free_space(space: PhysicsDirectSpaceState3D, pos: Vector3, sphere: SphereS
     var s := PhysicsShapeQueryParameters3D.new()
     s.shape = sphere
     s.transform = Transform3D(Basis.IDENTITY, pos)
-    s.collision_mask = 1
+    s.collision_mask = Check.SIGHT_MASK
     if not space.intersect_shape(s, 1).is_empty():
         return false
     var up := PhysicsRayQueryParameters3D.create(pos, pos + Vector3.UP * 0.3)
-    up.collision_mask = 1
+    up.collision_mask = Check.SIGHT_MASK
     return space.intersect_ray(up).is_empty()
 
 

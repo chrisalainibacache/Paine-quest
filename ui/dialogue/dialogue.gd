@@ -201,10 +201,20 @@ func _close_reader() -> void:
     _reader_closed.emit()
 
 
+## El toque que abre un diálogo no puede cerrarlo: se ignoran los avances durante
+## este tiempo REAL (ms, no tiempo de cuadro: en un celular lento un cuadro puede
+## durar más que el margen) y hasta que se suelte el botón ACCIÓN.
+const OPEN_GUARD_MS := 450
+var _opened_ms := 0
+var _wait_release := false
+
+
 func _begin() -> void:
     if _depth == 0:
         _paused_before = get_tree().paused
         get_tree().paused = true
+        _opened_ms = Time.get_ticks_msec()
+        _wait_release = Input.is_action_pressed(&"interact")
     _depth += 1
     blocker.visible = true
 
@@ -268,7 +278,9 @@ func _process(delta: float) -> void:
         _reveal = minf(_reveal + delta * CHARS_PER_SECOND / length, 1.0)
         text.visible_ratio = _reveal
     next_mark.visible = box.visible and _reveal >= 1.0 and not _asking and fmod(Time.get_ticks_msec() / 400.0, 2.0) < 1.4
-    if _depth > 0 and (Input.is_action_just_pressed(&"interact") or Input.is_action_just_pressed(&"ui_accept")):
+    if _wait_release and not Input.is_action_pressed(&"interact"):
+        _wait_release = false
+    if _depth > 0 and not _wait_release and (Input.is_action_just_pressed(&"interact") or Input.is_action_just_pressed(&"ui_accept")):
         _advance(false)
 
 
@@ -289,13 +301,16 @@ func _watch_invisible(delta: float) -> void:
 func _input(event: InputEvent) -> void:
     # Los mensajes aceptan toque en pantalla; el lector usa botones propios.
     # Así el manejador global no consume el evento antes de que llegue al botón.
-    if _depth > 0 and box.visible and not _asking and event is InputEventScreenTouch and event.pressed:
+    if _depth > 0 and box.visible and not _asking and event is InputEventScreenTouch and event.pressed \
+            and Time.get_ticks_msec() - _opened_ms >= OPEN_GUARD_MS:
         _advance(false)
         get_viewport().set_input_as_handled()
 
 
 func _advance(forced: bool) -> void:
-    if _asking or _depth == 0 or (_grace > 0.0 and not forced):
+    if _asking or _depth == 0:
+        return
+    if not forced and (_grace > 0.0 or Time.get_ticks_msec() - _opened_ms < OPEN_GUARD_MS):
         return
     if reader.visible:
         _next_reader_page()

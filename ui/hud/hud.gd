@@ -41,6 +41,7 @@ func bind(new_player: Player) -> void:
     player.interaction.focus_changed.connect(_on_focus_changed)
     action_button.tapped.connect(player.interaction.queue_use)
     player.interaction.used.connect(_on_used)
+    player.interaction.finished.connect(_on_used_finished)
     _on_health_changed(player.health, Player.MAX_HEALTH)
     _on_ammo_changed(player.combat.clip, player.combat.reserve)
 
@@ -65,6 +66,13 @@ func _on_used(target: Interactable) -> void:
     get_tree().create_timer(3.0, true, false, true).timeout.connect(func() -> void:
         if is_instance_valid(label):
             label.visible = false)
+
+
+func _on_used_finished(target: Interactable, seconds: float) -> void:
+    var label := get_node_or_null("UseNotice") as Label
+    if label:
+        label.text = "%s · %s · %.1f s" % [target.prompt, target.name, seconds]
+        label.visible = true
 
 
 func _on_aiming_changed(aiming: bool) -> void:

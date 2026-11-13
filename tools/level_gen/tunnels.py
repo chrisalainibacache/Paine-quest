@@ -101,7 +101,7 @@ def carve(blockfn, propfn, side, x_inner, track_z, y_track, y_bottom, y_top, z0,
         wall("StepL%d" % i, zl, track_z - w, ya, yb)
         wall("StepR%d" % i, track_z + w, zr, ya, yb)
     wall("Lintel", zl, zr, spring + HW, y_top)
-    propfn(prefix + "Portal", "Props", "tunnel_portal_red" if red else "tunnel_portal_dark",
+    propfn(prefix + "Portal", parent, "tunnel_portal_red" if red else "tunnel_portal_dark",
            (x_inner, y_track, track_z), rot=(0, 0.0 if side > 0 else math.pi, 0))
 
 

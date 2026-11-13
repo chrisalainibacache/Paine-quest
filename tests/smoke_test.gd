@@ -35,7 +35,9 @@ func _run() -> void:
 
     # Corte de cámara con el stick sostenido: la dirección se mantiene...
     var cameras: Array = room.find_children("*", "CameraZone", true, false)
-    player.global_position = Vector3(-2.0, 0.05, 2.5)
+    # Lugar despejado del andén (sin bancas ni columnas cerca): la prueba mide la
+    # dirección elegida, no choques con muebles.
+    player.global_position = Vector3(1.0, 0.05, 2.2)
     player.set_camera(cameras[0].get_camera())
     Input.action_press(&"move_right", 1.0)
     await _seconds(0.3)
@@ -55,10 +57,18 @@ func _run() -> void:
     await _seconds(0.3)
 
     # Corte de cámara al cruzar a la otra mitad del andén.
-    var first_camera := room.get_active_camera()
-    player.global_position = Vector3(4.0, 0.05, 2.5)
+    # Se va de una zona al centro de otra zona lejana: la cámara tiene que cambiar.
+    var zone_a: CameraZone = cameras[0]
+    var zone_b: CameraZone = cameras[0]
+    for zone: CameraZone in cameras:
+        if zone.global_position.distance_to(zone_a.global_position) > zone_b.global_position.distance_to(zone_a.global_position):
+            zone_b = zone
+    player.global_position = Vector3(zone_a.global_position.x, 0.05, zone_a.global_position.z)
     await _frames(6)
-    _check(room.get_active_camera() != first_camera, "corte de cámara al cruzar al lado este")
+    var first_camera := room.get_active_camera()
+    player.global_position = Vector3(zone_b.global_position.x, 0.05, zone_b.global_position.z)
+    await _frames(6)
+    _check(room.get_active_camera() != first_camera, "corte de cámara al cruzar a otra zona")
     _check(room.get_active_camera() == root.get_viewport().get_camera_3d(), "la cámara activa es la que se ve")
 
     # Incluso si la física todavía no registró ninguna zona, siempre hay cámara.
