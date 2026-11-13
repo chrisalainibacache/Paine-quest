@@ -39,6 +39,8 @@ func bind(new_player: Player) -> void:
     player.combat.ammo_changed.connect(_on_ammo_changed)
     player.combat.aiming_changed.connect(_on_aiming_changed)
     player.interaction.focus_changed.connect(_on_focus_changed)
+    action_button.tapped.connect(player.interaction.queue_use)
+    player.interaction.used.connect(_on_used)
     _on_health_changed(player.health, Player.MAX_HEALTH)
     _on_ammo_changed(player.combat.clip, player.combat.reserve)
 
@@ -46,6 +48,23 @@ func bind(new_player: Player) -> void:
 func _process(_delta: float) -> void:
     if player and player.is_alive() and not player.controls_locked and Input.is_action_just_pressed(&"inventory"):
         inventory_requested.emit()
+
+
+## Aviso chico y discreto del último uso (sirve para ver si un toque llegó).
+func _on_used(target: Interactable) -> void:
+    var label := get_node_or_null("UseNotice") as Label
+    if label == null:
+        label = Label.new()
+        label.name = "UseNotice"
+        label.position = Vector2(24.0, 668.0)
+        label.add_theme_font_size_override("font_size", 15)
+        label.modulate = Color(0.75, 0.75, 0.7, 0.55)
+        add_child(label)
+    label.text = "%s · %s" % [target.prompt, target.name]
+    label.visible = true
+    get_tree().create_timer(3.0, true, false, true).timeout.connect(func() -> void:
+        if is_instance_valid(label):
+            label.visible = false)
 
 
 func _on_aiming_changed(aiming: bool) -> void:

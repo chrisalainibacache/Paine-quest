@@ -14,3 +14,7 @@ __pycache__/
 
 # Fuentes para fondos prerenderizados (se bajan con tools/prerender/fetch_polyhaven.py)
 render_src/
+
+# Scripts temporales de prueba
+tools/_*.gd
+tools/_*.gd.uid

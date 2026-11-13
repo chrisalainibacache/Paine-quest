@@ -6,6 +6,8 @@ func _ready() -> void:
     super._ready()
     prompt = "LEO"
     reach = 1.2
+    # Leo siempre anda pegada a Cony: nunca debe ganarle a LEER, RECOGER o ABRIR.
+    focus_penalty = 3.0
 
 
 func can_interact() -> bool:

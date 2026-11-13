@@ -195,9 +195,11 @@ offset_top = 118
 offset_right = 1240
 offset_bottom = 694
 
-[node name="List" type="VBoxContainer" parent="Root/Notes"]
+[node name="List" type="GridContainer" parent="Root/Notes"]
+columns = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 10
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 10
 
 [node name="Examine" type="Control" parent="Root"]
 anchors_preset = 15

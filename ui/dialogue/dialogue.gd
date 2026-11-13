@@ -254,7 +254,14 @@ func _show_text(line: String) -> void:
     next_mark.visible = false
 
 
+## Si hay un diálogo "abierto" pero no se ve nada (error a medio camino), tras este
+## tiempo se suelta la pausa en vez de dejar el juego congelado y sin cuadro.
+const INVISIBLE_LIMIT := 1.2
+var _invisible_time := 0.0
+
+
 func _process(delta: float) -> void:
+    _watch_invisible(delta)
     _grace = maxf(_grace - delta, 0.0)
     if box.visible and _reveal < 1.0:
         var length := maxi(text.text.length(), 1)
@@ -263,6 +270,20 @@ func _process(delta: float) -> void:
     next_mark.visible = box.visible and _reveal >= 1.0 and not _asking and fmod(Time.get_ticks_msec() / 400.0, 2.0) < 1.4
     if _depth > 0 and (Input.is_action_just_pressed(&"interact") or Input.is_action_just_pressed(&"ui_accept")):
         _advance(false)
+
+
+func _watch_invisible(delta: float) -> void:
+    if _depth > 0 and not (box.visible or reader.visible or choices.visible):
+        _invisible_time += delta
+        if _invisible_time > INVISIBLE_LIMIT:
+            push_warning("Dialogue: diálogo abierto sin nada visible; se libera la pausa.")
+            _depth = 0
+            _asking = false
+            get_tree().paused = _paused_before
+            blocker.visible = false
+            _invisible_time = 0.0
+    else:
+        _invisible_time = 0.0
 
 
 func _input(event: InputEvent) -> void:

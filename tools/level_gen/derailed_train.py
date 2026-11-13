@@ -37,6 +37,10 @@ k.pickup("RifleAmmo", (-5.6, 0.0, 0.2), "ammo_rifle", 15, rot=(0, 0.6, 0))
 k.infected("Heavy", (2.2, 0.05, 1.0), yaw=-math.pi / 2, state="feeding", heavy=True)
 k.infected("Lying", (-1.8, 0.05, 0.6), yaw=1.0, state="lying", kind="infected_pale")
 k.infected("Body", (0.3, 0.05, 1.2), yaw=2.0, state="corpse", kind="infected_worker")
+# Rincón muerto detrás de la locomotora: pared invisible (Cony no tiene nada que hacer
+# ahí y ninguna cámara lo ve).
+k.s.node("BackAlcoveBlock", "StaticBody3D", ".", position=v3((0.0, 1.5, -3.5)))
+k.s.node("Shape", "CollisionShape3D", "BackAlcoveBlock", shape=k.s.subres("BoxShape3D", {"size": v3((19.0, 3.0, 1.5))}))
 # Cámaras.
 k.camera("West", (-4.5, 1.5, 0.8), (9.0, 3.0, 3.0), (2.4, 3.3, 1.6), (-7.0, 0.3, 0.6), fov=58)
 k.camera("East", (4.5, 1.5, 0.8), (9.0, 3.0, 3.0), (-2.4, 3.3, 1.6), (7.0, 0.4, 0.8), fov=58)

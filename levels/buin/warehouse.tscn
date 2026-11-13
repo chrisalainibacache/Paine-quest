@@ -68,10 +68,10 @@ emission_energy_multiplier = 1.6
 size = Vector3(0.08, 0.02, 1.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8"]
-size = Vector3(6, 3, 8)
+size = Vector3(7, 3, 9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_9"]
-size = Vector3(6, 3, 8)
+size = Vector3(7, 3, 9)
 
 [node name="Warehouse" type="Node3D"]
 script = ExtResource("1_room")
@@ -362,34 +362,6 @@ start_state = "corpse"
 
 [node name="Cameras" type="Node3D" parent="."]
 
-[node name="West" type="Area3D" parent="Cameras"]
-position = Vector3(-3, 1.5, 0)
-script = ExtResource("28_camera_zone")
-
-[node name="Zone" type="CollisionShape3D" parent="Cameras/West"]
-shape = SubResource("BoxShape3D_8")
-
-[node name="Camera" type="Camera3D" parent="Cameras/West"]
-position = Vector3(4.6, 2.3, 3.4)
-rotation = Vector3(-0.4838, 0.8491, 0)
-fov = 62
-near = 0.1
-far = 30.0
-
-[node name="East" type="Area3D" parent="Cameras"]
-position = Vector3(3, 1.5, 0)
-script = ExtResource("28_camera_zone")
-
-[node name="Zone" type="CollisionShape3D" parent="Cameras/East"]
-shape = SubResource("BoxShape3D_9")
-
-[node name="Camera" type="Camera3D" parent="Cameras/East"]
-position = Vector3(-4.4, 2.3, 3.4)
-rotation = Vector3(-0.4757, -0.827, 0)
-fov = 62
-near = 0.1
-far = 30.0
-
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="from_station" type="Marker3D" parent="Spawns"]
@@ -407,3 +379,31 @@ position = Vector3(-1.5, 0, 2.9)
 script = ExtResource("29_leo_hint")
 lines = PackedStringArray("Leo: Ya la tienes. Salgamos de aquí, que esos corren.")
 show_if_item = "shed_key"
+
+[node name="Cam1" type="Area3D" parent="Cameras"]
+position = Vector3(-3, 1.5, 0)
+script = ExtResource("28_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
+shape = SubResource("BoxShape3D_8")
+
+[node name="Camera" type="Camera3D" parent="Cameras/Cam1"]
+position = Vector3(7.3, 2.2, 3.3)
+rotation = Vector3(-0.3892, 1.119, 0)
+fov = 56
+near = 0.1
+far = 60.0
+
+[node name="Cam2" type="Area3D" parent="Cameras"]
+position = Vector3(3, 1.5, 0)
+script = ExtResource("28_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
+shape = SubResource("BoxShape3D_9")
+
+[node name="Camera" type="Camera3D" parent="Cameras/Cam2"]
+position = Vector3(-7.7, 2.2, 3.3)
+rotation = Vector3(-0.3731, -1.141, 0)
+fov = 56
+near = 0.1
+far = 60.0

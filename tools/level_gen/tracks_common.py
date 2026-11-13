@@ -18,13 +18,15 @@ def track_bed(k, x0, x1, z0, z1, track_z=None, track_len=None, track_x=None, tra
         if track_rot: p["rotation"] = v3((0, track_rot, 0))
         k.s.node("Track%s" % fmt(float(cx)).replace("-", "m").replace(".", "_"), "Node3D", "Ground", **p)
 
-def walls(k, x0, x1, z0, z1, h=5.8, north="old_bricks_wall", south="concrete_wall", west="concrete_wall", east="concrete_wall"):
+def walls(k, x0, x1, z0, z1, h=5.8, north="old_bricks_wall", south="concrete_wall", west="concrete_wall", east="concrete_wall", skip=()):
     W, D = x1 - x0, z1 - z0
     cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
     k.block("NorthWall", "Walls", (cx, h / 2 - 0.3, z0 - 0.15), (W + 0.6, h, 0.3), north)
     k.block("SouthWall", "Walls", (cx, h / 2 - 0.3, z1 + 0.15), (W + 0.6, h, 0.3), south)
-    k.block("WestWall", "Walls", (x0 - 0.15, h / 2 - 0.3, cz), (0.3, h, D), west)
-    k.block("EastWall", "Walls", (x1 + 0.15, h / 2 - 0.3, cz), (0.3, h, D), east)
+    if "W" not in skip:
+        k.block("WestWall", "Walls", (x0 - 0.15, h / 2 - 0.3, cz), (0.3, h, D), west)
+    if "E" not in skip:
+        k.block("EastWall", "Walls", (x1 + 0.15, h / 2 - 0.3, cz), (0.3, h, D), east)
 
 def fence_top(k, x0, x1, z, y):
     n = int((x1 - x0) / 1.8) + 1

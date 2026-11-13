@@ -7,7 +7,7 @@ const SLOT_SIZE := Vector2(98, 98)
 
 @onready var root: Control = $Root
 @onready var grid: GridContainer = $Root/Grid
-@onready var notes_list: VBoxContainer = $Root/Notes/List
+@onready var notes_list: GridContainer = $Root/Notes/List
 @onready var notes_panel: Control = $Root/Notes
 @onready var item_name: Label = $Root/Info/Name
 @onready var item_text: Label = $Root/Info/Description
@@ -226,7 +226,10 @@ func _fill_notes() -> void:
         empty.add_theme_font_size_override("font_size", 24)
         notes_list.add_child(empty)
         return
-    for path in GameState.documents:
+    # Las más nuevas primero: es lo último que encontró y lo que quiere releer.
+    var paths: Array[String] = GameState.documents.duplicate()
+    paths.reverse()
+    for path in paths:
         var document := load(path) as DocumentData
         if document == null or document.pages.is_empty():
             push_warning("No se pudo cargar la nota guardada: %s" % path)
@@ -234,8 +237,10 @@ func _fill_notes() -> void:
         var button := Button.new()
         button.text = document.title
         button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+        button.clip_text = true
+        button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         button.custom_minimum_size = Vector2(0, 64)
-        button.add_theme_font_size_override("font_size", 26)
+        button.add_theme_font_size_override("font_size", 24)
         button.pressed.connect(_open_document.bind(document))
         notes_list.add_child(button)
 

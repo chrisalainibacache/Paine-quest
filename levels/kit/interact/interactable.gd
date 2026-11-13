@@ -7,6 +7,9 @@ extends Node3D
 ## Texto del botón ACCIÓN cuando este objeto está a mano.
 @export var prompt: String = "EXAMINAR"
 @export var reach: float = 1.3
+## Se suma a la distancia al elegir qué objeto usa ACCIÓN: los que importan
+## (notas, ítems, puertas) valen 0; "examinar" y hablar con Leo pierden contra ellos.
+@export var focus_penalty: float = 0.0
 
 
 func _ready() -> void:

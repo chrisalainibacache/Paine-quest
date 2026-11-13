@@ -51,7 +51,10 @@ button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 8
 button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 80)")
 # Notas.
 s.node("Notes", "ScrollContainer", "Root", **rect(left=360, top=118, right=1240, bottom=694))
-s.node("List", "VBoxContainer", "Root/Notes", size_flags_horizontal="3", theme_override_constants_separation="10")
+# Cuadrícula de 2 columnas: caben 18 notas sin tener que arrastrar (con 10 en una
+# sola columna, las 3 más nuevas quedaban fuera de la pantalla).
+s.node("List", "GridContainer", "Root/Notes", columns="2", size_flags_horizontal="3",
+       theme_override_constants_h_separation="12", theme_override_constants_v_separation="10")
 # Examinar: el ítem en grande, se gira con el dedo.
 s.node("Examine", "Control", "Root", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2")
 s.node("Shade", "ColorRect", "Root/Examine", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2",

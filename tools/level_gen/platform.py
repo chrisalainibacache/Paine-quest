@@ -49,8 +49,10 @@ for i, x in enumerate((-6.6, -2.9, 0.7, 4.3, 6.85)):
     block("Pilaster%d" % i, "Walls", (x, 1.8, 5.27), (0.32, 3.6, 0.06), "paint_red", solid=False)
 block("Baseboard", "Walls", (0, 0.08, 5.27), (14.0, 0.16, 0.08), "concrete_wall", solid=False)
 block("RetainingWall", "Walls", (0, 1.25, -5.45), (14.6, 4.5, 0.3), "old_bricks_wall")
-block("WestWall", "Walls", (-7.15, 1.3, 0), (0.3, 4.6, 11.2), "concrete_wall")
-block("EastWall", "Walls", (7.15, 1.3, 0), (0.3, 4.6, 11.2), "bricks_wall")
+# Los muros de los extremos tienen el hueco del túnel por donde sigue la vía.
+from tunnels import carve
+carve(block, prop, -1, -7.0, -3.3, -1.0, -1.0, 3.6, -5.6, 5.6, "concrete_wall", prefix="WestTunnel")
+carve(block, prop, +1, 7.0, -3.3, -1.0, -1.0, 3.6, -5.6, 5.6, "bricks_wall", prefix="EastTunnel")
 
 # Puerta a la sala de espera y ventanas iluminadas.
 s.node("Facade_Details", "Node3D", ".")

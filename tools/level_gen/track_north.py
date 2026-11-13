@@ -10,12 +10,14 @@ k = Kit("TrackNorth", "Vía norte", intro=INTRO)
 night(k)
 X0, X1, Z0, Z1 = -9.0, 9.0, -3.5, 3.5
 track_bed(k, X0, X1, Z0, Z1, track_z=0.0)
-walls(k, X0, X1, Z0, Z1, north="old_bricks_wall", south="concrete_wall")
+walls(k, X0, X1, Z0, Z1, north="old_bricks_wall", south="concrete_wall", skip=("W",))
+# Túnel de regreso a la estación (oeste): portal de ladrillo y tubo con la vía.
+from tunnels import carve
+carve(k.block, k.prop, -1, X0, 0.0, 0.0, -0.3, 5.5, Z0, Z1, "concrete_wall", prefix="WestTunnel")
 fence_top(k, X0, X1, 3.42, 0.0)
 # Túnel de vuelta a la estación (oeste), tapado con reja.
-k.mesh("TunnelMouth", "Walls", (0.05, 3.2, 3.6), k.emissive((0.02, 0.02, 0.025), 0.1), (-8.97, 1.3, 0.0))
 for j in range(8):
-    k.block("TunnelBar%d" % j, "Walls", (-8.92, 1.3, -1.6 + j * 0.46), (0.05, 3.0, 0.05), "rust", solid=False)
+    k.block("TunnelBar%d" % j, "Walls", (-8.84, 1.3, -1.6 + j * 0.46), (0.05, 3.0, 0.05), "rust", solid=False)
 # Vagón volcado de través al fondo (este).
 k.prop("CrossWagon", "Props", "train_wagon", (8.3, 1.45, 0.4), rot=(1.35, math.pi / 2, 0))
 k.prop("FireEast", "Props", "fire", (6.4, 0, -1.6))

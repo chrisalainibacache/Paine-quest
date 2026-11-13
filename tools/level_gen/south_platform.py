@@ -12,11 +12,10 @@ k.s.node("Track", "Node3D", "Ground", position=v3((0, -1.0, -3.3)), script=k.s.r
          length="12.0", sleeper_material=k.s.res(M("wood"), "Material"), rail_material=k.s.res(M("metal"), "Material"))
 k.block("BackWall", "Walls", (0, 2.0, 5.05), (12.6, 4.0, 0.3), "old_bricks_wall")
 k.block("RetainingWall", "Walls", (0, 1.25, -5.45), (12.6, 4.5, 0.3), "old_bricks_wall")
-k.block("WestWall", "Walls", (-6.15, 1.3, 0), (0.3, 4.6, 10.8), "bricks_wall")
-k.block("EastWall", "Walls", (6.15, 1.3, 0), (0.3, 4.6, 10.8), "concrete_wall")
-# Túnel bajo el paso superior: por ahí sigue la vía (resplandor rojo al fondo).
-k.mesh("TunnelMouth", "Walls", (0.05, 2.6, 3.0), k.emissive((0.12, 0.02, 0.01), 0.35), (5.98, 0.0, -3.4))
-k.block("TunnelArch", "Walls", (5.9, 1.45, -3.4), (0.3, 0.3, 3.6), "concrete_wall", solid=False)
+# Túneles de la vía: al este sigue hacia el norte, con un resplandor rojo al fondo.
+from tunnels import carve
+carve(k.block, k.prop, -1, -6.0, -3.3, -1.0, -1.0, 3.6, -5.4, 5.4, "bricks_wall", prefix="WestTunnel")
+carve(k.block, k.prop, +1, 6.0, -3.3, -1.0, -1.0, 3.6, -5.4, 5.4, "concrete_wall", red=True, prefix="EastTunnel")
 k.light("FireGlow", "Lights", (5.4, 0.2, -3.4), (1.0, 0.3, 0.12), 1.6, 5.5)
 # Reja del borde: Cony no puede caer a la vía.
 for i in range(7):

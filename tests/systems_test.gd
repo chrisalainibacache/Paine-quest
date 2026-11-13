@@ -110,8 +110,14 @@ func _graphics_modes() -> void:
     var mat := mesh.material_override as ShaderMaterial
     # El andén norte tiene fondos prerenderizados: sus muros muestran la imagen.
     var prerendered: Node = main.room.get_node_or_null("PrerenderedBackground")
-    _check(prerendered != null and mat.shader == preload("res://shaders/prerendered_projection.gdshader")
-        and mat.get_shader_parameter("background") != null, "gráficos modernos: el andén usa su fondo prerenderizado")
+    # Solo si la sala ya tiene imágenes renderizadas para sus cámaras actuales (si se
+    # cambian las cámaras hay que volver a renderizar: ver "update grafica.txt").
+    if GraphicsSettings.PRERENDERED.has_backgrounds(main.room):
+        _check(prerendered != null and mat.shader == preload("res://shaders/prerendered_projection.gdshader")
+            and mat.get_shader_parameter("background") != null, "gráficos modernos: el andén usa su fondo prerenderizado")
+    else:
+        _check(prerendered == null and mat.shader == GraphicsSettings.MODERN_SHADER,
+            "gráficos modernos: sin fondos para estas cámaras, la sala se dibuja en vivo")
     # Las salas sin fondo usan el shader HD con relieve.
     var hd := GraphicsSettings._material(load("res://levels/kit/materials/concrete_wall.tres"), true) as ShaderMaterial
     _check(hd.shader == GraphicsSettings.MODERN_SHADER and hd.get_shader_parameter("normal_tex") != null,

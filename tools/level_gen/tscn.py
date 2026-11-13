@@ -33,6 +33,9 @@ class Scene:
         h += "]"
         self.nodes.append((h, props))
     def save(self, path):
+        # Si hay un plan de cámaras para esta sala (tools/plan_cameras.gd), manda ese.
+        import camera_plan
+        camera_plan.apply(self, path)
         out = ["[gd_scene format=3]", ""]
         for typ, p, rid in self.ext:
             out.append('[ext_resource type="%s" path="%s" id="%s"]' % (typ, p, rid))

@@ -1,0 +1,252 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/old_bricks_wall.tres" id="2_old_bricks_w"]
+[ext_resource type="Material" path="res://levels/kit/materials/concrete_wall.tres" id="3_concrete_wal"]
+[ext_resource type="Material" path="res://levels/kit/materials/gravel.tres" id="4_gravel"]
+[ext_resource type="Material" path="res://levels/kit/materials/soot.tres" id="5_soot"]
+[ext_resource type="Script" path="res://levels/kit/rail_track.gd" id="6_rail_track"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="7_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="8_metal"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.035, 0.04, 0.055, 1)
+emission_enabled = true
+emission = Color(0.035, 0.04, 0.055, 1)
+emission_energy_multiplier = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_2"]
+size = Vector2(3.2, 3.4)
+
+[node name="TunnelPortalDark" type="Node3D"]
+
+[node name="JambL" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 0.9, 1.85)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 1.8, 0.5)
+surface = ExtResource("2_old_bricks_w")
+
+[node name="JambR" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 0.9, -1.85)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 1.8, 0.5)
+surface = ExtResource("2_old_bricks_w")
+
+[node name="Voussoir0" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 2.0633, 1.8312)
+rotation = Vector3(1.428, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("2_old_bricks_w")
+
+[node name="Voussoir1" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 2.5685, 1.6828)
+rotation = Vector3(1.1424, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("3_concrete_wal")
+
+[node name="Voussoir2" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 3.0115, 1.3981)
+rotation = Vector3(0.8568, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("2_old_bricks_w")
+
+[node name="Voussoir3" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 3.3563, 1.0002)
+rotation = Vector3(0.5712, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("3_concrete_wal")
+
+[node name="Voussoir4" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 3.5751, 0.5212)
+rotation = Vector3(0.2856, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("2_old_bricks_w")
+
+[node name="Voussoir5" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 3.65, 0)
+rotation = Vector3(0, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("3_concrete_wal")
+
+[node name="Voussoir6" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 3.5751, -0.5212)
+rotation = Vector3(-0.2856, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("2_old_bricks_w")
+
+[node name="Voussoir7" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 3.3563, -1.0002)
+rotation = Vector3(-0.5712, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("3_concrete_wal")
+
+[node name="Voussoir8" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 3.0115, -1.3981)
+rotation = Vector3(-0.8568, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("2_old_bricks_w")
+
+[node name="Voussoir9" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 2.5685, -1.6828)
+rotation = Vector3(-1.1424, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("3_concrete_wal")
+
+[node name="Voussoir10" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 2.0633, -1.8312)
+rotation = Vector3(-1.428, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.4, 0.5, 0.6216)
+surface = ExtResource("2_old_bricks_w")
+
+[node name="Keystone" type="StaticBody3D" parent="."]
+position = Vector3(0.1, 3.71, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.5, 0.7, 0.4)
+surface = ExtResource("3_concrete_wal")
+solid = false
+
+[node name="Sill" type="StaticBody3D" parent="."]
+position = Vector3(0.1, -0.1, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.5, 0.2, 4.4)
+surface = ExtResource("3_concrete_wal")
+solid = false
+
+[node name="TubeFloor" type="StaticBody3D" parent="."]
+position = Vector3(6.15, -0.2, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.4, 3.7)
+surface = ExtResource("4_gravel")
+
+[node name="TubeWallL" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 0.9, 1.725)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 1.8, 0.25)
+surface = ExtResource("5_soot")
+
+[node name="TubeWallR" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 0.9, -1.725)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 1.8, 0.25)
+surface = ExtResource("5_soot")
+
+[node name="Vault0" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 2.0698, 1.7038)
+rotation = Vector3(1.4137, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault1" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 2.5831, 1.537)
+rotation = Vector3(1.0996, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault2" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 3.0198, 1.2198)
+rotation = Vector3(0.7854, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault3" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 3.337, 0.7831)
+rotation = Vector3(0.4712, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault4" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 3.5038, 0.2698)
+rotation = Vector3(0.1571, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault5" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 3.5038, -0.2698)
+rotation = Vector3(-0.1571, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault6" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 3.337, -0.7831)
+rotation = Vector3(-0.4712, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault7" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 3.0198, -1.2198)
+rotation = Vector3(-0.7854, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault8" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 2.5831, -1.537)
+rotation = Vector3(-1.0996, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="Vault9" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 2.0698, -1.7038)
+rotation = Vector3(-1.4137, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.25, 0.602)
+surface = ExtResource("5_soot")
+
+[node name="EndCap" type="StaticBody3D" parent="."]
+position = Vector3(12.125, 1.8, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.25, 4.6, 4.2)
+surface = ExtResource("5_soot")
+
+[node name="ShellTop" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 4.05, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 0.8, 4.7)
+surface = ExtResource("5_soot")
+visible = false
+
+[node name="ShellSideL" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 1.575, 2.15)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 4.15, 0.6)
+surface = ExtResource("5_soot")
+visible = false
+
+[node name="ShellSideR" type="StaticBody3D" parent="."]
+position = Vector3(6.15, 1.575, -2.15)
+script = ExtResource("1_kit_block")
+size = Vector3(11.7, 4.15, 0.6)
+surface = ExtResource("5_soot")
+visible = false
+
+[node name="EndGlow" type="MeshInstance3D" parent="."]
+position = Vector3(11.98, 1.4, 0)
+rotation = Vector3(0, -1.5708, 0)
+mesh = SubResource("QuadMesh_2")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Track" type="Node3D" parent="."]
+position = Vector3(6.15, 0, 0)
+script = ExtResource("6_rail_track")
+length = 11.7
+sleeper_material = ExtResource("7_wood")
+rail_material = ExtResource("8_metal")
