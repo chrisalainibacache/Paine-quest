@@ -66,6 +66,12 @@ Juego (van en el APK):
   systems/graphics_settings.gd              apply() llama a PRERENDERED.sync().
   assets/backgrounds/<sala>/<Cámara>.png    Las imágenes renderizadas.
 
+IMPORTANTE: las imágenes se nombran por la cámara (Cam1, Cam2...). Si cambian las cámaras
+(tools/plan_cameras.gd) hay que borrar assets/backgrounds/<sala>/ y re-renderizar.
+Render de solo algunas cámaras: añadir un 3er argumento, p. ej. "... -- res://levels/station/platform.tscn 40 Cam6".
+Revisión de cámaras: tools/audit_cameras.gd (0 apariciones malas, 0 cámaras pegadas).
+Túneles de tren: tools/level_gen/tunnels.py (andén norte, andén sur, vía norte).
+
 Herramientas (NO van en el APK):
   tools/prerender/fetch_polyhaven.py        Baja los modelos CC0 de Poly Haven.
   tools/prerender/room_details.py           Detalle extra de TODAS las salas (dict ROOMS:

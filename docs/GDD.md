@@ -236,6 +236,17 @@ muestra una imagen renderizada con calidad de película (como RE3) y los persona
 - **Motor:** Godot 4.7.2 (renderer *Compatibility*, Android).
 - **Presupuesto por sala:** ≤ 30k triángulos visibles, ≤ 4 luces dinámicas.
 - Ver `docs/ARCHITECTURE.md` para la organización del código.
+- **Cámaras planificadas:** `tools/plan_cameras.gd` reparte las cámaras fijas de cada sala
+  (1 a 9) para que Cony se vea entera y sin nada sólido delante en cualquier punto
+  caminable; guarda `tools/level_gen/cameras.json`, que aplican solos los generadores.
+  `tools/audit_cameras.gd` comprueba todas las salas (apariciones, alcance, cámaras
+  pegadas). Si se cambia una sala: planificar, regenerar, auditar y re-renderizar fondos.
+- **Túneles:** los andenes tienen túneles reales con arco (`tools/level_gen/tunnels.py`):
+  oscuro al oeste/norte y con resplandor rojo al este del andén sur.
+- **Objetivo en pantalla:** línea bajo el estado de Cony con lo último que Leo diría en la
+  pista activa de la sala. La mochila muestra las notas en dos columnas, la más nueva primero.
+- **Interacción táctil:** ACCIÓN guarda el toque unos instantes (no se pierde en cuadros
+  lentos), prefiere notas/ítems sobre Leo y muestra un aviso gris con el último uso.
 
 ## 11. Fuera de alcance (por ahora)
 
