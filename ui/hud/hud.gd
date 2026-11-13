@@ -21,6 +21,8 @@ const CONDITION_COLORS := {
 @onready var death_screen: Control = $DeathScreen
 
 var player: Player
+var _objective_label: Label
+var _objective_timer := 0.0
 
 
 func _ready() -> void:
@@ -46,7 +48,11 @@ func bind(new_player: Player) -> void:
     _on_ammo_changed(player.combat.clip, player.combat.reserve)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+    _objective_timer -= delta
+    if _objective_timer <= 0.0:
+        _objective_timer = 1.0
+        _update_objective()
     if player and player.is_alive() and not player.controls_locked and Input.is_action_just_pressed(&"inventory"):
         inventory_requested.emit()
 
@@ -111,3 +117,20 @@ func _on_died() -> void:
     death_screen.visible = true
     death_screen.modulate.a = 0.0
     create_tween().tween_property(death_screen, "modulate:a", 1.0, 0.8)
+
+
+## Línea de objetivo: lo último que Leo diría en la pista activa de la sala.
+func _update_objective() -> void:
+    if _objective_label == null:
+        _objective_label = Label.new()
+        _objective_label.name = "Objective"
+        _objective_label.position = Vector2(28.0, 60.0)
+        _objective_label.add_theme_font_size_override("font_size", 15)
+        _objective_label.modulate = Color(0.95, 0.9, 0.7, 0.75)
+        add_child(_objective_label)
+    var text := ""
+    for hint: Node in get_tree().get_nodes_in_group("leo_hints"):
+        if hint.has_method("is_active") and hint.is_active() and not hint.lines.is_empty():
+            text = hint.lines[hint.lines.size() - 1].trim_prefix("Leo: ")
+            break
+    _objective_label.text = "» " + text if text != "" else ""
