@@ -45,7 +45,11 @@ func _run() -> void:
     viewport.use_taa = true
     viewport.msaa_3d = Viewport.MSAA_4X
     viewport.screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA
+    # Tercer argumento opcional: solo esas cámaras (p. ej. "Cam6,Cam2").
+    var only: PackedStringArray = args[2].split(",") if args.size() > 2 else PackedStringArray()
     for zone: Node in room.find_children("*", "CameraZone", true, false):
+        if not only.is_empty() and not (zone.name in only):
+            continue
         var camera := zone.get_node("Camera") as Camera3D
         camera.make_current()
         for i in frames:
