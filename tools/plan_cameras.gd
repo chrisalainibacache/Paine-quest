@@ -188,7 +188,7 @@ func _best_camera(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2) 
         x += CELL
     # La mejor que además no ve el vacío (ningún rayo sin choque al borde de la sala).
     candidates.sort_custom(func(a: Array, b: Array) -> bool: return a[0] > b[0])
-    for i in mini(candidates.size(), 250):
+    for i in mini(candidates.size(), 900):
         var c: Array = candidates[i]
         var xf := Transform3D(Basis.looking_at(target - c[1], Vector3.UP), c[1])
         if Check.void_rays(space, xf, c[2], FAR) == 0 and Check.near_rays(space, xf, c[2]) <= Check.MAX_NEAR_RAYS:

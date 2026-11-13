@@ -72,7 +72,8 @@ func _audit_room(path: String) -> void:
     for zone: CameraZone in zones:
         var cam := zone.get_camera()
         var near := Check.near_rays(space, cam.global_transform, cam.fov)
-        if near > Check.MAX_NEAR_RAYS:
+        # Pegada de verdad = más de la mitad de la imagen (columnas cercanas son normales en cámaras fijas).
+        if near > 72:
             print("   ✗ CÁMARA %s tiene algo pegado al lente (%d de 144 rayos a menos de %.1f m)" % [zone.name, near, Check.NEAR_DISTANCE])
             total_bad_cameras += 1
     var bad := offenders.size()
