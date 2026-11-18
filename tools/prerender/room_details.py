@@ -42,6 +42,19 @@ ROOMS = {
         ("old_military_crate", (-6.35, 0, -0.45), 0.1, 1.0),
         ("street_lamp_01", (-6.2, -1.0, -4.9), 0.0, 1.0),
         ("street_lamp_01", (5.8, -1.0, -4.9), 0.0, 1.0),
+        # Segunda pasada de detalle: cabina, cámara, vegetación junto a la vía, basura.
+        ("korean_public_payphone_01", (-5.25, 0, 5.1), PI, 1.0),
+        ("security_camera_01", (-5.3, 3.05, 5.25), PI, 1.0),
+        ("grass_medium_01", (-5.0, -1.0, -2.0), 0.3, 1.0),
+        ("grass_medium_02", (1.5, -1.0, -2.2), 1.1, 1.0),
+        ("weed_plant_02", (-1.2, -1.0, -4.4), 0.5, 1.0),
+        ("grass_medium_01", (5.2, -1.0, -4.3), 2.0, 1.1),
+        ("nettle_plant", (-3.0, -1.0, -4.6), 0.0, 1.0),
+        ("old_tyre", (0.6, -1.0, -4.6), 0.4, 1.0),
+        ("can_rusted", (5.0, 0, -0.7), 0.7, 1.0),
+        ("street_rat", (-1.6, 0, -0.62), 1.9, 1.0),
+        ("Megaphone_01", (-6.5, 0, 1.65), 0.5, 1.0),
+        ("dirty_football", (4.0, 0, -0.65), 0.0, 1.0),
     ], [((-6.2, 3.0, -4.6), (1.0, 0.72, 0.42), 1.6, 7.0), ((5.8, 3.0, -4.6), (1.0, 0.72, 0.42), 1.6, 7.0)]),
 
     # Sala de espera: 9 x 7 m (x -4.5..4.5, z -3.5..3.5).
@@ -119,13 +132,85 @@ ROOMS = {
 }
 
 
+# --- Reparto automático por los bordes de la sala (tools/prerender/edge_slots.gd) ---
+# tema -> lista de (modelo, escala mínima, escala máxima)
+THEMES = {
+    "vias": [("rock_07", 0.7, 1.2), ("rock_09", 0.6, 1.1), ("stone_01", 0.8, 1.3), ("grass_medium_01", 0.9, 1.3),
+             ("grass_medium_02", 0.9, 1.3), ("weed_plant_02", 0.9, 1.2), ("nettle_plant", 0.9, 1.2), ("old_tyre", 1.0, 1.0),
+             ("wooden_crate_02", 0.9, 1.1), ("metal_jerrycan_green", 1.0, 1.0), ("can_rusted", 1.0, 1.0),
+             ("dry_branches_medium_01", 0.8, 1.2), ("rusted_wheel_rim_01", 1.0, 1.0), ("barrel_03", 1.0, 1.0),
+             ("trashbag", 0.8, 1.0), ("cardboard_box_01", 0.8, 1.0), ("sledgehammer_01", 1.0, 1.0)],
+    "casilla": [("wooden_crate_01", 0.9, 1.1), ("metal_toolbox", 1.0, 1.0), ("metal_tool_chest", 1.0, 1.0),
+                ("cardboard_box_01", 0.8, 1.0), ("wooden_bucket_01", 1.0, 1.0), ("plastic_crate_01", 1.0, 1.0),
+                ("trashbag", 0.8, 1.0), ("wooden_broom", 1.0, 1.0), ("wooden_ladder_02", 1.0, 1.0), ("tire_pump", 1.0, 1.0),
+                ("steel_frame_shelves_01", 1.0, 1.0)],
+    "tunel": [("trashbag", 0.8, 1.0), ("cardboard_box_01", 0.8, 1.0), ("barrel_03", 1.0, 1.0), ("wooden_crate_01", 0.9, 1.1),
+              ("plastic_crate_02", 1.0, 1.0), ("old_military_crate", 1.0, 1.0), ("can_rusted", 1.0, 1.0),
+              ("stone_01", 0.8, 1.3), ("rock_07", 0.6, 1.0), ("metal_jerrycan_green", 1.0, 1.0)],
+    "vagon": [("vintage_suitcase", 0.9, 1.0), ("trashbag", 0.8, 1.0), ("wicker_basket_01", 1.0, 1.0)],
+    "campo": [("shrub_02", 0.9, 1.4), ("shrub_03", 0.9, 1.4), ("shrub_04", 0.9, 1.4), ("grass_medium_01", 1.0, 1.5),
+              ("grass_medium_02", 1.0, 1.5), ("weed_plant_02", 1.0, 1.3), ("rock_07", 0.8, 1.4), ("stone_01", 0.8, 1.4),
+              ("tree_stump_01", 0.8, 1.2), ("dead_tree_trunk_02", 0.5, 0.8), ("dry_branches_medium_01", 0.8, 1.2),
+              ("wooden_crate_02", 0.9, 1.1), ("old_tyre", 1.0, 1.0)],
+    "viña": [("shrub_02", 0.9, 1.3), ("shrub_03", 0.9, 1.3), ("grass_medium_01", 1.0, 1.5), ("grass_medium_02", 1.0, 1.5),
+             ("wine_barrel_01", 1.0, 1.0), ("wooden_barrels_01", 1.0, 1.0), ("wooden_crate_02", 0.9, 1.1),
+             ("wicker_basket_01", 1.0, 1.0), ("watering_can_metal_01", 1.0, 1.0), ("planter_box_01", 1.0, 1.0),
+             ("hand_truck", 1.0, 1.0), ("rock_07", 0.7, 1.2)],
+    "militar": [("old_military_crate", 1.0, 1.0), ("wooden_military_crate", 1.0, 1.0), ("ammo_box", 1.0, 1.0),
+                ("propane_tank", 1.0, 1.0), ("plastic_jerrycan", 1.0, 1.0), ("metal_jerrycan_green", 1.0, 1.0),
+                ("old_military_compressor", 1.0, 1.0), ("trashbag", 0.8, 1.0), ("cardboard_box_01", 0.8, 1.0),
+                ("grass_medium_02", 0.9, 1.2), ("rock_09", 0.7, 1.0)],
+    "galpon": [("wooden_crate_01", 0.9, 1.1), ("wine_barrel_01", 1.0, 1.0), ("wooden_barrels_01", 1.0, 1.0),
+               ("metal_tool_chest", 1.0, 1.0), ("hand_truck", 1.0, 1.0), ("wooden_ladder_02", 1.0, 1.0),
+               ("plastic_jerrycan", 1.0, 1.0), ("propane_tank", 1.0, 1.0), ("tire_pump", 1.0, 1.0),
+               ("rusted_spade_01", 1.0, 1.0), ("cement_bag", 1.0, 1.0)],
+}
+# sala -> (tema, cada cuántos metros como mínimo, máximo de objetos)
+SCATTER = {
+    "convoy_side": ("vias", 1.6, 22), "derailed_train": ("vias", 1.5, 22), "track_north": ("vias", 1.7, 26),
+    "switch_house": ("casilla", 1.3, 12), "underpass": ("tunel", 1.8, 18), "wagon_interior": ("vagon", 1.5, 4),
+    "bridge": ("militar", 1.8, 18), "checkpoint": ("militar", 1.6, 22), "field": ("campo", 2.0, 28),
+    "vineyard": ("viña", 1.7, 28), "shed": ("galpon", 1.4, 14), "warehouse": ("galpon", 1.4, 14),
+    "station": ("casilla", 1.5, 14),
+}
+KEEP_OUT = 1.2  # metros libres alrededor de puertas, ítems, apariciones y pistas
+
+
+def scatter_items(room: str) -> list:
+    import json
+    import random
+    theme, spacing, limit = SCATTER[room]
+    path = ROOT + "/render_src/slots/%s.json" % room
+    if not os.path.exists(path):
+        print("sin bordes para", room, "(corre edge_slots.gd)")
+        return []
+    data = json.load(open(path))
+    rng = random.Random(room)
+    slots = data["slots"][:]
+    rng.shuffle(slots)
+    chosen = []
+    for sl in slots:
+        if len(chosen) >= limit:
+            break
+        if any(math.hypot(sl["x"] - k[0], sl["z"] - k[1]) < KEEP_OUT for k in data["keep_out"]):
+            continue
+        if any(math.hypot(sl["x"] - c[0], sl["z"] - c[2]) < spacing * 0.7 for c in chosen):
+            continue
+        model, lo, hi = rng.choice(THEMES[theme])
+        chosen.append((sl["x"], sl["y"], sl["z"], model, sl["yaw"] + rng.uniform(-0.5, 0.5), rng.uniform(lo, hi)))
+    return [(m, (x, y, z), yaw, sc) for (x, y, z, m, yaw, sc) in chosen]
+
+
 def build(room: str) -> None:
-    items, lights = ROOMS[room]
+    items, lights = ROOMS.get(room, ([], []))
+    items = list(items)
+    if room in SCATTER:
+        items += scatter_items(room)
     s = Scene()
     s.node("%sDetail" % "".join(w.capitalize() for w in room.split("_")), "Node3D")
     for i, (model, pos, yaw, scale) in enumerate(items):
         p = {"position": v3(pos), "rotation": v3((0, yaw, 0))}
-        if scale != 1.0:
+        if abs(scale - 1.0) > 1e-3:
             p["scale"] = v3((scale,) * 3)
         s.node("%s_%d" % (model, i), None, ".", instance=s.res(PH % (model, model), "PackedScene"), **p)
     for i, (pos, color, energy, rng) in enumerate(lights):
@@ -133,9 +218,9 @@ def build(room: str) -> None:
                light_energy=str(energy), omni_range=str(rng), shadow_enabled="true")
     os.makedirs(ROOT + "/render_src/scenes", exist_ok=True)
     s.save(ROOT + "/render_src/scenes/%s_detail.tscn" % room)
-    print("detalle:", room)
+    print("detalle:", room, len(items), "objetos")
 
 
 if __name__ == "__main__":
-    for room in (sys.argv[1:] or ROOMS.keys()):
+    for room in (sys.argv[1:] or list(ROOMS.keys()) + list(SCATTER.keys())):
         build(room)

@@ -12,7 +12,10 @@ const MODERN_TEX := "res://assets/environment/textures_modern/"
 const SHADOW_LIGHTS := 1
 const PRERENDERED := preload("res://systems/prerendered_background.gd")
 
-static var _modern := false
+## Moderno es el modo por defecto. Al subir esta versión se deja de respetar un
+## "retro" guardado por un valor antiguo (el modo se elige otra vez con GRÁFICOS).
+const SETTINGS_VERSION := 2
+static var _modern := true
 ## Brillo elegido (índice en BRIGHTNESS_LEVELS); se ajusta a cada teléfono.
 const BRIGHTNESS_LEVELS := [0.9, 1.05, 1.2, 1.4, 1.65]
 const DEFAULT_BRIGHTNESS := 2
@@ -50,6 +53,7 @@ static func cycle_brightness(tree: SceneTree) -> void:
 
 static func _save() -> void:
     var cfg := ConfigFile.new()
+    cfg.set_value("graficos", "version", SETTINGS_VERSION)
     cfg.set_value("graficos", "modo", "moderno" if _modern else "retro")
     cfg.set_value("graficos", "brillo", _brightness)
     cfg.save(PATH)
@@ -67,7 +71,8 @@ static func _load() -> void:
     _loaded = true
     var cfg := ConfigFile.new()
     if cfg.load(PATH) == OK:
-        _modern = cfg.get_value("graficos", "modo", "retro") == "moderno"
+        if int(cfg.get_value("graficos", "version", 1)) >= SETTINGS_VERSION:
+            _modern = cfg.get_value("graficos", "modo", "moderno") == "moderno"
         _brightness = clampi(int(cfg.get_value("graficos", "brillo", DEFAULT_BRIGHTNESS)), 0, BRIGHTNESS_LEVELS.size() - 1)
 
 

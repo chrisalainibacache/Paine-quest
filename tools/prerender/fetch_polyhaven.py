@@ -48,6 +48,11 @@ def fetch(model: str) -> None:
 
 
 if __name__ == "__main__":
-    for m in MODELS:
-        fetch(m)
+    import sys
+    # Con argumentos baja solo esos modelos (para probar antes de sumarlos a MODELS).
+    for m in (sys.argv[1:] or MODELS):
+        try:
+            fetch(m)
+        except Exception as error:  # un modelo que falla no corta el resto
+            print("FALLO:", m, error)
     (OUT / "LICENSE.txt").write_text("Modelos de Poly Haven (https://polyhaven.com), licencia CC0.\n")

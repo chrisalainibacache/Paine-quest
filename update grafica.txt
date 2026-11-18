@@ -155,3 +155,23 @@ Requisitos en Linux (servidor sin GPU sirve):
     o un ColorRect con shader sobre el CanvasLayer).
   - Pasar también el modo Retro a fondos prerenderizados con filtro PS1 encima.
   - Sombras de mancha para Cony e infectados.
+
+
+7. PRUEBAS DE NOVIEMBRE (qué se probó y qué no sirvió)
+------------------------------------------------------
+- Piso mojado + reflejos (SSR) en el render del andén norte: el andén quedó MÁS oscuro y
+  casi no se notó el reflejo. Descartado.
+- Capítulo 2 prerenderizado (convoy_side, con detalle repartido en los bordes): salió más
+  oscuro que el 3D en vivo y el detalle casi no se veía; el tren sigue siendo cajas.
+  Descartado; los capítulos 2 y 3 siguen en 3D en vivo (modo Moderno).
+- Conclusión: lo que más "simple" se ve es la GEOMETRÍA (trenes, edificios y lámparas de
+  cajas), no la iluminación. Siguiente salto real = modelar piezas principales con más
+  detalle (vagones, locomotora, lámparas, fachadas) y recién ahí volver a prerenderizar.
+- Herramientas nuevas (quedan para cuando se retome):
+    tools/room_map.gd              Mapa de arriba de una sala en texto (caminable / muro).
+    tools/prerender/edge_slots.gd  Detecta los bordes (piso pegado a muro) de una sala.
+    tools/prerender/room_details.py  Con SCATTER/THEMES reparte objetos de Poly Haven por
+                                     los bordes sin tocar puertas, ítems ni apariciones.
+    tools/prerender/fetch_polyhaven.py <modelo...>  Baja solo esos modelos.
+- Moderno es ahora el modo por defecto (y un "retro" guardado por una versión vieja se
+  reemplaza una vez; con GRÁFICOS se vuelve a elegir).

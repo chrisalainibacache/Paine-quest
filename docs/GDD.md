@@ -243,6 +243,9 @@ muestra una imagen renderizada con calidad de película (como RE3) y los persona
   pegadas). Si se cambia una sala: planificar, regenerar, auditar y re-renderizar fondos.
 - **Túneles:** los andenes tienen túneles reales con arco (`tools/level_gen/tunnels.py`):
   oscuro al oeste/norte y con resplandor rojo al este del andén sur.
+- **Gráficos:** Moderno es el modo por defecto (el botón GRÁFICOS alterna con Retro). Los
+  fondos prerenderizados existen solo para el capítulo 1; los capítulos 2 y 3 se dibujan en
+  vivo. Pruebas y conclusiones en `update grafica.txt` (sección 7).
 - **Objetivo en pantalla:** línea bajo el estado de Cony con lo último que Leo diría en la
   pista activa de la sala. La mochila muestra las notas en dos columnas, la más nueva primero.
 - **Interacción táctil:** ACCIÓN guarda el toque unos instantes (no se pierde en cuadros
