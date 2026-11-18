@@ -5,6 +5,7 @@
 [ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="3_metal"]
 [ext_resource type="Material" path="res://levels/kit/materials/train_blue.tres" id="4_train_blue"]
 [ext_resource type="Material" path="res://levels/kit/materials/train_cream.tres" id="5_train_cream"]
+[ext_resource type="Material" path="res://levels/kit/materials/soot.tres" id="6_soot"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_1"]
 top_radius = 0.42
@@ -119,6 +120,126 @@ size = Vector3(0.8, 1.9, 0.03)
 
 [sub_resource type="BoxMesh" id="BoxMesh_29"]
 size = Vector3(0.8, 1.9, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_30"]
+size = Vector3(1.32, 0.86, 0.026)
+
+[sub_resource type="MultiMesh" id="MultiMesh_31"]
+transform_format = 1
+instance_count = 16
+mesh = SubResource("BoxMesh_30")
+buffer = PackedFloat32Array(1, 0, 0, -5.4, 0, 1, 0, 2.48, 0, 0, 1, -1.45, 1, 0, 0, -5.4, 0, 1, 0, 2.48, 0, 0, 1, 1.45, 1, 0, 0, -3.85, 0, 1, 0, 2.48, 0, 0, 1, -1.45, 1, 0, 0, -3.85, 0, 1, 0, 2.48, 0, 0, 1, 1.45, 1, 0, 0, -2.3, 0, 1, 0, 2.48, 0, 0, 1, -1.45, 1, 0, 0, -2.3, 0, 1, 0, 2.48, 0, 0, 1, 1.45, 1, 0, 0, -0.75, 0, 1, 0, 2.48, 0, 0, 1, -1.45, 1, 0, 0, -0.75, 0, 1, 0, 2.48, 0, 0, 1, 1.45, 1, 0, 0, 0.8, 0, 1, 0, 2.48, 0, 0, 1, -1.45, 1, 0, 0, 0.8, 0, 1, 0, 2.48, 0, 0, 1, 1.45, 1, 0, 0, 2.35, 0, 1, 0, 2.48, 0, 0, 1, -1.45, 1, 0, 0, 2.35, 0, 1, 0, 2.48, 0, 0, 1, 1.45, 1, 0, 0, 3.9, 0, 1, 0, 2.48, 0, 0, 1, -1.45, 1, 0, 0, 3.9, 0, 1, 0, 2.48, 0, 0, 1, 1.45, 1, 0, 0, 5.45, 0, 1, 0, 2.48, 0, 0, 1, -1.45, 1, 0, 0, 5.45, 0, 1, 0, 2.48, 0, 0, 1, 1.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_32"]
+size = Vector3(0.1, 1.1, 0.05)
+
+[sub_resource type="MultiMesh" id="MultiMesh_33"]
+transform_format = 1
+instance_count = 14
+mesh = SubResource("BoxMesh_32")
+buffer = PackedFloat32Array(1, 0, 0, -4.625, 0, 1, 0, 1.45, 0, 0, 1, -1.47, 1, 0, 0, -4.625, 0, 1, 0, 1.45, 0, 0, 1, 1.47, 1, 0, 0, -3.075, 0, 1, 0, 1.45, 0, 0, 1, -1.47, 1, 0, 0, -3.075, 0, 1, 0, 1.45, 0, 0, 1, 1.47, 1, 0, 0, -1.525, 0, 1, 0, 1.45, 0, 0, 1, -1.47, 1, 0, 0, -1.525, 0, 1, 0, 1.45, 0, 0, 1, 1.47, 1, 0, 0, 0.025, 0, 1, 0, 1.45, 0, 0, 1, -1.47, 1, 0, 0, 0.025, 0, 1, 0, 1.45, 0, 0, 1, 1.47, 1, 0, 0, 1.575, 0, 1, 0, 1.45, 0, 0, 1, -1.47, 1, 0, 0, 1.575, 0, 1, 0, 1.45, 0, 0, 1, 1.47, 1, 0, 0, 3.125, 0, 1, 0, 1.45, 0, 0, 1, -1.47, 1, 0, 0, 3.125, 0, 1, 0, 1.45, 0, 0, 1, 1.47, 1, 0, 0, 4.675, 0, 1, 0, 1.45, 0, 0, 1, -1.47, 1, 0, 0, 4.675, 0, 1, 0, 1.45, 0, 0, 1, 1.47)
+
+[sub_resource type="BoxMesh" id="BoxMesh_34"]
+size = Vector3(0.04, 1.25, 0.04)
+
+[sub_resource type="MultiMesh" id="MultiMesh_35"]
+transform_format = 1
+instance_count = 8
+mesh = SubResource("BoxMesh_34")
+buffer = PackedFloat32Array(1, 0, 0, -6.75, 0, 1, 0, 1.75, 0, 0, 1, -1.53, 1, 0, 0, -6.75, 0, 1, 0, 1.75, 0, 0, 1, 1.53, 1, 0, 0, -5.75, 0, 1, 0, 1.75, 0, 0, 1, -1.53, 1, 0, 0, -5.75, 0, 1, 0, 1.75, 0, 0, 1, 1.53, 1, 0, 0, 5.75, 0, 1, 0, 1.75, 0, 0, 1, -1.53, 1, 0, 0, 5.75, 0, 1, 0, 1.75, 0, 0, 1, 1.53, 1, 0, 0, 6.75, 0, 1, 0, 1.75, 0, 0, 1, -1.53, 1, 0, 0, 6.75, 0, 1, 0, 1.75, 0, 0, 1, 1.53)
+
+[sub_resource type="BoxMesh" id="BoxMesh_36"]
+size = Vector3(0.9, 0.07, 0.32)
+
+[sub_resource type="MultiMesh" id="MultiMesh_37"]
+transform_format = 1
+instance_count = 8
+mesh = SubResource("BoxMesh_36")
+buffer = PackedFloat32Array(1, 0, 0, -6.25, 0, 1, 0, 1.05, 0, 0, 1, -1.65, 1, 0, 0, -6.25, 0, 1, 0, 1.05, 0, 0, 1, 1.65, 1, 0, 0, -6.25, 0, 1, 0, 0.72, 0, 0, 1, -1.75, 1, 0, 0, -6.25, 0, 1, 0, 0.72, 0, 0, 1, 1.75, 1, 0, 0, 6.25, 0, 1, 0, 1.05, 0, 0, 1, -1.65, 1, 0, 0, 6.25, 0, 1, 0, 1.05, 0, 0, 1, 1.65, 1, 0, 0, 6.25, 0, 1, 0, 0.72, 0, 0, 1, -1.75, 1, 0, 0, 6.25, 0, 1, 0, 0.72, 0, 0, 1, 1.75)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_38"]
+top_radius = 0.22
+bottom_radius = 0.22
+height = 0.2
+radial_segments = 10
+
+[sub_resource type="MultiMesh" id="MultiMesh_39"]
+transform_format = 1
+instance_count = 4
+mesh = SubResource("CylinderMesh_38")
+buffer = PackedFloat32Array(1, 0, 0, -4.2, 0, 1, 0, 3.78, 0, 0, 1, 0, 1, 0, 0, -1.4, 0, 1, 0, 3.78, 0, 0, 1, 0, 1, 0, 0, 1.4, 0, 1, 0, 3.78, 0, 0, 1, 0, 1, 0, 0, 4.2, 0, 1, 0, 3.78, 0, 0, 1, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_40"]
+top_radius = 0.26
+bottom_radius = 0.26
+height = 2.4
+radial_segments = 12
+
+[sub_resource type="MultiMesh" id="MultiMesh_41"]
+transform_format = 1
+instance_count = 1
+mesh = SubResource("CylinderMesh_40")
+buffer = PackedFloat32Array(0, -1, 0, -0.2, 1, 0, 0, 0.18, 0, 0, 1, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_42"]
+top_radius = 0.14
+bottom_radius = 0.14
+height = 0.7
+radial_segments = 10
+
+[sub_resource type="MultiMesh" id="MultiMesh_43"]
+transform_format = 1
+instance_count = 2
+mesh = SubResource("CylinderMesh_42")
+buffer = PackedFloat32Array(0, -1, 0, 1.6, 1, 0, 0, 0.2, 0, 0, 1, -0.55, 0, -1, 0, -2, 1, 0, 0, 0.2, 0, 0, 1, -0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_44"]
+top_radius = 0.14
+bottom_radius = 0.14
+height = 0.1
+radial_segments = 10
+
+[sub_resource type="MultiMesh" id="MultiMesh_45"]
+transform_format = 1
+instance_count = 4
+mesh = SubResource("CylinderMesh_44")
+buffer = PackedFloat32Array(0, -1, 0, -7.08, 1, 0, 0, 0.95, 0, 0, 1, -0.55, 0, -1, 0, -7.08, 1, 0, 0, 0.95, 0, 0, 1, 0.55, 0, -1, 0, 7.08, 1, 0, 0, 0.95, 0, 0, 1, -0.55, 0, -1, 0, 7.08, 1, 0, 0, 0.95, 0, 0, 1, 0.55)
+
+[sub_resource type="BoxMesh" id="BoxMesh_46"]
+size = Vector3(0.22, 0.07, 0.07)
+
+[sub_resource type="MultiMesh" id="MultiMesh_47"]
+transform_format = 1
+instance_count = 4
+mesh = SubResource("BoxMesh_46")
+buffer = PackedFloat32Array(1, 0, 0, -6.98, 0, 1, 0, 0.95, 0, 0, 1, -0.55, 1, 0, 0, -6.98, 0, 1, 0, 0.95, 0, 0, 1, 0.55, 1, 0, 0, 6.98, 0, 1, 0, 0.95, 0, 0, 1, -0.55, 1, 0, 0, 6.98, 0, 1, 0, 0.95, 0, 0, 1, 0.55)
+
+[sub_resource type="BoxMesh" id="BoxMesh_48"]
+size = Vector3(0.5, 0.18, 0.26)
+
+[sub_resource type="MultiMesh" id="MultiMesh_49"]
+transform_format = 1
+instance_count = 2
+mesh = SubResource("BoxMesh_48")
+buffer = PackedFloat32Array(1, 0, 0, -7.2, 0, 1, 0, 0.82, 0, 0, 1, 0, 1, 0, 0, 7.2, 0, 1, 0, 0.82, 0, 0, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50"]
+albedo_color = Color(0.9, 0.05, 0.03, 1)
+emission_enabled = true
+emission = Color(0.9, 0.05, 0.03, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_51"]
+size = Vector3(0.02, 0.16, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52"]
+albedo_color = Color(0.9, 0.05, 0.03, 1)
+emission_enabled = true
+emission = Color(0.9, 0.05, 0.03, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_53"]
+size = Vector3(0.02, 0.16, 0.16)
 
 [node name="TrainWagon" type="Node3D"]
 
@@ -319,3 +440,109 @@ font_size = 30
 pixel_size = 0.005
 modulate = Color(0.9, 0.88, 0.8, 1)
 outline_size = 0
+
+[node name="WindowFrames" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_31")
+material_override = ExtResource("3_metal")
+
+[node name="BodyRibs" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_33")
+material_override = ExtResource("2_rust")
+
+[node name="DoorRails" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_35")
+material_override = ExtResource("3_metal")
+
+[node name="Steps" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_37")
+material_override = ExtResource("3_metal")
+
+[node name="SillN" type="StaticBody3D" parent="."]
+position = Vector3(0, 2, -1.47)
+script = ExtResource("1_kit_block")
+size = Vector3(14, 0.05, 0.06)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="SillS" type="StaticBody3D" parent="."]
+position = Vector3(0, 2, 1.47)
+script = ExtResource("1_kit_block")
+size = Vector3(14, 0.05, 0.06)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="HeaderN" type="StaticBody3D" parent="."]
+position = Vector3(0, 2.93, -1.47)
+script = ExtResource("1_kit_block")
+size = Vector3(14, 0.05, 0.06)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="HeaderS" type="StaticBody3D" parent="."]
+position = Vector3(0, 2.93, 1.47)
+script = ExtResource("1_kit_block")
+size = Vector3(14, 0.05, 0.06)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="RoofRidge" type="StaticBody3D" parent="."]
+position = Vector3(0, 3.62, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(13.3, 0.12, 1.15)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="RoofVents" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_39")
+material_override = ExtResource("2_rust")
+
+[node name="Underframe" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_41")
+material_override = ExtResource("3_metal")
+
+[node name="BrakeCyl" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_43")
+material_override = ExtResource("3_metal")
+
+[node name="BatteryBox" type="StaticBody3D" parent="."]
+position = Vector3(1.9, 0.17, 0.45)
+script = ExtResource("1_kit_block")
+size = Vector3(0.95, 0.26, 0.5)
+surface = ExtResource("2_rust")
+solid = false
+
+[node name="Buffers" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_45")
+material_override = ExtResource("3_metal")
+
+[node name="BufferStems" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_47")
+material_override = ExtResource("2_rust")
+
+[node name="Couplers" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_49")
+material_override = ExtResource("3_metal")
+
+[node name="Gangway-1" type="StaticBody3D" parent="."]
+position = Vector3(-7.07, 2.05, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.14, 2.2, 1.3)
+surface = ExtResource("6_soot")
+solid = false
+
+[node name="TailLamp-1" type="MeshInstance3D" parent="."]
+position = Vector3(-7.02, 1, 0.95)
+mesh = SubResource("BoxMesh_51")
+material_override = SubResource("StandardMaterial3D_50")
+
+[node name="Gangway1" type="StaticBody3D" parent="."]
+position = Vector3(7.07, 2.05, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.14, 2.2, 1.3)
+surface = ExtResource("6_soot")
+solid = false
+
+[node name="TailLamp1" type="MeshInstance3D" parent="."]
+position = Vector3(7.02, 1, 0.95)
+mesh = SubResource("BoxMesh_53")
+material_override = SubResource("StandardMaterial3D_52")

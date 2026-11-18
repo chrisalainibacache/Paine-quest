@@ -22,6 +22,33 @@ def quad(s, name, parent, pos, size, material, rot=None):
 def emissive(s, c, e):
     return s.subres("StandardMaterial3D", {"albedo_color": col(c), "emission_enabled": "true", "emission": col(c), "emission_energy_multiplier": fmt(e)})
 
+
+def _rot(e):
+    """Matriz (filas) de una rotación Euler (rx, ry, rz): Rz * Ry * Rx."""
+    rx, ry, rz = e
+    cx, sx, cy, sy, cz, sz = math.cos(rx), math.sin(rx), math.cos(ry), math.sin(ry), math.cos(rz), math.sin(rz)
+    return [[cz * cy, cz * sy * sx - sz * cx, cz * sy * cx + sz * sx],
+            [sz * cy, sz * sy * sx + cz * cx, sz * sy * cx - cz * sx],
+            [-sy, cy * sx, cy * cx]]
+
+def multi(s, name, parent, mesh, material, items):
+    """Muchas copias de una misma pieza en UN solo dibujo (barato en el teléfono).
+    items: lista de (posición, rotación Euler opcional). Solo visual, sin colisión."""
+    buf = []
+    for it in items:
+        pos, rot = (it[0], it[1]) if len(it) > 1 else (it[0], (0, 0, 0))
+        m = _rot(rot)
+        for r in range(3):
+            buf += [m[r][0], m[r][1], m[r][2], pos[r]]
+    data = ", ".join(fmt(round(float(v), 5)) if float(v) != int(v) else str(int(v)) for v in buf)
+    mm = s.subres("MultiMesh", {"transform_format": "1", "instance_count": str(len(items)), "mesh": mesh,
+                                "buffer": "PackedFloat32Array(%s)" % data})
+    s.node(name, "MultiMeshInstance3D", parent, multimesh=mm, material_override=material)
+
+def box_mesh(s, size): return s.subres("BoxMesh", {"size": v3(size)})
+def cyl_mesh(s, r, h, seg=10): return s.subres("CylinderMesh", {"top_radius": fmt(r), "bottom_radius": fmt(r), "height": fmt(h), "radial_segments": str(seg)})
+MAT = lambda s, n: s.res(M(n), "Material")
+
 # --- Vagón de pasajeros (largo en X, 14 m). Ventanas oscuras y rotas.
 s = Scene(); s.node("TrainWagon", "Node3D")
 L, W = 14.0, 2.9
@@ -48,6 +75,40 @@ for side, z in (("N", -W / 2 - 0.005), ("S", W / 2 + 0.005)):
         quad(s, "Door%s%d" % (side, i), ".", (x, 1.95, z), (0.8, 1.9, 0.03), s.res(M("rust"), "Material"))
 s.node("Number", "Label3D", ".", position=v3((2.0, 1.55, W / 2 + 0.02)), text='"EFE  S-2214"', font_size="30", pixel_size="0.005",
        modulate=col((0.9, 0.88, 0.8)), outline_size="0")
+
+# Detalle del vagón (todo sin colisión; las piezas repetidas van en un solo dibujo).
+win_x = [-L / 2 + 1.6 + i * 1.55 for i in range(8) if abs(-L / 2 + 1.6 + i * 1.55) <= L / 2 - 1.3]
+sides = ((-1, -W / 2), (1, W / 2))
+multi(s, "WindowFrames", ".", box_mesh(s, (1.32, 0.86, 0.026)), MAT(s, "metal"),
+      [((x, 2.48, z), ) for x in win_x for sg, z in sides])
+multi(s, "BodyRibs", ".", box_mesh(s, (0.1, 1.1, 0.05)), MAT(s, "rust"),
+      [((x + 0.775, 1.45, z + sg * 0.02), ) for x in win_x[:-1] for sg, z in sides])
+multi(s, "DoorRails", ".", box_mesh(s, (0.04, 1.25, 0.04)), MAT(s, "metal"),
+      [((dx + off, 1.75, z + sg * 0.08), ) for dx in (-L / 2 + 0.75, L / 2 - 0.75) for off in (-0.5, 0.5) for sg, z in sides])
+multi(s, "Steps", ".", box_mesh(s, (0.9, 0.07, 0.32)), MAT(s, "metal"),
+      [((dx, y, z + sg * dz), ) for dx in (-L / 2 + 0.75, L / 2 - 0.75) for y, dz in ((1.05, 0.2), (0.72, 0.3)) for sg, z in sides])
+blk(s, "SillN", ".", (0, 2.0, -W / 2 - 0.02), (L, 0.05, 0.06), "metal", solid=False)
+blk(s, "SillS", ".", (0, 2.0, W / 2 + 0.02), (L, 0.05, 0.06), "metal", solid=False)
+blk(s, "HeaderN", ".", (0, 2.93, -W / 2 - 0.02), (L, 0.05, 0.06), "metal", solid=False)
+blk(s, "HeaderS", ".", (0, 2.93, W / 2 + 0.02), (L, 0.05, 0.06), "metal", solid=False)
+# Techo abovedado (escalones) con ventiladores y canaletas.
+# quitado (tapaba a Cony): blk(s, "RoofShoulderN", ".", (0, 3.5, -W / 2 + 0.55), (L - 0.5, 0.14, 0.55), "train_blue", solid=False)
+# quitado (tapaba a Cony): blk(s, "RoofShoulderS", ".", (0, 3.5, W / 2 - 0.55), (L - 0.5, 0.14, 0.55), "train_blue", solid=False)
+blk(s, "RoofRidge", ".", (0, 3.62, 0), (L - 0.7, 0.12, 1.15), "metal", solid=False)
+multi(s, "RoofVents", ".", cyl_mesh(s, 0.22, 0.2), MAT(s, "rust"), [((x, 3.78, 0), ) for x in (-4.2, -1.4, 1.4, 4.2)])
+# Bajos: tanque, batería, cilindros de freno.
+multi(s, "Underframe", ".", cyl_mesh(s, 0.26, 2.4, 12), MAT(s, "metal"), [((-0.2, 0.18, 0.5), (0, 0, math.pi / 2))])
+multi(s, "BrakeCyl", ".", cyl_mesh(s, 0.14, 0.7), MAT(s, "metal"), [((1.6, 0.2, -0.55), (0, 0, math.pi / 2)), ((-2.0, 0.2, -0.5), (0, 0, math.pi / 2))])
+blk(s, "BatteryBox", ".", (1.9, 0.17, 0.45), (0.95, 0.26, 0.5), "rust", solid=False)
+# Topes, enganches y pasarela entre vagones en cada extremo.
+multi(s, "Buffers", ".", cyl_mesh(s, 0.14, 0.1), MAT(s, "metal"),
+      [((ex * (L / 2 + 0.08), 0.95, z), (0, 0, math.pi / 2)) for ex in (-1, 1) for z in (-0.55, 0.55)])
+multi(s, "BufferStems", ".", box_mesh(s, (0.22, 0.07, 0.07)), MAT(s, "rust"),
+      [((ex * (L / 2 - 0.02), 0.95, z), ) for ex in (-1, 1) for z in (-0.55, 0.55)])
+multi(s, "Couplers", ".", box_mesh(s, (0.5, 0.18, 0.26)), MAT(s, "metal"), [((ex * (L / 2 + 0.2), 0.82, 0), ) for ex in (-1, 1)])
+for ex in (-1, 1):
+    blk(s, "Gangway%d" % ex, ".", (ex * (L / 2 + 0.07), 2.05, 0), (0.14, 2.2, 1.3), "soot", solid=False)
+    quad(s, "TailLamp%d" % ex, ".", (ex * (L / 2 + 0.02), 1.0, 0.95), (0.02, 0.16, 0.16), emissive(s, (0.9, 0.05, 0.03), 0.8))
 s.save(OUT + "train_wagon.tscn")
 
 # --- Locomotora diésel (largo en X, 12 m), cabina en +X.
@@ -70,6 +131,27 @@ lamp = emissive(s, (1.0, 0.85, 0.5), 1.5)
 quad(s, "Headlight", ".", (L / 2 + 0.01, 3.55, 0), (0.02, 0.3, 0.3), lamp)
 s.node("Number", "Label3D", ".", position=v3((L / 2 - 1.4, 1.6, W / 2 + 0.02)), text='"D-16008"', font_size="30", pixel_size="0.005",
        modulate=col((0.9, 0.88, 0.8)), outline_size="0")
+
+# Detalle de la locomotora.
+multi(s, "CabFrames", ".", box_mesh(s, (1.7, 0.9, 0.03)), MAT(s, "metal"), [((L / 2 - 1.4, 2.95, z), ) for z in (-W / 2, W / 2)])
+quad(s, "WindshieldFrame", ".", (L / 2 - 0.005, 2.95, 0), (0.03, 0.9, 2.3), s.res(M("metal"), "Material"))
+blk(s, "Visor", ".", (L / 2 + 0.12, 3.5, 0), (0.35, 0.1, 2.6), "train_red", solid=False)
+# Hood: rejilla trasera, escape, ventiladores, pasarela con barandas.
+blk(s, "RearGrille", ".", (-L / 2 + 0.2, 2.0, 0), (0.1, 1.5, 1.9), "metal", solid=False)
+multi(s, "Stacks", ".", cyl_mesh(s, 0.2, 0.9), MAT(s, "soot"), [((-3.4, 3.55, 0), )])
+multi(s, "RoofFans", ".", cyl_mesh(s, 0.5, 0.14, 14), MAT(s, "metal"), [((-0.3, 3.15, 0), ), ((-1.8, 3.15, 0), )])
+blk(s, "WalkwayN", ".", (-1.4, 1.5, -W / 2 + 0.28), (L - 3.4, 0.06, 0.5), "metal", solid=False)
+blk(s, "WalkwayS", ".", (-1.4, 1.5, W / 2 - 0.28), (L - 3.4, 0.06, 0.5), "metal", solid=False)
+posts = [-5.2 + i * 1.0 for i in range(8)]
+multi(s, "RailPosts", ".", box_mesh(s, (0.04, 0.8, 0.04)), MAT(s, "metal"), [((x, 1.95, z), ) for x in posts for z in (-W / 2 + 0.04, W / 2 - 0.04)])
+blk(s, "RailTopN", ".", (-1.7, 2.35, -W / 2 + 0.04), (7.0, 0.04, 0.04), "metal", solid=False)
+blk(s, "RailTopS", ".", (-1.7, 2.35, W / 2 - 0.04), (7.0, 0.04, 0.04), "metal", solid=False)
+# Frente: trocha (quitapiedras), plataforma, faro con carcasa, barandas.
+# quitado (tapaba a Cony): blk(s, "Pilot", ".", (L / 2 + 0.35, 0.55, 0), (0.7, 0.5, 2.7), "metal", solid=False, rot=(0, 0, -0.35))
+# quitado (tapaba a Cony): blk(s, "FrontDeck", ".", (L / 2 + 0.3, 1.05, 0), (0.6, 0.06, 2.4), "metal", solid=False)
+blk(s, "HeadlightHousing", ".", (L / 2 + 0.06, 3.55, 0), (0.12, 0.42, 0.42), "train_red", solid=False)
+multi(s, "FrontPosts", ".", box_mesh(s, (0.04, 0.7, 0.04)), MAT(s, "metal"), [((L / 2 + 0.5, 1.45, z), ) for z in (-1.0, 0.0, 1.0)])
+# (Sin tanque ni escalera colgando: la locomotora queda volcada y esas piezas invadían el pasillo.)
 s.save(OUT + "locomotive.tscn")
 
 # --- Par de asientos enfrentados (interior del vagón), a lo largo de X.

@@ -5,6 +5,7 @@
 [ext_resource type="Material" path="res://levels/kit/materials/metal.tres" id="3_metal"]
 [ext_resource type="Material" path="res://levels/kit/materials/train_red.tres" id="4_train_red"]
 [ext_resource type="Material" path="res://levels/kit/materials/train_cream.tres" id="5_train_cream"]
+[ext_resource type="Material" path="res://levels/kit/materials/soot.tres" id="6_soot"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
 albedo_color = Color(0.06, 0.08, 0.1, 1)
@@ -59,6 +60,60 @@ emission_energy_multiplier = 1.5
 
 [sub_resource type="BoxMesh" id="BoxMesh_16"]
 size = Vector3(0.02, 0.3, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_17"]
+size = Vector3(1.7, 0.9, 0.03)
+
+[sub_resource type="MultiMesh" id="MultiMesh_18"]
+transform_format = 1
+instance_count = 2
+mesh = SubResource("BoxMesh_17")
+buffer = PackedFloat32Array(1, 0, 0, 4.6, 0, 1, 0, 2.95, 0, 0, 1, -1.5, 1, 0, 0, 4.6, 0, 1, 0, 2.95, 0, 0, 1, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_19"]
+size = Vector3(0.03, 0.9, 2.3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_20"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.9
+radial_segments = 10
+
+[sub_resource type="MultiMesh" id="MultiMesh_21"]
+transform_format = 1
+instance_count = 1
+mesh = SubResource("CylinderMesh_20")
+buffer = PackedFloat32Array(1, 0, 0, -3.4, 0, 1, 0, 3.55, 0, 0, 1, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_22"]
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.14
+radial_segments = 14
+
+[sub_resource type="MultiMesh" id="MultiMesh_23"]
+transform_format = 1
+instance_count = 2
+mesh = SubResource("CylinderMesh_22")
+buffer = PackedFloat32Array(1, 0, 0, -0.3, 0, 1, 0, 3.15, 0, 0, 1, 0, 1, 0, 0, -1.8, 0, 1, 0, 3.15, 0, 0, 1, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_24"]
+size = Vector3(0.04, 0.8, 0.04)
+
+[sub_resource type="MultiMesh" id="MultiMesh_25"]
+transform_format = 1
+instance_count = 16
+mesh = SubResource("BoxMesh_24")
+buffer = PackedFloat32Array(1, 0, 0, -5.2, 0, 1, 0, 1.95, 0, 0, 1, -1.46, 1, 0, 0, -5.2, 0, 1, 0, 1.95, 0, 0, 1, 1.46, 1, 0, 0, -4.2, 0, 1, 0, 1.95, 0, 0, 1, -1.46, 1, 0, 0, -4.2, 0, 1, 0, 1.95, 0, 0, 1, 1.46, 1, 0, 0, -3.2, 0, 1, 0, 1.95, 0, 0, 1, -1.46, 1, 0, 0, -3.2, 0, 1, 0, 1.95, 0, 0, 1, 1.46, 1, 0, 0, -2.2, 0, 1, 0, 1.95, 0, 0, 1, -1.46, 1, 0, 0, -2.2, 0, 1, 0, 1.95, 0, 0, 1, 1.46, 1, 0, 0, -1.2, 0, 1, 0, 1.95, 0, 0, 1, -1.46, 1, 0, 0, -1.2, 0, 1, 0, 1.95, 0, 0, 1, 1.46, 1, 0, 0, -0.2, 0, 1, 0, 1.95, 0, 0, 1, -1.46, 1, 0, 0, -0.2, 0, 1, 0, 1.95, 0, 0, 1, 1.46, 1, 0, 0, 0.8, 0, 1, 0, 1.95, 0, 0, 1, -1.46, 1, 0, 0, 0.8, 0, 1, 0, 1.95, 0, 0, 1, 1.46, 1, 0, 0, 1.8, 0, 1, 0, 1.95, 0, 0, 1, -1.46, 1, 0, 0, 1.8, 0, 1, 0, 1.95, 0, 0, 1, 1.46)
+
+[sub_resource type="BoxMesh" id="BoxMesh_26"]
+size = Vector3(0.04, 0.7, 0.04)
+
+[sub_resource type="MultiMesh" id="MultiMesh_27"]
+transform_format = 1
+instance_count = 3
+mesh = SubResource("BoxMesh_26")
+buffer = PackedFloat32Array(1, 0, 0, 6.5, 0, 1, 0, 1.45, 0, 0, 1, -1, 1, 0, 0, 6.5, 0, 1, 0, 1.45, 0, 0, 1, 0, 1, 0, 0, 6.5, 0, 1, 0, 1.45, 0, 0, 1, 1)
 
 [node name="Locomotive" type="Node3D"]
 
@@ -182,3 +237,77 @@ font_size = 30
 pixel_size = 0.005
 modulate = Color(0.9, 0.88, 0.8, 1)
 outline_size = 0
+
+[node name="CabFrames" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_18")
+material_override = ExtResource("3_metal")
+
+[node name="WindshieldFrame" type="MeshInstance3D" parent="."]
+position = Vector3(5.995, 2.95, 0)
+mesh = SubResource("BoxMesh_19")
+material_override = ExtResource("3_metal")
+
+[node name="Visor" type="StaticBody3D" parent="."]
+position = Vector3(6.12, 3.5, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.35, 0.1, 2.6)
+surface = ExtResource("4_train_red")
+solid = false
+
+[node name="RearGrille" type="StaticBody3D" parent="."]
+position = Vector3(-5.8, 2, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.1, 1.5, 1.9)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="Stacks" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_21")
+material_override = ExtResource("6_soot")
+
+[node name="RoofFans" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_23")
+material_override = ExtResource("3_metal")
+
+[node name="WalkwayN" type="StaticBody3D" parent="."]
+position = Vector3(-1.4, 1.5, -1.22)
+script = ExtResource("1_kit_block")
+size = Vector3(8.6, 0.06, 0.5)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="WalkwayS" type="StaticBody3D" parent="."]
+position = Vector3(-1.4, 1.5, 1.22)
+script = ExtResource("1_kit_block")
+size = Vector3(8.6, 0.06, 0.5)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="RailPosts" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_25")
+material_override = ExtResource("3_metal")
+
+[node name="RailTopN" type="StaticBody3D" parent="."]
+position = Vector3(-1.7, 2.35, -1.46)
+script = ExtResource("1_kit_block")
+size = Vector3(7, 0.04, 0.04)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="RailTopS" type="StaticBody3D" parent="."]
+position = Vector3(-1.7, 2.35, 1.46)
+script = ExtResource("1_kit_block")
+size = Vector3(7, 0.04, 0.04)
+surface = ExtResource("3_metal")
+solid = false
+
+[node name="HeadlightHousing" type="StaticBody3D" parent="."]
+position = Vector3(6.06, 3.55, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.12, 0.42, 0.42)
+surface = ExtResource("4_train_red")
+solid = false
+
+[node name="FrontPosts" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_27")
+material_override = ExtResource("3_metal")
