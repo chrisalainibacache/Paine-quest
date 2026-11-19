@@ -79,7 +79,13 @@ el 5 (Santiago / Centro de Nos) y el epílogo "Para Leo". Ver `docs/ROADMAP.md`.
 - Un recurso nuevo que no se importó no aparece en el APK: corre `--import` y sube los `.import`.
 - No subas `.godot/`, builds ni archivos de más de 50 MB.
 
-## 6. Tareas (en este orden)
+## 6. Tareas
+**La cola vigente está en `docs/CHATGPT_LOG.md`, sección «Cola de tareas» (tickets T1–T6 y D).**
+Claude planifica y revisa; tú implementas. En cada PR corre solo el workflow «Pruebas en PR»
+(3 pruebas, auditoría de cámaras, paquete exportado y `.tscn` al día): **solo cuando está en verde
+puedes decir que funciona**. Las secciones de abajo son el detalle original de A–D.
+
+### Detalle original (A–D)
 Las tareas **A–C son solo diseño y texto** (sin código). **D no empieza hasta que Claude escriba
 `APROBADO D` en el registro.**
 - **A. Capítulo 4 "La Maestranza"** — en `docs/GDD.md` (§2 historia y §8 salas): 6 a 8 salas
