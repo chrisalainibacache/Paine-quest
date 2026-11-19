@@ -6,7 +6,7 @@ extends Resource
 @export var health: int = 5
 @export var walk_speed: float = 0.75
 @export var turn_speed: float = 3.0
-## Distancia a la que nota a Cony (si la ve).
+## Distancia a la que nota a Isabella (si la ve).
 @export var notice_range: float = 9.0
 @export var attack_range: float = 1.15
 @export var attack_damage: int = 20

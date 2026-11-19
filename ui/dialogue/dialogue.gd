@@ -247,7 +247,7 @@ func _hide_blocker() -> void:
 const SPEAKERS := {
     "Leo": Color(0.72, 0.93, 0.6),
     "Rosa": Color(0.95, 0.78, 0.6),
-    "Javiera": Color(0.65, 0.8, 1.0),
+    "Paz": Color(0.65, 0.8, 1.0),
     "Kiara": Color(1.0, 0.68, 0.35),
     "Nala": Color(0.85, 0.72, 0.6),
 }

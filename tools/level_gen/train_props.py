@@ -92,8 +92,8 @@ blk(s, "SillS", ".", (0, 2.0, W / 2 + 0.02), (L, 0.05, 0.06), "metal", solid=Fal
 blk(s, "HeaderN", ".", (0, 2.93, -W / 2 - 0.02), (L, 0.05, 0.06), "metal", solid=False)
 blk(s, "HeaderS", ".", (0, 2.93, W / 2 + 0.02), (L, 0.05, 0.06), "metal", solid=False)
 # Techo abovedado (escalones) con ventiladores y canaletas.
-# quitado (tapaba a Cony): blk(s, "RoofShoulderN", ".", (0, 3.5, -W / 2 + 0.55), (L - 0.5, 0.14, 0.55), "train_blue", solid=False)
-# quitado (tapaba a Cony): blk(s, "RoofShoulderS", ".", (0, 3.5, W / 2 - 0.55), (L - 0.5, 0.14, 0.55), "train_blue", solid=False)
+# quitado (tapaba a Isabella): blk(s, "RoofShoulderN", ".", (0, 3.5, -W / 2 + 0.55), (L - 0.5, 0.14, 0.55), "train_blue", solid=False)
+# quitado (tapaba a Isabella): blk(s, "RoofShoulderS", ".", (0, 3.5, W / 2 - 0.55), (L - 0.5, 0.14, 0.55), "train_blue", solid=False)
 blk(s, "RoofRidge", ".", (0, 3.62, 0), (L - 0.7, 0.12, 1.15), "metal", solid=False)
 multi(s, "RoofVents", ".", cyl_mesh(s, 0.22, 0.2), MAT(s, "rust"), [((x, 3.78, 0), ) for x in (-4.2, -1.4, 1.4, 4.2)])
 # Bajos: tanque, batería, cilindros de freno.
@@ -147,8 +147,8 @@ multi(s, "RailPosts", ".", box_mesh(s, (0.04, 0.8, 0.04)), MAT(s, "metal"), [((x
 blk(s, "RailTopN", ".", (-1.7, 2.35, -W / 2 + 0.04), (7.0, 0.04, 0.04), "metal", solid=False)
 blk(s, "RailTopS", ".", (-1.7, 2.35, W / 2 - 0.04), (7.0, 0.04, 0.04), "metal", solid=False)
 # Frente: trocha (quitapiedras), plataforma, faro con carcasa, barandas.
-# quitado (tapaba a Cony): blk(s, "Pilot", ".", (L / 2 + 0.35, 0.55, 0), (0.7, 0.5, 2.7), "metal", solid=False, rot=(0, 0, -0.35))
-# quitado (tapaba a Cony): blk(s, "FrontDeck", ".", (L / 2 + 0.3, 1.05, 0), (0.6, 0.06, 2.4), "metal", solid=False)
+# quitado (tapaba a Isabella): blk(s, "Pilot", ".", (L / 2 + 0.35, 0.55, 0), (0.7, 0.5, 2.7), "metal", solid=False, rot=(0, 0, -0.35))
+# quitado (tapaba a Isabella): blk(s, "FrontDeck", ".", (L / 2 + 0.3, 1.05, 0), (0.6, 0.06, 2.4), "metal", solid=False)
 blk(s, "HeadlightHousing", ".", (L / 2 + 0.06, 3.55, 0), (0.12, 0.42, 0.42), "train_red", solid=False)
 multi(s, "FrontPosts", ".", box_mesh(s, (0.04, 0.7, 0.04)), MAT(s, "metal"), [((L / 2 + 0.5, 1.45, z), ) for z in (-1.0, 0.0, 1.0)])
 # (Sin tanque ni escalera colgando: la locomotora queda volcada y esas piezas invadían el pasillo.)

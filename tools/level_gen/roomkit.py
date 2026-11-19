@@ -10,7 +10,7 @@ IA = lambda n: "res://levels/kit/interact/%s.gd" % n
 INF = "res://actors/enemies/infected.tscn"
 
 def add_leo_hint(s, name, pos, lines, show_if=None, hide_if=None, show_item=None, hide_item=None):
-    """Pista de Leo (levels/kit/leo_hint.gd): adonde guía a Cony y qué le dice."""
+    """Pista de Leo (levels/kit/leo_hint.gd): adonde guía a Isabella y qué le dice."""
     p = {"position": v3(pos), "script": s.res("res://levels/kit/leo_hint.gd", "Script"),
          "lines": "PackedStringArray(%s)" % ", ".join('"%s"' % l for l in lines)}
     if show_if: p["show_if_flag"] = '"%s"' % show_if
@@ -83,7 +83,7 @@ class Kit:
         self.s.node(name, "Label3D", parent, **p)
 
     # --- Interactuables
-    def door(self, name, pos, target_room, target_spawn, key=None, lock_id="", locked_text=None, prompt=None, reach=1.3):
+    def door(self, name, pos, target_room, target_spawn, key=None, lock_id="", locked_text=None, prompt=None, reach=1.3, marker=None):
         self.group("Interactables")
         p = {"position": v3(pos), "script": self.s.res(IA("door"), "Script"), "reach": fmt(reach)}
         if target_room: p["target_room"] = '"%s"' % target_room
@@ -92,6 +92,7 @@ class Kit:
         if lock_id: p["lock_id"] = '"%s"' % lock_id
         if locked_text: p["locked_text"] = '"%s"' % locked_text
         if prompt: p["prompt"] = '"%s"' % prompt
+        if marker: p["marker_text"] = '"%s"' % marker
         self.s.node(name, "Node3D", "Interactables", **p)
 
     def pickup(self, name, pos, item, count=1, rot=(0, 0, 0), sets_flag=None):
@@ -141,7 +142,7 @@ class Kit:
                     fov=fmt(float(fov)), near="0.1", far="30.0")
 
     def spawn(self, name, pos, facing):
-        """facing: dirección hacia donde mira Cony al aparecer (vector XZ)."""
+        """facing: dirección hacia donde mira Isabella al aparecer (vector XZ)."""
         self.group("Spawns")
         # El marcador mira hacia -Z; su giro debe apuntar -Z hacia `facing`.
         yaw = math.atan2(-facing[0], -facing[1])

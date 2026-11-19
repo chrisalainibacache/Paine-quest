@@ -3,7 +3,7 @@ REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 from tracks_common import *
 T = "res://levels/tracks/%s.tscn"
 # El tren descarrilado: la locomotora volcada a un lado y un vagón fuera de
-# la vía al otro; Cony avanza por el pasillo entre ambos y entra al vagón.
+# la vía al otro; Isabella avanza por el pasillo entre ambos y entra al vagón.
 k = Kit("DerailedTrain", "Tren descarrilado")
 night(k, 0.055)
 X0, X1, Z0, Z1 = -9.0, 9.0, -4.2, 5.0
@@ -29,7 +29,7 @@ k.decal("Oil", "oil_stain", (4.6, 0.025, 0.4), 1.8, "up", rot=0.8)
 k.decal("Debris", "debris", (-5.5, 0.028, 0.6), 1.6, "up")
 # Interactuables.
 k.door("ToTrackNorth", (-8.4, 0, 0.9), T % "track_north", "from_derailed", prompt="VOLVER", reach=1.4)
-k.door("ToWagon", (5.25, 0, 1.25), T % "wagon_interior", "from_derailed", prompt="ENTRAR", reach=1.3)
+k.door("ToWagon", (5.25, 0, 1.25), T % "wagon_interior", "from_derailed", prompt="ENTRAR", reach=1.3, marker="SUBIR AL VAGÓN")
 k.examine("Cab", (6.0, 0, 0.2), ["La cabina de la locomotora está aplastada contra el suelo.", "El asiento del maquinista está vacío. Hay sangre en la palanca de freno."], reach=1.4)
 k.examine("Jackknife", (7.3, 0, 1.4), ["Otro vagón atravesado. Por aquí no se puede pasar.", "Tendré que cruzar por dentro del vagón."], reach=1.3)
 k.pickup("RifleAmmo", (-5.6, 0.0, 0.2), "ammo_rifle", 15, rot=(0, 0.6, 0))
@@ -37,7 +37,7 @@ k.pickup("RifleAmmo", (-5.6, 0.0, 0.2), "ammo_rifle", 15, rot=(0, 0.6, 0))
 k.infected("Heavy", (2.2, 0.05, 1.0), yaw=-math.pi / 2, state="feeding", heavy=True)
 k.infected("Lying", (-1.8, 0.05, 0.6), yaw=1.0, state="lying", kind="infected_pale")
 k.infected("Body", (0.3, 0.05, 1.2), yaw=2.0, state="corpse", kind="infected_worker")
-# Rincón muerto detrás de la locomotora: pared invisible (Cony no tiene nada que hacer
+# Rincón muerto detrás de la locomotora: pared invisible (Isabella no tiene nada que hacer
 # ahí y ninguna cámara lo ve).
 k.s.node("BackAlcoveBlock", "StaticBody3D", ".", position=v3((0.0, 1.5, -3.5)))
 k.s.node("Shape", "CollisionShape3D", "BackAlcoveBlock", shape=k.s.subres("BoxShape3D", {"size": v3((19.0, 3.0, 1.5))}))
@@ -46,7 +46,7 @@ k.camera("West", (-4.5, 1.5, 0.8), (9.0, 3.0, 3.0), (2.4, 3.3, 1.6), (-7.0, 0.3,
 k.camera("East", (4.5, 1.5, 0.8), (9.0, 3.0, 3.0), (-2.4, 3.3, 1.6), (7.0, 0.4, 0.8), fov=58)
 k.spawn("from_track_north", (-7.7, 0.05, 0.9), (1, 0))
 k.spawn("from_wagon", (4.6, 0.05, 0.9), (-1, 0))
-# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
-k.leo_hint('LeoWagon', (4.6, 0, 1.25), ['Leo: Por fuera no se pasa: el vagón quedó atravesado.', 'Leo: Hay que cruzar por dentro. Yo cabía en todas partes, ¿te acuerdas? Tú no tanto.'])
+# Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
+k.leo_hint('LeoWagon', (4.6, 0, 1.25), ['Leo: Por fuera no se pasa: el vagón quedó atravesado.', 'Leo: Hay que subirse al vagón y cruzarlo por dentro. La puerta es la de la flecha amarilla.'])
 k.save(REPO + "/levels/tracks/derailed_train.tscn")
 print("derailed ok")

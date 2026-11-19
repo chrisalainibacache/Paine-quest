@@ -97,7 +97,7 @@ size = Vector3(5.8333, 3, 4.375)
 [node name="Platform" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Andén norte"
-intro_lines = PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Javiera, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.", "Leo: Tranquila, Cony. Si no sabes por dónde seguir, quédate quieta un momento y mírame.", "Leo: Yo te llevo. Siempre te he llevado yo.")
+intro_lines = PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Paz, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.", "Leo: Tranquila, Isabella. Si no sabes por dónde seguir, quédate quieta un momento y mírame.", "Leo: Yo te llevo. Siempre te he llevado yo.")
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
@@ -978,7 +978,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoWaitingRoom" type="Marker3D" parent="."]
 position = Vector3(3, 0, 4.2)
 script = ExtResource("52_leo_hint")
-lines = PackedStringArray("Leo: Cony, aquí afuera no. Adentro hay luz.", "Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.")
+lines = PackedStringArray("Leo: Isabella, aquí afuera no. Adentro hay luz.", "Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.")
 hide_if_flag = "found:pistol"
 
 [node name="LeoGateKey" type="Marker3D" parent="."]
@@ -992,7 +992,7 @@ hide_if_item = "gate_key"
 [node name="LeoGateOpen" type="Marker3D" parent="."]
 position = Vector3(5.9, 0, 2.6)
 script = ExtResource("52_leo_hint")
-lines = PackedStringArray("Leo: Ya tienes la llave. Ábrelo, Cony. Yo voy contigo.")
+lines = PackedStringArray("Leo: Ya tienes la llave. Ábrelo, Isabella. Yo voy contigo.")
 hide_if_flag = "unlocked:gate_south"
 show_if_item = "gate_key"
 

@@ -36,6 +36,6 @@ k.camera("West", (-5.0, 1.5, 0.0), (10.0, 3.0, 10.0), (-0.5, 4.0, 4.6), (-6.4, 0
 k.camera("East", (5.0, 1.5, 0.0), (10.0, 3.0, 10.0), (0.5, 4.0, -4.6), (6.8, 0.6, 0.4), fov=60)
 k.spawn("from_field", (-8.6, 0.05, 0.0), (1, 0))
 k.spawn("from_shed", (8.4, 0.05, 0.0), (-1, 0))
-k.leo_hint("LeoShed", (8.4, 0, 0.0), ["Leo: El galpón. Rosa está ahí adentro, Cony. Respira despacio.", "Leo: Usa la llave del tractor."], hide_if="unlocked:shed_door")
+k.leo_hint("LeoShed", (8.4, 0, 0.0), ["Leo: El galpón. Rosa está ahí adentro, Isabella. Respira despacio.", "Leo: Usa la llave del tractor."], hide_if="unlocked:shed_door")
 k.save(REPO + "/levels/buin/vineyard.tscn")
 print("vineyard ok")

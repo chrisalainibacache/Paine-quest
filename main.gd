@@ -1,5 +1,5 @@
 extends Node
-## Escena de juego: crea a Cony y a Leo, conecta la interfaz y entra a la sala
+## Escena de juego: crea a Isabella y a Leo, conecta la interfaz y entra a la sala
 ## que indique GameState (la inicial, o la de la partida cargada).
 ## El cambio de sala lo hace el nodo SceneLoader.
 

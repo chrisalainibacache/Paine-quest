@@ -1,6 +1,6 @@
 class_name Inventory
 extends RefCounted
-## Mochila de Cony: 16 casillas. Cada casilla guarda un ítem y su cantidad
+## Mochila de Isabella: 16 casillas. Cada casilla guarda un ítem y su cantidad
 ## (las balas se apilan; la comida y las llaves ocupan una casilla cada una).
 
 signal changed

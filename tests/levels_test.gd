@@ -1,6 +1,6 @@
 extends "res://tests/test_case.gd"
 ## Revisa todas las salas del capítulo 1 sin jugar: puertas y puntos de
-## aparición conectados, Cony aparece sobre el piso y dentro de una cámara,
+## aparición conectados, Isabella aparece sobre el piso y dentro de una cámara,
 ## ninguna cámara ve huecos y el capítulo se puede terminar (las llaves están
 ## antes de las puertas que abren).
 ## Uso: godot --headless --path . -s res://tests/levels_test.gd
@@ -56,6 +56,8 @@ func _check_room(path: String) -> void:
             spawn_ok = target.get_node_or_null("Spawns/" + door.target_spawn) != null
             target.free()
         _check(exists and spawn_ok, "%s: la puerta %s lleva a %s/%s" % [name, door.name, door.target_room.get_file(), door.target_spawn])
+        _check(not Door.label_for(door.target_room).is_empty() or not door.marker_text.is_empty(),
+            "%s: la puerta %s tiene letrero (falta el nombre de %s en Door.LABELS)" % [name, door.name, door.target_room.get_file()])
 
     # Puntos de aparición: sobre el piso, sin chocar con nada y cubiertos por una cámara.
     var space := room.get_world_3d().direct_space_state

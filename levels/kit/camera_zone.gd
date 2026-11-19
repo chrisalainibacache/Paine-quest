@@ -1,7 +1,7 @@
 @tool
 class_name CameraZone
 extends Area3D
-## Zona invisible con una cámara fija (estilo Resident Evil). Cuando Cony entra,
+## Zona invisible con una cámara fija (estilo Resident Evil). Cuando Isabella entra,
 ## la sala corta a esta cámara. Se usa con un hijo Camera3D y un
 ## CollisionShape3D que define la zona.
 

@@ -34,7 +34,7 @@ button("Diag", "Root/Header", "DIAG", 22, custom_minimum_size="Vector2(100, 64)"
 button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(150, 64)")
 button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(150, 64)")
 button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(150, 64)")
-# Estado de Cony.
+# Estado de Isabella.
 s.node("Status", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=40, top=118, right=330, bottom=430))
 label("Label", "Root/Status", "ESTADO", 22, DIM, **rect(left=18, top=12, right=270, bottom=42))
 s.node("Ecg", "Control", "Root/Status", script=s.res("res://ui/inventory/ecg.gd", "Script"), **rect(left=18, top=48, right=272, bottom=150))

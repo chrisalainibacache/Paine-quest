@@ -278,7 +278,7 @@ position = Vector3(2.6, 0, -1)
 script = ExtResource("16_voice_door")
 reach = 1.3
 sets_flag = "talked:rosa"
-lines = PackedStringArray("La puerta de la oficina tiene llave. Adentro alguien respira.", "Rosa: ¿Quién está ahí? ...No abras. Por favor, no abras.", "Rosa: Soy Rosa, de la boletería de Paine. Me mordieron en el puente, anoche. Ya tengo el frío del que hablaba don Héctor.", "Rosa: Escúchame bien, niña. Al hombre de la mano vendada yo le vendí el boleto del 6:30.", "Rosa: Llevaba una credencial colgando: «Centro de Investigación Sanitaria — Nos». Venía de ahí.", "Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta por una tal Constanza.", "Leo: Cony... ella ya no va a abrir. Déjala descansar. La radio está en la mesa.")
+lines = PackedStringArray("La puerta de la oficina tiene llave. Adentro alguien respira.", "Rosa: ¿Quién está ahí? ...No abras. Por favor, no abras.", "Rosa: Soy Rosa, de la boletería de Paine. Me mordieron en el puente, anoche. Ya tengo el frío del que hablaba don Héctor.", "Rosa: Escúchame bien, niña. Al hombre de la mano vendada yo le vendí el boleto del 6:30.", "Rosa: Llevaba una credencial colgando: «Centro de Investigación Sanitaria — Nos». Venía de ahí.", "Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta por una tal Constanza.", "Leo: Isabella... ella ya no va a abrir. Déjala descansar. La radio está en la mesa.")
 repeat_lines = PackedStringArray("Rosa: Ándate, niña. Llévate al gato. Y escucha esa radio.")
 
 [node name="Radio" type="Node3D" parent="Interactables"]
@@ -288,7 +288,7 @@ reach = 1.3
 chapter = 3
 accept_text = "ESCUCHAR"
 question = "Una radio militar encendida. Entre la estática se oye una voz de mujer.\n¿Escuchar?"
-before_lines = PackedStringArray("Javiera: ...Constanza... Cony, si me escuchas... soy yo, la Javi.", "Javiera: No vayas a Alameda. Allá ya no queda nadie.", "Javiera: Me trajeron a la Maestranza de San Bernardo a atender a los enfermos. Llegan en tren, de noche, amarrados.", "Javiera: Hay un vagón al fondo que nadie abre. Los militares dicen que es del Centro de Nos...", "Javiera: Ven por la vía. Te espero en la entrada de...", "La señal se corta.", "Leo: San Bernardo. Yo sé el camino, Cony. Vamos.")
+before_lines = PackedStringArray("Paz: ...Constanza... Isabella, si me escuchas... soy yo, Paz.", "Paz: No vayas a Alameda. Allá ya no queda nadie.", "Paz: Me trajeron a la Maestranza de San Bernardo a atender a los enfermos. Llegan en tren, de noche, amarrados.", "Paz: Hay un vagón al fondo que nadie abre. Los militares dicen que es del Centro de Nos...", "Paz: Ven por la vía. Te espero en la entrada de...", "La señal se corta.", "Leo: San Bernardo. Yo sé el camino, Isabella. Vamos.")
 
 [node name="Shells" type="Node3D" parent="Interactables"]
 position = Vector3(-3, 0, 1.8)
@@ -315,13 +315,13 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="LeoRosa" type="Marker3D" parent="."]
 position = Vector3(2.6, 0, -0.5)
 script = ExtResource("22_leo_hint")
-lines = PackedStringArray("Leo: Ahí adentro está Rosa. Huele a ella... y a frío.", "Leo: Háblale, Cony. Pero no abras esa puerta.")
+lines = PackedStringArray("Leo: Ahí adentro está Rosa. Huele a ella... y a frío.", "Leo: Háblale, Isabella. Pero no abras esa puerta.")
 hide_if_flag = "talked:rosa"
 
 [node name="LeoRadio" type="Marker3D" parent="."]
 position = Vector3(0.6, 0, 1.2)
 script = ExtResource("22_leo_hint")
-lines = PackedStringArray("Leo: La radio. Alguien te está llamando, Cony.")
+lines = PackedStringArray("Leo: La radio. Alguien te está llamando, Isabella.")
 show_if_flag = "talked:rosa"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]

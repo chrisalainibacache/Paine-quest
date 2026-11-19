@@ -2,9 +2,9 @@ import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file_
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from tracks_common import *
 T = "res://levels/tracks/%s.tscn"
-# Vía norte: Cony y Leo bajaron del andén sur y siguen por la vía. Al fondo,
+# Vía norte: Isabella y Leo bajaron del andén sur y siguen por la vía. Al fondo,
 # un vagón volcado cruza la vía y hay fuego: el tren de las 6:30.
-# Lo que piensa Cony al empezar el capítulo 2.
+# Lo que piensa Isabella al empezar el capítulo 2.
 INTRO = ['Pasada la medianoche. La vía hacia el norte.', 'Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.', 'Javi, aguanta. Vamos caminando.', 'Leo: Yo voy adelante, como siempre.']
 k = Kit("TrackNorth", "Vía norte", intro=INTRO)
 night(k)
@@ -54,7 +54,7 @@ k.camera("West", (-4.5, 1.5, 0.0), (9.0, 3.0, 7.0), (1.6, 3.2, 3.1), (-6.5, 0.3,
 k.camera("East", (4.5, 1.5, 0.0), (9.0, 3.0, 7.0), (-1.6, 3.2, 3.1), (6.5, 0.5, -0.4), fov=58)
 k.spawn("start", (-7.4, 0.05, 0.8), (1, 0))
 k.spawn("from_derailed", (6.2, 0.05, 2.1), (-1, 0))
-# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+# Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoFire', (6.3, 0, 2.7), ['Leo: Ese fuego es el tren de las 6:30. Huele a fierro quemado... y a ellos.', 'Leo: Por ahí se sigue. Pégate a mí.'])
 k.save(REPO + "/levels/tracks/track_north.tscn")
 print("track north ok")

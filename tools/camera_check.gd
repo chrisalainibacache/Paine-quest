@@ -1,17 +1,17 @@
 extends RefCounted
 ## Medición compartida por tools/audit_cameras.gd y tools/plan_cameras.gd:
-## ¿se ve bien a Cony parada en un punto del piso desde una cámara?
+## ¿se ve bien a Isabella parada en un punto del piso desde una cámara?
 
 ## Pantalla más angosta que soportamos (16:9). Con keep_height, las más anchas ven más.
 const ASPECT := 16.0 / 9.0
-## Zona segura (coordenadas de pantalla -1..1): Cony entera dentro de este rectángulo.
+## Zona segura (coordenadas de pantalla -1..1): Isabella entera dentro de este rectángulo.
 const SAFE_X := 0.88
 const SAFE_Y_TOP := 0.86
 const SAFE_Y_BOTTOM := -0.80
-## Altura mínima de Cony en pantalla (fracción del alto) para no "perderla".
+## Altura mínima de Isabella en pantalla (fracción del alto) para no "perderla".
 const MIN_HEIGHT := 0.15
 ## Capa de colisión temporal para los adornos "no sólidos" (vigas, rieles, techos
-## de madera...): no bloquean a Cony pero sí tapan la vista. Solo la usan los rayos
+## de madera...): no bloquean a Isabella pero sí tapan la vista. Solo la usan los rayos
 ## de cámara de estas herramientas.
 const VISUAL_LAYER := 16
 const SIGHT_MASK := 1 | VISUAL_LAYER
@@ -26,7 +26,7 @@ const MAX_NEAR_RAYS := 16
 const SEARCH_BOUNDS := AABB(Vector3(-12.5, 0.0, -7.5), Vector3(25.0, 3.0, 15.0))
 
 
-## Puntos del piso donde cabe Cony dentro de `bounds` (piso plano cerca de y=0, sin chocar).
+## Puntos del piso donde cabe Isabella dentro de `bounds` (piso plano cerca de y=0, sin chocar).
 static func walkable_points(space: PhysicsDirectSpaceState3D, bounds: AABB, step: float) -> Array:
     var capsule := CapsuleShape3D.new()
     capsule.radius = 0.28
@@ -74,7 +74,7 @@ static func frame_problem(cam_xf: Transform3D, fov: float, ground: Vector3) -> S
     return ""
 
 
-## ¿Algo sólido tapa el pecho y la cabeza de Cony vistos desde la cámara?
+## ¿Algo sólido tapa el pecho y la cabeza de Isabella vistos desde la cámara?
 static func occluded(space: PhysicsDirectSpaceState3D, cam_pos: Vector3, ground: Vector3) -> bool:
     var blocked := 0
     for offset in [1.0, 1.55]:
@@ -87,7 +87,7 @@ static func occluded(space: PhysicsDirectSpaceState3D, cam_pos: Vector3, ground:
     return blocked >= 2
 
 
-## "" si Cony se ve bien; si no, el motivo (FUERA, CHICA o TAPADA).
+## "" si Isabella se ve bien; si no, el motivo (FUERA, CHICA o TAPADA).
 static func problem(space: PhysicsDirectSpaceState3D, cam_xf: Transform3D, fov: float, ground: Vector3) -> String:
     var frame := frame_problem(cam_xf, fov, ground)
     if frame != "":
@@ -95,7 +95,7 @@ static func problem(space: PhysicsDirectSpaceState3D, cam_xf: Transform3D, fov: 
     return "TAPADA" if occluded(space, cam_xf.origin, ground) else ""
 
 
-## Se queda solo con los puntos a los que Cony puede llegar caminando desde los
+## Se queda solo con los puntos a los que Isabella puede llegar caminando desde los
 ## puntos de aparición (la oficina cerrada de un galpón, p. ej., no cuenta).
 static func reachable(points: Array, seeds: Array, step: float) -> Array:
     var grid := {}

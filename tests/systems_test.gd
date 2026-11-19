@@ -19,7 +19,7 @@ func _run() -> void:
         var item := GameState.inventory.get_item(i)
         if item and item.kind == ItemData.Kind.WEAPON:
             weapons += 1
-    _check(weapons == 7 and GameState.equipped == PISTOL, "partida nueva: Cony empieza con las 7 armas en la mochila (hay %d)" % weapons)
+    _check(weapons == 7 and GameState.equipped == PISTOL, "partida nueva: Isabella empieza con las 7 armas en la mochila (hay %d)" % weapons)
     for ammo_id in ["ammo_9mm", "ammo_shells", "ammo_rifle", "ammo_grenades", "ammo_rockets"]:
         _check(GameState.inventory.has_id(ammo_id), "y munición %s" % ammo_id)
     await _start_game("user://test_sistemas.json")
@@ -66,7 +66,7 @@ func _leo_warns(player: Player) -> void:
     _check(not leo.is_alert(), "lejos de los infectados, Leo se calma")
 
 
-## Leo guía: con Cony quieta, elige la pista activa de la sala; al encontrar la
+## Leo guía: con Isabella quieta, elige la pista activa de la sala; al encontrar la
 ## pistola, la pista del andén cambia (de la sala de espera al portón sur).
 func _leo_guides(player: Player) -> void:
     var leo: Node3D = main.leo
@@ -81,8 +81,8 @@ func _leo_guides(player: Player) -> void:
     if not had_pistol_flag:
         GameState.flags.erase("found:pistol")
     var dialogue := main.get_node("Dialogue")
-    dialogue._show_text("Leo: Hola, Cony.")
-    _check(dialogue.speaker.visible and dialogue.text.text == "Hola, Cony.", "Leo: el cuadro de diálogo muestra su nombre")
+    dialogue._show_text("Leo: Hola, Isabella.")
+    _check(dialogue.speaker.visible and dialogue.text.text == "Hola, Isabella.", "Leo: el cuadro de diálogo muestra su nombre")
     dialogue._show_text("Una línea normal.")
     _check(not dialogue.speaker.visible, "diálogo normal sin nombre")
 
@@ -205,7 +205,7 @@ func _pickup_and_note(player: Player) -> void:
     player.global_position = ammo.global_position + Vector3(0.7, 0.05, 0.0)
     player.face_direction(Vector3.LEFT, 1.0)
     await _frames(3)
-    _check(player.interaction.focus == ammo, "Cony tiene a mano la caja de balas")
+    _check(player.interaction.focus == ammo, "Isabella tiene a mano la caja de balas")
     var action_button: Control = main.get_node("HUD/ActionButton")
     _check(action_button.visible and action_button.label == "RECOGER", "aparece el botón ACCIÓN con «RECOGER»")
     await _tap(&"interact")
@@ -220,7 +220,7 @@ func _pickup_and_note(player: Player) -> void:
     player.global_position = Vector3(note.global_position.x, 0.05, 3.9)
     player.face_direction(Vector3.BACK, 1.0)
     await _frames(3)
-    _check(player.interaction.focus == note, "Cony tiene a mano la nota de la banca")
+    _check(player.interaction.focus == note, "Isabella tiene a mano la nota de la banca")
     player.interaction.use(note)
     await _frames(3)
     _check(main.get_node("Dialogue/Reader").visible, "la nota se abre en el lector")
@@ -299,16 +299,16 @@ func _doors_and_rooms(player: Player) -> void:
     player.global_position = Vector3(3.0, 0.05, 4.3)
     player.face_direction(Vector3.BACK, 1.0)
     await _frames(3)
-    _check(player.interaction.focus == door, "Cony tiene a mano la puerta de la sala de espera")
+    _check(player.interaction.focus == door, "Isabella tiene a mano la puerta de la sala de espera")
     player.interaction.use(door)
     await _seconds(1.4)
     var room: Room = main.room
     _check(room.scene_file_path == WAITING_ROOM, "la puerta lleva a la sala de espera")
     _check(not is_instance_valid(platform) or not platform.is_inside_tree(), "el andén se descarga")
-    _check(player.global_position.distance_to(room.get_spawn("from_platform").origin) < 0.3, "Cony aparece en la entrada")
+    _check(player.global_position.distance_to(room.get_spawn("from_platform").origin) < 0.3, "Isabella aparece en la entrada")
     _check(room.get_active_camera() == root.get_viewport().get_camera_3d(), "se activa una cámara de la sala nueva")
     _check(not player.controls_locked, "los controles vuelven tras el fundido")
-    _check(player.global_position.distance_to(main.leo.global_position) < 1.5, "Leo entra con Cony")
+    _check(player.global_position.distance_to(main.leo.global_position) < 1.5, "Leo entra con Isabella")
     for zone: CameraZone in room.find_children("*", "CameraZone", true, false):
         var misses := await _count_void_rays(zone.get_camera())
         _check(misses == 0, "la cámara %s de la sala de espera no ve huecos (rayos perdidos: %d)" % [zone.name, misses])
@@ -323,7 +323,7 @@ func _doors_and_rooms(player: Player) -> void:
     player.global_position = Vector3(3.0, 0.05, 1.4)
     player.face_direction(Vector3.RIGHT, 1.0)
     await _frames(3)
-    _check(player.interaction.focus == typewriter, "Cony tiene a mano la máquina de escribir")
+    _check(player.interaction.focus == typewriter, "Isabella tiene a mano la máquina de escribir")
     player.interaction.use(typewriter)
     await _frames(4)
     _check(Dialogue._instance._asking, "la máquina de escribir pregunta si guardar")
@@ -336,7 +336,7 @@ func _doors_and_rooms(player: Player) -> void:
     player.interaction.use(back)
     await _seconds(1.4)
     _check(main.room.scene_file_path == GameState.START_ROOM, "la puerta de vuelta lleva al andén")
-    _check(player.global_position.distance_to(main.room.get_spawn("from_waiting_room").origin) < 0.3, "Cony sale por la puerta de la sala")
+    _check(player.global_position.distance_to(main.room.get_spawn("from_waiting_room").origin) < 0.3, "Isabella sale por la puerta de la sala")
     _check(main.room.get_node_or_null("Interactables/Ammo") == null, "lo recogido no vuelve a aparecer")
 
     # Y otra vez a la sala: el infectado sigue muerto en el suelo.
@@ -400,7 +400,7 @@ func _chapter_route(player: Player) -> void:
     player.global_position = Vector3(guard_ammo.global_position.x + 0.65, 0.05, guard_ammo.global_position.z)
     player.face_direction(Vector3.LEFT, 1.0)
     await _frames(3)
-    _check(player.interaction.focus == guard_ammo, "Cony tiene a mano la munición del guardia")
+    _check(player.interaction.focus == guard_ammo, "Isabella tiene a mano la munición del guardia")
     player.interaction.use(guard_ammo)
     await _close_dialogues()
     _check(GameState.inventory.count_of(AMMO) > ammo_before, "la munición del guardia queda en la mochila")
@@ -426,7 +426,7 @@ func _chapter_route(player: Player) -> void:
     player.global_position = Vector3(exit.global_position.x, 0.05, exit.global_position.z + 0.7)
     player.face_direction(Vector3.FORWARD, 1.0)
     await _frames(3)
-    _check(player.interaction.focus == exit, "Cony tiene a mano la bajada a la vía")
+    _check(player.interaction.focus == exit, "Isabella tiene a mano la bajada a la vía")
     player.interaction.use(exit)
     await _frames(4)
     _check(Dialogue._instance._asking, "bajar a la vía pide confirmación")
@@ -533,7 +533,7 @@ func _chapter_two() -> void:
     SceneLoader.go_to("res://levels/tracks/underpass.tscn", "from_convoy")
     await _seconds(1.4)
     flashlight = player.model.get_node_or_null("Flashlight") as SpotLight3D
-    _check(main.room.dark and flashlight != null and flashlight.visible, "en el paso bajo nivel (apagón) Cony enciende la linterna")
+    _check(main.room.dark and flashlight != null and flashlight.visible, "en el paso bajo nivel (apagón) Isabella enciende la linterna")
 
     SceneLoader.go_to("res://levels/tracks/convoy_side.tscn", "from_underpass")
     await _seconds(1.4)

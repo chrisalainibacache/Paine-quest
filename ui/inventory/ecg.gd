@@ -1,6 +1,6 @@
 extends Control
 ## Electrocardiograma de la mochila: el pulso y el color cambian con el estado
-## de Cony (verde = Bien, amarillo = Precaución, rojo = Peligro).
+## de Isabella (verde = Bien, amarillo = Precaución, rojo = Peligro).
 
 const COLORS := {
     "Bien": Color(0.35, 0.9, 0.4),

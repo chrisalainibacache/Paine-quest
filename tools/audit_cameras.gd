@@ -1,6 +1,6 @@
 extends SceneTree
 ## Auditoría de cámaras: para cada punto caminable de cada sala calcula con qué
-## cámaras podría verse a Cony y marca los puntos donde se "pierde":
+## cámaras podría verse a Isabella y marca los puntos donde se "pierde":
 ##   TAPADA   = un muro, vagón o mueble sólido tapa su cuerpo (pecho y cabeza).
 ##   FUERA    = queda fuera del cuadro (o pegada al borde, bajo los botones).
 ##   CHICA    = se ve más chica que MIN_HEIGHT de la pantalla.

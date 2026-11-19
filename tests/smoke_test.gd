@@ -13,15 +13,15 @@ func _run() -> void:
     for enemy in room.get_tree().get_nodes_in_group("enemies"):
         enemy.free()
 
-    _check(room != null and player != null, "la sala y Cony se cargan")
+    _check(room != null and player != null, "la sala y Isabella se cargan")
     _check(room.get_active_camera() != null, "hay una cámara fija activa al empezar")
-    _check(player.get_current_animation() == "Idle", "Cony empieza en Idle (está: %s)" % player.get_current_animation())
+    _check(player.get_current_animation() == "Idle", "Isabella empieza en Idle (está: %s)" % player.get_current_animation())
 
-    # Caminar: la animación cambia y Cony se desplaza.
+    # Caminar: la animación cambia y Isabella se desplaza.
     var start := player.global_position
     Input.action_press(&"move_left", 1.0)
     await _seconds(1.0)
-    _check(player.global_position.distance_to(start) > 1.5, "Cony trota con el stick a fondo (avanzó %.2f m)" % player.global_position.distance_to(start))
+    _check(player.global_position.distance_to(start) > 1.5, "Isabella trota con el stick a fondo (avanzó %.2f m)" % player.global_position.distance_to(start))
     _check(player.get_current_animation() == "Jog", "animación de trote (está: %s)" % player.get_current_animation())
     Input.action_release(&"move_left")
     await _seconds(0.3)
@@ -75,13 +75,13 @@ func _run() -> void:
     var position_before_fallback := player.global_position
     player.global_position = Vector3(100.0, 0.05, 100.0)
     room.pick_camera_for(player)
-    _check(room.get_active_camera() != null, "hay cámara de respaldo si Cony aparece fuera de las zonas")
+    _check(room.get_active_camera() != null, "hay cámara de respaldo si Isabella aparece fuera de las zonas")
     _check(room.get_active_camera() == root.get_viewport().get_camera_3d(), "la cámara de respaldo queda activa en el viewport")
     player.global_position = position_before_fallback
     room.pick_camera_for(player)
     await _frames(2)
 
-    # Cony no puede caer a la vía.
+    # Isabella no puede caer a la vía.
     player.global_position = Vector3(0.0, 0.05, -0.4)
     var cam_basis := Player._flat_basis(room.get_active_camera().global_basis)
     # Empuja el stick en la dirección que, para esta cámara, apunta a la vía.
@@ -116,7 +116,7 @@ func _combat_tests(player: Player, room: Room) -> void:
     _check(player.get_current_animation() == "Pistol_Aim_Neutral", "pose de apuntar (está: %s)" % player.get_current_animation())
     var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
     _check(skeleton != null and skeleton.find_bone("RightHand") >= 0,
-        "el modelo de Cony tiene el hueso RightHand")
+        "el modelo de Isabella tiene el hueso RightHand")
     _check(combat.held != null, "la escena de la pistola queda montada en la mano")
     if combat.held != null:
         var attachment := combat.held.get_parent() as BoneAttachment3D
@@ -220,15 +220,15 @@ func _combat_tests(player: Player, room: Room) -> void:
     Input.action_release(&"aim")
     await _frames(3)
 
-    # Un infectado pegado a Cony la ataca y le quita vida.
+    # Un infectado pegado a Isabella la ataca y le quita vida.
     var biter: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
     room.add_child(biter)
     biter.global_position = player.global_position + Vector3(1.0, 0.0, 0.0)
     await _seconds(3.0)
-    _check(player.health < Player.MAX_HEALTH, "el infectado muerde a Cony (vida: %d)" % player.health)
+    _check(player.health < Player.MAX_HEALTH, "el infectado muerde a Isabella (vida: %d)" % player.health)
     biter.free()
 
-    # Infectado haciéndose el muerto: se levanta al acercarse Cony.
+    # Infectado haciéndose el muerto: se levanta al acercarse Isabella.
     var liar: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
     liar.start_state = "lying"
     room.add_child(liar)
@@ -237,7 +237,7 @@ func _combat_tests(player: Player, room: Room) -> void:
     _check(liar.state == Infected.State.RISING, "el que se hace el muerto se levanta al acercarse")
     liar.free()
 
-    # Un infectado colocado girado en la sala camina de frente hacia Cony.
+    # Un infectado colocado girado en la sala camina de frente hacia Isabella.
     var turned: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
     turned.rotation.y = 2.2
     room.add_child(turned)
@@ -249,12 +249,12 @@ func _combat_tests(player: Player, room: Room) -> void:
     var to_player := player.global_position - turned.global_position
     to_player.y = 0.0
     _check(turned.global_position.distance_to(player.global_position) < gap_before - 0.3,
-        "el infectado girado se acerca a Cony")
+        "el infectado girado se acerca a Isabella")
     _check(turned._forward().dot(to_player.normalized()) > 0.9, "y la mira de frente (no camina de espaldas)")
     turned.free()
 
-    # Muerte de Cony y pantalla de reintentar.
+    # Muerte de Isabella y pantalla de reintentar.
     player.take_damage(1000, player.global_position + Vector3.RIGHT)
-    _check(not player.is_alive(), "Cony muere con daño suficiente")
+    _check(not player.is_alive(), "Isabella muere con daño suficiente")
     await _seconds(2.8)
     _check(main.get_node("HUD/DeathScreen").visible, "aparece la pantalla de muerte")

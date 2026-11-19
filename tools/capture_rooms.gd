@@ -40,7 +40,7 @@ func _run() -> void:
         await _wait(1.3)
         var room: Room = current_scene.room
         for zone: CameraZone in room.find_children("*", "CameraZone", true, false):
-            # PAINE_JUGADOR=centro: Cony de pie en el centro de cada zona (revisar encuadres).
+            # PAINE_JUGADOR=centro: Isabella de pie en el centro de cada zona (revisar encuadres).
             if OS.get_environment("PAINE_JUGADOR") == "centro":
                 var spot := _reachable_near(room, zone.global_position)
                 current_scene.player.global_position = spot

@@ -17,7 +17,7 @@
 ```
 res://
 ├─ assets/          Archivos importados tal cual (no se editan a mano)
-│  ├─ characters/   Cony, Leo, infectados + animaciones
+│  ├─ characters/   Isabella, Leo, infectados + animaciones
 │  ├─ environment/  Kits modulares de cada zona (estación, tren, fábrica, mina)
 │  ├─ props/        Barriles, cajas, señales, vehículos
 │  ├─ weapons/      Modelos de armas
@@ -26,7 +26,7 @@ res://
 │  ├─ fonts/
 │  └─ vfx/
 ├─ actors/          Cosas vivas (escena + script juntos)
-│  ├─ player/       Cony: movimiento, combate, animación
+│  ├─ player/       Isabella: movimiento, combate, animación
 │  ├─ enemies/      Infectado, jefe
 │  └─ companion/    Leo
 ├─ levels/          Una carpeta por zona; una escena por sala
@@ -56,7 +56,7 @@ necesitan el árbol registran su instancia al iniciar.
 | `GraphicsSettings` | estático | Modo gráfico Retro/Moderno (`user://ajustes.cfg`). `apply(nodo)` cambia materiales `ps1_surface` ↔ `modern_surface`, filtrado de texturas, ambiente (tonemap, glow), sombra en la luz más fuerte, MSAA y el filtro PS1 (grupo `ps1_filter`). Lo llaman `SceneLoader` al cargar cada sala y el botón `ui/graphics_toggle.gd`. |
 | `Inventory` | clase | 16 casillas con apilado; se serializa a rutas de recursos. |
 | `SaveSystem` | estático | Guarda/carga `GameState` en `user://partida.json` (una ranura). |
-| `SceneLoader` | nodo en `Main` | Cambia de sala: fundido, descarga, instancia, ubica a Cony y Leo, elige cámara. |
+| `SceneLoader` | nodo en `Main` | Cambia de sala: fundido, descarga, instancia, ubica a Isabella y Leo, elige cámara. |
 | `Dialogue` | escena en `Main` | Mensajes, preguntas (`ask`) y lector de documentos. Pausa el juego. |
 | `InventoryMenu` | escena en `Main` | Mochila: casillas 3D, estado, usar/equipar/examinar, NOTAS. |
 
@@ -73,7 +73,7 @@ necesitan el árbol registran su instancia al iniciar.
 | `examine_spot.gd` | Objeto que solo muestra mensajes. |
 | `typewriter.gd` | Guardar partida. |
 | `chapter_exit.gd` | Salida que cierra un capítulo (pregunta antes; `SceneLoader.end_chapter`). El fin del capítulo 1 ofrece CONTINUAR al 2 (guarda un punto de control); el del 2 es el final. |
-| `Room.dark` | Sala a oscuras: Cony enciende la linterna (`Player.set_flashlight`). |
+| `Room.dark` | Sala a oscuras: Isabella enciende la linterna (`Player.set_flashlight`). |
 | `WeaponData` | Daño, cargador, caída de daño, ráfaga, explosivos (`explosive_radius`), modelo en la mano (`held_scene` o `held_model` + `muzzle_offset`) y sonido. `GameState.equip()` guarda el cargador de cada arma. |
 | `actors/fx/` | `Explosion` (fuego, humo, esquirlas, mancha) y `Projectile` (granada/cohete en vuelo). |
 | `flicker_light.gd` | OmniLight3D que parpadea de vez en cuando. |
@@ -85,7 +85,7 @@ necesitan el árbol registran su instancia al iniciar.
 - `tests/smoke_test.gd`: movimiento, cámaras, Leo y combate.
 - `tests/systems_test.gd`: mochila, recoger, notas, puertas, guardado, recorrido del capítulo.
 - `tests/levels_test.gd`: revisa **todas** las salas de `levels/station/` (puertas y apariciones
-  conectadas, Cony aparece sobre el piso y dentro de una cámara, ninguna cámara ve huecos, el
+  conectadas, Isabella aparece sobre el piso y dentro de una cámara, ninguna cámara ve huecos, el
   capítulo se puede terminar). Una sala nueva queda cubierta solo por existir en la carpeta.
 
 Cada sala se arma en `levels/<zona>/` con nodos `Interactables`, `Enemies`, `Cameras`
@@ -96,10 +96,10 @@ infectados en salas ya publicadas** (se perdería lo guardado).
 ## Flujo de una sala
 
 1. Una `Door` llama `SceneLoader.go_to(sala, spawn)` (sin esperar: la puerta se borra con su sala).
-2. Fundido a negro; Cony queda sin controles.
+2. Fundido a negro; Isabella queda sin controles.
 3. Se saca la sala anterior del árbol; se instancia la nueva. Infectados y pickups
    consultan `GameState` en su `_ready` (muertos / ya recogidos).
-4. Cony y Leo se ubican en `Spawns/<spawn>`; se elige la `CameraZone` que contiene a Cony.
+4. Isabella y Leo se ubican en `Spawns/<spawn>`; se elige la `CameraZone` que contiene a Isabella.
 5. Fundido de entrada y vuelven los controles.
 
 ## Convenciones de código

@@ -419,7 +419,7 @@ hide_if_item = "shed_key"
 [node name="LeoVineyard" type="Marker3D" parent="."]
 position = Vector3(4, 0, -1.4)
 script = ExtResource("26_leo_hint")
-lines = PackedStringArray("Leo: Ya tienes la llave del galpón. La viña está por aquí.", "Leo: Rosa está allá, Cony. La huelo desde aquí.")
+lines = PackedStringArray("Leo: Ya tienes la llave del galpón. La viña está por aquí.", "Leo: Rosa está allá, Isabella. La huelo desde aquí.")
 show_if_item = "shed_key"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]

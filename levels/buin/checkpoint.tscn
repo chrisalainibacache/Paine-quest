@@ -406,7 +406,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoTent" type="Marker3D" parent="."]
 position = Vector3(-4.6, 0, -2.2)
 script = ExtResource("34_leo_hint")
-lines = PackedStringArray("Leo: En la carpa hay papeles con sellos. Léelos, Cony.", "Leo: Y esa máquina de escribir sirve igual que las otras.")
+lines = PackedStringArray("Leo: En la carpa hay papeles con sellos. Léelos, Isabella.", "Leo: Y esa máquina de escribir sirve igual que las otras.")
 hide_if_flag = "read:military_order"
 
 [node name="LeoStation" type="Marker3D" parent="."]

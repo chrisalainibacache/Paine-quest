@@ -1,6 +1,6 @@
 extends SceneTree
 ## Planificador de cámaras fijas: para cada sala parte el piso en zonas (1 a 9) y
-## busca la mejor cámara de cada una (posición, altura, FOV) para que Cony se vea
+## busca la mejor cámara de cada una (posición, altura, FOV) para que Isabella se vea
 ## entera, de buen tamaño y sin que nada sólido la tape en cualquier punto.
 ## Guarda el resultado en tools/level_gen/cameras.json; los generadores (tscn.py)
 ## lo aplican solos al regenerar cada sala.
@@ -16,7 +16,7 @@ const HEIGHTS := [1.8, 2.1, 2.4, 2.8, 3.2, 3.7, 4.3, 4.9, 5.6, 6.4]
 const FOVS := [56.0, 62.0, 68.0]
 ## Las zonas se solapan un poco para que el corte de cámara no parpadee en el borde.
 const OVERLAP := 0.5
-## Margen de las zonas del borde: cubre hasta el último paso de Cony junto al muro.
+## Margen de las zonas del borde: cubre hasta el último paso de Isabella junto al muro.
 const EDGE := 1.0
 ## Se acepta la primera distribución con la peor zona ≥ 96 % y media ≥ 98 %.
 const TARGET_WORST := 0.96
@@ -110,7 +110,7 @@ func _plan_layout(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2, 
                     inside.append(p)
             if inside.size() < 3:
                 continue
-            # Los puntos de aparición (donde llega Cony al cambiar de sala) cuentan ×8.
+            # Los puntos de aparición (donde llega Isabella al cambiar de sala) cuentan ×8.
             var weighted: Array = inside.duplicate()
             for s: Vector3 in _spawns:
                 if s.x >= extended.position.x and s.x <= extended.end.x and s.z >= extended.position.y and s.z <= extended.end.y:
@@ -178,7 +178,7 @@ func _best_camera(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2) 
                                 good += 1
                         var coverage := float(good) / samples.size()
                         # Prefiere ángulos de cine: picado de ~30°, FOV normal, cerca de un muro (no en
-                        # medio de la sala) y ni muy lejos de Cony.
+                        # medio de la sala) y ni muy lejos de Isabella.
                         var edge := minf(minf(x - area.position.x, area.end.x - x), minf(z - area.position.y, area.end.y - z))
                         var score := coverage - 0.012 * absf(pitch - 30.0) / 15.0 - 0.01 * maxf(pitch - 45.0, 0.0) / 15.0 - 0.01 * (fov - 56.0) / 12.0 \
                             - 0.01 * clampf(flat - 8.0, 0.0, 8.0) / 8.0 - 0.012 * clampf(edge, 0.0, 3.5) / 3.5

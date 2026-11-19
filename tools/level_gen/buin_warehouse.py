@@ -1,7 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from buin_common import *
-# Bodega agrícola (sin luz: Cony usa la linterna). Sacos, cajones y un tractor
+# Bodega agrícola (sin luz: Isabella usa la linterna). Sacos, cajones y un tractor
 # viejo; la llave del galpón cuelga del tractor, con la carta de Ana.
 k = Kit("Warehouse", "Bodega agrícola", dark=True)
 k.env((0.0, 0.0, 0.0), (0.3, 0.29, 0.27), 0.7, (0.04, 0.04, 0.04), 0.05)

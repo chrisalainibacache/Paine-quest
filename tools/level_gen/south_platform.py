@@ -17,7 +17,7 @@ from tunnels import carve
 carve(k.block, k.prop, -1, -6.0, -3.3, -1.0, -1.0, 3.6, -5.4, 5.4, "bricks_wall", prefix="WestTunnel")
 carve(k.block, k.prop, +1, 6.0, -3.3, -1.0, -1.0, 3.6, -5.4, 5.4, "concrete_wall", red=True, prefix="EastTunnel")
 k.light("FireGlow", "Lights", (5.4, 0.2, -3.4), (1.0, 0.3, 0.12), 1.6, 5.5)
-# Reja del borde: Cony no puede caer a la vía.
+# Reja del borde: Isabella no puede caer a la vía.
 for i in range(7):
     k.block("Post%d" % i, "EdgeFence", (-5.4 + i * 1.6, 0.55, -1.12), (0.07, 1.1, 0.07), "metal", solid=False)
 k.block("RailTop", "EdgeFence", (-0.6, 1.07, -1.12), (10.0, 0.06, 0.05), "metal", solid=False)
@@ -78,7 +78,7 @@ k.decal("Oil", "oil_stain", (1.0, 0.014, -0.4), 1.2, "up", rot=1.3)
 k.camera("West", (-3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (2.6, 3.2, 4.3), (-4.2, 0.3, 0.9), fov=58)
 k.camera("East", (3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (-2.6, 3.2, 4.3), (4.4, 0.0, -0.6), fov=58)
 k.spawn("from_north_platform", (-5.1, 0.05, 2.0), (1, 0))
-# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
-k.leo_hint('LeoTracks', (4.3, 0, -0.75), ['Leo: La vía va hacia el norte. Hacia Santiago. Hacia Javiera.', 'Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.'])
+# Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
+k.leo_hint('LeoTracks', (4.3, 0, -0.75), ['Leo: La vía va hacia el norte. Hacia Santiago. Hacia Paz.', 'Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.'])
 k.save(REPO + "/levels/station/south_platform.tscn")
 print("south platform ok")

@@ -1,13 +1,13 @@
 class_name PlayerInteraction
 extends Node
-## Busca el objeto interactuable más a mano (cerca y frente a Cony) y lo usa
+## Busca el objeto interactuable más a mano (cerca y frente a Isabella) y lo usa
 ## cuando se presiona ACCIÓN. El HUD muestra el botón con el texto del objeto.
 
 signal focus_changed(target: Interactable)
 
-## Ángulo máximo (a cada lado) para considerar que Cony mira el objeto.
+## Ángulo máximo (a cada lado) para considerar que Isabella mira el objeto.
 const FACING_ANGLE := deg_to_rad(80.0)
-## Más cerca que esto, cuenta aunque Cony no lo esté mirando.
+## Más cerca que esto, cuenta aunque Isabella no lo esté mirando.
 const CLOSE_DISTANCE := 0.45
 
 ## Si un toque en ACCIÓN llega cuando no hay objeto a mano (o entre dos revisiones),
@@ -44,7 +44,7 @@ func queue_use() -> void:
 
 
 ## Si una acción quedó trabada (un error dentro de un diálogo, p. ej.), devuelve el
-## control a Cony en vez de dejarla bloqueada para siempre.
+## control a Isabella en vez de dejarla bloqueada para siempre.
 func _recover_if_stuck() -> void:
     if not busy:
         return
@@ -52,7 +52,7 @@ func _recover_if_stuck() -> void:
         _busy_since = Time.get_ticks_msec() / 1000.0
         return
     if Time.get_ticks_msec() / 1000.0 - _busy_since > STUCK_AFTER:
-        push_warning("PlayerInteraction: acción trabada, se libera a Cony.")
+        push_warning("PlayerInteraction: acción trabada, se libera a Isabella.")
         busy = false
         player.controls_locked = false
 

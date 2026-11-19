@@ -1,10 +1,10 @@
 extends CharacterBody3D
-## Leo, la gatita de Cony. La sigue a una distancia cómoda, camina o corre
-## según qué tan lejos quedó, y se queda sentada mirando cuando Cony se detiene.
+## Leo, la gatita de Isabella. La sigue a una distancia cómoda, camina o corre
+## según qué tan lejos quedó, y se queda sentada mirando cuando Isabella se detiene.
 ## Si hay un infectado cerca (aunque se esté haciendo el muerto), Leo lo mira
 ## y le bufa: es el aviso para el jugador.
-## Leo también guía: si Cony se queda quieta un rato, Leo camina hasta la pista
-## activa de la sala (nodos del grupo "leo_hints"), maúlla y, cuando Cony llega,
+## Leo también guía: si Isabella se queda quieta un rato, Leo camina hasta la pista
+## activa de la sala (nodos del grupo "leo_hints"), maúlla y, cuando Isabella llega,
 ## le explica qué hacer.
 
 const FOLLOW_DISTANCE := 1.3
@@ -26,9 +26,9 @@ const EYE_COLOR := Color(0.55, 0.85, 0.25)
 const GUIDE_DELAY := 5.0
 ## Distancia a la pista a la que Leo se sienta a esperar.
 const GUIDE_ARRIVE := 0.6
-## Leo habla cuando Cony llega a esta distancia de ella (estando en la pista).
+## Leo habla cuando Isabella llega a esta distancia de ella (estando en la pista).
 const EXPLAIN_RANGE := 1.8
-## Si Cony se aleja tanto, Leo deja de guiar y vuelve con ella.
+## Si Isabella se aleja tanto, Leo deja de guiar y vuelve con ella.
 const GUIDE_GIVE_UP := 8.0
 const MEOW_INTERVAL := 3.5
 
@@ -45,7 +45,7 @@ var threat: Node3D
 var _scan_timer := 0.0
 var _hiss_timer := 0.0
 var _hiss_anim_time := 0.0
-## Pista a la que Leo está guiando (null = sigue a Cony).
+## Pista a la que Leo está guiando (null = sigue a Isabella).
 var guide: Node3D
 var _idle_time := 0.0
 var _meow_timer := 0.0
@@ -122,7 +122,7 @@ func _physics_process(delta: float) -> void:
     if horizontal > 0.1:
         model.rotation.y = lerp_angle(model.rotation.y, atan2(velocity.x, velocity.z), minf(TURN_SPEED * delta, 1.0))
     elif guide and target:
-        # Esperando en la pista: mira a Cony para que la siga.
+        # Esperando en la pista: mira a Isabella para que la siga.
         var to_cony := target.global_position - global_position
         model.rotation.y = lerp_angle(model.rotation.y, atan2(to_cony.x, to_cony.z), minf(TURN_SPEED * delta, 1.0))
     elif threat:
@@ -138,7 +138,7 @@ func _physics_process(delta: float) -> void:
         _play("Idle")
 
 
-## Guía: decide cuándo llevar a Cony a la pista activa y cuándo explicarle.
+## Guía: decide cuándo llevar a Isabella a la pista activa y cuándo explicarle.
 func _update_guide(delta: float) -> void:
     if target == null or not guide_enabled:
         return

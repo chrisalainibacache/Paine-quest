@@ -47,7 +47,7 @@ k.camera("West", (-4.5, 1.5, 0.0), (9.0, 3.0, 10.0), (0.6, 4.2, 4.4), (-5.0, 0.4
 k.camera("East", (4.5, 1.5, 0.0), (9.0, 3.0, 10.0), (-0.8, 4.2, -4.4), (5.0, 0.4, 0.6), fov=60)
 k.spawn("from_bridge", (-7.6, 0.05, 0.0), (1, 0))
 k.spawn("from_station", (7.6, 0.05, -2.6), (-1, 0))
-k.leo_hint("LeoTent", (-4.6, 0, -2.2), ["Leo: En la carpa hay papeles con sellos. Léelos, Cony.", "Leo: Y esa máquina de escribir sirve igual que las otras."], hide_if="read:military_order")
+k.leo_hint("LeoTent", (-4.6, 0, -2.2), ["Leo: En la carpa hay papeles con sellos. Léelos, Isabella.", "Leo: Y esa máquina de escribir sirve igual que las otras."], hide_if="read:military_order")
 k.leo_hint("LeoStation", (7.5, 0, -2.6), ["Leo: La estación de Buin está por ahí.", "Leo: Los soldados tienen casco. Apúntales al cuerpo y no te quedes cerca."])
 k.save(REPO + "/levels/buin/checkpoint.tscn")
 print("checkpoint ok")

@@ -24,7 +24,7 @@ s.node("Brightness", "Button", "Menu", custom_minimum_size="Vector2(0, 68)", tex
        script=s.res("res://ui/brightness_toggle.gd", "Script"))
 s.node("Credits", "Label", ".", anchors_preset="3", anchor_left="1.0", anchor_top="1.0", anchor_right="1.0", anchor_bottom="1.0",
        grow_horizontal="0", grow_vertical="0", offset_left="-520.0", offset_top="-50.0", offset_right="-24.0", offset_bottom="-16.0",
-       horizontal_alignment="2", text='"Cony y Leo · Paine, Chile"', theme_override_font_sizes_font_size="18",
+       horizontal_alignment="2", text='"Isabella y Leo · Paine, Chile"', theme_override_font_sizes_font_size="18",
        theme_override_colors_font_color=col((0.4, 0.38, 0.34)))
 # Créditos que piden las licencias (CC-BY): ver CREDITS.md.
 s.node("Attribution", "Label", ".", anchors_preset="2", anchor_top="1.0", anchor_bottom="1.0", grow_vertical="0",

@@ -18,7 +18,7 @@ El juego "se veía simple". La diferencia con RE3 de PS1 tiene nombre:
   - DENSIDAD DE DETALLE (ambientación / "set dressing"): cada rincón con objetos.
 Como nuestras cámaras ya son fijas, hacemos lo mismo: por cada cámara de cada sala
 se renderiza una "foto" de alta calidad y en el juego se muestra esa foto con
-Cony, Leo, infectados e ítems en 3D encima.
+Isabella, Leo, infectados e ítems en 3D encima.
 
 Decisión de Chris: opción 2 (fondos prerenderizados). Se aplica en el modo
 gráfico MODERNO. El modo RETRO sigue igual que antes (look PS1 en vivo).
@@ -98,7 +98,7 @@ Requisitos en Linux (servidor sin GPU sirve):
                            (modelo, posición, giro, escala; luces extra opcionales).
                            python3 tools/prerender/room_details.py <sala> ; luego --import otra vez.
    Reglas para colocar detalle:
-     - Pegado a muros y rincones, NO en el camino de Cony: los objetos de detalle no
+     - Pegado a muros y rincones, NO en el camino de Isabella: los objetos de detalle no
        existen en el juego (sin choque ni oclusión). Si un objeto grande queda en
        medio, hay que agregar un bloque invisible/colisión en el generador de la sala.
      - No tapar puertas, ítems ni notas (siguen siendo 3D en el juego).
@@ -139,7 +139,7 @@ Requisitos en Linux (servidor sin GPU sirve):
     cuelga de "Enemies" e "Interactables".
   - Los Label3D (letreros de texto) quedan en la foto y se ocultan en el juego.
   - Las sombras de los personajes no caen sobre la foto (como en RE3). Leo tiene
-    sombra de mancha (blob); a futuro se puede agregar a Cony e infectados.
+    sombra de mancha (blob); a futuro se puede agregar a Isabella e infectados.
   - Memoria: 1680x720 RGBA ≈ 4,8 MB por imagen. Con ~40 imágenes conviene
     comprimir (importar como VRAM ETC2, o bajar a 1440x616) y cargar solo las
     de la sala actual (ya es así: se cargan al entrar a la sala).
@@ -154,7 +154,7 @@ Requisitos en Linux (servidor sin GPU sirve):
   - Capas animadas encima de la foto: lluvia, polvo, parpadeo de luz (sprites 2D
     o un ColorRect con shader sobre el CanvasLayer).
   - Pasar también el modo Retro a fondos prerenderizados con filtro PS1 encima.
-  - Sombras de mancha para Cony e infectados.
+  - Sombras de mancha para Isabella e infectados.
 
 
 7. PRUEBAS DE NOVIEMBRE (qué se probó y qué no sirvió)
@@ -177,6 +177,6 @@ Requisitos en Linux (servidor sin GPU sirve):
   reemplaza una vez; con GRÁFICOS se vuelve a elegir).
 - Tren detallado (tools/level_gen/train_props.py): marcos de ventana, costillas, escalones,
   pasamanos, topes, enganches, escape, ventiladores y barandas. Las piezas repetidas van en
-  MultiMesh (un solo dibujo) para no cargar el teléfono. Lo que tapaba a Cony desde las
+  MultiMesh (un solo dibujo) para no cargar el teléfono. Lo que tapaba a Isabella desde las
   cámaras (hombreras del techo, trocha, tanque colgante) se quitó; tools/audit_cameras.gd debe
   seguir en 0 apariciones malas tras tocar cualquier prop grande.

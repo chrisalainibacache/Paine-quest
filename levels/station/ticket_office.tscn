@@ -583,7 +583,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoGuardDesk" type="Marker3D" parent="."]
 position = Vector3(-1.5, 0, -0.65)
 script = ExtResource("24_leo_hint")
-lines = PackedStringArray("Leo: El escritorio de don Héctor. Rosa dejó aquí sus balas.", "Leo: No me gusta ese ruido, Cony. Pero es mejor que lo tengas tú.")
+lines = PackedStringArray("Leo: El escritorio de don Héctor. Rosa dejó aquí sus balas.", "Leo: No me gusta ese ruido, Isabella. Pero es mejor que lo tengas tú.")
 hide_if_flag = "found:pistol"
 
 [node name="LeoCorridor" type="Marker3D" parent="."]

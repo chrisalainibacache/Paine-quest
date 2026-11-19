@@ -11,9 +11,9 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 ## Hito 1 — Sala de prueba ("caja gris" con texturas)
 - [x] Kit modular de muros/pisos/techo en grilla + shader de variación.
 - [x] Una sala cerrada (andén norte) con 2 cámaras fijas.
-- [x] Cony camina/trota con el stick (control relativo a la cámara) con animaciones Quaternius reasignadas a su esqueleto.
+- [x] Isabella camina/trota con el stick (control relativo a la cámara) con animaciones Quaternius reasignadas a su esqueleto.
 - [x] Filtro PS1 + niebla + luz de sodio.
-- [x] Leo (gatita gris, Quaternius CC0) sigue a Cony con animaciones de caminar/correr.
+- [x] Leo (gatita gris, Quaternius CC0) sigue a Isabella con animaciones de caminar/correr.
 - [x] Ajustes tras la primera prueba: trote más natural y dirección inteligente en los cortes de cámara.
 - **Prueba en el teléfono:** caminar por la sala, cortes de cámara, 60 fps.
 
@@ -21,7 +21,7 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 - [x] Apuntar (mantener) y disparar con la pistola, auto-apuntado, munición (10 + 20) y recarga automática.
 - [x] Infectado (modelo PSX + animaciones zombi Quaternius): de pie, comiendo o haciéndose el muerto; camina, ataca, se tambalea y muere.
 - [x] Sangre, mancha en el piso, sonidos sintetizados y vibración al recibir daño.
-- [x] Salud de Cony (Bien / Precaución / Peligro, cojea en Peligro) y pantalla de muerte con reintentar.
+- [x] Salud de Isabella (Bien / Precaución / Peligro, cojea en Peligro) y pantalla de muerte con reintentar.
 - [x] Trote natural (Mixamo) en vez del "salto de zanja".
 
 ## Hito 3 — Sistemas
@@ -36,7 +36,7 @@ Partes chicas: cada hito termina con algo que se puede probar en el teléfono.
 - **Prueba en el teléfono:** recoger, leer, pasar a la sala de espera y volver, guardar, cerrar la app y CONTINUAR.
 
 ## Hito 4 — Capítulo 1 completo (estación, 6 salas)
-- [x] Cony empieza sin arma; la pistola se encuentra cargada en la boletería y se equipa sola.
+- [x] Isabella empieza sin arma; la pistola se encuentra cargada en la boletería y se equipa sola.
 - [x] Salas nuevas: boletería, pasillo de servicio, bodega y andén sur (con el kit `roomkit`).
 - [x] Infectados que aparecen según el progreso (`requires_flag`), cadáveres de verdad, luz que parpadea.
 - [x] Portón del andén sur con la llave de la bodega; bajar a la vía cierra el capítulo.

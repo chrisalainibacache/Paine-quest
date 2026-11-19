@@ -1,8 +1,8 @@
 class_name Player
 extends CharacterBody3D
-## Cony. Movimiento relativo a la cámara fija activa, al estilo de los RE
+## Isabella. Movimiento relativo a la cámara fija activa, al estilo de los RE
 ## modernos con cámaras fijas. Al cortar la cámara, la dirección anterior se
-## mantiene mientras el stick siga apuntando más o menos igual (así Cony no da
+## mantiene mientras el stick siga apuntando más o menos igual (así Isabella no da
 ## media vuelta); apenas el jugador corrige el stick, manda la cámara nueva.
 ## El arma vive en el nodo hijo Combat (player_combat.gd).
 
@@ -15,7 +15,7 @@ const JOG_SPEED := 2.5
 ## Velocidad a la que avanza la animación de trote (Mixamo) a ritmo normal:
 ## se usa para que los pies no patinen.
 const JOG_NATURAL_SPEED := 1.9
-## En "Peligro" Cony cojea: todo más lento.
+## En "Peligro" Isabella cojea: todo más lento.
 const DANGER_SPEED_FACTOR := 0.7
 ## Bajo este empuje del stick camina; sobre él, trota.
 const JOG_THRESHOLD := 0.75
@@ -150,7 +150,7 @@ func play_action(anim_name: String, duration: float) -> void:
     _play(anim_name)
 
 
-## Gira a Cony hacia una dirección (weight 1 = de golpe).
+## Gira a Isabella hacia una dirección (weight 1 = de golpe).
 func face_direction(direction: Vector3, weight: float) -> void:
     direction.y = 0.0
     if direction.length() < 0.01:
@@ -158,7 +158,7 @@ func face_direction(direction: Vector3, weight: float) -> void:
     model.rotation.y = lerp_angle(model.rotation.y, atan2(direction.x, direction.z), clampf(weight, 0.0, 1.0))
 
 
-## Hacia dónde mira Cony (horizontal).
+## Hacia dónde mira Isabella (horizontal).
 func get_forward() -> Vector3:
     return Vector3(sin(model.rotation.y), 0.0, cos(model.rotation.y))
 

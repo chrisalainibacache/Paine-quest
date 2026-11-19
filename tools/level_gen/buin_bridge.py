@@ -6,7 +6,7 @@ from buin_common import *
 INTRO = ["Sábado, 6:50. Puente del Maipo.",
          "El río viene crecido y café. Al otro lado está Buin.",
          "Leo: Huele a motor, a humo y a mucha gente junta. Ya no están... pero estuvieron.",
-         "Leo: Camina por el medio, Cony. Las barandas están sueltas."]
+         "Leo: Camina por el medio, Isabella. Las barandas están sueltas."]
 k = Kit("Bridge", "Puente del Maipo", intro=INTRO)
 dawn(k)
 X0, X1, Z0, Z1 = -11.0, 11.0, -2.3, 2.3
@@ -46,7 +46,7 @@ k.decal("Oil", "oil_stain", (-3.5, 0.02, 0.4), 1.6, "up")
 # Interactuables.
 k.door("ToCheckpoint", (10.2, 0, 0.4), B % "checkpoint", "from_bridge", prompt="SEGUIR", reach=1.4)
 k.examine("River", (0.0, 0, -1.9), ["El Maipo viene crecido y café.", "Arrastra ramas, un colchón... y otras cosas que prefiero no mirar."], reach=1.2)
-k.examine("BackToPaine", (-10.3, 0, 0.0), ["Por ahí quedó Paine.", "Leo: No mires para atrás, Cony. Ya no hay nada que buscar allá."], reach=1.3)
+k.examine("BackToPaine", (-10.3, 0, 0.0), ["Por ahí quedó Paine.", "Leo: No mires para atrás, Isabella. Ya no hay nada que buscar allá."], reach=1.3)
 k.pickup("RifleAmmo", (-4.5, 0.0, -1.6), "ammo_rifle", 15, rot=(0, 0.4, 0))
 k.pickup("Sushi", (6.5, 0.0, -1.7), "sushi", rot=(0, 1.0, 0))
 k.infected("Walker", (2.5, 0.05, 0.4), yaw=-math.pi / 2)

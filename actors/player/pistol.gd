@@ -1,5 +1,5 @@
 extends Node3D
-## Pistola 9 mm de Cony. El fogonazo dura pocos fotogramas, como en PS1.
+## Pistola 9 mm de Isabella. El fogonazo dura pocos fotogramas, como en PS1.
 
 @onready var _light: OmniLight3D = $Grip/Muzzle/Light
 @onready var _flash_mesh: MeshInstance3D = $Grip/Muzzle/Flash

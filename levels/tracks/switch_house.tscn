@@ -412,7 +412,7 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="LeoDawn" type="Marker3D" parent="."]
 position = Vector3(2, 0, 0.6)
 script = ExtResource("31_leo_hint")
-lines = PackedStringArray("Leo: Ya casi amanece, Cony.", "Leo: Guarda en la máquina antes de salir. Lo que viene es largo, y quiero que llegues.")
+lines = PackedStringArray("Leo: Ya casi amanece, Isabella.", "Leo: Guarda en la máquina antes de salir. Lo que viene es largo, y quiero que llegues.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-1.5, 1.5, -1.25)

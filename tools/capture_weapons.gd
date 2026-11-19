@@ -1,5 +1,5 @@
 extends SceneTree
-## Captura a Cony apuntando y disparando con cada arma (revisión de arte).
+## Captura a Isabella apuntando y disparando con cada arma (revisión de arte).
 ## Uso: xvfb-run godot --path . --rendering-driver opengl3 -s res://tools/capture_weapons.gd -- <carpeta>
 
 const WEAPONS := ["pistol", "mauser", "shotgun", "assault_rifle", "sniper_rifle", "grenade_launcher", "bazooka"]

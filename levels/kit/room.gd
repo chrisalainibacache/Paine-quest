@@ -6,9 +6,9 @@ extends Node3D
 signal camera_changed(camera: Camera3D)
 
 @export var room_name: String = ""
-## Sala a oscuras (apagón): Cony enciende la linterna.
+## Sala a oscuras (apagón): Isabella enciende la linterna.
 @export var dark: bool = false
-## Lo que piensa Cony la primera vez que entra (se muestra una sola vez).
+## Lo que piensa Isabella la primera vez que entra (se muestra una sola vez).
 @export var intro_lines: PackedStringArray = []
 
 var _inside: Array[CameraZone] = []
@@ -21,7 +21,7 @@ func _ready() -> void:
         zone.player_exited.connect(_on_zone_exited)
 
 
-## Posición y orientación donde aparece Cony (Marker3D hijo de "Spawns").
+## Posición y orientación donde aparece Isabella (Marker3D hijo de "Spawns").
 func get_spawn(spawn_id: String) -> Transform3D:
     var marker := get_node_or_null("Spawns/" + spawn_id) as Node3D
     if marker == null:
@@ -30,7 +30,7 @@ func get_spawn(spawn_id: String) -> Transform3D:
     return marker.global_transform
 
 
-## Elige la cámara inicial según dónde quedó Cony (se llama tras ubicarla).
+## Elige la cámara inicial según dónde quedó Isabella (se llama tras ubicarla).
 func pick_camera_for(body: Node3D) -> void:
     _inside.clear()
     var zones: Array = find_children("*", "CameraZone", true, false)
@@ -39,7 +39,7 @@ func pick_camera_for(body: Node3D) -> void:
             _inside.append(zone)
     # En el primer frame de una sala, el motor de física puede no haber
     # actualizado overlaps_body todavía. Usa la zona geométricamente más
-    # cercana para que nunca quede Cony sin cámara durante el fundido.
+    # cercana para que nunca quede Isabella sin cámara durante el fundido.
     if _inside.is_empty():
         var fallback := _nearest_camera_zone(body.global_position, zones)
         if fallback:
@@ -83,7 +83,7 @@ func _on_zone_entered(zone: CameraZone) -> void:
 
 func _on_zone_exited(zone: CameraZone) -> void:
     _inside.erase(zone)
-    # Si Cony salió de todas las zonas, se mantiene la última cámara.
+    # Si Isabella salió de todas las zonas, se mantiene la última cámara.
     if not _inside.is_empty():
         _refresh()
 

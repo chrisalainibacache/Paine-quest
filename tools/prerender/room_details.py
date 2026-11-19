@@ -4,7 +4,7 @@ renderizar; el juego en el teléfono no carga estos modelos).
 Genera render_src/scenes/<sala>_detail.tscn para cada sala de ROOMS.
 Uso: python3 tools/prerender/room_details.py [sala ...]
 
-Reglas: pegado a muros y rincones, nunca en el camino de Cony ni encima de
+Reglas: pegado a muros y rincones, nunca en el camino de Isabella ni encima de
 ítems, notas o puertas (el detalle no existe en el juego: no choca ni tapa).
 """
 import math

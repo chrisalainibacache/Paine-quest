@@ -1,6 +1,6 @@
 # Créditos
 
-**Paine** — juego de Chris (Cony y Leo, Paine, Chile).
+**Paine** — juego de Chris (Isabella y Leo, Paine, Chile).
 
 ## Modelos 3D
 - Infectado con polera y jeans (modo Moderno): **"Zombie" de Pixelhouse**
