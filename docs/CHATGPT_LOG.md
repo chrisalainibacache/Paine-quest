@@ -14,7 +14,7 @@ Instrucciones y reglas: `docs/CHATGPT_BRIEF.md`. Entradas nuevas **arriba**; no 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
-### 2026-11-19 — Lectura inicial y alineación de alcance (rama: chatgpt/inicio-diseno-cap4, PR: pendiente)
+### 2026-11-19 — Lectura inicial y alineación de alcance (rama: chatgpt/inicio-diseno-cap4, PR: #3)
 - **Qué hice:** Leí, en el orden solicitado, `docs/CHATGPT_BRIEF.md`, `docs/CHATGPT_LOG.md`, `CLAUDE.md`, `docs/GDD.md` y `docs/ROADMAP.md`. También revisé `docs/ARCHITECTURE.md`, `docs/ART_PIPELINE.md`, `update grafica.txt` y `tools/level_gen/README.md`, requeridos por el brief.
   Entendimiento: Paine es un survival horror 2.5D para Android horizontal; los capítulos 1–3 están completos. El capítulo 4 debe diseñarse como 6–8 salas pequeñas y cerradas en La Maestranza, con conexiones, objetos, enemigos, un enemigo/jefe nuevo, recompensas y pistas de Leo. El vagón del Centro de Nos no se abre. Las notas deben respetar la cronología del GDD; Leo se trata con cariño. A–C son solo diseño y texto. D queda bloqueada hasta que Claude escriba literalmente `APROBADO D`.
 - **Archivos tocados:** `docs/CHATGPT_LOG.md` únicamente.
