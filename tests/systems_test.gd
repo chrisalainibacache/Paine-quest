@@ -100,6 +100,20 @@ func _documents_fit() -> void:
         _check(ok, "nota legible sin cortes: %s" % document.title)
 
 
+## Pantalla DIAG: junta los eventos del juego y los muestra sin errores.
+func _diagnostics() -> void:
+    Diag.log("prueba de diagnóstico")
+    _check(Diag.lines.size() > 0 and "prueba de diagnóstico" in Diag.lines[-1], "diagnóstico: guarda los eventos")
+    _check("Paine" in Diag.device_info() and "Ventana" in Diag.device_info(), "diagnóstico: informa del aparato")
+    var panel := (load("res://ui/diag_panel.gd") as GDScript).new() as CanvasLayer
+    main.add_child(panel)
+    var label_found := false
+    for node in panel.find_children("*", "Label", true, false):
+        label_found = label_found or "prueba de diagnóstico" in (node as Label).text
+    _check(label_found, "diagnóstico: la pantalla DIAG muestra los eventos")
+    panel.free()
+
+
 ## La malla biselada: caras hacia afuera, normales unitarias y cilindros más redondos.
 func _bevel_geometry() -> void:
     var mesh := KitBlock.BEVEL.build(Vector3(2.0, 1.0, 0.5)) as ArrayMesh
@@ -158,6 +172,7 @@ func _graphics_modes() -> void:
     _check(not filter.visible, "gráficos modernos: sin filtro PS1")
     _check(mesh.mesh is ArrayMesh, "gráficos modernos: las cajas tienen las aristas biseladas")
     _bevel_geometry()
+    _diagnostics()
     var zombie := (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate() as Infected
     main.room.add_child(zombie)
     _check(zombie.model.scene_file_path.ends_with("infected_city.glb") and zombie._anim.has_animation("z/Zombie_Walk_Fwd"),

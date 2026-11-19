@@ -61,12 +61,14 @@ func _recover_if_stuck() -> void:
 func use(target: Interactable) -> void:
     busy = true
     _busy_since = Time.get_ticks_msec() / 1000.0
+    Diag.log("usar %s (%s)" % [target.name, target.prompt])
     used.emit(target)
     player.controls_locked = true
     _set_focus(null)
     player.face_direction(target.global_position - player.global_position, 1.0)
     var started := Time.get_ticks_msec()
     await target.interact(player)
+    Diag.log("fin de %s tras %.1f s" % [target.name, (Time.get_ticks_msec() - started) / 1000.0])
     finished.emit(target, (Time.get_ticks_msec() - started) / 1000.0)
     # Si la acción cambió de sala, el SceneLoader devuelve los controles al terminar.
     if not SceneLoader.is_busy():

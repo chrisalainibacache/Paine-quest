@@ -59,6 +59,8 @@ static func is_open() -> bool:
 static func say(lines: Variant) -> void:
     if _instance:
         await _instance._say(lines)
+    else:
+        Diag.log("say: NO HAY Dialogue")
 
 
 static func ask(question: String, options: Array) -> int:
@@ -70,6 +72,8 @@ static func ask(question: String, options: Array) -> int:
 static func read(document: DocumentData) -> void:
     if _instance:
         await _instance._read(document)
+    else:
+        Diag.log("read: NO HAY Dialogue")
 
 
 ## Para las pruebas: avanzar el mensaje o elegir una opción sin tocar la pantalla.
@@ -86,6 +90,7 @@ static func choose(index: int) -> void:
 func _say(lines: Variant) -> void:
     _begin()
     box.visible = true
+    Diag.log("mensaje abierto (%d líneas)" % lines.size())
     for line: String in lines:
         _show_text(line)
         await _advanced
@@ -130,6 +135,7 @@ func _read(document: DocumentData) -> void:
     _grace = INPUT_GRACE
     _refresh_reader_page()
     reader.visible = true
+    Diag.log("lector visible: %s, %d páginas" % [document.title, _reader_pages.size()])
     await _reader_closed
     reader.visible = false
     _reader_document = null
@@ -197,6 +203,7 @@ func _next_reader_page() -> void:
 func _close_reader() -> void:
     if not reader.visible:
         return
+    Diag.log("lector cerrado")
     reader.visible = false
     _reader_closed.emit()
 
@@ -214,6 +221,7 @@ func _begin() -> void:
         _paused_before = get_tree().paused
         get_tree().paused = true
         _opened_ms = Time.get_ticks_msec()
+        Diag.log("diálogo: pausa ON")
         _wait_release = Input.is_action_pressed(&"interact")
     _depth += 1
     blocker.visible = true
@@ -223,6 +231,7 @@ func _end() -> void:
     _depth -= 1
     if _depth == 0:
         get_tree().paused = _paused_before
+        Diag.log("diálogo: pausa OFF")
         # Un cuadro después: el toque que cerró la nota no debe llegar a la mochila.
         _hide_blocker.call_deferred()
 
@@ -288,6 +297,7 @@ func _watch_invisible(delta: float) -> void:
     if _depth > 0 and not (box.visible or reader.visible or choices.visible):
         _invisible_time += delta
         if _invisible_time > INVISIBLE_LIMIT:
+            Diag.log("WATCHDOG: diálogo abierto sin nada visible")
             push_warning("Dialogue: diálogo abierto sin nada visible; se libera la pausa.")
             _depth = 0
             _asking = false

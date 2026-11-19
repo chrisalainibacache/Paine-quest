@@ -29,6 +29,8 @@ button("Graphics", "Root/Header", "GRÁFICOS: RETRO", 22, custom_minimum_size="V
        script=s.res("res://ui/graphics_toggle.gd", "Script"))
 button("Brightness", "Root/Header", "BRILLO 3/5", 22, custom_minimum_size="Vector2(150, 64)",
        script=s.res("res://ui/brightness_toggle.gd", "Script"))
+button("Diag", "Root/Header", "DIAG", 22, custom_minimum_size="Vector2(100, 64)",
+       script=s.res("res://ui/diag_toggle.gd", "Script"))
 button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(150, 64)")
 button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(150, 64)")
 button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(150, 64)")

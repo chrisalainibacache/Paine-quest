@@ -6,6 +6,7 @@ config_version=5
 config/name="Paine"
 config/description="Survival horror 2.5D con cámaras fijas."
 run/main_scene="res://ui/title/title_screen.tscn"
+config/version="0.8.3"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
@@ -31,6 +32,10 @@ SfxPlayer="*res://systems/sfx.gd"
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[debug]
+
+file_logging/enable_file_logging=true
 
 [layer_names]
 

@@ -40,6 +40,7 @@ func _input(event: InputEvent) -> void:
             _release_token += 1
             Input.action_press(action)
             queue_redraw()
+            Diag.log("toque en %s (dedo %d)" % [label, touch.index])
             tapped.emit()
             get_viewport().set_input_as_handled()
         elif not touch.pressed and touch.index == _touch_index:

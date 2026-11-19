@@ -12,8 +12,10 @@ func interact(_player: Player) -> void:
     if document == null or document.pages.is_empty():
         push_warning("La nota %s no tiene contenido." % name)
         return
+    Diag.log("nota %s: sonido" % name)
     Sfx.play("page", null, -6.0)
     var added := GameState.add_document(document)
+    Diag.log("nota %s: abrir lector (%s)" % [name, document.title])
     await Dialogue.read(document)
     if added:
         await Dialogue.say(["«%s» quedó guardada en NOTAS." % document.title])
