@@ -1,5 +1,7 @@
 # Prompt de traspaso — Paine (para otro asistente de IA)
 
+> **Desactualizado** (de antes del capítulo 2). El brief vigente está en `docs/CHATGPT_BRIEF.md`.
+
 > Copia todo lo que está debajo de la línea y pégalo como primer mensaje.
 
 ---
