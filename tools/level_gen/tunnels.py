@@ -46,7 +46,7 @@ def make_portal(name, red):
     ring = 0.5
     for side in (1, -1):
         _blk(s, "Jamb%s" % ("L" if side > 0 else "R"), (xf, HS / 2, side * (HW + ring / 2)), (depth, HS, ring), "old_bricks_wall")
-    _arc(s, "Voussoir", HW, ring, depth, xf, 11, ["old_bricks_wall", "concrete_wall"], True)
+    _arc(s, "Voussoir", HW, ring, depth, xf, 18, ["old_bricks_wall", "concrete_wall"], True)
     _blk(s, "Keystone", (xf, HS + HW + ring / 2 + 0.06, 0), (depth + 0.1, ring + 0.2, 0.4), "concrete_wall", solid=False)
     _blk(s, "Sill", (xf, -0.1, 0), (depth + 0.1, 0.2, 2 * (HW + ring) + 0.2), "concrete_wall", solid=False)
     # Tubo: piso, paredes, bóveda y fondo (todo sólido: ninguna cámara ve el vacío).
@@ -55,7 +55,7 @@ def make_portal(name, red):
     _blk(s, "TubeFloor", (cx, -0.2, 0), (ln, 0.4, 2 * HW + 0.5), "gravel")
     for side in (1, -1):
         _blk(s, "TubeWall%s" % ("L" if side > 0 else "R"), (cx, HS / 2, side * (HW + 0.125)), (ln, HS, 0.25), "soot")
-    _arc(s, "Vault", HW, 0.25, ln, cx, 10, ["soot"], True)
+    _arc(s, "Vault", HW, 0.25, ln, cx, 16, ["soot"], True)
     _blk(s, "EndCap", (x1 + 0.125, 1.8, 0), (0.25, 4.6, 4.2), "soot")
     # Respaldo sólido invisible alrededor del tubo: tapa las rendijas entre dovelas
     # (ningún rayo de cámara se escapa al vacío por ahí).

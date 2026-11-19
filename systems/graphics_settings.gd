@@ -103,6 +103,8 @@ static func apply(root: Node) -> void:
 static func _walk(node: Node, modern: bool, lights: Array[OmniLight3D]) -> void:
     if node is GeometryInstance3D:
         _apply_geometry(node as GeometryInstance3D, modern)
+    elif node is KitBlock:
+        (node as KitBlock).refresh_bevel(modern)
     elif node is WorldEnvironment:
         var world_env := node as WorldEnvironment
         world_env.environment = _environment(world_env.environment, modern)
@@ -126,6 +128,8 @@ static func _apply_geometry(geo: GeometryInstance3D, modern: bool) -> void:
     var mesh_instance := geo as MeshInstance3D
     if mesh_instance == null or mesh_instance.mesh == null:
         return
+    if mesh_instance.mesh is CylinderMesh:
+        _smooth_cylinder(mesh_instance.mesh as CylinderMesh, modern)
     for i in mesh_instance.get_surface_override_material_count():
         var override := mesh_instance.get_surface_override_material(i)
         if override:
@@ -134,6 +138,18 @@ static func _apply_geometry(geo: GeometryInstance3D, modern: bool) -> void:
             var own := mesh_instance.mesh.surface_get_material(i)
             if own:
                 _material(own, modern)
+
+
+## Ruedas, arcos y pilares redondos: en Moderno los cilindros grandes usan más lados
+## (24 a 48 según el radio); en Retro vuelven a los lados originales (look PS1).
+static func _smooth_cylinder(mesh: CylinderMesh, modern: bool) -> void:
+    var radius := maxf(mesh.top_radius, mesh.bottom_radius)
+    if radius < 0.1:
+        return
+    if not mesh.has_meta("retro_segments"):
+        mesh.set_meta("retro_segments", mesh.radial_segments)
+    var original: int = mesh.get_meta("retro_segments")
+    mesh.radial_segments = maxi(original, clampi(roundi(radius * 48.0), 24, 48)) if modern else original
 
 
 ## Devuelve el material que corresponde al modo (puede ser el mismo, ajustado).

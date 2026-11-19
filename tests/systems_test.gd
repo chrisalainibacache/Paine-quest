@@ -100,6 +100,39 @@ func _documents_fit() -> void:
         _check(ok, "nota legible sin cortes: %s" % document.title)
 
 
+## La malla biselada: caras hacia afuera, normales unitarias y cilindros más redondos.
+func _bevel_geometry() -> void:
+    var mesh := KitBlock.BEVEL.build(Vector3(2.0, 1.0, 0.5)) as ArrayMesh
+    var arrays := mesh.surface_get_arrays(0)
+    var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+    var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+    var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+    var outward := true
+    for i in range(0, indices.size(), 3):
+        var a := vertices[indices[i]]
+        var b := vertices[indices[i + 1]]
+        var c := vertices[indices[i + 2]]
+        var facing := (b - a).cross(c - a)
+        var normal := normals[indices[i]] + normals[indices[i + 1]] + normals[indices[i + 2]]
+        # Godot: sentido horario = cara frontal, así que la normal geométrica mira hacia adentro.
+        if facing.dot(normal) >= 0.0:
+            outward = false
+    _check(outward, "bisel: todas las caras miran hacia afuera")
+    var unit := true
+    for n in normals:
+        unit = unit and is_equal_approx(n.length(), 1.0)
+    _check(unit and mesh.get_aabb().size.is_equal_approx(Vector3(2.0, 1.0, 0.5)), "bisel: normales unitarias y mismo tamaño que la caja")
+    _check(KitBlock.BEVEL.build(Vector3(2.0, 0.03, 0.5)) is BoxMesh, "bisel: lo muy delgado queda como caja")
+    var wheel := CylinderMesh.new()
+    wheel.top_radius = 0.42
+    wheel.bottom_radius = 0.42
+    wheel.radial_segments = 10
+    GraphicsSettings._smooth_cylinder(wheel, true)
+    var smooth := wheel.radial_segments
+    GraphicsSettings._smooth_cylinder(wheel, false)
+    _check(smooth >= 24 and wheel.radial_segments == 10, "cilindros: más lados en Moderno y los originales en Retro")
+
+
 ## Interruptor Retro / Moderno: cambia materiales, ambiente y filtro, y vuelve.
 func _graphics_modes() -> void:
     var block := main.room.find_children("*", "KitBlock", true, false)[0] as KitBlock
@@ -123,6 +156,8 @@ func _graphics_modes() -> void:
     _check(hd.shader == GraphicsSettings.MODERN_SHADER and hd.get_shader_parameter("normal_tex") != null,
         "gráficos modernos: muros con shader HD y relieve")
     _check(not filter.visible, "gráficos modernos: sin filtro PS1")
+    _check(mesh.mesh is ArrayMesh, "gráficos modernos: las cajas tienen las aristas biseladas")
+    _bevel_geometry()
     var zombie := (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate() as Infected
     main.room.add_child(zombie)
     _check(zombie.model.scene_file_path.ends_with("infected_city.glb") and zombie._anim.has_animation("z/Zombie_Walk_Fwd"),
@@ -139,6 +174,7 @@ func _graphics_modes() -> void:
     mat = mesh.material_override as ShaderMaterial
     _check(mat.shader == GraphicsSettings.RETRO_SHADER and filter.visible and main.room.get_node_or_null("PrerenderedBackground") == null,
         "gráficos retro: vuelve el look PS1 (sin fondo prerenderizado)")
+    _check(mesh.mesh is BoxMesh, "gráficos retro: las cajas vuelven a ser cajas (look PS1)")
     var env := (main.room.get_node("Environment") as WorldEnvironment).environment
     var before := env.adjustment_brightness
     GraphicsSettings.cycle_brightness(main.get_tree())

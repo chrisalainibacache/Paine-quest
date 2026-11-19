@@ -25,7 +25,10 @@ extends StaticBody3D
         cast_shadow = value
         _rebuild()
 
+const BEVEL := preload("res://levels/kit/bevel_box.gd")
+
 var _mesh_instance: MeshInstance3D
+var _beveled := false
 var _shape: CollisionShape3D
 
 
@@ -43,12 +46,23 @@ func _rebuild() -> void:
         _shape = CollisionShape3D.new()
         _shape.name = "Shape"
         add_child(_shape, false, Node.INTERNAL_MODE_FRONT)
-    var box := BoxMesh.new()
-    box.size = size
-    _mesh_instance.mesh = box
+    # En modo Moderno las aristas van biseladas (la colisión sigue siendo la caja).
+    _beveled = GraphicsSettings.is_modern()
+    if _beveled:
+        _mesh_instance.mesh = BEVEL.build(size)
+    else:
+        var box := BoxMesh.new()
+        box.size = size
+        _mesh_instance.mesh = box
     _mesh_instance.material_override = surface
     _mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if cast_shadow else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
     var shape := BoxShape3D.new()
     shape.size = size
     _shape.shape = shape
     _shape.disabled = not solid
+
+
+## Pasa de caja a biselada (o al revés) al cambiar el modo gráfico.
+func refresh_bevel(modern: bool) -> void:
+    if modern != _beveled:
+        _rebuild()
