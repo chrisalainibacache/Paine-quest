@@ -55,6 +55,6 @@ k.camera("East", (4.5, 1.5, 0.0), (9.0, 3.0, 7.0), (-1.6, 3.2, 3.1), (6.5, 0.5, 
 k.spawn("start", (-7.4, 0.05, 0.8), (1, 0))
 k.spawn("from_derailed", (6.2, 0.05, 2.1), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoFire', (6.3, 0, 2.7), ['Leo: Ese fuego es el tren de las 6:30. Huele a fierro quemado... y a ellos.', 'Leo: Avanza por la vía hacia el vagón volcado y sigue la flecha amarilla para rodearlo.'])
+k.leo_hint('LeoFire', (6.3, 0, 2.7), ['Leo: Ese fuego es el tren de las 6:30. Huele a fierro quemado... y a ellos.', 'Leo: Por ahí se sigue. Pégate a mí.', 'Leo: Avanza por la vía hacia el vagón volcado y rodea por el paso disponible.'])
 k.save(REPO + "/levels/tracks/track_north.tscn")
 print("track north ok")

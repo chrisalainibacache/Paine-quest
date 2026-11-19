@@ -53,7 +53,7 @@ k.camera("East", (4.7, 1.25, 0.0), (4.6, 2.5, 2.7), (6.6, 2.2, 1.05), (1.8, 0.5,
 k.spawn("from_derailed", (-6.2, 0.05, 0.0), (1, 0))
 k.spawn("from_convoy", (6.2, 0.05, 0.0), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoKey', (-3.3, 0, -0.3), ['Leo: En ese asiento. El conductor dejó una llave: tiene el sello de EFE.', 'Leo: Recoge la llave del asiento y sigue la flecha amarilla hasta la salida del vagón.'], hide_item='engineer_key')
-k.leo_hint('LeoExit', (6.0, 0, 0.0), ['Leo: Sal por la puerta del extremo este y sigue la flecha amarilla hacia el costado del convoy.'], show_item='engineer_key', hide_if='unlocked:underpass_gate')
+k.leo_hint('LeoKey', (-3.3, 0, -0.3), ['Leo: En ese asiento. El conductor dejó una llave: tiene el sello de EFE.', 'Leo: Él quería que alguien siguiera. Seamos nosotras.', 'Leo: Recoge la llave del asiento y sal por la puerta del vagón hacia el costado del convoy.'], hide_item='engineer_key')
+k.leo_hint('LeoExit', (6.0, 0, 0.0), ['Leo: Ya la tienes. Salgamos por el otro lado.', 'Leo: Sal por la puerta del extremo este hacia el costado del convoy.'], show_item='engineer_key', hide_if='unlocked:underpass_gate')
 k.save(REPO + "/levels/tracks/wagon_interior.tscn")
 print("wagon interior ok")

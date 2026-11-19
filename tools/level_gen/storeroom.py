@@ -58,6 +58,6 @@ k.camera("West", (-1.6, 1.5, 0.0), (3.8, 3.0, 6.0), (3.2, 2.9, 2.7), (-2.5, 0.5,
 k.camera("East", (1.9, 1.5, 0.0), (3.2, 3.0, 6.0), (-0.5, 2.9, 2.75), (2.8, 0.3, -0.2), fov=62)
 k.spawn("from_corridor", (-2.7, 0.05, 1.6), (1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoKey', (2.4, 0, 1.55), ['Leo: Ahí, en la mesa: la llave del portón.', 'Leo: Recoge la llave de la mesa y vuelve por la puerta al pasillo de servicio.'], hide_item='gate_key')
+k.leo_hint('LeoKey', (2.4, 0, 1.55), ['Leo: Ahí, en la mesa: la llave del portón.', 'Leo: El que la cuida era don Héctor. Ya no es él, Isabella. No le tengas pena.', 'Leo: Recoge la llave de la mesa y vuelve por la puerta al pasillo de servicio.'], hide_item='gate_key')
 k.save(REPO + "/levels/station/storeroom.tscn")
 print("storeroom ok")

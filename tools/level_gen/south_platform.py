@@ -79,6 +79,6 @@ k.camera("West", (-3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (2.6, 3.2, 4.3), (-4.2, 0.3,
 k.camera("East", (3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (-2.6, 3.2, 4.3), (4.4, 0.0, -0.6), fov=58)
 k.spawn("from_north_platform", (-5.1, 0.05, 2.0), (1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoTracks', (4.3, 0, -0.75), ['Leo: La vía va hacia el norte. Hacia Santiago. Hacia Paz.', 'Leo: Baja por la rampa del extremo este y sigue la vía hacia el norte.'])
+k.leo_hint('LeoTracks', (4.3, 0, -0.75), ['Leo: La vía va hacia el norte. Hacia Santiago. Hacia Paz.', 'Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.', 'Leo: Avanza por las vías hasta el túnel del extremo este; activa TrackExit con ACCIÓN donde ves el resplandor rojo.'])
 k.save(REPO + "/levels/station/south_platform.tscn")
 print("south platform ok")

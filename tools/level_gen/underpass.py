@@ -42,6 +42,6 @@ k.camera("East", (4.7, 1.4, 0.0), (4.6, 2.8, 3.6), (6.6, 2.5, 1.5), (1.8, 0.4, -
 k.spawn("from_convoy", (-6.1, 0.05, 0.0), (1, 0))
 k.spawn("from_switch", (6.1, 0.05, 0.0), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoExit', (5.9, 0, 0.0), ['Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.', 'Leo: Sube por la salida al final del túnel y sigue la flecha amarilla hacia la casa de cambios.'])
+k.leo_hint('LeoExit', (5.9, 0, 0.0), ['Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.', 'Leo: Al final hay una puerta. Arriba está la casa de cambios.', 'Leo: Sigue por el túnel hasta la salida; al otro lado está la casa de cambios.'])
 k.save(REPO + "/levels/tracks/underpass.tscn")
 print("underpass ok")
