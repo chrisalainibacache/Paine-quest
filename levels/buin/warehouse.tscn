@@ -371,13 +371,13 @@ rotation = Vector3(0, 0, 0)
 [node name="LeoTractor" type="Marker3D" parent="."]
 position = Vector3(2.2, 0, -0.4)
 script = ExtResource("29_leo_hint")
-lines = PackedStringArray("Leo: Aquí adentro no ves nada. Yo sí: sígueme.", "Leo: En el tractor cuelga una llave grande... y hay una carta. Alguien la dejó para nosotras.")
+lines = PackedStringArray("Leo: Aquí adentro no ves nada. Yo sí: sígueme.", "Leo: Revisa el tractor, recoge la llave grande y lee la carta que dejaron para nosotras.")
 hide_if_item = "shed_key"
 
 [node name="LeoOut" type="Marker3D" parent="."]
 position = Vector3(-1.5, 0, 2.9)
 script = ExtResource("29_leo_hint")
-lines = PackedStringArray("Leo: Ya la tienes. Salgamos de aquí, que esos corren.")
+lines = PackedStringArray("Leo: Sal por la puerta de la bodega y sigue la flecha amarilla de regreso a la viña.")
 show_if_item = "shed_key"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
