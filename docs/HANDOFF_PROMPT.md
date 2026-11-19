@@ -12,7 +12,7 @@ Eres el equipo de desarrollo completo de **Paine**: diseño, programación, nive
 
 - **Género:** survival horror 2.5D con **cámaras fijas por sala**, estilo *Resident Evil 3* de PS1.
 - **Plataforma:** Android, en horizontal.
-- **Historia:** Cony y su gatita **Leo** intentan salir de Paine (Chile), donde la gente se convirtió en infectados. Siguen la vía del tren hacia Santiago.
+- **Historia:** Isabella y su gatita **Leo** intentan salir de Paine (Chile), donde la gente se convirtió en infectados. Siguen la vía del tren hacia Santiago.
 - **Capítulo 1, "La estación":** está **completo**, con 6 salas.
 - **Capítulo 2, "Las vías":** pendiente. Ahí encuentran el tren ya descarrilado y siguen a pie.
 - **Pilares de diseño:**
@@ -128,21 +128,21 @@ godot --headless --path . --import || true
 
 ## 4. Estado actual (lo que ya existe)
 
-- **Cony:**
+- **Isabella:**
   - Se mueve relativo a la cámara y conserva la dirección en los cortes de cámara.
   - Trote de Mixamo.
   - **APUNTAR** se mantiene con el pulgar izquierdo, sobre el stick, y tiene auto-apuntado.
   - **DISPARAR** es un botón pequeño a la derecha.
   - **ACCIÓN** es contextual (RECOGER, LEER, ABRIR, USAR, EXAMINAR) y aparece en el lugar de DISPARAR.
   - **MOCHILA** está arriba a la derecha.
-- **Arsenal:** Cony empieza con 7 armas en la mochila (pistola, Mauser C96, escopeta, fusil de asalto, rifle de francotirador, lanzagranadas, bazuca) y munición de 5 tipos; mochila de 16 casillas. Cada arma guarda su cargador. Ver `docs/GDD.md` §5.
+- **Arsenal:** Isabella empieza con 7 armas en la mochila (pistola, Mauser C96, escopeta, fusil de asalto, rifle de francotirador, lanzagranadas, bazuca) y munición de 5 tipos; mochila de 16 casillas. Cada arma guarda su cargador. Ver `docs/GDD.md` §5.
 - **Salud:** Bien / Precaución / Peligro, con vibración y pantalla de muerte. REINTENTAR carga la última partida guardada.
 - **Infectados:** estados idle, feeding, lying (se hace el muerto), corpse, rising, chase, attack, stagger y dead.
   - `requires_flag` hace que aparezcan según el progreso.
   - **5 tipos:** común (7 balazos), pálido (8), obrero (7), quemado (7) y pesado (11).
   - Cada uno varía al azar de tono y estatura.
   - Los muertos siguen muertos al volver a la sala.
-- **Leo:** sigue a Cony entre salas y bufa a los infectados vivos a menos de 5,5 m, incluso a los que se hacen los muertos.
+- **Leo:** sigue a Isabella entre salas y bufa a los infectados vivos a menos de 5,5 m, incluso a los que se hacen los muertos.
 - **Sistemas:**
   - Mochila de 8 casillas; las balas se apilan hasta 60.
   - Comida: sushi +30, handroll +70.
@@ -193,7 +193,7 @@ godot --headless --path . --import || true
    - fuente estilo RE con licencia OFL;
    - balance de munición;
    - confirmar la licencia de los personajes PSX (pendiente en `docs/ASSETS.md`).
-5. **Retroalimentación pendiente de Chris:** pídele que pruebe el capítulo 1 completo y que cuente si se perdió en algún momento, si la munición alcanza y si alguna cámara tapa a Cony.
+5. **Retroalimentación pendiente de Chris:** pídele que pruebe el capítulo 1 completo y que cuente si se perdió en algún momento, si la munición alcanza y si alguna cámara tapa a Isabella.
 
 ## 6. Forma de trabajar
 

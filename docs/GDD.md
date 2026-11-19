@@ -7,7 +7,7 @@
 **Paine** es un survival horror en 3D con **cámaras fijas por sala** (2.5D al estilo
 *Resident Evil 3* de PlayStation 1), para **Android en horizontal**.
 
-**Cony** y su gatita **Leo** despiertan en Paine (Chile) después de que *algo pasó*:
+**Isabella** y su gatita **Leo** despiertan en Paine (Chile) después de que *algo pasó*:
 la gente se convirtió en infectados. Intentan salir siguiendo la línea del tren hacia
 Santiago.
 
@@ -15,7 +15,7 @@ Santiago.
 1. **Espacios cortos y cerrados.** Nada de mundo abierto: salas pequeñas con muros,
    rejas, vagones o escombros que las cierran. El escenario guía al jugador.
 2. **Cámara cercana y cinematográfica.** Cada sala tiene 1–3 cámaras fijas que encuadran
-   a Cony de cerca; la cámara cambia (corte seco) al cruzar zonas invisibles.
+   a Isabella de cerca; la cámara cambia (corte seco) al cruzar zonas invisibles.
 3. **Tensión con recursos escasos.** Poca munición, curación limitada, guardado manual
    en máquinas de escribir.
 4. **Look PS1, no "Roblox".** Texturas sucias de baja resolución, niebla, luz cálida de
@@ -24,7 +24,12 @@ Santiago.
 
 ## 2. Historia (capítulos 1 y 2)
 
-**Por qué viaja Cony:** su hermana **Javiera** vive en Santiago. A las 22:10 le escribe:
+> **Nombres (decisión de Chris, noviembre):** la protagonista se llama **Isabella** (antes
+> "Cony") y su hermana **Paz** (antes "Javiera"). Los archivos internos conservan `cony`
+> (`cony.glb`, `cony_animations.res`); en todo texto del juego y de los documentos se usa
+> Isabella y Paz.
+
+**Por qué viaja Isabella:** su hermana **Paz** vive en Santiago. A las 22:10 le escribe:
 «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo.
 Te espero en Alameda.» El juego empieza con esa intro (se muestra una vez, al llegar).
 
@@ -40,14 +45,14 @@ Te espero en Alameda.» El juego empieza con esa intro (se muestra una vez, al l
 | 13:00 | El jefe de estación **Raúl** cierra el portón sur; la llave queda en la bodega con Héctor. | Diario del jefe de estación |
 | Tarde | Aviso oficial: «un tren de evacuación pasará esta noche». | Aviso de la estación |
 | 23:00 | Rosa escribe abajo: el tren no vendrá, cerraron la línea en Buin. | Aviso (2ª página) |
-| 23:40 | **Llega Cony** con Leo. Capítulo 1. | Intro del andén norte |
-| Medianoche → amanecer | Capítulo 2 por la vía hasta la casa de cambios. Final: caminan a Santiago, Javiera las espera. | Intro de la vía norte, finales |
+| 23:40 | **Llega Isabella** con Leo. Capítulo 1. | Intro del andén norte |
+| Medianoche → amanecer | Capítulo 2 por la vía hasta la casa de cambios. Final: caminan a Santiago, Paz las espera. | Intro de la vía norte, finales |
 
 Geografía (Línea Sur, de sur a norte): Hospital – **Paine** – Linderos – Buin – … – Alameda.
 Santiago queda al **norte**; todo el viaje es hacia el norte por la vía.
 
 ### Capítulo 1 — La estación
-Cony llega con Leo a la estación de trenes de Paine buscando un tren a Santiago.
+Isabella llega con Leo a la estación de trenes de Paine buscando un tren a Santiago.
 La estación está vacía y algo anda mal. Recorre el andén, la sala de espera y la
 boletería; encuentra la pistola, notas de lo que pasó y la llave del portón que da a
 las vías. Cierra el capítulo saliendo a la vía.
@@ -57,14 +62,14 @@ Siguiendo las vías encuentran **el tren de las 6:30 ya destruido** (descarrilad
 no se ve el choque, se encuentra así). No sirve para viajar: hay que seguir a pie,
 atravesando el convoy, un paso bajo nivel en apagón y una casa de cambios. El maquinista
 frenó el tren contra el desvío para que los infectados no llegaran a la ciudad. Termina
-con Cony y Leo caminando por la vía hacia Santiago al amanecer: **fin del juego**.
+con Isabella y Leo caminando por la vía hacia Santiago al amanecer: **fin del juego**.
 
 ### Leo: guía y la última aventura (decisión de Chris)
-Leo es la gata de Cony. **Este juego es su última aventura**: todo lo que hace Leo se
+Leo es la gata de Isabella. **Este juego es su última aventura**: todo lo que hace Leo se
 escribe con ese cariño.
-- **Guía:** si Cony se queda quieta ~5 s, Leo camina hasta la pista activa de la sala
+- **Guía:** si Isabella se queda quieta ~5 s, Leo camina hasta la pista activa de la sala
   (`levels/kit/leo_hint.gd`, grupo `leo_hints`), se sienta mirándola y maúlla. Al acercarse
-  Cony, Leo le explica qué hacer (una vez por pista). Si Leo tiene algo nuevo que decir,
+  Isabella, Leo le explica qué hacer (una vez por pista). Si Leo tiene algo nuevo que decir,
   el botón ACCIÓN muestra **LEO**.
 - **Habla:** sus líneas empiezan con `Leo: ` y salen en verde con su nombre. Habla bajito,
   tierna y segura: conoce el camino, huele el peligro y ve en la oscuridad.
@@ -73,7 +78,7 @@ escribe con ese cariño.
   sus ojos brillan en la oscuridad; dice "siempre te he llevado yo".
 
 ### Kiara y Nala (las perras de Chris)
-Aparecen en el capítulo 3 (potrero) y salvan a Cony y Leo de una horda. Luego siguen
+Aparecen en el capítulo 3 (potrero) y salvan a Isabella y Leo de una horda. Luego siguen
 rescatando gente: pueden volver a aparecer más adelante (por ejemplo, en el capítulo 4 o
 en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice).
 
@@ -82,29 +87,35 @@ en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice)
   estación de Buin, bodega agrícola, galpón de la viña. Rosa aparece viva (diálogos). Se
   descubre que el "tren de evacuación" era para llevarse a los mordidos a cuarentena.
   Enemigo nuevo: soldado infectado con casco y chaleco. Final: por una radio militar se
-  escucha a Javiera ("no vengas a Alameda, ven a…") y se corta.
+  escucha a Paz ("no vengas a Alameda, ven a…") y se corta.
 - **Capítulo 4 — La Maestranza (San Bernardo):** el lugar de cuarentena del tren sanitario;
-  Javiera trabaja ahí. El vagón que nadie abre (del Centro de Nos).
+  Paz trabaja ahí. El vagón que nadie abre (del Centro de Nos).
 - **Capítulo 5 — Santiago / el Centro de Nos:** se cierra el misterio del pasajero del
-  asiento 15. Cony y Javiera juntas.
+  asiento 15. Isabella y Paz juntas.
 - **Epílogo — La despedida de Leo** (aprobada por Chris).
 - **Despedida de Leo (aprobada por Chris):** al amanecer, ya a salvo, Leo
   camina unos pasos hacia la luz por la vía, se da vuelta, maúlla una última vez y se va.
-  Cony entiende. Texto final y dedicatoria: "Para Leo".
+  Isabella entiende. Texto final y dedicatoria: "Para Leo".
 
 ## 3. Cámara
 
+> **Decisión de Chris (noviembre):** las cámaras se prefieren **más desde arriba** (picado
+> ~42°, hasta 62°) y deben mostrar la **puerta de avance** cuando Isabella anda cerca de ella.
+> Lo hace `tools/plan_cameras.gd` (`PREFERRED_PITCH`, `DOOR_WEIGHT`). Aplicado a los capítulos
+> 2 y 3. El capítulo 1 conserva sus cámaras porque tiene fondos prerenderizados: cambiarlas
+> exige re-renderizar (ver `update grafica.txt`).
+
 - Cada sala (`Room`) es una escena propia con sus `CameraZone` (Area3D + Camera3D).
-- Al entrar Cony en una `CameraZone`, esa cámara pasa a ser la actual (corte seco).
-- Opcional por zona: cámara que **sigue** a Cony solo sobre un riel (pasillos largos).
-- La cámara nunca la controla el jugador. FOV 50–60, a 3–6 m de Cony.
+- Al entrar Isabella en una `CameraZone`, esa cámara pasa a ser la actual (corte seco).
+- Opcional por zona: cámara que **sigue** a Isabella solo sobre un riel (pasillos largos).
+- La cámara nunca la controla el jugador. FOV 50–60, a 3–6 m de Isabella.
 
 ## 4. Controles (táctil)
 
 - **Stick virtual flotante** (mitad izquierda de la pantalla): mover. Empujar poco =
   caminar, empujar a fondo = trotar. Dirección relativa a la cámara activa al empezar
   a empujar (evita giros bruscos en el corte de cámara).
-- **APUNTAR** (mantener, pulgar izquierdo, sobre el stick): Cony se planta y apunta
+- **APUNTAR** (mantener, pulgar izquierdo, sobre el stick): Isabella se planta y apunta
   sola al infectado más cercano.
 - **DISPARAR** (pulgar derecho, botón pequeño abajo a la derecha): aparece mientras apunta.
 - **ACCIÓN** (mismo lugar que DISPARAR, cuando no apunta): aparece solo si hay algo a
@@ -116,7 +127,7 @@ en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice)
 
 Decisión: **nada de cuerpo a cuerpo ni barra de cambio rápido**. Como en RE: el arma se
 elige desde la mochila (EQUIPAR); cada arma guarda las balas de su cargador.
-**Cony empieza con todo el arsenal en la mochila** (pedido de Chris). Modelos de dos
+**Isabella empieza con todo el arsenal en la mochila** (pedido de Chris). Modelos de dos
 packs: *Heavy Weapons Pack* (Mauser, lanzagranadas, bazuca) y Quaternius CC0
 (escopeta, fusil, rifle). El cuchillo del pack no se usa.
 
@@ -127,7 +138,7 @@ packs: *Heavy Weapons Pack* (Mauser, lanzagranadas, bazuca) y Quaternius CC0
 | Escopeta | Cartuchos | 6 | 5 de daño de cerca, cae a 1 a 9 m; siempre hace tambalear. |
 | Fusil de asalto | Balas de fusil | 30 | Ráfaga de 3 por toque. |
 | Rifle de francotirador | Balas de fusil | 5 | 7 de daño, alcance 28 m, recarga lenta. |
-| Lanzagranadas | Granadas 40 mm | 6 | Explota al impactar (radio 2,6 m). Cerca, daña a Cony. |
+| Lanzagranadas | Granadas 40 mm | 6 | Explota al impactar (radio 2,6 m). Cerca, daña a Isabella. |
 | Bazuca | Cohetes | 1 | Explosión grande (radio 4 m). Último recurso. |
 
 Mochila inicial: las 7 armas + 30 balas 9 mm, 10 cartuchos, 45 balas de fusil, 6 granadas
@@ -144,7 +155,7 @@ munición: "clic".
 | Examinar | Cualquier ítem se ve en 3D y se gira con el dedo. |
 | Guardado | Máquina de escribir (una ranura, sin cintas de tinta). Al morir, REINTENTAR vuelve a la última partida guardada. |
 | Documentos | Notas legibles (papel en pantalla) que cuentan qué pasó en Paine; quedan en NOTAS. |
-| Leo | Gatita gris con pecho y patas blancas y ojos verdes que brillan en la oscuridad. Guía a Cony (ver sección 2). Sigue a Cony y entra con ella a cada sala. Bufa y mira a cualquier infectado vivo a menos de 5,5 m, aunque se esté haciendo el muerto (es la pista para el jugador). No pelea, no muere. |
+| Leo | Gatita gris con pecho y patas blancas y ojos verdes que brillan en la oscuridad. Guía a Isabella (ver sección 2). Sigue a Isabella y entra con ella a cada sala. Bufa y mira a cualquier infectado vivo a menos de 5,5 m, aunque se esté haciendo el muerto (es la pista para el jugador). No pelea, no muere. |
 | Puertas | Fundido corto entre salas (oculta la carga). Las que piden llave quedan abiertas para siempre al usarla. |
 | Memoria de las salas | Lo recogido no vuelve a aparecer y los infectados muertos siguen en el suelo al volver. |
 
@@ -152,21 +163,21 @@ munición: "clic".
 
 | Enemigo | Comportamiento |
 | --- | --- |
-| Infectado | Camina lento hacia Cony, la agarra y muerde. Algunos están en el suelo haciéndose los muertos. |
+| Infectado | Camina lento hacia Isabella, la agarra y muerde. Algunos están en el suelo haciéndose los muertos. |
 | Infectado rápido (cap. 2) | Corre a ráfagas cortas. |
 
 **Respuesta al daño (lo que se ve y se siente):**
 - Impacto: salpicadura de sangre oscura (partículas pequeñas), el infectado se
   tambalea hacia atrás, sonido seco.
 - Muerte: cae de rodillas y al suelo; queda una mancha en el piso.
-- Cony herida: pantalla con borde rojo breve, vibración del teléfono, cojea en Peligro.
+- Isabella herida: pantalla con borde rojo breve, vibración del teléfono, cojea en Peligro.
 
 ## 8. Estructura de salas
 
 Regla: **cada sala cabe en 1–3 cámaras** y está cerrada por todos lados.
 
 ### Capítulo 1 — Estación de Paine (Hito 4: completo)
-Cony empieza **sin arma**. Recorrido:
+Isabella empieza **sin arma**. Recorrido:
 
 | # | Sala (`levels/station/`) | Qué pasa |
 | --- | --- | --- |
@@ -188,7 +199,7 @@ Se llega con CONTINUAR al terminar el capítulo 1 (punto de control: guarda la p
 | 2 | Tren descarrilado (`derailed_train`) | Locomotora volcada y vagón fuera de la vía; el guardia pesado comiendo. Se entra al vagón. |
 | 3 | Interior del vagón (`wagon_interior`) | Pasillo entre asientos, 3 cámaras. **Llave del maquinista** y planilla del conductor. |
 | 4 | Costado del convoy (`convoy_side`) | Infectados entre los vagones. Reja del paso bajo nivel (se abre con la llave del maquinista). |
-| 5 | Paso bajo nivel (`underpass`) | **Apagón**: Cony usa la linterna. Dos infectados rápidos. |
+| 5 | Paso bajo nivel (`underpass`) | **Apagón**: Isabella usa la linterna. Dos infectados rápidos. |
 | 6 | Casa de cambios (`switch_house`) | Sala segura: máquina de escribir, nota del maquinista. La salida a la vía termina el juego. |
 
 ### Capítulo 3 — Buin (completo)
@@ -201,9 +212,9 @@ Se llega con CONTINUAR al terminar el capítulo 2. Sábado en la mañana: luz de
 | 2 | Control militar (`checkpoint`) | Carpa, camión con camillas, **soldados infectados con casco** (10 balazos). **Orden del día**: el "tren de evacuación" era para los mordidos. Máquina de escribir. |
 | 3 | Estación de Buin (`station`) | Hall convertido en espera del tren sanitario. **Lista del tren** (Raúl, el capitán, un niño). |
 | 4 | Bodega agrícola (`warehouse`) | Apagón (linterna). Dos infectados rápidos. **Llave del galpón** en el tractor y la **carta de Ana**. |
-| 4b | Potrero (`field`) | Despejado... demasiado. **Escena de Kiara y Nala** (`levels/kit/rescue_scene.gd`): aparece una horda, a Cony se le traba la pistola, Leo se pone delante ("Tranquila, Cony. Yo te protejo") y llegan **Kiara** (akita naranja, enorme: parada en dos patas es más alta que Cony) y **Nala** (bull terrier gris atigrado con café, más chica). Las salvan; Cony les da las gracias y les pide que sigan sacando gente; ladran y se van. Una sola vez. |
+| 4b | Potrero (`field`) | Despejado... demasiado. **Escena de Kiara y Nala** (`levels/kit/rescue_scene.gd`): aparece una horda, a Isabella se le traba la pistola, Leo se pone delante ("Tranquila, Isabella. Yo te protejo") y llegan **Kiara** (akita naranja, enorme: parada en dos patas es más alta que Isabella) y **Nala** (bull terrier gris atigrado con café, más chica). Las salvan; Isabella les da las gracias y les pide que sigan sacando gente; ladran y se van. Una sola vez. |
 | 5 | Viña Santa Rosa (`vineyard`) | Hileras de parras; el galpón se abre con la llave. |
-| 6 | Galpón (`shed`) | Sala segura. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio**: Javiera está en la Maestranza de San Bernardo → fin del capítulo. |
+| 6 | Galpón (`shed`) | Sala segura. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio**: Paz está en la Maestranza de San Bernardo → fin del capítulo. |
 
 ## 9. Estilo visual
 
@@ -237,7 +248,7 @@ muestra una imagen renderizada con calidad de película (como RE3) y los persona
 - **Presupuesto por sala:** ≤ 30k triángulos visibles, ≤ 4 luces dinámicas.
 - Ver `docs/ARCHITECTURE.md` para la organización del código.
 - **Cámaras planificadas:** `tools/plan_cameras.gd` reparte las cámaras fijas de cada sala
-  (1 a 9) para que Cony se vea entera y sin nada sólido delante en cualquier punto
+  (1 a 9) para que Isabella se vea entera y sin nada sólido delante en cualquier punto
   caminable; guarda `tools/level_gen/cameras.json`, que aplican solos los generadores.
   `tools/audit_cameras.gd` comprueba todas las salas (apariciones, alcance, cámaras
   pegadas). Si se cambia una sala: planificar, regenerar, auditar y re-renderizar fondos.
@@ -246,8 +257,14 @@ muestra una imagen renderizada con calidad de película (como RE3) y los persona
 - **Gráficos:** Moderno es el modo por defecto (el botón GRÁFICOS alterna con Retro). Los
   fondos prerenderizados existen solo para el capítulo 1; los capítulos 2 y 3 se dibujan en
   vivo. Pruebas y conclusiones en `update grafica.txt` (sección 7).
-- **Objetivo en pantalla:** línea bajo el estado de Cony con lo último que Leo diría en la
+- **Objetivo en pantalla:** línea bajo el estado de Isabella con lo último que Leo diría en la
   pista activa de la sala. La mochila muestra las notas en dos columnas, la más nueva primero.
+- **Orientación (decisión de Chris: "no se sabe adónde ir"):** cada puerta de avance lleva una
+  **▼ amarilla con el nombre del destino** flotando encima (roja con "CON LLAVE" si falta la
+  llave; las puertas "VOLVER" no llevan). Se ve a través de muros y vagones. Al entrar a una sala
+  aparece su **nombre arriba, al centro**. Las pistas de Leo dicen la acción concreta ("subirse al
+  vagón", "la puerta de la flecha amarilla"). Toda puerta nueva necesita su nombre en `Door.LABELS`
+  (la prueba de niveles lo exige).
 - **Interacción táctil:** ACCIÓN guarda el toque unos instantes (no se pierde en cuadros
   lentos), prefiere notas/ítems sobre Leo y muestra un aviso gris con el último uso.
 

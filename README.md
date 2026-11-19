@@ -22,7 +22,7 @@ Se instala encima de la versión anterior (misma firma, ver `tools/android/READM
 
 - Pruebas: `godot --headless --path . -s res://tests/smoke_test.gd`
 - Capturas: `xvfb-run godot --path . --rendering-driver opengl3 -s res://tools/capture_screenshots.gd -- <carpeta>`
-- Animaciones de Cony: `godot --headless --path . -s res://tools/bake_animations.gd`
+- Animaciones de Isabella: `godot --headless --path . -s res://tools/bake_animations.gd`
 
 ## Estado
 

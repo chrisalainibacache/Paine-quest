@@ -1,5 +1,5 @@
 extends CanvasLayer
-## Mochila (pausa el juego): 8 casillas con los ítems en 3D, estado de Cony,
+## Mochila (pausa el juego): 8 casillas con los ítems en 3D, estado de Isabella,
 ## arma equipada, usar/equipar/examinar y la lista de NOTAS leídas.
 
 const ITEM_VIEW := preload("res://ui/inventory/item_view.gd")

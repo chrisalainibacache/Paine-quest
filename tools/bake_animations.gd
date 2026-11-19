@@ -1,11 +1,11 @@
 extends SceneTree
 ## Extrae las animaciones de la biblioteca Quaternius (ya reasignadas al
-## esqueleto humanoide al importar) y las guarda como recurso para Cony.
+## esqueleto humanoide al importar) y las guarda como recurso para Isabella.
 ## Uso: godot --headless --path . -s res://tools/bake_animations.gd
 
 const SOURCE := "res://assets/characters/animations/ual_humanoid.glb"
 const TARGET := "res://actors/player/cony_animations.res"
-## Animaciones Mixamo hechas para el esqueleto de Cony (tools/extract_mixamo_animation.gd).
+## Animaciones Mixamo hechas para el esqueleto de Isabella (tools/extract_mixamo_animation.gd).
 const EXTRA := {"Jog": "res://assets/characters/animations/cony_jog.res"}
 const LOOPING := ["Idle", "Walk", "Jog_Fwd", "Sprint", "Pistol_Idle", "Pistol_Aim_Neutral",
     "Pistol_Aim_Down", "Pistol_Aim_Up", "Crouch_Idle"]

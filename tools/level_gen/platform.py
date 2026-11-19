@@ -26,8 +26,8 @@ env = s.subres("Environment", {
     "fog_sky_affect": "1.0",
 })
 s.node("Platform", "Node3D", script=s.res("res://levels/kit/room.gd", "Script"), room_name='"Andén norte"',
-       # Introducción del juego (lo que piensa Cony al llegar).
-       intro_lines='PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Javiera, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.", "Leo: Tranquila, Cony. Si no sabes por dónde seguir, quédate quieta un momento y mírame.", "Leo: Yo te llevo. Siempre te he llevado yo.")')
+       # Introducción del juego (lo que piensa Isabella al llegar).
+       intro_lines='PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Paz, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.", "Leo: Tranquila, Isabella. Si no sabes por dónde seguir, quédate quieta un momento y mírame.", "Leo: Yo te llevo. Siempre te he llevado yo.")')
 s.node("Environment", "WorldEnvironment", ".", environment=env)
 s.node("Moon", "DirectionalLight3D", ".", rotation=v3((-0.9, 0.5, 0)), light_color=col((0.6, 0.68, 0.88)), light_energy="0.55")
 
@@ -93,7 +93,7 @@ for i in range(8):
     block("Post%d" % i, "EdgeFence", (x, 0.55, -1.12), (0.07, 1.1, 0.07), "metal", solid=False)
 block("RailTop", "EdgeFence", (0, 1.07, -1.12), (13.8, 0.06, 0.05), "metal", solid=False)
 block("RailMid", "EdgeFence", (0, 0.55, -1.12), (13.8, 0.05, 0.04), "metal", solid=False)
-# Colisión invisible del borde: Cony no puede caer a la vía.
+# Colisión invisible del borde: Isabella no puede caer a la vía.
 s.node("EdgeBlocker", "StaticBody3D", ".", position=v3((0, 1.0, -1.15)))
 s.node("Shape", "CollisionShape3D", "EdgeBlocker", shape=s.subres("BoxShape3D", {"size": v3((14, 2.0, 0.2))}))
 
@@ -130,7 +130,7 @@ for name, zone_center, cam_pos, target in [
 # --- Infectados -----------------------------------------------------------
 s.node("Enemies", "Node3D", ".")
 INF = "res://actors/enemies/infected.tscn"
-# Llegan desde la vía cuando Cony ya tiene la pistola (al empezar, el andén está tranquilo).
+# Llegan desde la vía cuando Isabella ya tiene la pistola (al empezar, el andén está tranquilo).
 s.node("Feeding", None, "Enemies", instance=s.res(INF, "PackedScene"), position=v3((5.2, 0.05, 2.4)), start_state='"feeding"',
        requires_flag='"found:pistol"', data=s.res("res://data/enemies/infected_burnt.tres", "Resource"))
 s.node("Lying", None, "Enemies", instance=s.res(INF, "PackedScene"), position=v3((2.4, 0.05, 1.2)), rotation=v3((0, 2.2, 0)), start_state='"lying"',
@@ -174,9 +174,9 @@ s.node("start", "Marker3D", "Spawns", position=v3((-5.0, 0.05, 3.0)), rotation=v
 s.node("from_waiting_room", "Marker3D", "Spawns", position=v3((3.0, 0.05, 4.35)))
 s.node("from_south_platform", "Marker3D", "Spawns", position=v3((6.0, 0.05, 2.6)), rotation=v3((0, math.pi / 2, 0)))
 from roomkit import add_leo_hint
-# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
-add_leo_hint(s, 'LeoWaitingRoom', (3.0, 0, 4.2), ['Leo: Cony, aquí afuera no. Adentro hay luz.', 'Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.'], hide_if='found:pistol')
+# Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
+add_leo_hint(s, 'LeoWaitingRoom', (3.0, 0, 4.2), ['Leo: Isabella, aquí afuera no. Adentro hay luz.', 'Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.'], hide_if='found:pistol')
 add_leo_hint(s, 'LeoGateKey', (5.9, 0, 2.6), ['Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.', 'Leo: Las llaves se guardan donde guardan todo: en la bodega, al fondo del pasillo de servicio.'], show_if='found:pistol', hide_if='unlocked:gate_south', hide_item='gate_key')
-add_leo_hint(s, 'LeoGateOpen', (5.9, 0, 2.6), ['Leo: Ya tienes la llave. Ábrelo, Cony. Yo voy contigo.'], show_item='gate_key', hide_if='unlocked:gate_south')
+add_leo_hint(s, 'LeoGateOpen', (5.9, 0, 2.6), ['Leo: Ya tienes la llave. Ábrelo, Isabella. Yo voy contigo.'], show_item='gate_key', hide_if='unlocked:gate_south')
 s.save(REPO + "/levels/station/platform.tscn")
 print("platform ok")

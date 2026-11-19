@@ -1,6 +1,6 @@
 class_name Infected
 extends CharacterBody3D
-## Infectado. Lento y persistente: camina hacia Cony, la ataca de cerca y se
+## Infectado. Lento y persistente: camina hacia Isabella, la ataca de cerca y se
 ## tambalea con los disparos. Puede empezar de pie, comiendo o tirado en el
 ## suelo haciéndose el muerto. "corpse" es un cadáver de verdad (decorado).
 
@@ -237,7 +237,7 @@ func is_alive() -> bool:
     return state != State.DEAD
 
 
-## Punto al que apunta Cony (pecho).
+## Punto al que apunta Isabella (pecho).
 func get_aim_point() -> Vector3:
     return global_position + Vector3(0, 1.25 if state != State.LYING else 0.3, 0)
 

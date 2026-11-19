@@ -1,7 +1,7 @@
 extends CanvasLayer
-## Interfaz en pantalla: controles táctiles, munición, estado de Cony,
+## Interfaz en pantalla: controles táctiles, munición, estado de Isabella,
 ## destello rojo al recibir daño y pantalla de muerte.
-## ACCIÓN aparece en el lugar de DISPARAR cuando Cony tiene algo a mano.
+## ACCIÓN aparece en el lugar de DISPARAR cuando Isabella tiene algo a mano.
 
 signal inventory_requested
 signal retry_requested
@@ -26,6 +26,7 @@ var _objective_timer := 0.0
 
 
 func _ready() -> void:
+    add_to_group("hud")
     fire_button.visible = false
     action_button.visible = false
     damage_flash.color.a = 0.0
@@ -55,6 +56,30 @@ func _process(delta: float) -> void:
         _update_objective()
     if player and player.is_alive() and not player.controls_locked and Input.is_action_just_pressed(&"inventory"):
         inventory_requested.emit()
+
+
+## Cartel con el nombre del lugar: entra, se queda un rato y se apaga.
+func show_place(place: String) -> void:
+    var label := get_node_or_null("PlaceBanner") as Label
+    if label == null:
+        label = Label.new()
+        label.name = "PlaceBanner"
+        label.set_anchors_preset(Control.PRESET_TOP_WIDE)
+        label.offset_top = 16.0
+        label.offset_bottom = 60.0
+        label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+        label.add_theme_font_size_override("font_size", 26)
+        label.add_theme_color_override("font_color", Color(0.93, 0.88, 0.75))
+        label.add_theme_color_override("font_outline_color", Color(0.03, 0.03, 0.03))
+        label.add_theme_constant_override("outline_size", 8)
+        add_child(label)
+    label.text = place.to_upper()
+    label.modulate.a = 0.0
+    var tween := create_tween()
+    tween.tween_property(label, "modulate:a", 1.0, 0.5)
+    tween.tween_interval(2.4)
+    tween.tween_property(label, "modulate:a", 0.0, 0.9)
 
 
 ## Aviso chico y discreto del último uso (sirve para ver si un toque llegó).

@@ -12,13 +12,13 @@ const CHAPTER_STARTS := {
 
 const TEXTS := {
     1: ["FIN DEL CAPÍTULO 1", "La estación",
-        "No va a pasar ningún tren. Cony y Leo bajan a la vía y caminan hacia el norte, hacia Santiago, hacia Javiera.\nDetrás queda la estación de Paine, en silencio.",
+        "No va a pasar ningún tren. Isabella y Leo bajan a la vía y caminan hacia el norte, hacia Santiago, hacia Paz.\nDetrás queda la estación de Paine, en silencio.",
         "Continuará en el Capítulo 2: Las vías"],
     2: ["FIN DEL CAPÍTULO 2", "Las vías",
-        "El tren de las 6:30 quedó atrás, volcado en el desvío. Cony y Leo siguen por la vía hacia el norte.\nEmpieza a amanecer. Más allá del río está Buin.",
+        "El tren de las 6:30 quedó atrás, volcado en el desvío. Isabella y Leo siguen por la vía hacia el norte.\nEmpieza a amanecer. Más allá del río está Buin.",
         "Continuará en el Capítulo 3: Buin"],
     3: ["FIN DEL CAPÍTULO 3", "Buin",
-        "Rosa se quedó en la oficina del galpón, del otro lado de la puerta.\nPor la radio, la voz de Javiera: está en la Maestranza de San Bernardo. Cony y Leo vuelven a la vía.",
+        "Rosa se quedó en la oficina del galpón, del otro lado de la puerta.\nPor la radio, la voz de Paz: está en la Maestranza de San Bernardo. Isabella y Leo vuelven a la vía.",
         "Continuará en el Capítulo 4: La Maestranza"],
 }
 

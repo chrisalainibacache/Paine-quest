@@ -38,25 +38,25 @@ k.interact("RosaDoor", "voice_door", (2.6, 0, -1.0), reach="1.3", sets_flag='"ta
         "Rosa: Escúchame bien, niña. Al hombre de la mano vendada yo le vendí el boleto del 6:30.",
         "Rosa: Llevaba una credencial colgando: «Centro de Investigación Sanitaria — Nos». Venía de ahí.",
         "Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta por una tal Constanza.",
-        "Leo: Cony... ella ya no va a abrir. Déjala descansar. La radio está en la mesa."]),
+        "Leo: Isabella... ella ya no va a abrir. Déjala descansar. La radio está en la mesa."]),
     repeat_lines="PackedStringArray(%s)" % ", ".join('"%s"' % l for l in [
         "Rosa: Ándate, niña. Llévate al gato. Y escucha esa radio."]))
 k.interact("Radio", "chapter_exit", (0.6, 0, 0.9), reach="1.3", chapter="3", accept_text='"ESCUCHAR"',
     question='"Una radio militar encendida. Entre la estática se oye una voz de mujer.\\n¿Escuchar?"',
     before_lines="PackedStringArray(%s)" % ", ".join('"%s"' % l for l in [
-        "Javiera: ...Constanza... Cony, si me escuchas... soy yo, la Javi.",
-        "Javiera: No vayas a Alameda. Allá ya no queda nadie.",
-        "Javiera: Me trajeron a la Maestranza de San Bernardo a atender a los enfermos. Llegan en tren, de noche, amarrados.",
-        "Javiera: Hay un vagón al fondo que nadie abre. Los militares dicen que es del Centro de Nos...",
-        "Javiera: Ven por la vía. Te espero en la entrada de...",
+        "Paz: ...Constanza... Isabella, si me escuchas... soy yo, Paz.",
+        "Paz: No vayas a Alameda. Allá ya no queda nadie.",
+        "Paz: Me trajeron a la Maestranza de San Bernardo a atender a los enfermos. Llegan en tren, de noche, amarrados.",
+        "Paz: Hay un vagón al fondo que nadie abre. Los militares dicen que es del Centro de Nos...",
+        "Paz: Ven por la vía. Te espero en la entrada de...",
         "La señal se corta.",
-        "Leo: San Bernardo. Yo sé el camino, Cony. Vamos."]))
+        "Leo: San Bernardo. Yo sé el camino, Isabella. Vamos."]))
 k.pickup("Shells", (-3.0, 0.0, 1.8), "ammo_shells", 6, rot=(0, 0.8, 0))
 k.pickup("Sushi", (3.7, 0.77, 1.0), "sushi", rot=(0, 0.3, 0))
 k.camera("West", (-2.5, 1.5, 0.0), (5.0, 3.0, 8.0), (2.4, 3.8, 3.4), (-2.6, 0.4, -0.8), fov=64)
 k.camera("East", (2.5, 1.5, 0.0), (5.0, 3.0, 8.0), (-1.8, 3.8, 3.4), (2.6, 0.4, -0.8), fov=64)
 k.spawn("from_vineyard", (-4.1, 0.05, 0.0), (1, 0))
-k.leo_hint("LeoRosa", (2.6, 0, -0.5), ["Leo: Ahí adentro está Rosa. Huele a ella... y a frío.", "Leo: Háblale, Cony. Pero no abras esa puerta."], hide_if="talked:rosa")
-k.leo_hint("LeoRadio", (0.6, 0, 1.2), ["Leo: La radio. Alguien te está llamando, Cony."], show_if="talked:rosa")
+k.leo_hint("LeoRosa", (2.6, 0, -0.5), ["Leo: Ahí adentro está Rosa. Huele a ella... y a frío.", "Leo: Háblale, Isabella. Pero no abras esa puerta."], hide_if="talked:rosa")
+k.leo_hint("LeoRadio", (0.6, 0, 1.2), ["Leo: La radio. Alguien te está llamando, Isabella."], show_if="talked:rosa")
 k.save(REPO + "/levels/buin/shed.tscn")
 print("shed ok")

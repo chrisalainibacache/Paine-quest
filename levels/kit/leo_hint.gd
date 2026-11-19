@@ -1,5 +1,5 @@
 extends Marker3D
-## Pista de Leo: un lugar al que Leo lleva a Cony cuando no sabe por dónde
+## Pista de Leo: un lugar al que Leo lleva a Isabella cuando no sabe por dónde
 ## seguir, y lo que Leo le explica al llegar. Leo la usa mientras esté activa
 ## (según banderas e ítems de la mochila). Lo que dice se oye una sola vez.
 
@@ -9,9 +9,9 @@ extends Marker3D
 @export var show_if_flag: String = ""
 ## Ya no hace falta cuando existe esta bandera (p. ej. "unlocked:gate_south").
 @export var hide_if_flag: String = ""
-## Solo si Cony lleva este ítem en la mochila.
+## Solo si Isabella lleva este ítem en la mochila.
 @export var show_if_item: String = ""
-## Ya no hace falta cuando Cony lleva este ítem.
+## Ya no hace falta cuando Isabella lleva este ítem.
 @export var hide_if_item: String = ""
 
 

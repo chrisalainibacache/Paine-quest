@@ -15,7 +15,7 @@ extends StaticBody3D
     set(value):
         surface = value
         _rebuild()
-## false = sólo visual (Cony la atraviesa).
+## false = sólo visual (Isabella la atraviesa).
 @export var solid: bool = true:
     set(value):
         solid = value

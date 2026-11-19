@@ -1,7 +1,7 @@
 class_name Interactable
 extends Node3D
-## Algo con lo que Cony puede interactuar con el botón ACCIÓN (examinar, leer,
-## recoger, abrir, guardar). El nodo se ubica donde está el objeto: Cony lo
+## Algo con lo que Isabella puede interactuar con el botón ACCIÓN (examinar, leer,
+## recoger, abrir, guardar). El nodo se ubica donde está el objeto: Isabella lo
 ## "ve" cuando está a menos de `reach` metros y más o menos de frente.
 
 ## Texto del botón ACCIÓN cuando este objeto está a mano.

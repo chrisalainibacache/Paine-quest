@@ -6,11 +6,15 @@ es **Chris**, que solo tiene un teléfono Android: nunca le pidas instalar nada 
 Responde y escribe todo **en español**.
 
 ## 1. Qué es el juego
+> **Nombres:** la protagonista es **Isabella** (antes "Cony") y su hermana **Paz** (antes
+> "Javiera"). Úsalos siempre; si ves los nombres viejos en algún texto, anótalo en el registro.
+> Los archivos internos conservan `cony` (no se renombran).
+
 Survival horror 2.5D con cámaras fijas (estilo Resident Evil 3 de PS1) en **Godot 4.7.2**,
-renderer *Compatibility*, para **Android en horizontal**. Cony y su gata Leo viajan a pie por
+renderer *Compatibility*, para **Android en horizontal**. Isabella y su gata Leo viajan a pie por
 la vía del tren desde Paine (Chile) hacia Santiago, entre infectados, buscando a la hermana de
-Cony, Javiera. **Este juego es la última aventura de Leo** (Leo es en secreto la gata real de
-Cony, que murió): todo lo de Leo se escribe con ese cariño. Lee `docs/GDD.md` §2 (historia y
+Isabella, Paz. **Este juego es la última aventura de Leo** (Leo es en secreto la gata real de
+Isabella, que murió): todo lo de Leo se escribe con ese cariño. Lee `docs/GDD.md` §2 (historia y
 línea de tiempo: las notas **deben** respetarla).
 
 Estado: capítulo 1 (estación, 6 salas), capítulo 2 (las vías, 6 salas) y capítulo 3 (Buin,
@@ -49,7 +53,7 @@ el 5 (Santiago / Centro de Nos) y el epílogo "Para Leo". Ver `docs/ROADMAP.md`.
 - **Cámaras**: si cambias una sala o un prop grande, corre
   `godot --headless --path . -s res://tools/plan_cameras.gd -- <sala>`, regenera la sala y
   luego `godot --headless --path . -s res://tools/audit_cameras.gd` (debe dar 0 apariciones
-  malas y 0 cámaras pegadas). Cony no puede quedar fuera de cuadro ni tapada.
+  malas y 0 cámaras pegadas). Isabella no puede quedar fuera de cuadro ni tapada.
 - **Rendimiento (Redmi 13C)**: salas pequeñas, ≤ 4 luces, pocos dibujos. Piezas repetidas
   en `MultiMesh` (ver `tools/level_gen/train_props.py`).
 - **Textos**: los diálogos de Leo empiezan con `Leo: `. Las notas respetan la línea de tiempo.
@@ -80,14 +84,14 @@ Las tareas **A–C son solo diseño y texto** (sin código). **D no empieza hast
 `APROBADO D` en el registro.**
 - **A. Capítulo 4 "La Maestranza"** — en `docs/GDD.md` (§2 historia y §8 salas): 6 a 8 salas
   con nombre, función, conexiones, objetos, enemigos, 1 enemigo o jefe nuevo, qué se
-  consigue, y el flujo de pistas de Leo. Javiera trabaja ahí; el vagón del Centro de Nos
+  consigue, y el flujo de pistas de Leo. Paz trabaja ahí; el vagón del Centro de Nos
   nadie lo abre. Mantén salas pequeñas y cerradas.
 - **B. Notas del capítulo 4** — redacta 5 a 8 documentos (texto, título, fecha/hora) que
   amplíen la línea de tiempo sin contradecirla; en formato de `data/documents/*.tres`
   (míralos de ejemplo) pero **solo propón el texto en el registro**, no los crees todavía.
 - **C. Capítulo 5 y epílogo "Para Leo"** — esquema de salas y el texto de la despedida de
   Leo (aprobada por Chris: al amanecer, a salvo, camina unos pasos hacia la luz, se da vuelta,
-  maúlla una última vez y se va; Cony entiende; dedicatoria "Para Leo").
+  maúlla una última vez y se va; Isabella entiende; dedicatoria "Para Leo").
 - **D. Implementar el capítulo 4** con `roomkit.Kit` (solo tras `APROBADO D`): una sala por PR,
   con sus pruebas, cámaras planificadas y auditadas.
 - **Siempre**: si ves un error de ortografía o contradicción en textos existentes, anótalo

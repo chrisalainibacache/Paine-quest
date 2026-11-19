@@ -1,12 +1,12 @@
 extends Interactable
-## Botón ACCIÓN "LEO": aparece cuando Leo tiene algo que contarle a Cony.
+## Botón ACCIÓN "LEO": aparece cuando Leo tiene algo que contarle a Isabella.
 
 
 func _ready() -> void:
     super._ready()
     prompt = "LEO"
     reach = 1.2
-    # Leo siempre anda pegada a Cony: nunca debe ganarle a LEER, RECOGER o ABRIR.
+    # Leo siempre anda pegada a Isabella: nunca debe ganarle a LEER, RECOGER o ABRIR.
     focus_penalty = 3.0
 
 

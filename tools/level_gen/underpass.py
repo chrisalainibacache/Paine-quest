@@ -2,7 +2,7 @@ import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file_
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
 T = "res://levels/tracks/%s.tscn"
-# Paso bajo nivel en apagón: solo la linterna de Cony y una luz roja de
+# Paso bajo nivel en apagón: solo la linterna de Isabella y una luz roja de
 # emergencia al fondo. Infectados rápidos.
 k = Kit("Underpass", "Paso bajo nivel", dark=True)
 k.env((0.02, 0.02, 0.03), (0.3, 0.31, 0.38), 0.75, (0.05, 0.05, 0.065), 0.05)
@@ -41,7 +41,7 @@ k.camera("Middle", (0.0, 1.4, 0.0), (4.8, 2.8, 3.6), (-2.6, 2.5, -1.5), (2.8, 0.
 k.camera("East", (4.7, 1.4, 0.0), (4.6, 2.8, 3.6), (6.6, 2.5, 1.5), (1.8, 0.4, -0.4), fov=64)
 k.spawn("from_convoy", (-6.1, 0.05, 0.0), (1, 0))
 k.spawn("from_switch", (6.1, 0.05, 0.0), (-1, 0))
-# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+# Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoExit', (5.9, 0, 0.0), ['Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.', 'Leo: Al final hay una puerta. Arriba está la casa de cambios.'])
 k.save(REPO + "/levels/tracks/underpass.tscn")
 print("underpass ok")

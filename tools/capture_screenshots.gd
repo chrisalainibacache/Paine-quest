@@ -20,7 +20,7 @@ func _init() -> void:
 func _run() -> void:
     await _wait(1.5)
     _shot("01_inicio")
-    # Cony camina hacia el este (cruza al otro lado: corte de cámara).
+    # Isabella camina hacia el este (cruza al otro lado: corte de cámara).
     Input.action_press(&"move_right", 1.0)
     await _wait(1.0)
     _shot("02_trotando")
@@ -33,7 +33,7 @@ func _run() -> void:
     _shot("04_caminando")
     Input.action_release(&"move_forward")
 
-    # Combate: Cony frente al infectado que come junto al portón.
+    # Combate: Isabella frente al infectado que come junto al portón.
     var main := current_scene
     var player: Player = main.player
     player.global_position = Vector3(1.0, 0.05, 3.0)

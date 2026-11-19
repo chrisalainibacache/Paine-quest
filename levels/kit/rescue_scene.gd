@@ -1,7 +1,7 @@
 extends Node3D
-## Escena guionada del potrero (capítulo 3): al llegar Cony al centro aparecen
+## Escena guionada del potrero (capítulo 3): al llegar Isabella al centro aparecen
 ## demasiados infectados, el arma se traba, Leo se pone delante... y llegan
-## Kiara y Nala a salvarlas. Cony les da las gracias y les pide que sigan
+## Kiara y Nala a salvarlas. Isabella les da las gracias y les pide que sigan
 ## sacando gente; ladran y se van. Ocurre una sola vez.
 
 const INFECTED := preload("res://actors/enemies/infected.tscn")
@@ -93,7 +93,7 @@ func _run(player: Player) -> void:
         leo._play("Idle", 2.6)
         Sfx.play("hiss", front + Vector3.UP * 0.3, 0.0)
     await _wait(0.5)
-    await Dialogue.say(["Leo: Tranquila, Cony. Yo te protejo."])
+    await Dialogue.say(["Leo: Tranquila, Isabella. Yo te protejo."])
 
     # 4. Llegan Kiara y Nala.
     var kiara := KIARA.instantiate()
@@ -130,7 +130,7 @@ func _run(player: Player) -> void:
         "Gracias, chicas. Nos salvaron.",
         "Hay mucha gente sola por aquí. Sigan sacándola, por favor. Ustedes pueden.",
         "Nala: ¡Guau, guau!",
-        "Leo: Son valientes, Cony. Ellas saben lo que hacen.",
+        "Leo: Son valientes, Isabella. Ellas saben lo que hacen.",
         "Golpeo la pistola contra la mano. Se destrabó."])
     kiara.bark()
     nala.bark()

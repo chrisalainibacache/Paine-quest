@@ -1,7 +1,7 @@
 class_name SceneLoader
 extends Node
 ## Cambia de sala: fundido a negro, libera la sala anterior, instancia la nueva,
-## ubica a Cony (y a Leo a su lado) en el punto de aparición y elige la cámara.
+## ubica a Isabella (y a Leo a su lado) en el punto de aparición y elige la cámara.
 ## Vive como hijo de Main; las puertas llaman a SceneLoader.go_to().
 
 signal room_changed(room: Room)
@@ -61,6 +61,7 @@ func enter_first_room() -> void:
     GameState.use_spawn_transform = false
     await _settle()
     await _fade_to(0.0)
+    _announce_place()
     await _play_intro()
 
 
@@ -75,7 +76,14 @@ func _go_to(room_path: String, spawn_id: String) -> void:
     player.controls_locked = false
     await _fade_to(0.0)
     busy = false
+    _announce_place()
     await _play_intro()
+
+
+## Cartel con el nombre del lugar al entrar a una sala.
+func _announce_place() -> void:
+    if room != null and not room.room_name.is_empty():
+        get_tree().call_group("hud", "show_place", room.room_name)
 
 
 func _end_chapter(chapter: int) -> void:
@@ -105,7 +113,7 @@ func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool)
     GameState.spawn_id = spawn_id
 
     var spawn := GameState.spawn_transform if use_saved_transform else room.get_spawn(spawn_id)
-    # Los marcadores miran hacia -Z; el modelo de Cony mira hacia +Z.
+    # Los marcadores miran hacia -Z; el modelo de Isabella mira hacia +Z.
     var yaw := spawn.basis.get_euler().y + (0.0 if use_saved_transform else PI)
     player.global_position = spawn.origin
     player.rotation = Vector3.ZERO
@@ -125,7 +133,7 @@ func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool)
     room_changed.emit(room)
 
 
-## Primera visita a una sala con intro: Cony cuenta qué ve (una sola vez).
+## Primera visita a una sala con intro: Isabella cuenta qué ve (una sola vez).
 func _play_intro() -> void:
     if room == null or room.intro_lines.is_empty() or not intros_enabled:
         return
@@ -136,7 +144,7 @@ func _play_intro() -> void:
     await Dialogue.say(Array(room.intro_lines))
 
 
-## Las áreas de cámara detectan a Cony recién en el siguiente paso de física.
+## Las áreas de cámara detectan a Isabella recién en el siguiente paso de física.
 func _settle() -> void:
     await get_tree().physics_frame
     await get_tree().physics_frame

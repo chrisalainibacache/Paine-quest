@@ -713,7 +713,7 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="LeoTracks" type="Marker3D" parent="."]
 position = Vector3(4.3, 0, -0.75)
 script = ExtResource("46_leo_hint")
-lines = PackedStringArray("Leo: La vía va hacia el norte. Hacia Santiago. Hacia Javiera.", "Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.")
+lines = PackedStringArray("Leo: La vía va hacia el norte. Hacia Santiago. Hacia Paz.", "Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-4.375, 1.5, 1.875)

@@ -1,6 +1,6 @@
 extends SceneTree
 ## Planificador de cámaras fijas: para cada sala parte el piso en zonas (1 a 9) y
-## busca la mejor cámara de cada una (posición, altura, FOV) para que Cony se vea
+## busca la mejor cámara de cada una (posición, altura, FOV) para que Isabella se vea
 ## entera, de buen tamaño y sin que nada sólido la tape en cualquier punto.
 ## Guarda el resultado en tools/level_gen/cameras.json; los generadores (tscn.py)
 ## lo aplican solos al regenerar cada sala.
@@ -16,7 +16,7 @@ const HEIGHTS := [1.8, 2.1, 2.4, 2.8, 3.2, 3.7, 4.3, 4.9, 5.6, 6.4]
 const FOVS := [56.0, 62.0, 68.0]
 ## Las zonas se solapan un poco para que el corte de cámara no parpadee en el borde.
 const OVERLAP := 0.5
-## Margen de las zonas del borde: cubre hasta el último paso de Cony junto al muro.
+## Margen de las zonas del borde: cubre hasta el último paso de Isabella junto al muro.
 const EDGE := 1.0
 ## Se acepta la primera distribución con la peor zona ≥ 96 % y media ≥ 98 %.
 const TARGET_WORST := 0.96
@@ -25,6 +25,12 @@ const MAX_SAMPLES := 260
 const CELL := 1.0
 ## Alcance de las cámaras (el mismo que escribe camera_plan.py).
 const FAR := 60.0
+## Ángulo de picado preferido (grados): más cenital se ve mejor por dónde seguir.
+const PREFERRED_PITCH := 42.0
+const MAX_PITCH := 62.0
+## Las puertas de avance deben verse desde la cámara de la zona donde Isabella anda cerca.
+const DOOR_RANGE := 3.0
+const DOOR_WEIGHT := 0.06
 
 
 func _init() -> void:
@@ -61,6 +67,11 @@ func _plan_room(path: String) -> Array:
         await physics_frame
     var space := room.get_world_3d().direct_space_state
     _spawns = Check.spawn_positions(room)
+    _doors = []
+    for node in room.find_children("*", "Door", true, false):
+        var door := node as Door
+        if not door.target_room.is_empty() and door.prompt != "VOLVER":
+            _doors.append(door.global_position)
     var points: Array = Check.reachable(Check.walkable_points(space, Check.SEARCH_BOUNDS, STEP), Check.spawn_positions(room), STEP)
     var area := _points_rect(points)
     var best_plan: Array = []
@@ -93,6 +104,7 @@ func _plan_room(path: String) -> Array:
 
 
 var _spawns: Array = []
+var _doors: Array = []
 
 
 func _plan_layout(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2, nx: int, nz: int) -> Array:
@@ -110,13 +122,18 @@ func _plan_layout(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2, 
                     inside.append(p)
             if inside.size() < 3:
                 continue
-            # Los puntos de aparición (donde llega Cony al cambiar de sala) cuentan ×8.
+            # Los puntos de aparición (donde llega Isabella al cambiar de sala) cuentan ×8.
             var weighted: Array = inside.duplicate()
             for s: Vector3 in _spawns:
                 if s.x >= extended.position.x and s.x <= extended.end.x and s.z >= extended.position.y and s.z <= extended.end.y:
                     for k in 8:
                         weighted.append(s)
-            var best := _best_camera(space, weighted, area)
+            # Puertas de avance cerca de esta zona: la cámara tiene que mostrarlas.
+            var wanted: Array = []
+            for d: Vector3 in _doors:
+                if extended.grow(DOOR_RANGE).has_point(Vector2(d.x, d.z)):
+                    wanted.append(d)
+            var best := _best_camera(space, weighted, area, wanted)
             # La búsqueda usa una muestra; el resultado se mide con todos los puntos.
             var pos := Vector3(best["cam_pos"][0], best["cam_pos"][1], best["cam_pos"][2])
             var tgt := Vector3(best["target"][0], best["target"][1], best["target"][2])
@@ -135,7 +152,7 @@ func _plan_layout(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2, 
     return plan
 
 
-func _best_camera(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2) -> Dictionary:
+func _best_camera(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2, wanted_doors: Array = []) -> Dictionary:
     var samples: Array = points
     if points.size() > MAX_SAMPLES:
         samples = []
@@ -159,7 +176,7 @@ func _best_camera(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2) 
                 for h: float in HEIGHTS:
                     var pos := Vector3(x, h, z)
                     var pitch := rad_to_deg(atan2(h - 0.6, flat))
-                    if pitch < 8.0 or pitch > 52.0:
+                    if pitch < 8.0 or pitch > MAX_PITCH:
                         continue
                     if not _free_space(space, pos, sphere):
                         continue
@@ -178,10 +195,15 @@ func _best_camera(space: PhysicsDirectSpaceState3D, points: Array, area: Rect2) 
                                 good += 1
                         var coverage := float(good) / samples.size()
                         # Prefiere ángulos de cine: picado de ~30°, FOV normal, cerca de un muro (no en
-                        # medio de la sala) y ni muy lejos de Cony.
+                        # medio de la sala) y ni muy lejos de Isabella.
                         var edge := minf(minf(x - area.position.x, area.end.x - x), minf(z - area.position.y, area.end.y - z))
-                        var score := coverage - 0.012 * absf(pitch - 30.0) / 15.0 - 0.01 * maxf(pitch - 45.0, 0.0) / 15.0 - 0.01 * (fov - 56.0) / 12.0 \
+                        var score := coverage - 0.012 * absf(pitch - PREFERRED_PITCH) / 15.0 - 0.01 * maxf(pitch - 58.0, 0.0) / 15.0 - 0.01 * (fov - 56.0) / 12.0 \
                             - 0.01 * clampf(flat - 8.0, 0.0, 8.0) / 8.0 - 0.012 * clampf(edge, 0.0, 3.5) / 3.5
+                        for d: Vector3 in wanted_doors:
+                            # La puerta y su letrero (flota a ~2,5 m) tienen que caber en cuadro y no estar tapados.
+                            var seen := Check.frame_problem(xf, fov, d) == "" and Check.frame_problem(xf, fov, d + Vector3.UP * 1.3) == "" \
+                                and not Check.occluded(space, pos, d)
+                            score += DOOR_WEIGHT if seen else -DOOR_WEIGHT
                         if coverage >= 0.8:
                             candidates.append([score, pos, fov, coverage])
             z += CELL

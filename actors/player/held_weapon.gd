@@ -1,5 +1,5 @@
 extends Node3D
-## Arma en la mano de Cony (todas menos la pistola, que tiene su escena propia).
+## Arma en la mano de Isabella (todas menos la pistola, que tiene su escena propia).
 ## El modelo viene del WeaponData; el fogonazo se ubica en la boca del cañón.
 
 @onready var _grip: Node3D = $Grip

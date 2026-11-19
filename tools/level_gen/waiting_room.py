@@ -139,7 +139,7 @@ s.node("Ammo", "Node3D", "Interactables", position=v3((-3.55, 0.0, -1.9)), scrip
        item=s.res(ITEM("ammo_9mm"), "Resource"), count="15", model_rotation=v3((0, 0.9, 0)))
 
 # --- Infectado comiendo junto a la máquina de bebidas -------------------
-# Cony llega sin arma: se puede pasar por el lado este sin despertarlo.
+# Isabella llega sin arma: se puede pasar por el lado este sin despertarlo.
 s.node("Enemies", "Node3D", ".")
 s.node("Feeding", None, "Enemies", instance=s.res("res://actors/enemies/infected.tscn", "PackedScene"),
        position=v3((-2.7, 0.05, -2.75)), rotation=v3((0, -math.pi / 2, 0)), start_state='"feeding"',
@@ -160,7 +160,7 @@ s.node("Spawns", "Node3D", ".")
 s.node("from_platform", "Marker3D", "Spawns", position=v3((-2.5, 0.05, D / 2 - 0.9)))
 s.node("from_ticket_office", "Marker3D", "Spawns", position=v3((2.9, 0.05, -D / 2 + 0.9)), rotation=v3((0, math.pi, 0)))
 from roomkit import add_leo_hint
-# Pistas de Leo: adonde guía a Cony cuando se queda quieta y qué le explica.
+# Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 add_leo_hint(s, 'LeoTicketOffice', (2.6, 0, -2.6), ['Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.', 'Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.'], hide_if='found:pistol')
 add_leo_hint(s, 'LeoTypewriter', (3.2, 0, 1.4), ['Leo: Esa máquina de escribir guarda lo que llevamos hecho.', 'Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.'], show_if='found:pistol')
 s.save(REPO + "/levels/station/waiting_room.tscn")
