@@ -29,6 +29,12 @@ textures/vram_compression/import_etc2_astc=true
 InputSetup="*res://systems/input_setup.gd"
 SfxPlayer="*res://systems/sfx.gd"
 
+[editor]
+
+; Sin esto el export convierte los recursos de texto a binario y pierde los textos
+; (notas, objetos examinables, pistas de Leo): LEER/EXAMINAR no hacían nada en el APK.
+export/convert_text_resources_to_binary=false
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true

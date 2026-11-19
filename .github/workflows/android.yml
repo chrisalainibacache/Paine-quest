@@ -65,6 +65,14 @@ jobs:
           "$GODOT" --headless --path . -s res://tests/systems_test.gd
           "$GODOT" --headless --path . -s res://tests/levels_test.gd
 
+      - name: Comprobar que el paquete exportado conserva los textos
+        run: |
+          set -e
+          mkdir -p build
+          "$GODOT" --headless --export-pack "Android" build/probe.pck
+          "$GODOT" --headless --main-pack build/probe.pck -s "$PWD/tools/export_probe.gd"
+          rm build/probe.pck
+
       - name: Exportar APK
         env:
           GODOT_ANDROID_KEYSTORE_RELEASE_PATH: ${{ github.workspace }}/tools/android/paine.keystore
