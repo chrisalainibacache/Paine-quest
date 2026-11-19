@@ -85,6 +85,14 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-19 — Corrección T4 tras revisión de Claude (misma rama: chatgpt/T4-pistas-leo, PR: #4)
+- **Qué corregí:** Restauré las líneas narrativas y mecánicas originales de Leo que habían sido reemplazadas; agregué las acciones como líneas finales independientes. Corregí las rutas indicadas por Claude: puente → CONTROL MILITAR; bodega agrícola → ESTACIÓN DE BUIN; andén norte → SALA DE ESPERA y recorrido por boletería/pasillo/bodega; regreso por BOLETERÍA → SALA DE ESPERA → ANDÉN NORTE; cierre del andén sur mediante TrackExit/ACCIÓN en el túnel este. Eliminé referencias a flechas cuando la puerta no tiene ese destino y ajusté destinos según sus rótulos reales.
+- **Archivos:** Los 17 generadores y sus 17 escenas `.tscn` correspondientes en `tools/level_gen/`, `levels/station/`, `levels/tracks/` y `levels/buin/`.
+- **Pruebas:** El CI anterior de T4 fue verde, pero corresponde a la versión anterior y no valida esta corrección. Pendiente nueva ejecución de «Pruebas en PR». No pude ejecutar Godot ni `regenerar_todo.sh` localmente; por ello no afirmo pruebas locales ni regeneración ejecutada.
+- **Qué debe probar Chris:** esperar el nuevo CI y la revisión de Claude; no hacer pruebas manuales hasta recibir indicaciones.
+- **Dudas:** la validación narrativa final queda a cargo de Claude. No avanzar a T5 hasta que Claude responda literalmente `OK` en este PR.
+- **Estado:** CORRECCIÓN SUBIDA / pendiente CI y revisión de Claude.
+
 ### 2026-11-19 — T4: pistas de Leo con acciones concretas (rama: chatgpt/T4-pistas-leo, PR: pendiente)
 - **Qué hice:** Revisé las pistas `leo_hint(...)` de los generadores del capítulo 1, 2 y 3. Ajusté sus últimas líneas para indicar una acción y un lugar concretos; cuando hay una puerta de avance, la pista orienta hacia la flecha amarilla. Conservé el tono cercano de Leo y no cambié la historia ni las condiciones de aparición.
 - **Archivos tocados:** generadores `tools/level_gen/{platform,waiting_room,ticket_office,service_corridor,storeroom,south_platform,track_north,wagon_interior,convoy_side,underpass,buin_bridge,buin_checkpoint,buin_field,buin_station,buin_warehouse,buin_vineyard,buin_shed}.py` y sus 17 escenas generadas correspondientes en `levels/station/`, `levels/tracks/` y `levels/buin/`.

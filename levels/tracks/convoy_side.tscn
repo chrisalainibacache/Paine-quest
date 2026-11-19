@@ -383,7 +383,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoGate" type="Marker3D" parent="."]
 position = Vector3(7.7, 0, 1.2)
 script = ExtResource("27_leo_hint")
-lines = PackedStringArray("Leo: La reja del paso bajo nivel. La llave del maquinista la abre.", "Leo: Acércate a la reja y usa la llave del maquinista para abrir el paso bajo nivel.")
+lines = PackedStringArray("Leo: La reja del paso bajo nivel. La llave del maquinista la abre.", "Leo: Abajo está oscuro. No importa: yo veo en la oscuridad. Tú sigue mis ojos.", "Leo: Acércate a la reja del paso bajo nivel y usa la llave del maquinista.")
 hide_if_flag = "unlocked:underpass_gate"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]

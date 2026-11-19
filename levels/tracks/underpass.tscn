@@ -388,7 +388,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoExit" type="Marker3D" parent="."]
 position = Vector3(5.9, 0, 0)
 script = ExtResource("29_leo_hint")
-lines = PackedStringArray("Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.", "Leo: Sube por la salida al final del túnel y sigue la flecha amarilla hacia la casa de cambios.")
+lines = PackedStringArray("Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.", "Leo: Al final hay una puerta. Arriba está la casa de cambios.", "Leo: Sigue por el túnel hasta la salida; al otro lado está la casa de cambios.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-4.5833, 1.5, 0)

@@ -406,13 +406,13 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoTent" type="Marker3D" parent="."]
 position = Vector3(-4.6, 0, -2.2)
 script = ExtResource("34_leo_hint")
-lines = PackedStringArray("Leo: En la carpa hay papeles con sellos. Léelos, Isabella.", "Leo: Usa la máquina de escribir junto a la carpa para guardar antes de avanzar.")
+lines = PackedStringArray("Leo: En la carpa hay papeles con sellos. Léelos, Isabella.", "Leo: Y esa máquina de escribir sirve igual que las otras.", "Leo: Usa la máquina de escribir junto a la carpa para guardar antes de avanzar.")
 hide_if_flag = "read:military_order"
 
 [node name="LeoStation" type="Marker3D" parent="."]
 position = Vector3(7.5, 0, -2.6)
 script = ExtResource("34_leo_hint")
-lines = PackedStringArray("Leo: La estación de Buin está por ahí.", "Leo: Apunta al cuerpo de los soldados y, cuando despejes el paso, sigue la flecha amarilla hacia la estación de Buin.")
+lines = PackedStringArray("Leo: La estación de Buin está por ahí.", "Leo: Los soldados tienen casco. Apúntales al cuerpo y no te quedes cerca.", "Leo: Cuando despejes el paso, usa la puerta SEGUIR hacia la ESTACIÓN DE BUIN.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-5.9167, 1.5, -2.5)

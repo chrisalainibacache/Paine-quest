@@ -261,7 +261,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoShed" type="Marker3D" parent="."]
 position = Vector3(8.4, 0, 0)
 script = ExtResource("23_leo_hint")
-lines = PackedStringArray("Leo: El galpón. Rosa está ahí adentro, Isabella. Respira despacio.", "Leo: Usa la llave del tractor en la puerta del galpón que marca la flecha amarilla.")
+lines = PackedStringArray("Leo: El galpón. Rosa está ahí adentro, Isabella. Respira despacio.", "Leo: Usa la llave del tractor.", "Leo: Acércate a la puerta del galpón y usa la llave del tractor.")
 hide_if_flag = "unlocked:shed_door"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
