@@ -293,9 +293,9 @@ script = ExtResource("26_camera_zone")
 shape = SubResource("BoxShape3D_3")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam1"]
-position = Vector3(3.9563, 3.4, 3.925)
-rotation = Vector3(-0.717, 0.8033, 0)
-fov = 56
+position = Vector3(-0.0437, 2.2, 2.925)
+rotation = Vector3(-0.8987, -0.1835, 0)
+fov = 62
 near = 0.1
 far = 60.0
 
@@ -307,8 +307,8 @@ script = ExtResource("26_camera_zone")
 shape = SubResource("BoxShape3D_4")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam2"]
-position = Vector3(-5.4812, 2.2, 1.925)
-rotation = Vector3(-0.5139, -1.4476, 0)
+position = Vector3(-5.4812, 3.4, 1.925)
+rotation = Vector3(-0.6643, -1.4476, 0)
 fov = 56
 near = 0.1
 far = 60.0
@@ -321,8 +321,8 @@ script = ExtResource("26_camera_zone")
 shape = SubResource("BoxShape3D_5")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam3"]
-position = Vector3(5.3313, 2.8, 2.925)
-rotation = Vector3(-0.5932, 1.3081, 0)
+position = Vector3(-5.6687, 2.8, 1.925)
+rotation = Vector3(-0.5745, -1.4964, 0)
 fov = 56
 near = 0.1
 far = 60.0
@@ -349,8 +349,8 @@ script = ExtResource("26_camera_zone")
 shape = SubResource("BoxShape3D_7")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam5"]
-position = Vector3(-1.0437, 2.8, -4.575)
-rotation = Vector3(-0.6568, -2.8347, 0)
+position = Vector3(-1.0437, 3.4, -4.575)
+rotation = Vector3(-0.7306, -2.8347, 0)
 fov = 56
 near = 0.1
 far = 60.0
@@ -363,8 +363,8 @@ script = ExtResource("26_camera_zone")
 shape = SubResource("BoxShape3D_8")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam6"]
-position = Vector3(-5.4812, 2.2, -0.575)
-rotation = Vector3(-0.5171, -1.5616, 0)
+position = Vector3(-5.4812, 3.4, -0.575)
+rotation = Vector3(-0.668, -1.5616, 0)
 fov = 56
 near = 0.1
 far = 60.0
@@ -377,8 +377,8 @@ script = ExtResource("26_camera_zone")
 shape = SubResource("BoxShape3D_9")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam7"]
-position = Vector3(5.3313, 2.8, 0.425)
-rotation = Vector3(-0.6024, 1.398, 0)
+position = Vector3(-5.6687, 2.8, -0.575)
+rotation = Vector3(-0.5757, -1.584, 0)
 fov = 56
 near = 0.1
 far = 60.0
@@ -391,8 +391,8 @@ script = ExtResource("26_camera_zone")
 shape = SubResource("BoxShape3D_10")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam8"]
-position = Vector3(-6.1062, 3.4, 0.425)
-rotation = Vector3(-0.6739, -1.4217, 0)
+position = Vector3(-5.1062, 3.4, 0.425)
+rotation = Vector3(-0.7741, -1.3879, 0)
 fov = 56
 near = 0.1
 far = 60.0
@@ -405,8 +405,8 @@ script = ExtResource("26_camera_zone")
 shape = SubResource("BoxShape3D_11")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam9"]
-position = Vector3(-1.0437, 2.8, -7.075)
-rotation = Vector3(-0.5094, 3.0205, 0)
+position = Vector3(-1.0437, 4.1, -6.075)
+rotation = Vector3(-0.726, 2.9991, 0)
 fov = 56
 near = 0.1
 far = 60.0

@@ -403,8 +403,8 @@ script = ExtResource("17_camera_zone")
 shape = SubResource("BoxShape3D_7")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam6"]
-position = Vector3(-0.2833, 2.2, -6.7)
-rotation = Vector3(-0.4635, 3.1134, 0)
+position = Vector3(-2.2833, 0.3, -6.7)
+rotation = Vector3(-0.1836, -2.8553, 0)
 fov = 56
 near = 0.1
 far = 60.0

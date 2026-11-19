@@ -99,6 +99,12 @@ en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice)
 
 ## 3. Cámara
 
+> **Decisión de Chris (noviembre):** las cámaras se prefieren **más desde arriba** (picado
+> ~42°, hasta 62°) y deben mostrar la **puerta de avance** cuando Isabella anda cerca de ella.
+> Lo hace `tools/plan_cameras.gd` (`PREFERRED_PITCH`, `DOOR_WEIGHT`). Aplicado a los capítulos
+> 2 y 3. El capítulo 1 conserva sus cámaras porque tiene fondos prerenderizados: cambiarlas
+> exige re-renderizar (ver `update grafica.txt`).
+
 - Cada sala (`Room`) es una escena propia con sus `CameraZone` (Area3D + Camera3D).
 - Al entrar Isabella en una `CameraZone`, esa cámara pasa a ser la actual (corte seco).
 - Opcional por zona: cámara que **sigue** a Isabella solo sobre un riel (pasillos largos).
