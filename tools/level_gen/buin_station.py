@@ -40,7 +40,7 @@ k.camera("East", (2.5, 1.5, 0.0), (5.0, 3.0, 7.0), (-2.0, 3.2, -3.0), (3.4, 0.4,
 k.spawn("from_checkpoint", (-4.1, 0.05, 1.6), (1, 0))
 k.spawn("from_warehouse", (-1.5, 0.05, -2.6), (0, 1))
 k.spawn("from_field", (4.1, 0.05, -1.4), (-1, 0))
-k.leo_hint("LeoWarehouse", (-1.5, 0, -2.5), ["Leo: La lista en el mesón dice quiénes subieron al tren. Léela.", "Leo: Entra por esa puerta hacia la bodega agrícola y busca la llave del campo."], hide_item="shed_key")
+k.leo_hint("LeoWarehouse", (-1.5, 0, -2.5), ["Leo: La lista en el mesón dice quiénes subieron al tren. Léela.", "Leo: Sigue la flecha amarilla por esa puerta hacia la bodega agrícola y busca la llave del campo."], hide_item="shed_key")
 k.leo_hint("LeoVineyard", (4.0, 0, -1.4), ["Leo: Ya tienes la llave del galpón. La viña está por aquí.", "Leo: Sal de la estación y sigue la flecha amarilla hacia la viña, donde está el galpón."], show_item="shed_key")
 k.save(REPO + "/levels/buin/station.tscn")
 print("buin station ok")
