@@ -90,6 +90,7 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Archivos:** Los 17 generadores y sus 17 escenas `.tscn` correspondientes en `tools/level_gen/`, `levels/station/`, `levels/tracks/` y `levels/buin/`.
 - **Pruebas:** El CI anterior de T4 fue verde, pero corresponde a la versión anterior y no valida esta corrección. Pendiente nueva ejecución de «Pruebas en PR». No pude ejecutar Godot ni `regenerar_todo.sh` localmente; por ello no afirmo pruebas locales ni regeneración ejecutada.
 - **Qué debe probar Chris:** esperar el nuevo CI y la revisión de Claude; no hacer pruebas manuales hasta recibir indicaciones.
+- **Revisión adicional:** corregí la pista de la boletería para indicar primero la puerta PASILLO DE SERVICIO (y después BODEGA), y precisé en la vía la flecha amarilla rotulada TREN DESCARRILADO.
 - **Dudas:** la validación narrativa final queda a cargo de Claude. No avanzar a T5 hasta que Claude responda literalmente `OK` en este PR.
 - **Estado:** CORRECCIÓN SUBIDA / pendiente CI y revisión de Claude.
 
