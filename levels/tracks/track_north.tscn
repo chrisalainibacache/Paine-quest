@@ -538,7 +538,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoFire" type="Marker3D" parent="."]
 position = Vector3(6.3, 0, 2.7)
 script = ExtResource("35_leo_hint")
-lines = PackedStringArray("Leo: Ese fuego es el tren de las 6:30. Huele a fierro quemado... y a ellos.", "Leo: Por ahí se sigue. Pégate a mí.")
+lines = PackedStringArray("Leo: Ese fuego es el tren de las 6:30. Huele a fierro quemado... y a ellos.", "Leo: Avanza por la vía hacia el vagón volcado y sigue la flecha amarilla para rodearlo.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-10.1562, 1.5, 0)
