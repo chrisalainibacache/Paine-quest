@@ -978,13 +978,13 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoWaitingRoom" type="Marker3D" parent="."]
 position = Vector3(3, 0, 4.2)
 script = ExtResource("52_leo_hint")
-lines = PackedStringArray("Leo: Isabella, aquí afuera no. Adentro hay luz.", "Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.")
+lines = PackedStringArray("Leo: Isabella, aquí afuera no. Adentro hay luz.", "Leo: Entra a la sala de espera por la puerta de la flecha amarilla; allí empezamos a buscar las balas.")
 hide_if_flag = "found:pistol"
 
 [node name="LeoGateKey" type="Marker3D" parent="."]
 position = Vector3(5.9, 0, 2.6)
 script = ExtResource("52_leo_hint")
-lines = PackedStringArray("Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.", "Leo: Las llaves se guardan donde guardan todo: en la bodega, al fondo del pasillo de servicio.")
+lines = PackedStringArray("Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.", "Leo: Entra al pasillo de servicio y sigue la flecha amarilla hasta la bodega.")
 show_if_flag = "found:pistol"
 hide_if_flag = "unlocked:gate_south"
 hide_if_item = "gate_key"
@@ -992,7 +992,7 @@ hide_if_item = "gate_key"
 [node name="LeoGateOpen" type="Marker3D" parent="."]
 position = Vector3(5.9, 0, 2.6)
 script = ExtResource("52_leo_hint")
-lines = PackedStringArray("Leo: Ya tienes la llave. Ábrelo, Isabella. Yo voy contigo.")
+lines = PackedStringArray("Leo: Acércate al portón y usa la llave; después sigue la flecha amarilla hacia el andén sur.")
 hide_if_flag = "unlocked:gate_south"
 show_if_item = "gate_key"
 
