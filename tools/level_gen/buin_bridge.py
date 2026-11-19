@@ -57,6 +57,6 @@ k.camera("West", (-5.5, 1.5, 0.0), (11.0, 3.0, 4.6), (0.8, 3.7, 1.7), (-8.0, 0.3
 k.camera("East", (5.5, 1.5, 0.0), (11.0, 3.0, 4.6), (-0.8, 3.7, -1.7), (8.0, 0.3, 0.5), fov=58)
 k.spawn("start", (-9.6, 0.05, 0.0), (1, 0))
 k.spawn("from_checkpoint", (9.2, 0.05, 0.0), (-1, 0))
-k.leo_hint("LeoCheckpoint", (9.3, 0, 0.4), ["Leo: Sacos de arena y una barrera. Esto lo armaron los militares.", "Leo: No huelo a ningún soldado vivo. Pasemos."])
+k.leo_hint("LeoCheckpoint", (9.3, 0, 0.4), ["Leo: Sacos de arena y una barrera. Esto lo armaron los militares.", "Leo: Cruza el puente hasta el control militar y sigue la flecha amarilla hacia la carpa."])
 k.save(REPO + "/levels/buin/bridge.tscn")
 print("bridge ok")
