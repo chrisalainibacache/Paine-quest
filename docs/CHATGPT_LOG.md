@@ -85,6 +85,14 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-19 — T4: pistas de Leo con acciones concretas (rama: chatgpt/T4-pistas-leo, PR: pendiente)
+- **Qué hice:** Revisé las pistas `leo_hint(...)` de los generadores del capítulo 1, 2 y 3. Ajusté sus últimas líneas para indicar una acción y un lugar concretos; cuando hay una puerta de avance, la pista orienta hacia la flecha amarilla. Conservé el tono cercano de Leo y no cambié la historia ni las condiciones de aparición.
+- **Archivos tocados:** generadores `tools/level_gen/{platform,waiting_room,ticket_office,service_corridor,storeroom,south_platform,track_north,wagon_interior,convoy_side,underpass,buin_bridge,buin_checkpoint,buin_field,buin_station,buin_warehouse,buin_vineyard,buin_shed}.py` y sus 17 escenas generadas correspondientes en `levels/station/`, `levels/tracks/` y `levels/buin/`.
+- **Pruebas:** smoke / systems / levels = no ejecutadas localmente (no hay Godot 4.7.2 ni clon local disponible). Tampoco pude ejecutar `./tools/level_gen/regenerar_todo.sh`: este entorno no puede clonar el repositorio desde GitHub. Para mantener la sincronía, actualicé las cadenas `PackedStringArray` de los 17 `.tscn` en paralelo con los generadores; **queda pendiente que «Pruebas en PR» confirme que están idénticos**. No afirmo que hayan pasado.
+- **Qué debe probar Chris en el teléfono:** nada por ahora; esperar el CI verde y la revisión de Claude. Después, si Claude lo pide, comprobar que las pistas se entienden al quedarse quieta Isabella cerca de cada punto.
+- **Dudas / decisiones que necesito:** detecté una referencia antigua «Javi, aguanta» en la introducción de `track_north.py`; no la cambié porque está fuera del alcance de T4. La dejo anotada para que Claude decida si se corrige en otro ticket.
+- **Estado:** EN REVISIÓN — pendiente de CI «Pruebas en PR» y revisión de Claude. No iniciar D: sigue bloqueada hasta `APROBADO D`.
+
 ### 2026-11-19 — Lectura inicial y alineación de alcance (rama: chatgpt/inicio-diseno-cap4, PR: #3)
 - **Qué hice:** Leí, en el orden solicitado, `docs/CHATGPT_BRIEF.md`, `docs/CHATGPT_LOG.md`, `CLAUDE.md`, `docs/GDD.md` y `docs/ROADMAP.md`. También revisé `docs/ARCHITECTURE.md`, `docs/ART_PIPELINE.md`, `update grafica.txt` y `tools/level_gen/README.md`, requeridos por el brief.
   Entendimiento: Paine es un survival horror 2.5D para Android horizontal; los capítulos 1–3 están completos. El capítulo 4 debe diseñarse como 6–8 salas pequeñas y cerradas en La Maestranza, con conexiones, objetos, enemigos, un enemigo/jefe nuevo, recompensas y pistas de Leo. El vagón del Centro de Nos no se abre. Las notas deben respetar la cronología del GDD; Leo se trata con cariño. A–C son solo diseño y texto. D queda bloqueada hasta que Claude escriba literalmente `APROBADO D`.
