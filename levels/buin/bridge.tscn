@@ -589,7 +589,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoCheckpoint" type="Marker3D" parent="."]
 position = Vector3(9.3, 0, 0.4)
 script = ExtResource("26_leo_hint")
-lines = PackedStringArray("Leo: Sacos de arena y una barrera. Esto lo armaron los militares.", "Leo: No huelo a ningún soldado vivo. Pasemos.")
+lines = PackedStringArray("Leo: Sacos de arena y una barrera. Esto lo armaron los militares.", "Leo: Cruza el puente hasta el control militar y sigue la flecha amarilla hacia la carpa.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-8.3125, 1.5, 0)
