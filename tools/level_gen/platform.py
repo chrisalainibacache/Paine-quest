@@ -175,8 +175,8 @@ s.node("from_waiting_room", "Marker3D", "Spawns", position=v3((3.0, 0.05, 4.35))
 s.node("from_south_platform", "Marker3D", "Spawns", position=v3((6.0, 0.05, 2.6)), rotation=v3((0, math.pi / 2, 0)))
 from roomkit import add_leo_hint
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-add_leo_hint(s, 'LeoWaitingRoom', (3.0, 0, 4.2), ['Leo: Isabella, aquí afuera no. Adentro hay luz.', 'Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.'], hide_if='found:pistol')
-add_leo_hint(s, 'LeoGateKey', (5.9, 0, 2.6), ['Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.', 'Leo: Las llaves se guardan donde guardan todo: en la bodega, al fondo del pasillo de servicio.'], show_if='found:pistol', hide_if='unlocked:gate_south', hide_item='gate_key')
-add_leo_hint(s, 'LeoGateOpen', (5.9, 0, 2.6), ['Leo: Ya tienes la llave. Ábrelo, Isabella. Yo voy contigo.'], show_item='gate_key', hide_if='unlocked:gate_south')
+add_leo_hint(s, 'LeoWaitingRoom', (3.0, 0, 4.2), ['Leo: Isabella, aquí afuera no. Adentro hay luz.', 'Leo: Entra a la sala de espera por la puerta de la flecha amarilla; allí empezamos a buscar las balas.'], hide_if='found:pistol')
+add_leo_hint(s, 'LeoGateKey', (5.9, 0, 2.6), ['Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.', 'Leo: Entra al pasillo de servicio y sigue la flecha amarilla hasta la bodega.'], show_if='found:pistol', hide_if='unlocked:gate_south', hide_item='gate_key')
+add_leo_hint(s, 'LeoGateOpen', (5.9, 0, 2.6), ['Leo: Acércate al portón y usa la llave; después sigue la flecha amarilla hacia el andén sur.'], show_item='gate_key', hide_if='unlocked:gate_south')
 s.save(REPO + "/levels/station/platform.tscn")
 print("platform ok")
