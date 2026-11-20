@@ -173,6 +173,11 @@ bodega agrícola, potrero, viña Santa Rosa y galpón.
 - [ ] Re-renderizar los fondos del capítulo 1 si se cambian sus cámaras; evaluar fondos para los
   capítulos 2 y 3 (ver `update grafica.txt`).
 
+## Hito 12 — Monetización y publicación (en planificación)
+
+Ver `docs/MONETIZACION.md`: auditoría de licencias (🔴 packs PSX, armas pesadas y grafitis por confirmar), modelo de ingresos,
+requisitos de Google Play y reparto de tareas.
+
 ## Próximos tickets
 
 Orden de trabajo acordado: **T5 → T7 → T8 → T9 → T6 → T1 → T2 → T3**.
