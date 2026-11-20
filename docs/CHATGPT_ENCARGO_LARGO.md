@@ -111,6 +111,9 @@ pasa con Rosa, frases suyas durante la pelea, el final emocional). (5) **Los gat
 - **P3-b Notas del capítulo 4:** 6 a 8 documentos (título, hora, texto) en el formato de `data/documents/*.tres`, **solo como
   texto en el registro o `docs/cap4_notas.md`** (no crees `.tres` todavía). Voces distintas (enfermera, guardia, cartas).
 - **P3-c Capítulo 5 y epílogo «Para Leo»**: salas, enemigos, final; despedida de Leo según `docs/CHATGPT_BRIEF.md` §6-C.
+- **P3-d2 «La señora» (ver GDD «La señora: escalera de pistas hacia Rosa»):** escribe los **seis peldaños** completos: quién habla, en qué sala del
+  capítulo 4 o 5, el texto exacto (diálogo o nota) y la reacción de Leo. Cada uno 3 a 6 líneas, voces distintas (paciente, enfermera, soldado, Paz, grabación).
+  Respeta las reglas del GDD: los peldaños 1 a 5 **no nombran** a Rosa; ninguno explica el origen. Entrega una **tabla** con sala, texto y condición.
 - **P3-d Diálogos de Leo y de Paz** (Leo empieza con `Leo: `): lista por sala para cap. 4 y 5, tono tierno, **cada pista
   termina en una acción concreta** (como T4).
 - **P3-e Revisión de continuidad:** anota (no corrijas) contradicciones o errores de ortografía en textos existentes.

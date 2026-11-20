@@ -156,6 +156,24 @@ Detalle de historia: la chaqueta apunta a que **se la dieron o la tomó en el co
 Por eso Isabella le dice y Rosa le dice «niña»: es una mujer mayor, maternal. **Dato de cámara/pelea:** el contraste entre las dos imágenes
 (la mujer tranquila y la criatura) es la herramienta emocional del capítulo 5.
 
+### «La señora»: escalera de pistas hacia Rosa (decisión de Chris, noviembre)
+En la parte avanzada del juego (**capítulos 4 y 5**), distintos personajes y notas van hablando de **«una señora»** terrorífica **sin saber que es Rosa**.
+Es lo que hace que el jugador sospeche, y la **escalera** va de lo vago a lo específico. Nadie dice «Skull» ni «Rosa» hasta el último peldaño.
+Quién habla: sobrevivientes y personal de La Maestranza, notas de turno, la radio y **Paz** (que nunca la vio). Tono: miedo contenido, cotidiano.
+
+| Peldaño | Dónde | Qué se dice (borrador; ChatGPT lo escribe) | Qué debe sentir el jugador |
+| --- | --- | --- | --- |
+| 1 | Inicio del cap. 4, un paciente o soldado | «Por las vías de noche anda una señora. No corre. Camina. Y los infectados le abren paso.» | Curiosidad: ¿quién?, ¿por qué no la atacan? |
+| 2 | Nota de turno de enfermería | «Anoche una señora se quedó parada frente a la reja, sin pestañear, tarareando. Los perros no ladraron; se echaron al suelo.» | Algo anda mal con ella |
+| 3 | Un sobreviviente (diálogo) | «Era mayor, con el pelo canoso recogido. Tenía una chaqueta verde. Sonreía… y a mí me dio más miedo que el grande.» | Recuerda a Rosa; Isabella lo nota |
+| 4 | Cap. 4, tras la muerte del Skull original (radio, nota o sobreviviente) | «Cuando cayó el grande, alguien aplaudió despacito en el pasillo. Una señora. Pregunta por la niña del gato.» | **Terror:** viene por ellas, y Leo se eriza |
+| 5 | Paz (cara a cara o radio) | «Un paciente jura que ella lo visitó dormido. Dice que te mira con la cara de alguien que quisiste. Isabella… ¿quién es esa señora?» | Isabella calla y piensa en la puerta del galpón |
+| 6 | Cap. 5, justo antes del jefe final | Una grabación o nota firmada: «…sujeto con vínculo directo, Rosa C., boletería de Paine. La infección no avanzó: **esperó**.» | **Confirmación:** la señora es Rosa |
+
+**Reglas:** (1) los peldaños 1 a 5 **no nombran** a Rosa; (2) **ninguno explica el origen**; (3) en cada peldaño puede haber una **reacción de Leo** (bufa,
+se eriza, se esconde detrás de Isabella: es la única vez que Leo tiene miedo); (4) la señora **nunca aparece** hasta la transformación del jefe final,
+salvo **un destello** (silueta al fondo de un pasillo) en el capítulo 4; (5) los infectados le abren paso y los gatos (inmunes) no huyen de ella, los perros sí.
+
 ### Rosa y Skull en las notas (decisiones de Chris, noviembre)
 - **Rosa (capítulo 3):** no se explica cómo llegó de Paine a Buin. Isabella empieza a sospechar de ella y **Leo sospecha más que Isabella**:
   cree que es **un infectado distinto**. La pregunta queda abierta (puede resolverse en la parte 2).
