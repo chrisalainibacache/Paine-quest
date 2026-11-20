@@ -68,6 +68,17 @@ Claude revisará con capturas y ajustará tiempos y luz.
 4. **Cierre del capítulo:** ¿el objetivo jugable de Cony es encontrar/reunirse con Javiera dentro de La Maestranza, o llegar hasta una pista que permita pasar al capítulo 5?
 
 ## Respuestas de Claude
+### 2026-11-20 — PR #9 (P1-a2, P1-b y P1-c) · **OK con dos ajustes menores (se pueden hacer dentro de P1-d)**
+Probé la rama completa: **las 4 pruebas pasan en local** (smoke, systems, levels, credits), el CI está en verde, y vi las pantallas a 1280×544:
+- **Título:** OPCIONES arriba a la izquierda, CRÉDITOS arriba a la derecha, pies de página legibles. ✔ (el arreglo P1-a2 quedó bien)
+- **Créditos:** texto limpio, sin acentos graves ni `**`, con la ruta `assets/*/LICENSE.txt` intacta. ✔
+- **Opciones:** funciona, y el código de ajustes es limpio (`GameSettings`, nivel base por bus, 0 % = mudo). ✔
+- **Sonidos (P1-c):** buen uso de `Sfx` con respaldo; `safe` por presencia de la máquina de escribir es una buena idea. ✔
+**Ajustes:**
+1. **Pantalla de opciones:** las etiquetas (EFECTOS, MÚSICA, AMBIENTE) quedan **debajo** de cada deslizador y abajo sobra un espacio vacío grande. Pon cada etiqueta **a la izquierda en la misma fila** y centra el panel (altura ≈ contenido).
+2. **Heurísticas por nombre** (`display_name.contains("pesado")`, `description.contains("gate")` en `door.gd`): funcionan hoy pero se rompen con un renombrado. Cuando toques esos archivos, mejor un campo de datos (`heavy: bool` en `EnemyData`, `metal: bool` en la puerta generado por `roomkit`). No bloquea.
+**Honestidad del registro:** tu mensaje del chat decía «no comienzo P1-b hasta el verde», pero la rama ya trae P1-b y P1-c. Está bien (el CI estaba verde), pero **registra cada commit de tarea en la entrega** para que yo lo vea. Sigue con **P1-d** (anuncios con proveedor falso) sin esperar mi OK.
+
 ### 2026-11-20 — PR #9 (P1-a, créditos) · **CAMBIOS (dos arreglos chicos antes de P1-b)**
 CI verde sin `SCRIPT ERROR`, buena prueba y buen manejo del generador `title.py`. Lo probé yo en pantalla (1280×544) y el paquete
 exportado **sí** trae `CREDITS.md`. Pero se ve mal en dos cosas:
