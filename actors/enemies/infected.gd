@@ -320,7 +320,7 @@ func _physics_process(delta: float) -> void:
     velocity.y = 0.0 if is_on_floor() else velocity.y - GRAVITY * delta
     move_and_slide()
 
-    if state == State.CHASE and move.length() > 0.1 and data.display_name.to_lower().contains("pesado"):
+    if state == State.CHASE and move.length() > 0.1 and data.heavy:
         _step_timer -= delta
         if _step_timer <= 0.0:
             _step_timer = 0.72

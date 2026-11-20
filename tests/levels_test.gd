@@ -59,6 +59,18 @@ func _check_room(path: String) -> void:
         _check(exists and spawn_ok, "%s: la puerta %s lleva a %s/%s" % [name, door.name, door.target_room.get_file(), door.target_spawn])
         _check(not Door.label_for(door.target_room).is_empty() or not door.marker_text.is_empty(),
             "%s: la puerta %s tiene letrero (falta el nombre de %s en Door.LABELS)" % [name, door.name, door.target_room.get_file()])
+        if door.prompt == "VOLVER":
+            _check(door.get_node_or_null("Marker") == null,
+                "%s: la puerta %s de vuelta no crea Marker" % [name, door.name])
+        else:
+            var marker := door.get_node_or_null("Marker") as Node3D
+            _check(marker != null, "%s: la puerta de avance %s crea Marker" % [name, door.name])
+            if marker != null:
+                var expected_text := door.marker_text if not door.marker_text.is_empty() else Door.label_for(door.target_room)
+                if door.is_locked() and door.key_item != null and not GameState.inventory.has_id(door.key_item.id):
+                    expected_text = "CON LLAVE"
+                _check(door._marker_label != null and door._marker_label.text == expected_text,
+                    "%s: Marker de %s muestra el destino o CON LLAVE" % [name, door.name])
 
     # Puntos de aparición: sobre el piso, sin chocar con nada y cubiertos por una cámara.
     var space := room.get_world_3d().direct_space_state

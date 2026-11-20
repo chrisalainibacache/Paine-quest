@@ -42,15 +42,28 @@ func _run() -> void:
 
     GameSettings.load_and_apply()
     var original_sfx := GameSettings.get_volume_percent("Sfx")
+    var original_music := GameSettings.get_volume_percent("Music")
+    var original_ambience := GameSettings.get_volume_percent("Ambience")
     GameSettings.set_volume_percent("Sfx", 37.0)
+    GameSettings.set_volume_percent("Music", 44.0)
+    GameSettings.set_volume_percent("Ambience", 55.0)
     var saved := ConfigFile.new()
     var save_error := saved.load("user://ajustes.cfg")
-    _check(save_error == OK and is_equal_approx(float(saved.get_value("audio", "Sfx", -1.0)), 37.0),
-        "el volumen Sfx se guarda en user://ajustes.cfg")
-    var sfx_bus := AudioServer.get_bus_index("Sfx")
-    _check(sfx_bus >= 0 and AudioServer.get_bus_volume_db(sfx_bus) < 0.0,
-        "el volumen guardado se aplica al bus Sfx")
-    GameSettings.set_volume_percent("Sfx", original_sfx)
+    _check(save_error == OK
+            and is_equal_approx(float(saved.get_value("audio", "Sfx", -1.0)), 37.0)
+            and is_equal_approx(float(saved.get_value("audio", "Music", -1.0)), 44.0)
+            and is_equal_approx(float(saved.get_value("audio", "Ambience", -1.0)), 55.0),
+        "los tres volúmenes se guardan en user://ajustes.cfg")
+    GameSettings._loaded = false
+    GameSettings.load_and_apply()
+    _check(is_equal_approx(GameSettings.get_volume_percent("Sfx"), 37.0)
+            and is_equal_approx(GameSettings.get_volume_percent("Music"), 44.0)
+            and is_equal_approx(GameSettings.get_volume_percent("Ambience"), 55.0),
+        "los tres volúmenes se recuperan al recargar GameSettings")
+    for bus_name: String in ["Sfx", "Music", "Ambience"]:
+        var bus_index := AudioServer.get_bus_index(bus_name)
+        _check(bus_index >= 0 and AudioServer.get_bus_volume_db(bus_index) <= GameSettings.DEFAULT_BUS_DB[bus_name],
+            "el volumen guardado se aplica al bus %s" % bus_name)
 
     var options_scene := load("res://ui/options/options_menu.tscn") as PackedScene
     _check(options_scene != null, "la escena de opciones carga")
@@ -67,6 +80,34 @@ func _run() -> void:
         _check(options.get_node_or_null("Panel/Layout/Buttons/Privacy") is Button, "opciones incluye POLÍTICA DE PRIVACIDAD")
         options.open()
         _check(options.visible, "el menú de opciones se puede abrir")
+        var sfx_slider := options.get_node("Panel/Layout/SfxRow/Slider") as HSlider
+        var music_slider := options.get_node("Panel/Layout/MusicRow/Slider") as HSlider
+        var ambience_slider := options.get_node("Panel/Layout/AmbienceRow/Slider") as HSlider
+        _check(is_equal_approx(sfx_slider.value, 37.0)
+                and is_equal_approx(music_slider.value, 44.0)
+                and is_equal_approx(ambience_slider.value, 55.0),
+            "opciones carga los tres valores guardados en sus deslizadores")
+        sfx_slider.value = 31.0
+        music_slider.value = 47.0
+        ambience_slider.value = 63.0
+        var changed := ConfigFile.new()
+        changed.load("user://ajustes.cfg")
+        _check(is_equal_approx(float(changed.get_value("audio", "Sfx", -1.0)), 31.0)
+                and is_equal_approx(float(changed.get_value("audio", "Music", -1.0)), 47.0)
+                and is_equal_approx(float(changed.get_value("audio", "Ambience", -1.0)), 63.0),
+            "los deslizadores guardan los nuevos valores")
+        GameSettings._loaded = false
+        GameSettings.load_and_apply()
+        options.open()
+        _check(is_equal_approx(sfx_slider.value, 31.0)
+                and is_equal_approx(music_slider.value, 47.0)
+                and is_equal_approx(ambience_slider.value, 63.0),
+            "opciones restaura los tres deslizadores después de recargar")
+        GameSettings.set_volume_percent("Sfx", original_sfx)
+        GameSettings.set_volume_percent("Music", original_music)
+        GameSettings.set_volume_percent("Ambience", original_ambience)
+        GameSettings._loaded = false
+        GameSettings.load_and_apply()
         options.close()
         _check(not options.visible, "el menú de opciones se puede cerrar")
         options.queue_free()

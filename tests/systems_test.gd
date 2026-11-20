@@ -264,13 +264,27 @@ func _audio_systems() -> void:
         "audio: infectado pesado y gruñido fuera de cuadro solicitan sus sonidos")
     heavy_infected.free()
 
+    var locked_before := Sfx.play_count("locked")
+    var name_only_gate := Door.new()
+    name_only_gate.name = "Gate"
+    name_only_gate._play_locked_sound()
+    _check(Sfx.play_count("locked") == locked_before + 1,
+        "audio: el nombre Gate no convierte una puerta de madera en metálica")
+    name_only_gate.free()
+
     var gate := Door.new()
     gate.name = "GateToNorth"
+    gate.metal_door = true
     gate._play_locked_sound()
     gate._play_open_sound()
     _check(Sfx.play_count("gate_chain") == 1 and Sfx.play_count("door_metal") == 1,
-        "audio: portón metálico usa cadena y puerta metálica")
+        "audio: el campo metal_door selecciona cadena y puerta metálica")
     gate.free()
+
+    var heavy_data := load("res://data/enemies/infected_heavy.tres") as EnemyData
+    var normal_data := load("res://data/enemies/infected.tres") as EnemyData
+    _check(heavy_data != null and heavy_data.heavy, "enemigos: el tipo pesado se define con EnemyData.heavy")
+    _check(normal_data != null and not normal_data.heavy, "enemigos: el tipo normal no usa pasos pesados")
 
     var radio_script := load("res://levels/kit/interact/chapter_exit.gd") as GDScript
     var radio: Interactable = radio_script.new()

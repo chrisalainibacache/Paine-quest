@@ -30,7 +30,7 @@ k.decal("Footprints", "blood_footprints", (2.8, 0.03, 1.2), (2.0, 1.0), "up", ro
 # Interactuables.
 k.door("ToWagon", (-8.25, 0, -0.25), T % "wagon_interior", "from_convoy", prompt="ENTRAR", reach=1.3)
 k.door("ToUnderpass", (8.4, 0, 1.2), T % "underpass", "from_convoy", key="engineer_key", lock_id="underpass_gate",
-       locked_text="La reja del paso bajo nivel. Tiene un candado de EFE.", reach=1.4)
+       locked_text="La reja del paso bajo nivel. Tiene un candado de EFE.", reach=1.4, metal_door=True)
 k.pickup("Grenades", (0.5, 0.0, 3.0), "ammo_grenades", 2, rot=(0, 0.3, 0))
 k.pickup("Sushi", (7.6, 0.0, 2.9), "sushi", rot=(0, 2.0, 0))
 # Infectados.

@@ -154,14 +154,23 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P1-f: pruebas de regresión, GDD y campos de datos (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Amplié las pruebas T6 para verificar que cada puerta de avance crea su Marker con el texto correcto y que las puertas VOLVER no crean Marker. Añadí pruebas de persistencia/recarga de los tres buses de audio y reforcé las pruebas de límites Ads y créditos. Documenté la monetización en el GDD. También reemplacé las heurísticas `contains("pesado")` y `contains("gate")` por los campos `EnemyData.heavy` y `Door.metal_door`, con datos explícitos en recursos y generadores; alineé las etiquetas de opciones en la misma fila.
+- **Archivos tocados:** `tests/levels_test.gd`, `tests/credits_test.gd`, `tests/systems_test.gd`, `docs/GDD.md`, `docs/CHATGPT_LOG.md`, `ui/options/options_menu.tscn`, `levels/kit/interact/door.gd`, `data/enemies/enemy_data.gd`, `data/enemies/infected_heavy.tres`, `actors/enemies/infected.gd`, `tools/level_gen/roomkit.py`, `tools/level_gen/platform.py`, `tools/level_gen/south_platform.py`, `tools/level_gen/convoy_side.py`, `tools/level_gen/buin_vineyard.py` y las cuatro escenas generadas correspondientes.
+- **Pruebas:** CI «Pruebas en PR» pendiente. `credits_test.gd` verifica que el texto de créditos no esté vacío; Chris ya había confirmado en la revisión anterior que `CREDITS.md` está incluido en el paquete exportado. No modifiqué `tools/export_probe.gd` sin autorización.
+- **Qué debe probar Chris en el teléfono:** pendiente de CI verde; después revisar los letreros de las puertas, opciones y el flujo de anuncios.
+- **Dudas / decisiones que necesito:** queda pendiente la autorización para automatizar también la lectura de `CREDITS.md` en `tools/export_probe.gd`.
+- **Estado:** IMPLEMENTADO — pendiente CI y autorización de la comprobación del paquete.
+
 ### 2026-11-20 — P1-e: ofertas de recompensa en mochila y pantalla de muerte (rama: chatgpt/P1-menus-audio-ads, PR: #9)
 
 - **Qué hice:** Añadí ofertas opcionales de munición cuando la reserva está vacía o bajo el 25 % del cargador, y de un curativo cuando Isabella está en Peligro y no lleva ninguno. Las cantidades y el ítem de curación se configuran en `data/ads_config.tres`. La escena de mochila se mantiene sincronizada con su generador `tools/level_gen/inventory.py`. En la pantalla de muerte agregué VER ANUNCIO: CONTINUAR; al completar el anuncio vuelve al último guardado seguro con 50 % de salud, una sola vez por muerte. Si no hay anuncio disponible, los botones no aparecen. La compra para quitar anuncios sigue entregando las recompensas directamente.
 - **Archivos tocados:** `data/ads_config.gd`, `data/ads_config.tres`, `systems/ads.gd`, `ui/inventory/inventory_menu.gd`, `ui/inventory/inventory_menu.tscn`, `tools/level_gen/inventory.py`, `ui/hud/hud.gd`, `ui/hud/hud.tscn`, `main.gd`, `tests/systems_test.gd`, `docs/CHATGPT_LOG.md`.
-- **Pruebas:** agregué comprobaciones de bloqueo durante combate, disponibilidad al morir, ofertas de munición/curativo y flujo de continuar. No ejecuté Godot localmente; CI «Pruebas en PR» pendiente. P1-d quedó validada en los runs registrados en la entrada anterior.
+- **Pruebas:** comprobaciones de ofertas, combate y continuación pasaron. «Pruebas en PR» run `44836144087` terminó verde; log con 0 `SCRIPT ERROR`. «Validación de pistola» run `44836144072` también verde. Godot no está disponible localmente.
 - **Qué debe probar Chris en el teléfono:** pendiente de CI verde; después, revisar munición baja, curativo en Peligro y continuar desde la pantalla de muerte.
 - **Dudas / decisiones que necesito:** ninguna nueva.
-- **Estado:** IMPLEMENTADO — pendiente CI «Pruebas en PR» y revisión de logs.
+- **Estado:** P1-e VALIDADO — CI verde y logs sin `SCRIPT ERROR`.
 
 ### 2026-11-20 — P1-d: anuncios con recompensa y proveedor de prueba (rama: chatgpt/P1-menus-audio-ads, PR: #9)
 

@@ -166,7 +166,7 @@ s.node("Ammo", "Node3D", "Interactables", position=v3((-5.9, 0.0, 1.35)), script
 s.node("Gate", "Node3D", "Interactables", position=v3((6.55, 0, 2.6)), script=s.res(IA("door"), "Script"), reach="1.4",
        target_room='"res://levels/station/south_platform.tscn"', target_spawn='"from_north_platform"',
        key_item=s.res("res://data/items/gate_key.tres", "Resource"), lock_id='"gate_south"',
-       locked_text='"El portón hacia el andén sur. Tiene una cadena con un candado nuevo."')
+       locked_text='"El portón hacia el andén sur. Tiene una cadena con un candado nuevo."', metal_door="true")
 
 # --- Puntos de aparición -------------------------------------------------
 s.node("Spawns", "Node3D", ".")

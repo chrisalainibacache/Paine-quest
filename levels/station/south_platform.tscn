@@ -593,6 +593,7 @@ target_spawn = "from_south_platform"
 key_item = ExtResource("25_gate_key")
 lock_id = "gate_south"
 prompt = "ABRIR"
+metal_door = true
 
 [node name="Ammo" type="Node3D" parent="Interactables"]
 position = Vector3(0.4, 0, 4.35)

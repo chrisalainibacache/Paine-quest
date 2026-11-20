@@ -53,7 +53,7 @@ k.prop("LampWest", "Lights", "sodium_lamp", (-3.0, 3.34, 2.2))
 k.prop("LampEast", "Lights", "sodium_lamp", (3.0, 3.34, 2.2))
 # Interactuables.
 k.door("GateToNorth", (-5.6, 0, 2.0), "res://levels/station/platform.tscn", "from_south_platform",
-       key="gate_key", lock_id="gate_south", prompt="ABRIR")
+       key="gate_key", lock_id="gate_south", prompt="ABRIR", metal_door=True)
 k.pickup("Ammo", (0.4, 0.0, 4.35), "ammo_9mm", 10, rot=(0, 2.6, 0))
 k.interact("TrackExit", "chapter_exit", (5.0, 0, -0.75), reach="1.4", chapter="1",
            question='"Al fondo del túnel se ve un resplandor rojo, sobre la vía.\\n¿Bajar a la vía y seguir hacia el norte? No podré volver a la estación."')

@@ -13,6 +13,8 @@ extends Interactable
 @export_multiline var locked_text: String = "Está cerrada con llave."
 ## Texto bajo la flecha (vacío = el nombre de la sala a la que lleva).
 @export var marker_text: String = ""
+## Tipo de material explícito para seleccionar sonidos; no se infiere del nombre.
+@export var metal_door: bool = false
 
 ## Nombre de cada sala (para el letrero de las puertas).
 const LABELS := {
@@ -102,8 +104,7 @@ func is_locked() -> bool:
 
 
 func _is_metal_door() -> bool:
-    var description := ("%s %s %s" % [name, lock_id, locked_text]).to_lower()
-    return description.contains("gate") or description.contains("reja") or description.contains("portón") or description.contains("porton")
+    return metal_door
 
 
 func _play_locked_sound() -> void:

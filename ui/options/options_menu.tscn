@@ -54,7 +54,7 @@ theme_override_constants/separation = 12
 
 [node name="Label" type="Label" parent="Panel/Layout/SfxRow"]
 layout_mode = 2
-custom_minimum_size = Vector2(170, 0)
+custom_minimum_size = Vector2(190, 0)
 vertical_alignment = 1
 text = "EFECTOS"
 theme_override_font_sizes/font_size = 24
@@ -70,8 +70,8 @@ focus_mode = 0
 
 [node name="MusicRow" type="HBoxContainer" parent="Panel/Layout"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 64)
-theme_override_constants/separation = 18
+custom_minimum_size = Vector2(0, 58)
+theme_override_constants/separation = 12
 
 [node name="Label" type="Label" parent="Panel/Layout/MusicRow"]
 layout_mode = 2
@@ -92,7 +92,7 @@ focus_mode = 0
 [node name="AmbienceRow" type="HBoxContainer" parent="Panel/Layout"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 64)
-theme_override_constants/separation = 18
+theme_override_constants/separation = 12
 
 [node name="Label" type="Label" parent="Panel/Layout/AmbienceRow"]
 layout_mode = 2
