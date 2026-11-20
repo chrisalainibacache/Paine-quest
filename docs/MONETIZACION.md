@@ -17,14 +17,34 @@
 | Zombi con polera | `infected_shirt.glb` | Pixelhouse, **CC-BY 3.0** | 🟡 crédito visible en el juego |
 | Música (6 pistas) | `assets/audio/music/` | Kevin MacLeod, **CC-BY 4.0** | 🟡 crédito visible en el juego |
 | Isabella (modelo «Erika Archer» + animación de trote) | `assets/characters/cony/` | **Mixamo (Adobe)** | 🟡 Se puede usar en un juego comercial, **no redistribuir los archivos sueltos** (el repositorio es público) |
-| Infectados PSX: común, pálido, rápido, obrero, soldado, quemado, pesado | `infected_psx_05`, `infected_pale`, `infected_worker`, `infected_burnt`, `character_monster_07` | «Pack PSX del Drive», **«licencia por confirmar»** | 🔴 |
+| Infectados PSX: común, pálido, obrero, quemado, pesado | `infected_psx_05`, `infected_pale`, `infected_worker`, `infected_burnt`, `character_monster_07` | Bajados gratis de itch.io; **sin README ni licencia en el Drive** | 🔴 |
+| Calle: vehículos, barreras, conos | `assets/environment/atomic_realm_post_apocalyptic/` | Atomic Realm (itch.io): comercial ✔, redistribuir ✘ | 🟡 repositorio privado |
 | Armas: Mauser, lanzagranadas, bazuca | `mauser.glb`, `grenade_launcher.glb`, `bazooka.glb` | «Heavy Weapons Pack entregado por Chris, sin archivo de licencia» | 🔴 |
-| Grafitis y murales (6 + 2 PNG) | `assets/environment/graffiti/` | «del Drive», origen sin documentar | 🔴 (probablemente propios; confirmar) |
+| Grafitis y murales (6 + 2 PNG) | `assets/environment/graffiti/` | Nombres «paine/estacion»: hechos para el proyecto | 🟢 (Chris confirma) |
 | Pistola, trenes, utilería, comida, munición, decals, afiche, follaje | `levels/kit/props/`, `tools/*` | Hechos por nosotros con código | 🟢 |
 | Fuente | — | Fuente por defecto de Godot (Open Sans, OFL) | 🟢 |
 
 **Dónde pega el 🔴 en el juego:** en modo *Moderno* (el predeterminado) siguen usando modelos PSX los infectados
 **quemado** y **pesado**; en modo *Retro* los usan los siete. Las tres armas 🔴 están en la mochila desde el inicio.
+
+### Hallazgos tras revisar los README originales del Drive (noviembre 2026)
+Chris confirmó que **los packs se bajaron gratis desde itch.io** (con opción de donar; no donó). En itch.io «gratis» **no**
+significa «sin condiciones»: cada autor pone su licencia. Lo que dicen los README que sí encontramos:
+
+| Pack | Autor | Uso comercial | Editar | Redistribuir los archivos | Crédito |
+| --- | --- | --- | --- | --- | --- |
+| *Simple PSX Character* (`characters_psx_v72/psx_character`) | JashiPSX (itch.io) | ✔ sí | ✔ | ✘ **no**, ni modificado | Opcional, agradecido |
+| *Post-Apocalyptic Assets Low poly* (`atomic_realm`: vehículos, barreras, conos de la calle) | Atomic Realm Assets (itch.io) | ✔ sí | ✔ | ✘ **no**, ni modificado | No exigido |
+| Quaternius (varios) | Quaternius | ✔ CC0 | ✔ | ✔ | No exigido |
+
+**Consecuencia importante:** ambos packs permiten usarlos en un juego comercial, **pero prohíben redistribuir los archivos**.
+Hoy el repositorio **es público** y contiene esos `.glb`/`.fbx`: eso sí es redistribuir. No afecta el APK en sí (el juego los
+usa «dentro del proyecto», como cualquier juego), pero **hay que hacer el repositorio privado** (o sacar esos archivos y
+limpiar el historial). Los packs *Character_Monster/Killer* (`infected_pale`, `infected_worker`, `infected_burnt`, `character_monster_07`),
+*Infected_PSX_05* y el *Heavy Weapons Pack* **siguen sin README/licencia en el Drive**: hay que ubicar su página de itch.io.
+
+**Los grafitis y murales:** sus nombres (`wall_graffiti_paine_v72`, `estacion_paine_*`, `game__graffiti_*`) indican que se hicieron
+para este proyecto (no vienen de un pack con nombre de autor). Se tratan como propios; Chris confirma si los generó/pidió él.
 
 ### Qué necesito que confirme Chris (solo él lo sabe)
 1. **Pack PSX de personajes** (`characters_psx_v72`, `infected_candidates`): ¿lo compraste o lo bajaste gratis? ¿De dónde? ¿Tienes la factura o la página?
