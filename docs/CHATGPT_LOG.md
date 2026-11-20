@@ -140,7 +140,7 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
-### 2026-11-20 — T9: cinemática en vivo de la criatura (rama: chatgpt/T9-skull-cinematic, PR: pendiente)
+### 2026-11-20 — T9: cinemática en vivo de la criatura (rama: chatgpt/T9-skull-cinematic, PR: #8)
 
 - **Qué hice:** Preparé una escena 3D en vivo de unos 10 segundos: pasillo industrial desconocido, luz fluorescente inestable, tres golpes que se acercan, pausa de silencio, puerta que se abomba y estalla en fragmentos físicos, polvo, sombra proyectada y rugido lejano. Skull nunca aparece; no hay diálogo, rótulos ni nombres internos en pantalla. Un toque la salta.
 - **Integración:** `Room.cinematic` apunta a la escena desde `track_north`; `SceneLoader` la ejecuta antes de la intro, marca `cinematic:<ruta>` en `GameState` y restaura cámara, HUD y controles. Se prueba carga, finalización, bandera y no repetición.
