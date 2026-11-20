@@ -35,6 +35,7 @@ k.interact("RosaDoor", "voice_door", (2.6, 0, -1.0), reach="1.3", sets_flag='"ta
         "La puerta de la oficina tiene llave. Adentro alguien respira.",
         "Rosa: ¿Quién está ahí? ...No abras. Por favor, no abras.",
         "Rosa: Soy Rosa, de la boletería de Paine. Me mordieron en el puente, anoche. Ya tengo el frío del que hablaba don Héctor.",
+        "Rosa: Algo enorme me agarró en el puente. No me terminó de matar... me miró, y se fue. Como si me hubiera dejado guardada.",
         "Rosa: Escúchame bien, niña. Al hombre de la mano vendada yo le vendí el boleto del 6:30.",
         "Rosa: Llevaba una credencial colgando: «Centro de Investigación Sanitaria — Nos». Venía de ahí.",
         "Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta si hay sobrevivientes.",
@@ -42,7 +43,7 @@ k.interact("RosaDoor", "voice_door", (2.6, 0, -1.0), reach="1.3", sets_flag='"ta
         "Leo: Isabella... no le creas. Ese olor no es de persona, y tampoco es de los otros. Es distinto. Ella no es como los demás.",
         "Leo: No abras esa puerta. La radio está en la mesa."]),
     repeat_lines="PackedStringArray(%s)" % ", ".join('"%s"' % l for l in [
-        "Rosa: Ándate, niña. Llévate al gato. Y escucha esa radio."]))
+        "Rosa: Ándate, niña. Llévate al gato. Y escucha esa radio... antes de que yo cambie de idea."]))
 k.interact("Radio", "chapter_exit", (0.6, 0, 0.9), reach="1.3", chapter="3", accept_text='"ESCUCHAR"',
     question='"Una radio militar encendida. Entre la estática se oye una voz de mujer.\\n¿Escuchar?"',
     before_lines="PackedStringArray(%s)" % ", ".join('"%s"' % l for l in [

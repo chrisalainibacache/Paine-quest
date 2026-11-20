@@ -136,13 +136,14 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 - «La puerta de la oficina tiene llave. Adentro alguien respira.»
 - «Rosa: ¿Quién está ahí? ...No abras. Por favor, no abras.»
 - «Rosa: Soy Rosa, de la boletería de Paine. Me mordieron en el puente, anoche. Ya tengo el frío del que hablaba don Héctor.»
+- «Rosa: Algo enorme me agarró en el puente. No me terminó de matar... me miró, y se fue. Como si me hubiera dejado guardada.»
 - «Rosa: Escúchame bien, niña. Al hombre de la mano vendada yo le vendí el boleto del 6:30.»
 - «Rosa: Llevaba una credencial colgando: «Centro de Investigación Sanitaria — Nos». Venía de ahí.»
 - «Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta si hay sobrevivientes.»
 - «Algo no cuadra. Rosa estaba en Paine a las once de la noche. ¿Cómo cruzó sola hasta aquí, con ellos por todos lados?»
 - «Leo: Isabella... no le creas. Ese olor no es de persona, y tampoco es de los otros. Es distinto. Ella no es como los demás.»
 - «Leo: No abras esa puerta. La radio está en la mesa.»
-- (Si vuelve) «Rosa: Ándate, niña. Llévate al gato. Y escucha esa radio.»
+- (Si vuelve) «Rosa: Ándate, niña. Llévate al gato. Y escucha esa radio... antes de que yo cambie de idea.»
 
 **La radio de Paz (cierra el capítulo):**
 - «Paz: ...¿Hay sobrevivientes? Si alguien me escucha... Isabella, si me escuchas... soy yo, Paz.»
@@ -184,5 +185,5 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 **Siguen abiertos:**
 - **Skull en el juego:** las notas ya lo anuncian; faltan los ecos (golpes lejanos, Leo erizándose) y la cinemática (paquete P4).
 - **El hombre del asiento 15:** hoy sabemos que tenía la mano vendada, tosía sangre y venía del Centro de Nos. Se mantiene abierto.
-- **Rosa, ¿qué es?** Queda abierto para el capítulo 4 en adelante o la parte 2.
+- **Rosa = Skull (aprobado):** el **Skull original** (jefe del capítulo 4) la mordió en el puente; Rosa los sigue y se transforma en **Skull en la batalla final** (capítulo 5). Eco previsto: la puerta del galpón arrancada desde dentro.
 - **Por qué los gatos son inmunes:** sin explicación en este juego (parte 2).
