@@ -147,6 +147,7 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Archivos:** `levels/kit/cinematic.gd`, `levels/cinematics/creature_door.tscn` (generada por `tools/level_gen/creature_door.py`), `levels/kit/room.gd`, `tools/level_gen/roomkit.py`, `tools/level_gen/track_north.py`, `systems/scene_loader.gd`, pruebas y regenerador.
 - **Pruebas:** no ejecutadas localmente (este entorno no dispone de Godot). El workflow debe correr smoke / systems / levels, auditoría y exportación. Revisaré todos los logs y buscaré literalmente `SCRIPT ERROR`; un verde sin esa comprobación no cuenta.
 - **Corrección CI:** la primera pasada detectó el permiso de ejecución del regenerador y una llamada de prueba a una coroutine sin `await`; ambos quedaron corregidos. No se acepta esa corrida fallida como resultado.
+- **Ajuste visual/ejecución:** Godot 4.7 confirma que CPUParticles3D usa `mesh` (no `draw_pass_1`, que pertenece a GPUParticles3D); corregí la propiedad y amplié la espera de restauración en la prueba. Se exige otra corrida completa.
 - **Qué debe probar Chris en el teléfono:** tras el OK de Claude, iniciar o continuar hasta la vía norte; comprobar la cinemática, el salto con un toque y que no vuelva a salir al reingresar.
 - **Dudas / decisiones que necesito:** Claude debe revisar la composición y los tiempos con capturas; no se muestra ningún modelo de Skull.
 - **Estado:** EN REVISIÓN — [PR #8](https://github.com/chrisalainibacache/Paine-quest/pull/8) abierto, CI y revisión de Claude.

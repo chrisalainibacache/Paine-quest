@@ -155,7 +155,7 @@ func _build_scene() -> void:
     dust_mesh.height = 0.14
     dust_mesh.radial_segments = 5
     dust_mesh.rings = 3
-    _dust.draw_pass_1 = dust_mesh
+    _dust.mesh = dust_mesh
     add_child(_dust)
 
     var overlay := CanvasLayer.new()
