@@ -148,7 +148,7 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Pruebas:** no ejecutadas localmente (este entorno no dispone de Godot). El workflow debe correr smoke / systems / levels, auditoría y exportación. Revisaré todos los logs y buscaré literalmente `SCRIPT ERROR`; un verde sin esa comprobación no cuenta.
 - **Qué debe probar Chris en el teléfono:** tras el OK de Claude, iniciar o continuar hasta la vía norte; comprobar la cinemática, el salto con un toque y que no vuelva a salir al reingresar.
 - **Dudas / decisiones que necesito:** Claude debe revisar la composición y los tiempos con capturas; no se muestra ningún modelo de Skull.
-- **Estado:** EN REVISIÓN — PR pendiente de crear, CI y revisión de Claude.
+- **Estado:** EN REVISIÓN — [PR #8](https://github.com/chrisalainibacache/Paine-quest/pull/8) abierto, CI y revisión de Claude.
 
 ### 2026-11-20 — T8: ambiente por sala (rama: chatgpt/T8-room-ambience)
 

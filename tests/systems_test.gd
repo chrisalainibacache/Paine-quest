@@ -617,7 +617,7 @@ func _cinematic() -> void:
     _check(GameState.has_flag(flag), "T9: al terminar queda marcada la bandera de esta partida")
     _check(not loader.player.controls_locked and loader.player.model.visible and loader.leo.visible,
         "T9: al terminar vuelven los controles y los personajes")
-    loader._play_cinematic()
+    await loader._play_cinematic()
     await _frames(1)
     _check(get_root().get_tree().get_first_node_in_group("cinematics") == null,
         "T9: la cinemática no se reproduce una segunda vez")
