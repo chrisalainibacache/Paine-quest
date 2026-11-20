@@ -20,7 +20,7 @@ Una rama y un PR por ticket (`chatgpt/<ID>-<tema>`), con su entrada en «Entrega
 
 | ID | Tipo | Ticket | Listo cuando |
 | --- | --- | --- | --- |
-| T1 | texto | **Capítulo 4 «La Maestranza»** en `docs/GDD.md` (§2 y §8): 6 a 8 salas, conexiones, objetos, enemigos (1 nuevo: **la Criatura**, ver GDD «La Criatura»; encuentro como persecución o jefe del capítulo), recompensas, pistas de Leo. Usa las PROPUESTAS de más abajo como provisorias. | PR con solo `docs/GDD.md`; CI verde |
+| T1 | texto | **Capítulo 4 «La Maestranza»** en `docs/GDD.md` (§2 y §8): 6 a 8 salas, conexiones, objetos, enemigos (1 nuevo: **Skull**, ver GDD «Skull, la Criatura»; encuentro como persecución o jefe del capítulo), recompensas, pistas de Leo. Usa las PROPUESTAS de más abajo como provisorias. | PR con solo `docs/GDD.md`; CI verde |
 | T2 | texto | **Notas del capítulo 4**: 5 a 8 documentos que respeten la línea de tiempo. Solo propón el texto en «Entregas». | texto en el registro, sin contradecir el GDD |
 | T3 | texto | **Capítulo 5 y epílogo «Para Leo»**: esquema de salas y texto de la despedida. | PR con solo `docs/GDD.md`; CI verde |
 | T4 | texto+py | **Pistas de Leo explícitas**: revisa las ~30 pistas (`leo_hint(...)` en `tools/level_gen/*.py`). La **última línea** de cada una debe decir una **acción concreta** (qué hacer y dónde), mencionando «la flecha amarilla» cuando hay una puerta de avance. Mantén el tono tierno de Leo y la línea de tiempo. Regenera las salas tocadas. | CI verde (incluye `.tscn` al día); lista de pistas cambiadas en la entrega |
@@ -35,8 +35,8 @@ Orden (actualizado): T5 → **T7 → T8 → T9** → T6 → T1 → T2 → T3 (T4
 PR → CI → revisión de Claude.)
 
 
-### Diseño de T9 — Cinemática de la Criatura
-Decisión de Chris: la criatura **nunca se ve**; rompe una puerta en un lugar desconocido; sirve para
+### Diseño de T9 — Cinemática de Skull (la Criatura)
+Decisión de Chris: la criatura se llama **Skull** y **nunca se ve**; rompe una puerta en un lugar desconocido; sirve para
 que el jugador sepa que **algo la busca**. No hay modelo de criatura: solo puerta, polvo, luz y sombra.
 Guion (≈10 s, cámara fija, barras negras de cine arriba y abajo, sin diálogo ni texto):
 1. **0–1 s** fundido desde negro a un pasillo industrial oscuro; una luz fluorescente titila.

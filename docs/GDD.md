@@ -82,8 +82,8 @@ Aparecen en el capítulo 3 (potrero) y salvan a Isabella y Leo de una horda. Lue
 rescatando gente: pueden volver a aparecer más adelante (por ejemplo, en el capítulo 4 o
 en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice).
 
-### La Criatura (decisión de Chris, noviembre)
-*Nombre pendiente.* Una amenaza que **busca a Isabella** a lo largo del juego y que **nunca se ve**
+### Skull, la Criatura (decisión de Chris, noviembre)
+**Se llama Skull** (nombre de código y de diseño; en el juego nadie lo dice hasta que Chris lo decida). Una amenaza que **busca a Isabella** a lo largo del juego y que **nunca se ve**
 (al menos hasta el encuentro). Es un recurso tipo «perseguidor»: lo que no se ve da más miedo.
 - **No tiene relación con el pasajero del asiento 15 ni con el vagón del Centro de Nos** (ese misterio
   sigue su propio camino hacia el capítulo 5). Es una amenaza aparte.
