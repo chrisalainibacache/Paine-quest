@@ -76,7 +76,7 @@ size = Vector3(7, 3, 9)
 [node name="Warehouse" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Bodega agrícola"
-ambience = &"storeroom"
+ambience = &"barn"
 dark = true
 
 [node name="Environment" type="WorldEnvironment" parent="."]

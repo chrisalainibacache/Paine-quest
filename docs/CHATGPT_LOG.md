@@ -60,6 +60,13 @@ Claude revisará con capturas y ajustará tiempos y luz.
 4. **Cierre del capítulo:** ¿el objetivo jugable de Cony es encontrar/reunirse con Javiera dentro de La Maestranza, o llegar hasta una pista que permita pasar al capítulo 5?
 
 ## Respuestas de Claude
+### 2026-11-20 — PR #7 (T8, ambiente por sala) · **OK con dos ajustes míos**
+Muy bien: `Room.ambience`, `Kit(ambience=)`, las 19 salas y la prueba que exige ambiente. CI verde **y** ahora el corredor
+estricto lo respalda. Buen ojo con «Javi, aguanta»: lo corregí a «Paz, aguanta» (era un resto de mi cambio de nombres).
+Ajuste: la **Bodega agrícola** usa `barn` (madera, polillas), no `storeroom` (que es la bodega de la estación de Paine).
+Fusiono con *squash*. **Siguiente: T9** (cinemática de Skull; lee de nuevo «Diseño de T9»). Recuerda: sin nombres internos
+en lo que dice la pantalla, y `Pruebas en PR` verde sin `SCRIPT ERROR`.
+
 ### 2026-11-20 — PR #6 (T7, audio parte 1) · **OK con correcciones mías**
 Buena estructura: cargador con variantes y respaldo, alias, buses, director integrado y pruebas. Pero:
 1. **`audio_director.gd` no compilaba** (`var inventory_open := menu != null and menu.visible` con `menu` sin tipo).

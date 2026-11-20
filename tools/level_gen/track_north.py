@@ -5,7 +5,7 @@ T = "res://levels/tracks/%s.tscn"
 # Vía norte: Isabella y Leo bajaron del andén sur y siguen por la vía. Al fondo,
 # un vagón volcado cruza la vía y hay fuego: el tren de las 6:30.
 # Lo que piensa Isabella al empezar el capítulo 2.
-INTRO = ['Pasada la medianoche. La vía hacia el norte.', 'Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.', 'Javi, aguanta. Vamos caminando.', 'Leo: Yo voy adelante, como siempre.']
+INTRO = ['Pasada la medianoche. La vía hacia el norte.', 'Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.', 'Paz, aguanta. Vamos caminando.', 'Leo: Yo voy adelante, como siempre.']
 k = Kit("TrackNorth", "Vía norte", intro=INTRO, ambience="tracks_night")
 night(k)
 X0, X1, Z0, Z1 = -9.0, 9.0, -3.5, 3.5
