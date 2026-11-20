@@ -27,6 +27,6 @@ Antes de trabajar, lee `docs/GDD.md` (diseño), `docs/ARCHITECTURE.md` (código)
 - Revisar el arte con `tools/capture_rooms.gd` (necesita xvfb).
 
 ## Verificación antes de cada commit
-- Ejecutar las 3 pruebas headless: `tests/smoke_test.gd`, `tests/systems_test.gd`,
+- Ejecutar las 3 pruebas headless con `GODOT=... ./tools/run_tests.sh` (falla también ante "SCRIPT ERROR"; las pruebas sueltas pueden decir OK con un script roto): `tests/smoke_test.gd`, `tests/systems_test.gd`,
   `tests/levels_test.gd` (las mismas que corre GitHub antes de publicar el APK).
 - No subir archivos de `.godot/` ni builds.

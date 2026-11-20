@@ -17,4 +17,4 @@ max_range = 16.0
 stagger_chance = 0.45
 muzzle_offset = Vector3(0, 0.106, 0.278)
 flash_scale = 1.0
-sound = "shot"
+sound = "mauser"

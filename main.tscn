@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://systems/scene_loader.gd" id="4_scene_loader"]
 [ext_resource type="PackedScene" path="res://ui/dialogue/dialogue.tscn" id="5_dialogue"]
 [ext_resource type="PackedScene" path="res://ui/inventory/inventory_menu.tscn" id="6_inventory"]
+[ext_resource type="Script" path="res://systems/audio_director.gd" id="7_audio"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
@@ -34,3 +35,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="AudioDirector" type="Node" parent="."]
+script = ExtResource("7_audio")

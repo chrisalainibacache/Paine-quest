@@ -1,16 +1,22 @@
 class_name Sfx
 extends Node
-## Efectos de sonido generados por código (no hay archivos de audio todavía).
+## Efectos de sonido: usa muestras OGG cuando existen y conserva recetas sintetizadas como respaldo.
 ## Cada sonido se sintetiza una vez al iniciar y se reutiliza. El nodo vive como
 ## autoload ("SfxPlayer"); el juego llama a la función estática Sfx.play().
-## Cuando tengamos muestras reales (.ogg) se reemplazan aquí sin tocar el juego.
+## La firma pública de Sfx.play() se mantiene estable.
 
 const RATE := 22050
 const POOL_SIZE := 8
+const SYNTHETIC_ALIASES := {
+    "assault": "rifle",
+    "bazooka": "launcher",
+    "mauser": "shot",
+}
 
 static var _instance: Sfx
 
 var _streams: Dictionary = {}
+var _real_streams: Dictionary = {}
 var _players_3d: Array[AudioStreamPlayer3D] = []
 var _players_2d: Array[AudioStreamPlayer] = []
 var _next_3d := 0
@@ -49,9 +55,11 @@ func _ready() -> void:
         var p3 := AudioStreamPlayer3D.new()
         p3.unit_size = 4.0
         p3.max_distance = 30.0
+        p3.bus = "Sfx"
         add_child(p3)
         _players_3d.append(p3)
         var p2 := AudioStreamPlayer.new()
+        p2.bus = "Sfx"
         add_child(p2)
         _players_2d.append(p2)
 
@@ -63,13 +71,16 @@ static func play(sound: String, at: Variant = null, volume_db: float = 0.0, pitc
 
 
 func _play(sound: String, at: Variant, volume_db: float, pitch_jitter: float) -> void:
-    if not _streams.has(sound):
+    var stream := _stream_for(sound)
+    if stream == null:
         return
     var pitch := 1.0 + randf_range(-pitch_jitter, pitch_jitter)
+    var bus := "Ui" if sound in ["menu", "page", "typewriter"] else "Sfx"
     if at is Vector3:
         var p3 := _players_3d[_next_3d]
         _next_3d = (_next_3d + 1) % POOL_SIZE
-        p3.stream = _streams[sound]
+        p3.stream = stream
+        p3.bus = bus
         p3.global_position = at
         p3.volume_db = volume_db
         p3.pitch_scale = pitch
@@ -77,10 +88,40 @@ func _play(sound: String, at: Variant, volume_db: float, pitch_jitter: float) ->
     else:
         var p2 := _players_2d[_next_2d]
         _next_2d = (_next_2d + 1) % POOL_SIZE
-        p2.stream = _streams[sound]
+        p2.stream = stream
+        p2.bus = bus
         p2.volume_db = volume_db
         p2.pitch_scale = pitch
         p2.play()
+
+
+## Busca <nombre>.ogg y <nombre>_1.._8. Si no hay muestra, usa la receta
+## sintetizada equivalente (incluidos los alias de armas definidos en AUDIO_PLAN §9).
+func _stream_for(sound: String) -> AudioStream:
+    if _real_streams.has(sound):
+        return _choose_stream(sound, _real_streams[sound])
+    var variants: Array[AudioStream] = []
+    for index in 9:
+        var suffix := "" if index == 0 else "_" + str(index)
+        var path := "res://assets/audio/sfx/%s%s.ogg" % [sound, suffix]
+        if ResourceLoader.exists(path):
+            var audio := load(path) as AudioStream
+            if audio:
+                variants.append(audio)
+    _real_streams[sound] = variants
+    return _choose_stream(sound, variants)
+
+
+## Separa la selección de muestras del fallback para poder probarlo sin borrar assets.
+func _choose_stream(sound: String, variants: Array) -> AudioStream:
+    if not variants.is_empty():
+        return variants[randi_range(0, variants.size() - 1)] as AudioStream
+    return _fallback_stream(sound)
+
+
+func _fallback_stream(sound: String) -> AudioStream:
+    var fallback_name := String(SYNTHETIC_ALIASES.get(sound, sound))
+    return _streams.get(fallback_name)
 
 
 func _make(seconds: float, generator: Callable) -> AudioStreamWAV:

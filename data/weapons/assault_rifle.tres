@@ -18,4 +18,4 @@ stagger_chance = 0.3
 burst = 3
 muzzle_offset = Vector3(0, 0.143, 0.624)
 flash_scale = 1.2
-sound = "rifle"
+sound = "assault"
