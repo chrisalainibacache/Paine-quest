@@ -4,7 +4,7 @@ from roomkit import *
 T = "res://levels/tracks/%s.tscn"
 # Paso bajo nivel en apagón: solo la linterna de Isabella y una luz roja de
 # emergencia al fondo. Infectados rápidos.
-k = Kit("Underpass", "Paso bajo nivel", dark=True)
+k = Kit("Underpass", "Paso bajo nivel", dark=True, ambience="underpass")
 k.env((0.02, 0.02, 0.03), (0.3, 0.31, 0.38), 0.75, (0.05, 0.05, 0.065), 0.05)
 X0, X1, Z0, Z1, H = -7.0, 7.0, -1.8, 1.8, 2.8
 k.shell(X0, X1, Z0, Z1, H, floor="concrete_floor", wall="concrete_wall", ceiling="concrete_wall", wainscot="tiles_wall")

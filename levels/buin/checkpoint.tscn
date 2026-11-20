@@ -66,6 +66,7 @@ size = Vector3(7.1667, 3, 6)
 [node name="Checkpoint" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Control militar"
+ambience = &"military"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

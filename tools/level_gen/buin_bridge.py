@@ -7,7 +7,7 @@ INTRO = ["Sábado, 6:50. Puente del Maipo.",
          "El río viene crecido y café. Al otro lado está Buin.",
          "Leo: Huele a motor, a humo y a mucha gente junta. Ya no están... pero estuvieron.",
          "Leo: Camina por el medio, Isabella. Las barandas están sueltas."]
-k = Kit("Bridge", "Puente del Maipo", intro=INTRO)
+k = Kit("Bridge", "Puente del Maipo", intro=INTRO, ambience="bridge_river")
 dawn(k)
 X0, X1, Z0, Z1 = -11.0, 11.0, -2.3, 2.3
 sky_box(k, X0, X1, Z0, Z1, margin=9.0)

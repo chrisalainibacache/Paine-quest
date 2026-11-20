@@ -133,6 +133,13 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — T8: ambiente por sala (rama: chatgpt/T8-room-ambience)
+
+- **Qué hice:** Añadí `Room.ambience: StringName` exportado y el parámetro `ambience=` a `roomkit.Kit`. Asigné los 14 ambientes de AUDIO_PLAN §5 a las 19 salas de los capítulos 1–3 mediante sus generadores; actualicé también los dos generadores antiguos que no usan Kit.
+- **Mapa:** Paine: `station_night`, `waiting_room`, `office`, `service_corridor`, `storeroom`; vía: `tracks_night`, `fire_wreck`, `train_interior`, `underpass`, `switch_house`; Buin: `bridge_river`, `military`, `day_fields`, `storeroom`, `barn`.
+- **Pruebas:** `tests/levels_test.gd` exige un ambiente no vacío en cada sala. El workflow regenera escenas y ejecuta `./tools/run_tests.sh`, que falla ante `SCRIPT ERROR`. No declararé las pruebas aprobadas hasta revisar ambos logs.
+- **Estado:** PR T8 abierto; CI y revisión de Claude pendientes.
+
 ### 2026-11-20 — T7: audio real, tanda 1 de armas (rama: chatgpt/T7-audio-base, PR: #6)
 
 - **Qué hice:** Integré los 27 OGG de armas que ya están en `assets/audio/sfx/`. El cargador busca el nombre exacto y sus variantes `_1.._8`, selecciona una al azar y usa la receta sintetizada si no encuentra muestras. Añadí los alias de respaldo exigidos por AUDIO_PLAN §9: `assault → rifle`, `bazooka → launcher`, `mauser → shot`. Actualicé los recursos de esas tres armas para reproducir sus nuevos OGG.

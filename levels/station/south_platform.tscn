@@ -75,6 +75,7 @@ size = Vector3(4.25, 3, 7.25)
 [node name="SouthPlatform" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Andén sur"
+ambience = &"station_night"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

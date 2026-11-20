@@ -3,7 +3,7 @@ REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 from buin_common import *
 # Control militar de Buin: carpas, sacos de arena, un camión y la barrera. Los
 # soldados se convirtieron aquí mismo. En la carpa, la orden del día.
-k = Kit("Checkpoint", "Control militar")
+k = Kit("Checkpoint", "Control militar", ambience="military")
 dawn(k, 0.014)
 X0, X1, Z0, Z1 = -9.0, 9.0, -5.0, 5.0
 k.block("Ground", "Ground", (0, -0.5, 0), (X1 - X0 + 0.6, 1, Z1 - Z0 + 0.6), "dirt")

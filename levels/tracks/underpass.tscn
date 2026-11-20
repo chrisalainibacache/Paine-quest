@@ -61,6 +61,7 @@ size = Vector3(5.8333, 3, 5)
 [node name="Underpass" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Paso bajo nivel"
+ambience = &"underpass"
 dark = true
 
 [node name="Environment" type="WorldEnvironment" parent="."]

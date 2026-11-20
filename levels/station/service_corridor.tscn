@@ -69,6 +69,7 @@ size = Vector3(7, 3, 3)
 [node name="ServiceCorridor" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Pasillo de servicio"
+ambience = &"service_corridor"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

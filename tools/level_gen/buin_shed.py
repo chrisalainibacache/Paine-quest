@@ -3,7 +3,7 @@ REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 from buin_common import *
 # Galpón de la viña (sala segura): barricas, la oficina donde se encerró Rosa
 # y la radio de los militares. La radio cierra el capítulo 3.
-k = Kit("Shed", "Galpón de la viña")
+k = Kit("Shed", "Galpón de la viña", ambience="barn")
 k.env((0.03, 0.03, 0.03), (0.5, 0.45, 0.4), 0.85, (0.08, 0.07, 0.06), 0.035)
 X0, X1, Z0, Z1, H = -5.0, 5.0, -4.0, 4.0, 4.8
 k.shell(X0, X1, Z0, Z1, H, floor="planks", wall="barrel_wood", ceiling="planks")

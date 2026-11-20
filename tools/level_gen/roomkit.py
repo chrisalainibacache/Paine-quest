@@ -21,9 +21,13 @@ def add_leo_hint(s, name, pos, lines, show_if=None, hide_if=None, show_item=None
 
 
 class Kit:
-    def __init__(self, root_name, room_name, dark=False, intro=None):
+    def __init__(self, root_name, room_name, dark=False, intro=None, ambience=""):
         self.s = Scene()
-        extra = {"dark": "true"} if dark else {}
+        extra = {}
+        if ambience:
+            extra["ambience"] = '&"%s"' % ambience
+        if dark:
+            extra["dark"] = "true"
         if intro:
             extra["intro_lines"] = "PackedStringArray(%s)" % ", ".join('"%s"' % l for l in intro)
         self.s.node(root_name, "Node3D", script=self.s.res("res://levels/kit/room.gd", "Script"), room_name='"%s"' % room_name, **extra)

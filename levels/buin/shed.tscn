@@ -66,6 +66,7 @@ size = Vector3(6, 3, 5)
 [node name="Shed" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Galpón de la viña"
+ambience = &"barn"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

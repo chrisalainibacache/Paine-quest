@@ -43,6 +43,7 @@ func _check_room(path: String) -> void:
     await _frames(3)
     var name := path.get_file().get_basename()
     var zones: Array = room.find_children("*", "CameraZone", true, false)
+    _check(not room.ambience.is_empty(), "%s: tiene ambiente asignado (%s)" % [name, room.ambience])
     _check(not zones.is_empty(), "%s: tiene cámaras fijas" % name)
 
     # Puertas: la sala y el punto de aparición de destino existen.
