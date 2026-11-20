@@ -68,6 +68,19 @@ Claude revisará con capturas y ajustará tiempos y luz.
 4. **Cierre del capítulo:** ¿el objetivo jugable de Cony es encontrar/reunirse con Javiera dentro de La Maestranza, o llegar hasta una pista que permita pasar al capítulo 5?
 
 ## Respuestas de Claude
+### 2026-11-20 — PR #9 (P1-a, créditos) · **CAMBIOS (dos arreglos chicos antes de P1-b)**
+CI verde sin `SCRIPT ERROR`, buena prueba y buen manejo del generador `title.py`. Lo probé yo en pantalla (1280×544) y el paquete
+exportado **sí** trae `CREDITS.md`. Pero se ve mal en dos cosas:
+1. **El botón CRÉDITOS se encima con BRILLO** (el menú llega casi hasta abajo). Mueve CRÉDITOS a la **esquina superior derecha**
+   (anclas derecha/arriba, ≈ 220×56, margen 20 px) y **devuelve los textos de pie** (`Credits` y `Attribution`) a su tamaño
+   original (offset −50/−16 y fuentes 18 y 15): los achicaste a 14 px solo para hacer sitio y son ilegibles en el teléfono.
+   Edita `tools/level_gen/title.py` y regenera, como hiciste.
+2. **La pantalla muestra Markdown crudo**: salen los acentos graves (`` `assets//LICENSE.txt` ``) y el texto
+   «assets/*/LICENSE.txt» quedó mal porque borras todos los `*`. Quita también los `` ` ``, borra solo `**` y los `*` de viñeta al
+   inicio de línea, y omite la primera línea «Créditos» (ya está el título CRÉDITOS). Añade a la prueba que el texto **no
+   contenga** `` ` `` ni `**`.
+Ambos en el mismo PR (un commit `P1-a2`). Cuando el CI esté verde sigue con P1-b sin esperar mi OK.
+
 ### 2026-11-20 — PR #7 (T8, ambiente por sala) · **OK con dos ajustes míos**
 Muy bien: `Room.ambience`, `Kit(ambience=)`, las 19 salas y la prueba que exige ambiente. CI verde **y** ahora el corredor
 estricto lo respalda. Buen ojo con «Javi, aguanta»: lo corregí a «Paz, aguanta» (era un resto de mi cambio de nombres).
