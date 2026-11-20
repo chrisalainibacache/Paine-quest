@@ -24,5 +24,11 @@ Todos de OpenGameArt, licencia **CC0** (dominio público); se cortan, normalizan
   **2 Gun Reloads** (starninjas) — https://opengameart.org/content/gun-reload-sounds ·
   /handgun-reload-sound-effect · /shotgun-reload-sound-effects · /2-gun-reloads
 
+- Infectados e Isabella (todo **CC0**, OpenGameArt): **Zombies Sound Pack**, **Zombie Moans 01** (EmoPreben),
+  **Zombie / Skeleton / Monster Voice Effects**, **Hungry ghoul**, **Zombie moans**, **80 CC0 creature SFX**,
+  **Ripping Into Meat**, **8 wet squish, slurp impacts**, **Impact** (qubodup), **Female Hurt Grunts & Groans** —
+  https://opengameart.org/content/zombies-sound-pack · /zombie-moans-01-by-emopreben · /zombie-skeleton-monster-voice-effects ·
+  /hungry-ghoul · /80-cc0-creature-sfx · /ripping-into-meat · /8-wet-squish-slurp-impacts · /impact · /female-hurt-grunts-groans
+
 ## Texturas
 - **ambientCG**, CC0 — https://ambientcg.com

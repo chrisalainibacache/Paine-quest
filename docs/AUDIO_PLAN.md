@@ -92,4 +92,9 @@ Un nodo en `main.tscn` (o clase con estado estático, como `Sfx`) que:
   (`assault`→`rifle`, `bazooka`→`launcher`, `mauser`→`shot`) para el respaldo sintetizado, y después se
   cambian `assault_rifle.tres` (`assault`), `bazooka.tres` (`bazooka`) y `mauser.tres` (`mauser`) para que
   usen los archivos nuevos. Hasta que exista el cargador, estos `.ogg` no suenan.
-- Siguientes tandas: infectados → puertas y objetos → animales → ambientes → música.
+- **Tanda 2 — infectados e Isabella (hecha):** `groan_1..4`, `groan_short_1..4`, `groan_far_1..2`, `chase_1..3`,
+  `death_1..3`, `rise_1..2`, `bite_1..3`, `hit_1..4`, `fall_1..3`, `heavy_step_1..2`, `hurt_1..3`, `hurt_low_1..2`,
+  `breath_low_1` (36 archivos, 0,33 MB). Hoy el juego usa `groan`, `groan_short`, `bite`, `hit`, `fall` y `hurt`;
+  el resto (`chase`, `death`, `rise`, `heavy_step`, `hurt_low`, `breath_low`, `groan_far`) espera su uso en código
+  (ticket futuro: que el infectado rápido use `chase`, el pesado `heavy_step`, etc.).
+- Siguientes tandas: puertas y objetos → animales (Leo, Kiara y Nala) → ambientes → música.

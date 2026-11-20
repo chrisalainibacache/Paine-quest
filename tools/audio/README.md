@@ -7,6 +7,7 @@ de armas necesita `pip install py7zr`). **No se usan en el teléfono.** Resultad
 - `shots.py` — cortar disparos de un archivo largo (`explore`), recortar, normalizar y exportar `.ogg`.
 - `build_weapons.py` — arma los sonidos de armas (disparos, explosiones, recargas, mecánica) desde los
   bancos CC0 de OpenGameArt. `AUDIO_RAW=/ruta/raw python3 tools/audio/build_weapons.py`.
+- `build_infected.py` — infectados (gruñidos, gritos, estertores, mordidas, golpes, caídas, pasos) e Isabella (quejidos, respiración).
 - Fuentes (todas **CC0**, ver `CREDITS.md`): descargar cada página de OpenGameArt en `raw/<página>/` y
   descomprimir los `.zip` como `<carpeta>_x` (el `.7z` de la biblioteca de armas va en
   `raw/firearms/`, solo las armas usadas).
