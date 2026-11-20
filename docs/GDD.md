@@ -141,6 +141,15 @@ soldado lo cuenta), pistas de Rosa en notas, y el **jefe final del capítulo 5: 
 (jefe del capítulo 4) **muere** en el capítulo 4; (3) Leo sospecha, nunca lo explica; (4) emoción: Isabella no quiere dispararle, y Rosa, por
 momentos, todavía es Rosa (frases suyas dentro de la pelea).
 
+### Rosa convertida: referencia visual (imagen de Chris, `docs/arte/rosa_convertida_ref.jpg`)
+Chris trajo una imagen de referencia de **Rosa en plena transformación**. Rasgos a respetar: **sigue siendo reconociblemente una mujer** (cara y pelo
+de Rosa, ojos rojos brillantes, gesto de dolor y furia), **púas y raíces de hueso/carne que le brotan de hombros, brazos y torso**, el **pecho abierto
+con un resplandor rojo** (punto débil para la pelea), **manos con garras largas**, ropa rota (el uniforme de boletería), en un pasillo oscuro con filamentos.
+**Cómo se conecta con Skull:** la imagen es la **fase intermedia**; la pelea final avanza hacia el cuerpo de Skull (más alto, encorvado, brazos al suelo,
+cráneo pelado, púas en la espalda: `levels/kit/skull_body.gd`). Fases sugeridas: **1)** Rosa a medio transformar (como la imagen), **2)** brota el cuerpo de
+Skull y la cara se descarna, **3)** Skull completo con el resplandor del pecho como punto débil.
+**Uso:** es **solo referencia** para modelar/pintar en el motor (nada de la imagen se publica en el juego tal cual).
+
 ### Rosa y Skull en las notas (decisiones de Chris, noviembre)
 - **Rosa (capítulo 3):** no se explica cómo llegó de Paine a Buin. Isabella empieza a sospechar de ella y **Leo sospecha más que Isabella**:
   cree que es **un infectado distinto**. La pregunta queda abierta (puede resolverse en la parte 2).
