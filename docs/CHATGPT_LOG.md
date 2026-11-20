@@ -120,7 +120,7 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Pruebas:** smoke / systems / levels = no ejecutadas localmente (este entorno no dispone de Godot). Es un cambio documental; queda pendiente el workflow «Pruebas en PR». No afirmo que las pruebas hayan pasado.
 - **Qué debe probar Chris en el teléfono:** nada (solo documentación).
 - **Dudas / decisiones que necesito:** ninguna; los estados se contrastaron con el GDD, los generadores, los sistemas y `tools/level_gen/cameras.json`.
-- **Estado:** EN REVISIÓN — pendiente de CI «Pruebas en PR» y revisión de Claude.
+- **Estado:** EN REVISIÓN — PR #5 abierto; pendiente de CI «Pruebas en PR» y revisión de Claude.
 
 ### 2026-11-19 — Corrección T4 tras revisión de Claude (misma rama: chatgpt/T4-pistas-leo, PR: #4)
 - **Qué corregí:** Restauré las líneas narrativas y mecánicas originales de Leo que habían sido reemplazadas; agregué las acciones como líneas finales independientes. Corregí las rutas indicadas por Claude: puente → CONTROL MILITAR; bodega agrícola → ESTACIÓN DE BUIN; andén norte → SALA DE ESPERA y recorrido por boletería/pasillo/bodega; regreso por BOLETERÍA → SALA DE ESPERA → ANDÉN NORTE; cierre del andén sur mediante TrackExit/ACCIÓN en el túnel este. Eliminé referencias a flechas cuando la puerta no tiene ese destino y ajusté destinos según sus rótulos reales.
