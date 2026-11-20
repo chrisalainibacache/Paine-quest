@@ -117,6 +117,9 @@ explica; Leo cree que es un infectado distinto): no la resuelvas, puedes dejar e
 
 ## P4 — Cinemática de Skull en vivo (T9) y pruebas finales (código+py, ~4 tareas)
 Sigue el «Diseño de T9» del registro al pie de la letra (puerta que estalla, sombra, 10 s, saltable, una vez por partida).
+- **Nota de arte:** **no pidas imágenes ni dibujos de Skull** (no se pudo y no hace falta). Para la **sombra** usa el cuerpo ya armado:
+  `preload("res://levels/kit/skull_body.gd").build()` devuelve un `Node3D`; ponle `cast_shadow = SHADOWS_ONLY` a todas sus `MeshInstance3D`
+  (nunca se ve la malla). Capturas de referencia en `docs/arte/skull_sombra.png`.
 - **P4-a** escena generada `levels/cinematics/creature_door.tscn` con Python (`roomkit`/`tscn`).
 - **P4-b** `levels/kit/cinematic.gd` (≤ 300 líneas) + gancho en `SceneLoader` (`Room.cinematic`, bandera `cinematic:<ruta>`,
   antes de las líneas de intro, saltable con un toque; coordina con `_play_opening` ya existente). Asígnala a `track_north`.

@@ -117,6 +117,13 @@ en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice)
 caminar entre ellos. **No se explica por qué** (queda como misterio para la parte 2, junto al origen de la infección). Se puede sembrar en
 notas y diálogos sin explicarlo (p. ej. alguien que vio un gato durmiendo junto a un infectado). Leo no lo dice en voz alta.
 
+### Skull: cómo se ve (diseño, noviembre)
+ChatGPT **no puede dibujar a Skull** (sus normas de contenido lo rechazan), así que **no se le piden imágenes**. El aspecto lo define Claude
+y se arma con piezas simples en el motor (`levels/kit/skull_body.gd`; capturas en `docs/arte/`). Rasgos: **~2,6 m**, encorvado, **brazos
+larguísimos que llegan al suelo y terminan en garras**, **cráneo grande y alargado** que cuelga hacia adelante (cuencas negras, sin ojos),
+**púas de hueso en la espalda**, torso flaco con costillas a la vista. **Solo se ve de silueta/sombra y en destellos**; el cuerpo completo
+solo en el encuentro del capítulo 4. Estado: prototipo (v0) de forma; el modelo final con textura se afina cuando se acerque el capítulo 4.
+
 ### Rosa y Skull en las notas (decisiones de Chris, noviembre)
 - **Rosa (capítulo 3):** no se explica cómo llegó de Paine a Buin. Isabella empieza a sospechar de ella y **Leo sospecha más que Isabella**:
   cree que es **un infectado distinto**. La pregunta queda abierta (puede resolverse en la parte 2).
