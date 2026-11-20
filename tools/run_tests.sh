@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-# Corre las 3 pruebas y FALLA también si Godot imprime "SCRIPT ERROR" (un script que no compila
-# o que se cae a medio camino). Sin esto, las pruebas pueden decir "OK (0 fallas)" aunque un
-# script esté roto: pasó con audio_director.gd.
+# Corre las 4 pruebas y FALLA también si Godot imprime "SCRIPT ERROR".
 # Uso: GODOT=/ruta/godot ./tools/run_tests.sh
 GODOT="${GODOT:-godot}"
 status=0
-for t in smoke systems levels; do
+for t in smoke systems levels credits; do
     out=$("$GODOT" --headless --path . -s "res://tests/${t}_test.gd" 2>&1)
     code=$?
     echo "== $t: $(echo "$out" | grep 'RESULTADO' | tail -1)"

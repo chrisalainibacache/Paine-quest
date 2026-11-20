@@ -148,6 +148,15 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P1-a: créditos en el juego (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Añadí el botón CRÉDITOS al título y una pantalla desplazable que carga `CREDITS.md` en tiempo de ejecución. Conserva las atribuciones CC-BY de Kevin MacLeod y Pixelhouse y agrega «Personaje simple PSX — JashiPSX (itch.io)». Añadí una prueba específica y la incorporé al corredor estricto. El primer CI detectó que el título se regenera desde `tools/level_gen/title.py`; actualicé esa fuente y regeneré la escena para mantenerla sincronizada.
+- **Archivos tocados:** `ui/title/title_screen.gd`, `ui/title/title_screen.tscn`, `ui/title/credits_screen.gd`, `ui/title/credits_screen.tscn`, `tools/level_gen/title.py`, `tests/credits_test.gd`, `tools/run_tests.sh`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** no pude ejecutar Godot localmente. El primer «Pruebas en PR» falló en la sincronía del generador (0 `SCRIPT ERROR`); la corrección está subida y espera una nueva ejecución. El corredor ahora ejecuta smoke, systems, levels y credits, y falla ante `SCRIPT ERROR`. No declaro el cambio validado hasta revisar el nuevo CI y sus logs.
+- **Qué debe probar Chris en el teléfono:** cuando CI esté verde sin `SCRIPT ERROR`, abrir CRÉDITOS desde el título, desplazar la lista y volver al título.
+- **Dudas / decisiones que necesito:** ninguna para P1-a. `CREDITS.md` está incluido por el filtro `all_resources` actual; la comprobación explícita de su presencia en el paquete exportado queda para P1-f.
+- **Estado:** EN REVISIÓN — P1 en curso; P1-a corregido, CI pendiente.
+
 ### 2026-11-20 — T8: ambiente por sala (rama: chatgpt/T8-room-ambience)
 
 - **Qué hice:** Añadí `Room.ambience: StringName` exportado y el parámetro `ambience=` a `roomkit.Kit`. Asigné los 14 ambientes de AUDIO_PLAN §5 a las 19 salas de los capítulos 1–3 mediante sus generadores; actualicé también los dos generadores antiguos que no usan Kit.
