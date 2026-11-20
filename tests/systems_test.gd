@@ -75,6 +75,73 @@ func _audio_systems() -> void:
         "audio: las tres armas nuevas usan sus alias de muestra propios")
     _check(main.get_node_or_null("AudioDirector") != null and AudioDirector._instance != null,
         "audio: el director está integrado en la escena principal")
+    var new_fallbacks := {
+        "chase": "groan_short", "death": "fall", "rise": "groan", "heavy_step": "fall",
+        "groan_far": "groan", "hurt_low": "hurt", "breath_low": "hurt", "door_close": "door",
+        "door_metal": "door", "gate_chain": "locked", "heal": "pickup", "radio_static": "typewriter",
+    }
+    for sound: String in new_fallbacks:
+        _check(Sfx._instance._stream_for(sound) is AudioStreamOggVorbis, "audio: carga OGG para %s" % sound)
+        _check(Sfx._instance._choose_stream(sound, []) == Sfx._instance._streams[new_fallbacks[sound]],
+            "audio: %s conserva fallback sintetizado" % sound)
+
+    AudioDirector.play_music("title")
+    _check(AudioDirector.current_music_track() == "title", "audio: la música title se puede seleccionar")
+    AudioDirector.play_music("leo")
+    _check(AudioDirector.current_music_track() == "leo", "audio: la música leo se puede seleccionar para el epílogo")
+    var safe_room := Room.new()
+    var typewriter := Node.new()
+    typewriter.name = "Typewriter"
+    safe_room.add_child(typewriter)
+    AudioDirector._instance._on_room_changed(safe_room)
+    _check(AudioDirector._instance._chapter_track == "safe" and AudioDirector.current_music_track() == "safe",
+        "audio: una sala con máquina de escribir usa la pista safe")
+    AudioDirector._instance._on_room_changed(main.room)
+    safe_room.free()
+
+    Sfx.reset_play_counts()
+    var heavy_infected := Infected.new()
+    heavy_infected.data = load("res://data/enemies/infected_heavy.tres") as EnemyData
+    heavy_infected._play_chase_sound()
+    heavy_infected._play_rise_sound()
+    heavy_infected._play_death_sound()
+    heavy_infected._play_heavy_step()
+    heavy_infected._play_groan(true)
+    _check(Sfx.play_count("chase") == 1 and Sfx.play_count("rise") == 1 and Sfx.play_count("death") == 1,
+        "audio: persecución rápida, levantarse y muerte solicitan sus sonidos")
+    _check(Sfx.play_count("heavy_step") == 1 and Sfx.play_count("groan_far") == 1,
+        "audio: infectado pesado y gruñido fuera de cuadro solicitan sus sonidos")
+    heavy_infected.free()
+
+    var gate := Door.new()
+    gate.name = "GateToNorth"
+    gate._play_locked_sound()
+    gate._play_open_sound()
+    _check(Sfx.play_count("gate_chain") == 1 and Sfx.play_count("door_metal") == 1,
+        "audio: portón metálico usa cadena y puerta metálica")
+    gate.free()
+
+    var radio_script := load("res://levels/kit/interact/chapter_exit.gd") as GDScript
+    var radio: Interactable = radio_script.new()
+    radio.name = "Radio"
+    radio.call("_play_radio_static")
+    _check(Sfx.play_count("radio_static") == 1, "audio: la radio de Paz solicita estática")
+    radio.free()
+
+    var test_player: Player = main.player
+    var old_health: int = test_player.health
+    var old_controls_locked: bool = test_player.controls_locked
+    test_player.controls_locked = false
+    test_player.health = 20
+    Sfx.reset_play_counts()
+    test_player._play_hurt_sound()
+    test_player._danger_breath_timer = 0.0
+    test_player._update_danger_breath(0.1)
+    _check(Sfx.play_count("hurt_low") == 1 and Sfx.play_count("breath_low") == 1,
+        "audio: Isabella en Peligro usa quejido y respiración baja")
+    test_player.health = old_health
+    test_player.controls_locked = old_controls_locked
+    test_player._danger_breath_timer = 0.0
     var was_enabled := AudioDirector.enabled
     AudioDirector.enabled = false
     _check(not AudioDirector.enabled, "audio: el director se puede apagar para pruebas")
@@ -301,7 +368,9 @@ func _backpack_menu(player: Player) -> void:
             sushi_slot = i
     menu.select(sushi_slot)
     _check(menu.use_button.text == "COMER" and not menu.use_button.disabled, "el sushi se puede comer")
+    Sfx.reset_play_counts()
     menu._use_selected()
+    _check(Sfx.play_count("heal") == 1, "audio: comer solicita el sonido heal")
     _check(player.health == 50 + SUSHI.heal_amount and GameState.inventory.count_of(SUSHI) == 0,
         "comer sushi cura (vida: %d) y lo gasta" % player.health)
     # Leer una nota desde NOTAS: mientras está abierta, los toques no llegan
@@ -340,8 +409,11 @@ func _doors_and_rooms(player: Player) -> void:
     player.face_direction(Vector3.BACK, 1.0)
     await _frames(3)
     _check(player.interaction.focus == door, "Isabella tiene a mano la puerta de la sala de espera")
+    Sfx.reset_play_counts()
     player.interaction.use(door)
     await _seconds(1.4)
+    _check(Sfx.play_count("door") > 0 and Sfx.play_count("door_close") > 0,
+        "audio: abrir y cerrar una puerta solicita sus dos sonidos")
     var room: Room = main.room
     _check(room.scene_file_path == WAITING_ROOM, "la puerta lleva a la sala de espera")
     _check(not is_instance_valid(platform) or not platform.is_inside_tree(), "el andén se descarga")

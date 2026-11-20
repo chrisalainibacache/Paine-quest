@@ -101,6 +101,19 @@ func is_locked() -> bool:
     return key_item != null and not GameState.has_flag("unlocked:" + _lock_key())
 
 
+func _is_metal_door() -> bool:
+    var description := ("%s %s %s" % [name, lock_id, locked_text]).to_lower()
+    return description.contains("gate") or description.contains("reja") or description.contains("portón") or description.contains("porton")
+
+
+func _play_locked_sound() -> void:
+    Sfx.play("gate_chain" if _is_metal_door() else "locked", global_position, -3.0)
+
+
+func _play_open_sound() -> void:
+    Sfx.play("door_metal" if _is_metal_door() else "door", global_position, -2.0)
+
+
 func interact(_player: Player) -> void:
     if is_locked():
         if GameState.inventory.has_id(key_item.id):
@@ -108,14 +121,14 @@ func interact(_player: Player) -> void:
             Sfx.play("unlock", null, -3.0)
             await Dialogue.say(["Usé: %s." % key_item.display_name])
         else:
-            Sfx.play("locked", null, -3.0)
+            _play_locked_sound()
             await Dialogue.say([locked_text])
             return
     if target_room.is_empty():
-        Sfx.play("locked", null, -3.0)
+        _play_locked_sound()
         await Dialogue.say([locked_text])
         return
-    Sfx.play("door", null, -2.0)
+    _play_open_sound()
     # Sin await: esta puerta se borra junto con la sala al cambiar.
     SceneLoader.go_to(target_room, target_spawn)
 

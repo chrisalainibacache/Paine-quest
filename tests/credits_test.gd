@@ -31,10 +31,13 @@ func _run() -> void:
     _check(title_scene != null, "la pantalla de título carga")
     if title_scene != null:
         var title := title_scene.instantiate()
+        root.add_child(title)
+        await process_frame
         _check(title.get_node_or_null("CreditsButton") is Button, "el título incluye el botón CRÉDITOS")
         _check(title.get_node_or_null("OptionsButton") is Button, "el título incluye el botón OPCIONES")
         _check(title.get_node_or_null("OptionsMenu") is Control, "el título integra el menú de opciones")
-        title.free()
+        _check(AudioDirector.current_music_track() == "title", "el título inicia la música title")
+        title.queue_free()
 
 
     GameSettings.load_and_apply()

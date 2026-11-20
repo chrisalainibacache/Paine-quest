@@ -90,6 +90,7 @@ var _attack_landed := false
 var _groan_timer := 0.0
 var _sprinting := false
 var _sprint_timer := 0.0
+var _step_timer := 0.0
 
 
 func _ready() -> void:
@@ -319,11 +320,19 @@ func _physics_process(delta: float) -> void:
     velocity.y = 0.0 if is_on_floor() else velocity.y - GRAVITY * delta
     move_and_slide()
 
+    if state == State.CHASE and move.length() > 0.1 and data.display_name.to_lower().contains("pesado"):
+        _step_timer -= delta
+        if _step_timer <= 0.0:
+            _step_timer = 0.72
+            _play_heavy_step()
+    else:
+        _step_timer = 0.0
+
     if state in [State.CHASE, State.IDLE, State.FEEDING]:
         _groan_timer -= delta
         if _groan_timer <= 0.0:
             _groan_timer = randf_range(4.0, 9.0)
-            Sfx.play("groan" if randf() < 0.5 else "groan_short", global_position + Vector3.UP * 1.5, -6.0, 0.15)
+            _play_groan(_is_offscreen())
 
 
 ## Velocidad de persecución. Los rápidos alternan carreras cortas y pausas.
@@ -337,7 +346,7 @@ func _chase_speed(delta: float) -> float:
         var speed := data.sprint_speed if _sprinting else data.walk_speed
         _anim.speed_scale = speed / WALK_ANIM_SPEED
         if _sprinting:
-            Sfx.play("groan_short", global_position + Vector3.UP * 1.5, -2.0, 0.2)
+            _play_chase_sound()
     return data.sprint_speed if _sprinting else data.walk_speed
 
 
@@ -358,7 +367,7 @@ func _enter(new_state: State) -> void:
         State.RISING:
             _anim.speed_scale = 1.0
             _anim.play("z/LayToIdle", 0.1)
-            Sfx.play("groan", global_position + Vector3.UP, -3.0)
+            _play_rise_sound()
         State.CHASE:
             _play("Zombie_Walk_Fwd", 0.35, data.walk_speed / WALK_ANIM_SPEED)
             if randf() < 0.5:
@@ -377,7 +386,7 @@ func _die() -> void:
     remove_from_group("enemies")
     collision_layer = 0
     GameState.set_flag(_dead_flag())
-    Sfx.play("fall", global_position, -2.0)
+    _play_death_sound()
     died.emit(self)
     _spawn_stain()
 
@@ -391,6 +400,36 @@ func _lie_dead() -> void:
     _anim.seek(_anim_length("Death01"), true)
     _anim.pause()
     _spawn_stain.call_deferred()
+
+
+func _play_chase_sound() -> void:
+    Sfx.play("chase", global_position + Vector3.UP * 1.5, -3.0, 0.1)
+
+
+func _play_rise_sound() -> void:
+    Sfx.play("rise", global_position + Vector3.UP, -3.0)
+
+
+func _play_death_sound() -> void:
+    Sfx.play("death", global_position, -3.0)
+    Sfx.play("fall", global_position, -2.0)
+
+
+func _play_heavy_step() -> void:
+    Sfx.play("heavy_step", global_position, -6.0, 0.08)
+
+
+func _play_groan(offscreen: bool) -> void:
+    var sound := "groan_far" if offscreen else ("groan" if randf() < 0.5 else "groan_short")
+    Sfx.play(sound, global_position + Vector3.UP * 1.5, -6.0, 0.15)
+
+
+func _is_offscreen() -> bool:
+    var camera := get_viewport().get_camera_3d()
+    if camera == null:
+        return false
+    var point := global_position + Vector3.UP * 1.5
+    return camera.is_position_behind(point) or not get_viewport().get_visible_rect().has_point(camera.unproject_position(point))
 
 
 ## Mancha de sangre que queda en el piso.

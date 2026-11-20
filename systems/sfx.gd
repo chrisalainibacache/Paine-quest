@@ -11,9 +11,22 @@ const SYNTHETIC_ALIASES := {
     "assault": "rifle",
     "bazooka": "launcher",
     "mauser": "shot",
+    "chase": "groan_short",
+    "death": "fall",
+    "rise": "groan",
+    "heavy_step": "fall",
+    "groan_far": "groan",
+    "hurt_low": "hurt",
+    "breath_low": "hurt",
+    "door_close": "door",
+    "door_metal": "door",
+    "gate_chain": "locked",
+    "heal": "pickup",
+    "radio_static": "typewriter",
 }
 
 static var _instance: Sfx
+static var _play_counts: Dictionary = {}
 
 var _streams: Dictionary = {}
 var _real_streams: Dictionary = {}
@@ -66,8 +79,18 @@ func _ready() -> void:
 
 ## Reproduce un sonido. Con posición suena en 3D; sin ella, plano.
 static func play(sound: String, at: Variant = null, volume_db: float = 0.0, pitch_jitter: float = 0.06) -> void:
+    _play_counts[sound] = int(_play_counts.get(sound, 0)) + 1
     if _instance:
         _instance._play(sound, at, volume_db, pitch_jitter)
+
+
+## Espía determinista para pruebas: cuenta solicitudes aunque falte el reproductor.
+static func play_count(sound: String) -> int:
+    return int(_play_counts.get(sound, 0))
+
+
+static func reset_play_counts() -> void:
+    _play_counts.clear()
 
 
 func _play(sound: String, at: Variant, volume_db: float, pitch_jitter: float) -> void:

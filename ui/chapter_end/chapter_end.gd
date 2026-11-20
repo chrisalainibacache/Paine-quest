@@ -28,6 +28,11 @@ var chapter := 1
 func _ready() -> void:
     get_tree().paused = false
     chapter = int(GameState.get_flag("last_chapter_done", 1))
+    if chapter == 5:
+        var epilogue_audio := AudioDirector.new()
+        epilogue_audio.name = "EpilogueAudioDirector"
+        add_child(epilogue_audio)
+        AudioDirector.play_music("leo")
     var texts: Array = TEXTS.get(chapter, TEXTS[1])
     $Title.text = texts[0]
     $Subtitle.text = texts[1]

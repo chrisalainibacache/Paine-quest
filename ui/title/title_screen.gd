@@ -9,9 +9,15 @@ const CREDITS_SCENE := "res://ui/title/credits_screen.tscn"
 @onready var options_button: Button = $OptionsButton
 @onready var options_menu: OptionsMenu = $OptionsMenu
 
+var _title_audio: AudioDirector
+
 
 func _ready() -> void:
     GameSettings.load_and_apply()
+    _title_audio = AudioDirector.new()
+    _title_audio.name = "TitleAudioDirector"
+    add_child(_title_audio)
+    AudioDirector.play_music("title")
     continue_button.disabled = not SaveSystem.has_save()
     $Menu/NewGame.pressed.connect(_new_game)
     continue_button.pressed.connect(_continue)

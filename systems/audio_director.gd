@@ -39,6 +39,16 @@ func _ready() -> void:
         loader.room_changed.connect(_on_room_changed)
 
 
+static func play_music(track: String) -> void:
+    if _instance != null and enabled:
+        _instance._chapter_track = track
+        _instance._set_music(track)
+
+
+static func current_music_track() -> String:
+    return _instance._music_track if _instance != null else ""
+
+
 func _process(delta: float) -> void:
     if not enabled:
         _stop_all()
@@ -81,7 +91,8 @@ func _on_room_changed(room: Room) -> void:
     if not enabled or room == null:
         return
     var path := room.scene_file_path
-    _chapter_track = "explore_day" if "/buin/" in path else "explore_night"
+    var has_typewriter := room.find_child("Typewriter", true, false) != null
+    _chapter_track = "safe" if has_typewriter else ("explore_day" if "/buin/" in path else "explore_night")
     _set_music(_chapter_track)
     _set_ambience(_room_ambience(room))
 

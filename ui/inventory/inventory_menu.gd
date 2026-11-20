@@ -189,7 +189,7 @@ func _use_selected() -> void:
                 return
             player.heal(item.heal_amount)
             GameState.inventory.remove_at(selected)
-            Sfx.play("pickup", null, -6.0)
+            Sfx.play("heal", null, -6.0)
             if GameState.inventory.get_item(selected) == null:
                 selected = _first_filled()
             _refresh()

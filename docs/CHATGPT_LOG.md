@@ -61,6 +61,9 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
+### 2026-11-20 — P1-c
+1. [CONFIRMAR] El epílogo «Para Leo» aún no existe en el código. Si P3 lo implementa como escena independiente del fin del capítulo 5, debe llamar a AudioDirector.play_music("leo") desde esa escena.
+
 ### 2026-11-20 — P1-b
 1. [CONFIRMAR] ¿Cuál es la URL pública definitiva de la política de privacidad para guardarla en `data/store_links.tres`?
 
@@ -151,14 +154,23 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P1-c: conectar SFX pendientes y música (PR #9)
+
+- **Qué hice:** Conecté los sonidos chase, death, rise, heavy_step, groan_far, hurt_low, breath_low, door_close, door_metal, gate_chain, heal y radio_static en sus eventos de juego. Añadí aliases sintetizados para que sigan sonando si falta su OGG, y un contador de solicitudes en Sfx para pruebas. AudioDirector ahora selecciona title en la pantalla de título, safe en salas con máquina de escribir y expone play_music("leo") para el epílogo; el final de capítulo 5 lo invoca.
+- **Archivos tocados:** systems/sfx.gd, actors/enemies/infected.gd, actors/player/player.gd, levels/kit/interact/door.gd, levels/kit/interact/chapter_exit.gd, ui/inventory/inventory_menu.gd, systems/scene_loader.gd, systems/audio_director.gd, ui/title/title_screen.gd, ui/chapter_end/chapter_end.gd, tests/systems_test.gd, tests/credits_test.gd, docs/CHATGPT_LOG.md.
+- **Pruebas:** amplié las pruebas de audio para comprobar OGG, fallback sintetizado, contador y eventos de juego; verifiqué las pistas title, safe y leo. No subí ni modifiqué archivos de audio. Godot no está disponible localmente. El primer CI detectó cuatro SCRIPT ERROR de tipado en la prueba (radio_script.new y main.player); añadí tipos explícitos Interactable, Player, int y bool. El commit corregido espera un nuevo CI y debe pasar sin SCRIPT ERROR antes de P1-d.
+- **Qué debe probar Chris en el teléfono:** tras CI verde, recorrer un infectado rápido y uno pesado, recibir daño hasta Peligro, usar una máquina de escribir, abrir una puerta de reja, comer un objeto y escuchar la radio de Paz. Revisar la música de título y la sala segura. La pista leo queda lista para la escena de epílogo que implementará P3.
+- **Dudas:** el código actual aún no tiene la escena del epílogo Para Leo. Dejé disponible AudioDirector.play_music("leo") y una llamada para el capítulo 5; [CONFIRMAR] P3 debe llamar también a ese método si el epílogo se implementa como escena independiente.
+- **Estado:** IMPLEMENTADO; CI pendiente.
+
 ### 2026-11-20 — P1-b: menú de opciones (rama: chatgpt/P1-menus-audio-ads, PR: #9)
 
 - **Qué hice:** Añadí OPCIONES desde el título y la mochila. Incluye sliders táctiles de 0–100 % para Sfx, Música y Ambiente; persiste en `user://ajustes.cfg` y aplica los valores al iniciar, manteniendo el nivel base actual de cada bus. Incluye el interruptor gráfico existente, acceso a créditos reutilizable como panel y enlace de privacidad bloqueado de forma segura mientras la URL siga pendiente.
-- **Archivos tocados:** `systems/game_settings.gd`, `data/store_links.gd`, `data/store_links.tres`, `ui/options/options_menu.gd`, `ui/options/options_menu.tscn`, `ui/title/title_screen.gd`, `ui/title/title_screen.tscn`, `tools/level_gen/title.py`, `ui/title/credits_screen.gd`, `ui/inventory/inventory_menu.gd`, `ui/inventory/inventory_menu.tscn`, `tools/level_gen/inventory.py`, `tests/credits_test.gd`, `docs/CHATGPT_LOG.md`.
-- **Pruebas:** amplié la prueba de créditos para comprobar persistencia/aplicación de volumen, rangos, botones y acceso desde título/mochila. Godot no está disponible localmente. El primer CI detectó que faltaba reflejar el nuevo botón en `tools/level_gen/inventory.py`; corregí el generador y la escena. Ese intento tuvo 0 `SCRIPT ERROR`, pero no cuenta como verde. El commit corregido espera un nuevo CI.
+- **Archivos tocados:** `systems/game_settings.gd`, `data/store_links.gd`, `data/store_links.tres`, `ui/options/options_menu.gd`, `ui/options/options_menu.tscn`, `ui/title/title_screen.gd`, `ui/title/title_screen.tscn`, `tools/level_gen/title.py`, `tools/level_gen/inventory.py`, `ui/title/credits_screen.gd`, `ui/inventory/inventory_menu.gd`, `ui/inventory/inventory_menu.tscn`, `tests/credits_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** amplié la prueba de créditos para comprobar persistencia/aplicación de volumen, rangos, botones y acceso desde título/mochila. Godot no está disponible localmente. El primer CI detectó que faltaba reflejar el nuevo botón en `tools/level_gen/inventory.py`; corregí el generador y la escena. El commit final `0489d63` pasó «Pruebas en PR» (run 44828958837) y «Validación de pistola» (run 44828958783); los logs registran 0 `SCRIPT ERROR`.
 - **Qué debe probar Chris en el teléfono:** cuando CI esté verde, abrir OPCIONES desde título y mochila; mover los tres sliders, cerrar y reabrir el juego para comprobar persistencia; abrir CRÉDITOS desde opciones; pulsar POLÍTICA DE PRIVACIDAD (debe informar que falta confirmar la URL, sin abrir una dirección inventada).
 - **Dudas:** [CONFIRMAR] URL pública final de la política de privacidad para `data/store_links.tres`.
-- **Estado:** CORRECCIÓN DE GENERADOR SUBIDA; CI pendiente.
+- **Estado:** P1-b VALIDADO — CI verde, 0 `SCRIPT ERROR`.
 
 ### 2026-11-20 — P1-a2: correcciones visuales y limpieza de créditos (PR #9)
 
