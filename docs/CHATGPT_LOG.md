@@ -20,7 +20,7 @@ Una rama y un PR por ticket (`chatgpt/<ID>-<tema>`), con su entrada en «Entrega
 
 | ID | Tipo | Ticket | Listo cuando |
 | --- | --- | --- | --- |
-| T1 | texto | **Capítulo 4 «La Maestranza»** en `docs/GDD.md` (§2 y §8): 6 a 8 salas, conexiones, objetos, enemigos (1 nuevo), recompensas, pistas de Leo. Usa las PROPUESTAS de más abajo como provisorias. | PR con solo `docs/GDD.md`; CI verde |
+| T1 | texto | **Capítulo 4 «La Maestranza»** en `docs/GDD.md` (§2 y §8): 6 a 8 salas, conexiones, objetos, enemigos (1 nuevo: **la Criatura**, ver GDD «La Criatura»; encuentro como persecución o jefe del capítulo), recompensas, pistas de Leo. Usa las PROPUESTAS de más abajo como provisorias. | PR con solo `docs/GDD.md`; CI verde |
 | T2 | texto | **Notas del capítulo 4**: 5 a 8 documentos que respeten la línea de tiempo. Solo propón el texto en «Entregas». | texto en el registro, sin contradecir el GDD |
 | T3 | texto | **Capítulo 5 y epílogo «Para Leo»**: esquema de salas y texto de la despedida. | PR con solo `docs/GDD.md`; CI verde |
 | T4 | texto+py | **Pistas de Leo explícitas**: revisa las ~30 pistas (`leo_hint(...)` en `tools/level_gen/*.py`). La **última línea** de cada una debe decir una **acción concreta** (qué hacer y dónde), mencionando «la flecha amarilla» cuando hay una puerta de avance. Mantén el tono tierno de Leo y la línea de tiempo. Regenera las salas tocadas. | CI verde (incluye `.tscn` al día); lista de pistas cambiadas en la entrega |
@@ -28,10 +28,29 @@ Una rama y un PR por ticket (`chatgpt/<ID>-<tema>`), con su entrada en «Entrega
 | T6 | prueba | **Pruebas nuevas** en `tests/levels_test.gd`: que cada puerta de avance cree su `Marker` con el texto del destino y que las puertas «VOLVER» no lo tengan. | CI verde |
 | T7 | código | **Audio real, parte 1** — lee `docs/AUDIO_PLAN.md` completo. En `systems/sfx.gd` carga `res://assets/audio/sfx/<nombre>[_N].ogg` (variante al azar) y **cae al sonido sintetizado si el archivo no existe**; `Sfx.play()` no cambia de firma. Crea `default_bus_layout.tres` (Master, Sfx, Music, Ambience, Ui) y `systems/audio_director.gd` (ambiente por sala, música por capítulo, `tension` con histéresis, bajar música en diálogos, `enabled` apagable). Añade pruebas en `tests/systems_test.gd`. **No subas audio**: Claude lo sube. | CI verde; funciona sin ningún `.ogg` presente |
 | T8 | py+código | **Audio real, parte 2** — `@export var ambience: StringName` en `Room` y parámetro `ambience=` en `roomkit.Kit` / generadores; asigna a cada sala su ambiente según la tabla del §5 de `docs/AUDIO_PLAN.md`; regenera con `./tools/level_gen/regenerar_todo.sh`. | CI verde; todas las salas tienen ambiente |
+| T9 | código+py | **Cinemática de la Criatura (en vivo, ~10 s)** — ver diseño abajo. Escena nueva `levels/cinematics/creature_door.tscn` (generada con Python, `roomkit`/`tscn`), script `levels/kit/cinematic.gd` que la reproduce, y gancho en `SceneLoader` (`Room.cinematic`, una sola vez por partida con bandera `cinematic:<ruta>`, antes de las líneas de intro; saltable con un toque). Asígnala a `track_north` (primera sala del capítulo 2). Pruebas: que la escena cargue, termine y marque la bandera. | CI verde; Claude la revisa con capturas |
 | D | código | **Implementar el capítulo 4** con `roomkit.Kit` (una sala por PR). | **BLOQUEADO hasta que Claude escriba `APROBADO D`** |
 
-Orden (actualizado): T5 → **T7 → T8** → T6 → T1 → T2 → T3 (T4 ya está fusionado). (T4 a T6 son seguras y rápidas: sirven para probar el circuito
+Orden (actualizado): T5 → **T7 → T8 → T9** → T6 → T1 → T2 → T3 (T4 ya está fusionado). (T4 a T6 son seguras y rápidas: sirven para probar el circuito
 PR → CI → revisión de Claude.)
+
+
+### Diseño de T9 — Cinemática de la Criatura
+Decisión de Chris: la criatura **nunca se ve**; rompe una puerta en un lugar desconocido; sirve para
+que el jugador sepa que **algo la busca**. No hay modelo de criatura: solo puerta, polvo, luz y sombra.
+Guion (≈10 s, cámara fija, barras negras de cine arriba y abajo, sin diálogo ni texto):
+1. **0–1 s** fundido desde negro a un pasillo industrial oscuro; una luz fluorescente titila.
+2. **1–3 s** golpes lejanos y pesados que se acercan (`creature_step_far`, 3 veces, cada vez más fuerte).
+3. **3–4 s** silencio total. Gotea algo.
+4. **4,0 s** primer impacto: la puerta de metal se abomba hacia adentro; la cámara tiembla (`creature_door_smash`).
+5. **4,6 s** segundo impacto: la puerta **estalla** (4 a 8 trozos con `RigidBody3D` e impulso, vida corta),
+   polvo (`CPUParticles3D`), la luz se rompe. Queda un hueco negro.
+6. **5–7 s** una **sombra enorme** cruza la pared del fondo (malla oscura con
+   `cast_shadow = SHADOWS_ONLY` pasando frente a una luz; nunca se ve la malla) y se oye una respiración grave.
+7. **7–8 s** rugido apagado y lejano (`creature_roar_far`), corte seco a negro. **9–10 s** pantalla negra y sigue el juego.
+Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del kit (`KitBlock`); los sonidos
+`creature_*` aún no tienen archivo (`Sfx.play` ignora nombres desconocidos, no falla); saltable; **una sola vez**.
+Claude revisará con capturas y ajustará tiempos y luz.
 
 ## Preguntas de ChatGPT
 ### 2026-11-19 — Aclaraciones antes de diseñar el capítulo 4

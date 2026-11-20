@@ -82,6 +82,20 @@ Aparecen en el capítulo 3 (potrero) y salvan a Isabella y Leo de una horda. Lue
 rescatando gente: pueden volver a aparecer más adelante (por ejemplo, en el capítulo 4 o
 en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice).
 
+### La Criatura (decisión de Chris, noviembre)
+*Nombre pendiente.* Una amenaza que **busca a Isabella** a lo largo del juego y que **nunca se ve**
+(al menos hasta el encuentro). Es un recurso tipo «perseguidor»: lo que no se ve da más miedo.
+- **No tiene relación con el pasajero del asiento 15 ni con el vagón del Centro de Nos** (ese misterio
+  sigue su propio camino hacia el capítulo 5). Es una amenaza aparte.
+- **Cinemática de entrada (capítulo 2):** al empezar el capítulo se muestra **una sola vez** una escena
+  corta: en un lugar desconocido, que no volveremos a ver, la criatura **rompe una puerta**. Solo vemos
+  la puerta, el polvo, la luz que titila y una **sombra enorme**. Va **en vivo** dentro del motor (no
+  prerenderizada: ChatGPT no puede renderizar y no queremos inflar el APK). Ver ticket T9.
+- **Ecos:** durante los capítulos 2 y 3 hay señales sueltas (un golpe lejano, Leo erizándose sin razón,
+  un rugido apagado). Usan los sonidos reservados `creature_*` de `docs/AUDIO_PLAN.md`.
+- **Encuentro:** **sí habrá**. Propuesta: en el **capítulo 4 (La Maestranza)**, como persecución o
+  jefe final del capítulo. Lo diseña el ticket T1 (el «enemigo o jefe nuevo» del capítulo 4 es ella).
+
 ### Capítulos siguientes (dirección aprobada)
 - **Capítulo 3 — Buin (hecho, ver sección 8):** puente del Maipo, control militar abandonado,
   estación de Buin, bodega agrícola, galpón de la viña. Rosa aparece viva (diálogos). Se
