@@ -19,7 +19,7 @@
 | Isabella (modelo «Erika Archer» + animación de trote) | `assets/characters/cony/` | **Mixamo (Adobe)** | 🟡 Se puede usar en un juego comercial, **no redistribuir los archivos sueltos** (el repositorio es público) |
 | Infectados PSX: común, pálido, obrero, quemado, pesado | `infected_psx_05`, `infected_pale`, `infected_worker`, `infected_burnt`, `character_monster_07` | Bajados gratis de itch.io; **sin README ni licencia en el Drive** | 🔴 |
 | Calle: vehículos, barreras, conos | `assets/environment/atomic_realm_post_apocalyptic/` | Atomic Realm (itch.io): comercial ✔, redistribuir ✘ | 🟡 repositorio privado |
-| Armas: Mauser, lanzagranadas, bazuca | `mauser.glb`, `grenade_launcher.glb`, `bazooka.glb` | «Heavy Weapons Pack entregado por Chris, sin archivo de licencia» | 🔴 |
+| Armas: Mauser, lanzagranadas, bazuca | `mauser.glb`, `grenade_launcher.glb`, `bazooka.glb` | Heavy Weapons Pack, bajado gratis de itch.io, sin archivo de licencia | 🔴 → se conservan hasta la compuerta previa a publicar |
 | Grafitis y murales (6 + 2 PNG) | `assets/environment/graffiti/` | Nombres «paine/estacion»: hechos para el proyecto | 🟢 (Chris confirma) |
 | Pistola, trenes, utilería, comida, munición, decals, afiche, follaje | `levels/kit/props/`, `tools/*` | Hechos por nosotros con código | 🟢 |
 | Fuente | — | Fuente por defecto de Godot (Open Sans, OFL) | 🟢 |
@@ -45,6 +45,16 @@ limpiar el historial). Los packs *Character_Monster/Killer* (`infected_pale`, `i
 
 **Los grafitis y murales:** sus nombres (`wall_graffiti_paine_v72`, `estacion_paine_*`, `game__graffiti_*`) indican que se hicieron
 para este proyecto (no vienen de un pack con nombre de autor). Se tratan como propios; Chris confirma si los generó/pidió él.
+
+### Decisiones de Chris y de Claude (2026-11-20)
+- **Modelo de ingresos:** juego gratis con **anuncios con recompensa opcionales** (munición, curativo, continuar) + compra
+  opcional «quitar anuncios». Decidido por Chris.
+- **Grafitis y murales:** son del proyecto (Chris) → 🟢.
+- **Armas pesadas (Mauser, lanzagranadas, bazuca) y modelos PSX sin README:** Chris teme que rearmarlas se vean feas.
+  **Decisión de Claude: se conservan.** Todos los packs de itch.io cuyo README sí se encontró permiten uso comercial; por eso es
+  muy probable que estos también. Condiciones: (1) repositorio **privado** ya; (2) **compuerta antes de publicar**: ubicar las
+  páginas de itch.io de estos packs (Chris) y anotar su licencia en `docs/store/licencias_activos.md`; si alguna prohíbe el uso
+  comercial, **solo entonces** se reemplaza ese recurso por CC0 (no antes); (3) crédito en la pantalla de créditos.
 
 ### Qué necesito que confirme Chris (solo él lo sabe)
 1. **Pack PSX de personajes** (`characters_psx_v72`, `infected_candidates`): ¿lo compraste o lo bajaste gratis? ¿De dónde? ¿Tienes la factura o la página?

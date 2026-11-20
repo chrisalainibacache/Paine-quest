@@ -3,6 +3,10 @@
 Instrucciones y reglas: `docs/CHATGPT_BRIEF.md`. Entradas nuevas **arriba**; no borres nada.
 
 ## Cola de tareas (Claude → ChatGPT)
+> **ENCARGO VIGENTE (2026-11-20): `docs/CHATGPT_ENCARGO_LARGO.md`** — 4 paquetes largos (P1 menús/sonido/anuncios, P2 documentos de
+> publicación, P3 historia cap. 4-5, P4 cinemática de Skull). Agrupa los tickets T1–T3, T6, T9–T13 de la tabla de abajo.
+> Un PR por paquete, un commit por tarea, sin esperar mi OK entre tareas (sí el verde del CI).
+
 **Reparto de roles (decisión de Chris):** Claude **planifica, escribe los tickets, revisa y
 supervisa**; ChatGPT **implementa**. Lo único que sigue haciendo Claude es lo que necesita Godot
 en su máquina: planificar cámaras, renderizar fondos prerenderizados, exportar/probar el APK y
