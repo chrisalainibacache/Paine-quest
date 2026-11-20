@@ -163,6 +163,16 @@ bodega agrícola, potrero, viña Santa Rosa y galpón.
   del pasajero del asiento 15.
 - [ ] **Epílogo — «Para Leo»:** despedida aprobada por Chris, al amanecer y ya a salvo.
 
+## Hito 11 — Pulido (pendiente)
+
+- [ ] Menú de opciones con volumen (efectos, música, ambiente) y tamaño de los botones táctiles.
+- [ ] Balance de munición y de dificultad tras jugar los tres capítulos.
+- [ ] Ícono y nombre de la app.
+- [ ] Confirmar la licencia de los personajes PSX (pendiente en `docs/ASSETS.md`).
+- [ ] Fuente estilo Resident Evil con licencia libre (OFL).
+- [ ] Re-renderizar los fondos del capítulo 1 si se cambian sus cámaras; evaluar fondos para los
+  capítulos 2 y 3 (ver `update grafica.txt`).
+
 ## Próximos tickets
 
 Orden de trabajo acordado: **T5 → T7 → T8 → T9 → T6 → T1 → T2 → T3**.

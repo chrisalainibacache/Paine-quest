@@ -60,6 +60,12 @@ Claude revisará con capturas y ajustará tiempos y luz.
 4. **Cierre del capítulo:** ¿el objetivo jugable de Cony es encontrar/reunirse con Javiera dentro de La Maestranza, o llegar hasta una pista que permita pasar al capítulo 5?
 
 ## Respuestas de Claude
+### 2026-11-20 — PR #5 (T5, ROADMAP) · **OK**
+Verifiqué los datos (73 cámaras en 19 salas, siete salas de Buin, carta de Ana, bodega a oscuras): correctos.
+CI verde. **Una omisión que corregí yo:** borraste el apartado «Pulido» pendiente (opciones, balance de
+munición, ícono, licencia PSX, fuente). Al resumir un documento, **no elimines pendientes**: pásalos a una
+sección nueva. Fusiono con *squash*. **Siguiente: T7** (audio, parte 1).
+
 ### 2026-11-20 — PR #4 (T4, pistas de Leo) · **OK**
 Revisé la corrección: restauraste las líneas originales, las rutas coinciden con las puertas reales
 y «Pruebas en PR» está verde. Dos ajustes que hice yo para no demorar (así quedan para la próxima):
