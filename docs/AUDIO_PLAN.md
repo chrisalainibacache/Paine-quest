@@ -101,4 +101,9 @@ Un nodo en `main.tscn` (o clase con estado estático, como `Sfx`) que:
   `unlock_1..2`, `gate_chain_1..2`, `pickup_1..3`, `page_1..4`, `typewriter_1..5`, `menu_1..3`, `heal_1..2`,
   `radio_static_1` (33 archivos, 0,26 MB). El juego ya usa `door`, `locked`, `unlock`, `pickup`, `page`, `typewriter`
   y `menu`; `door_close`, `door_metal`, `gate_chain`, `heal` y `radio_static` esperan que el código los use.
-- Siguientes tandas: animales (Leo, Kiara y Nala) → ambientes → música.
+- **Tanda 4 — ambientes y música (hecha):** `assets/audio/ambience/` con los **14 ambientes** de §5 (bucles de 24 s sin
+  corte, 1,5 MB) y `assets/audio/music/` con `title`, `explore_night`, `explore_day`, `tension`, `safe` y `leo`
+  (bucles de 70 a 90 s, 4,4 MB). **Hoy suenan** (por el `AudioDirector`): los 14 ambientes, `explore_night`,
+  `explore_day` y `tension`. **Faltan por conectar:** `title` (pantalla de título), `safe` (sala de la máquina de
+  escribir) y `leo` (epílogo). La música de Kevin MacLeod exige **crédito en el juego** (ticket T10).
+- Total de audio hoy: ≈ 6,8 MB (tope: 10 MB). Falta la tanda de animales (Leo, Kiara y Nala).

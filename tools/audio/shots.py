@@ -76,6 +76,48 @@ def save_ogg(x: np.ndarray, path: str, quality: float = 3.0) -> int:
     return os.path.getsize(path)
 
 
+def make_loop(x: np.ndarray, length: float, xfade: float = 2.0) -> np.ndarray:
+    """Convierte un trozo en un bucle sin corte: la cola se funde (potencia igual) con el inicio.
+    Si el trozo es más corto que `length`, se repite con el mismo fundido."""
+    n, xf = int(RATE * length), int(RATE * xfade)
+    if len(x) < n + xf:
+        reps = int(np.ceil((n + xf) / max(len(x) - xf, 1))) + 1
+        base = x
+        out = base
+        for _ in range(reps):
+            fade_in = np.sin(np.linspace(0, np.pi / 2, xf)) ** 1
+            fade_out = np.cos(np.linspace(0, np.pi / 2, xf))
+            out = np.concatenate([out[:-xf], out[-xf:] * fade_out + base[:xf] * fade_in, base[xf:]])
+            if len(out) >= n + xf:
+                break
+        x = out
+    seg = x[: n + xf].copy()
+    fade_in = np.sin(np.linspace(0, np.pi / 2, xf))
+    fade_out = np.cos(np.linspace(0, np.pi / 2, xf))
+    head = seg[:xf] * fade_in + seg[n:n + xf] * fade_out
+    return np.concatenate([head, seg[xf:n]]).astype(np.float32)
+
+
+def rms_norm(x: np.ndarray, target_db: float = -30.0) -> np.ndarray:
+    rms = float(np.sqrt(np.mean(x ** 2))) or 1.0
+    return x * (10 ** (target_db / 20) / rms)
+
+
+def load_stereo(path: str, rate: int = RATE) -> np.ndarray:
+    """Lee audio como estéreo float32 [n, 2] a `rate` Hz."""
+    out = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-ac", "2", "-ar", str(rate), "-f", "f32le", "-"],
+                         capture_output=True, check=True).stdout
+    return np.frombuffer(out, dtype=np.float32).reshape(-1, 2).copy()
+
+
+def save_ogg_stereo(x: np.ndarray, path: str, quality: float = 2.0) -> int:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    pcm = (np.clip(x, -1, 1) * 32767).astype("<i2").tobytes()
+    subprocess.run(["oggenc", "-Q", "-q", str(quality), "--raw", "--raw-bits=16", "--raw-chan=2",
+                    "--raw-rate=%d" % RATE, "-o", path, "-"], input=pcm, check=True)
+    return os.path.getsize(path)
+
+
 def report(x: np.ndarray, label: str) -> str:
     env = envelope(x, 10.0)
     rms = float(np.sqrt(np.mean(x ** 2))) + 1e-9

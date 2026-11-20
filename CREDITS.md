@@ -37,5 +37,17 @@ Todos de OpenGameArt, licencia **CC0** (dominio público); se cortan, normalizan
   /item-pickup-key · /typewriter-sounds · /book-flip-sounds · /10-book-page-flips · /chain-winch-sounds · /7-eating-crunches ·
   /10-clicks-and-switches · /static
 
+## Música (licencia CC BY 4.0: el crédito es obligatorio)
+Música de **Kevin MacLeod** (https://incompetech.com), licencia Creative Commons: Attribution 4.0
+(http://creativecommons.org/licenses/by/4.0/). Se recortan y vuelven bucle con `tools/audio/build_music.py`.
+- «Ossuary 1 - A Beginning» (pantalla de título) · «Dark Fog» (capítulos 1 y 2) · «Lightless Dawn» (capítulo 3) ·
+  «Unseen Horrors» (persecución) · «Hidden Past» (sala segura) · «Heartbreaking» (tema de Leo).
+
+## Audio (ambientes)
+Capas de OpenGameArt, todas **CC0**, mezcladas con `tools/audio/build_ambience.py`: **Wind** / **wind1**,
+**Crickets Ambient Noise - loopable**, **The Shop** (LEGIT Audio), **Loopable Dungeon Ambience**, **Dripping water loop**,
+**4 Atmospheric ghostly loops**, **Fireplace Sound loop**, **Ambient Bird Sounds**, **Sea and river wave sounds**,
+**Ghostly Humming**, **Static**.
+
 ## Texturas
 - **ambientCG**, CC0 — https://ambientcg.com
