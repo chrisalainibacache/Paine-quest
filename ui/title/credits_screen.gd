@@ -5,6 +5,10 @@ const TITLE_SCENE := "res://ui/title/title_screen.tscn"
 const CREDITS_PATH := "res://CREDITS.md"
 
 @onready var content: RichTextLabel = $Panel/Layout/Scroll/Content
+signal closed
+
+var embedded := false
+
 @onready var back_button: Button = $Panel/Layout/Back
 
 
@@ -46,4 +50,8 @@ func _plain_text(source: String) -> String:
 
 func _go_back() -> void:
     Sfx.play("menu", null, -6.0)
+    if embedded:
+        visible = false
+        closed.emit()
+        return
     get_tree().change_scene_to_file(TITLE_SCENE)

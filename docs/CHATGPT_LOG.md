@@ -60,7 +60,10 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 `creature_*` aún no tienen archivo (`Sfx.play` ignora nombres desconocidos, no falla); saltable; **una sola vez**.
 Claude revisará con capturas y ajustará tiempos y luz.
 
-## Preguntas de ChatGPT
+8012## Preguntas de ChatGPT
+### 2026-11-20 — P1-b
+1. [CONFIRMAR] ¿Cuál es la URL pública definitiva de la política de privacidad para guardarla en `data/store_links.tres`?
+
 ### 2026-11-19 — Aclaraciones antes de diseñar el capítulo 4
 1. **Momento y continuidad:** el GDD sitúa el capítulo 3 el sábado por la mañana, después del viaje nocturno de los capítulos 1–2. ¿El capítulo 4 transcurre todavía el sábado (continuación inmediata) o hay un salto horario?
 2. **Javiera en La Maestranza:** sabemos por la radio de Rosa que trabaja allí. ¿Qué función cumple exactamente (personal sanitario, logística, administración u otra) y cómo llegó a San Bernardo?
@@ -148,15 +151,24 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P1-b: menú de opciones (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Añadí OPCIONES desde el título y la mochila. Incluye sliders táctiles de 0–100 % para Sfx, Música y Ambiente; persiste en `user://ajustes.cfg` y aplica los valores al iniciar, manteniendo el nivel base actual de cada bus. Incluye el interruptor gráfico existente, acceso a créditos reutilizable como panel y enlace de privacidad bloqueado de forma segura mientras la URL siga pendiente.
+- **Archivos tocados:** `systems/game_settings.gd`, `data/store_links.gd`, `data/store_links.tres`, `ui/options/options_menu.gd`, `ui/options/options_menu.tscn`, `ui/title/title_screen.gd`, `ui/title/title_screen.tscn`, `tools/level_gen/title.py`, `ui/title/credits_screen.gd`, `ui/inventory/inventory_menu.gd`, `ui/inventory/inventory_menu.tscn`, `tools/level_gen/inventory.py`, `tests/credits_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** amplié la prueba de créditos para comprobar persistencia/aplicación de volumen, rangos, botones y acceso desde título/mochila. Godot no está disponible localmente. El primer CI detectó que faltaba reflejar el nuevo botón en `tools/level_gen/inventory.py`; corregí el generador y la escena. Ese intento tuvo 0 `SCRIPT ERROR`, pero no cuenta como verde. El commit corregido espera un nuevo CI.
+- **Qué debe probar Chris en el teléfono:** cuando CI esté verde, abrir OPCIONES desde título y mochila; mover los tres sliders, cerrar y reabrir el juego para comprobar persistencia; abrir CRÉDITOS desde opciones; pulsar POLÍTICA DE PRIVACIDAD (debe informar que falta confirmar la URL, sin abrir una dirección inventada).
+- **Dudas:** [CONFIRMAR] URL pública final de la política de privacidad para `data/store_links.tres`.
+- **Estado:** CORRECCIÓN DE GENERADOR SUBIDA; CI pendiente.
+
 ### 2026-11-20 — P1-a2: correcciones visuales y limpieza de créditos (PR #9)
 
 - **Qué corregí:** Moví CRÉDITOS a la esquina superior derecha (220×56, margen 20 px); restauré los pies a 18 px y 15 px con offsets verticales −50/−16. La pantalla ahora quita delimitadores de código y negrita sin destruir el comodín de `assets/*/LICENSE.txt`, convierte viñetas y omite el encabezado duplicado «Créditos».
 - **Pruebas añadidas:** comprueban que el texto no contenga acentos graves ni `**`, que conserve `assets/*/LICENSE.txt` y que no repita el encabezado.
 - **Archivos tocados:** `tools/level_gen/title.py`, `ui/title/title_screen.tscn` (regenerada según el generador), `ui/title/credits_screen.gd`, `tests/credits_test.gd`, `docs/CHATGPT_LOG.md`.
-- **Pruebas:** Godot no está disponible localmente. El commit anterior `8069b44` tuvo «Pruebas en PR» verde (run 44825621399) y «Validación de pistola» verde (run 44825621231), con el paso de sincronía de generadores y exportación completados; el log de ese CI se revisará también para confirmar 0 `SCRIPT ERROR`. El nuevo commit queda pendiente de CI; no afirmo que la corrección esté validada hasta que termine en verde y sus logs no contengan esa cadena.
+- **Pruebas:** Godot no está disponible localmente. El commit anterior `8069b44` tuvo «Pruebas en PR» verde (run 44825621399) y «Validación de pistola» verde (run 44825621231), con el paso de sincronía de generadores y exportación completados; el log de ese CI se revisará también para confirmar 0 `SCRIPT ERROR`. «Pruebas en PR» (run 44827329255) y «Validación de pistola» (run 44827329157) terminaron en verde. El log completo del job de pruebas contiene 0 `SCRIPT ERROR`; también pasaron generadores, auditoría de cámaras y paquete exportado.
 - **Qué debe probar Chris en el teléfono:** nada todavía; después del CI, comprobar el título y los créditos a 1280×544.
 - **Dudas:** ninguna.
-- **Estado:** CORRECCIÓN P1-a2 SUBIDA; esperar CI verde antes de P1-b.
+- **Estado:** P1-a2 VALIDADO — CI verde, 0 `SCRIPT ERROR`.
 
 ### 2026-11-20 — P1-a: créditos en el juego (rama: chatgpt/P1-menus-audio-ads, PR: #9)
 

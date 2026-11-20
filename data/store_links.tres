@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="StoreLinks" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/store_links.gd" id="1_store_links"]
+
+[resource]
+script = ExtResource("1_store_links")
+privacy_policy_url = "[CONFIRMAR]"

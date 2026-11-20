@@ -6,13 +6,17 @@ const CREDITS_SCENE := "res://ui/title/credits_screen.tscn"
 
 @onready var continue_button: Button = $Menu/Continue
 @onready var credits_button: Button = $CreditsButton
+@onready var options_button: Button = $OptionsButton
+@onready var options_menu: OptionsMenu = $OptionsMenu
 
 
 func _ready() -> void:
+    GameSettings.load_and_apply()
     continue_button.disabled = not SaveSystem.has_save()
     $Menu/NewGame.pressed.connect(_new_game)
     continue_button.pressed.connect(_continue)
     credits_button.pressed.connect(_show_credits)
+    options_button.pressed.connect(options_menu.open)
     var title := $Title as Label
     title.modulate.a = 0.0
     create_tween().tween_property(title, "modulate:a", 1.0, 2.0)

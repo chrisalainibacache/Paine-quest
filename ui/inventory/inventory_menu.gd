@@ -4,6 +4,7 @@ extends CanvasLayer
 
 const ITEM_VIEW := preload("res://ui/inventory/item_view.gd")
 const SLOT_SIZE := Vector2(98, 98)
+const OPTIONS_SCENE := preload("res://ui/options/options_menu.tscn")
 
 @onready var root: Control = $Root
 @onready var grid: GridContainer = $Root/Grid
@@ -29,6 +30,7 @@ var _counts: Array[Label] = []
 var _paused_before := false
 ## Cuadro en que se abrió: el mismo toque de MOCHILA no debe cerrarla al tiro.
 var _opened_frame := -1
+var options_menu: OptionsMenu
 
 
 func _ready() -> void:
@@ -38,6 +40,9 @@ func _ready() -> void:
     for i in Inventory.SIZE:
         _build_slot(i)
     $Root/Header/Close.pressed.connect(close)
+    options_menu = OPTIONS_SCENE.instantiate() as OptionsMenu
+    add_child(options_menu)
+    $Root/Header/Options.pressed.connect(options_menu.open)
     $Root/Header/ItemsTab.pressed.connect(_show_tab.bind(false))
     $Root/Header/NotesTab.pressed.connect(_show_tab.bind(true))
     $Root/Examine/Close.pressed.connect(func() -> void: examine.visible = false)
@@ -76,8 +81,8 @@ func close() -> void:
 
 
 func _process(_delta: float) -> void:
-    if visible and not Dialogue.is_open() and Engine.get_process_frames() != _opened_frame \
-            and Input.is_action_just_pressed(&"inventory"):
+    if visible and (options_menu == null or not options_menu.visible) and not Dialogue.is_open() \
+            and Engine.get_process_frames() != _opened_frame and Input.is_action_just_pressed(&"inventory"):
         close()
 
 
