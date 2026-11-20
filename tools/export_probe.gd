@@ -47,6 +47,9 @@ func _run() -> void:
         var stream := load("res://assets/audio/sfx/%s.ogg" % sound) as AudioStream
         if stream == null or stream.get_length() <= 0.0:
             problems.append("sonido que no carga en el paquete: %s" % sound)
+    # La cinemática de apertura tiene que llegar en el paquete y poder leerse.
+    if not (load(SceneLoader.OPENING_VIDEO) is VideoStream):
+        problems.append("el video de apertura no carga en el paquete")
     print("PAQUETE: %d notas, %d objetos examinables, %d pistas de Leo, %d introducciones" % [notes, examines, hints, intros])
     for p in problems:
         print("  ✗ ", p)
