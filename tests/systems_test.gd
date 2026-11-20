@@ -12,6 +12,23 @@ const TICKET_OFFICE := "res://levels/station/ticket_office.tscn"
 const SOUTH_PLATFORM := "res://levels/station/south_platform.tscn"
 
 
+class FakeAdProvider extends AdProvider:
+    var ready := true
+    var pending: Callable
+
+    func is_ready() -> bool:
+        return ready
+
+    func show(_placement: StringName, on_done: Callable) -> void:
+        pending = on_done
+
+    func complete(rewarded: bool) -> void:
+        var callback := pending
+        pending = Callable()
+        if callback.is_valid():
+            callback.call(rewarded)
+
+
 func _run() -> void:
     GameState.new_game()
     var weapons := 0
@@ -24,6 +41,7 @@ func _run() -> void:
         _check(GameState.inventory.has_id(ammo_id), "y munición %s" % ammo_id)
     await _start_game("user://test_sistemas.json")
     _audio_systems()
+    _ads_systems()
     await _opening_cinematic()
     var player: Player = main.player
     _inventory_rules()
@@ -41,6 +59,68 @@ func _run() -> void:
     await _chapter_route(player)
     await _chapter_two()
     _finish()
+
+
+## Anuncios: proveedor falso, límites de frecuencia y compra para quitar anuncios.
+func _ads_systems() -> void:
+    var original_play_time := GameState.play_time
+    var saved_enemy_states: Dictionary = {}
+    for enemy: Node in get_nodes_in_group("enemies"):
+        if enemy is Infected:
+            saved_enemy_states[enemy] = enemy.state
+            enemy.state = Infected.State.IDLE
+    GameState.play_time = 60.0
+    Ads.reset_for_tests()
+    var provider := FakeAdProvider.new()
+    Ads.configure_provider(provider)
+    _check(Ads.available(), "anuncios: el proveedor de prueba está disponible tras 60 s de partida")
+
+    var skipped_reward := [true]
+    Ads.show_rewarded(&"test", func(was_rewarded: bool) -> void:
+        skipped_reward[0] = was_rewarded
+    )
+    _check(provider.pending.is_valid(), "anuncios: al solicitarlo se abre el proveedor falso")
+    provider.complete(false)
+    _check(not skipped_reward[0], "anuncios: saltar el anuncio no entrega la recompensa")
+
+    Ads._last_shown_unix = 0.0
+    Ads._last_play_time = 0.0
+    Ads._chapter_count = 0
+    var rewarded := [false]
+    Ads.show_rewarded(&"test", func(was_rewarded: bool) -> void:
+        rewarded[0] = was_rewarded
+    )
+    _check(provider.pending.is_valid(), "anuncios: el proveedor permite iniciar otra prueba tras reiniciar el límite")
+    provider.complete(true)
+    _check(rewarded[0], "anuncios: completar la cuenta regresiva entrega la recompensa")
+    _check(not Ads.available(), "anuncios: el enfriamiento impide mostrar otro anuncio")
+
+    Ads._last_shown_unix = Time.get_unix_time_from_system() - Ads.config.cooldown_seconds - 1.0
+    GameState.play_time += Ads.config.minimum_play_seconds
+    Ads._last_play_time = GameState.play_time - Ads.config.minimum_play_seconds
+    Ads._chapter_count = Ads.config.max_per_chapter
+    _check(not Ads.available(), "anuncios: se respeta el máximo de tres por capítulo")
+
+    Ads.removed = true
+    provider.ready = false
+    _check(Ads.available(), "anuncios: quitar publicidad habilita la recompensa sin proveedor")
+    var removed_reward := [false]
+    Ads.show_rewarded(&"test", func(was_rewarded: bool) -> void:
+        removed_reward[0] = was_rewarded
+    )
+    _check(removed_reward[0] and not provider.pending.is_valid(),
+        "anuncios: con publicidad quitada entrega la recompensa sin mostrar anuncio")
+    var saved := ConfigFile.new()
+    _check(saved.load(GameSettings.SETTINGS_PATH) == OK and bool(saved.get_value("ads", "removed", false)),
+        "anuncios: Ads.removed queda persistido en ajustes.cfg")
+
+    Ads.removed = false
+    Ads.configure_provider(null)
+    Ads.reset_for_tests()
+    GameState.play_time = original_play_time
+    for enemy: Node in saved_enemy_states:
+        if is_instance_valid(enemy):
+            enemy.state = saved_enemy_states[enemy]
 
 
 ## Cinemática de apertura: una partida nueva la deja pendiente; sin video no cuelga nada.

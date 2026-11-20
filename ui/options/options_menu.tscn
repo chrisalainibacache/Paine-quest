@@ -31,9 +31,9 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 offset_left = -420.0
-offset_top = -235.0
+offset_top = -195.0
 offset_right = 420.0
-offset_bottom = 235.0
+offset_bottom = 195.0
 
 [node name="Layout" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
@@ -41,7 +41,7 @@ theme_override_constants/separation = 8
 
 [node name="Title" type="Label" parent="Panel/Layout"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 44)
 horizontal_alignment = 1
 vertical_alignment = 1
 text = "OPCIONES"
@@ -49,12 +49,12 @@ theme_override_font_sizes/font_size = 36
 
 [node name="SfxRow" type="HBoxContainer" parent="Panel/Layout"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 64)
-theme_override_constants/separation = 18
+custom_minimum_size = Vector2(0, 58)
+theme_override_constants/separation = 12
 
 [node name="Label" type="Label" parent="Panel/Layout/SfxRow"]
 layout_mode = 2
-custom_minimum_size = Vector2(190, 0)
+custom_minimum_size = Vector2(170, 0)
 vertical_alignment = 1
 text = "EFECTOS"
 theme_override_font_sizes/font_size = 24
@@ -150,7 +150,7 @@ focus_mode = 0
 
 [node name="Message" type="Label" parent="Panel/Layout"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 34)
+custom_minimum_size = Vector2(0, 24)
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3

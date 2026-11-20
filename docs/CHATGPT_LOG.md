@@ -154,6 +154,15 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P1-d: anuncios con recompensa y proveedor de prueba (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Implementé la interfaz de proveedor de anuncios, un proveedor de prueba con cuenta regresiva de 3 segundos y botón SALTAR, y el sistema estático Ads. La recompensa solo se entrega al completar el anuncio; quitar anuncios se persiste en ajustes y entrega recompensas sin mostrar publicidad. Añadí límites configurables: 300 s entre anuncios, máximo 3 por capítulo y 60 s de juego entre recompensas/anuncios; bloqueos durante diálogos, cinemáticas y combate. Apliqué además el ajuste visual de opciones solicitado en la revisión.
+- **Archivos tocados:** `systems/ads.gd`, `systems/ads_provider.gd`, `systems/debug_ad_provider.gd`, `data/ads_config.gd`, `data/ads_config.tres`, `ui/options/options_menu.tscn`, `tests/systems_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** añadí pruebas de disponibilidad, entrega/no entrega, enfriamiento, máximo por capítulo y persistencia de `Ads.removed`. No ejecuté Godot localmente. CI «Pruebas en PR» y revisión de logs quedan pendientes para este commit; el commit anterior tenía CI verde y 0 `SCRIPT ERROR`.
+- **Qué debe probar Chris en el teléfono:** cuando el CI esté verde, iniciar una partida, esperar a que se habiliten las recompensas, pulsar una oferta de prueba cuando se integre en el juego y comprobar la cuenta regresiva; SALTAR no debe entregar recompensa. P1-e conectará las ofertas visibles de munición, curativo y continuar.
+- **Dudas / decisiones que necesito:** ninguna nueva. La URL de privacidad continúa pendiente de confirmación.
+- **Estado:** IMPLEMENTADO — pendiente CI «Pruebas en PR» y revisión de Claude.
+
 ### 2026-11-20 — P1-c: conectar SFX pendientes y música (PR #9)
 
 - **Qué hice:** Conecté los sonidos chase, death, rise, heavy_step, groan_far, hurt_low, breath_low, door_close, door_metal, gate_chain, heal y radio_static en sus eventos de juego. Añadí aliases sintetizados para que sigan sonando si falta su OGG, y un contador de solicitudes en Sfx para pruebas. AudioDirector ahora selecciona title en la pantalla de título, safe en salas con máquina de escribir y expone play_music("leo") para el epílogo; el final de capítulo 5 lo invoca.
