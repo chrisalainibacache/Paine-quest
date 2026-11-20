@@ -67,6 +67,16 @@ Claude revisará con capturas y ajustará tiempos y luz.
 3. **Alcance del misterio:** confirmo que el vagón del Centro de Nos permanece cerrado durante el capítulo 4. ¿Hay algún dato concreto que sí podamos insinuar sobre su contenido, o debe quedar completamente sin revelar hasta el capítulo 5?
 4. **Cierre del capítulo:** ¿el objetivo jugable de Cony es encontrar/reunirse con Javiera dentro de La Maestranza, o llegar hasta una pista que permita pasar al capítulo 5?
 
+### P3 — decisiones narrativas pendientes de Chris
+
+1. **Asiento 15:** el GDD y la respuesta de Claude del PR #3 dicen que se resuelve en capítulo 5; el encargo actualizado del 20-11-2026 dice que permanece abierto para una segunda parte. La propuesta P3 lo deja abierto. ¿Se confirma?
+2. **Vagón del Centro de Nos:** se mantiene cerrado en capítulo 4. ¿Debe seguir cerrado al terminar el capítulo 5 o se abre sin revelar el contenido ni el misterio del asiento 15?
+3. **Paz:** ¿se confirma el rol provisional de personal sanitario de apoyo en La Maestranza?
+4. **Skull:** ¿altura oficial 2,3 m o 2,6 m? ¿Se aprueba la grúa como mecánica ambiental del jefe?
+5. **Rosa-Skull:** ¿Rosa muere explícitamente al ser derrotada o queda ambiguo su destino? ¿Se aprueban las líneas propuestas?
+6. **Semillas de la segunda parte:** A) orden de traslado con hora de origen vacía; B) segundo número de precinto; C) cama ocupada sin paciente; D) destino del asiento 15 corregido sin firma. Son indicios, no explicaciones del origen. ¿Cuáles se conservan?
+
+
 ## Respuestas de Claude
 ### 2026-11-20 — PR #9 (P1-a2, P1-b y P1-c) · **OK con dos ajustes menores (se pueden hacer dentro de P1-d)**
 Probé la rama completa: **las 4 pruebas pasan en local** (smoke, systems, levels, credits), el CI está en verde, y vi las pantallas a 1280×544:
@@ -172,6 +182,15 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
+
+- **Qué hice:** redacté la propuesta de 8 salas para La Maestranza, 8 salas para Santiago/Centro de Nos, jefe Skull original para capítulo 4, jefe final Rosa-Skull para capítulo 5, epílogo «Para Leo», 8 documentos propuestos, diálogos de Leo/Paz, escalera de seis pistas de «La señora», escena del aplauso y revisión de continuidad.
+- **Archivos tocados:** docs/GDD.md, docs/ROADMAP.md, docs/cap4_notas.md, docs/cap4_dialogos.md, docs/continuidad_p3.md y docs/CHATGPT_LOG.md.
+- **Pruebas:** «Pruebas en PR» run `44840215999` success; generadores, importación, pruebas automáticas, auditoría de cámaras y exportación correctas; 0 `SCRIPT ERROR`. «Validación de pistola» run `44840222728` success; 0 `SCRIPT ERROR`.
+- **Qué debe revisar Claude:** coherencia con GDD, guion, documentos existentes, tono de Leo/Paz, duración y disparador de la escena del aplauso, y si el diseño de salas se puede implementar con roomkit sin introducir sistemas nuevos.
+- **Qué debe confirmar Chris:** las decisiones listadas en docs/continuidad_p3.md, especialmente asiento 15, vagón del Centro de Nos, rol de Paz, altura del Skull, mecanismo del jefe y destino final de Rosa.
+- **Estado:** PROPUESTA DOCUMENTAL — no implementar capítulo 4 ni cinemática hasta revisión de Claude y confirmación de Chris; la implementación D requiere «APROBADO D».
+
 ### 2026-11-20 — T8: ambiente por sala (rama: chatgpt/T8-room-ambience)
 
 - **Qué hice:** Añadí `Room.ambience: StringName` exportado y el parámetro `ambience=` a `roomkit.Kit`. Asigné los 14 ambientes de AUDIO_PLAN §5 a las 19 salas de los capítulos 1–3 mediante sus generadores; actualicé también los dos generadores antiguos que no usan Kit.

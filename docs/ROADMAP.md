@@ -6,8 +6,7 @@ código termina con «Pruebas en PR» verde. Chris prueba el APK en su teléfono
 ## Estado general
 
 - **Capítulos completos:** 1 (Estación de Paine), 2 (vías y tren destruido) y 3 (Buin).
-- **Pendientes de diseño:** capítulo 4, La Maestranza; capítulo 5, Santiago / Centro de Nos;
-  epílogo «Para Leo».
+- **Diseño narrativo:** propuesta P3 para capítulos 4–5 y epílogo redactada en PR #11; pendiente de revisión de Claude y confirmación de Chris. La implementación sigue bloqueada.
 - **Próximos trabajos técnicos:** audio real (T7 y T8), cinemática en vivo de Skull (T9) y
   pruebas de orientación de puertas (T6).
 - **Protagonistas:** Isabella y su hermana Paz. Los nombres internos antiguos, como `cony`
@@ -154,7 +153,7 @@ bodega agrícola, potrero, viña Santa Rosa y galpón.
 - [ ] Escena generada con Python y reproducida por el sistema de cinemáticas; no prerenderizar.
 - [ ] Claude revisa la puesta en escena con capturas.
 
-## Hito 10 — Capítulos siguientes (diseño pendiente)
+## Hito 10 — Capítulos siguientes (diseño redactado; aprobación pendiente)
 
 - [ ] **Capítulo 4 — La Maestranza (San Bernardo):** 6–8 salas pequeñas y cerradas. Paz trabaja
   allí; el encuentro con Skull se diseña como persecución o jefe del capítulo. El vagón del
@@ -162,6 +161,11 @@ bodega agrícola, potrero, viña Santa Rosa y galpón.
 - [ ] **Capítulo 5 — Santiago / Centro de Nos:** Isabella y Paz juntas; se resuelve el misterio
   del pasajero del asiento 15.
 - [ ] **Epílogo — «Para Leo»:** despedida aprobada por Chris, al amanecer y ya a salvo.
+
+- [x] Borrador narrativo de capítulo 4, capítulo 5 y epílogo «Para Leo» (P3).
+- [x] Propuesta de salas, notas, diálogos y continuidad documentada.
+- [ ] Revisión de Claude y confirmación de Chris.
+- [ ] Implementación del capítulo 4: bloqueada hasta que Claude escriba «APROBADO D» en el log.
 
 ## Hito 11 — Pulido (pendiente)
 
