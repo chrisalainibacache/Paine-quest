@@ -101,7 +101,7 @@ provisoria**); el vagón del Centro de Nos sigue cerrado hasta el capítulo 5.
 (más alto que un hombre, cara pelada «como una calavera», resiste el fuego, no corre: espera y busca), **sin nombrarlo ni verlo**: todas las
 notas del capítulo 4 y 5 pueden mencionarlo (ver GDD «Rosa y Skull en las notas»). (2) **Rosa** quedó sospechosa (cómo cruzó hasta Buin no se
 explica; Leo cree que es un infectado distinto): no la resuelvas, puedes dejar ecos. (3) La radio de Paz pregunta por **sobrevivientes**.
-(4) El capítulo 2 no es el final del juego.
+(4) El capítulo 2 no es el final del juego. (5) **Los gatos son inmunes a los infectados** (no se contagian, ni Skull los ataca): regla del mundo, sin explicar el porqué; puedes sembrarla en notas, pero Leo no la dice en voz alta.
 - **P3-a Capítulo 4 «La Maestranza»** en `docs/GDD.md` §2 y §8: 6 a 8 salas pequeñas y cerradas (nombre, función, conexiones,
   objetos, enemigos, recompensas, **qué cámara/ángulo conviene** y rutas de Leo). Un enemigo nuevo: **Skull** (nunca se ve
   completo; ver GDD «Skull, la Criatura» y su cinemática P4) como persecución/jefe. Equilibrio de munición del capítulo.

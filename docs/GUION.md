@@ -179,8 +179,10 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 3. **El capítulo 2 no es el final** (GDD corregido).
 4. **Skull aparece en las notas** del camino como un infectado más grande y aterrador (ya en la nota del maquinista, la orden del día de Buin y la carta de Ana), sin nombrarlo ni verlo.
 
+5. **Los gatos son inmunes a los infectados** (regla del mundo; incluye a Skull). No se explica el porqué.
+
 **Siguen abiertos:**
 - **Skull en el juego:** las notas ya lo anuncian; faltan los ecos (golpes lejanos, Leo erizándose) y la cinemática (paquete P4).
 - **El hombre del asiento 15:** hoy sabemos que tenía la mano vendada, tosía sangre y venía del Centro de Nos. Se mantiene abierto.
 - **Rosa, ¿qué es?** Queda abierto para el capítulo 4 en adelante o la parte 2.
-- **Leo y Skull:** si nadie ataca a Leo, ¿tampoco Skull? Decidir.
+- **Por qué los gatos son inmunes:** sin explicación en este juego (parte 2).

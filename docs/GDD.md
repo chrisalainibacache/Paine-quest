@@ -112,6 +112,11 @@ en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice)
 - **Encuentro:** **sí habrá**. Propuesta: en el **capítulo 4 (La Maestranza)**, como persecución o
   jefe final del capítulo. Lo diseña el ticket T1 (el «enemigo o jefe nuevo» del capítulo 4 es ella).
 
+### Regla del mundo: los gatos son inmunes (decisión de Chris, noviembre)
+**Los gatos son inmunes a los infectados:** no se contagian y los infectados no los atacan (tampoco Skull). Por eso nadie ataca a Leo y puede
+caminar entre ellos. **No se explica por qué** (queda como misterio para la parte 2, junto al origen de la infección). Se puede sembrar en
+notas y diálogos sin explicarlo (p. ej. alguien que vio un gato durmiendo junto a un infectado). Leo no lo dice en voz alta.
+
 ### Rosa y Skull en las notas (decisiones de Chris, noviembre)
 - **Rosa (capítulo 3):** no se explica cómo llegó de Paine a Buin. Isabella empieza a sospechar de ella y **Leo sospecha más que Isabella**:
   cree que es **un infectado distinto**. La pregunta queda abierta (puede resolverse en la parte 2).
