@@ -124,6 +124,18 @@ larguísimos que llegan al suelo y terminan en garras**, **cráneo grande y alar
 **púas de hueso en la espalda**, torso flaco con costillas a la vista. **Solo se ve de silueta/sombra y en destellos**; el cuerpo completo
 solo en el encuentro del capítulo 4. Estado: prototipo (v0) de forma; el modelo final con textura se afina cuando se acerque el capítulo 4.
 
+### PROPUESTA (pendiente de aprobación de Chris): Rosa se transforma en Skull en la batalla final
+Idea de Chris: **Rosa es, en realidad, Skull**, y se la ve transformarse en la **batalla final**. Para que encaje **sin tocar la línea de tiempo**
+(el maquinista vio a un «sujeto grande» el viernes por la mañana, el ejército lo reportó «al sur del puente» el viernes a las 21:00, y Rosa
+estaba en Paine a las 23:00 y dice que la mordieron «en el puente, anoche»), Claude propone esta lectura:
+- **Hay un Skull original** (el de las notas, el que rompe la puerta en la cinemática). Es el **jefe del capítulo 4**.
+- **Rosa fue mordida por él en el puente.** Por eso es «un infectado distinto» (lo que sospecha Leo): su infección es la de Skull y avanza más lento.
+- **Rosa lo sabe a medias** («Ándate, niña. Llévate al gato»): intenta avisar y proteger.
+- **Rosa los sigue** (su puerta aparece rota más adelante: eco para el capítulo 4 o 5) y en la **batalla final se completa la transformación**:
+  Rosa-Skull es el **jefe final**. Es el golpe emocional: la mujer que dejó la pistola en la boletería para Isabella.
+- Sigue abierto para la parte 2 por qué Skull busca a Isabella y por qué los gatos son inmunes.
+**Si Chris aprueba:** se cambian los textos de Rosa (más pistas), se añade un eco en el capítulo 4/5 y se escribe el jefe final en el capítulo 5 (ChatGPT, P3).
+
 ### Rosa y Skull en las notas (decisiones de Chris, noviembre)
 - **Rosa (capítulo 3):** no se explica cómo llegó de Paine a Buin. Isabella empieza a sospechar de ella y **Leo sospecha más que Isabella**:
   cree que es **un infectado distinto**. La pregunta queda abierta (puede resolverse en la parte 2).
