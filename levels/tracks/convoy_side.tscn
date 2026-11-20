@@ -50,6 +50,7 @@ size = Vector3(7.1667, 3, 5.25)
 [node name="ConvoySide" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Costado del convoy"
+ambience = &"tracks_night"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

@@ -4,7 +4,7 @@ from tracks_common import *
 T = "res://levels/tracks/%s.tscn"
 # El tren descarrilado: la locomotora volcada a un lado y un vagón fuera de
 # la vía al otro; Isabella avanza por el pasillo entre ambos y entra al vagón.
-k = Kit("DerailedTrain", "Tren descarrilado")
+k = Kit("DerailedTrain", "Tren descarrilado", ambience="fire_wreck")
 night(k, 0.055)
 X0, X1, Z0, Z1 = -9.0, 9.0, -4.2, 5.0
 track_bed(k, X0, X1, Z0, Z1, track_z=0.9, track_len=8.0, track_x=-5.0)

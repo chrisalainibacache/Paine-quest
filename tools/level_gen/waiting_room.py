@@ -32,7 +32,7 @@ env = s.subres("Environment", {
     "ambient_light_source": "2", "ambient_light_color": col((0.34, 0.33, 0.36)), "ambient_light_energy": "0.5",
     "fog_enabled": "true", "fog_light_color": col((0.04, 0.04, 0.05)), "fog_density": "0.05",
 })
-s.node("WaitingRoom", "Node3D", script=s.res("res://levels/kit/room.gd", "Script"), room_name='"Sala de espera"')
+s.node("WaitingRoom", "Node3D", script=s.res("res://levels/kit/room.gd", "Script"), room_name='"Sala de espera"', ambience='&"waiting_room"')
 s.node("Environment", "WorldEnvironment", ".", environment=env)
 
 # --- Piso, cielo y muros (cerrada por los 4 lados) ----------------------

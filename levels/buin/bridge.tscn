@@ -52,6 +52,7 @@ size = Vector3(6.875, 3, 6)
 [node name="Bridge" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Puente del Maipo"
+ambience = &"bridge_river"
 intro_lines = PackedStringArray("Sábado, 6:50. Puente del Maipo.", "El río viene crecido y café. Al otro lado está Buin.", "Leo: Huele a motor, a humo y a mucha gente junta. Ya no están... pero estuvieron.", "Leo: Camina por el medio, Isabella. Las barandas están sueltas.")
 
 [node name="Environment" type="WorldEnvironment" parent="."]

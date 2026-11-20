@@ -1,7 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-k = Kit("TicketOffice", "Boletería")
+k = Kit("TicketOffice", "Boletería", ambience="office")
 k.env((0.02, 0.02, 0.025), (0.34, 0.32, 0.3), 0.5, (0.04, 0.035, 0.03), 0.05)
 H = 2.9
 k.shell(-2.5, 2.5, -2.0, 2.0, H, floor="planks", wall="plaster_wall", ceiling="concrete_wall", wainscot="wood")

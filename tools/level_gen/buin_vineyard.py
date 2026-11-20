@@ -3,7 +3,7 @@ REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 from buin_common import *
 # Viña Santa Rosa: hileras de parras en la neblina de la mañana y, al fondo,
 # el galpón cerrado con llave. Entre las parras hay infectados (y un soldado).
-k = Kit("Vineyard", "Viña Santa Rosa")
+k = Kit("Vineyard", "Viña Santa Rosa", ambience="day_fields")
 dawn(k, 0.02)
 X0, X1, Z0, Z1 = -10.0, 10.0, -5.0, 5.0
 k.block("Ground", "Ground", (0, -0.5, 0), (X1 - X0 + 0.6, 1, Z1 - Z0 + 0.6), "dirt")

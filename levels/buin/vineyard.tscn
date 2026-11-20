@@ -55,6 +55,7 @@ size = Vector3(7.75, 3, 6)
 [node name="Vineyard" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Viña Santa Rosa"
+ambience = &"day_fields"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

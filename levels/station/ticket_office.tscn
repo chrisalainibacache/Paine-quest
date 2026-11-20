@@ -59,6 +59,7 @@ size = Vector3(3.5, 3, 5)
 [node name="TicketOffice" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Boletería"
+ambience = &"office"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

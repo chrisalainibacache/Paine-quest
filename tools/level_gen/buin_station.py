@@ -3,7 +3,7 @@ REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 from buin_common import *
 # Estación de Buin: el hall de la boletería, convertido en sala de espera del
 # "tren sanitario". En el muro, la lista de los que subieron.
-k = Kit("BuinStation", "Estación de Buin")
+k = Kit("BuinStation", "Estación de Buin", ambience="day_fields")
 k.env((0.08, 0.08, 0.09), (0.62, 0.6, 0.58), 0.95, (0.25, 0.25, 0.27), 0.03)
 X0, X1, Z0, Z1, H = -5.0, 5.0, -3.5, 3.5, 3.6
 k.shell(X0, X1, Z0, Z1, H, floor="tiles_wall", wall="plaster_wall", ceiling="concrete_wall", wainscot="wood")

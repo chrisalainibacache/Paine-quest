@@ -108,6 +108,7 @@ size = Vector3(8, 3, 4.5)
 [node name="WagonInterior" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Interior del vagón"
+ambience = &"train_interior"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

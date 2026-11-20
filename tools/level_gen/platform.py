@@ -25,7 +25,7 @@ env = s.subres("Environment", {
     "fog_enabled": "true", "fog_light_color": col((0.06, 0.065, 0.08)), "fog_density": "0.045",
     "fog_sky_affect": "1.0",
 })
-s.node("Platform", "Node3D", script=s.res("res://levels/kit/room.gd", "Script"), room_name='"Andén norte"',
+s.node("Platform", "Node3D", script=s.res("res://levels/kit/room.gd", "Script"), room_name='"Andén norte"', ambience='&"station_night"',
        # Introducción del juego (lo que piensa Isabella al llegar).
        intro_lines='PackedStringArray("Viernes, 23:40. Estación de Paine.", "Mensaje de Paz, 22:10: «Dicen en la tele que esta noche pasa un tren de evacuación por Paine. Súbete con Leo. Te espero en Alameda.»", "No hay nadie. Ni guardia, ni pasajeros. Ni un solo tren en la vía.", "Leo no se despega de mis pies. Ella también lo siente.", "Leo: Tranquila, Isabella. Si no sabes por dónde seguir, quédate quieta un momento y mírame.", "Leo: Yo te llevo. Siempre te he llevado yo.")')
 s.node("Environment", "WorldEnvironment", ".", environment=env)

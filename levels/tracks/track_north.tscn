@@ -70,7 +70,8 @@ size = Vector3(6.6875, 3, 8)
 [node name="TrackNorth" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Vía norte"
-intro_lines = PackedStringArray("Pasada la medianoche. La vía hacia el norte.", "Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.", "Javi, aguanta. Vamos caminando.", "Leo: Yo voy adelante, como siempre.")
+ambience = &"tracks_night"
+intro_lines = PackedStringArray("Pasada la medianoche. La vía hacia el norte.", "Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.", "Paz, aguanta. Vamos caminando.", "Leo: Yo voy adelante, como siempre.")
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

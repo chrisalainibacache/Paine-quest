@@ -4,7 +4,7 @@ from tracks_common import *
 T = "res://levels/tracks/%s.tscn"
 # Costado del convoy: Isabella sale del vagón al otro lado del tren. Entre los
 # vagones y el terraplén hay infectados; al fondo, la reja del paso bajo nivel.
-k = Kit("ConvoySide", "Costado del convoy")
+k = Kit("ConvoySide", "Costado del convoy", ambience="tracks_night")
 night(k)
 X0, X1, Z0, Z1 = -9.0, 9.0, -4.2, 3.5
 track_bed(k, X0, X1, Z0, Z1)

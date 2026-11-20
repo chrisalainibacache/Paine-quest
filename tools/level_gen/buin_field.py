@@ -3,7 +3,7 @@ REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 from buin_common import *
 # Potrero junto a la vía, entre la estación de Buin y la viña: un lugar
 # despejado... demasiado. Aquí aparecen Kiara y Nala (levels/kit/rescue_scene.gd).
-k = Kit("Field", "Potrero")
+k = Kit("Field", "Potrero", ambience="day_fields")
 dawn(k, 0.014)
 X0, X1, Z0, Z1 = -10.0, 10.0, -6.0, 6.0
 k.block("Ground", "Ground", (0, -0.5, 0), (X1 - X0 + 0.6, 1, Z1 - Z0 + 0.6), "dirt")

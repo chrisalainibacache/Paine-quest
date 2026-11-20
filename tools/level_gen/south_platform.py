@@ -1,7 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-k = Kit("SouthPlatform", "Andén sur")
+k = Kit("SouthPlatform", "Andén sur", ambience="station_night")
 k.env((0.05, 0.055, 0.07), (0.36, 0.38, 0.46), 0.55, (0.06, 0.065, 0.08), 0.045)
 k.s.node("Moon", "DirectionalLight3D", ".", rotation=v3((-0.9, -0.6, 0)), light_color=col((0.55, 0.62, 0.8)), light_energy="0.25")
 # Piso del andén, vía y muros altos (cerrado por los 4 lados).

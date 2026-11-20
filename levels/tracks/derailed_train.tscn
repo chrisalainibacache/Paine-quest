@@ -71,6 +71,7 @@ size = Vector3(5.6875, 3, 3.75)
 [node name="DerailedTrain" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Tren descarrilado"
+ambience = &"fire_wreck"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

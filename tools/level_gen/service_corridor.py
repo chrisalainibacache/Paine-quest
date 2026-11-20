@@ -1,7 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-k = Kit("ServiceCorridor", "Pasillo de servicio")
+k = Kit("ServiceCorridor", "Pasillo de servicio", ambience="service_corridor")
 k.env((0.01, 0.01, 0.012), (0.28, 0.3, 0.32), 0.45, (0.03, 0.03, 0.035), 0.07)
 H = 2.7
 k.shell(-6.0, 6.0, -1.0, 1.0, H, floor="concrete_floor", wall="concrete_wall", ceiling="concrete_wall", wainscot="tiles_wall",

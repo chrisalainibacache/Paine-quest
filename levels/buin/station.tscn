@@ -73,6 +73,7 @@ size = Vector3(6, 3, 8)
 [node name="BuinStation" type="Node3D"]
 script = ExtResource("1_room")
 room_name = "Estación de Buin"
+ambience = &"day_fields"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")

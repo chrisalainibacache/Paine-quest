@@ -6,6 +6,8 @@ extends Node3D
 signal camera_changed(camera: Camera3D)
 
 @export var room_name: String = ""
+## Ambiente en bucle asignado a esta sala (AUDIO_PLAN.md §5).
+@export var ambience: StringName = &""
 ## Sala a oscuras (apagón): Isabella enciende la linterna.
 @export var dark: bool = false
 ## Lo que piensa Isabella la primera vez que entra (se muestra una sola vez).
