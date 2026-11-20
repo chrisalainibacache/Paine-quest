@@ -19,12 +19,24 @@ func _ready() -> void:
 
 func _plain_text(source: String) -> String:
     var lines := PackedStringArray()
+    var is_first_content_line := true
     for source_line in source.split("\n"):
         var line := source_line.strip_edges()
+        if is_first_content_line and line.trim_prefix("#").strip_edges() == "Créditos":
+            is_first_content_line = false
+            continue
+        if not line.is_empty():
+            is_first_content_line = false
         while line.begins_with("#"):
             line = line.substr(1).strip_edges()
-        line = line.replace("**", "").replace("*", "")
-        if line.begins_with("- "):
+        var parts := line.split("`")
+        for index in range(parts.size()):
+            if index % 2 == 0:
+                parts[index] = parts[index].replace("**", "")
+            else:
+                parts[index] = parts[index].replace("**", "*")
+        line = "".join(parts)
+        if line.begins_with("- ") or line.begins_with("* "):
             line = "• " + line.substr(2)
         lines.append(line)
     lines.append("")

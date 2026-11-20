@@ -20,6 +20,10 @@ func _run() -> void:
         if content != null:
             for required in ["Kevin MacLeod", "Attribution 4.0", "Pixelhouse", "JashiPSX"]:
                 _check(required in content.text, "créditos incluyen %s" % required)
+            _check("`" not in content.text, "créditos sin acentos graves de Markdown")
+            _check("**" not in content.text, "créditos sin marcadores dobles de Markdown")
+            _check("assets/*/LICENSE.txt" in content.text, "créditos conservan la ruta comodín de licencias")
+            _check("Créditos" not in content.text, "créditos no repiten el encabezado")
         _check(screen.get_node_or_null("Panel/Layout/Back") is Button, "la pantalla tiene botón VOLVER")
         screen.queue_free()
 

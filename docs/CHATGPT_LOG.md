@@ -148,6 +148,16 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P1-a2: correcciones visuales y limpieza de créditos (PR #9)
+
+- **Qué corregí:** Moví CRÉDITOS a la esquina superior derecha (220×56, margen 20 px); restauré los pies a 18 px y 15 px con offsets verticales −50/−16. La pantalla ahora quita delimitadores de código y negrita sin destruir el comodín de `assets/*/LICENSE.txt`, convierte viñetas y omite el encabezado duplicado «Créditos».
+- **Pruebas añadidas:** comprueban que el texto no contenga acentos graves ni `**`, que conserve `assets/*/LICENSE.txt` y que no repita el encabezado.
+- **Archivos tocados:** `tools/level_gen/title.py`, `ui/title/title_screen.tscn` (regenerada según el generador), `ui/title/credits_screen.gd`, `tests/credits_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** Godot no está disponible localmente. El commit anterior `8069b44` tuvo «Pruebas en PR» verde (run 44825621399) y «Validación de pistola» verde (run 44825621231), con el paso de sincronía de generadores y exportación completados; el log de ese CI se revisará también para confirmar 0 `SCRIPT ERROR`. El nuevo commit queda pendiente de CI; no afirmo que la corrección esté validada hasta que termine en verde y sus logs no contengan esa cadena.
+- **Qué debe probar Chris en el teléfono:** nada todavía; después del CI, comprobar el título y los créditos a 1280×544.
+- **Dudas:** ninguna.
+- **Estado:** CORRECCIÓN P1-a2 SUBIDA; esperar CI verde antes de P1-b.
+
 ### 2026-11-20 — P1-a: créditos en el juego (rama: chatgpt/P1-menus-audio-ads, PR: #9)
 
 - **Qué hice:** Añadí el botón CRÉDITOS al título y una pantalla desplazable que carga `CREDITS.md` en tiempo de ejecución. Conserva las atribuciones CC-BY de Kevin MacLeod y Pixelhouse y agrega «Personaje simple PSX — JashiPSX (itch.io)». Añadí una prueba específica y la incorporé al corredor estricto. El primer CI detectó que el título se regenera desde `tools/level_gen/title.py`; actualicé esa fuente y regeneré la escena para mantenerla sincronizada.

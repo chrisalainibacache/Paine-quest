@@ -22,18 +22,18 @@ s.node("Graphics", "Button", "Menu", custom_minimum_size="Vector2(0, 68)", text=
        script=s.res("res://ui/graphics_toggle.gd", "Script"))
 s.node("Brightness", "Button", "Menu", custom_minimum_size="Vector2(0, 68)", text='"BRILLO 3/5"', theme_override_font_sizes_font_size="26",
        script=s.res("res://ui/brightness_toggle.gd", "Script"))
-s.node("CreditsButton", "Button", ".", anchors_preset="7", anchor_left="0.5", anchor_top="1.0", anchor_right="0.5", anchor_bottom="1.0",
-       grow_horizontal="2", offset_left="-150.0", offset_top="-92.0", offset_right="150.0", offset_bottom="-20.0",
-       custom_minimum_size="Vector2(300, 68)", text='"CRÉDITOS"', theme_override_font_sizes_font_size="26", focus_mode="0")
+s.node("CreditsButton", "Button", ".", anchors_preset="1", anchor_left="1.0", anchor_top="0.0", anchor_right="1.0", anchor_bottom="0.0",
+       grow_horizontal="0", grow_vertical="0", offset_left="-240.0", offset_top="20.0", offset_right="-20.0", offset_bottom="76.0",
+       custom_minimum_size="Vector2(220, 56)", text='"CRÉDITOS"', theme_override_font_sizes_font_size="24", focus_mode="0")
 s.node("Credits", "Label", ".", anchors_preset="3", anchor_left="1.0", anchor_top="1.0", anchor_right="1.0", anchor_bottom="1.0",
-       grow_horizontal="0", grow_vertical="0", offset_left="-520.0", offset_top="-26.0", offset_right="-24.0", offset_bottom="-8.0",
-       horizontal_alignment="2", text='"Isabella y Leo · Paine, Chile"', theme_override_font_sizes_font_size="14",
+       grow_horizontal="0", grow_vertical="0", offset_left="-520.0", offset_top="-50.0", offset_right="-24.0", offset_bottom="-16.0",
+       horizontal_alignment="2", text='"Isabella y Leo · Paine, Chile"', theme_override_font_sizes_font_size="18",
        theme_override_colors_font_color=col((0.4, 0.38, 0.34)))
 # Créditos que piden las licencias (CC-BY): ver CREDITS.md.
 s.node("Attribution", "Label", ".", anchors_preset="2", anchor_top="1.0", anchor_bottom="1.0", grow_vertical="0",
-       offset_left="24.0", offset_top="-26.0", offset_right="500.0", offset_bottom="-8.0",
+       offset_left="24.0", offset_top="-50.0", offset_right="500.0", offset_bottom="-16.0",
        text='"Modelos: Pixelhouse (CC-BY 3.0), Rikindle3D, Quaternius · Texturas: ambientCG"',
-       theme_override_font_sizes_font_size="14", theme_override_colors_font_color=col((0.33, 0.31, 0.28)))
+       theme_override_font_sizes_font_size="15", theme_override_colors_font_color=col((0.33, 0.31, 0.28)))
 s.node("Filter", None, ".", instance=s.res("res://ui/ps1_filter.tscn", "PackedScene"))
 s.save(REPO + "/ui/title/title_screen.tscn")
 print("title ok")
