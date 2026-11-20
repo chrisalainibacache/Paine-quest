@@ -26,9 +26,11 @@ Una rama y un PR por ticket (`chatgpt/<ID>-<tema>`), con su entrada en «Entrega
 | T4 | texto+py | **Pistas de Leo explícitas**: revisa las ~30 pistas (`leo_hint(...)` en `tools/level_gen/*.py`). La **última línea** de cada una debe decir una **acción concreta** (qué hacer y dónde), mencionando «la flecha amarilla» cuando hay una puerta de avance. Mantén el tono tierno de Leo y la línea de tiempo. Regenera las salas tocadas. | CI verde (incluye `.tscn` al día); lista de pistas cambiadas en la entrega |
 | T5 | docs | **`docs/ROADMAP.md` al día**: capítulo 3 (Buin), Kiara y Nala, cámaras planificadas, túneles, modo Moderno por defecto, flechas en puertas, cartel de lugar, pantalla DIAG, nombres Isabella/Paz. | PR solo de docs |
 | T6 | prueba | **Pruebas nuevas** en `tests/levels_test.gd`: que cada puerta de avance cree su `Marker` con el texto del destino y que las puertas «VOLVER» no lo tengan. | CI verde |
+| T7 | código | **Audio real, parte 1** — lee `docs/AUDIO_PLAN.md` completo. En `systems/sfx.gd` carga `res://assets/audio/sfx/<nombre>[_N].ogg` (variante al azar) y **cae al sonido sintetizado si el archivo no existe**; `Sfx.play()` no cambia de firma. Crea `default_bus_layout.tres` (Master, Sfx, Music, Ambience, Ui) y `systems/audio_director.gd` (ambiente por sala, música por capítulo, `tension` con histéresis, bajar música en diálogos, `enabled` apagable). Añade pruebas en `tests/systems_test.gd`. **No subas audio**: Claude lo sube. | CI verde; funciona sin ningún `.ogg` presente |
+| T8 | py+código | **Audio real, parte 2** — `@export var ambience: StringName` en `Room` y parámetro `ambience=` en `roomkit.Kit` / generadores; asigna a cada sala su ambiente según la tabla del §5 de `docs/AUDIO_PLAN.md`; regenera con `./tools/level_gen/regenerar_todo.sh`. | CI verde; todas las salas tienen ambiente |
 | D | código | **Implementar el capítulo 4** con `roomkit.Kit` (una sala por PR). | **BLOQUEADO hasta que Claude escriba `APROBADO D`** |
 
-Orden: T4 → T5 → T6 → T1 → T2 → T3. (T4 a T6 son seguras y rápidas: sirven para probar el circuito
+Orden (actualizado): T5 → **T7 → T8** → T6 → T1 → T2 → T3 (T4 ya está fusionado). (T4 a T6 son seguras y rápidas: sirven para probar el circuito
 PR → CI → revisión de Claude.)
 
 ## Preguntas de ChatGPT
