@@ -606,13 +606,13 @@ func _cinematic() -> void:
     if packed == null:
         return
     SceneLoader.cinematics_enabled = true
-    var running = loader._play_cinematic()
+    loader.call_deferred("_play_cinematic")
     await _frames(2)
     var active := get_root().get_tree().get_first_node_in_group("cinematics") as Cinematic
     _check(active != null, "T9: SceneLoader inicia la cinemática")
     if active:
         active.skip()
-    await running
+    await _frames(2)
     var flag := "cinematic:res://levels/tracks/track_north.tscn"
     _check(GameState.has_flag(flag), "T9: al terminar queda marcada la bandera de esta partida")
     _check(not loader.player.controls_locked and loader.player.model.visible and loader.leo.visible,
