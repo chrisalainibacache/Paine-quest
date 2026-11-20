@@ -97,4 +97,8 @@ Un nodo en `main.tscn` (o clase con estado estático, como `Sfx`) que:
   `breath_low_1` (36 archivos, 0,33 MB). Hoy el juego usa `groan`, `groan_short`, `bite`, `hit`, `fall` y `hurt`;
   el resto (`chase`, `death`, `rise`, `heavy_step`, `hurt_low`, `breath_low`, `groan_far`) espera su uso en código
   (ticket futuro: que el infectado rápido use `chase`, el pesado `heavy_step`, etc.).
-- Siguientes tandas: puertas y objetos → animales (Leo, Kiara y Nala) → ambientes → música.
+- **Tanda 3 — puertas y objetos (hecha):** `door_1..4` (abrir), `door_close_1..3`, `door_metal_1..2`, `locked_1..2`,
+  `unlock_1..2`, `gate_chain_1..2`, `pickup_1..3`, `page_1..4`, `typewriter_1..5`, `menu_1..3`, `heal_1..2`,
+  `radio_static_1` (33 archivos, 0,26 MB). El juego ya usa `door`, `locked`, `unlock`, `pickup`, `page`, `typewriter`
+  y `menu`; `door_close`, `door_metal`, `gate_chain`, `heal` y `radio_static` esperan que el código los use.
+- Siguientes tandas: animales (Leo, Kiara y Nala) → ambientes → música.

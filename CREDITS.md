@@ -30,5 +30,12 @@ Todos de OpenGameArt, licencia **CC0** (dominio público); se cortan, normalizan
   https://opengameart.org/content/zombies-sound-pack · /zombie-moans-01-by-emopreben · /zombie-skeleton-monster-voice-effects ·
   /hungry-ghoul · /80-cc0-creature-sfx · /ripping-into-meat · /8-wet-squish-slurp-impacts · /impact · /female-hurt-grunts-groans
 
+- Puertas y objetos (todo **CC0**, OpenGameArt): **Door Open, Door Close Set** (qubodup), **Door open, door close**,
+  **Iron Door**, **100 CC0 metal and wood SFX**, **Item Pickup / Key**, **Typewriter sounds**, **Book Flip Sounds**,
+  **10 Book Page Flips**, **Chain winch sounds**, **7 Eating Crunches**, **10 Clicks and Switches**, **Static** —
+  https://opengameart.org/content/door-open-door-close-set · /door-open-door-close · /iron-door · /100-cc0-metal-and-wood-sfx ·
+  /item-pickup-key · /typewriter-sounds · /book-flip-sounds · /10-book-page-flips · /chain-winch-sounds · /7-eating-crunches ·
+  /10-clicks-and-switches · /static
+
 ## Texturas
 - **ambientCG**, CC0 — https://ambientcg.com
