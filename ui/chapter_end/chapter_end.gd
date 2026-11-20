@@ -18,7 +18,7 @@ const TEXTS := {
         "El tren de las 6:30 quedó atrás, volcado en el desvío. Isabella y Leo siguen por la vía hacia el norte.\nEmpieza a amanecer. Más allá del río está Buin.",
         "Continuará en el Capítulo 3: Buin"],
     3: ["FIN DEL CAPÍTULO 3", "Buin",
-        "Rosa se quedó en la oficina del galpón, del otro lado de la puerta.\nPor la radio, la voz de Paz: está en la Maestranza de San Bernardo. Isabella y Leo vuelven a la vía.",
+        "Rosa se quedó en la oficina del galpón, del otro lado de la puerta. Isabella ya no está segura de lo que había detrás.\nPor la radio, la voz de Paz: está en la Maestranza de San Bernardo. Isabella y Leo vuelven a la vía.",
         "Continuará en el Capítulo 4: La Maestranza"],
 }
 

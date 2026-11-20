@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "military_order"
 title = "Orden del día — Control Buin"
-pages = PackedStringArray("EJÉRCITO DE CHILE — CONTROL SANITARIO BUIN\nViernes, 21:00.\n\nToda persona que venga de Paine se considera EXPUESTA.\n\nLos mordidos se suben al tren sanitario y se trasladan a la Maestranza de San Bernardo. No se informa a la población del destino.", "A la población se le dice: «tren de evacuación».\n\nSi un trasladado se vuelve agresivo durante el viaje, el personal está autorizado a cerrar el vagón.\n\n— Capitán R. Soto")
+pages = PackedStringArray("EJÉRCITO DE CHILE — CONTROL SANITARIO BUIN\nViernes, 21:00.\n\nToda persona que venga de Paine se considera EXPUESTA.\n\nLos mordidos se suben al tren sanitario y se trasladan a la Maestranza de San Bernardo. No se informa a la población del destino.", "A la población se le dice: «tren de evacuación».\n\nSi un trasladado se vuelve agresivo durante el viaje, el personal está autorizado a cerrar el vagón.\n\nAVISO: sujeto de gran tamaño (≈ 2,3 m), cara descarnada, visto al sur del puente. Resiste fuego de fusil. No engancharlo. Ya cayeron tres soldados.\n\n— Capitán R. Soto")

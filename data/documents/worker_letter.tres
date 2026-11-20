@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "worker_letter"
 title = "Carta de una temporera"
-pages = PackedStringArray("A quien encuentre esto:\n\nMe llamo Ana. Trabajo en la viña Santa Rosa. Anoche se llevaron a mi Tomás en el tren de los militares. Tiene siete años. Dijeron que lo iban a curar en San Bernardo.", "Yo tengo fiebre. No le dije a nadie.\n\nDejé la llave del galpón en el gancho del tractor. Adentro está la Rosa, la de la boletería de Paine. Llegó caminando de noche. Ella sabe algo del primer enfermo.\n\nNo la dejen sola.")
+pages = PackedStringArray("A quien encuentre esto:\n\nMe llamo Ana. Trabajo en la viña Santa Rosa. Anoche se llevaron a mi Tomás en el tren de los militares. Tiene siete años. Dijeron que lo iban a curar en San Bernardo.", "Yo tengo fiebre. No le dije a nadie.\n\nDejé la llave del galpón en el gancho del tractor. Adentro está la Rosa, la de la boletería de Paine. Llegó caminando de noche. Ella sabe algo del primer enfermo.\n\nNo la dejen sola.\n\nAnoche oí golpes en la viña, como si alguien tirara una puerta abajo. Los perros se escondieron debajo del tractor. Algo grande anda por aquí, buscando.")

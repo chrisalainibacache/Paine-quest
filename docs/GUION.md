@@ -138,12 +138,14 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 - «Rosa: Soy Rosa, de la boletería de Paine. Me mordieron en el puente, anoche. Ya tengo el frío del que hablaba don Héctor.»
 - «Rosa: Escúchame bien, niña. Al hombre de la mano vendada yo le vendí el boleto del 6:30.»
 - «Rosa: Llevaba una credencial colgando: «Centro de Investigación Sanitaria — Nos». Venía de ahí.»
-- «Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta por una tal Constanza.»
-- «Leo: Isabella... ella ya no va a abrir. Déjala descansar. La radio está en la mesa.»
+- «Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta si hay sobrevivientes.»
+- «Algo no cuadra. Rosa estaba en Paine a las once de la noche. ¿Cómo cruzó sola hasta aquí, con ellos por todos lados?»
+- «Leo: Isabella... no le creas. Ese olor no es de persona, y tampoco es de los otros. Es distinto. Ella no es como los demás.»
+- «Leo: No abras esa puerta. La radio está en la mesa.»
 - (Si vuelve) «Rosa: Ándate, niña. Llévate al gato. Y escucha esa radio.»
 
 **La radio de Paz (cierra el capítulo):**
-- «Paz: ...Constanza... Isabella, si me escuchas... soy yo, Paz.»
+- «Paz: ...¿Hay sobrevivientes? Si alguien me escucha... Isabella, si me escuchas... soy yo, Paz.»
 - «Paz: No vayas a Alameda. Allá ya no queda nadie.»
 - «Paz: Me trajeron a la Maestranza de San Bernardo a atender a los enfermos. Llegan en tren, de noche, amarrados.»
 - «Paz: Hay un vagón al fondo que nadie abre. Los militares dicen que es del Centro de Nos...»
@@ -151,7 +153,7 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 - «La señal se corta.»
 - «Leo: San Bernardo. Yo sé el camino, Isabella. Vamos.»
 
-**Pantalla de fin:** «FIN DEL CAPÍTULO 3 — Buin. Rosa se quedó en la oficina del galpón, del otro lado de la puerta. Por la radio, la voz de Paz: está en la Maestranza de San Bernardo. Isabella y Leo vuelven a la vía. Continuará en el Capítulo 4: La Maestranza.»
+**Pantalla de fin:** «FIN DEL CAPÍTULO 3 — Buin. Rosa se quedó en la oficina del galpón, del otro lado de la puerta. Isabella ya no está segura de lo que había detrás. Por la radio, la voz de Paz: está en la Maestranza de San Bernardo. Isabella y Leo vuelven a la vía. Continuará en el Capítulo 4: La Maestranza.»
 
 ### Documentos del capítulo 3
 **Orden del día — Control Buin** — «EJÉRCITO DE CHILE — CONTROL SANITARIO BUIN. Viernes, 21:00. Toda persona que venga de Paine se considera EXPUESTA. Los mordidos se suben al tren sanitario y se trasladan a la Maestranza de San Bernardo. No se informa a la población del destino.» / «A la población se le dice: «tren de evacuación». Si un trasladado se vuelve agresivo durante el viaje, el personal está autorizado a cerrar el vagón. — Capitán R. Soto»
@@ -170,10 +172,15 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 
 ---
 
-## 8. Puntos abiertos y contradicciones detectadas (revisar con Chris)
-1. **«Constanza»:** Rosa dice que la radio militar «pregunta por una tal Constanza», y Paz empieza con «...Constanza... Isabella». ¿Constanza es un nombre en clave, un nombre antiguo de Isabella, o un resto de un cambio de nombres? Hoy no tiene explicación.
-2. **Rosa:** el aviso muestra a Rosa en Paine a las 23:00 del viernes y ella dice que la mordieron «en el puente, anoche». Cuadra, pero la carta de Ana dice que «llegó caminando de noche»: conviene una línea que una ambas (cómo cruzó de Paine a Buin entre las 23:00 y el amanecer).
-3. **GDD §2 «Capítulo 2»** todavía dice «fin del juego»; ya no es cierto (siguen los capítulos 3–5). Actualizar.
-4. **Skull** aparece en el GDD como enemigo del capítulo 4, pero **en el juego todavía no hay ninguna pista** (los «ecos» de golpes y de Leo erizándose están planeados, no hechos).
-5. **El hombre del asiento 15:** hoy sabemos (boleto, Rosa) que tenía la mano vendada, tosía sangre y venía del Centro de Nos. No se dice qué es ni por qué. Mantener abierto.
-6. **Leo y Skull:** si Leo huele el peligro, conviene decidir si «huele» a Skull (y si nadie ataca a Leo, tampoco Skull).
+## 8. Decisiones recientes y puntos abiertos
+**Resueltos por Chris (noviembre):**
+1. **«Constanza»** se eliminó: la radio **pregunta si hay sobrevivientes**.
+2. **Rosa:** cómo cruzó de Paine a Buin **no tiene explicación, a propósito**. Isabella sospecha; **Leo sospecha más** y cree que es **un infectado distinto**.
+3. **El capítulo 2 no es el final** (GDD corregido).
+4. **Skull aparece en las notas** del camino como un infectado más grande y aterrador (ya en la nota del maquinista, la orden del día de Buin y la carta de Ana), sin nombrarlo ni verlo.
+
+**Siguen abiertos:**
+- **Skull en el juego:** las notas ya lo anuncian; faltan los ecos (golpes lejanos, Leo erizándose) y la cinemática (paquete P4).
+- **El hombre del asiento 15:** hoy sabemos que tenía la mano vendada, tosía sangre y venía del Centro de Nos. Se mantiene abierto.
+- **Rosa, ¿qué es?** Queda abierto para el capítulo 4 en adelante o la parte 2.
+- **Leo y Skull:** si nadie ataca a Leo, ¿tampoco Skull? Decidir.

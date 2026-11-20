@@ -62,7 +62,8 @@ Siguiendo las vías encuentran **el tren de las 6:30 ya destruido** (descarrilad
 no se ve el choque, se encuentra así). No sirve para viajar: hay que seguir a pie,
 atravesando el convoy, un paso bajo nivel en apagón y una casa de cambios. El maquinista
 frenó el tren contra el desvío para que los infectados no llegaran a la ciudad. Termina
-con Isabella y Leo caminando por la vía hacia Santiago al amanecer: **fin del juego**.
+con Isabella y Leo caminando por la vía hacia el norte al amanecer; **el capítulo 2 no es el final**: sigue con Buin
+(capítulo 3), La Maestranza (4) y Santiago (5).
 
 ### Leo: guía y la última aventura (decisión de Chris)
 Leo es la gata de Isabella. **Este juego es su última aventura**: todo lo que hace Leo se
@@ -110,6 +111,15 @@ en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice)
   un rugido apagado). Usan los sonidos reservados `creature_*` de `docs/AUDIO_PLAN.md`.
 - **Encuentro:** **sí habrá**. Propuesta: en el **capítulo 4 (La Maestranza)**, como persecución o
   jefe final del capítulo. Lo diseña el ticket T1 (el «enemigo o jefe nuevo» del capítulo 4 es ella).
+
+### Rosa y Skull en las notas (decisiones de Chris, noviembre)
+- **Rosa (capítulo 3):** no se explica cómo llegó de Paine a Buin. Isabella empieza a sospechar de ella y **Leo sospecha más que Isabella**:
+  cree que es **un infectado distinto**. La pregunta queda abierta (puede resolverse en la parte 2).
+- **La radio** no pregunta por una persona («Constanza» se eliminó): **pregunta si hay sobrevivientes**.
+- **Skull en las notas:** además de las cinemáticas y los ecos, **aparece en las notas que se encuentran en el camino** (capítulos 2, 3 y los
+  siguientes) como **un infectado más grande y aterrador**: más alto que un hombre (~2,3 m), cara pelada «como una calavera», resiste el fuego
+  de fusil, **no corre: espera y busca**. Las notas **no lo nombran** («algo grande», «sujeto de gran tamaño»). Ya está en: nota del maquinista,
+  orden del día de Buin y carta de Ana. Toda nota nueva puede mencionarlo, siempre sin verlo.
 
 ### Origen de la infección: reservado para la parte 2 (decisión de Chris, noviembre)
 **Este juego no explica por qué empezó todo.** Esa respuesta es el centro de una **segunda parte**. En esta primera parte solo
@@ -249,7 +259,7 @@ Se llega con CONTINUAR al terminar el capítulo 2. Sábado en la mañana: luz de
 | 4 | Bodega agrícola (`warehouse`) | Apagón (linterna). Dos infectados rápidos. **Llave del galpón** en el tractor y la **carta de Ana**. |
 | 4b | Potrero (`field`) | Despejado... demasiado. **Escena de Kiara y Nala** (`levels/kit/rescue_scene.gd`): aparece una horda, a Isabella se le traba la pistola, Leo se pone delante ("Tranquila, Isabella. Yo te protejo") y llegan **Kiara** (akita naranja, enorme: parada en dos patas es más alta que Isabella) y **Nala** (bull terrier gris atigrado con café, más chica). Las salvan; Isabella les da las gracias y les pide que sigan sacando gente; ladran y se van. Una sola vez. |
 | 5 | Viña Santa Rosa (`vineyard`) | Hileras de parras; el galpón se abre con la llave. |
-| 6 | Galpón (`shed`) | Sala segura. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio**: Paz está en la Maestranza de San Bernardo → fin del capítulo. |
+| 6 | Galpón (`shed`) | Sala segura. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio** (la voz de Paz pregunta si hay **sobrevivientes**): Paz está en la Maestranza de San Bernardo → fin del capítulo. **Rosa es sospechosa:** estaba en Paine a las 23:00 y nadie explica cómo cruzó sola hasta Buin (**sin explicación a propósito**). Isabella empieza a sospechar y **Leo, más aún**: cree que Rosa es **un infectado distinto**, no como los demás. |
 
 ## 9. Estilo visual
 
