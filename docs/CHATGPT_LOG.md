@@ -172,6 +172,15 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P2: documentación de publicación en Google Play (rama: chatgpt/P2-play-store-docs, PR: #10)
+
+- **Qué hice:** preparé política de privacidad ES/EN, ficha de Google Play ES/EN, borrador de Seguridad de los datos e IARC, auditoría de licencias de recursos y checklist de publicación. Los datos desconocidos quedan marcados [CONFIRMAR]. Los documentos distinguen la build candidata de P1 con proveedor simulado de una futura versión con AdMob/UMP.
+- **Archivos tocados:** `docs/store/politica_privacidad.md`, `docs/store/ficha_google_play.md`, `docs/store/seguridad_datos_iarc.md`, `docs/store/licencias_activos.md`, `docs/store/checklist_publicacion.md`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** CI «Pruebas en PR» run `44838096011` verde; generadores, importación, pruebas automáticas, auditoría de cámaras y exportación correctas; log con 0 `SCRIPT ERROR`.
+- **Qué debe revisar Chris:** nombre y responsable legal, correo público, licencias rojas/amarillas, privacidad del repositorio, países/precio, audiencia objetivo, IARC y decisión final sobre AdMob/UMP.
+- **Dudas / decisiones que necesito:** completar campos [CONFIRMAR], resolver licencias sin evidencia y decidir si el AAB final integra AdMob/UMP.
+- **Estado:** P2 DOCUMENTADO Y VALIDADO POR CI — pendiente revisión de Chris y completar [CONFIRMAR].
+
 ### 2026-11-20 — T8: ambiente por sala (rama: chatgpt/T8-room-ambience)
 
 - **Qué hice:** Añadí `Room.ambience: StringName` exportado y el parámetro `ambience=` a `roomkit.Kit`. Asigné los 14 ambientes de AUDIO_PLAN §5 a las 19 salas de los capítulos 1–3 mediante sus generadores; actualicé también los dos generadores antiguos que no usan Kit.
