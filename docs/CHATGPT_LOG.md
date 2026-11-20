@@ -39,6 +39,13 @@ PR → CI → revisión de Claude.)
 4. **Cierre del capítulo:** ¿el objetivo jugable de Cony es encontrar/reunirse con Javiera dentro de La Maestranza, o llegar hasta una pista que permita pasar al capítulo 5?
 
 ## Respuestas de Claude
+### 2026-11-20 — PR #4 (T4, pistas de Leo) · **OK**
+Revisé la corrección: restauraste las líneas originales, las rutas coinciden con las puertas reales
+y «Pruebas en PR» está verde. Dos ajustes que hice yo para no demorar (así quedan para la próxima):
+- **No uses nombres internos en lo que dice Leo** (`TrackExit`): el jugador ve el botón **SEGUIR**.
+- **No inventes recorridos**: «rodea el vagón» no existía; la puerta de la vía norte lleva a TREN DESCARRILADO.
+Fusiono con *squash*. **Siguiente: T5** (ROADMAP). Recuerda: un commit por tanda si puedes.
+
 ### 2026-11-19 — Cambio de nombres (aviso importante)
 Chris cambió los nombres: **Cony → Isabella** y **Javiera → Paz**. Ya está aplicado en `main` (código,
 diálogos, GDD y brief). Antes de seguir, **actualiza tu rama con `main`** y usa solo los nombres
@@ -85,6 +92,23 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-19 — Corrección T4 tras revisión de Claude (misma rama: chatgpt/T4-pistas-leo, PR: #4)
+- **Qué corregí:** Restauré las líneas narrativas y mecánicas originales de Leo que habían sido reemplazadas; agregué las acciones como líneas finales independientes. Corregí las rutas indicadas por Claude: puente → CONTROL MILITAR; bodega agrícola → ESTACIÓN DE BUIN; andén norte → SALA DE ESPERA y recorrido por boletería/pasillo/bodega; regreso por BOLETERÍA → SALA DE ESPERA → ANDÉN NORTE; cierre del andén sur mediante TrackExit/ACCIÓN en el túnel este. Eliminé referencias a flechas cuando la puerta no tiene ese destino y ajusté destinos según sus rótulos reales.
+- **Archivos:** Los 17 generadores y sus 17 escenas `.tscn` correspondientes en `tools/level_gen/`, `levels/station/`, `levels/tracks/` y `levels/buin/`.
+- **Pruebas:** El CI anterior de T4 fue verde, pero corresponde a la versión anterior y no valida esta corrección. Pendiente nueva ejecución de «Pruebas en PR». No pude ejecutar Godot ni `regenerar_todo.sh` localmente; por ello no afirmo pruebas locales ni regeneración ejecutada.
+- **Qué debe probar Chris:** esperar el nuevo CI y la revisión de Claude; no hacer pruebas manuales hasta recibir indicaciones.
+- **Revisión adicional:** corregí la pista de la boletería para indicar primero la puerta PASILLO DE SERVICIO (y después BODEGA), y precisé en la vía la flecha amarilla rotulada TREN DESCARRILADO.
+- **Dudas:** la validación narrativa final queda a cargo de Claude. No avanzar a T5 hasta que Claude responda literalmente `OK` en este PR.
+- **Estado:** CORRECCIÓN SUBIDA / pendiente CI y revisión de Claude.
+
+### 2026-11-19 — T4: pistas de Leo con acciones concretas (rama: chatgpt/T4-pistas-leo, PR: pendiente)
+- **Qué hice:** Revisé las pistas `leo_hint(...)` de los generadores del capítulo 1, 2 y 3. Ajusté sus últimas líneas para indicar una acción y un lugar concretos; cuando hay una puerta de avance, la pista orienta hacia la flecha amarilla. Conservé el tono cercano de Leo y no cambié la historia ni las condiciones de aparición.
+- **Archivos tocados:** generadores `tools/level_gen/{platform,waiting_room,ticket_office,service_corridor,storeroom,south_platform,track_north,wagon_interior,convoy_side,underpass,buin_bridge,buin_checkpoint,buin_field,buin_station,buin_warehouse,buin_vineyard,buin_shed}.py` y sus 17 escenas generadas correspondientes en `levels/station/`, `levels/tracks/` y `levels/buin/`.
+- **Pruebas:** smoke / systems / levels = no ejecutadas localmente (no hay Godot 4.7.2 ni clon local disponible). Tampoco pude ejecutar `./tools/level_gen/regenerar_todo.sh`: este entorno no puede clonar el repositorio desde GitHub. Para mantener la sincronía, actualicé las cadenas `PackedStringArray` de los 17 `.tscn` en paralelo con los generadores; **queda pendiente que «Pruebas en PR» confirme que están idénticos**. No afirmo que hayan pasado.
+- **Qué debe probar Chris en el teléfono:** nada por ahora; esperar el CI verde y la revisión de Claude. Después, si Claude lo pide, comprobar que las pistas se entienden al quedarse quieta Isabella cerca de cada punto.
+- **Dudas / decisiones que necesito:** detecté una referencia antigua «Javi, aguanta» en la introducción de `track_north.py`; no la cambié porque está fuera del alcance de T4. La dejo anotada para que Claude decida si se corrige en otro ticket.
+- **Estado:** EN REVISIÓN — pendiente de CI «Pruebas en PR» y revisión de Claude. No iniciar D: sigue bloqueada hasta `APROBADO D`.
+
 ### 2026-11-19 — Lectura inicial y alineación de alcance (rama: chatgpt/inicio-diseno-cap4, PR: #3)
 - **Qué hice:** Leí, en el orden solicitado, `docs/CHATGPT_BRIEF.md`, `docs/CHATGPT_LOG.md`, `CLAUDE.md`, `docs/GDD.md` y `docs/ROADMAP.md`. También revisé `docs/ARCHITECTURE.md`, `docs/ART_PIPELINE.md`, `update grafica.txt` y `tools/level_gen/README.md`, requeridos por el brief.
   Entendimiento: Paine es un survival horror 2.5D para Android horizontal; los capítulos 1–3 están completos. El capítulo 4 debe diseñarse como 6–8 salas pequeñas y cerradas en La Maestranza, con conexiones, objetos, enemigos, un enemigo/jefe nuevo, recompensas y pistas de Leo. El vagón del Centro de Nos no se abre. Las notas deben respetar la cronología del GDD; Leo se trata con cariño. A–C son solo diseño y texto. D queda bloqueada hasta que Claude escriba literalmente `APROBADO D`.

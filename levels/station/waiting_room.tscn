@@ -595,7 +595,7 @@ rotation = Vector3(0, 3.1416, 0)
 [node name="LeoTicketOffice" type="Marker3D" parent="."]
 position = Vector3(2.6, 0, -2.6)
 script = ExtResource("42_leo_hint")
-lines = PackedStringArray("Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.", "Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.")
+lines = PackedStringArray("Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.", "Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.", "Leo: Rodea la máquina por el lado opuesto y entra por la puerta SOLO PERSONAL hacia la boletería.")
 hide_if_flag = "found:pistol"
 
 [node name="LeoTypewriter" type="Marker3D" parent="."]

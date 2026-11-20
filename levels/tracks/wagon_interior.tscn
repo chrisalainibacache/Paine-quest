@@ -508,13 +508,13 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoKey" type="Marker3D" parent="."]
 position = Vector3(-3.3, 0, -0.3)
 script = ExtResource("31_leo_hint")
-lines = PackedStringArray("Leo: En ese asiento. El conductor dejó una llave: tiene el sello de EFE.", "Leo: Él quería que alguien siguiera. Seamos nosotras.")
+lines = PackedStringArray("Leo: En ese asiento. El conductor dejó una llave: tiene el sello de EFE.", "Leo: Él quería que alguien siguiera. Seamos nosotras.", "Leo: Recoge la llave del asiento y sal por la puerta del vagón hacia el costado del convoy.")
 hide_if_item = "engineer_key"
 
 [node name="LeoExit" type="Marker3D" parent="."]
 position = Vector3(6, 0, 0)
 script = ExtResource("31_leo_hint")
-lines = PackedStringArray("Leo: Ya la tienes. Salgamos por el otro lado.")
+lines = PackedStringArray("Leo: Ya la tienes. Salgamos por el otro lado.", "Leo: Sal por la puerta del extremo este hacia el costado del convoy.")
 hide_if_flag = "unlocked:underpass_gate"
 show_if_item = "engineer_key"
 

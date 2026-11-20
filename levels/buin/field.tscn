@@ -316,13 +316,13 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoQuiet" type="Marker3D" parent="."]
 position = Vector3(2.5, 0, 0)
 script = ExtResource("18_leo_hint")
-lines = PackedStringArray("Leo: Todo despejado... demasiado despejado, Isabella.", "Leo: No me gusta. Camina conmigo.")
+lines = PackedStringArray("Leo: Todo despejado... demasiado despejado, Isabella.", "Leo: No me gusta. Camina conmigo.", "Leo: Avanza por el potrero hasta la puerta SEGUIR hacia la viña.")
 hide_if_flag = "rescue:kiara_nala"
 
 [node name="LeoAfter" type="Marker3D" parent="."]
 position = Vector3(8.6, 0, 0)
 script = ExtResource("18_leo_hint")
-lines = PackedStringArray("Leo: Kiara y Nala van a estar bien. Ahora nos toca a nosotras.", "Leo: La viña está por aquí.")
+lines = PackedStringArray("Leo: Kiara y Nala van a estar bien. Ahora nos toca a nosotras.", "Leo: La viña está por aquí.", "Leo: Cruza el potrero por el camino despejado hasta la puerta SEGUIR hacia la viña.")
 show_if_flag = "rescue:kiara_nala"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]

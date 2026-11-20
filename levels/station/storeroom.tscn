@@ -511,7 +511,7 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="LeoKey" type="Marker3D" parent="."]
 position = Vector3(2.4, 0, 1.55)
 script = ExtResource("35_leo_hint")
-lines = PackedStringArray("Leo: Ahí, en la mesa: la llave del portón.", "Leo: El que la cuida era don Héctor. Ya no es él, Isabella. No le tengas pena.")
+lines = PackedStringArray("Leo: Ahí, en la mesa: la llave del portón.", "Leo: El que la cuida era don Héctor. Ya no es él, Isabella. No le tengas pena.", "Leo: Recoge la llave de la mesa y vuelve por la puerta al pasillo de servicio.")
 hide_if_item = "gate_key"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]

@@ -454,13 +454,13 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoStoreroom" type="Marker3D" parent="."]
 position = Vector3(4.8, 0, 0)
 script = ExtResource("34_leo_hint")
-lines = PackedStringArray("Leo: Cuidado. No todos los que están en el suelo están muertos.", "Leo: Yo los huelo. Si les bufo, es que se van a levantar. Si no, déjalos dormir.")
+lines = PackedStringArray("Leo: Cuidado. No todos los que están en el suelo están muertos.", "Leo: Yo los huelo. Si les bufo, es que se van a levantar. Si no, déjalos dormir.", "Leo: Busca la puerta BODEGA y avanza con cuidado; si bufo, alguno se levantará.")
 hide_if_item = "gate_key"
 
 [node name="LeoBack" type="Marker3D" parent="."]
 position = Vector3(-4.8, 0, 0)
 script = ExtResource("34_leo_hint")
-lines = PackedStringArray("Leo: Ya tienes la llave. Volvamos al andén: el portón sur nos espera.")
+lines = PackedStringArray("Leo: Ya tienes la llave. Volvamos al andén: el portón sur nos espera.", "Leo: Vuelve por BOLETERÍA, atraviesa la SALA DE ESPERA y regresa al ANDÉN NORTE.")
 hide_if_flag = "unlocked:gate_south"
 show_if_item = "gate_key"
 

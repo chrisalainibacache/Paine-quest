@@ -318,13 +318,13 @@ rotation = Vector3(0, -1.5708, 0)
 [node name="LeoRosa" type="Marker3D" parent="."]
 position = Vector3(2.6, 0, -0.5)
 script = ExtResource("22_leo_hint")
-lines = PackedStringArray("Leo: Ahí adentro está Rosa. Huele a ella... y a frío.", "Leo: Háblale, Isabella. Pero no abras esa puerta.")
+lines = PackedStringArray("Leo: Ahí adentro está Rosa. Huele a ella... y a frío.", "Leo: Háblale, Isabella. Pero no abras esa puerta.", "Leo: Interactúa con la puerta para hablar con Rosa, pero no la abras.")
 hide_if_flag = "talked:rosa"
 
 [node name="LeoRadio" type="Marker3D" parent="."]
 position = Vector3(0.6, 0, 1.2)
 script = ExtResource("22_leo_hint")
-lines = PackedStringArray("Leo: La radio. Alguien te está llamando, Isabella.")
+lines = PackedStringArray("Leo: La radio. Alguien te está llamando, Isabella.", "Leo: Acércate a la radio y escucha el mensaje de Paz antes de salir.")
 show_if_flag = "talked:rosa"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
