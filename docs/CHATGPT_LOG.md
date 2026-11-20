@@ -154,14 +154,23 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P1-e: ofertas de recompensa en mochila y pantalla de muerte (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Añadí ofertas opcionales de munición cuando la reserva está vacía o bajo el 25 % del cargador, y de un curativo cuando Isabella está en Peligro y no lleva ninguno. Las cantidades y el ítem de curación se configuran en `data/ads_config.tres`. La escena de mochila se mantiene sincronizada con su generador `tools/level_gen/inventory.py`. En la pantalla de muerte agregué VER ANUNCIO: CONTINUAR; al completar el anuncio vuelve al último guardado seguro con 50 % de salud, una sola vez por muerte. Si no hay anuncio disponible, los botones no aparecen. La compra para quitar anuncios sigue entregando las recompensas directamente.
+- **Archivos tocados:** `data/ads_config.gd`, `data/ads_config.tres`, `systems/ads.gd`, `ui/inventory/inventory_menu.gd`, `ui/inventory/inventory_menu.tscn`, `tools/level_gen/inventory.py`, `ui/hud/hud.gd`, `ui/hud/hud.tscn`, `main.gd`, `tests/systems_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** agregué comprobaciones de bloqueo durante combate, disponibilidad al morir, ofertas de munición/curativo y flujo de continuar. No ejecuté Godot localmente; CI «Pruebas en PR» pendiente. P1-d quedó validada en los runs registrados en la entrada anterior.
+- **Qué debe probar Chris en el teléfono:** pendiente de CI verde; después, revisar munición baja, curativo en Peligro y continuar desde la pantalla de muerte.
+- **Dudas / decisiones que necesito:** ninguna nueva.
+- **Estado:** IMPLEMENTADO — pendiente CI «Pruebas en PR» y revisión de logs.
+
 ### 2026-11-20 — P1-d: anuncios con recompensa y proveedor de prueba (rama: chatgpt/P1-menus-audio-ads, PR: #9)
 
 - **Qué hice:** Implementé la interfaz de proveedor de anuncios, un proveedor de prueba con cuenta regresiva de 3 segundos y botón SALTAR, y el sistema estático Ads. La recompensa solo se entrega al completar el anuncio; quitar anuncios se persiste en ajustes y entrega recompensas sin mostrar publicidad. Añadí límites configurables: 300 s entre anuncios, máximo 3 por capítulo y 60 s de juego entre recompensas/anuncios; bloqueos durante diálogos, cinemáticas y combate. Apliqué además el ajuste visual de opciones solicitado en la revisión.
 - **Archivos tocados:** `systems/ads.gd`, `systems/ads_provider.gd`, `systems/debug_ad_provider.gd`, `data/ads_config.gd`, `data/ads_config.tres`, `ui/options/options_menu.tscn`, `tests/systems_test.gd`, `docs/CHATGPT_LOG.md`.
-- **Pruebas:** añadí pruebas de disponibilidad, entrega/no entrega, enfriamiento, máximo por capítulo y persistencia de `Ads.removed`. No ejecuté Godot localmente. CI «Pruebas en PR» y revisión de logs quedan pendientes para este commit; el commit anterior tenía CI verde y 0 `SCRIPT ERROR`.
+- **Pruebas:** smoke / systems / levels / credits = OK (0 fallas). «Pruebas en PR» run `44834791918` y «Validación de pistola» run `44834792035` terminaron verdes; ambos logs tienen 0 `SCRIPT ERROR`. Godot no está disponible localmente.
 - **Qué debe probar Chris en el teléfono:** cuando el CI esté verde, iniciar una partida, esperar a que se habiliten las recompensas, pulsar una oferta de prueba cuando se integre en el juego y comprobar la cuenta regresiva; SALTAR no debe entregar recompensa. P1-e conectará las ofertas visibles de munición, curativo y continuar.
 - **Dudas / decisiones que necesito:** ninguna nueva. La URL de privacidad continúa pendiente de confirmación.
-- **Estado:** IMPLEMENTADO — pendiente CI «Pruebas en PR» y revisión de Claude.
+- **Estado:** P1-d VALIDADO — CI verde, pendiente revisión final de Claude al cierre del paquete.
 
 ### 2026-11-20 — P1-c: conectar SFX pendientes y música (PR #9)
 

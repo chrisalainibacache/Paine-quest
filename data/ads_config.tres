@@ -10,3 +10,6 @@ minimum_play_seconds = 60
 pistol_ammo_reward = 12
 shotgun_ammo_reward = 6
 rifle_ammo_reward = 12
+grenade_ammo_reward = 2
+rocket_ammo_reward = 1
+healing_item_path = "res://data/items/sushi.tres"

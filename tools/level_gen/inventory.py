@@ -48,10 +48,13 @@ s.node("Grid", "GridContainer", "Root", columns="8", theme_override_constants_h_
 # Información del ítem.
 s.node("Info", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=360, top=404, right=1240, bottom=694))
 label("Name", "Root/Info", "", 30, col((0.85, 0.72, 0.5)), **rect(left=24, top=14, right=840, bottom=54))
-label("Description", "Root/Info", "", 24, TXT, autowrap_mode="3", **rect(left=24, top=60, right=600, bottom=274))
-s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=640, top=60, right=856, bottom=274))
-button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 80)")
-button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 80)")
+label("Description", "Root/Info", "", 24, TXT, autowrap_mode="3", **rect(left=24, top=60, right=600, bottom=210))
+s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=640, top=60, right=856, bottom=210))
+button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 64)")
+button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 64)")
+s.node("RewardButtons", "HBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=24, top=220, right=856, bottom=276))
+button("RewardAmmo", "Root/Info/RewardButtons", "VER ANUNCIO: +MUNICIÓN", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")
+button("RewardHeal", "Root/Info/RewardButtons", "VER ANUNCIO: +1 CURATIVO", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")
 # Notas.
 s.node("Notes", "ScrollContainer", "Root", **rect(left=360, top=118, right=1240, bottom=694))
 # Cuadrícula de 2 columnas: caben 18 notas sin tener que arrastrar (con 10 en una

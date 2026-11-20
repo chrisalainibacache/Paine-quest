@@ -110,16 +110,20 @@ static func _safe_to_reward() -> bool:
         return false
 
     var player := tree.root.find_child("Player", true, false) as Player
-    if player != null:
+    var player_dead := player != null and not player.is_alive()
+    if player != null and not player_dead:
         if player.controls_locked or player.is_hurt():
             return false
         if player.combat.aiming or player.combat.reloading:
             return false
 
-    for enemy: Node in tree.get_nodes_in_group("enemies"):
-        if enemy is Infected and enemy.is_alive() \
-                and enemy.state in [Infected.State.CHASE, Infected.State.ATTACK]:
-            return false
+    # La pantalla de muerte ya no es combate: permite ofrecer CONTINUAR
+    # aunque un infectado siga en estado de persecución.
+    if not player_dead:
+        for enemy: Node in tree.get_nodes_in_group("enemies"):
+            if enemy is Infected and enemy.is_alive() \
+                    and enemy.state in [Infected.State.CHASE, Infected.State.ATTACK]:
+                return false
     return true
 
 

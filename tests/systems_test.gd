@@ -42,6 +42,7 @@ func _run() -> void:
     await _start_game("user://test_sistemas.json")
     _audio_systems()
     _ads_systems()
+    _ads_inventory_offers(main.player)
     await _opening_cinematic()
     var player: Player = main.player
     _inventory_rules()
@@ -118,6 +119,76 @@ func _ads_systems() -> void:
     Ads.configure_provider(null)
     Ads.reset_for_tests()
     GameState.play_time = original_play_time
+    for enemy: Node in saved_enemy_states:
+        if is_instance_valid(enemy):
+            enemy.state = saved_enemy_states[enemy]
+
+
+## Ofertas de mochila: munición escasa, curativo en Peligro y bloqueo durante combate.
+func _ads_inventory_offers(player: Player) -> void:
+    var original_play_time := GameState.play_time
+    var original_health := player.health
+    var original_reserve := GameState.inventory.count_of(AMMO)
+    var saved_enemy_states: Dictionary = {}
+    for enemy: Node in get_nodes_in_group("enemies"):
+        if enemy is Infected:
+            saved_enemy_states[enemy] = enemy.state
+            enemy.state = Infected.State.IDLE
+
+    var combat_enemy: Infected = (load("res://actors/enemies/infected.tscn") as PackedScene).instantiate()
+    main.room.add_child(combat_enemy)
+    combat_enemy.state = Infected.State.CHASE
+    GameState.play_time = 60.0
+    Ads.reset_for_tests()
+    var provider := FakeAdProvider.new()
+    Ads.configure_provider(provider)
+    _check(not Ads.available(), "anuncios: se bloquean durante el combate")
+    player.health = 0
+    GameState.health = 0
+    _check(Ads.available(), "anuncios: la pantalla de muerte permite ofrecer CONTINUAR")
+    player.health = original_health
+    GameState.health = original_health
+    combat_enemy.free()
+
+    GameState.inventory.take(AMMO, 999)
+    var menu := (load("res://ui/inventory/inventory_menu.tscn") as PackedScene).instantiate()
+    root.add_child(menu)
+    menu.call("open", player)
+    var reward_ammo_button := menu.get_node("Root/Info/RewardButtons/RewardAmmo") as Button
+    var reward_heal_button := menu.get_node("Root/Info/RewardButtons/RewardHeal") as Button
+    Ads.reset_for_tests()
+    Ads.configure_provider(provider)
+    _check(reward_ammo_button.visible, "mochila: aparece +MUNICIÓN cuando la reserva está vacía")
+    reward_ammo_button.pressed.emit()
+    _check(provider.pending.is_valid(), "mochila: +MUNICIÓN abre el proveedor")
+    provider.complete(true)
+    _check(GameState.inventory.count_of(AMMO) == Ads.config.pistol_ammo_reward,
+        "mochila: completar el anuncio entrega la cantidad configurada de balas")
+
+    Ads.reset_for_tests()
+    player.health = 20
+    GameState.health = 20
+    menu.call("_refresh")
+    _check(reward_heal_button.visible, "mochila: aparece +1 CURATIVO en Peligro sin curativos")
+    reward_heal_button.pressed.emit()
+    _check(provider.pending.is_valid(), "mochila: +1 CURATIVO abre el proveedor")
+    provider.complete(true)
+    _check(GameState.inventory.count_of(SUSHI) == 1, "mochila: completar el anuncio entrega un curativo")
+
+    _check(main.get_node("HUD/DeathScreen/RewardContinue") is Button,
+        "muerte: existe el botón VER ANUNCIO: CONTINUAR")
+    _check(main.has_method("continue_after_reward"), "muerte: continuar usa el punto seguro y media salud")
+
+    menu.call("close")
+    menu.queue_free()
+    GameState.inventory.take(AMMO, 999)
+    GameState.inventory.add(AMMO, original_reserve)
+    GameState.inventory.take(SUSHI, 999)
+    player.health = original_health
+    GameState.health = original_health
+    GameState.play_time = original_play_time
+    Ads.configure_provider(null)
+    Ads.reset_for_tests()
     for enemy: Node in saved_enemy_states:
         if is_instance_valid(enemy):
             enemy.state = saved_enemy_states[enemy]
