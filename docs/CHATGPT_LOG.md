@@ -113,7 +113,7 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
-### 2026-11-19 — T5: hoja de ruta actualizada (rama: chatgpt/T5-roadmap, PR: pendiente)
+### 2026-11-19 — T5: hoja de ruta actualizada (rama: chatgpt/T5-roadmap, PR: #5)
 
 - **Qué hice:** Actualicé el estado del proyecto con los tres capítulos completos y detallé el capítulo 3 de Buin, el rescate de Kiara y Nala, la planificación de cámaras, los túneles, el modo Moderno predeterminado, las flechas de destino, el cartel de sala y la pantalla DIAG. Dejé separados los trabajos implementados de los pendientes (audio T7/T8, cinemática T9 y capítulos siguientes).
 - **Archivos tocados:** `docs/ROADMAP.md` y `docs/CHATGPT_LOG.md`.
