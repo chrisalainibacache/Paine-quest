@@ -83,3 +83,13 @@ Un nodo en `main.tscn` (o clase con estado estático, como `Sfx`) que:
 - **T8 (datos de salas):** `ambience` en `Room` y en los generadores `tools/level_gen/*.py` (+ regenerar).
 - **Claude (assets):** sube los `.ogg` por tandas (armas → infectados → puertas → ambientes → música).
 - **Criterio de listo:** `Pruebas en PR` en verde; el APK pesa ≤ 80 MB; Chris aprueba por oído.
+
+## 9. Avance de Claude (assets)
+- **Tanda 1 — armas (hecha):** `assets/audio/sfx/` tiene `shot_1..3` (pistola 9 mm), `mauser_1..2`,
+  `shotgun_1..4`, `rifle_1..3`, `assault_1..2`, `launcher_1`, `bazooka_1`, `explosion_1..2`, `click_1..2`,
+  `reload_1..3`, `reload_rifle_1`, `weapon_equip_1`, `shotgun_pump_1`, `shell_drop_1..2` (27 archivos, 0,25 MB).
+- **Para T7:** los `.tres` de armas hoy usan `rifle`, `launcher` y `shot`. El cargador debe tener **alias**
+  (`assault`→`rifle`, `bazooka`→`launcher`, `mauser`→`shot`) para el respaldo sintetizado, y después se
+  cambian `assault_rifle.tres` (`assault`), `bazooka.tres` (`bazooka`) y `mauser.tres` (`mauser`) para que
+  usen los archivos nuevos. Hasta que exista el cargador, estos `.ogg` no suenan.
+- Siguientes tandas: infectados → puertas y objetos → animales → ambientes → música.
