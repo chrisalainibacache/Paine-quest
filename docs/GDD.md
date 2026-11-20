@@ -77,6 +77,21 @@ escribe con ese cariño.
 - **Pistas sembradas (no decirlas en voz alta):** nadie ataca a Leo; Leo nunca se cansa;
   sus ojos brillan en la oscuridad; dice "siempre te he llevado yo".
 
+### Cinemática de apertura (decisión de Chris, noviembre) — guion
+Se muestra **una sola vez**, al empezar una **partida nueva** (nunca al continuar), antes de las líneas de
+introducción del andén. **~7,5 s de video HD** (prerenderizado, sin personajes) + **~3 s de título** en el motor.
+Se renderiza con `tools/prerender/render_cinematic.gd` (la misma técnica de los fondos del capítulo 1).
+Tono: la estación de Paine de noche, vacía, **algo anda mal**; Leo e Isabella todavía no aparecen.
+1. **0–2,5 s** — cámara baja junto a la vía, saliendo del túnel oeste; el andén vacío, el letrero PAINE,
+   niebla; la luz de sodio **titila**. Viento lejano y zumbido eléctrico.
+2. **2,5–5,5 s** — la cámara avanza despacio entre los pilares, ganando altura; los pilares pasan como cortinas.
+   Cada caída de luz va con un chasquido eléctrico.
+3. **5,5–7,5 s** — se detiene frente a la puerta de la sala de espera (la única ventana encendida). Fundido
+   a negro con el viento que baja.
+4. **Título (3 s, en el motor):** «PAINE» y debajo «Viernes · 23:40». Después, las líneas de intro de Isabella.
+Reglas: saltable con un toque (tras 1 s); sin diálogo; el video vive en `assets/video/intro.ogv` (Theora + Vorbis).
+La **cinemática de Skull** (puerta que estalla, capítulo 2) es otra pieza y sigue su propio ticket (T9).
+
 ### Kiara y Nala (las perras de Chris)
 Aparecen en el capítulo 3 (potrero) y salvan a Isabella y Leo de una horda. Luego siguen
 rescatando gente: pueden volver a aparecer más adelante (por ejemplo, en el capítulo 4 o

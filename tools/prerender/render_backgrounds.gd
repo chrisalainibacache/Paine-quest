@@ -26,6 +26,7 @@ func _run() -> void:
     DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out_dir))
 
     SceneLoader.intros_enabled = false
+    SceneLoader.cinematics_enabled = false
     GraphicsSettings.set_modern(true)
     var room := (load(room_path) as PackedScene).instantiate() as Node3D
     root.add_child(room)

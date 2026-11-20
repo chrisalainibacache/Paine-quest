@@ -13,6 +13,7 @@ func _init() -> void:
     GameState.new_game()
     GameState.give_pistol()
     SceneLoader.intros_enabled = false
+    SceneLoader.cinematics_enabled = false
     change_scene_to_file("res://main.tscn")
     _run.call_deferred()
 

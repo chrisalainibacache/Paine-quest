@@ -12,6 +12,9 @@ static var _instance: SceneLoader
 
 ## Las pruebas automáticas las apagan (el diálogo pausa el juego).
 static var intros_enabled := true
+## Las pruebas y las capturas la apagan (no hay que esperar un video).
+static var cinematics_enabled := true
+const OPENING_VIDEO := "res://assets/video/intro.ogv"
 var room: Room
 var world: Node3D
 var player: Player
@@ -60,9 +63,21 @@ func enter_first_room() -> void:
     _place_room(GameState.room_path, GameState.spawn_id, GameState.use_spawn_transform)
     GameState.use_spawn_transform = false
     await _settle()
+    await _play_opening()
     await _fade_to(0.0)
     _announce_place()
     await _play_intro()
+
+
+## Cinemática de apertura: solo en una partida nueva y una sola vez.
+func _play_opening() -> void:
+    if not cinematics_enabled or not GameState.has_flag("cinematic:intro_pending"):
+        return
+    GameState.set_flag("cinematic:intro")
+    GameState.flags.erase("cinematic:intro_pending")
+    player.controls_locked = true
+    await VideoCinematic.play(self, OPENING_VIDEO, "PAINE", "Viernes · 23:40")
+    player.controls_locked = false
 
 
 func _go_to(room_path: String, spawn_id: String) -> void:

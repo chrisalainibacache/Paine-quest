@@ -24,6 +24,7 @@ func _run() -> void:
         _check(GameState.inventory.has_id(ammo_id), "y munición %s" % ammo_id)
     await _start_game("user://test_sistemas.json")
     _audio_systems()
+    await _opening_cinematic()
     var player: Player = main.player
     _inventory_rules()
     await _leo_warns(player)
@@ -40,6 +41,16 @@ func _run() -> void:
     await _chapter_route(player)
     await _chapter_two()
     _finish()
+
+
+## Cinemática de apertura: una partida nueva la deja pendiente; sin video no cuelga nada.
+func _opening_cinematic() -> void:
+    _check(GameState.has_flag("cinematic:intro_pending"), "cinemática: una partida nueva deja la apertura pendiente")
+    await VideoCinematic.play(main, "res://assets/video/no_existe.ogv", "X", "Y")
+    _check(true, "cinemática: un video que no existe se salta sin colgar el juego")
+    if ResourceLoader.exists(SceneLoader.OPENING_VIDEO):
+        _check(load(SceneLoader.OPENING_VIDEO) is VideoStream, "cinemática: el video de apertura se puede leer")
+    _check(not SceneLoader.cinematics_enabled, "cinemática: las pruebas la tienen apagada")
 
 
 ## Audio: muestras reales, alias de armas, fallback sintetizado y director.

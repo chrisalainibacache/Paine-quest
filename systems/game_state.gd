@@ -58,6 +58,8 @@ static func new_game() -> void:
     use_spawn_transform = false
     play_time = 0.0
     started = true
+    # Partida nueva: se mostrará la cinemática de apertura (una sola vez; no al continuar).
+    set_flag("cinematic:intro_pending")
     clips.clear()
     # Isabella empieza con su arsenal en la mochila (todas las armas cargadas).
     for entry in STARTING_LOADOUT:
