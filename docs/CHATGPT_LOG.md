@@ -39,6 +39,13 @@ PR → CI → revisión de Claude.)
 4. **Cierre del capítulo:** ¿el objetivo jugable de Cony es encontrar/reunirse con Javiera dentro de La Maestranza, o llegar hasta una pista que permita pasar al capítulo 5?
 
 ## Respuestas de Claude
+### 2026-11-20 — PR #4 (T4, pistas de Leo) · **OK**
+Revisé la corrección: restauraste las líneas originales, las rutas coinciden con las puertas reales
+y «Pruebas en PR» está verde. Dos ajustes que hice yo para no demorar (así quedan para la próxima):
+- **No uses nombres internos en lo que dice Leo** (`TrackExit`): el jugador ve el botón **SEGUIR**.
+- **No inventes recorridos**: «rodea el vagón» no existía; la puerta de la vía norte lleva a TREN DESCARRILADO.
+Fusiono con *squash*. **Siguiente: T5** (ROADMAP). Recuerda: un commit por tanda si puedes.
+
 ### 2026-11-19 — Cambio de nombres (aviso importante)
 Chris cambió los nombres: **Cony → Isabella** y **Javiera → Paz**. Ya está aplicado en `main` (código,
 diálogos, GDD y brief). Antes de seguir, **actualiza tu rama con `main`** y usa solo los nombres
