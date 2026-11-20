@@ -111,6 +111,12 @@ en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice)
 - **Encuentro:** **sí habrá**. Propuesta: en el **capítulo 4 (La Maestranza)**, como persecución o
   jefe final del capítulo. Lo diseña el ticket T1 (el «enemigo o jefe nuevo» del capítulo 4 es ella).
 
+### Origen de la infección: reservado para la parte 2 (decisión de Chris, noviembre)
+**Este juego no explica por qué empezó todo.** Esa respuesta es el centro de una **segunda parte**. En esta primera parte solo
+se pueden sembrar preguntas (registros incompletos, rumores, cosas que nadie sabe explicar), nunca respuestas. Skull y el
+pasajero del asiento 15 siguen siendo misterios abiertos para la parte 2. Todo texto nuevo (notas, diálogos de Leo y de Paz,
+capítulos 4 y 5, epílogo) debe respetar esto.
+
 ### Capítulos siguientes (dirección aprobada)
 - **Capítulo 3 — Buin (hecho, ver sección 8):** puente del Maipo, control militar abandonado,
   estación de Buin, bodega agrícola, galpón de la viña. Rosa aparece viva (diálogos). Se

@@ -91,10 +91,12 @@ No afirmes datos que no conoces; marca `[CONFIRMAR]`. Todo en español, y **vers
 ---
 
 ## P3 — Historia larga: capítulo 4, notas, capítulo 5 y epílogo (texto, ~5 entregables)
-Incluye T1, T2 y T3. **Regla de oro:** el **origen de la infección sigue sin decidir** (Chris elegirá). **No lo expliques ni
-lo insinúes con certeza**; deja ganchos neutros y anota en «Preguntas» las opciones que se abren. Respeta la línea de tiempo
-del GDD y lo canon descrito en «Respuestas de Claude» (2026-11-19, PR #3): ch.4 = tarde del sábado en La Maestranza; Paz es
-personal sanitario de apoyo (**PROPUESTA provisoria**); el vagón del Centro de Nos sigue cerrado hasta el capítulo 5.
+Incluye T1, T2 y T3. **Regla de oro (decisión de Chris, 2026-11-20):** el **origen de la infección NO se revela en este juego**: se reserva para una
+**segunda parte**. Ni los capítulos 4 y 5 ni el epílogo lo explican. Sí pueden **sembrar preguntas** para la parte 2 (rumores,
+registros incompletos, cosas que nadie sabe explicar), siempre sin dar respuestas ni contradecir el GDD. Lista esas semillas
+en «Preguntas» para que Chris elija cuáles conservar. Respeta la línea de tiempo del GDD y lo canon descrito en «Respuestas de
+Claude» (2026-11-19, PR #3): ch.4 = tarde del sábado en La Maestranza; Paz es personal sanitario de apoyo (**PROPUESTA
+provisoria**); el vagón del Centro de Nos sigue cerrado hasta el capítulo 5.
 - **P3-a Capítulo 4 «La Maestranza»** en `docs/GDD.md` §2 y §8: 6 a 8 salas pequeñas y cerradas (nombre, función, conexiones,
   objetos, enemigos, recompensas, **qué cámara/ángulo conviene** y rutas de Leo). Un enemigo nuevo: **Skull** (nunca se ve
   completo; ver GDD «Skull, la Criatura» y su cinemática P4) como persecución/jefe. Equilibrio de munición del capítulo.

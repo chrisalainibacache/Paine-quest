@@ -17,9 +17,9 @@
 | Zombi con polera | `infected_shirt.glb` | Pixelhouse, **CC-BY 3.0** | 🟡 crédito visible en el juego |
 | Música (6 pistas) | `assets/audio/music/` | Kevin MacLeod, **CC-BY 4.0** | 🟡 crédito visible en el juego |
 | Isabella (modelo «Erika Archer» + animación de trote) | `assets/characters/cony/` | **Mixamo (Adobe)** | 🟡 Se puede usar en un juego comercial, **no redistribuir los archivos sueltos** (el repositorio es público) |
-| Infectados PSX: común, pálido, obrero, quemado, pesado | `infected_psx_05`, `infected_pale`, `infected_worker`, `infected_burnt`, `character_monster_07` | Bajados gratis de itch.io; **sin README ni licencia en el Drive** | 🔴 |
+| Infectados PSX: común, pálido, obrero, quemado, pesado | `infected_psx_05`, `infected_pale`, `infected_worker`, `infected_burnt`, `character_monster_07` | Bajados gratis de itch.io; sin README en el Drive | 🟡 se conservan (riesgo aceptado) |
 | Calle: vehículos, barreras, conos | `assets/environment/atomic_realm_post_apocalyptic/` | Atomic Realm (itch.io): comercial ✔, redistribuir ✘ | 🟡 repositorio privado |
-| Armas: Mauser, lanzagranadas, bazuca | `mauser.glb`, `grenade_launcher.glb`, `bazooka.glb` | Heavy Weapons Pack, bajado gratis de itch.io, sin archivo de licencia | 🔴 → se conservan hasta la compuerta previa a publicar |
+| Armas: Mauser, lanzagranadas, bazuca | `mauser.glb`, `grenade_launcher.glb`, `bazooka.glb` | Heavy Weapons Pack, bajado gratis de itch.io, sin archivo de licencia | 🟡 se conservan por decisión de Chris (riesgo aceptado) |
 | Grafitis y murales (6 + 2 PNG) | `assets/environment/graffiti/` | Nombres «paine/estacion»: hechos para el proyecto | 🟢 (Chris confirma) |
 | Pistola, trenes, utilería, comida, munición, decals, afiche, follaje | `levels/kit/props/`, `tools/*` | Hechos por nosotros con código | 🟢 |
 | Fuente | — | Fuente por defecto de Godot (Open Sans, OFL) | 🟢 |
@@ -50,11 +50,12 @@ para este proyecto (no vienen de un pack con nombre de autor). Se tratan como pr
 - **Modelo de ingresos:** juego gratis con **anuncios con recompensa opcionales** (munición, curativo, continuar) + compra
   opcional «quitar anuncios». Decidido por Chris.
 - **Grafitis y murales:** son del proyecto (Chris) → 🟢.
-- **Armas pesadas (Mauser, lanzagranadas, bazuca) y modelos PSX sin README:** Chris teme que rearmarlas se vean feas.
-  **Decisión de Claude: se conservan.** Todos los packs de itch.io cuyo README sí se encontró permiten uso comercial; por eso es
-  muy probable que estos también. Condiciones: (1) repositorio **privado** ya; (2) **compuerta antes de publicar**: ubicar las
-  páginas de itch.io de estos packs (Chris) y anotar su licencia en `docs/store/licencias_activos.md`; si alguna prohíbe el uso
-  comercial, **solo entonces** se reemplaza ese recurso por CC0 (no antes); (3) crédito en la pantalla de créditos.
+- **Armas pesadas (Mauser, lanzagranadas, bazuca) y modelos PSX sin README:** **Chris decide usarlos tal cual.** No se
+  reemplaza ni se rearma nada. Riesgo residual conocido y aceptado por Chris: como no hay README de esos packs, si en el futuro
+  un autor reclamara, se reemplazaría solo ese recurso. Recomendación **no bloqueante**: si algún día aparece el nombre de la
+  página de itch.io, anotarlo en `docs/store/licencias_activos.md`. Se conserva el crédito en la pantalla de créditos y el
+  repositorio debe seguir **privado** (los packs que sí tienen README prohíben redistribuir los archivos).
+- **Origen de la infección:** reservado para una **segunda parte** (Chris). No se explica en este juego.
 
 ### Qué necesito que confirme Chris (solo él lo sabe)
 1. **Pack PSX de personajes** (`characters_psx_v72`, `infected_candidates`): ¿lo compraste o lo bajaste gratis? ¿De dónde? ¿Tienes la factura o la página?
