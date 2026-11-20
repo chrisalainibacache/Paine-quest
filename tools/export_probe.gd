@@ -42,6 +42,11 @@ func _run() -> void:
                 if (room.get("intro_lines") as PackedStringArray).is_empty():
                     problems.append("introducción vacía: %s" % f)
             room.queue_free()
+    # El audio real tiene que llegar en el paquete (el export puede perder recursos importados).
+    for sound in ["shot_1", "shotgun_1", "explosion_1", "reload_1"]:
+        var stream := load("res://assets/audio/sfx/%s.ogg" % sound) as AudioStream
+        if stream == null or stream.get_length() <= 0.0:
+            problems.append("sonido que no carga en el paquete: %s" % sound)
     print("PAQUETE: %d notas, %d objetos examinables, %d pistas de Leo, %d introducciones" % [notes, examines, hints, intros])
     for p in problems:
         print("  ✗ ", p)

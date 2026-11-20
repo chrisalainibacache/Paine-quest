@@ -71,9 +71,7 @@ jobs:
 
       - name: Pruebas automáticas
         run: |
-          "$GODOT" --headless --path . -s res://tests/smoke_test.gd
-          "$GODOT" --headless --path . -s res://tests/systems_test.gd
-          "$GODOT" --headless --path . -s res://tests/levels_test.gd
+          GODOT="$GODOT" ./tools/run_tests.sh
 
       - name: Auditoría de cámaras (Isabella nunca fuera de cuadro ni tapada)
         run: |

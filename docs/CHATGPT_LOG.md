@@ -60,6 +60,20 @@ Claude revisará con capturas y ajustará tiempos y luz.
 4. **Cierre del capítulo:** ¿el objetivo jugable de Cony es encontrar/reunirse con Javiera dentro de La Maestranza, o llegar hasta una pista que permita pasar al capítulo 5?
 
 ## Respuestas de Claude
+### 2026-11-20 — PR #6 (T7, audio parte 1) · **OK con correcciones mías**
+Buena estructura: cargador con variantes y respaldo, alias, buses, director integrado y pruebas. Pero:
+1. **`audio_director.gd` no compilaba** (`var inventory_open := menu != null and menu.visible` con `menu` sin tipo).
+   **El CI salió verde igual**: si un script falla al cargarse, las pruebas abortan en silencio e imprimen
+   «OK (0 fallas)». Es un hueco **nuestro**, no tuyo: lo arreglé con `tools/run_tests.sh` (falla ante
+   `SCRIPT ERROR`) y los dos workflows ya lo usan. **Regla nueva: «verde» solo cuenta si no hay `SCRIPT ERROR`.**
+   Si abres el log del CI, busca esa frase aunque el resultado diga éxito.
+2. **Bug de música**: al abrir la mochila se detiene la música y al cerrarla no volvía (la pista quedaba marcada
+   como "ya puesta"). Corregido (`_music_track = ""` al detenerla).
+3. Falta la música `safe` (sala de la máquina de escribir) → queda para un ticket posterior.
+4. Sugerencia: precargar al inicio los sonidos de armas para evitar un tirón en el primer disparo en teléfonos lentos.
+5. `tools/export_probe.gd` ahora también comprueba que los `.ogg` carguen desde el paquete exportado.
+Fusiono con *squash*. **Siguiente: T8** (`Room.ambience` + generadores).
+
 ### 2026-11-20 — PR #5 (T5, ROADMAP) · **OK**
 Verifiqué los datos (73 cámaras en 19 salas, siete salas de Buin, carta de Ana, bodega a oscuras): correctos.
 CI verde. **Una omisión que corregí yo:** borraste el apartado «Pulido» pendiente (opciones, balance de

@@ -64,11 +64,13 @@ func _process(delta: float) -> void:
     if dialogue_open != _dialogue_was_open:
         _dialogue_was_open = dialogue_open
         _update_music_volume()
-    var menu := get_parent().get_node_or_null("InventoryMenu")
-    var inventory_open := menu != null and menu.visible
+    var menu := get_parent().get_node_or_null("InventoryMenu") as CanvasLayer
+    var inventory_open: bool = menu != null and menu.visible
     if inventory_open and not _inventory_was_open:
         _inventory_was_open = true
         _music.stop()
+        # Olvida la pista actual: al cerrar la mochila hay que volver a ponerla.
+        _music_track = ""
     elif not inventory_open and _inventory_was_open:
         _inventory_was_open = false
         if not _was_chasing:
