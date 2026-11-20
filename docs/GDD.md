@@ -144,11 +144,17 @@ momentos, todavía es Rosa (frases suyas dentro de la pelea).
 ### Rosa convertida: referencia visual (imagen de Chris, `docs/arte/rosa_convertida_ref.jpg`)
 Chris trajo una imagen de referencia de **Rosa en plena transformación**. Rasgos a respetar: **sigue siendo reconociblemente una mujer** (cara y pelo
 de Rosa, ojos rojos brillantes, gesto de dolor y furia), **púas y raíces de hueso/carne que le brotan de hombros, brazos y torso**, el **pecho abierto
-con un resplandor rojo** (punto débil para la pelea), **manos con garras largas**, ropa rota (el uniforme de boletería), en un pasillo oscuro con filamentos.
+con un resplandor rojo** (punto débil para la pelea), **manos con garras largas**, ropa rota (la chaqueta verde oliva de arriba), en un pasillo oscuro con filamentos.
 **Cómo se conecta con Skull:** la imagen es la **fase intermedia**; la pelea final avanza hacia el cuerpo de Skull (más alto, encorvado, brazos al suelo,
 cráneo pelado, púas en la espalda: `levels/kit/skull_body.gd`). Fases sugeridas: **1)** Rosa a medio transformar (como la imagen), **2)** brota el cuerpo de
 Skull y la cara se descarna, **3)** Skull completo con el resplandor del pecho como punto débil.
 **Uso:** es **solo referencia** para modelar/pintar en el motor (nada de la imagen se publica en el juego tal cual).
+
+**Rosa sin convertirse** (`docs/arte/rosa_humana_ref.jpg`): mujer de unos **55–60 años**, pelo canoso recogido, rostro cansado y sereno, mirada firme.
+Viste una **chaqueta verde oliva tipo militar** con manchas de sangre y **pantalón cargo**. Esa ropa es la que luego se rompe en la transformación.
+Detalle de historia: la chaqueta apunta a que **se la dieron o la tomó en el control militar de Buin** (o venía con los soldados); no se explica.
+Por eso Isabella le dice y Rosa le dice «niña»: es una mujer mayor, maternal. **Dato de cámara/pelea:** el contraste entre las dos imágenes
+(la mujer tranquila y la criatura) es la herramienta emocional del capítulo 5.
 
 ### Rosa y Skull en las notas (decisiones de Chris, noviembre)
 - **Rosa (capítulo 3):** no se explica cómo llegó de Paine a Buin. Isabella empieza a sospechar de ella y **Leo sospecha más que Isabella**:
