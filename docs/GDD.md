@@ -170,6 +170,13 @@ Quién habla: sobrevivientes y personal de La Maestranza, notas de turno, la rad
 | 5 | Paz (cara a cara o radio) | «Un paciente jura que ella lo visitó dormido. Dice que te mira con la cara de alguien que quisiste. Isabella… ¿quién es esa señora?» | Isabella calla y piensa en la puerta del galpón |
 | 6 | Cap. 5, justo antes del jefe final | Una grabación o nota firmada: «…sujeto con vínculo directo, Rosa C., boletería de Paine. La infección no avanzó: **esperó**.» | **Confirmación:** la señora es Rosa |
 
+**Decisión de Claude (Chris delegó): el peldaño 4 es una ESCENA EN VIVO** (el 5 queda como diálogo con Paz). Escena «el aplauso» (una sola vez, bandera
+`scene:applause`, saltable con un toque, mismo patrón que `levels/kit/rescue_scene.gd`): tras morir el Skull original, la sala queda en silencio y la luz
+parpadea. Se oye **un aplauso lento** que viene del pasillo. Leo se eriza y se pega a Isabella. En el **fondo del pasillo** hay un destello: una **silueta de
+mujer** de pie (nunca se ve la cara). Por el **altavoz de La Maestranza** (voz tenue, tarareando) sale: «¿Dónde está la niña del gato?». La silueta desaparece
+y se corta la luz. Isabella: «Esa voz...» · Leo: «Isabella... no te quedes. Vámonos.» **No se dice el nombre.** Sonidos nuevos (Claude los genera):
+`applause_slow_1` y `hum_far_1`; el resto reutiliza `Sfx`.
+
 **Reglas:** (1) los peldaños 1 a 5 **no nombran** a Rosa; (2) **ninguno explica el origen**; (3) en cada peldaño puede haber una **reacción de Leo** (bufa,
 se eriza, se esconde detrás de Isabella: es la única vez que Leo tiene miedo); (4) la señora **nunca aparece** hasta la transformación del jefe final,
 salvo **un destello** (silueta al fondo de un pasillo) en el capítulo 4; (5) los infectados le abren paso y los gatos (inmunes) no huyen de ella, los perros sí.
