@@ -11,6 +11,7 @@ const POOL_SIZE := 8
 static var _instance: Sfx
 
 var _streams: Dictionary = {}
+var _real_streams: Dictionary = {}
 var _players_3d: Array[AudioStreamPlayer3D] = []
 var _players_2d: Array[AudioStreamPlayer] = []
 var _next_3d := 0
@@ -49,9 +50,11 @@ func _ready() -> void:
         var p3 := AudioStreamPlayer3D.new()
         p3.unit_size = 4.0
         p3.max_distance = 30.0
+        p3.bus = "Sfx"
         add_child(p3)
         _players_3d.append(p3)
         var p2 := AudioStreamPlayer.new()
+        p2.bus = "Sfx"
         add_child(p2)
         _players_2d.append(p2)
 
@@ -63,13 +66,16 @@ static func play(sound: String, at: Variant = null, volume_db: float = 0.0, pitc
 
 
 func _play(sound: String, at: Variant, volume_db: float, pitch_jitter: float) -> void:
-    if not _streams.has(sound):
+    var stream := _stream_for(sound)
+    if stream == null:
         return
     var pitch := 1.0 + randf_range(-pitch_jitter, pitch_jitter)
+    var bus := "Ui" if sound in ["menu", "page", "typewriter"] else "Sfx"
     if at is Vector3:
         var p3 := _players_3d[_next_3d]
         _next_3d = (_next_3d + 1) % POOL_SIZE
-        p3.stream = _streams[sound]
+        p3.stream = stream
+        p3.bus = bus
         p3.global_position = at
         p3.volume_db = volume_db
         p3.pitch_scale = pitch
@@ -77,10 +83,30 @@ func _play(sound: String, at: Variant, volume_db: float, pitch_jitter: float) ->
     else:
         var p2 := _players_2d[_next_2d]
         _next_2d = (_next_2d + 1) % POOL_SIZE
-        p2.stream = _streams[sound]
+        p2.stream = stream
+        p2.bus = bus
         p2.volume_db = volume_db
         p2.pitch_scale = pitch
         p2.play()
+
+
+## Devuelve una variante OGG al azar o el sonido sintetizado de respaldo.
+func _stream_for(sound: String) -> AudioStream:
+    if _real_streams.has(sound):
+        var cached: Array = _real_streams[sound]
+        return cached[randi_range(0, cached.size() - 1)] if not cached.is_empty() else _streams.get(sound)
+    var variants: Array[AudioStream] = []
+    for index in 9:
+        var suffix := "" if index == 0 else "_" + str(index)
+        var path := "res://assets/audio/sfx/%s%s.ogg" % [sound, suffix]
+        if ResourceLoader.exists(path):
+            var audio := load(path) as AudioStream
+            if audio:
+                variants.append(audio)
+    _real_streams[sound] = variants
+    if not variants.is_empty():
+        return variants[randi_range(0, variants.size() - 1)]
+    return _streams.get(sound)
 
 
 func _make(seconds: float, generator: Callable) -> AudioStreamWAV:

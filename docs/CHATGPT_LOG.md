@@ -119,6 +119,15 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — T7: infraestructura de audio sin archivos OGG (rama: chatgpt/T7-audio-base, PR: #6)
+
+- **Qué hice:** Implementé la búsqueda y selección aleatoria de variantes OGG por nombre, con respaldo al sonido sintetizado existente cuando no hay archivos. Añadí los buses Master, Sfx, Music, Ambience y Ui, y el AudioDirector para música por capítulo, ambiente opcional por propiedad de sala, tensión con histéresis de 6 s, atenuación durante diálogos/notas y pausa de música al abrir la mochila o morir.
+- **Archivos tocados:** `systems/sfx.gd`, `systems/audio_director.gd`, `default_bus_layout.tres`, `main.tscn`, `tests/systems_test.gd` y `docs/CHATGPT_LOG.md`.
+- **Pruebas:** smoke / systems / levels = no ejecutadas localmente (este entorno no dispone de Godot). Se añadieron comprobaciones de buses, fallback sin OGG, nombre desconocido y apagado del director. Pendiente workflow «Pruebas en PR»; no afirmo que hayan pasado.
+- **Qué debe probar Chris en el teléfono:** nada todavía; primero esperar CI verde y revisión de Claude. La implementación no requiere ni incluye archivos de audio.
+- **Dudas / decisiones que necesito:** T7 lee el identificador `Room.ambience` de forma opcional, sin añadirlo a `Room` ni a los generadores; esa asignación corresponde a T8. Las pistas de música/ambiente permanecen en silencio mientras Claude no agregue los OGG.
+- **Estado:** EN REVISIÓN — PR #6 abierto; CI y revisión de Claude pendientes.
+
 ### 2026-11-19 — T5: hoja de ruta actualizada (rama: chatgpt/T5-roadmap, PR: #5)
 
 - **Qué hice:** Actualicé el estado del proyecto con los tres capítulos completos y detallé el capítulo 3 de Buin, el rescate de Kiara y Nala, la planificación de cámaras, los túneles, el modo Moderno predeterminado, las flechas de destino, el cartel de sala y la pantalla DIAG. Dejé separados los trabajos implementados de los pendientes (audio T7/T8, cinemática T9 y capítulos siguientes).

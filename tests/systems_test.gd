@@ -23,6 +23,7 @@ func _run() -> void:
     for ammo_id in ["ammo_9mm", "ammo_shells", "ammo_rifle", "ammo_grenades", "ammo_rockets"]:
         _check(GameState.inventory.has_id(ammo_id), "y munición %s" % ammo_id)
     await _start_game("user://test_sistemas.json")
+    _audio_systems()
     var player: Player = main.player
     _inventory_rules()
     await _leo_warns(player)
@@ -39,6 +40,21 @@ func _run() -> void:
     await _chapter_route(player)
     await _chapter_two()
     _finish()
+
+
+## Audio: buses, respaldo sintetizado y director disponibles sin archivos OGG.
+func _audio_systems() -> void:
+    _check(AudioServer.get_bus_index("Master") == 0 and AudioServer.get_bus_index("Sfx") >= 0
+        and AudioServer.get_bus_index("Music") >= 0 and AudioServer.get_bus_index("Ambience") >= 0
+        and AudioServer.get_bus_index("Ui") >= 0, "audio: existen los cinco buses")
+    _check(Sfx._instance._stream_for("shot") is AudioStreamWAV, "audio: un disparo usa el respaldo sintetizado sin OGG")
+    _check(Sfx._instance._stream_for("nombre_sin_sonido") == null, "audio: un nombre sin OGG ni receta no falla ni inventa sonido")
+    _check(main.get_node_or_null("AudioDirector") != null and AudioDirector._instance != null,
+        "audio: el director está integrado en la escena principal")
+    var was_enabled := AudioDirector.enabled
+    AudioDirector.enabled = false
+    _check(not AudioDirector.enabled, "audio: el director se puede apagar para pruebas")
+    AudioDirector.enabled = was_enabled
 
 
 func _inventory_rules() -> void:
