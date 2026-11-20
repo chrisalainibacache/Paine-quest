@@ -140,12 +140,22 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — T9: cinemática en vivo de la criatura (rama: chatgpt/T9-skull-cinematic, PR: pendiente)
+
+- **Qué hice:** Preparé una escena 3D en vivo de unos 10 segundos: pasillo industrial desconocido, luz fluorescente inestable, tres golpes que se acercan, pausa de silencio, puerta que se abomba y estalla en fragmentos físicos, polvo, sombra proyectada y rugido lejano. Skull nunca aparece; no hay diálogo, rótulos ni nombres internos en pantalla. Un toque la salta.
+- **Integración:** `Room.cinematic` apunta a la escena desde `track_north`; `SceneLoader` la ejecuta antes de la intro, marca `cinematic:<ruta>` en `GameState` y restaura cámara, HUD y controles. Se prueba carga, finalización, bandera y no repetición.
+- **Archivos:** `levels/kit/cinematic.gd`, `levels/cinematics/creature_door.tscn` (generada por `tools/level_gen/creature_door.py`), `levels/kit/room.gd`, `tools/level_gen/roomkit.py`, `tools/level_gen/track_north.py`, `systems/scene_loader.gd`, pruebas y regenerador.
+- **Pruebas:** no ejecutadas localmente (este entorno no dispone de Godot). El workflow debe correr smoke / systems / levels, auditoría y exportación. Revisaré todos los logs y buscaré literalmente `SCRIPT ERROR`; un verde sin esa comprobación no cuenta.
+- **Qué debe probar Chris en el teléfono:** tras el OK de Claude, iniciar o continuar hasta la vía norte; comprobar la cinemática, el salto con un toque y que no vuelva a salir al reingresar.
+- **Dudas / decisiones que necesito:** Claude debe revisar la composición y los tiempos con capturas; no se muestra ningún modelo de Skull.
+- **Estado:** EN REVISIÓN — PR pendiente de crear, CI y revisión de Claude.
+
 ### 2026-11-20 — T8: ambiente por sala (rama: chatgpt/T8-room-ambience)
 
 - **Qué hice:** Añadí `Room.ambience: StringName` exportado y el parámetro `ambience=` a `roomkit.Kit`. Asigné los 14 ambientes de AUDIO_PLAN §5 a las 19 salas de los capítulos 1–3 mediante sus generadores; actualicé también los dos generadores antiguos que no usan Kit.
-- **Mapa:** Paine: `station_night`, `waiting_room`, `office`, `service_corridor`, `storeroom`; vía: `tracks_night`, `fire_wreck`, `train_interior`, `underpass`, `switch_house`; Buin: `bridge_river`, `military`, `day_fields`, `storeroom`, `barn`.
+- **Mapa:** Paine: `station_night`, `waiting_room`, `office`, `service_corridor`, `storeroom`; vía: `tracks_night`, `fire_wreck`, `train_interior`, `underpass`, `switch_house`; Buin: `bridge_river`, `military`, `day_fields` y `barn` para la Bodega agrícola (ajuste de Claude).
 - **Pruebas:** `tests/levels_test.gd` exige un ambiente no vacío en cada sala. El workflow regenera escenas y ejecuta `./tools/run_tests.sh`, que falla ante `SCRIPT ERROR`. No declararé las pruebas aprobadas hasta revisar ambos logs.
-- **Estado:** PR T8 abierto; CI y revisión de Claude pendientes.
+- **Corrección y estado:** Claude corrigió «Javi» por «Paz» y asignó `barn` a la Bodega agrícola. PR #7 fusionado por Claude; T8 cerrado.
 
 ### 2026-11-20 — T7: audio real, tanda 1 de armas (rama: chatgpt/T7-audio-base, PR: #6)
 

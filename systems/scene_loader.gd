@@ -12,6 +12,8 @@ static var _instance: SceneLoader
 
 ## Las pruebas automáticas las apagan (el diálogo pausa el juego).
 static var intros_enabled := true
+## Se puede apagar en pruebas; en una partida normal está activa.
+static var cinematics_enabled := true
 var room: Room
 var world: Node3D
 var player: Player
@@ -133,9 +135,62 @@ func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool)
     room_changed.emit(room)
 
 
+## Reproduce la cinemática de la sala una sola vez por partida.
+func _play_cinematic() -> void:
+    if not SceneLoader.cinematics_enabled or room == null or room.cinematic.is_empty():
+        return
+    var flag := "cinematic:" + room.scene_file_path
+    if GameState.has_flag(flag) or not ResourceLoader.exists(room.cinematic):
+        return
+    var packed := load(room.cinematic) as PackedScene
+    if packed == null:
+        push_warning("No se pudo cargar la cinemática de %s" % room.scene_file_path)
+        return
+    var cinematic := packed.instantiate() as Cinematic
+    if cinematic == null:
+        push_warning("La cinemática de %s no tiene el nodo esperado" % room.scene_file_path)
+        return
+
+    GameState.set_flag(flag)
+    var previous_camera := room.get_active_camera()
+    var player_was_locked := player.controls_locked
+    var player_was_visible := player.model.visible
+    var leo_was_visible := leo.visible
+    var hud := get_tree().get_first_node_in_group("hud") as CanvasLayer
+    var hud_was_visible := hud.visible if hud else false
+    var room_lights: Array[Light3D] = []
+    for node: Node in room.find_children("*", "Light3D", true, false):
+        var light := node as Light3D
+        room_lights.append(light)
+        light.visible = false
+    player.controls_locked = true
+    player.model.visible = false
+    leo.visible = false
+    if hud:
+        hud.visible = false
+    world.add_child(cinematic)
+    await cinematic.play()
+    cinematic.queue_free()
+    await get_tree().process_frame
+    await get_tree().process_frame
+    if is_instance_valid(previous_camera):
+        previous_camera.make_current()
+    for light in room_lights:
+        if is_instance_valid(light):
+            light.visible = true
+    player.model.visible = player_was_visible
+    leo.visible = leo_was_visible
+    if hud:
+        hud.visible = hud_was_visible
+    player.controls_locked = player_was_locked
+
+
 ## Primera visita a una sala con intro: Isabella cuenta qué ve (una sola vez).
 func _play_intro() -> void:
-    if room == null or room.intro_lines.is_empty() or not intros_enabled:
+    if room == null:
+        return
+    await _play_cinematic()
+    if room.intro_lines.is_empty() or not intros_enabled:
         return
     var flag := "intro:" + GameState.room_path
     if GameState.has_flag(flag):

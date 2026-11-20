@@ -21,11 +21,13 @@ def add_leo_hint(s, name, pos, lines, show_if=None, hide_if=None, show_item=None
 
 
 class Kit:
-    def __init__(self, root_name, room_name, dark=False, intro=None, ambience=""):
+    def __init__(self, root_name, room_name, dark=False, intro=None, ambience="", cinematic=""):
         self.s = Scene()
         extra = {}
         if ambience:
             extra["ambience"] = '&"%s"' % ambience
+        if cinematic:
+            extra["cinematic"] = '"%s"' % cinematic
         if dark:
             extra["dark"] = "true"
         if intro:
