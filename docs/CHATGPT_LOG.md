@@ -119,14 +119,13 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
-### 2026-11-20 — T7: infraestructura de audio sin archivos OGG (rama: chatgpt/T7-audio-base, PR: #6)
+### 2026-11-20 — T7: audio real, tanda 1 de armas (rama: chatgpt/T7-audio-base, PR: #6)
 
-- **Qué hice:** Implementé la búsqueda y selección aleatoria de variantes OGG por nombre, con respaldo al sonido sintetizado existente cuando no hay archivos. Añadí los buses Master, Sfx, Music, Ambience y Ui, y el AudioDirector para música por capítulo, ambiente opcional por propiedad de sala, tensión con histéresis de 6 s, atenuación durante diálogos/notas y pausa de música al abrir la mochila o morir.
-- **Archivos tocados:** `systems/sfx.gd`, `systems/audio_director.gd`, `default_bus_layout.tres`, `main.tscn`, `tests/systems_test.gd` y `docs/CHATGPT_LOG.md`.
-- **Pruebas:** smoke / systems / levels = no ejecutadas localmente (este entorno no dispone de Godot). Se añadieron comprobaciones de buses, fallback sin OGG, nombre desconocido y apagado del director. Pendiente workflow «Pruebas en PR»; no afirmo que hayan pasado.
-- **Qué debe probar Chris en el teléfono:** nada todavía; primero esperar CI verde y revisión de Claude. La implementación no requiere ni incluye archivos de audio.
-- **Dudas / decisiones que necesito:** T7 lee el identificador `Room.ambience` de forma opcional, sin añadirlo a `Room` ni a los generadores; esa asignación corresponde a T8. Las pistas de música/ambiente permanecen en silencio mientras Claude no agregue los OGG.
-- **Estado:** EN REVISIÓN — PR #6 abierto; CI y revisión de Claude pendientes.
+- **Qué hice:** Integré los 27 OGG de armas que ya están en `assets/audio/sfx/`. El cargador busca el nombre exacto y sus variantes `_1.._8`, selecciona una al azar y usa la receta sintetizada si no encuentra muestras. Añadí los alias de respaldo exigidos por AUDIO_PLAN §9: `assault → rifle`, `bazooka → launcher`, `mauser → shot`. Actualicé los recursos de esas tres armas para reproducir sus nuevos OGG.
+- **Archivos tocados en esta tanda:** `systems/sfx.gd`, `tests/systems_test.gd`, `data/weapons/assault_rifle.tres`, `data/weapons/bazooka.tres`, `data/weapons/mauser.tres`; se conserva la infraestructura T7 ya entregada en este PR.
+- **Pruebas:** añadí comprobaciones de carga OGG, alias y fallback sin muestras. Las tres pruebas completas (smoke / systems / levels) no se ejecutaron localmente porque este entorno no dispone de Godot. El workflow «Pruebas en PR» debe validar este commit; no afirmo que haya pasado antes de su resultado.
+- **Qué debe probar Chris en el teléfono:** esperar CI verde y revisión de Claude; después comprobar por oído las cinco armas cubiertas por los OGG.
+- **Estado:** ACTUALIZADO — PR #6 abierto; nueva validación CI pendiente.
 
 ### 2026-11-19 — T5: hoja de ruta actualizada (rama: chatgpt/T5-roadmap, PR: #5)
 

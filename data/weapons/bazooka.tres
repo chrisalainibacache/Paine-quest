@@ -19,4 +19,4 @@ explosive_radius = 4.0
 projectile_speed = 26.0
 muzzle_offset = Vector3(0, 0.06, 0.66)
 flash_scale = 2.0
-sound = "launcher"
+sound = "bazooka"

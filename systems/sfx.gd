@@ -1,12 +1,17 @@
 class_name Sfx
 extends Node
-## Efectos de sonido generados por código (no hay archivos de audio todavía).
+## Efectos de sonido: usa muestras OGG cuando existen y conserva recetas sintetizadas como respaldo.
 ## Cada sonido se sintetiza una vez al iniciar y se reutiliza. El nodo vive como
 ## autoload ("SfxPlayer"); el juego llama a la función estática Sfx.play().
-## Cuando tengamos muestras reales (.ogg) se reemplazan aquí sin tocar el juego.
+## La firma pública de Sfx.play() se mantiene estable.
 
 const RATE := 22050
 const POOL_SIZE := 8
+const SYNTHETIC_ALIASES := {
+    "assault": "rifle",
+    "bazooka": "launcher",
+    "mauser": "shot",
+}
 
 static var _instance: Sfx
 
@@ -90,11 +95,11 @@ func _play(sound: String, at: Variant, volume_db: float, pitch_jitter: float) ->
         p2.play()
 
 
-## Devuelve una variante OGG al azar o el sonido sintetizado de respaldo.
+## Busca <nombre>.ogg y <nombre>_1.._8. Si no hay muestra, usa la receta
+## sintetizada equivalente (incluidos los alias de armas definidos en AUDIO_PLAN §9).
 func _stream_for(sound: String) -> AudioStream:
     if _real_streams.has(sound):
-        var cached: Array = _real_streams[sound]
-        return cached[randi_range(0, cached.size() - 1)] if not cached.is_empty() else _streams.get(sound)
+        return _choose_stream(sound, _real_streams[sound])
     var variants: Array[AudioStream] = []
     for index in 9:
         var suffix := "" if index == 0 else "_" + str(index)
@@ -104,9 +109,19 @@ func _stream_for(sound: String) -> AudioStream:
             if audio:
                 variants.append(audio)
     _real_streams[sound] = variants
+    return _choose_stream(sound, variants)
+
+
+## Separa la selección de muestras del fallback para poder probarlo sin borrar assets.
+func _choose_stream(sound: String, variants: Array) -> AudioStream:
     if not variants.is_empty():
-        return variants[randi_range(0, variants.size() - 1)]
-    return _streams.get(sound)
+        return variants[randi_range(0, variants.size() - 1)] as AudioStream
+    return _fallback_stream(sound)
+
+
+func _fallback_stream(sound: String) -> AudioStream:
+    var fallback_name := String(SYNTHETIC_ALIASES.get(sound, sound))
+    return _streams.get(fallback_name)
 
 
 func _make(seconds: float, generator: Callable) -> AudioStreamWAV:

@@ -42,13 +42,26 @@ func _run() -> void:
     _finish()
 
 
-## Audio: buses, respaldo sintetizado y director disponibles sin archivos OGG.
+## Audio: muestras reales, alias de armas, fallback sintetizado y director.
 func _audio_systems() -> void:
     _check(AudioServer.get_bus_index("Master") == 0 and AudioServer.get_bus_index("Sfx") >= 0
         and AudioServer.get_bus_index("Music") >= 0 and AudioServer.get_bus_index("Ambience") >= 0
         and AudioServer.get_bus_index("Ui") >= 0, "audio: existen los cinco buses")
-    _check(Sfx._instance._stream_for("shot") is AudioStreamWAV, "audio: un disparo usa el respaldo sintetizado sin OGG")
-    _check(Sfx._instance._stream_for("nombre_sin_sonido") == null, "audio: un nombre sin OGG ni receta no falla ni inventa sonido")
+    for sound in ["shot", "shotgun", "assault", "bazooka", "mauser"]:
+        _check(Sfx._instance._stream_for(sound) is AudioStreamOggVorbis, "audio: carga muestra OGG para %s" % sound)
+    _check(Sfx._instance._choose_stream("assault", []) == Sfx._instance._streams["rifle"],
+        "audio: assault cae al sintetizador rifle si falta su OGG")
+    _check(Sfx._instance._choose_stream("bazooka", []) == Sfx._instance._streams["launcher"],
+        "audio: bazooka cae al sintetizador launcher si falta su OGG")
+    _check(Sfx._instance._choose_stream("mauser", []) == Sfx._instance._streams["shot"],
+        "audio: mauser cae al sintetizador shot si falta su OGG")
+    _check(Sfx._instance._choose_stream("nombre_sin_sonido", []) == null,
+        "audio: un nombre sin OGG ni receta no inventa sonido")
+    var assault := load("res://data/weapons/assault_rifle.tres") as WeaponData
+    var bazooka := load("res://data/weapons/bazooka.tres") as WeaponData
+    var mauser := load("res://data/weapons/mauser.tres") as WeaponData
+    _check(assault.sound == "assault" and bazooka.sound == "bazooka" and mauser.sound == "mauser",
+        "audio: las tres armas nuevas usan sus alias de muestra propios")
     _check(main.get_node_or_null("AudioDirector") != null and AudioDirector._instance != null,
         "audio: el director está integrado en la escena principal")
     var was_enabled := AudioDirector.enabled
