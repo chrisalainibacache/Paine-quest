@@ -88,7 +88,7 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 
 **Líneas de entrada (vía norte):**
 - «Pasada la medianoche. La vía hacia el norte.»
-- «Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.»
+- «Allá adelante se ve un resplandor rojo y humo. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.»
 - «Paz, aguanta. Vamos caminando.»
 - «Leo: Yo voy adelante, como siempre.»
 

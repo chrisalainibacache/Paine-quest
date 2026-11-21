@@ -5,7 +5,7 @@ T = "res://levels/tracks/%s.tscn"
 # Vía norte: Isabella y Leo bajaron del andén sur y siguen por la vía. Al fondo,
 # un vagón volcado cruza la vía y hay fuego: el tren de las 6:30.
 # Lo que piensa Isabella al empezar el capítulo 2.
-INTRO = ['Pasada la medianoche. La vía hacia el norte.', 'Allá adelante hay fuego. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.', 'Paz, aguanta. Vamos caminando.', 'Leo: Yo voy adelante, como siempre.']
+INTRO = ['Pasada la medianoche. La vía hacia el norte.', 'Allá adelante se ve un resplandor rojo y humo. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.', 'Paz, aguanta. Vamos caminando.', 'Leo: Yo voy adelante, como siempre.']
 k = Kit("TrackNorth", "Vía norte", intro=INTRO, ambience="tracks_night")
 night(k)
 X0, X1, Z0, Z1 = -9.0, 9.0, -3.5, 3.5
@@ -14,21 +14,25 @@ walls(k, X0, X1, Z0, Z1, north="old_bricks_wall", south="concrete_wall", skip=("
 # Túnel de regreso a la estación (oeste): portal de ladrillo y tubo con la vía.
 from tunnels import carve
 carve(k.block, k.prop, -1, X0, 0.0, 0.0, -0.3, 5.5, Z0, Z1, "concrete_wall", prefix="WestTunnel")
-fence_top(k, X0, X1, 3.42, 0.0)
-# Túnel de vuelta a la estación (oeste): portón de reja cerrado con cadena y candado (marco, travesaños y barrotes).
-GX = -8.7
-for z in (-1.95, 1.95):
-    k.block("GatePost%d" % (z > 0), "Walls", (GX, 1.5, z), (0.16, 3.0, 0.16), "metal", solid=False)
-for i, y in enumerate((0.3, 1.5, 2.7)):
-    k.block("GateRail%d" % i, "Walls", (GX, y, 0), (0.1, 0.1, 3.9), "metal", solid=False)
-for j in range(9):
-    k.block("GateBar%d" % j, "Walls", (GX, 1.5, -1.75 + j * 0.4375), (0.05, 2.5, 0.05), "rust", solid=False)
-k.block("GateChain", "Walls", (GX + 0.08, 1.45, 0), (0.06, 0.55, 0.16), "metal", solid=False)
-k.block("GateLock", "Walls", (GX + 0.1, 1.15, 0), (0.1, 0.18, 0.14), "rust", solid=False)
-# Último vagón del tren de las 6:30: descarrilado, ladeado contra el talud del norte y medio fuera de la vía.
+# Baranda al pie del muro sur, interrumpida en la puerta de servicio (un paso libre, sin rejas).
+fence_top(k, X0, 5.6, 3.42, 0.0, prefix="FenceA")
+fence_top(k, 8.4, X1, 3.42, 0.0, prefix="FenceB")
+# Túnel por el que vinieron (oeste): está abierto (el tren de las 6:30 también pasó por ahí), pero a oscuras;
+# una pared invisible en la boca evita que Isabella se meta a un tubo sin salida. Sin reja: nadie la cerró.
+k.s.node("TunnelMouthBlock", "StaticBody3D", ".", position=v3((-8.75, 1.5, 0.0)))
+k.s.node("Shape", "CollisionShape3D", "TunnelMouthBlock", shape=k.s.subres("BoxShape3D", {"size": v3((0.3, 3.0, 4.2))}))
+# Puerta de servicio de la trinchera (muro sur): el personal la usaba para rodear el desvío. Es el paso que sigue.
+DX = 7.0
+for s in (-1, 1):
+    k.block("ServiceFrame%d" % (s > 0), "Walls", (DX + s * 0.58, 1.1, 3.42), (0.14, 2.2, 0.14), "metal", solid=False)
+k.block("ServiceLintel", "Walls", (DX, 2.25, 3.42), (1.3, 0.14, 0.14), "metal", solid=False)
+k.block("ServiceLeaf", "Walls", (DX - 0.35, 1.05, 3.28), (0.12, 2.1, 0.9), "rust", solid=False, rot=(0, 0.9, 0))
+k.light("ServiceLamp", "Lights", (DX, 2.5, 3.0), (1.0, 0.45, 0.2), 0.9, 3.5)
+k.mesh("ServiceBulb", "Props", (0.16, 0.1, 0.1), k.emissive((1.0, 0.5, 0.2), 1.6), (DX, 2.45, 3.4))
+# Último vagón del tren de las 6:30: se salió de la vía y quedó ladeado contra el talud del norte. El paso sigue
+# libre por el sur, junto a los rieles.
 k.prop("CrossWagon", "Props", "train_wagon", (10.6, 0.15, -1.5), rot=(-0.42, 0.1, 0))
 k.prop("FireEast", "Props", "fire", (8.3, 0, -2.3))
-k.prop("FireEast2", "Props", "fire", (8.4, 0, 2.6))
 # Poste de señales con la luz roja.
 k.block("SignalPole", "Props", (-3.5, 2.0, -2.9), (0.15, 4.0, 0.15), "metal")
 k.block("SignalHead", "Props", (-3.5, 3.6, -2.75), (0.4, 0.7, 0.25), "metal", solid=False)
@@ -62,6 +66,6 @@ k.camera("East", (4.5, 1.5, 0.0), (9.0, 3.0, 7.0), (-1.6, 3.2, 3.1), (6.5, 0.5, 
 k.spawn("start", (-7.4, 0.05, 0.8), (1, 0))
 k.spawn("from_derailed", (6.2, 0.05, 2.1), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoFire', (6.3, 0, 2.7), ['Leo: Ese fuego es el tren de las 6:30. Huele a fierro quemado... y a ellos.', 'Leo: Por ahí se sigue. Pégate a mí.', 'Leo: Sigue la flecha amarilla hacia TREN DESCARRILADO.'])
+k.leo_hint('LeoFire', (6.3, 0, 2.7), ['Leo: Ese humo es del tren de las 6:30. Huele a fierro quemado... y a ellos.', 'Leo: Por ahí se sigue. Pégate a mí.', 'Leo: Sigue la flecha amarilla hacia TREN DESCARRILADO.'])
 k.save(REPO + "/levels/tracks/track_north.tscn")
 print("track north ok")

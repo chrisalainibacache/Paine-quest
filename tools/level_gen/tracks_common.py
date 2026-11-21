@@ -28,12 +28,12 @@ def walls(k, x0, x1, z0, z1, h=5.8, north="old_bricks_wall", south="concrete_wal
     if "E" not in skip:
         k.block("EastWall", "Walls", (x1 + 0.15, h / 2 - 0.3, cz), (0.3, h, D), east)
 
-def fence_top(k, x0, x1, z, y):
+def fence_top(k, x0, x1, z, y, prefix="Fence"):
     n = int((x1 - x0) / 1.8) + 1
     for i in range(n):
-        k.block("FencePost%d" % i, "Walls", (x0 + i * 1.8, y + 0.5, z), (0.06, 1.0, 0.06), "metal", solid=False)
-    k.block("FenceRail", "Walls", ((x0 + x1) / 2, y + 0.95, z), (x1 - x0, 0.05, 0.05), "metal", solid=False)
-    k.block("FenceRail2", "Walls", ((x0 + x1) / 2, y + 0.5, z), (x1 - x0, 0.04, 0.04), "metal", solid=False)
+        k.block("%sPost%d" % (prefix, i), "Walls", (x0 + i * 1.8, y + 0.5, z), (0.06, 1.0, 0.06), "metal", solid=False)
+    k.block("%sRail" % prefix, "Walls", ((x0 + x1) / 2, y + 0.95, z), (x1 - x0, 0.05, 0.05), "metal", solid=False)
+    k.block("%sRail2" % prefix, "Walls", ((x0 + x1) / 2, y + 0.5, z), (x1 - x0, 0.04, 0.04), "metal", solid=False)
 
 def luggage(k, name, pos, rot=0.0, size=(0.6, 0.4, 0.35), mat="planks"):
     k.block(name, "Props", (pos[0], size[1] / 2, pos[2]), size, mat, solid=False, rot=(0, rot, 0))
