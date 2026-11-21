@@ -6,9 +6,9 @@ from maestranza_common import *
 k = create_room("MaestranzaVestuario", "Vestuario del personal", "service_corridor")
 connect_room(k, "maestranza_taller", "maestranza_pasillo_cuarentena", "PASILLO DE CUARENTENA")
 for i, x in enumerate((-5.2, -2.8, -0.4, 2.0)):
-    k.block("Locker%d" % i, "Props", (x, 1.15, -3.2), (1.5, 2.3, 0.8), "iron_green")
-    k.block("LockerDoor%d" % i, "Details", (x, 1.15, -2.76), (1.38, 2.15, 0.05), "metal", solid=False)
-    k.label("LockerNumber%d" % i, "Details", (x, 2.1, -2.7), "0%d" % (i + 1), 16, (0.9, 0.82, 0.62))
+    k.block("Locker%d" % i, "Props", (x, 1.15, -3.5), (1.5, 2.3, 0.6), "iron_green")
+    k.block("LockerDoor%d" % i, "Details", (x, 1.15, -3.18), (1.38, 2.15, 0.05), "metal", solid=False)
+    k.label("LockerNumber%d" % i, "Details", (x, 2.1, -3.12), "0%d" % (i + 1), 16, (0.9, 0.82, 0.62))
 k.prop("Bench", "Props", "bench", (3.7, 0.0, 1.7), rot=(0.0, 1.57, 0.0))
 k.note("UnsentLetter", (-4.9, 0.9, -2.6), "maestranza_worker_letter", paper_scale=0.72)
 k.examine("WorkerTestimony", (4.8, 0.0, 1.5), [

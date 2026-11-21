@@ -6,8 +6,8 @@ from maestranza_common import *
 k = create_room("MaestranzaPasilloCuarentena", "Pasillo de cuarentena", "underpass")
 connect_room(k, "maestranza_vestuario", "maestranza_puesto_sanitario", "PUESTO SANITARIO")
 k.block("YellowRoute", "Details", (0.0, 0.015, 0.0), (1.0, 0.03, 8.5), "safety_yellow", solid=False)
-k.block("QuarantineFenceA", "Props", (2.8, 1.7, -1.5), (0.12, 3.4, 6.8), "metal")
-k.block("QuarantineFenceB", "Props", (5.8, 1.7, -1.5), (0.12, 3.4, 6.8), "metal")
+k.block("QuarantineFenceA", "Props", (2.8, 0.65, -1.5), (0.12, 1.3, 6.8), "metal")
+k.block("QuarantineFenceB", "Props", (5.8, 0.65, -1.5), (0.12, 1.3, 6.8), "metal")
 k.label("QuarantineSign", "Details", (4.3, 2.8, -4.7), "CUARENTENA — ACCESO RESTRINGIDO", 18, (0.94, 0.78, 0.46))
 k.note("ClosureOrder", (-3.8, 0.9, -2.8), "maestranza_closure_order", paper_scale=0.72)
 k.door("SealedNosWagon", (4.3, 0.0, -3.8), "", "", prompt="NO ABRIR",

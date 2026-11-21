@@ -48,7 +48,7 @@ func _check_room(path: String) -> void:
     _check(not zones.is_empty(), "%s: tiene cámaras fijas" % name)
     # Los documentos de las salas nuevas deben tener texto para el lector y el paquete exportado.
     for note: Node in room.find_children("*", "Interactable", true, false):
-        var script := note.get_script()
+        var script: Script = note.get_script()
         if script != null and script.resource_path.ends_with("interact/note.gd"):
             var document := note.get("document") as DocumentData
             _check(document != null and not document.pages.is_empty(), "%s: la nota %s tiene texto" % [name, note.name])

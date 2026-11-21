@@ -2,7 +2,7 @@ extends SceneTree
 ## Auditoría de llegadas: para cada punto de aparición (spawn) mira hacia ATRÁS de donde mira Isabella.
 ## Si hay un muro a menos de 1,6 m y ninguna puerta cerca, parece que «viene de atravesar una pared».
 ## Uso: godot --headless --path . -s res://tools/audit_spawns.gd
-const DIRS := ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/"]
+const DIRS := ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/", "res://levels/maestranza/"]
 const MAX_WALL := 1.6
 const DOOR_NEAR := 2.4
 
