@@ -3,10 +3,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path: sys.path.insert(0, HERE)
 from maestranza_common import *
 
-k = create_room("MaestranzaPuestoSanitario", "Puesto sanitario", "military")
+k = create_room("MaestranzaPuestoSanitario", "Puesto sanitario", "military", final=True)
 k.door("ToQuarantine", (-7.8, 0.0, 0.0), PREV % "maestranza_pasillo_cuarentena", "from_next",
        prompt="VOLVER", reach=1.4, metal_door=True)
-k.door_frame("ArrivalFrame", X0, 0.0, "z", width=1.6, wall_side=1, panel="metal")
 k.prop("MedicalDesk", "Props", "typewriter_desk", (-3.2, 0.0, -2.0), rot=(0.0, 0.2, 0.0))
 k.prop("Radio", "Props", "field_radio", (-3.2, 0.8, -2.0))
 k.block("Bed", "Props", (2.8, 0.42, 1.2), (2.6, 0.84, 1.1), "metal")
@@ -19,9 +18,6 @@ k.examine("PazMeeting", (0.0, 0.0, 1.0), [
     "Paz: Tengo una credencial de acceso al Centro de Nos. No sé qué vamos a encontrar, pero es la única ruta que sigue abierta. Vamos juntas."
 ])
 k.pickup("MedicalSupplies", (2.8, 1.0, 1.2), "handroll")
-k.camera("West", (-4.0, 1.5, 0.0), (8.0, 3.0, 10.0), (-1.0, 4.8, 7.0), (-4.0, 0.5, 0.0), fov=62)
-k.camera("East", (4.0, 1.5, 0.0), (8.0, 3.0, 10.0), (1.0, 4.8, -7.0), (4.0, 0.5, 0.0), fov=62)
-k.spawn("from_previous", (-6.45, 0.05, 0.0), (1, 0))
 k.interact("ContinueToNos", "chapter_exit", (0.0, 0.0, 3.7), chapter="4",
     question='"¿Seguirás con Paz hacia el Centro de Nos? No podrás volver a La Maestranza."',
     accept_text='"CONTINUAR"',

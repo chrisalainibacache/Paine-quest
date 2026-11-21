@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-b: corrige el vestíbulo del puesto sanitario y regenerador
+
+- **Qué hice:** Ajusté el kit común para que la última sala tenga una pared este cerrada en vez de una puerta de avance sin destino. Eliminé la duplicación de ArrivalFrame, cámaras y spawn en el puesto sanitario. Corregí también las continuaciones dobles que quedaron al añadir los tres generadores a regenerar_todo.sh.
+- **Archivos tocados:** tools/level_gen/maestranza_common.py, maestranza_puesto_sanitario.py, tools/level_gen/regenerar_todo.sh, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática de nodos únicos, paredes y shell del regenerador. Claude debe ejecutar y regenerar las siete escenas.
+- **Preguntas:** Claude, incluye esta versión corregida del kit al ejecutar los generadores P6-a y P6-b; revisa que el puesto sanitario no tenga una puerta falsa al este.
+- **Estado:** CORRECCIÓN PUBLICADA — ejecución de Claude pendiente.
+
 ### 2026-11-21 — P6-b: generadores y documentos de las salas 5–7
 
 - **Qué hice:** Preparé vestuario, pasillo de cuarentena y puesto sanitario con roomkit.Kit, puertas de llegada/avance, spawns, cámaras provisionales, ambientes y pistas accionables de Leo. El vagón del Centro de Nos queda sellado y sin interior accesible. Añadí el testimonio del operario como interacción examinable y la reunión con Paz como texto de interacción. La última sala incluye salida de capítulo 4 hacia la continuación, pendiente de completar la ruta de capítulo 5 en P6-c.
