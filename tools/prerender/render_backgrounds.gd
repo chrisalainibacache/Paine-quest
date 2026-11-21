@@ -11,6 +11,8 @@ extends SceneTree
 ## Deja assets/backgrounds/<sala>/<Cámara>.png (1680x720, 21:9: cubre cualquier teléfono).
 
 const OUT_SIZE := Vector2i(1680, 720)
+## Si la escena de detalle trae el metadato «sky», el fondo es un cielo de amanecer en vez de un color.
+var _want_sky := false
 
 
 func _init() -> void:
@@ -34,6 +36,7 @@ func _run() -> void:
     if ResourceLoader.exists(detail_path):
         var detail := (load(detail_path) as PackedScene).instantiate()
         room.add_child(detail)
+        _want_sky = bool(detail.get_meta("sky", false))
         # La escena de detalle puede pedir ocultar piezas del juego que reemplaza (metadato «hide»).
         for hidden_path: String in detail.get_meta("hide", []):
             var hidden := room.get_node_or_null(hidden_path) as Node3D
@@ -73,6 +76,19 @@ func _run() -> void:
 func _upgrade_for_render(room: Node3D) -> void:
     for world_env: WorldEnvironment in room.find_children("*", "WorldEnvironment", true, false):
         var env := world_env.environment.duplicate() as Environment
+        if _want_sky:
+            var sky_material := ProceduralSkyMaterial.new()
+            sky_material.sky_top_color = Color(0.40, 0.50, 0.66)
+            sky_material.sky_horizon_color = Color(0.86, 0.80, 0.70)
+            sky_material.ground_horizon_color = Color(0.62, 0.58, 0.52)
+            sky_material.ground_bottom_color = Color(0.30, 0.28, 0.26)
+            sky_material.sun_angle_max = 25.0
+            var sky := Sky.new()
+            sky.sky_material = sky_material
+            env.background_mode = Environment.BG_SKY
+            env.sky = sky
+            env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
+            env.ambient_light_energy = 0.9
         env.tonemap_mode = Environment.TONE_MAPPER_ACES
         env.tonemap_exposure = 1.1
         env.ssao_enabled = true
