@@ -22,7 +22,9 @@
 | Armas: Mauser, lanzagranadas, bazuca | `mauser.glb`, `grenade_launcher.glb`, `bazooka.glb` | Heavy Weapons Pack, bajado gratis de itch.io, sin archivo de licencia | 🟡 se conservan por decisión de Chris (riesgo aceptado) |
 | Grafitis y murales (6 + 2 PNG) | `assets/environment/graffiti/` | Nombres «paine/estacion»: hechos para el proyecto | 🟢 (Chris confirma) |
 | Pistola, trenes, utilería, comida, munición, decals, afiche, follaje | `levels/kit/props/`, `tools/*` | Hechos por nosotros con código | 🟢 |
-| Fuente | — | Fuente por defecto de Godot (Open Sans, OFL) | 🟢 |
+| Fuente por defecto | — | Godot (Open Sans, OFL) | 🟢 |
+| Fuente del título y botones | `assets/fonts/JosefinSans.ttf` | Josefin Sans, SIL OFL 1.1 (se incluye `OFL.txt`) | 🟢 |
+| Fondo de la pantalla de título | `assets/ui/title_bg.jpg` | Imagen de Chris generada con IA; **confirmar términos de uso comercial de la herramienta** | 🟡 |
 
 **Dónde pega el 🔴 en el juego:** en modo *Moderno* (el predeterminado) siguen usando modelos PSX los infectados
 **quemado** y **pesado**; en modo *Retro* los usan los siete. Las tres armas 🔴 están en la mochila desde el inicio.

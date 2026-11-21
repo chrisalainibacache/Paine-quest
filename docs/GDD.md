@@ -223,9 +223,9 @@ juego** (misterios de la parte 2; sustituye lo que decía antes «se cierra en e
 B y C se descartan.
 
 ### Pantalla de título (decisión de Chris, noviembre)
-Fondo nuevo: **un bosque de pinos de noche, con niebla, y la vía del tren perdiéndose hacia un resplandor cálido donde se ve, muy lejos, una silueta alta** (Skull, apenas
-distinguible). Se renderiza con `tools/prerender/render_title.gd` (Forward+, lavapipe) y se guarda en `assets/ui/title_forest.jpg`. El título y el menú van **alineados a la
-izquierda** y el fondo hace un acercamiento muy lento (22 s) de ida y vuelta.
+Fondo: **bosque con niebla y la vía del tren al atardecer, con dos figuras caminando hacia el sol** (imagen aportada por Chris, `assets/ui/title_bg.jpg`; respaldo
+renderizado con `tools/prerender/render_title.gd`). Título «PAINE» en **Josefin Sans** fina y espaciada; botones con borde fino y el principal (NUEVA PARTIDA) con
+**acento dorado**. Todo alineado a la **izquierda** y un acercamiento muy lento (22 s) del fondo.
 
 ### Capítulo 4 — La Maestranza (P3; propuesta pendiente de aprobación)
 

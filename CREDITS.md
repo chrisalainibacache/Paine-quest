@@ -51,3 +51,7 @@ Capas de OpenGameArt, todas **CC0**, mezcladas con `tools/audio/build_ambience.p
 
 ## Texturas
 - **ambientCG**, CC0 — https://ambientcg.com
+
+## Tipografía y pantalla de título
+- Fuente **Josefin Sans** (The Josefin Sans Project Authors), licencia SIL Open Font License 1.1 — `assets/fonts/OFL.txt`.
+- Fondo de la pantalla de título: imagen aportada por Chris (generada con una herramienta de IA; ver `docs/MONETIZACION.md` para confirmar sus términos de uso comercial).

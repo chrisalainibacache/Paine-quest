@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://ui/title/title_screen.gd" id="1_title_screen"]
-[ext_resource type="Texture2D" path="res://assets/ui/title_forest.jpg" id="2_title_forest"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_bg.jpg" id="2_title_bg"]
 [ext_resource type="Script" path="res://ui/graphics_toggle.gd" id="3_graphics_tog"]
 [ext_resource type="Script" path="res://ui/brightness_toggle.gd" id="4_brightness_t"]
 [ext_resource type="PackedScene" path="res://ui/ps1_filter.tscn" id="5_ps1_filter"]
@@ -21,7 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_title_forest")
+texture = ExtResource("2_title_bg")
 expand_mode = 1
 stretch_mode = 6
 mouse_filter = 2
@@ -32,7 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.18)
+color = Color(0, 0, 0, 0.12)
 mouse_filter = 2
 
 [node name="Title" type="Label" parent="."]
@@ -46,11 +46,11 @@ offset_right = 800.0
 offset_bottom = 250.0
 horizontal_alignment = 0
 text = "P A I N E"
-theme_override_font_sizes/font_size = 110
-theme_override_colors/font_color = Color(0.62, 0.08, 0.06, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 4
-theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 104
+theme_override_colors/font_color = Color(0.94, 0.91, 0.86, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.85)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
 
 [node name="Subtitle" type="Label" parent="."]
 anchors_preset = 0
@@ -63,8 +63,11 @@ offset_right = 800.0
 offset_bottom = 290.0
 horizontal_alignment = 0
 text = "La estación  ·  Las vías  ·  Buin"
-theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(0.6, 0.57, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.9, 0.86, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.85)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 
 [node name="Menu" type="VBoxContainer" parent="."]
 anchors_preset = 0
@@ -150,7 +153,9 @@ offset_bottom = -16.0
 horizontal_alignment = 2
 text = "Isabella y Leo · Paine, Chile"
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.4, 0.38, 0.34, 1)
+theme_override_colors/font_color = Color(0.78, 0.74, 0.68, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
 
 [node name="Attribution" type="Label" parent="."]
 anchors_preset = 2
@@ -163,7 +168,9 @@ offset_right = 500.0
 offset_bottom = -16.0
 text = "Modelos: Pixelhouse (CC-BY 3.0), Rikindle3D, Quaternius · Texturas: ambientCG"
 theme_override_font_sizes/font_size = 15
-theme_override_colors/font_color = Color(0.33, 0.31, 0.28, 1)
+theme_override_colors/font_color = Color(0.78, 0.74, 0.68, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
 
 [node name="Filter" parent="." instance=ExtResource("5_ps1_filter")]
 

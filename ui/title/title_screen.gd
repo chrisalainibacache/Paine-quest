@@ -3,6 +3,10 @@ extends Control
 
 const GAME_SCENE := "res://main.tscn"
 const CREDITS_SCENE := "res://ui/title/credits_screen.tscn"
+const TITLE_FONT := "res://assets/fonts/JosefinSans.ttf"
+const GOLD := Color(0.93, 0.66, 0.25)
+## Etiqueta OpenType "wght" (peso de la fuente variable) = 0x77676874.
+const WEIGHT_TAG := 0x77676874
 
 @onready var continue_button: Button = $Menu/Continue
 @onready var credits_button: Button = $CreditsButton
@@ -26,6 +30,7 @@ func _ready() -> void:
     var title := $Title as Label
     title.modulate.a = 0.0
     create_tween().tween_property(title, "modulate:a", 1.0, 2.0)
+    _style_title()
     _animate_background.call_deferred()
 
 
@@ -51,7 +56,40 @@ func _show_credits() -> void:
 ## Acercamiento muy lento del bosque (sube y baja), para que la pantalla no se sienta congelada.
 func _animate_background() -> void:
     var bg := $Background as Control
-    bg.pivot_offset = bg.size * Vector2(0.58, 0.5)
+    bg.pivot_offset = bg.size * Vector2(0.74, 0.62)
     var tween := create_tween().set_loops()
     tween.tween_property(bg, "scale", Vector2(1.06, 1.06), 22.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
     tween.tween_property(bg, "scale", Vector2.ONE, 22.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+
+## Tipografía fina para el título y botones con borde delgado (el principal, con acento dorado).
+func _style_title() -> void:
+    var font := FontVariation.new()
+    font.base_font = load(TITLE_FONT) as Font
+    font.variation_opentype = {WEIGHT_TAG: 400}
+    for label_name: String in ["Title", "Subtitle"]:
+        (get_node(label_name) as Label).add_theme_font_override("font", font)
+    var button_font := FontVariation.new()
+    button_font.base_font = load(TITLE_FONT) as Font
+    button_font.variation_opentype = {WEIGHT_TAG: 600}
+    for path: String in ["Menu/NewGame", "Menu/Continue", "Menu/Graphics", "Menu/Brightness", "OptionsButton", "CreditsButton"]:
+        var button := get_node(path) as Button
+        button.add_theme_font_override("font", button_font)
+        var accent := path == "Menu/NewGame"
+        button.add_theme_stylebox_override("normal", _button_box(accent, false))
+        button.add_theme_stylebox_override("hover", _button_box(true, true))
+        button.add_theme_stylebox_override("pressed", _button_box(true, true))
+        button.add_theme_stylebox_override("disabled", _button_box(false, false))
+        button.add_theme_color_override("font_disabled_color", Color(0.68, 0.65, 0.6))
+
+
+func _button_box(accent: bool, bright: bool) -> StyleBoxFlat:
+    var box := StyleBoxFlat.new()
+    box.bg_color = Color(0.02, 0.02, 0.025, 0.82 if bright else 0.68)
+    var edge := GOLD if accent else Color(0.75, 0.7, 0.62, 0.7)
+    box.set_border_width_all(1)
+    box.border_color = edge
+    if accent:
+        box.border_width_left = 5
+    box.set_content_margin_all(10)
+    return box
