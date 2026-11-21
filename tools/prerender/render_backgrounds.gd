@@ -13,6 +13,8 @@ extends SceneTree
 const OUT_SIZE := Vector2i(1680, 720)
 ## Si la escena de detalle trae el metadato «sky», el fondo es un cielo de amanecer en vez de un color.
 var _want_sky := false
+## Densidad de la niebla volumétrica que pide la escena de detalle (metadato «fog»); -1 = la de siempre.
+var _fog_override := -1.0
 
 
 func _init() -> void:
@@ -37,6 +39,7 @@ func _run() -> void:
         var detail := (load(detail_path) as PackedScene).instantiate()
         room.add_child(detail)
         _want_sky = bool(detail.get_meta("sky", false))
+        _fog_override = float(detail.get_meta("fog", -1.0))
         # La escena de detalle puede pedir ocultar piezas del juego que reemplaza (metadato «hide»).
         for hidden_path: String in detail.get_meta("hide", []):
             var hidden := room.get_node_or_null(hidden_path) as Node3D
@@ -102,7 +105,7 @@ func _upgrade_for_render(room: Node3D) -> void:
         env.glow_intensity = 0.6
         env.glow_bloom = 0.05
         env.volumetric_fog_enabled = true
-        env.volumetric_fog_density = 0.025
+        env.volumetric_fog_density = 0.025 if _fog_override < 0.0 else _fog_override
         env.volumetric_fog_albedo = Color(0.55, 0.58, 0.68)
         env.volumetric_fog_emission = env.fog_light_color * 0.15
         env.adjustment_enabled = true

@@ -33,7 +33,7 @@ def build(room, x0, x1, z0, z1, extra_rows=False):
     # Se oculta lo de cajas del juego que se reemplaza: árboles y cerros de relleno y las cajas de cielo (el cielo es el del entorno).
     hide = ["Props/Trunk%d" % i for i in range(32)] + ["Props/Crown%d" % i for i in range(32)]
     hide += ["Backdrop/HillN", "Backdrop/HillS", "Backdrop/SkyN", "Backdrop/SkyS", "Backdrop/SkyW", "Backdrop/SkyE", "Backdrop/SkyTop"]
-    s.node("%sDetail" % room.capitalize(), "Node3D", **{"metadata/hide": "[%s]" % ", ".join('"%s"' % h for h in hide), "metadata/sky": "true"})
+    s.node("%sDetail" % room.capitalize(), "Node3D", **{"metadata/hide": "[%s]" % ", ".join('"%s"' % h for h in hide), "metadata/sky": "true", "metadata/fog": "0.004"})
 
     def ph(name, pos, yaw=0.0, sc=1.0):
         path = ("res://render_src/polyhaven_lite/%s.glb" % name) if name in LITE else (PH % (name, name))
@@ -77,10 +77,11 @@ def build(room, x0, x1, z0, z1, extra_rows=False):
             for xx in (-6.0, 2.0):
                 s.node("OuterVines%d_%d" % (j, int(xx)), None, ".", instance=s.res(vine, "PackedScene"), position=v3((xx, 0.0, zz)))
     # Luz de amanecer: el Sol del juego ya proyecta sombras; un relleno cálido bajo y niebla suave con luz.
-    s.node("DawnFill", "OmniLight3D", ".", position=v3((0.0, 6.0, 0.0)), light_color=col((1.0, 0.86, 0.7)), light_energy="2.0",
-           omni_range="24.0", shadow_enabled="false")
+    s.node("DawnFill", "OmniLight3D", ".", position=v3((0.0, 6.0, 0.0)), light_color=col((1.0, 0.86, 0.7)), light_energy="5.0",
+           omni_range="30.0", shadow_enabled="false")
+    s.node("SkyFill", "DirectionalLight3D", ".", rotation=v3((-1.2, 0.8, 0.0)), light_color=col((0.85, 0.9, 1.0)), light_energy="0.9", shadow_enabled="false")
     s.node("MistFog", "FogVolume", ".", position=v3(((x0 + x1) / 2, 1.2, (z0 + z1) / 2)), size=v3((W + 30, 3.0, (z1 - z0) + 30)),
-           material=s.subres("FogMaterial", {"density": "0.05", "albedo": col((0.85, 0.85, 0.88)), "emission": col((0.18, 0.17, 0.15)),
+           material=s.subres("FogMaterial", {"density": "0.008", "albedo": col((0.85, 0.85, 0.88)), "emission": col((0.18, 0.17, 0.15)),
                                              "height_falloff": "1.4", "edge_fade": "0.4"}))
     os.makedirs(ROOT + "/render_src/scenes", exist_ok=True)
     s.save(ROOT + "/render_src/scenes/%s_detail.tscn" % room)
