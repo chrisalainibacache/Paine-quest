@@ -283,73 +283,129 @@ size = Vector3(18, 0.04, 0.04)
 surface = ExtResource("6_metal")
 solid = false
 
-[node name="TunnelBar0" type="StaticBody3D" parent="Walls"]
-position = Vector3(-8.84, 1.3, -1.6)
+[node name="GatePost0" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, -1.95)
 script = ExtResource("2_kit_block")
-size = Vector3(0.05, 3, 0.05)
+size = Vector3(0.16, 3, 0.16)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="GatePost1" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, 1.95)
+script = ExtResource("2_kit_block")
+size = Vector3(0.16, 3, 0.16)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="GateRail0" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 0.3, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 3.9)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="GateRail1" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 3.9)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="GateRail2" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 2.7, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 3.9)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="GateBar0" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, -1.75)
+script = ExtResource("2_kit_block")
+size = Vector3(0.05, 2.5, 0.05)
 surface = ExtResource("10_rust")
 solid = false
 
-[node name="TunnelBar1" type="StaticBody3D" parent="Walls"]
-position = Vector3(-8.84, 1.3, -1.14)
+[node name="GateBar1" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, -1.3125)
 script = ExtResource("2_kit_block")
-size = Vector3(0.05, 3, 0.05)
+size = Vector3(0.05, 2.5, 0.05)
 surface = ExtResource("10_rust")
 solid = false
 
-[node name="TunnelBar2" type="StaticBody3D" parent="Walls"]
-position = Vector3(-8.84, 1.3, -0.68)
+[node name="GateBar2" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, -0.875)
 script = ExtResource("2_kit_block")
-size = Vector3(0.05, 3, 0.05)
+size = Vector3(0.05, 2.5, 0.05)
 surface = ExtResource("10_rust")
 solid = false
 
-[node name="TunnelBar3" type="StaticBody3D" parent="Walls"]
-position = Vector3(-8.84, 1.3, -0.22)
+[node name="GateBar3" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, -0.4375)
 script = ExtResource("2_kit_block")
-size = Vector3(0.05, 3, 0.05)
+size = Vector3(0.05, 2.5, 0.05)
 surface = ExtResource("10_rust")
 solid = false
 
-[node name="TunnelBar4" type="StaticBody3D" parent="Walls"]
-position = Vector3(-8.84, 1.3, 0.24)
+[node name="GateBar4" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, 0)
 script = ExtResource("2_kit_block")
-size = Vector3(0.05, 3, 0.05)
+size = Vector3(0.05, 2.5, 0.05)
 surface = ExtResource("10_rust")
 solid = false
 
-[node name="TunnelBar5" type="StaticBody3D" parent="Walls"]
-position = Vector3(-8.84, 1.3, 0.7)
+[node name="GateBar5" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, 0.4375)
 script = ExtResource("2_kit_block")
-size = Vector3(0.05, 3, 0.05)
+size = Vector3(0.05, 2.5, 0.05)
 surface = ExtResource("10_rust")
 solid = false
 
-[node name="TunnelBar6" type="StaticBody3D" parent="Walls"]
-position = Vector3(-8.84, 1.3, 1.16)
+[node name="GateBar6" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, 0.875)
 script = ExtResource("2_kit_block")
-size = Vector3(0.05, 3, 0.05)
+size = Vector3(0.05, 2.5, 0.05)
 surface = ExtResource("10_rust")
 solid = false
 
-[node name="TunnelBar7" type="StaticBody3D" parent="Walls"]
-position = Vector3(-8.84, 1.3, 1.62)
+[node name="GateBar7" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, 1.3125)
 script = ExtResource("2_kit_block")
-size = Vector3(0.05, 3, 0.05)
+size = Vector3(0.05, 2.5, 0.05)
+surface = ExtResource("10_rust")
+solid = false
+
+[node name="GateBar8" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.7, 1.5, 1.75)
+script = ExtResource("2_kit_block")
+size = Vector3(0.05, 2.5, 0.05)
+surface = ExtResource("10_rust")
+solid = false
+
+[node name="GateChain" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.62, 1.45, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 0.55, 0.16)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="GateLock" type="StaticBody3D" parent="Walls"]
+position = Vector3(-8.6, 1.15, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.18, 0.14)
 surface = ExtResource("10_rust")
 solid = false
 
 [node name="Props" type="Node3D" parent="."]
 
 [node name="CrossWagon" parent="Props" instance=ExtResource("11_train_wagon")]
-position = Vector3(8.3, 1.45, 0.4)
-rotation = Vector3(1.35, 1.5708, 0)
+position = Vector3(10.6, 0.15, -1.5)
+rotation = Vector3(-0.42, 0.1, 0)
 
 [node name="FireEast" parent="Props" instance=ExtResource("12_fire")]
-position = Vector3(6.4, 0, -1.6)
+position = Vector3(8.3, 0, -2.3)
 
 [node name="FireEast2" parent="Props" instance=ExtResource("12_fire")]
-position = Vector3(7.2, 0, 2.2)
+position = Vector3(8.4, 0, 2.6)
 
 [node name="SignalPole" type="StaticBody3D" parent="Props"]
 position = Vector3(-3.5, 2, -2.9)

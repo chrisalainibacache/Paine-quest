@@ -15,13 +15,20 @@ walls(k, X0, X1, Z0, Z1, north="old_bricks_wall", south="concrete_wall", skip=("
 from tunnels import carve
 carve(k.block, k.prop, -1, X0, 0.0, 0.0, -0.3, 5.5, Z0, Z1, "concrete_wall", prefix="WestTunnel")
 fence_top(k, X0, X1, 3.42, 0.0)
-# Túnel de vuelta a la estación (oeste), tapado con reja.
-for j in range(8):
-    k.block("TunnelBar%d" % j, "Walls", (-8.84, 1.3, -1.6 + j * 0.46), (0.05, 3.0, 0.05), "rust", solid=False)
-# Vagón volcado de través al fondo (este).
-k.prop("CrossWagon", "Props", "train_wagon", (8.3, 1.45, 0.4), rot=(1.35, math.pi / 2, 0))
-k.prop("FireEast", "Props", "fire", (6.4, 0, -1.6))
-k.prop("FireEast2", "Props", "fire", (7.2, 0, 2.2))
+# Túnel de vuelta a la estación (oeste): portón de reja cerrado con cadena y candado (marco, travesaños y barrotes).
+GX = -8.7
+for z in (-1.95, 1.95):
+    k.block("GatePost%d" % (z > 0), "Walls", (GX, 1.5, z), (0.16, 3.0, 0.16), "metal", solid=False)
+for i, y in enumerate((0.3, 1.5, 2.7)):
+    k.block("GateRail%d" % i, "Walls", (GX, y, 0), (0.1, 0.1, 3.9), "metal", solid=False)
+for j in range(9):
+    k.block("GateBar%d" % j, "Walls", (GX, 1.5, -1.75 + j * 0.4375), (0.05, 2.5, 0.05), "rust", solid=False)
+k.block("GateChain", "Walls", (GX + 0.08, 1.45, 0), (0.06, 0.55, 0.16), "metal", solid=False)
+k.block("GateLock", "Walls", (GX + 0.1, 1.15, 0), (0.1, 0.18, 0.14), "rust", solid=False)
+# Último vagón del tren de las 6:30: descarrilado, ladeado contra el talud del norte y medio fuera de la vía.
+k.prop("CrossWagon", "Props", "train_wagon", (10.6, 0.15, -1.5), rot=(-0.42, 0.1, 0))
+k.prop("FireEast", "Props", "fire", (8.3, 0, -2.3))
+k.prop("FireEast2", "Props", "fire", (8.4, 0, 2.6))
 # Poste de señales con la luz roja.
 k.block("SignalPole", "Props", (-3.5, 2.0, -2.9), (0.15, 4.0, 0.15), "metal")
 k.block("SignalHead", "Props", (-3.5, 3.6, -2.75), (0.4, 0.7, 0.25), "metal", solid=False)
