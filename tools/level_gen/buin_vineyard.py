@@ -7,7 +7,7 @@ k = Kit("Vineyard", "Viña Santa Rosa", ambience="day_fields")
 dawn(k, 0.02)
 X0, X1, Z0, Z1 = -10.0, 10.0, -5.0, 5.0
 k.block("Ground", "Ground", (0, -0.5, 0), (X1 - X0 + 0.6, 1, Z1 - Z0 + 0.6), "dirt")
-walls(k, X0, X1, Z0, Z1, north="old_bricks_wall", south="old_bricks_wall", west="plaster_wall", east="old_bricks_wall")
+open_field(k, X0, X1, Z0, Z1, gates=(("W", 0.0),), fence_edges="NSW")
 # Hileras de parras (dejando un camino al medio, z = 0).
 rows = [(-6.0, -3.6), (2.0, -3.6), (-6.0, -1.8), (2.0, -1.8), (-6.0, 1.8), (2.0, 1.8), (-6.0, 3.6), (2.0, 3.6)]
 for i, (x, z) in enumerate(rows):
@@ -22,8 +22,6 @@ for i, (x, z) in enumerate([(-8.4, -0.8), (5.6, 0.7)]):
 k.decal("Pool", "blood_pool", (0.4, 0.02, -0.4), 1.5, "up")
 k.decal("Drag", "blood_drag", (4.0, 0.02, 0.3), (2.8, 0.9), "up", rot=0.1)
 # Interactuables.
-k.door_frame("GateField", X0, 0.0, "z", width=2.0, wall_side=1, panel="planks")
-k.door_frame("ShedDoor", X1, 0.0, "z", width=1.6, wall_side=-1, panel="planks")
 k.door("ToStation", (-9.4, 0, 0.0), B % "field", "from_vineyard", prompt="VOLVER", reach=1.4)
 k.door("ToShed", (9.2, 0, 0.0), B % "shed", "from_vineyard", key="shed_key", lock_id="shed_door", prompt="ABRIR", reach=1.4,
        locked_text="El portón del galpón. Tiene un candado grande y alguien lo trancó por dentro también.", metal_door=True)

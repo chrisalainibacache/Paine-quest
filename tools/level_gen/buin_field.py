@@ -7,8 +7,7 @@ k = Kit("Field", "Potrero", ambience="day_fields")
 dawn(k, 0.014)
 X0, X1, Z0, Z1 = -10.0, 10.0, -6.0, 6.0
 k.block("Ground", "Ground", (0, -0.5, 0), (X1 - X0 + 0.6, 1, Z1 - Z0 + 0.6), "dirt")
-walls(k, X0, X1, Z0, Z1, north="old_bricks_wall", south="old_bricks_wall", west="plaster_wall", east="old_bricks_wall")
-fence_top(k, X0, X1, Z0 + 0.1, 0.0)
+open_field(k, X0, X1, Z0, Z1, gates=(("W", 0.0), ("E", 0.0)))
 # Pasto seco en manchones y algunos fardos de paja: el resto, despejado.
 for i, (x, z, r) in enumerate([(-7.5, -4.2, 0.2), (6.8, 4.4, 1.1), (-6.4, 4.6, 0.6), (7.6, -4.6, 2.0)]):
     k.block("Bale%d" % i, "Props", (x, 0.4, z), (1.2, 0.8, 0.8), "sandbag", rot=(0, r, 0))
@@ -19,11 +18,9 @@ k.decal("Drag", "blood_drag", (3.0, 0.02, -2.0), (3.0, 1.0), "up", rot=0.4)
 k.decal("Pool", "blood_pool", (-3.5, 0.02, 2.5), 1.6, "up")
 # Interactuables.
 # Portones de campo en los dos extremos del potrero (se llega y se sale por un portón, no por un muro liso).
-k.door_frame("GateStation", X0, 0.0, "z", width=2.0, wall_side=1, panel="planks")
-k.door_frame("GateVineyard", X1, 0.0, "z", width=2.0, wall_side=-1, panel="planks")
 k.door("ToStation", (-9.4, 0, 0.0), B % "station", "from_field", prompt="VOLVER", reach=1.4)
 k.door("ToVineyard", (9.4, 0, 0.0), B % "vineyard", "from_field", prompt="SEGUIR", reach=1.4)
-k.label("VineyardSign", "Details", (9.96, 2.6, 0.0), "VIÑA SANTA ROSA →", 32, (0.9, 0.86, 0.75), rot=(0, -math.pi / 2, 0))
+k.label("VineyardSign", "Details", (9.7, 2.3, -1.6), "VIÑA SANTA ROSA →", 32, (0.9, 0.86, 0.75), rot=(0, -math.pi / 2, 0))
 k.pickup("Ammo", (2.0, 0.0, 4.8), "ammo_9mm", 20, rot=(0, 0.6, 0))
 k.pickup("Handroll", (-2.4, 0.0, -4.8), "handroll", rot=(0, 1.0, 0))
 # La escena: el disparador en el centro y su cámara (plano abierto, en alto).
