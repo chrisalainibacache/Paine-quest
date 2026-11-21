@@ -15,9 +15,11 @@ const SHIRT_BONES := ["spine_01", "spine_02", "spine_03", "clavicle_l", "clavicl
 const PANTS_BONES := ["pelvis", "thigh_l", "thigh_r", "calf_l", "calf_r"]
 const SHOE_BONES := ["foot_l", "foot_r", "ball_l", "ball_r"]
 ## Cuánto se «infla» cada zona (metros, a lo largo de la normal) para dar complexión robusta.
-const INFLATE := {"spine_01": 0.05, "spine_02": 0.05, "spine_03": 0.035, "pelvis": 0.065, "thigh_l": 0.04, "thigh_r": 0.04,
-    "calf_l": 0.018, "calf_r": 0.018, "upperarm_l": 0.028, "upperarm_r": 0.028, "lowerarm_l": 0.012, "lowerarm_r": 0.012,
-    "clavicle_l": 0.012, "clavicle_r": 0.012, "neck_01": 0.01, "Head": 0.008}
+## Cuánto se «infla» (o adelgaza, si es negativo) cada zona, en metros a lo largo de la normal. Ajusta la complexión.
+## v2 (Chris: «hazla flaca»): delgada, algo más fina que la base.
+const INFLATE := {"spine_01": -0.02, "spine_02": -0.025, "spine_03": -0.025, "pelvis": -0.018, "thigh_l": -0.022, "thigh_r": -0.022,
+    "calf_l": -0.012, "calf_r": -0.012, "upperarm_l": -0.012, "upperarm_r": -0.012, "lowerarm_l": -0.006, "lowerarm_r": -0.006,
+    "clavicle_l": 0.0, "clavicle_r": 0.0, "neck_01": 0.0, "Head": 0.0}
 const COLOR_SHIRT := Color(0.46, 0.09, 0.15)
 const COLOR_PANTS := Color(0.42, 0.44, 0.47)
 const COLOR_SHOES := Color(0.86, 0.86, 0.84)
@@ -111,9 +113,9 @@ func _init() -> void:
     var parts := _node("Body", _make_mesh(verts, norms, uvs, bones, weights, indices, per, 1, 0.0), skin_mat)
     _skel.add_child(parts)
     # --- Ropa: copia de los triángulos de cada clase, un poco más afuera que el cuerpo.
-    _skel.add_child(_node("Shirt", _make_mesh(verts, norms, uvs, bones, weights, indices, per, 2, 0.014), _mat(COLOR_SHIRT, 1.0)))
-    _skel.add_child(_node("Pants", _make_mesh(verts, norms, uvs, bones, weights, indices, per, 4, 0.010), _mat(COLOR_PANTS, 1.0)))
-    _skel.add_child(_node("Shoes", _make_mesh(verts, norms, uvs, bones, weights, indices, per, 8, 0.014), _mat(COLOR_SHOES, 0.7)))
+    _skel.add_child(_node("Shirt", _make_mesh(verts, norms, uvs, bones, weights, indices, per, 2, 0.022), _mat(COLOR_SHIRT, 1.0)))
+    _skel.add_child(_node("Pants", _make_mesh(verts, norms, uvs, bones, weights, indices, per, 4, 0.024), _mat(COLOR_PANTS, 1.0)))
+    _skel.add_child(_node("Shoes", _make_mesh(verts, norms, uvs, bones, weights, indices, per, 8, 0.03), _mat(COLOR_SHOES, 0.7)))
     # --- Ojos (de la base) y pelo / cejas.
     var eyes := _skel.find_child("Eyes", true, false) as MeshInstance3D
     var old_brows := _skel.find_child("Eyebrows", true, false) as MeshInstance3D

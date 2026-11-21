@@ -6,7 +6,7 @@
 ## 1. Rasgos de la referencia (para el modelo)
 - **Pelo:** largo, ondulado, rojo oscuro (burdeo / caoba) con flequillo largo hacia los lados; le cae sobre los hombros y el pecho.
 - **Cara:** redonda, mirada directa y tranquila, expresión seria con un punto de timidez. Cejas definidas.
-- **Complexión:** robusta. **Se respeta tal cual**: el modelo no se adelgaza ni se caricaturiza. Hombros anchos, brazos fuertes.
+- **Complexión:** **delgada** (decisión de Chris, 2026-11-21: la versión robusta le pareció demasiado; ella podría molestarse). Se cuida que el personaje sea respetuoso con su imagen.
 - **Ropa de la foto:** polerón de mangas largas rojo burdeo, amplio; buzo gris; (zapatillas). Colgante fino al cuello.
 
 ## 2. Vestuario en el juego (coherente con el guion)
@@ -42,7 +42,7 @@ Siguiente paso que propongo: **(3) concepto 2D → aprobación de Chris → (1) 
 
 ## 6. Estado (2026-11-21): modelo jugable v1 HECHO
 - **Modelo con huesos:** `assets/characters/ignacia/ignacia.glb`, generado por `tools/build_ignacia.gd` a partir de la base CC0 de Quaternius (esqueleto de 65 huesos, humanoide de Godot). **Usa las mismas animaciones que Isabella** (caminar, trotar, apuntar, disparar, recargar, morir…) y el mismo control con joystick.
-- **Cómo se ve:** pelo largo burdeo, polerón rojo burdeo, buzo gris, zapatillas blancas, mochila verde de paramédico, complexión robusta (inflado por zonas, no caricaturizado).
+- **Cómo se ve:** pelo largo burdeo, polerón rojo burdeo, buzo gris, zapatillas blancas, mochila verde de paramédico, complexión **delgada** (v2; ajustable en `INFLATE` de `tools/build_ignacia.gd`).
 - **Cómo probarla en el teléfono:** Opciones → botón **«PERSONAJE: ISABELLA»** → pasa a **IGNACIA (PRUEBA)**; se aplica al cargar la siguiente sala (o al volver a entrar a la partida). Es un interruptor temporal hasta que exista el modo cooperativo.
 - **Pendiente de pulir:** cara (más parecida a la referencia), mochila con cruz blanca, textura de tela del polerón, versión «sucia» desde el capítulo 3, habilidades de paramédica (curar +50 %, llave inglesa).
 - Revisión de arte: `xvfb-run godot --path . --rendering-driver opengl3 --resolution 1600x720 -s res://tools/capture_ignacia.gd -- salida.png Idle|Jog`.
