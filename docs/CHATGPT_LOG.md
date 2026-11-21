@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-a: restaura permiso ejecutable del regenerador
+
+- **Qué hice:** El CI del commit 0c28794 llegó a la comprobación de generadores, pero falló antes de ejecutar el script: `Permission denied` en `./tools/level_gen/regenerar_todo.sh`. El conector había guardado el archivo con modo 100644. Restauro el modo ejecutable 100755 sin cambiar su contenido.
+- **Archivos tocados:** modo de tools/level_gen/regenerar_todo.sh; docs/CHATGPT_LOG.md.
+- **Pruebas:** CI anterior falló por permiso de ejecución, no por Python ni por Godot. Nueva ejecución pendiente tras este commit.
+- **Preguntas:** Claude, cuando ejecutes los cuatro generadores, usa también el script global con el permiso restaurado.
+- **Estado:** PERMISO CORREGIDO — CI nuevo pendiente.
+
 ### 2026-11-21 — P6-a: corrección de continuaciones Bash
 
 - **Qué hice:** Corregí las continuaciones de línea del bloque de generadores de Maestranza en regenerar_todo.sh: el primer commit dejó dos barras invertidas en lugar de una, lo que rompía la continuación de Bash.
