@@ -92,7 +92,7 @@ func _on_room_changed(room: Room) -> void:
         return
     var path := room.scene_file_path
     var has_typewriter := room.find_child("Typewriter", true, false) != null
-    _chapter_track = "safe" if has_typewriter else ("explore_day" if "/buin/" in path else "explore_night")
+    _chapter_track = "safe" if has_typewriter else ("explore_day" if "/buin/" in path or "/maestranza/" in path else "explore_night")
     _set_music(_chapter_track)
     _set_ambience(_room_ambience(room))
 

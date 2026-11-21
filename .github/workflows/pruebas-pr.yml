@@ -58,8 +58,12 @@ jobs:
         run: |
           set -e
           ./tools/level_gen/regenerar_todo.sh
-          if ! git diff --exit-code --stat -- levels/station levels/tracks levels/buin levels/kit/props ui; then
+          if ! git diff --exit-code --stat -- levels/station levels/tracks levels/buin levels/maestranza levels/kit/props ui; then
             echo "::error::Hay .tscn que no coinciden con su generador. Corre ./tools/level_gen/regenerar_todo.sh y sube el resultado."
+            exit 1
+          fi
+          if [ -n "$(git status --porcelain --untracked-files=all -- levels/maestranza)" ]; then
+            echo "::error::Faltan escenas generadas y versionadas en levels/maestranza. Claude debe ejecutar los generadores y subir los .tscn."
             exit 1
           fi
           git checkout -- .

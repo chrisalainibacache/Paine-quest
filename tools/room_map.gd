@@ -2,7 +2,7 @@ extends SceneTree
 ## Mapa de arriba de una sala en texto: "." caminable, "#" sólido (alto), "o" objeto bajo, " " vacío.
 ## Sirve para colocar detalle fuera del camino. Uso: godot --headless -s res://tools/room_map.gd -- sala
 const Check := preload("res://tools/camera_check.gd")
-const DIRS := ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/"]
+const DIRS := ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/", "res://levels/maestranza/"]
 
 
 func _init() -> void:

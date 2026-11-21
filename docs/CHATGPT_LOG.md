@@ -1,3 +1,133 @@
+### 2026-11-21 — P6-f: alinea el GDD con APROBADO D
+
+- **Qué hice:** Corregí la ficha del capítulo 4 en GDD.md: dejó de figurar como propuesta pendiente; ahora refleja la aprobación de Chris, la función de Paz como sanitaria de apoyo y el reparto del jefe/aplauso a Claude. También se aclara que las semillas A y D de «La señora» están aprobadas.
+- **Archivos tocados:** docs/GDD.md, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión textual de coherencia con ROADMAP y GUION. CI pendiente tras el push.
+- **Preguntas:** ninguna nueva; sigue pendiente confirmar los términos del fondo de título generado con IA.
+- **Estado:** DOCUMENTACIÓN ALINEADA — CI pendiente.
+
+### 2026-11-21 — P6: estado de CI y escenas pendientes
+
+- **Qué hice:** Revisé los workflows tras los pushes. P6-e quedó validado en el commit 3349336: todas las etapas verdes (generadores, importación, pruebas automáticas, auditoría de cámaras y exportación), sin SCRIPT ERROR. P6-b quedó validado en 36e04fe: los siete generadores se ejecutaron dentro de regenerar_todo.sh, importación, pruebas, cámaras y exportación verdes. El workflow P6-d del commit 085c35b ejecutó regenerar_todo.sh correctamente y terminó deliberadamente en el guard de versionado: faltan los .tscn generados en levels/maestranza.
+- **Archivos tocados:** docs/CHATGPT_LOG.md.
+- **Pruebas:** P6-e CI verde, P6-b CI verde; P6-d CI falla únicamente porque Claude aún no ha subido las siete escenas .tscn. No se llegó a ejecutar levels_test con el capítulo 4 en esa corrida.
+- **Preguntas:** Claude, ejecuta los siete generadores y sube los .tscn a esta rama. Luego vuelve a correr «Pruebas en PR» para que levels_test valide las siete salas. Sigue pendiente autorización para ampliar export_probe.gd a la carpeta de Maestranza.
+- **Estado:** GENERADORES EJECUTADOS EN CI SIN ERROR; ESCENAS FUENTE PENDIENTES DE VERSIONAR.
+
+### 2026-11-21 — P6-d: pruebas de La Maestranza
+
+- **Qué hice:** Añadí La Maestranza a la matriz de capítulos de levels_test.gd; ahora recorre sus siete salas desde el spawn inicial, comprueba ambientes, cámaras, spawns, puertas/destinos/markers, llave y salida de capítulo, y verifica que cada Note tenga DocumentData con páginas no vacías. El workflow exige que los .tscn de levels/maestranza estén versionados y coincidan con los generadores.
+- **Archivos tocados:** tests/levels_test.gd, .github/workflows/pruebas-pr.yml, docs/CHATGPT_LOG.md.
+- **Pruebas:** CI pendiente de ejecutar tras subir las siete escenas generadas por Claude; el workflow ahora fallará explícitamente mientras falten .tscn versionados.
+- **Preguntas:** **Claude: necesito autorización para ampliar tools/export_probe.gd y añadir res://levels/maestranza/ a sus carpetas inspeccionadas.** El probe actual solo recorre station/tracks/buin; tocarlo mejora la verificación de textos del APK para las notas nuevas. Mientras no haya autorización, no lo modifico. Además, ejecuta los siete generadores y sube sus .tscn para que estas pruebas puedan pasar.
+- **Estado:** PRUEBAS PREPARADAS — escenas y autorización de export_probe pendientes.
+
+### 2026-11-21 — P6-c: conexión de La Maestranza
+
+- **Qué hice:** Añadí la primera sala del capítulo 4 a CHAPTER_STARTS para que el capítulo 3 continúe en maestranza_acceso; añadí el resumen de fin del capítulo 4; agregué etiquetas de destino para las siete salas; el AudioDirector selecciona explore_day también en La Maestranza, coherente con el sábado por la tarde. Ajusté las cámaras provisionales del kit para que queden dentro del volumen de la sala y no fuera de los muros. La salida del puesto sanitario llama a SceneLoader.end_chapter(4); la continuación al capítulo 5 se habilitará cuando P7 cree su primera escena.
+- **Archivos tocados:** ui/chapter_end/chapter_end.gd, levels/kit/interact/door.gd, systems/audio_director.gd, tools/level_gen/maestranza_common.py, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática de destinos, etiquetas, ruta inicial, música y cámara. La prueba de flujo de las siete salas queda para P6-d después de que Claude suba los .tscn generados. CI pendiente tras el push.
+- **Preguntas:** Claude, al ejecutar los generadores, comprueba que cada Door apunta a la sala y spawn correctos y que el puesto sanitario termina el capítulo 4 sin mostrar continuación a una escena de capítulo 5 que aún no existe.
+- **Estado:** CONEXIÓN DE RUTAS PUBLICADA — CI y validación de escenas pendientes.
+
+### 2026-11-21 — P6-b: corrige el vestíbulo del puesto sanitario y regenerador
+
+- **Qué hice:** Ajusté el kit común para que la última sala tenga una pared este cerrada en vez de una puerta de avance sin destino. Eliminé la duplicación de ArrivalFrame, cámaras y spawn en el puesto sanitario. Corregí también las continuaciones dobles que quedaron al añadir los tres generadores a regenerar_todo.sh.
+- **Archivos tocados:** tools/level_gen/maestranza_common.py, maestranza_puesto_sanitario.py, tools/level_gen/regenerar_todo.sh, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática de nodos únicos, paredes y shell del regenerador. Claude debe ejecutar y regenerar las siete escenas.
+- **Preguntas:** Claude, incluye esta versión corregida del kit al ejecutar los generadores P6-a y P6-b; revisa que el puesto sanitario no tenga una puerta falsa al este.
+- **Estado:** CORRECCIÓN PUBLICADA — ejecución de Claude pendiente.
+
+### 2026-11-21 — P6-b: generadores y documentos de las salas 5–7
+
+- **Qué hice:** Preparé vestuario, pasillo de cuarentena y puesto sanitario con roomkit.Kit, puertas de llegada/avance, spawns, cámaras provisionales, ambientes y pistas accionables de Leo. El vagón del Centro de Nos queda sellado y sin interior accesible. Añadí el testimonio del operario como interacción examinable y la reunión con Paz como texto de interacción. La última sala incluye salida de capítulo 4 hacia la continuación, pendiente de completar la ruta de capítulo 5 en P6-c.
+- **Archivos tocados:** tools/level_gen/maestranza_vestuario.py, maestranza_pasillo_cuarentena.py, maestranza_puesto_sanitario.py; data/documents/maestranza_worker_letter.tres, maestranza_radio_transcript.tres, maestranza_closure_order.tres; tools/level_gen/regenerar_todo.sh; docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática de destinos/spawns, notas, precinto sellado y rutas de salida. No se suben .tscn: Claude ejecuta estos tres generadores y sube las escenas resultantes. P6-b requiere revisar también la ruta de capítulo 5 antes de dar por conectada la salida final.
+- **Preguntas:** **Claude: ejecuta `python3 tools/level_gen/maestranza_vestuario.py`, `maestranza_pasillo_cuarentena.py` y `maestranza_puesto_sanitario.py`; sube los tres .tscn a esta rama y revisa que el vagón siga sin acceso.**
+- **Estado:** GENERADORES Y NOTAS PUBLICADOS — ejecución de Claude pendiente.
+
+### 2026-11-21 — P6-e: corrige la última referencia del fundido
+
+- **Qué hice:** El CI del commit 762e48d detectó que la última línea del constructor todavía añadía `_fade` sin calificar. Ahora añade `owner._fade` al CanvasLayer, coherente con la asignación al objeto Cinematic.
+- **Archivos tocados:** levels/kit/cinematic_scene_builder.gd, docs/CHATGPT_LOG.md.
+- **Pruebas:** el CI anterior confirmó que la referencia no declarada provocaba SCRIPT ERROR y que la cinemática quedaba sin fundido. Corrección publicada; CI nuevo pendiente.
+- **Preguntas:** Claude, revisar el siguiente CI; si el script compila, comprobar la cinemática completa y su fundido.
+- **Estado:** CORRECCIÓN PUBLICADA — CI pendiente.
+
+### 2026-11-21 — P6-a: restaura permiso ejecutable del regenerador
+
+- **Qué hice:** El CI del commit 0c28794 llegó a la comprobación de generadores, pero falló antes de ejecutar el script: `Permission denied` en `./tools/level_gen/regenerar_todo.sh`. El conector había guardado el archivo con modo 100644. Restauro el modo ejecutable 100755 sin cambiar su contenido.
+- **Archivos tocados:** modo de tools/level_gen/regenerar_todo.sh; docs/CHATGPT_LOG.md.
+- **Pruebas:** CI anterior falló por permiso de ejecución, no por Python ni por Godot. Nueva ejecución pendiente tras este commit.
+- **Preguntas:** Claude, cuando ejecutes los cuatro generadores, usa también el script global con el permiso restaurado.
+- **Estado:** PERMISO CORREGIDO — CI nuevo pendiente.
+
+### 2026-11-21 — P6-a: corrección de continuaciones Bash
+
+- **Qué hice:** Corregí las continuaciones de línea del bloque de generadores de Maestranza en regenerar_todo.sh: el primer commit dejó dos barras invertidas en lugar de una, lo que rompía la continuación de Bash.
+- **Archivos tocados:** tools/level_gen/regenerar_todo.sh, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión del texto del shell; ejecución pendiente en CI/entorno de Claude.
+- **Preguntas:** Claude, usa esta versión al regenerar las cuatro salas.
+- **Estado:** CORRECCIÓN PUBLICADA — validación pendiente.
+
+### 2026-11-21 — P6-a: ajuste de recompensas y regeneración
+
+- **Qué hice:** Añadí los cuatro generadores de P6-a al script de regeneración global y completé la recompensa de cartuchos de escopeta (+4) prevista en el presupuesto del GDD.
+- **Archivos tocados:** tools/level_gen/maestranza_guardia.py, tools/level_gen/regenerar_todo.sh, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática del orden de generadores y de la cantidad de cartuchos. Claude debe ejecutar los generadores tras esta actualización.
+- **Preguntas:** Claude, incluye este ajuste al ejecutar los cuatro generadores y sube las escenas regeneradas a la rama.
+- **Estado:** AJUSTE PUBLICADO — ejecución de Claude pendiente.
+
+### 2026-11-21 — P6-e: segunda corrección tras CI
+
+- **Qué hice:** El CI encontró referencias de propiedad erróneas en el helper: algunos add_child quedaron como owner.add_child sobre nodos hijos y el ColorRect de fundido no se asignó al Cinematic. Corregí las llamadas de los nodos hijos y asigné el fundido a owner._fade. El helper sigue separado y por debajo de 300 líneas.
+- **Archivos tocados:** levels/kit/cinematic_scene_builder.gd, docs/CHATGPT_LOG.md.
+- **Pruebas:** el CI de 796cc94 falló con SCRIPT ERROR/parse error por estos detalles. Esta corrección requiere una nueva ejecución de «Pruebas en PR»; no se declara validada hasta que esté verde y sin SCRIPT ERROR.
+- **Preguntas:** Claude, revisar el próximo CI y confirmar la reproducción de la cinemática en el motor.
+- **Estado:** CORRECCIÓN PUBLICADA — CI pendiente.
+
+### 2026-11-21 — P6-a: generadores y documentos de las salas 1–4
+
+- **Qué hice:** Preparé el kit común de La Maestranza y los cuatro generadores de acceso, guardia, enfermería y taller. Cada generador usa roomkit.Kit, crea puertas laterales visibles con hueco real en la pared, spawns de llegada/salida, dos cámaras provisionales a far=30, ambiente, pistas accionables de Leo y encuentros/recompensas según el espacio. Añadí cinco recursos DocumentData con los textos aprobados para estas salas.
+- **Archivos tocados:** tools/level_gen/maestranza_common.py, tools/level_gen/maestranza_acceso.py, tools/level_gen/maestranza_guardia.py, tools/level_gen/maestranza_enfermeria.py, tools/level_gen/maestranza_taller.py; data/documents/maestranza_guard_part.tres, maestranza_surveillance_report.tres, maestranza_nursing_log.tres, maestranza_patient_statement.tres, maestranza_maintenance_report.tres.
+- **Pruebas:** revisión estática de rutas, recursos, spawn IDs, marcadores, ambientes y textos. No se suben .tscn: Claude ejecuta cada generador en su entorno Godot/Python y devuelve las escenas resultantes. CI puede señalar la ausencia temporal de escenas hasta esa ejecución.
+- **Preguntas:** **Claude: por favor ejecuta ahora, en este orden, `python3 tools/level_gen/maestranza_acceso.py`, `maestranza_guardia.py`, `maestranza_enfermeria.py` y `maestranza_taller.py`; sube los cuatro .tscn generados a esta misma rama y envíame los errores/capturas.** No se requieren cámaras definitivas ni renders; las dos cámaras de cada sala son provisionales.
+- **Estado:** GENERADORES Y NOTAS PUBLICADOS — ejecución de Claude pendiente.
+
+### 2026-11-21 — P6-e: corrección tras CI
+
+- **Qué hice:** El primer CI detectó que el método de construcción no era estático y se invocaba directamente sobre el script precargado. Corregí la llamada para instanciar el helper con SCENE_BUILDER.new() antes de ejecutar build(self).
+- **Archivos tocados:** levels/kit/cinematic.gd, docs/CHATGPT_LOG.md.
+- **Pruebas:** CI anterior falló por el error de parseo descrito; esta corrección queda pendiente de una nueva ejecución de «Pruebas en PR». No se declara resuelto hasta que el nuevo CI esté verde y sin SCRIPT ERROR.
+- **Preguntas:** Claude, revisar el nuevo CI y confirmar que la cinemática sigue reproduciéndose y que la separación de scripts se mantiene por debajo de 300 líneas.
+- **Estado:** CORRECCIÓN PUBLICADA — CI nuevo pendiente.
+
+### 2026-11-21 — P6-f: documentación al día
+
+- **Qué hice:** Actualicé la hoja de ruta con el estado real de P1/audio, cinemática de Skull, trenes CC0 importados y fondos prerenderizados de Vía norte/Tren descarrilado; dejé P6 en curso y P7 condicionado a la fusión de P6. Amplié el guion con el recorrido de las siete salas de La Maestranza, las ocho notas y los límites de continuidad; capítulo 5 y «Para Leo» quedan como diseño para P7. Añadí Josefin Sans (OFL), los trenes CC0 de tevy.dev y grab3d.com, y el fondo de título generado con IA con términos pendientes de confirmación.
+- **Archivos tocados:** docs/ROADMAP.md, docs/GUION.md, docs/store/licencias_activos.md, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática de las secciones actualizadas y consistencia con docs/cap4_notas.md / docs/cap4_dialogos.md. Sin ejecución de Godot necesaria para documentación. CI del PR pendiente de revisar tras el push.
+- **Preguntas:** Chris/Claude: confirmar los términos de uso comercial del fondo del título generado con IA (herramienta/modelo/plan utilizado); se deja marcado 🟡 y no se declara licencia despejada.
+- **Estado:** DOCUMENTACIÓN ACTUALIZADA EN LA RAMA — pendiente CI.
+
+### 2026-11-21 — P6-e: limpieza heredada
+
+- **Qué hice:** Separé la construcción geométrica/visual de la cinemática en `CinematicSceneBuilder`; `Cinematic` conserva la secuencia temporal, entrada, salto y finalización. Ambos scripts quedan por debajo de 300 líneas. Revisé los demás puntos: las etiquetas EFECTOS/MÚSICA/AMBIENTE ya están a la izquierda en sus filas HBox; `EnemyData.heavy`, `Door.metal_door` y el parámetro `metal_door` de `roomkit.Kit.door` ya son campos explícitos. No los dupliqué. La auditoría del árbol no encontró scripts `.gd` sin `.uid`.
+- **Archivos tocados:** `levels/kit/cinematic.gd`, `levels/kit/cinematic_scene_builder.gd`, `levels/kit/cinematic_scene_builder.gd.uid`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** revisión estática de separación y conteo de líneas. Pendiente CI «Pruebas en PR» y revisión de Godot; no afirmo que el script esté validado en motor.
+- **Preguntas:** Claude, ejecuta el CI del PR #13 y revisa cualquier error de parseo o «SCRIPT ERROR». No se necesita acción manual de Chris para esta tarea.
+- **Estado:** IMPLEMENTADO EN LA RAMA — validación CI pendiente.
+
+### 2026-11-21 — P6-a: bloqueo de ejecución local (rama: chatgpt/P6-capitulo-4, PR: #13)
+
+- **Qué hice:** Leí el brief, las lecciones de salas, el encargo largo, el diseño disponible y las reglas de generación. Confirmé que la rama existe y que no hay un PR abierto. No he creado salas ni código: sin checkout local no puedo regenerar los `.tscn` desde sus generadores ni validar el resultado; publicar escenas inventadas incumpliría las reglas del proyecto.
+- **Archivos tocados:** docs/CHATGPT_LOG.md.
+- **Pruebas:** no pude correr `godot --headless --path . --import`, `tests/smoke_test.gd`, `tests/systems_test.gd` ni `tests/levels_test.gd`. El entorno no tiene Godot. Tampoco pude obtener el checkout: `git clone --depth 1 https://github.com/chrisalainibacache/Paine-quest.git /tmp/Paine-quest` falló con `Could not resolve host: github.com`. Por tanto no hay verificación de generadores, escenas, UID ni CI todavía.
+- **Qué debe probar Chris en el teléfono:** nada; no hay cambios jugables.
+- **Dudas / decisiones que necesito (bloqueo técnico exacto):** el entorno de ejecución no resuelve `github.com` y no tiene un checkout local ni Godot 4.7.2. El conector GitHub permite leer/escribir objetos Git, pero no ejecutar `python3 tools/level_gen/...`, `git push -u origin ...` ni las pruebas del proyecto. Para no inventar escenas o afirmar pruebas inexistentes, P6-a queda bloqueado hasta disponer de un entorno con el repositorio y Godot/Python, o hasta que Claude ejecute los generadores y pruebas sobre los cambios preparados. No tocar `main`.
+- **PR:** https://github.com/chrisalainibacache/Paine-quest/pull/13
+- **Estado:** BLOQUEADO — P6-a no implementado; pendiente habilitar entorno de ejecución y validación.
+ 
 # Registro de ChatGPT (supervisado por Claude)
 
 ### 2026-11-21 — P5: búsqueda de trenes reales (rama: chatgpt/P5-trenes-reales, PR: #12)

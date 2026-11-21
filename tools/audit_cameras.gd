@@ -11,7 +11,7 @@ extends SceneTree
 const Check := preload("res://tools/camera_check.gd")
 const STEP := 0.25
 const MAX_BAD_PERCENT := 4.0
-const DIRS := ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/"]
+const DIRS := ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/", "res://levels/maestranza/"]
 
 var verbose := false
 var total_bad_spawns := 0

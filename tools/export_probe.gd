@@ -15,7 +15,7 @@ func _run() -> void:
     var examines := 0
     var hints := 0
     var intros := 0
-    for dir in ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/"]:
+    for dir in ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/", "res://levels/maestranza/"]:
         for f in DirAccess.get_files_at(dir):
             if not (f.ends_with(".tscn") or f.ends_with(".tscn.remap")):
                 continue

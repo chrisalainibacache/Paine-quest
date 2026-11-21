@@ -6,9 +6,11 @@ código termina con «Pruebas en PR» verde. Chris prueba el APK en su teléfono
 ## Estado general
 
 - **Capítulos completos:** 1 (Estación de Paine), 2 (vías y tren destruido) y 3 (Buin).
-- **Diseño narrativo:** propuesta P3 para capítulos 4–5 y epílogo redactada en PR #11; pendiente de revisión de Claude y confirmación de Chris. La implementación sigue bloqueada.
-- **Próximos trabajos técnicos:** audio real (T7 y T8), cinemática en vivo de Skull (T9) y
-  pruebas de orientación de puertas (T6).
+- **Capítulo 4:** diseño aprobado (APROBADO D); implementación de La Maestranza en curso en PR #13. Las siete salas jugables se separan del patio de maniobras y la escena del aplauso, a cargo de Claude.
+- **Capítulo 5 y epílogo:** diseño narrativo documentado; implementación posterior a la fusión de P6.
+- **Sistemas:** P1 (créditos, opciones, sonidos y anuncios de prueba) fusionado; audio por sala y director de audio integrados. Los OGG definitivos y sus ajustes de mezcla se incorporan por Claude.
+- **Trenes:** locomotora, coche de pasajeros y vagón de carga CC0 importados; Vía norte y Tren descarrilado tienen fondos prerenderizados. El campo abierto de Buin usa cerco, portones y continuidad visual exterior.
+- **Protagonistas:** Isabella y su hermana Paz. Los nombres internos antiguos, como cony en recursos de personaje, se conservan por compatibilidad; en textos visibles se usan Isabella y Paz.
 - **Protagonistas:** Isabella y su hermana Paz. Los nombres internos antiguos, como `cony`
   en recursos de personaje, se conservan por compatibilidad; en textos visibles se usan
   Isabella y Paz.
@@ -133,60 +135,49 @@ bodega agrícola, potrero, viña Santa Rosa y galpón.
 - [x] La pantalla DIAG muestra información del dispositivo, últimos eventos y errores
   registrados; sirve para que Chris comparta una captura cuando algo no responde.
 
-## Hito 8 — Audio real (pendiente)
+## Hito 8 — Audio real (sistema integrado; activos definitivos en incorporación)
 
-- [ ] **T7 — Parte 1:** cargador de SFX OGG con selección aleatoria de variantes y respaldo
-  sintetizado cuando no exista el archivo; buses Master, Sfx, Music, Ambience y Ui;
-  director de audio para ambientes, música, tensión e interacción con diálogos.
-- [ ] **T8 — Parte 2:** propiedad `ambience` en cada sala y asignación de ambiente a todos los
-  generadores según `docs/AUDIO_PLAN.md`.
-- [ ] Los archivos OGG los incorpora Claude por tandas; no se deben inventar ni subir audios
-  desde este trabajo.
-- [ ] Validar que el juego siga funcionando sin ningún OGG y que el APK no supere el
-  presupuesto de audio establecido.
+- [x] **T7 — Parte 1:** cargador de SFX con variantes y respaldo sintetizado; buses Master, Sfx, Music, Ambience y Ui; director de audio con ambiente por sala, música por capítulo, tensión y atenuación durante diálogos.
+- [x] **T8 — Parte 2:** propiedad ambience en Room y asignación de ambiente en los generadores de salas.
+- [ ] Claude incorpora los OGG definitivos por tandas y revisa la mezcla; no inventar ni subir audios desde este trabajo.
+- [x] El sistema conserva el respaldo sintetizado cuando no hay archivos OGG.
 
-## Hito 9 — Cinemática de Skull (pendiente)
+## Hito 9 — Cinemática de Skull (implementada; revisión visual de Claude)
 
-- [ ] **T9:** cinemática en vivo de unos 10 segundos al inicio del capítulo 2, una sola vez
-  por partida y saltable con un toque.
-- [ ] Skull nunca se muestra: solo puerta metálica, impactos, polvo, luz, sombra y sonido.
-- [ ] Escena generada con Python y reproducida por el sistema de cinemáticas; no prerenderizar.
-- [ ] Claude revisa la puesta en escena con capturas.
+- [x] **T9:** cinemática en vivo de unos 10 segundos al inicio del capítulo 2, una sola vez por partida y saltable con un toque.
+- [x] Skull nunca se muestra: solo puerta metálica, impactos, polvo, luz, sombra y sonido.
+- [x] Escena y geometría generadas por Python; reproducción integrada en el sistema de cinemáticas, sin prerenderizar.
+- [x] PR #8 fusionado; Claude revisó la secuencia con capturas y ajustó la sombra. Los sonidos específicos de criatura siguen a cargo de Claude.
 
-## Hito 10 — Capítulos siguientes (diseño redactado; aprobación pendiente)
+## Hito 10 — Capítulo 4: La Maestranza (aprobado; implementación en curso)
 
-- [ ] **Capítulo 4 — La Maestranza (San Bernardo):** 6–8 salas pequeñas y cerradas. Paz trabaja
-  allí; el encuentro con Skull se diseña como persecución o jefe del capítulo. El vagón del
-  Centro de Nos permanece cerrado.
-- [ ] **Capítulo 5 — Santiago / Centro de Nos:** Isabella y Paz juntas; se resuelve el misterio
-  del pasajero del asiento 15.
-- [ ] **Epílogo — «Para Leo»:** despedida aprobada por Chris, al amanecer y ya a salvo.
+- [x] APROBADO D por Chris: Rosa muere en paz; Paz es sanitaria de apoyo; se conservan las semillas A y D.
+- [x] Recorrido definido en siete salas: acceso, guardia, enfermería, taller, vestuario, pasillo de cuarentena y puesto sanitario.
+- [x] Ocho documentos, diálogos y pistas de Leo definidos en docs/cap4_notas.md y docs/cap4_dialogos.md.
+- [ ] P6 — implementación: generadores, recursos de documentos, conexiones, pruebas y limpieza en PR #13. Claude ejecuta los generadores y revisa cámaras/renders.
+- [ ] Patio de maniobras (encuentro con Skull) y escena del aplauso: responsabilidad de Claude; fuera del alcance de P6.
+- [ ] El vagón del Centro de Nos permanece sellado y sin interior visible.
 
-- [x] Borrador narrativo de capítulo 4, capítulo 5 y epílogo «Para Leo» (P3).
-- [x] Propuesta de salas, notas, diálogos y continuidad documentada.
-- [ ] Revisión de Claude y confirmación de Chris.
-- [ ] Implementación del capítulo 4: bloqueada hasta que Claude escriba «APROBADO D» en el log.
+## Hito 11 — Capítulo 5, epílogo y pulido
 
-## Hito 11 — Pulido (pendiente)
-
-- [ ] Menú de opciones con volumen (efectos, música, ambiente) y tamaño de los botones táctiles.
-- [ ] Balance de munición y de dificultad tras jugar los tres capítulos.
-- [ ] Ícono y nombre de la app.
-- [ ] Confirmar la licencia de los personajes PSX (pendiente en `docs/ASSETS.md`).
-- [ ] Fuente estilo Resident Evil con licencia libre (OFL).
-- [ ] Re-renderizar los fondos del capítulo 1 si se cambian sus cámaras; evaluar fondos para los
-  capítulos 2 y 3 (ver `update grafica.txt`).
+- [x] Diseño de capítulo 5 / Centro de Nos y epílogo Para Leo documentado en P3.
+- [ ] Implementación de capítulo 5 y epílogo, después de fusionar P6.
+- [x] Menú de opciones con controles de efectos, música y ambiente; etiquetas alineadas junto a sus deslizadores.
+- [ ] Balance de munición y dificultad tras jugar los capítulos completos.
+- [ ] Ícono y nombre definitivo de la app.
+- [x] Josefin Sans incorporada; conservar su licencia OFL en el inventario.
+- [ ] Revisar y confirmar licencias pendientes de personajes y paquetes PSX.
 
 ## Hito 12 — Monetización y publicación (en planificación)
 
-Ver `docs/MONETIZACION.md`: auditoría de licencias (🔴 packs PSX, armas pesadas y grafitis por confirmar), modelo de ingresos,
-requisitos de Google Play y reparto de tareas.
+- [x] Auditoría documental de recursos y licencias en docs/store/licencias_activos.md.
+- [x] Créditos visibles en el juego y atribuciones CC BY de música y texturas.
+- [ ] Resolver recursos con licencia comercial no verificada y paquetes que no permiten redistribuir archivos fuente.
+- [ ] Confirmar los términos del fondo del título generado con IA antes de publicar.
+- [ ] Cerrar modelo de ingresos, política de privacidad, requisitos de Google Play y reparto de tareas.
 
-## Próximos tickets
+Ver docs/MONETIZACION.md para el detalle del modelo y los riesgos pendientes.
 
-Orden de trabajo acordado: **T5 → T7 → T8 → T9 → T6 → T1 → T2 → T3**.
-T5 actualiza esta hoja de ruta; después se implementan audio y cinemática, se refuerzan las
-pruebas de puertas y se continúa con el diseño de los capítulos siguientes.
+## Próximos trabajos
 
-La implementación del capítulo 4 (tarea D) sigue **bloqueada** hasta que Claude escriba
-literalmente `APROBADO D` en `docs/CHATGPT_LOG.md`.
+Orden vigente: terminar P6 (siete salas, notas, conexiones, pruebas, limpieza y documentación); Claude ejecuta los generadores y prepara cámaras/renders; tras la fusión de P6 comienza P7 (capítulo 5 y epílogo). Los OGG definitivos y las tareas visuales reservadas permanecen con Claude.

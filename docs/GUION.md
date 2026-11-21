@@ -165,15 +165,43 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 
 ---
 
-## 7. Lo que viene (dirección aprobada; aún sin escribir en detalle)
-- **Capítulo 4 — La Maestranza (San Bernardo), tarde del sábado:** lugar de cuarentena del tren sanitario; Paz trabaja ahí (*propuesta provisoria:* personal sanitario de apoyo). El vagón que nadie abre (Centro de Nos) sigue cerrado. **Encuentro con Skull** (persecución o jefe). Cierra con el reencuentro con Paz y un gancho hacia el Centro de Nos.
-- **Capítulo 5 — Santiago / Centro de Nos:** se cierra el misterio del pasajero del asiento 15; Isabella y Paz juntas.
-- **Epílogo — «Para Leo»:** al amanecer, ya a salvo, Leo camina unos pasos hacia la luz por la vía, se da vuelta, maúlla una última vez y se va. Isabella entiende. Dedicatoria: «Para Leo».
-- **Parte 2:** el origen de la infección (por qué empezó todo). Skull y el asiento 15 quedan como misterios sembrados.
+## 7. Capítulo 4 — La Maestranza (San Bernardo, sábado por la tarde; diseño aprobado, implementación P6 en curso)
+
+**Continuidad:** Isabella y Leo llegan desde Buin siguiendo la vía. Paz trabaja en el recinto como sanitaria de apoyo. La Maestranza fue convertida en punto de recepción y cuarentena del tren sanitario. No se explica el origen de la infección. El vagón del Centro de Nos permanece sellado: no se abre ni se muestra su interior.
+
+**Recorrido (7 salas jugables):**
+1. **Acceso.** Barrera de entrada, caseta y puerta lateral visible. Leo indica rodear la barrera y entrar por esa puerta. En la caseta se encuentra el parte de guardia del patio norte (sábado, 13:55): una figura quieta entre las vías resistió tres disparos y desapareció de la vista. Es el primer indicio de una amenaza de mayor tamaño; no se le da nombre ni se describe por completo.
+2. **Puesto de guardia.** Escritorio, radio y control de acceso. Paz transmite una pregunta general por sobrevivientes del sector; no pregunta por Isabella. Leo guía a recoger la llave bajo la mesa.
+3. **Enfermería.** Camillas, armario y área de curaciones. Se encuentran la declaración del paciente de la camilla 4 (14:25), que describe a una mujer que camina por la vía de servicio y ante la que los infectados se apartan, y el registro del turno anterior (14:10), donde una mujer tarareaba frente a la reja mientras los perros dejaron de ladrar y la gata permaneció tranquila. Son testimonios independientes; no explican qué es la mujer.
+4. **Taller.** Tablero eléctrico, herramientas y cableado. El parte de mantenimiento (14:40, hora de recepción) describe un portón de galpón cedido desde dentro; no se identifica quién salió ni cuándo. Leo sigue el cable hasta el tablero azul y guía a restablecer la energía. Paz confirma por radio que la luz del pasillo depende de ese tablero.
+5. **Vestuario.** Casilleros y pertenencias del personal. Una carta sin enviar (14:55) describe una puerta de madera caída lejos del marco, con tornillos arrancados hacia el pasillo; es un segundo indicio separado del parte de mantenimiento. Un operario puede describir a una mujer de pelo gris y chaqueta verde oliva detrás del vidrio, sin verle el rostro ni decir su nombre. Leo indica probar la llave pequeña en el casillero marcado.
+6. **Pasillo de cuarentena.** Franja amarilla, rejas y vagón del Centro de Nos con precinto intacto. La orden de cierre (15:48) prohíbe abrirlo y no registra daños recientes. El informe de vigilancia (16:12) habla de una sombra alta al fondo del corredor, tres golpes en el audio y ninguna identificación. Paz repite por radio que el vagón debe permanecer sellado. Leo ordena no tocar el precinto y seguir la franja amarilla hasta la puerta de servicio. La escena del aplauso y el patio de maniobras no forman parte de este paquete de implementación: los prepara Claude.
+7. **Puesto sanitario.** Área segura con camillas, radio y personal. La transcripción del canal sanitario (15:20) contiene a Paz preguntando por sobrevivientes, cuántos pueden caminar y quién necesita ayuda. Isabella finalmente se reúne con ella. Paz confirma que tiene una credencial de acceso al Centro de Nos; ambas se preparan para continuar. Leo les pide cerrar la puerta y descansar junto a la camilla.
+
+**Límites narrativos del capítulo:** no nombrar a Rosa en los documentos de La Maestranza; no explicar el origen de la infección; no abrir el vagón del Centro de Nos; no mostrar el rostro de la mujer ni identificarla en los testimonios; mantener separadas las dos evidencias de puertas forzadas. Las pistas de «La señora» avanzan por testimonios y reacciones, pero su escena de aplauso queda reservada a Claude.
+
+### Documentos de La Maestranza (propuestos en docs/cap4_notas.md)
+- Parte de guardia — Patio norte (13:55).
+- Registro de enfermería — Turno anterior (14:10).
+- Declaración de paciente — Camilla 4 (14:25).
+- Parte de mantenimiento — Galpón de Buin (14:40, hora de recepción).
+- Carta sin enviar — Operario de vía (14:55).
+- Transcripción de radio — Canal sanitario (15:20).
+- Orden de cierre — Vagón del Centro de Nos (15:48).
+- Informe de vigilancia — Pasillo de servicio (16:12).
 
 ---
 
-## 8. Decisiones recientes y puntos abiertos
+## 8. Lo que viene — Capítulo 5 y epílogo «Para Leo» (diseño P3; implementación posterior a P6)
+
+- **Capítulo 5 — Santiago / Centro de Nos:** Isabella y Paz avanzan juntas. Se investigan los registros incompletos del asiento 15, la recepción, los archivos, la enfermería, el pasillo de transferencia y el preaislamiento. El vagón sigue cerrado hasta que la historia autorice otra cosa. El misterio del pasajero se resuelve en el capítulo, sin revelar el origen general de la infección.
+- **Encuentro final:** la identidad y transformación de Rosa se aborda según las decisiones de continuidad aprobadas en el GDD. La sala del jefe final y sus escenas están reservadas para Claude; no forman parte de P6.
+- **Epílogo — «Para Leo»:** al amanecer, ya a salvo, Leo camina unos pasos hacia la luz por la vía, se detiene, gira, maúlla una última vez y se aleja. Isabella entiende. No hay explicación verbal de Leo. Dedicatoria final: «Para Leo».
+- **Parte 2:** el origen de la infección permanece sin explicar en este juego.
+
+---
+
+## 9. Decisiones recientes y puntos abiertos
 **Resueltos por Chris (noviembre):**
 1. **«Constanza»** se eliminó: la radio **pregunta si hay sobrevivientes**.
 2. **Rosa:** cómo cruzó de Paine a Buin **no tiene explicación, a propósito**. Isabella sospecha; **Leo sospecha más** y cree que es **un infectado distinto**.

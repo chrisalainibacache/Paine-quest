@@ -8,6 +8,7 @@ const GAME_SCENE := "res://main.tscn"
 const CHAPTER_STARTS := {
     2: "res://levels/tracks/track_north.tscn",
     3: "res://levels/buin/bridge.tscn",
+    4: "res://levels/maestranza/maestranza_acceso.tscn",
 }
 
 const TEXTS := {
@@ -20,6 +21,9 @@ const TEXTS := {
     3: ["FIN DEL CAPÍTULO 3", "Buin",
         "Rosa se quedó en la oficina del galpón, del otro lado de la puerta. Isabella ya no está segura de lo que había detrás.\nPor la radio, la voz de Paz: está en la Maestranza de San Bernardo. Isabella y Leo vuelven a la vía.",
         "Continuará en el Capítulo 4: La Maestranza"],
+    4: ["FIN DEL CAPÍTULO 4", "La Maestranza",
+        "Isabella encontró a Paz en el puesto sanitario. La credencial abre el camino hacia el Centro de Nos. El vagón sellado sigue siendo un misterio.",
+        "El viaje hacia Santiago continúa."],
 }
 
 var chapter := 1
