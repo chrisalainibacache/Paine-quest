@@ -6,7 +6,7 @@ T = "res://levels/tracks/%s.tscn"
 # un vagón volcado cruza la vía y hay fuego: el tren de las 6:30.
 # Lo que piensa Isabella al empezar el capítulo 2.
 INTRO = ['Pasada la medianoche. La vía hacia el norte.', 'Allá adelante se ve un resplandor rojo y humo. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.', 'Paz, aguanta. Vamos caminando.', 'Leo: Yo voy adelante, como siempre.']
-k = Kit("TrackNorth", "Vía norte", intro=INTRO, ambience="tracks_night")
+k = Kit("TrackNorth", "Vía norte", intro=INTRO, ambience="tracks_night", cinematic="res://levels/cinematics/creature_door.tscn")
 night(k)
 X0, X1, Z0, Z1 = -9.0, 9.0, -5.2, 3.5   # trinchera más ancha al norte: cabe el ramal con el vagón
 track_bed(k, X0, X1, Z0, Z1, track_z=0.0)

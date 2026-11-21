@@ -96,6 +96,7 @@ size = Vector3(5.75, 3, 9.75)
 script = ExtResource("1_room")
 room_name = "Vía norte"
 ambience = &"tracks_night"
+cinematic = "res://levels/cinematics/creature_door.tscn"
 intro_lines = PackedStringArray("Pasada la medianoche. La vía hacia el norte.", "Allá adelante se ve un resplandor rojo y humo. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.", "Paz, aguanta. Vamos caminando.", "Leo: Yo voy adelante, como siempre.")
 
 [node name="Environment" type="WorldEnvironment" parent="."]

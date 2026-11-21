@@ -59,6 +59,7 @@ func _run() -> void:
     await _weapons(player)
     await _chapter_route(player)
     await _chapter_two()
+    await _cinematic()
     _finish()
 
 
@@ -840,3 +841,32 @@ func _chapter_two() -> void:
         await _seconds(1.5)
         _check(current_scene != null and current_scene.has_node("SceneLoader") and current_scene.room.scene_file_path == "res://levels/buin/bridge.tscn",
             "CONTINUAR lleva al puente del Maipo (capítulo 3)")
+
+
+## T9: carga, finalización, bandera de una sola vez y restauración del juego.
+func _cinematic() -> void:
+    var loader := current_scene.get_node("SceneLoader") as SceneLoader
+    loader._place_room("res://levels/tracks/track_north.tscn", "start", false)
+    var path := loader.room.cinematic
+    _check(path == "res://levels/cinematics/creature_door.tscn", "T9: la vía norte tiene asignada su cinemática")
+    var packed := load(path) as PackedScene
+    _check(packed != null, "T9: la escena de la cinemática carga")
+    if packed == null:
+        return
+    SceneLoader.cinematics_enabled = true
+    loader.call_deferred("_play_cinematic")
+    await _frames(2)
+    var active := get_root().get_tree().get_first_node_in_group("cinematics") as Cinematic
+    _check(active != null, "T9: SceneLoader inicia la cinemática")
+    if active:
+        active.skip()
+    await _frames(4)
+    var flag := "cinematic:res://levels/tracks/track_north.tscn"
+    _check(GameState.has_flag(flag), "T9: al terminar queda marcada la bandera de esta partida")
+    _check(not loader.player.controls_locked and loader.player.model.visible and loader.leo.visible,
+        "T9: al terminar vuelven los controles y los personajes")
+    await loader._play_cinematic()
+    await _frames(1)
+    _check(get_root().get_tree().get_first_node_in_group("cinematics") == null,
+        "T9: la cinemática no se reproduce una segunda vez")
+    SceneLoader.cinematics_enabled = false

@@ -8,6 +8,8 @@ signal camera_changed(camera: Camera3D)
 @export var room_name: String = ""
 ## Ambiente en bucle asignado a esta sala (AUDIO_PLAN.md §5).
 @export var ambience: StringName = &""
+## Cinemática que se reproduce al entrar por primera vez a esta sala.
+@export var cinematic: String = ""
 ## Sala a oscuras (apagón): Isabella enciende la linterna.
 @export var dark: bool = false
 ## Lo que piensa Isabella la primera vez que entra (se muestra una sola vez).
