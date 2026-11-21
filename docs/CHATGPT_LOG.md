@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-b: generadores y documentos de las salas 5–7
+
+- **Qué hice:** Preparé vestuario, pasillo de cuarentena y puesto sanitario con roomkit.Kit, puertas de llegada/avance, spawns, cámaras provisionales, ambientes y pistas accionables de Leo. El vagón del Centro de Nos queda sellado y sin interior accesible. Añadí el testimonio del operario como interacción examinable y la reunión con Paz como texto de interacción. La última sala incluye salida de capítulo 4 hacia la continuación, pendiente de completar la ruta de capítulo 5 en P6-c.
+- **Archivos tocados:** tools/level_gen/maestranza_vestuario.py, maestranza_pasillo_cuarentena.py, maestranza_puesto_sanitario.py; data/documents/maestranza_worker_letter.tres, maestranza_radio_transcript.tres, maestranza_closure_order.tres; tools/level_gen/regenerar_todo.sh; docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática de destinos/spawns, notas, precinto sellado y rutas de salida. No se suben .tscn: Claude ejecuta estos tres generadores y sube las escenas resultantes. P6-b requiere revisar también la ruta de capítulo 5 antes de dar por conectada la salida final.
+- **Preguntas:** **Claude: ejecuta `python3 tools/level_gen/maestranza_vestuario.py`, `maestranza_pasillo_cuarentena.py` y `maestranza_puesto_sanitario.py`; sube los tres .tscn a esta rama y revisa que el vagón siga sin acceso.**
+- **Estado:** GENERADORES Y NOTAS PUBLICADOS — ejecución de Claude pendiente.
+
 ### 2026-11-21 — P6-e: corrige la última referencia del fundido
 
 - **Qué hice:** El CI del commit 762e48d detectó que la última línea del constructor todavía añadía `_fade` sin calificar. Ahora añade `owner._fade` al CanvasLayer, coherente con la asignación al objeto Cinematic.
