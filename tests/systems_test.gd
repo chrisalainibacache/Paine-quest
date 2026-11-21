@@ -865,11 +865,16 @@ func _cinematic() -> void:
         if get_root().get_tree().get_first_node_in_group("cinematics") == null:
             break
         await _frames(1)
-    await _frames(4)
+    # La restauración corre unos cuadros DESPUÉS de que la cinemática desaparece: se espera la condición, no un número fijo.
+    for i in 240:
+        if not loader.player.controls_locked and loader.player.model.visible and loader.leo.visible:
+            break
+        await _frames(1)
     var flag := "cinematic:res://levels/tracks/track_north.tscn"
     _check(GameState.has_flag(flag), "T9: al terminar queda marcada la bandera de esta partida")
     _check(not loader.player.controls_locked and loader.player.model.visible and loader.leo.visible,
-        "T9: al terminar vuelven los controles y los personajes")
+        "T9: al terminar vuelven los controles y los personajes (bloqueado=%s, modelo=%s, leo=%s)"
+        % [loader.player.controls_locked, loader.player.model.visible, loader.leo.visible])
     await loader._play_cinematic()
     await _frames(1)
     _check(get_root().get_tree().get_first_node_in_group("cinematics") == null,

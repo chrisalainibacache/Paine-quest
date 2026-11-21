@@ -9,6 +9,7 @@ de armas necesita `pip install py7zr`). **No se usan en el teléfono.** Resultad
   bancos CC0 de OpenGameArt. `AUDIO_RAW=/ruta/raw python3 tools/audio/build_weapons.py`.
 - `build_infected.py` — infectados (gruñidos, gritos, estertores, mordidas, golpes, caídas, pasos) e Isabella (quejidos, respiración).
 - `build_objects.py` — puertas, llaves, cadena, objetos, páginas, máquina de escribir, menú, comer, radio.
+- `build_creature.py` — Skull y el aplauso (`creature_step_far`, `creature_door_smash`, `creature_roar_far`, `applause_slow_1`, `hum_far_1`): **sintetizados** con numpy, sin bancos de terceros. `python3 tools/audio/build_creature.py`.
 - `build_ambience.py` — 14 ambientes en bucle (mezcla de capas CC0). `build_music.py` — música en bucle (Kevin MacLeod, CC BY 4.0: descargar los .mp3 de incompetech en `raw/music/`).
 - Fuentes (todas **CC0**, ver `CREDITS.md`): descargar cada página de OpenGameArt en `raw/<página>/` y
   descomprimir los `.zip` como `<carpeta>_x` (el `.7z` de la biblioteca de armas va en
