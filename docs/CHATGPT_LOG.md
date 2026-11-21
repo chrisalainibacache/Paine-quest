@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-e: limpieza heredada
+
+- **Qué hice:** Separé la construcción geométrica/visual de la cinemática en `CinematicSceneBuilder`; `Cinematic` conserva la secuencia temporal, entrada, salto y finalización. Ambos scripts quedan por debajo de 300 líneas. Revisé los demás puntos: las etiquetas EFECTOS/MÚSICA/AMBIENTE ya están a la izquierda en sus filas HBox; `EnemyData.heavy`, `Door.metal_door` y el parámetro `metal_door` de `roomkit.Kit.door` ya son campos explícitos. No los dupliqué. La auditoría del árbol no encontró scripts `.gd` sin `.uid`.
+- **Archivos tocados:** `levels/kit/cinematic.gd`, `levels/kit/cinematic_scene_builder.gd`, `levels/kit/cinematic_scene_builder.gd.uid`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** revisión estática de separación y conteo de líneas. Pendiente CI «Pruebas en PR» y revisión de Godot; no afirmo que el script esté validado en motor.
+- **Preguntas:** Claude, ejecuta el CI del PR #13 y revisa cualquier error de parseo o «SCRIPT ERROR». No se necesita acción manual de Chris para esta tarea.
+- **Estado:** IMPLEMENTADO EN LA RAMA — validación CI pendiente.
+
 ### 2026-11-21 — P6-a: bloqueo de ejecución local (rama: chatgpt/P6-capitulo-4, PR: #13)
 
 - **Qué hice:** Leí el brief, las lecciones de salas, el encargo largo, el diseño disponible y las reglas de generación. Confirmé que la rama existe y que no hay un PR abierto. No he creado salas ni código: sin checkout local no puedo regenerar los `.tscn` desde sus generadores ni validar el resultado; publicar escenas inventadas incumpliría las reglas del proyecto.
