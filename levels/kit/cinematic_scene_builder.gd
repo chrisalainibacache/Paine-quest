@@ -151,7 +151,7 @@ func build(owner: Cinematic) -> void:
     owner._fade.anchor_bottom = 1.0
     owner._fade.color = Color.BLACK
     owner._fade.mouse_filter = Control.MOUSE_FILTER_STOP
-    overlay.add_child(_fade)
+    overlay.add_child(owner._fade)
 
 
 func _add_box(owner: Cinematic, node_name: String, position: Vector3, size: Vector3, material: Material) -> void:

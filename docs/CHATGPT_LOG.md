@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-e: corrige la última referencia del fundido
+
+- **Qué hice:** El CI del commit 762e48d detectó que la última línea del constructor todavía añadía `_fade` sin calificar. Ahora añade `owner._fade` al CanvasLayer, coherente con la asignación al objeto Cinematic.
+- **Archivos tocados:** levels/kit/cinematic_scene_builder.gd, docs/CHATGPT_LOG.md.
+- **Pruebas:** el CI anterior confirmó que la referencia no declarada provocaba SCRIPT ERROR y que la cinemática quedaba sin fundido. Corrección publicada; CI nuevo pendiente.
+- **Preguntas:** Claude, revisar el siguiente CI; si el script compila, comprobar la cinemática completa y su fundido.
+- **Estado:** CORRECCIÓN PUBLICADA — CI pendiente.
+
 ### 2026-11-21 — P6-a: restaura permiso ejecutable del regenerador
 
 - **Qué hice:** El CI del commit 0c28794 llegó a la comprobación de generadores, pero falló antes de ejecutar el script: `Permission denied` en `./tools/level_gen/regenerar_todo.sh`. El conector había guardado el archivo con modo 100644. Restauro el modo ejecutable 100755 sin cambiar su contenido.
