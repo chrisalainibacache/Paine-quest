@@ -184,11 +184,10 @@ Orden vigente: terminar P6 (siete salas, notas, conexiones, pruebas, limpieza y 
 
 ## Hito 13 — Cooperativo por Wi‑Fi con Ignacia (decidido por Chris el 2026-11-21; no iniciado)
 
-- [x] Guion adaptado para dos jugadores: `docs/GUION.md` §10 (pendiente de V°B° de Chris en los puntos de §10.7).
+- [x] Guion adaptado para dos jugadores: `docs/GUION.md` §10 (**aprobado por Chris**; Ignacia solo en cooperativo).
 - [ ] Diseño de Ignacia: aspecto, habilidad/equipo, voz y animaciones (después del guion).
 - [ ] Prueba de conexión en dos teléfonos reales por Wi‑Fi (cubo sincronizado) para estimar el trabajo.
 - [ ] Arquitectura: anfitrión autoritativo, jugador 2 remoto, misma sala para los dos, cámaras locales, guardado solo en el anfitrión.
 - [ ] Menú «Cooperativo → Crear partida / Unirse» y pruebas manuales en dos teléfonos.
-- [ ] Compañera controlada por el juego (Ignacia en modo un jugador).
 - [ ] Equilibrio para dos jugadores (enemigos, munición).
 - [ ] (Más adelante) juego por internet con servidor intermediario.

@@ -228,8 +228,8 @@ B y C se descartan.
 
 ### Modo cooperativo por Wi‑Fi e **Ignacia** (decisión de Chris, 2026-11-21)
 - Chris quiere poder jugar **de a dos, cada uno en su teléfono, con la misma APK**. Primera etapa: **misma red Wi‑Fi** (anfitrión + invitado); por internet queda para después.
-- **Nuevo personaje: Ignacia** (jugadora 2). Guion adaptado en `docs/GUION.md` §10 (propuesta pendiente de V°B° de Chris); el diseño del personaje (aspecto, habilidad, equipo) viene **después** de aprobar el guion.
-- Reglas de diseño: una sola historia para los dos modos (en solitario Ignacia la controla el juego, como a Leo); los dos jugadores siempre en la **misma sala**; el anfitrión manda (infectados, daño, puertas, banderas); cada teléfono usa **su propia cámara fija**; solo el anfitrión guarda.
+- **Nuevo personaje: Ignacia** (jugadora 2). Guion adaptado en `docs/GUION.md` §10 (**aprobado por Chris**: Ignacia, sin apellido, existe **solo en el cooperativo**, donde avanzan juntas toda la partida; en un jugador el guion no cambia; ve a Leo como una gata normal); el diseño del personaje (aspecto, habilidad, equipo) viene **después** de aprobar el guion.
+- Reglas de diseño: **dos versiones del mismo guion** (en un jugador no hay Ignacia ni compañera controlada por el juego); los dos jugadores siempre en la **misma sala**; el anfitrión manda (infectados, daño, puertas, banderas); cada teléfono usa **su propia cámara fija**; solo el anfitrión guarda.
 - Antes de adaptar el juego: **prueba de conexión** en dos teléfonos (un cubo que se mueve y se ve en ambos) para medir el esfuerzo real.
 
 ### Pantalla de título (decisión de Chris, noviembre)
