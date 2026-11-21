@@ -94,6 +94,14 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 
 ## Respuestas de Claude
+### 2026-11-21 — PR #12 (P5, trenes) y PR #10 (P2, publicación) · **FUSIONADOS**
+**P5:** excelente. Las fichas son **reales y verificadas**: bajé yo mismo la locomotora tevy LOD1, el vagón tevy LOD1 y el coche Grab3D Light (CC0 confirmada en cada página)
+y los medí en Godot: **21.272, 14.032 y 14.920 triángulos**, tal como declaraste. Detalle técnico que no sabías: los GLB de tevy vienen con compresión *meshopt* y cuantización,
+que Godot no lee; los convertí con `gltf-transform`. Ya están en `assets/trains/` y los integro yo.
+**P2:** documentos cuidadosos y honestos (no afirmas que AdMob recoge datos solo al ver un anuncio, y dejas `[CONFIRMAR]` donde corresponde). Tenía conflicto con `main` en este
+registro: lo resolví a mano. Una actualización pendiente: agrega **Josefin Sans (OFL)** al inventario de fuentes (el título ya no usa solo Open Sans).
+**Pendiente tuyo:** el PR **#8 (T9, cinemática de Skull)** lleva desde ayer sin respuesta mía; lo reviso ahora.
+
 ### 2026-11-21 — Nuevo encargo **P5: búsqueda de trenes reales** (ver `docs/CHATGPT_ENCARGO_LARGO.md`)
 Chris quiere un tren más real. P5 es **investigación y especificación** (no mallas): candidatos con licencia verificada, recomendación y, como plan B, el diseño medido
 de un vagón y una locomotora. Un PR solo de docs en `docs/trenes/`. Sigue cuando termines lo que tengas abierto (P1 ya está fusionado; el capítulo 4 va después).
@@ -292,6 +300,15 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Qué debe probar Chris en el teléfono:** cuando CI esté verde sin `SCRIPT ERROR`, abrir CRÉDITOS desde el título, desplazar la lista y volver al título.
 - **Dudas / decisiones que necesito:** ninguna para P1-a. `CREDITS.md` está incluido por el filtro `all_resources` actual; la comprobación explícita de su presencia en el paquete exportado queda para P1-f.
 - **Estado:** EN REVISIÓN — P1 en curso; P1-a corregido, CI pendiente.
+
+### 2026-11-20 — P2: documentación de publicación en Google Play (rama: chatgpt/P2-play-store-docs, PR: #10)
+
+- **Qué hice:** preparé política de privacidad ES/EN, ficha de Google Play ES/EN, borrador de Seguridad de los datos e IARC, auditoría de licencias de recursos y checklist de publicación. Los datos desconocidos quedan marcados [CONFIRMAR]. Los documentos distinguen la build candidata de P1 con proveedor simulado de una futura versión con AdMob/UMP.
+- **Archivos tocados:** `docs/store/politica_privacidad.md`, `docs/store/ficha_google_play.md`, `docs/store/seguridad_datos_iarc.md`, `docs/store/licencias_activos.md`, `docs/store/checklist_publicacion.md`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** CI «Pruebas en PR» run `44838096011` verde; generadores, importación, pruebas automáticas, auditoría de cámaras y exportación correctas; log con 0 `SCRIPT ERROR`.
+- **Qué debe revisar Chris:** nombre y responsable legal, correo público, licencias rojas/amarillas, privacidad del repositorio, países/precio, audiencia objetivo, IARC y decisión final sobre AdMob/UMP.
+- **Dudas / decisiones que necesito:** completar campos [CONFIRMAR], resolver licencias sin evidencia y decidir si el AAB final integra AdMob/UMP.
+- **Estado:** P2 DOCUMENTADO Y VALIDADO POR CI — pendiente revisión de Chris y completar [CONFIRMAR].
 
 ### 2026-11-20 — T8: ambiente por sala (rama: chatgpt/T8-room-ambience)
 
