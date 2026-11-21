@@ -231,17 +231,17 @@ Fondo: **bosque con niebla y la vía del tren al atardecer, con dos figuras cami
 renderizado con `tools/prerender/render_title.gd`). Título «PAINE» en **Josefin Sans** fina y espaciada; botones con borde fino y el principal (NUEVA PARTIDA) con
 **acento dorado**. Todo alineado a la **izquierda** y un acercamiento muy lento (22 s) del fondo.
 
-### Capítulo 4 — La Maestranza (P3; propuesta pendiente de aprobación)
+### Capítulo 4 — La Maestranza (diseño aprobado por Chris; APROBADO D, 2026-11-21)
 
 **Marco temporal propuesto:** sábado por la tarde, continuación inmediata del capítulo 3 y hasta el atardecer. No hay salto de día.  
-**Objetivo propuesto:** Isabella sigue la señal de radio y alcanza a Paz dentro de La Maestranza. La meta del capítulo es encontrarla y llegar al puesto sanitario; la función exacta de Paz se mantiene provisional: personal sanitario de apoyo, según la respuesta de radio y la propuesta del PR #3. Al reunirse, Paz le entrega una credencial de acceso al Centro de Nos y ambas deciden continuar juntas. [PROPUESTA pendiente de aprobación].  
+**Objetivo aprobado:** Isabella sigue la señal de radio y alcanza a Paz dentro de La Maestranza. La meta del capítulo es encontrarla y llegar al puesto sanitario. Paz es personal sanitario de apoyo. Al reunirse, Paz le entrega una credencial de acceso al Centro de Nos y ambas deciden continuar juntas.  
 **Lugar:** instalaciones ferroviarias de La Maestranza, San Bernardo. Espacios pequeños y cerrados, conectados por pasillos de servicio, talleres y patios.
 
 La presencia del enemigo grande se construye con sonidos, sombras, daños y testimonios. No se muestra su cuerpo completo hasta el combate del patio de maniobras. En las notas no se usa el nombre «Skull»: se habla de «algo grande», «una figura alta» o «el sujeto». El original es el jefe del capítulo 4 y muere en ese encuentro. Su altura exacta queda pendiente: las notas existentes hablan de unos 2,3 m y la ficha visual de unos 2,6 m.
 
 El vagón rotulado Centro de Nos permanece sellado durante el capítulo 4. Nadie lo abre ni ve su interior. La radio de Paz pregunta si hay sobrevivientes en el sector; no pregunta por una persona específica.
 
-**Encuentro con el Skull original — propuesta de combate**
+**Encuentro con el Skull original — combate aprobado; implementación y puesta en escena a cargo de Claude**
 
 1. **Búsqueda:** se oye el peso del sujeto sobre las vías; aparece a distancia, no corre y espera a que Isabella cruce entre carros. La cámara no entrega una vista completa.
 2. **Revelación:** al entrar al patio, el sujeto queda completamente visible por primera vez. Es mucho más alto que un hombre, de brazos largos y rostro semejante a un cráneo. Los disparos de fusil lo frenan poco; no se debe convertir en un enemigo rápido.
@@ -250,7 +250,7 @@ El vagón rotulado Centro de Nos permanece sellado durante el capítulo 4. Nadie
 
 **Presupuesto de recursos propuesto para el capítulo 4:** munición de pistola +20, escopeta +4, fusil +10, granada +1; sin cohetes. Una curación pequeña y una grande, repartidas antes del jefe. El combate debe poder resolverse con el entorno y no exigir gastar todos los recursos. Ajustar después de probar el balance real.
 
-### La señora — escalera de seis pistas (P3; propuesta)
+### La señora — escalera de seis pistas (semillas A y D aprobadas; escena del aplauso a cargo de Claude)
 
 Regla: los pasos 1–5 nunca dicen «Rosa» ni explican el origen de la infección. La mujer no aparece físicamente en el capítulo 4; solo se describe en testimonios y se ve una silueta durante la escena del aplauso. El nombre se revela únicamente en el paso 6, antes del jefe final del capítulo 5.
 

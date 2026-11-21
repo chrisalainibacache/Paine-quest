@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-f: alinea el GDD con APROBADO D
+
+- **Qué hice:** Corregí la ficha del capítulo 4 en GDD.md: dejó de figurar como propuesta pendiente; ahora refleja la aprobación de Chris, la función de Paz como sanitaria de apoyo y el reparto del jefe/aplauso a Claude. También se aclara que las semillas A y D de «La señora» están aprobadas.
+- **Archivos tocados:** docs/GDD.md, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión textual de coherencia con ROADMAP y GUION. CI pendiente tras el push.
+- **Preguntas:** ninguna nueva; sigue pendiente confirmar los términos del fondo de título generado con IA.
+- **Estado:** DOCUMENTACIÓN ALINEADA — CI pendiente.
+
 ### 2026-11-21 — P6: estado de CI y escenas pendientes
 
 - **Qué hice:** Revisé los workflows tras los pushes. P6-e quedó validado en el commit 3349336: todas las etapas verdes (generadores, importación, pruebas automáticas, auditoría de cámaras y exportación), sin SCRIPT ERROR. P6-b quedó validado en 36e04fe: los siete generadores se ejecutaron dentro de regenerar_todo.sh, importación, pruebas, cámaras y exportación verdes. El workflow P6-d del commit 085c35b ejecutó regenerar_todo.sh correctamente y terminó deliberadamente en el guard de versionado: faltan los .tscn generados en levels/maestranza.
