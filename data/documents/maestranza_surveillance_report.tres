@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "maestranza_surveillance_report"
+title = "Informe de vigilancia — Pasillo de servicio"
+pages = PackedStringArray("SÁBADO — 16:12\n\nLa cámara captó una sombra alta al fondo del corredor.\nLa figura no corrió cuando se encendió la alarma; se quedó esperando junto a la puerta.\nEl registro de audio tiene tres golpes y después nada.\nNo escribí un nombre porque no pude verla de frente.")

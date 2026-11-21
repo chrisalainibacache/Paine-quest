@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "maestranza_worker_letter"
+title = "Carta sin enviar — Operario de vía"
+pages = PackedStringArray("SÁBADO — 14:55\n\nEncontré una puerta de madera en el suelo, lejos del marco.\nEl pestillo seguía sujeto, pero los tornillos estaban arrancados hacia el pasillo.\nNo hay marcas de entrada desde el patio.\nLos perros no quisieron acercarse; una gata cruzó por encima sin detenerse.\nNo le conté esto al encargado.")
