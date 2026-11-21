@@ -189,3 +189,11 @@ Requisitos en Linux (servidor sin GPU sirve):
 - render_backgrounds.gd entiende el metadato «hide» de la escena de detalle (oculta las cajas que reemplaza).
 - rail_track.gd ahora dibuja balasto, rieles con perfil y placas de asiento.
 
+9. TRAMPA AL VOLVER A RENDERIZAR (noviembre) — LEER
+---------------------------------------------------
+Si la sala YA tiene imágenes en assets/backgrounds/<sala>/, el render las **proyecta** y fotografía esa proyección (no la escena nueva):
+los cambios de luz o de geometría «no hacen nada» y los colores se estropean. **Borra assets/backgrounds/<sala>/* (y sus .import) ANTES de re-renderizar.**
+- render_backgrounds.gd acepta en la escena de detalle los metadatos: «hide» (oculta piezas del juego que reemplaza), «sky» (cielo de amanecer)
+  y «fog» (niebla más suave).
+- Los árboles de Poly Haven pesan millones de triángulos: se simplifican con gltf-transform (tools/prerender/buin_fields_scene.py lo hace solo).
+

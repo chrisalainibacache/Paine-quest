@@ -48,11 +48,16 @@ def build(room, x0, x1, z0, z1, extra_rows=False):
             x = x0 - 3 + i * ((W + 6) / 6) + rng.uniform(-1.2, 1.2)
             z = (z0 - 5.5 - rng.uniform(0, 4)) if side < 0 else (z1 + 5.5 + rng.uniform(0, 4))
             ph(rng.choice(trees), (x, 0.0, z), rng.uniform(0, 2 * PI), rng.uniform(1.3, 2.0))
-    # Cerros lejanos.
+    # Segunda fila de árboles, más lejos, para que la línea del horizonte quede tapada.
     for side in (-1, 1):
-        for i, xx in enumerate((-18, 0, 18)):
-            zz = (z0 - 22) if side < 0 else (z1 + 22)
-            ph("mountainside", (xx + rng.uniform(-3, 3), -1.0, zz), rng.uniform(0, 2 * PI), 4.4)
+        for i in range(9):
+            x = x0 - 8 + i * ((W + 16) / 8) + rng.uniform(-1.5, 1.5)
+            z = (z0 - 12 - rng.uniform(0, 5)) if side < 0 else (z1 + 12 + rng.uniform(0, 5))
+            ph(rng.choice(trees), (x, 0.0, z), rng.uniform(0, 2 * PI), rng.uniform(1.6, 2.4))
+    # Manchones de pasto seco repartidos por el campo (rompen la tierra lisa; el cielo y la neblina hacen de lejanía).
+    for i in range(34):
+        ph(rng.choice(["grass_medium_01", "grass_bermuda_01", "weed_plant_02"]),
+           (rng.uniform(x0 + 0.5, x1 - 0.5), 0.0, rng.uniform(z0 + 0.8, z1 - 0.8)), rng.uniform(0, 2 * PI), rng.uniform(0.6, 1.1))
     # Pasto, maleza y helechos pegados al cerco por fuera, y manchones por dentro.
     for i in range(90):
         side = rng.choice((-1, 1))

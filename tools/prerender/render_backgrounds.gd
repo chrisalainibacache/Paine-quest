@@ -81,8 +81,8 @@ func _upgrade_for_render(room: Node3D) -> void:
         var env := world_env.environment.duplicate() as Environment
         if _want_sky:
             var sky_material := ProceduralSkyMaterial.new()
-            sky_material.sky_top_color = Color(0.40, 0.50, 0.66)
-            sky_material.sky_horizon_color = Color(0.86, 0.80, 0.70)
+            sky_material.sky_top_color = Color(0.52, 0.64, 0.84)
+            sky_material.sky_horizon_color = Color(0.93, 0.89, 0.80)
             sky_material.ground_horizon_color = Color(0.62, 0.58, 0.52)
             sky_material.ground_bottom_color = Color(0.30, 0.28, 0.26)
             sky_material.sun_angle_max = 25.0
