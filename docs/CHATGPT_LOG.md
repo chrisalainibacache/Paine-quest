@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-f: documentación al día
+
+- **Qué hice:** Actualicé la hoja de ruta con el estado real de P1/audio, cinemática de Skull, trenes CC0 importados y fondos prerenderizados de Vía norte/Tren descarrilado; dejé P6 en curso y P7 condicionado a la fusión de P6. Amplié el guion con el recorrido de las siete salas de La Maestranza, las ocho notas y los límites de continuidad; capítulo 5 y «Para Leo» quedan como diseño para P7. Añadí Josefin Sans (OFL), los trenes CC0 de tevy.dev y grab3d.com, y el fondo de título generado con IA con términos pendientes de confirmación.
+- **Archivos tocados:** docs/ROADMAP.md, docs/GUION.md, docs/store/licencias_activos.md, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática de las secciones actualizadas y consistencia con docs/cap4_notas.md / docs/cap4_dialogos.md. Sin ejecución de Godot necesaria para documentación. CI del PR pendiente de revisar tras el push.
+- **Preguntas:** Chris/Claude: confirmar los términos de uso comercial del fondo del título generado con IA (herramienta/modelo/plan utilizado); se deja marcado 🟡 y no se declara licencia despejada.
+- **Estado:** DOCUMENTACIÓN ACTUALIZADA EN LA RAMA — pendiente CI.
+
 ### 2026-11-21 — P6-e: limpieza heredada
 
 - **Qué hice:** Separé la construcción geométrica/visual de la cinemática en `CinematicSceneBuilder`; `Cinematic` conserva la secuencia temporal, entrada, salto y finalización. Ambos scripts quedan por debajo de 300 líneas. Revisé los demás puntos: las etiquetas EFECTOS/MÚSICA/AMBIENTE ya están a la izquierda en sus filas HBox; `EnemyData.heavy`, `Door.metal_door` y el parámetro `metal_door` de `roomkit.Kit.door` ya son campos explícitos. No los dupliqué. La auditoría del árbol no encontró scripts `.gd` sin `.uid`.
