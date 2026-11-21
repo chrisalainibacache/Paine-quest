@@ -24,6 +24,7 @@ gata **Leo** viajan a pie por la vía del tren desde Paine hacia Santiago, a bus
 | **Capitán R. Soto** | Ejército. Firma la orden del control de Buin; terminó él mismo en el tren sanitario. |
 | **Kiara y Nala** | Las perras de Chris: akita naranja enorme y bull terrier gris atigrado. Salvan a Isabella y Leo en Buin. |
 | **Skull** | Criatura que **busca a Isabella**; **nunca se ve**. (Nombre de diseño; nadie lo dice en el juego.) |
+| **Ignacia** | **Segunda protagonista (jugadora 2 en cooperativo).** Técnica en enfermería, colega de Paz; llega a Paine a buscar a Isabella. Ver **§10**. *(Propuesta de Claude, pendiente de V°B° de Chris.)* |
 | **Pasajero del asiento 15** | Hombre con la mano vendada, con credencial del «Centro de Investigación Sanitaria — Nos». Misterio abierto. |
 
 ## 2. Línea de tiempo (la que deben respetar todas las notas)
@@ -40,8 +41,10 @@ gata **Leo** viajan a pie por la vía del tren desde Paine hacia Santiago, a bus
 | Tarde | Aviso oficial: «un tren de evacuación pasará esta noche». |
 | 21:00 | Orden del Ejército en Buin: los mordidos van a La Maestranza. |
 | 22:10 | Paz le escribe a Isabella. |
+| 22:40 | Paz no logra comunicarse con Isabella y le pide a **Ignacia** (colega) que vaya a buscarla en auto. |
+| 23:20 | Ignacia cruza el control de Buin: el Ejército deja pasar hacia el sur y no pregunta nada. |
 | 23:00 | Rosa escribe en el aviso: el tren no vendrá, cerraron la línea en Buin. |
-| **23:40** | **Llega Isabella.** |
+| **23:40** | **Llega Isabella. Casi al mismo tiempo llega Ignacia** (deja el auto en la entrada: había infectados). |
 | Sáb 4:10 | Sale el tren sanitario de Buin (con Raúl, Ana, Tomás, el capitán…). |
 | Sáb 6:50 | Isabella y Leo cruzan el puente del Maipo (cap. 3). |
 
@@ -215,3 +218,92 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 - **El hombre del asiento 15:** hoy sabemos que tenía la mano vendada, tosía sangre y venía del Centro de Nos. Se mantiene abierto.
 - **Rosa = Skull (aprobado):** el **Skull original** (jefe del capítulo 4) la mordió en el puente; Rosa los sigue y se transforma en **Skull en la batalla final** (capítulo 5). Eco previsto: la puerta del galpón arrancada desde dentro.
 - **Por qué los gatos son inmunes:** sin explicación en este juego (parte 2).
+
+---
+
+## 10. Adaptación para dos jugadores — **Ignacia** (propuesta del 2026-11-21; decisión de Chris: modo cooperativo por Wi‑Fi)
+
+> Es una **propuesta de guion**: no está implementada. Chris decide los puntos de §10.7. Diseño visual y jugable de Ignacia: después de aprobar este guion.
+
+### 10.1 Una sola historia para los dos modos
+- **Una sola historia canónica**: Ignacia acompaña a Isabella **desde el capítulo 1** en toda partida.
+- **Modo cooperativo (Wi‑Fi):** el anfitrión juega **Isabella** y el invitado juega **Ignacia**. Ambos están **siempre en la misma sala**; las cinemáticas y los diálogos los ven los dos.
+- **Modo un jugador:** Ignacia es una **compañera controlada por el juego** (sigue a Isabella como Leo, no muere —cae «herida» y se levanta—, no dispara). Así no hay dos guiones.
+- **Leo:** solo **Isabella** la oye hablar. Para Ignacia es una gata que maúlla. En el juego las pistas de Leo se **muestran a los dos jugadores** (para que el invitado no se pierda); en la historia, Isabella **traduce** en voz alta de vez en cuando (§10.4).
+
+### 10.2 Quién es Ignacia
+**Ignacia Vergara, 26 años.** Técnica en enfermería; trabaja con Paz. Práctica, bromista cuando tiene miedo, habla de más cuando se pone nerviosa: es el **contrapunto** de Isabella, que calla. Escéptica con lo raro (la gata, Rosa), pero **honesta**: cuando algo no cuadra, lo dice. Lleva mochila de paramédico y una linterna frontal.
+- **Por qué está en Paine:** Paz no pudo hablar con Isabella (22:40) y le pidió que la fuera a buscar; Ignacia tenía auto. Pasó el control de Buin hacia el sur sin problema (el Ejército solo retiene a los que vienen de Paine). En Paine dejó el auto en la entrada, rodeado de infectados, y entró corriendo.
+- **Por qué siguen a pie por la vía:** hacia el norte el Ejército no deja pasar a nadie y la carretera está cortada en Buin. La vía es lo único abierto.
+- **Qué NO sabe:** el secreto de Leo; que Rosa se transformará en Skull; el origen de la infección (parte 2). Tampoco nombra a Skull.
+- **Su arco:** de «esto tiene explicación» a creer en lo que Isabella siente. En el final entiende, en silencio.
+
+### 10.3 Capítulo 1 — el encuentro (cinemática corta tras la entrada; ~20 s)
+Después de «Leo: Yo te llevo. Siempre te he llevado yo.», un haz de luz recorre el andén y alguien llega corriendo desde la entrada:
+- «Ignacia: ¡Oye, oye, tranquila! Estoy viva. Estoy bien viva.»
+- «Ignacia: ¿Eres Isabella? ¿La hermana de Paz? Tienes los mismos ojos de la foto.»
+- «Ignacia: Soy Ignacia, trabajo con tu hermana. Me pidió que viniera a buscarte. Era un viaje de cuarenta minutos.»
+- «Ignacia: Dejé el auto en la entrada. Había gente… gente que no estaba bien. Corrí.»
+- «Isabella: ¿Paz está bien?»
+- «Ignacia: Estaba bien cuando salí. Después no pude llamarla.»
+- «Ignacia: El Ejército no deja pasar a nadie hacia el norte. Por carretera, no. Pero la vía sigue ahí.»
+- «Ignacia: ¿Y esa gata? Qué linda. Y qué tranquila, con todo esto.»
+- «Isabella asiente. Habla poco.»
+
+**Frases por sala (1–2 por sala, se disparan una sola vez):**
+1. **Andén norte** (nota arrugada): «Ignacia: “No se acerquen a él”. Mejor le hacemos caso.»
+2. **Sala de espera** (máquina de escribir): «Ignacia: ¿Una máquina de escribir? Bueno… guardar es guardar.»
+3. **Boletería** (pistola): «Ignacia: Yo con eso me disparo en un pie. La llevas tú.»
+4. **Pasillo de servicio**: «Ignacia: Ese de allá se hace el muerto. Le vi mover un dedo.» *(Leo bufa. Ignacia, a Isabella: «Tu gata y yo pensamos igual».)*
+5. **Bodega** (don Héctor): «Ignacia: Pobre hombre… Cuando todo esto pase, alguien tiene que avisarle a su familia.»
+6. **Andén sur**: «Ignacia: Entonces es por la vía. Vamos.»
+
+**Pantalla de fin del capítulo 1 (versión con Ignacia):** «Isabella, Ignacia y Leo bajan a la vía y caminan hacia el norte, hacia Santiago, hacia Paz.»
+
+### 10.4 La gata «que sabe el camino» (se repite, sin exagerar)
+- **Primera vez (capítulo 2, vía norte):** Isabella, en voz baja, señala y dice «Por allá». «Ignacia: ¿Y tú cómo sabes?» «Isabella: Leo.» «Ignacia: Tu gata es mejor que un GPS.»
+- **Cuando Leo da una pista importante**, Isabella la repite en una frase corta; Ignacia la acepta con humor («está bien, no pregunto»).
+- **Capítulo 3 (Rosa):** Isabella dice en voz alta, por primera vez, lo que le dice Leo: «Leo dice que no le creamos.» «Ignacia: ¿Leo dice?… Está bien. Yo también tengo un mal presentimiento.» (Ignacia ahora **cree** a Isabella).
+
+### 10.5 Capítulos 2 a 5 y epílogo — escenas y frases con Ignacia
+**Capítulo 2 — Las vías**
+- Entrada: «Ignacia: Humo. Mucho humo. Eso no es una fogata.»
+- Cruce por el vagón: «Ignacia: Cruzar por dentro. Claro. Siempre es por dentro.»
+- Paso bajo nivel (apagón): «Ignacia: Tengo una frontal. Tú la tuya, yo la mía. No nos separemos.» *(Las dos luces: en cooperativo cada jugador tiene la suya.)*
+- Nota del maquinista: «Ignacia: Jorge se quedó para que otros pasaran… Eso no lo hace cualquiera.»
+- Casa de cambios (sala segura), tras el consejo de Leo: «Ignacia: Descansa un rato. Yo hago guardia. En el hospital aprendí a dormir sentada.»
+
+**Capítulo 3 — Buin**
+- Puente del Maipo: «Ignacia: Anoche pasé por este puente en auto. No había nada de esto.»
+- Control militar: «Ignacia: Por aquí me dejaron pasar sin preguntar nada. Hacia el sur, todo bien. Hacia el norte, no.»
+- **Kiara y Nala** (escena existente): cuando se traba la pistola, Ignacia agarra a Isabella del brazo. Al final: «Ignacia: ¿Eran perras de alguien? …Da igual. Gracias, chicas. Nos salvaron.» *(Se conservan las líneas actuales de Kiara, Nala y Leo.)*
+- **Rosa (galpón):** tras «Algo no cuadra…», Ignacia: «Isabella, yo crucé ese puente a las once y media y no había nadie. ¿Cómo cruzó ella?» Isabella: «Leo dice que no le creamos.» (§10.4). Al final de la conversación, Ignacia, bajito: «No me gusta cómo respira.»
+- **Radio de Paz:** al oír «soy yo, Paz», Ignacia: «¡Es ella! ¡Es Paz!» *(Línea nueva de Paz, solo si hay Ignacia en la partida —siempre—: «Paz: …Si Ignacia está con ella, por favor, no la sueltes.»)* Pantalla de fin: «**Isabella, Ignacia y Leo** vuelven a la vía.»
+
+**Capítulo 4 — La Maestranza**
+- Acceso: «Ignacia: Una puerta lateral. Tu gata ya la encontró.»
+- Enfermería (testimonios): «Ignacia: Esto es una enfermería de verdad… y no hay un solo paciente vivo.»
+- Vestuario / cuarentena (el tarareo, sin explicarlo): «Ignacia: ¿Tú también oyes eso? Alguien… tarareando.» *(Nadie responde.)*
+- Cuarentena (vagón del Centro de Nos): «Ignacia: Precinto intacto. Eso no se toca.»
+- **Puesto sanitario (reencuentro):** Paz abraza a las dos. «Paz: ¡Ignacia! ¡Isabella!» «Paz: Ignacia… te mandé a buscarla y volviste con ella. Gracias.» Paz tiene la credencial del Centro de Nos. Leo les pide cerrar la puerta y descansar. *(Pantalla de fin: «…Isabella, Ignacia, Paz y Leo»; Paz las acompañará como personaje no jugable: **ver §10.7 punto 3**.)*
+
+**Capítulo 5 — Santiago / Centro de Nos**
+- Las dos protagonistas investigan juntas; Ignacia, por su oficio, **lee los registros clínicos** (frases tipo: «Esto no es un paciente: es un seguimiento»; sin explicar el origen).
+- **Jefe final (Rosa convertida en Skull):** al oír el rugido, Ignacia reconoce la voz: «Isabella… esa es la voz de la señora del galpón.» Es la confirmación de lo que Leo sospechaba. *(La escena y la sala son de Claude.)*
+- Ignacia **no sabe** qué es Skull ni cómo se transformó; solo lo que oyó en Buin.
+
+**Epílogo — «Para Leo»**
+- Al amanecer, Leo camina hacia la luz, se detiene, gira, maúlla una vez y se va. Isabella entiende.
+- Ignacia abre la boca para preguntar; Isabella mueve la cabeza con suavidad; Ignacia calla y le pone una mano en el hombro. **No hay explicación verbal.** Dedicatoria final: «Para Leo».
+
+### 10.6 Reglas de voz
+- **Isabella:** poco y para sí misma (no cambia). **Ignacia:** habla más, con humor nervioso y chilenismos suaves («oye», «bien viva», «tu gata y yo»). Nada de groserías.
+- Los textos siguen la regla de siempre: **sin nombres internos** (nadie dice «Skull»), sin términos de programación, sin explicar el origen.
+- Ignacia **nunca** oye a Leo hablar; solo reacciona a lo que Isabella repite.
+
+### 10.7 Decisiones que pide este guion (con la recomendación de Claude)
+1. **¿Ignacia es canon en todos los modos?** *Recomendado: sí* (una sola historia; en solitario la maneja el juego). Alternativa: solo existe en el modo cooperativo (habría dos guiones).
+2. **Identidad:** «Ignacia Vergara, técnica en enfermería, colega de Paz». *Recomendado.* ¿Prefieres otro oficio, apellido o parentesco (p. ej. amiga de infancia de Isabella, hija de Raúl)?
+3. **Paz en los capítulos 4 y 5:** *Recomendado:* Paz acompaña como personaje no jugable (como Leo) para que el cooperativo siga siendo de dos jugadores. Alternativa: Paz se queda en el puesto sanitario atendiendo heridos y entrega la credencial.
+4. **¿Ignacia ve a Leo como una gata normal?** *Recomendado: sí* (§10.1, §10.4).
+5. **Equipo/habilidad de Ignacia** (jugable): se define en el diseño del personaje, no aquí.

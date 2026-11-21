@@ -226,6 +226,12 @@ juego** (misterios de la parte 2; sustituye lo que decía antes «se cierra en e
 (canon); (c) para la parte 2 se **conservan las semillas A (orden de traslado con dos horas distintas y el origen vacío) y D (destino del asiento 15 corregido sin firma)**;
 B y C se descartan.
 
+### Modo cooperativo por Wi‑Fi e **Ignacia** (decisión de Chris, 2026-11-21)
+- Chris quiere poder jugar **de a dos, cada uno en su teléfono, con la misma APK**. Primera etapa: **misma red Wi‑Fi** (anfitrión + invitado); por internet queda para después.
+- **Nuevo personaje: Ignacia** (jugadora 2). Guion adaptado en `docs/GUION.md` §10 (propuesta pendiente de V°B° de Chris); el diseño del personaje (aspecto, habilidad, equipo) viene **después** de aprobar el guion.
+- Reglas de diseño: una sola historia para los dos modos (en solitario Ignacia la controla el juego, como a Leo); los dos jugadores siempre en la **misma sala**; el anfitrión manda (infectados, daño, puertas, banderas); cada teléfono usa **su propia cámara fija**; solo el anfitrión guarda.
+- Antes de adaptar el juego: **prueba de conexión** en dos teléfonos (un cubo que se mueve y se ve en ambos) para medir el esfuerzo real.
+
 ### Pantalla de título (decisión de Chris, noviembre)
 Fondo: **bosque con niebla y la vía del tren al atardecer, con dos figuras caminando hacia el sol** (imagen aportada por Chris, `assets/ui/title_bg.jpg`; respaldo
 renderizado con `tools/prerender/render_title.gd`). Título «PAINE» en **Josefin Sans** fina y espaciada; botones con borde fino y el principal (NUEVA PARTIDA) con

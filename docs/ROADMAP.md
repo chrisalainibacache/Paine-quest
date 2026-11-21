@@ -181,3 +181,14 @@ Ver docs/MONETIZACION.md para el detalle del modelo y los riesgos pendientes.
 ## Próximos trabajos
 
 Orden vigente: terminar P6 (siete salas, notas, conexiones, pruebas, limpieza y documentación); Claude ejecuta los generadores y prepara cámaras/renders; tras la fusión de P6 comienza P7 (capítulo 5 y epílogo). Los OGG definitivos y las tareas visuales reservadas permanecen con Claude.
+
+## Hito 13 — Cooperativo por Wi‑Fi con Ignacia (decidido por Chris el 2026-11-21; no iniciado)
+
+- [x] Guion adaptado para dos jugadores: `docs/GUION.md` §10 (pendiente de V°B° de Chris en los puntos de §10.7).
+- [ ] Diseño de Ignacia: aspecto, habilidad/equipo, voz y animaciones (después del guion).
+- [ ] Prueba de conexión en dos teléfonos reales por Wi‑Fi (cubo sincronizado) para estimar el trabajo.
+- [ ] Arquitectura: anfitrión autoritativo, jugador 2 remoto, misma sala para los dos, cámaras locales, guardado solo en el anfitrión.
+- [ ] Menú «Cooperativo → Crear partida / Unirse» y pruebas manuales en dos teléfonos.
+- [ ] Compañera controlada por el juego (Ignacia en modo un jugador).
+- [ ] Equilibrio para dos jugadores (enemigos, munición).
+- [ ] (Más adelante) juego por internet con servidor intermediario.
