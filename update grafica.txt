@@ -180,3 +180,12 @@ Requisitos en Linux (servidor sin GPU sirve):
   MultiMesh (un solo dibujo) para no cargar el teléfono. Lo que tapaba a Isabella desde las
   cámaras (hombreras del techo, trocha, tanque colgante) se quitó; tools/audit_cameras.gd debe
   seguir en 0 apariciones malas tras tocar cualquier prop grande.
+
+8. TRENES REALES (noviembre) — ver docs/trenes/plan_integracion.md
+------------------------------------------------------------------
+- Modelos CC0 (locomotora y vagón de tevy.dev, coche de pasajeros de grab3d.com) a escala 1:1, SOLO en el render
+  (tools/prerender/fetch_trains.py los baja y convierte; tools/prerender/<sala>_scene.py los coloca). En el juego van cajas
+  del mismo tamaño (choque y oclusión). Hecho en «Vía norte» (incendio real en el túnel) y «Tren descarrilado» (sala de 26 m).
+- render_backgrounds.gd entiende el metadato «hide» de la escena de detalle (oculta las cajas que reemplaza).
+- rail_track.gd ahora dibuja balasto, rieles con perfil y placas de asiento.
+
