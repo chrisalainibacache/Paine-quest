@@ -59,15 +59,18 @@ ph("dry_branches_medium_01", (-8.3, 0.0, 4.4), 0.3)
 for i, (x, y, z, e, r) in enumerate([(6.3, 1.3, -0.1, 3.2, 9.0), (-3.6, 1.0, -0.3, 2.4, 8.0), (11.5, 1.6, 0.6, 3.5, 10.0), (16.0, 1.6, 1.0, 3.0, 9.0)]):
     s.node("FireLight%d" % i, "OmniLight3D", ".", position=v3((x, y, z)), light_color=col((1.0, 0.45, 0.14)), light_energy=fmt(e),
            omni_range=fmt(r), shadow_enabled="true", light_volumetric_fog_energy="3.5")
-s.node("SmokeLoco", "FogVolume", ".", position=v3((3.0, 3.2, -1.2)), size=v3((14.0, 6.0, 5.0)),
+s.node("SmokeLoco", "FogVolume", ".", position=v3((-1.0, 3.2, -1.2)), size=v3((22.0, 6.0, 5.0)),
        material=s.subres("FogMaterial", {"density": "0.55", "albedo": col((0.26, 0.24, 0.24)), "emission": col((0.1, 0.04, 0.02)),
                                          "height_falloff": "0.35", "edge_fade": "0.5"}))
 s.node("SmokeTunnel", "FogVolume", ".", position=v3((14.0, 2.4, 0.8)), size=v3((8.0, 5.0, 5.0)),
        material=s.subres("FogMaterial", {"density": "1.2", "albedo": col((0.3, 0.27, 0.26)), "emission": col((0.3, 0.1, 0.03)),
                                          "height_falloff": "0.8", "edge_fade": "0.5"}))
 # Lámpara de la puerta de servicio (muro oeste): que se vea la puerta por la que llegó Isabella.
-s.node("DoorLamp", "OmniLight3D", ".", position=v3((-12.0, 2.5, 1.0)), light_color=col((1.0, 0.6, 0.28)), light_energy="3.0",
-       omni_range="6.5", shadow_enabled="true", light_volumetric_fog_energy="1.5")
+s.node("DoorLamp", "OmniLight3D", ".", position=v3((-12.0, 2.5, 1.0)), light_color=col((1.0, 0.6, 0.28)), light_energy="7.0",
+       omni_range="9.0", shadow_enabled="true", light_volumetric_fog_energy="1.5")
+# Relleno frío en el extremo oeste, para que se vea la puerta y la llegada de Isabella.
+s.node("WestFill", "OmniLight3D", ".", position=v3((-9.0, 3.2, 1.0)), light_color=col((0.55, 0.65, 0.95)), light_energy="3.0",
+       omni_range="9.0", shadow_enabled="true")
 s.node("MoonFill", "OmniLight3D", ".", position=v3((-2.0, 5.2, 1.2)), light_color=col((0.55, 0.65, 0.95)), light_energy="4.0",
        omni_range="22.0", shadow_enabled="true")
 os.makedirs(ROOT + "/render_src/scenes", exist_ok=True)
