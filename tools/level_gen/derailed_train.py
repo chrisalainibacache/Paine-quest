@@ -35,6 +35,9 @@ k.decal("Pool", "blood_pool", (2.5, 0.03, 1.2), 1.5, "up")
 k.decal("Drag", "blood_drag", (-2.2, 0.03, 1.3), (2.6, 0.9), "up", rot=-0.2)
 k.decal("Oil", "oil_stain", (4.8, 0.025, 0.1), 1.8, "up", rot=0.8)
 k.decal("Debris", "debris", (-6.5, 0.028, 0.0), 1.6, "up")
+# Puerta de servicio en el muro oeste: por ahí se llega desde la trinchera de «Vía norte» (la misma que se ve allá en el muro sur).
+k.door_frame("ServiceWest", X0, TZ, "z", width=1.2, wall_side=1, panel="metal")
+k.light("ServiceWestLamp", "Lights", (X0 + 0.5, 2.6, TZ), (1.0, 0.45, 0.2), 0.8, 3.5)
 # Rincón muerto al noroeste, detrás de la locomotora: pared invisible (nada que hacer ahí y ninguna cámara lo ve).
 k.s.node("NorthWestBlock", "StaticBody3D", ".", position=v3((-12.0, 1.5, -3.0)))
 k.s.node("Shape", "CollisionShape3D", "NorthWestBlock", shape=k.s.subres("BoxShape3D", {"size": v3((2.2, 3.0, 4.8))}))

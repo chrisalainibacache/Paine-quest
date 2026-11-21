@@ -18,6 +18,9 @@ k.block("Trough", "Props", (0.0, 0.3, -5.2), (2.4, 0.6, 0.7), "metal")
 k.decal("Drag", "blood_drag", (3.0, 0.02, -2.0), (3.0, 1.0), "up", rot=0.4)
 k.decal("Pool", "blood_pool", (-3.5, 0.02, 2.5), 1.6, "up")
 # Interactuables.
+# Portones de campo en los dos extremos del potrero (se llega y se sale por un portón, no por un muro liso).
+k.door_frame("GateStation", X0, 0.0, "z", width=2.0, wall_side=1, panel="planks")
+k.door_frame("GateVineyard", X1, 0.0, "z", width=2.0, wall_side=-1, panel="planks")
 k.door("ToStation", (-9.4, 0, 0.0), B % "station", "from_field", prompt="VOLVER", reach=1.4)
 k.door("ToVineyard", (9.4, 0, 0.0), B % "vineyard", "from_field", prompt="SEGUIR", reach=1.4)
 k.label("VineyardSign", "Details", (9.96, 2.6, 0.0), "VIÑA SANTA ROSA →", 32, (0.9, 0.86, 0.75), rot=(0, -math.pi / 2, 0))

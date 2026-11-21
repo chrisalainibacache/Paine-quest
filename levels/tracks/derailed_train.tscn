@@ -296,6 +296,44 @@ rotation = Vector3(-1.5708, 0, 0)
 texture = ExtResource("19_debris")
 size = Vector2(1.6, 1.6)
 
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="ServiceWestPanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-12.96, 1.1, 1)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 1.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="ServiceWestFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(-12.94, 1.2, 0.34)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="ServiceWestFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(-12.94, 1.2, 1.66)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="ServiceWestLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-12.94, 2.45, 1)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 1.42)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="ServiceWestLamp" type="OmniLight3D" parent="Lights"]
+position = Vector3(-12.5, 2.6, 1)
+light_color = Color(1, 0.45, 0.2, 1)
+light_energy = 0.8
+omni_range = 3.5
+
 [node name="NorthWestBlock" type="StaticBody3D" parent="."]
 position = Vector3(-12, 1.5, -3)
 

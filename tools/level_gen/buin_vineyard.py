@@ -22,6 +22,8 @@ for i, (x, z) in enumerate([(-8.4, -0.8), (5.6, 0.7)]):
 k.decal("Pool", "blood_pool", (0.4, 0.02, -0.4), 1.5, "up")
 k.decal("Drag", "blood_drag", (4.0, 0.02, 0.3), (2.8, 0.9), "up", rot=0.1)
 # Interactuables.
+k.door_frame("GateField", X0, 0.0, "z", width=2.0, wall_side=1, panel="planks")
+k.door_frame("ShedDoor", X1, 0.0, "z", width=1.6, wall_side=-1, panel="planks")
 k.door("ToStation", (-9.4, 0, 0.0), B % "field", "from_vineyard", prompt="VOLVER", reach=1.4)
 k.door("ToShed", (9.2, 0, 0.0), B % "shed", "from_vineyard", key="shed_key", lock_id="shed_door", prompt="ABRIR", reach=1.4,
        locked_text="El portón del galpón. Tiene un candado grande y alguien lo trancó por dentro también.", metal_door=True)

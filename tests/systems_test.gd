@@ -860,6 +860,11 @@ func _cinematic() -> void:
     _check(active != null, "T9: SceneLoader inicia la cinemática")
     if active:
         active.skip()
+    # Espera a que la cinemática termine de verdad (no un número fijo de cuadros: con la máquina cargada varía).
+    for i in 240:
+        if get_root().get_tree().get_first_node_in_group("cinematics") == null:
+            break
+        await _frames(1)
     await _frames(4)
     var flag := "cinematic:res://levels/tracks/track_north.tscn"
     _check(GameState.has_flag(flag), "T9: al terminar queda marcada la bandera de esta partida")

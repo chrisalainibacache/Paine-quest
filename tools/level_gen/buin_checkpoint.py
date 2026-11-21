@@ -28,6 +28,7 @@ k.decal("Drag", "blood_drag", (2.6, 0.02, -0.6), (3.0, 1.0), "up", rot=-0.3)
 k.decal("Footprints", "blood_footprints", (-4.0, 0.02, 1.8), (2.0, 1.0), "up", rot=0.6)
 k.decal("HandTruck", "blood_handprint", (3.2, 1.5, 2.2), 0.4, "-z")
 # Interactuables.
+k.door_frame("GateStation", X1, -2.6, "z", width=1.6, wall_side=-1, panel="metal")
 k.door("ToBridge", (-8.4, 0, 0.0), B % "bridge", "from_checkpoint", prompt="VOLVER", reach=1.4)
 k.door("ToStation", (8.4, 0, -2.6), B % "station", "from_checkpoint", prompt="SEGUIR", reach=1.4)
 k.label("StationSign", "Details", (8.97, 2.6, -2.6), "ESTACIÓN BUIN →", 34, (0.9, 0.88, 0.8), rot=(0, -math.pi / 2, 0))

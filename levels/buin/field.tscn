@@ -11,13 +11,15 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="9_blood_drag"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="10_decal"]
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="11_blood_pool"]
-[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="12_door"]
-[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="13_pickup"]
-[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="14_ammo_9mm"]
-[ext_resource type="Resource" path="res://data/items/handroll.tres" id="15_handroll"]
-[ext_resource type="Script" path="res://levels/kit/rescue_scene.gd" id="16_rescue_scene"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="17_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="18_leo_hint"]
+[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="12_planks"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="13_wood"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="14_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="15_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="16_ammo_9mm"]
+[ext_resource type="Resource" path="res://data/items/handroll.tres" id="17_handroll"]
+[ext_resource type="Script" path="res://levels/kit/rescue_scene.gd" id="18_rescue_scene"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="19_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="20_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -248,11 +250,69 @@ rotation = Vector3(-1.5708, 0, 0)
 texture = ExtResource("11_blood_pool")
 size = Vector2(1.6, 1.6)
 
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="GateStationPanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-9.96, 1.1, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 2)
+surface = ExtResource("12_planks")
+solid = false
+
+[node name="GateStationFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(-9.94, 1.2, -1.06)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("13_wood")
+solid = false
+
+[node name="GateStationFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(-9.94, 1.2, 1.06)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("13_wood")
+solid = false
+
+[node name="GateStationLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-9.94, 2.45, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 2.22)
+surface = ExtResource("13_wood")
+solid = false
+
+[node name="GateVineyardPanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(9.96, 1.1, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 2)
+surface = ExtResource("12_planks")
+solid = false
+
+[node name="GateVineyardFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(9.94, 1.2, -1.06)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("13_wood")
+solid = false
+
+[node name="GateVineyardFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(9.94, 1.2, 1.06)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("13_wood")
+solid = false
+
+[node name="GateVineyardLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(9.94, 2.45, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 2.22)
+surface = ExtResource("13_wood")
+solid = false
+
 [node name="Interactables" type="Node3D" parent="."]
 
 [node name="ToStation" type="Node3D" parent="Interactables"]
 position = Vector3(-9.4, 0, 0)
-script = ExtResource("12_door")
+script = ExtResource("14_door")
 reach = 1.4
 target_room = "res://levels/buin/station.tscn"
 target_spawn = "from_field"
@@ -260,7 +320,7 @@ prompt = "VOLVER"
 
 [node name="ToVineyard" type="Node3D" parent="Interactables"]
 position = Vector3(9.4, 0, 0)
-script = ExtResource("12_door")
+script = ExtResource("14_door")
 reach = 1.4
 target_room = "res://levels/buin/vineyard.tscn"
 target_spawn = "from_field"
@@ -279,21 +339,21 @@ outline_size = 0
 
 [node name="Ammo" type="Node3D" parent="Interactables"]
 position = Vector3(2, 0, 4.8)
-script = ExtResource("13_pickup")
-item = ExtResource("14_ammo_9mm")
+script = ExtResource("15_pickup")
+item = ExtResource("16_ammo_9mm")
 count = 20
 model_rotation = Vector3(0, 0.6, 0)
 
 [node name="Handroll" type="Node3D" parent="Interactables"]
 position = Vector3(-2.4, 0, -4.8)
-script = ExtResource("13_pickup")
-item = ExtResource("15_handroll")
+script = ExtResource("15_pickup")
+item = ExtResource("17_handroll")
 count = 1
 model_rotation = Vector3(0, 1, 0)
 
 [node name="Rescue" type="Node3D" parent="."]
 position = Vector3(0, 0, 0)
-script = ExtResource("16_rescue_scene")
+script = ExtResource("18_rescue_scene")
 
 [node name="Camera" type="Camera3D" parent="Rescue"]
 position = Vector3(-0.6, 3.4, 4.6)
@@ -316,19 +376,19 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="LeoQuiet" type="Marker3D" parent="."]
 position = Vector3(2.5, 0, 0)
-script = ExtResource("18_leo_hint")
+script = ExtResource("20_leo_hint")
 lines = PackedStringArray("Leo: Todo despejado... demasiado despejado, Isabella.", "Leo: No me gusta. Camina conmigo.", "Leo: Avanza por el potrero hasta la puerta SEGUIR hacia la viña.")
 hide_if_flag = "rescue:kiara_nala"
 
 [node name="LeoAfter" type="Marker3D" parent="."]
 position = Vector3(8.6, 0, 0)
-script = ExtResource("18_leo_hint")
+script = ExtResource("20_leo_hint")
 lines = PackedStringArray("Leo: Kiara y Nala van a estar bien. Ahora nos toca a nosotras.", "Leo: La viña está por aquí.", "Leo: Cruza el potrero por el camino despejado hasta la puerta SEGUIR hacia la viña.")
 show_if_flag = "rescue:kiara_nala"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-6.5833, 1.5, -3)
-script = ExtResource("17_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_2")
@@ -342,7 +402,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, -3)
-script = ExtResource("17_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_3")
@@ -356,7 +416,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(6.5833, 1.5, -3)
-script = ExtResource("17_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_4")
@@ -370,7 +430,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(-6.5833, 1.5, 3)
-script = ExtResource("17_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_5")
@@ -384,7 +444,7 @@ far = 60.0
 
 [node name="Cam5" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, 3)
-script = ExtResource("17_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam5"]
 shape = SubResource("BoxShape3D_6")
@@ -398,7 +458,7 @@ far = 60.0
 
 [node name="Cam6" type="Area3D" parent="Cameras"]
 position = Vector3(6.5833, 1.5, 3)
-script = ExtResource("17_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam6"]
 shape = SubResource("BoxShape3D_7")

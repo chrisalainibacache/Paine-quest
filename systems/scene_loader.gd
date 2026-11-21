@@ -168,8 +168,6 @@ func _play_cinematic() -> void:
     GameState.set_flag(flag)
     var previous_camera := room.get_active_camera()
     var player_was_locked := player.controls_locked
-    var player_was_visible := player.model.visible
-    var leo_was_visible := leo.visible
     var hud := get_tree().get_first_node_in_group("hud") as CanvasLayer
     var hud_was_visible := hud.visible if hud else false
     var room_lights: Array[Light3D] = []
@@ -192,8 +190,9 @@ func _play_cinematic() -> void:
     for light in room_lights:
         if is_instance_valid(light):
             light.visible = true
-    player.model.visible = player_was_visible
-    leo.visible = leo_was_visible
+    # En juego Isabella y Leo siempre se ven: restaurar «lo que había» fallaba si la sala los tenía ocultos un instante.
+    player.model.visible = true
+    leo.visible = true
     if hud:
         hud.visible = hud_was_visible
     player.controls_locked = player_was_locked

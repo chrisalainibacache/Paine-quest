@@ -11,18 +11,19 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="9_blood_pool"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="10_decal"]
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="11_blood_drag"]
-[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="12_door"]
-[ext_resource type="Resource" path="res://data/items/shed_key.tres" id="13_shed_key"]
-[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="14_examine_spot"]
-[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="15_pickup"]
-[ext_resource type="Resource" path="res://data/items/handroll.tres" id="16_handroll"]
-[ext_resource type="Resource" path="res://data/items/ammo_rifle.tres" id="17_ammo_rifle"]
-[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="18_infected_wor"]
-[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="19_infected"]
-[ext_resource type="Resource" path="res://data/enemies/infected_soldier.tres" id="20_infected_sol"]
-[ext_resource type="Resource" path="res://data/enemies/infected_fast.tres" id="21_infected_fas"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="22_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="23_leo_hint"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="12_wood"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="13_door"]
+[ext_resource type="Resource" path="res://data/items/shed_key.tres" id="14_shed_key"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="15_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="16_pickup"]
+[ext_resource type="Resource" path="res://data/items/handroll.tres" id="17_handroll"]
+[ext_resource type="Resource" path="res://data/items/ammo_rifle.tres" id="18_ammo_rifle"]
+[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="19_infected_wor"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="20_infected"]
+[ext_resource type="Resource" path="res://data/enemies/infected_soldier.tres" id="21_infected_sol"]
+[ext_resource type="Resource" path="res://data/enemies/infected_fast.tres" id="22_infected_fas"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="23_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="24_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -183,11 +184,69 @@ rotation = Vector3(-1.5708, 0.1, 0)
 texture = ExtResource("11_blood_drag")
 size = Vector2(2.8, 0.9)
 
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="GateFieldPanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-9.96, 1.1, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 2)
+surface = ExtResource("8_planks")
+solid = false
+
+[node name="GateFieldFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(-9.94, 1.2, -1.06)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("12_wood")
+solid = false
+
+[node name="GateFieldFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(-9.94, 1.2, 1.06)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("12_wood")
+solid = false
+
+[node name="GateFieldLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(-9.94, 2.45, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 2.22)
+surface = ExtResource("12_wood")
+solid = false
+
+[node name="ShedDoorPanel" type="StaticBody3D" parent="Doors"]
+position = Vector3(9.96, 1.1, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 1.6)
+surface = ExtResource("8_planks")
+solid = false
+
+[node name="ShedDoorFrameL" type="StaticBody3D" parent="Doors"]
+position = Vector3(9.94, 1.2, -0.86)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("12_wood")
+solid = false
+
+[node name="ShedDoorFrameR" type="StaticBody3D" parent="Doors"]
+position = Vector3(9.94, 1.2, 0.86)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("12_wood")
+solid = false
+
+[node name="ShedDoorLintel" type="StaticBody3D" parent="Doors"]
+position = Vector3(9.94, 2.45, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 1.82)
+surface = ExtResource("12_wood")
+solid = false
+
 [node name="Interactables" type="Node3D" parent="."]
 
 [node name="ToStation" type="Node3D" parent="Interactables"]
 position = Vector3(-9.4, 0, 0)
-script = ExtResource("12_door")
+script = ExtResource("13_door")
 reach = 1.4
 target_room = "res://levels/buin/field.tscn"
 target_spawn = "from_vineyard"
@@ -195,11 +254,11 @@ prompt = "VOLVER"
 
 [node name="ToShed" type="Node3D" parent="Interactables"]
 position = Vector3(9.2, 0, 0)
-script = ExtResource("12_door")
+script = ExtResource("13_door")
 reach = 1.4
 target_room = "res://levels/buin/shed.tscn"
 target_spawn = "from_vineyard"
-key_item = ExtResource("13_shed_key")
+key_item = ExtResource("14_shed_key")
 lock_id = "shed_door"
 locked_text = "El portón del galpón. Tiene un candado grande y alguien lo trancó por dentro también."
 prompt = "ABRIR"
@@ -207,45 +266,45 @@ metal_door = true
 
 [node name="Grapes" type="Node3D" parent="Interactables"]
 position = Vector3(-3, 0, -1.2)
-script = ExtResource("14_examine_spot")
+script = ExtResource("15_examine_spot")
 reach = 1
 lines = PackedStringArray("Racimos maduros que nadie cosechó.", "Ayer era la vendimia.")
 
 [node name="Handroll" type="Node3D" parent="Interactables"]
 position = Vector3(-2.5, 0.72, 0.9)
-script = ExtResource("15_pickup")
-item = ExtResource("16_handroll")
+script = ExtResource("16_pickup")
+item = ExtResource("17_handroll")
 count = 1
 model_rotation = Vector3(0, 0.4, 0)
 
 [node name="RifleAmmo" type="Node3D" parent="Interactables"]
 position = Vector3(6.4, 0, -0.6)
-script = ExtResource("15_pickup")
-item = ExtResource("17_ammo_rifle")
+script = ExtResource("16_pickup")
+item = ExtResource("18_ammo_rifle")
 count = 15
 model_rotation = Vector3(0, 1.1, 0)
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Picker1" parent="Enemies" instance=ExtResource("19_infected")]
+[node name="Picker1" parent="Enemies" instance=ExtResource("20_infected")]
 position = Vector3(-1, 0.05, -0.4)
 rotation = Vector3(0, -1.5708, 0)
-data = ExtResource("18_infected_wor")
+data = ExtResource("19_infected_wor")
 
-[node name="Soldier" parent="Enemies" instance=ExtResource("19_infected")]
+[node name="Soldier" parent="Enemies" instance=ExtResource("20_infected")]
 position = Vector3(5, 0.05, 0.3)
 rotation = Vector3(0, -1.5708, 0)
-data = ExtResource("20_infected_sol")
+data = ExtResource("21_infected_sol")
 
-[node name="Picker2" parent="Enemies" instance=ExtResource("19_infected")]
+[node name="Picker2" parent="Enemies" instance=ExtResource("20_infected")]
 position = Vector3(1.8, 0.05, 0.5)
 rotation = Vector3(0, 1.8, 0)
 start_state = "lying"
 
-[node name="Runner" parent="Enemies" instance=ExtResource("19_infected")]
+[node name="Runner" parent="Enemies" instance=ExtResource("20_infected")]
 position = Vector3(7.6, 0.05, -0.5)
 rotation = Vector3(0, -1.5708, 0)
-data = ExtResource("21_infected_fas")
+data = ExtResource("22_infected_fas")
 start_state = "feeding"
 
 [node name="Cameras" type="Node3D" parent="."]
@@ -262,13 +321,13 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="LeoShed" type="Marker3D" parent="."]
 position = Vector3(8.4, 0, 0)
-script = ExtResource("23_leo_hint")
+script = ExtResource("24_leo_hint")
 lines = PackedStringArray("Leo: El galpón. Rosa está ahí adentro, Isabella. Respira despacio.", "Leo: Usa la llave del tractor.", "Leo: Acércate a la puerta del galpón y usa la llave del tractor.")
 hide_if_flag = "unlocked:shed_door"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-6.625, 1.5, -2.5)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_2")
@@ -282,7 +341,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(-0.125, 1.5, -2.5)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_3")
@@ -296,7 +355,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(6.375, 1.5, -2.5)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_4")
@@ -310,7 +369,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(-6.625, 1.5, 2.5)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_5")
@@ -324,7 +383,7 @@ far = 60.0
 
 [node name="Cam5" type="Area3D" parent="Cameras"]
 position = Vector3(-0.125, 1.5, 2.5)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam5"]
 shape = SubResource("BoxShape3D_6")
@@ -338,7 +397,7 @@ far = 60.0
 
 [node name="Cam6" type="Area3D" parent="Cameras"]
 position = Vector3(6.375, 1.5, 2.5)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam6"]
 shape = SubResource("BoxShape3D_7")
