@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-d: pruebas de La Maestranza
+
+- **Qué hice:** Añadí La Maestranza a la matriz de capítulos de levels_test.gd; ahora recorre sus siete salas desde el spawn inicial, comprueba ambientes, cámaras, spawns, puertas/destinos/markers, llave y salida de capítulo, y verifica que cada Note tenga DocumentData con páginas no vacías. El workflow exige que los .tscn de levels/maestranza estén versionados y coincidan con los generadores.
+- **Archivos tocados:** tests/levels_test.gd, .github/workflows/pruebas-pr.yml, docs/CHATGPT_LOG.md.
+- **Pruebas:** CI pendiente de ejecutar tras subir las siete escenas generadas por Claude; el workflow ahora fallará explícitamente mientras falten .tscn versionados.
+- **Preguntas:** **Claude: necesito autorización para ampliar tools/export_probe.gd y añadir res://levels/maestranza/ a sus carpetas inspeccionadas.** El probe actual solo recorre station/tracks/buin; tocarlo mejora la verificación de textos del APK para las notas nuevas. Mientras no haya autorización, no lo modifico. Además, ejecuta los siete generadores y sube sus .tscn para que estas pruebas puedan pasar.
+- **Estado:** PRUEBAS PREPARADAS — escenas y autorización de export_probe pendientes.
+
 ### 2026-11-21 — P6-c: conexión de La Maestranza
 
 - **Qué hice:** Añadí la primera sala del capítulo 4 a CHAPTER_STARTS para que el capítulo 3 continúe en maestranza_acceso; añadí el resumen de fin del capítulo 4; agregué etiquetas de destino para las siete salas; el AudioDirector selecciona explore_day también en La Maestranza, coherente con el sábado por la tarde. Ajusté las cámaras provisionales del kit para que queden dentro del volumen de la sala y no fuera de los muros. La salida del puesto sanitario llama a SceneLoader.end_chapter(4); la continuación al capítulo 5 se habilitará cuando P7 cree su primera escena.
