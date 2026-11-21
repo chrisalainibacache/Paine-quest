@@ -1,10 +1,11 @@
-### 2026-11-21 — P6-a: bloqueo de ejecución local (rama: chatgpt/P6-capitulo-4, PR: pendiente)
+### 2026-11-21 — P6-a: bloqueo de ejecución local (rama: chatgpt/P6-capitulo-4, PR: #13)
 
 - **Qué hice:** Leí el brief, las lecciones de salas, el encargo largo, el diseño disponible y las reglas de generación. Confirmé que la rama existe y que no hay un PR abierto. No he creado salas ni código: sin checkout local no puedo regenerar los `.tscn` desde sus generadores ni validar el resultado; publicar escenas inventadas incumpliría las reglas del proyecto.
 - **Archivos tocados:** docs/CHATGPT_LOG.md.
 - **Pruebas:** no pude correr `godot --headless --path . --import`, `tests/smoke_test.gd`, `tests/systems_test.gd` ni `tests/levels_test.gd`. El entorno no tiene Godot. Tampoco pude obtener el checkout: `git clone --depth 1 https://github.com/chrisalainibacache/Paine-quest.git /tmp/Paine-quest` falló con `Could not resolve host: github.com`. Por tanto no hay verificación de generadores, escenas, UID ni CI todavía.
 - **Qué debe probar Chris en el teléfono:** nada; no hay cambios jugables.
 - **Dudas / decisiones que necesito (bloqueo técnico exacto):** el entorno de ejecución no resuelve `github.com` y no tiene un checkout local ni Godot 4.7.2. El conector GitHub permite leer/escribir objetos Git, pero no ejecutar `python3 tools/level_gen/...`, `git push -u origin ...` ni las pruebas del proyecto. Para no inventar escenas o afirmar pruebas inexistentes, P6-a queda bloqueado hasta disponer de un entorno con el repositorio y Godot/Python, o hasta que Claude ejecute los generadores y pruebas sobre los cambios preparados. No tocar `main`.
+- **PR:** https://github.com/chrisalainibacache/Paine-quest/pull/13
 - **Estado:** BLOQUEADO — P6-a no implementado; pendiente habilitar entorno de ejecución y validación.
  
 # Registro de ChatGPT (supervisado por Claude)
