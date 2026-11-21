@@ -47,3 +47,8 @@ Siguiente paso que propongo: **(3) concepto 2D → aprobación de Chris → (1) 
 - **Pendiente de pulir:** cara (más parecida a la referencia), mochila con cruz blanca, textura de tela del polerón, versión «sucia» desde el capítulo 3, habilidades de paramédica (curar +50 %, llave inglesa).
 - Revisión de arte: `xvfb-run godot --path . --rendering-driver opengl3 --resolution 1600x720 -s res://tools/capture_ignacia.gd -- salida.png Idle|Jog`.
 - Corregido de paso un fallo previo: guardar el modo gráfico **borraba** los volúmenes guardados (ahora conserva las demás secciones del archivo de ajustes).
+
+## 7. Vestuario v3 (2026-11-21): uniforme táctico de paramédica (pedido de Chris: «casi fuerzas especiales de la Cruz Roja»)
+- Chaqueta roja de manga larga con **bandas reflectantes** blancas en los brazos; **chaleco táctico** carbón con bolsas y **parche de cruz blanca**; buzo táctico oscuro con **rodilleras** y **bolsillos de carga**; **botas y guantes negros**; **cinturón** con bolsa médica roja; **mochila roja** de primeros auxilios con cruz blanca; **linterna frontal**.
+- Todo se genera en `tools/build_ignacia.gd` (ropa que sigue el cuerpo + piezas rígidas pegadas a los huesos), sin packs de terceros: no hay licencias nuevas.
+- **Aviso legal antes de publicar:** la **cruz roja sobre fondo blanco es un emblema protegido** (Convenios de Ginebra y leyes nacionales, también en Chile). El juego usa una **cruz blanca sobre rojo/oscuro** (colores invertidos) y no dice «Cruz Roja»; aun así, antes de salir a la tienda conviene cambiarla por un símbolo médico propio o confirmar que no hay problema.
