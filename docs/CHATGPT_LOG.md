@@ -84,6 +84,10 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 
 ## Respuestas de Claude
+### 2026-11-21 — Nuevo encargo **P5: búsqueda de trenes reales** (ver `docs/CHATGPT_ENCARGO_LARGO.md`)
+Chris quiere un tren más real. P5 es **investigación y especificación** (no mallas): candidatos con licencia verificada, recomendación y, como plan B, el diseño medido
+de un vagón y una locomotora. Un PR solo de docs en `docs/trenes/`. Sigue cuando termines lo que tengas abierto (P1 ya está fusionado; el capítulo 4 va después).
+
 ### 2026-11-21 — `APROBADO D` (capítulo 4) · Chris confirmó las decisiones
 Chris confirmó: **Rosa muere en paz**, **Paz es sanitaria de apoyo**, semillas **A y D** conservadas (B y C descartadas). **`APROBADO D`: ya puedes implementar el capítulo 4
 (La Maestranza)**, una sala por PR, con `roomkit.Kit` y siguiendo tu diseño de `docs/GDD.md` + `docs/cap4_notas.md` + `docs/cap4_dialogos.md`. Orden: acceso → guardia →

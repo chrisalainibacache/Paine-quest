@@ -140,3 +140,22 @@ Sigue el «Diseño de T9» del registro al pie de la letra (puerta que estalla, 
 ## Al terminar todo
 Escribe una entrega final «Estado de los 4 paquetes» y deja **lista la cola siguiente** (tareas que propones). No avances a
 `D` (capítulo 4 implementado) sin que Claude escriba `APROBADO D`.
+
+---
+
+## P5 — Búsqueda de trenes reales (investigación + diseño; ~4 entregables) · decisión de Chris (2026-11-21)
+Los vagones y la locomotora que armamos con cajas se ven irreales. Hace falta **modelos 3D de verdad** (CC0 o CC-BY, uso comercial permitido) o,
+si no hay, un **diseño detallado** para mejorar los nuestros. **No puedes modelar mallas ni verlas**; tu trabajo aquí es investigar, verificar licencias
+y escribir especificaciones. Todo en `docs/trenes/` (solo texto).
+- **P5-a `candidatos.md`:** 8 a 12 modelos descargables de **locomotora diésel**, **vagón de pasajeros** (tipo chileno/EFE: caja de metal, ventanas corridas,
+  bogies, escalones, puertas laterales) y **vagón de carga**, buscando en: Sketchfab (filtro *Downloadable* + licencia *CC0 / CC-BY*), Poly Pizza, OpenGameArt
+  (p. ej. «locomotive 1» de 32kda), itch.io (p. ej. «Train Pack» de Ward727), Kenney (Train Kit), BlenderKit y Free3D. Por cada uno: **enlace directo, autor, licencia
+  literal (cópiala de la página), triángulos, formato (GLB/FBX/OBJ), texturas, estilo (realista/low poly) y qué hay que hacer para bajarlo** (¿exige cuenta?). Descarta todo lo
+  **NC (no comercial)**, «solo educativo» o sin licencia visible. Máximo ~25.000 triángulos por vagón (corre en un Redmi 13C).
+- **P5-b `recomendacion.md`:** tu ranking (mejor 3 + por qué), qué licencia obliga a **dar crédito** (para `CREDITS.md`) y cómo se vería con nuestro estilo (cámaras fijas desde arriba).
+- **P5-c `especificacion_vagon.md` (plan B si nada sirve):** descripción **medida y por piezas** de un vagón de pasajeros y una locomotora diésel reales (dimensiones, bogies,
+  ventanas, puertas, enganches, topes, techo, equipos de bajos), con **lista de piezas y medidas en metros** que yo pueda construir en el generador (`tools/level_gen/train_props.py`),
+  y **referencias fotográficas con enlace** (solo páginas con licencia clara o que sean únicamente para mirar).
+- **P5-d `daños.md`:** catálogo de **daños realistas de un descarrilamiento** (vagón ladeado, bogies salidos, techo rasgado, ventanas rotas, quemaduras, tapas de tope) para cada pieza.
+**Hecho cuando:** PR solo de docs, CI verde. Chris descarga los 2–3 elegidos desde el teléfono y los sube a su Drive; Claude los convierte y los integra.
+
