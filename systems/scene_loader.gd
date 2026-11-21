@@ -88,6 +88,7 @@ func _go_to(room_path: String, spawn_id: String) -> void:
     await _fade_to(1.0)
     _place_room(room_path, spawn_id, false)
     await _settle()
+    Sfx.play("door_close", null, -8.0)
     player.controls_locked = false
     await _fade_to(0.0)
     busy = false

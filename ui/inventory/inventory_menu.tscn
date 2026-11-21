@@ -55,42 +55,48 @@ vertical_alignment = 1
 text = "GRÁFICOS: RETRO"
 theme_override_font_sizes/font_size = 22
 focus_mode = 0
-custom_minimum_size = Vector2(240, 64)
+custom_minimum_size = Vector2(220, 64)
 script = ExtResource("2_graphics_tog")
 
 [node name="Brightness" type="Button" parent="Root/Header"]
 text = "BRILLO 3/5"
 theme_override_font_sizes/font_size = 22
 focus_mode = 0
-custom_minimum_size = Vector2(150, 64)
+custom_minimum_size = Vector2(130, 64)
 script = ExtResource("3_brightness_t")
 
 [node name="Diag" type="Button" parent="Root/Header"]
 text = "DIAG"
 theme_override_font_sizes/font_size = 22
 focus_mode = 0
-custom_minimum_size = Vector2(100, 64)
+custom_minimum_size = Vector2(80, 64)
 script = ExtResource("4_diag_toggle")
+
+[node name="Options" type="Button" parent="Root/Header"]
+text = "OPCIONES"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
+custom_minimum_size = Vector2(150, 64)
 
 [node name="ItemsTab" type="Button" parent="Root/Header"]
 text = "OBJETOS"
 theme_override_font_sizes/font_size = 24
 focus_mode = 0
 toggle_mode = true
-custom_minimum_size = Vector2(150, 64)
+custom_minimum_size = Vector2(140, 64)
 
 [node name="NotesTab" type="Button" parent="Root/Header"]
 text = "NOTAS"
 theme_override_font_sizes/font_size = 24
 focus_mode = 0
 toggle_mode = true
-custom_minimum_size = Vector2(150, 64)
+custom_minimum_size = Vector2(120, 64)
 
 [node name="Close" type="Button" parent="Root/Header"]
 text = "CERRAR"
 theme_override_font_sizes/font_size = 24
 focus_mode = 0
-custom_minimum_size = Vector2(150, 64)
+custom_minimum_size = Vector2(130, 64)
 
 [node name="Status" type="Panel" parent="Root"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_1")
@@ -176,26 +182,47 @@ autowrap_mode = 3
 offset_left = 24
 offset_top = 60
 offset_right = 600
-offset_bottom = 274
+offset_bottom = 210
 
 [node name="Buttons" type="VBoxContainer" parent="Root/Info"]
 theme_override_constants/separation = 14
 offset_left = 640
 offset_top = 60
 offset_right = 856
-offset_bottom = 274
+offset_bottom = 210
 
 [node name="Use" type="Button" parent="Root/Info/Buttons"]
 text = "USAR"
 theme_override_font_sizes/font_size = 26
 focus_mode = 0
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 64)
 
 [node name="Examine" type="Button" parent="Root/Info/Buttons"]
 text = "EXAMINAR"
 theme_override_font_sizes/font_size = 26
 focus_mode = 0
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 64)
+
+[node name="RewardButtons" type="HBoxContainer" parent="Root/Info"]
+theme_override_constants/separation = 14
+offset_left = 24
+offset_top = 220
+offset_right = 856
+offset_bottom = 276
+
+[node name="RewardAmmo" type="Button" parent="Root/Info/RewardButtons"]
+text = "VER ANUNCIO: +MUNICIÓN"
+theme_override_font_sizes/font_size = 19
+focus_mode = 0
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 56)
+
+[node name="RewardHeal" type="Button" parent="Root/Info/RewardButtons"]
+text = "VER ANUNCIO: +1 CURATIVO"
+theme_override_font_sizes/font_size = 19
+focus_mode = 0
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 56)
 
 [node name="Notes" type="ScrollContainer" parent="Root"]
 offset_left = 360

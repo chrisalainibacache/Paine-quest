@@ -60,7 +60,13 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 `creature_*` aún no tienen archivo (`Sfx.play` ignora nombres desconocidos, no falla); saltable; **una sola vez**.
 Claude revisará con capturas y ajustará tiempos y luz.
 
-## Preguntas de ChatGPT
+8012## Preguntas de ChatGPT
+### 2026-11-20 — P1-c
+1. [CONFIRMAR] El epílogo «Para Leo» aún no existe en el código. Si P3 lo implementa como escena independiente del fin del capítulo 5, debe llamar a AudioDirector.play_music("leo") desde esa escena.
+
+### 2026-11-20 — P1-b
+1. [CONFIRMAR] ¿Cuál es la URL pública definitiva de la política de privacidad para guardarla en `data/store_links.tres`?
+
 ### 2026-11-19 — Aclaraciones antes de diseñar el capítulo 4
 1. **Momento y continuidad:** el GDD sitúa el capítulo 3 el sábado por la mañana, después del viaje nocturno de los capítulos 1–2. ¿El capítulo 4 transcurre todavía el sábado (continuación inmediata) o hay un salto horario?
 2. **Javiera en La Maestranza:** sabemos por la radio de Rosa que trabaja allí. ¿Qué función cumple exactamente (personal sanitario, logística, administración u otra) y cómo llegó a San Bernardo?
@@ -172,6 +178,70 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
 ## Entregas
+### 2026-11-20 — P1-f: pruebas de regresión, GDD y campos de datos (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Amplié las pruebas T6 para verificar que cada puerta de avance crea su Marker con el texto correcto y que las puertas VOLVER no crean Marker. Añadí pruebas de persistencia/recarga de los tres buses de audio y reforcé las pruebas de límites Ads y créditos. Documenté la monetización en el GDD. También reemplacé las heurísticas `contains("pesado")` y `contains("gate")` por los campos `EnemyData.heavy` y `Door.metal_door`, con datos explícitos en recursos y generadores; alineé las etiquetas de opciones en la misma fila.
+- **Archivos tocados:** `tests/levels_test.gd`, `tests/credits_test.gd`, `tests/systems_test.gd`, `docs/GDD.md`, `docs/CHATGPT_LOG.md`, `ui/options/options_menu.tscn`, `levels/kit/interact/door.gd`, `data/enemies/enemy_data.gd`, `data/enemies/infected_heavy.tres`, `actors/enemies/infected.gd`, `tools/level_gen/roomkit.py`, `tools/level_gen/platform.py`, `tools/level_gen/south_platform.py`, `tools/level_gen/convoy_side.py`, `tools/level_gen/buin_vineyard.py` y las cuatro escenas generadas correspondientes.
+- **Pruebas:** CI «Pruebas en PR» pendiente. `credits_test.gd` verifica que el texto de créditos no esté vacío; Chris ya había confirmado en la revisión anterior que `CREDITS.md` está incluido en el paquete exportado. No modifiqué `tools/export_probe.gd` sin autorización.
+- **Qué debe probar Chris en el teléfono:** pendiente de CI verde; después revisar los letreros de las puertas, opciones y el flujo de anuncios.
+- **Dudas / decisiones que necesito:** queda pendiente la autorización para automatizar también la lectura de `CREDITS.md` en `tools/export_probe.gd`.
+- **Estado:** IMPLEMENTADO — pendiente CI y autorización de la comprobación del paquete.
+
+### 2026-11-20 — P1-e: ofertas de recompensa en mochila y pantalla de muerte (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Añadí ofertas opcionales de munición cuando la reserva está vacía o bajo el 25 % del cargador, y de un curativo cuando Isabella está en Peligro y no lleva ninguno. Las cantidades y el ítem de curación se configuran en `data/ads_config.tres`. La escena de mochila se mantiene sincronizada con su generador `tools/level_gen/inventory.py`. En la pantalla de muerte agregué VER ANUNCIO: CONTINUAR; al completar el anuncio vuelve al último guardado seguro con 50 % de salud, una sola vez por muerte. Si no hay anuncio disponible, los botones no aparecen. La compra para quitar anuncios sigue entregando las recompensas directamente.
+- **Archivos tocados:** `data/ads_config.gd`, `data/ads_config.tres`, `systems/ads.gd`, `ui/inventory/inventory_menu.gd`, `ui/inventory/inventory_menu.tscn`, `tools/level_gen/inventory.py`, `ui/hud/hud.gd`, `ui/hud/hud.tscn`, `main.gd`, `tests/systems_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** comprobaciones de ofertas, combate y continuación pasaron. «Pruebas en PR» run `44836144087` terminó verde; log con 0 `SCRIPT ERROR`. «Validación de pistola» run `44836144072` también verde. Godot no está disponible localmente.
+- **Qué debe probar Chris en el teléfono:** pendiente de CI verde; después, revisar munición baja, curativo en Peligro y continuar desde la pantalla de muerte.
+- **Dudas / decisiones que necesito:** ninguna nueva.
+- **Estado:** P1-e VALIDADO — CI verde y logs sin `SCRIPT ERROR`.
+
+### 2026-11-20 — P1-d: anuncios con recompensa y proveedor de prueba (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Implementé la interfaz de proveedor de anuncios, un proveedor de prueba con cuenta regresiva de 3 segundos y botón SALTAR, y el sistema estático Ads. La recompensa solo se entrega al completar el anuncio; quitar anuncios se persiste en ajustes y entrega recompensas sin mostrar publicidad. Añadí límites configurables: 300 s entre anuncios, máximo 3 por capítulo y 60 s de juego entre recompensas/anuncios; bloqueos durante diálogos, cinemáticas y combate. Apliqué además el ajuste visual de opciones solicitado en la revisión.
+- **Archivos tocados:** `systems/ads.gd`, `systems/ads_provider.gd`, `systems/debug_ad_provider.gd`, `data/ads_config.gd`, `data/ads_config.tres`, `ui/options/options_menu.tscn`, `tests/systems_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** smoke / systems / levels / credits = OK (0 fallas). «Pruebas en PR» run `44834791918` y «Validación de pistola» run `44834792035` terminaron verdes; ambos logs tienen 0 `SCRIPT ERROR`. Godot no está disponible localmente.
+- **Qué debe probar Chris en el teléfono:** cuando el CI esté verde, iniciar una partida, esperar a que se habiliten las recompensas, pulsar una oferta de prueba cuando se integre en el juego y comprobar la cuenta regresiva; SALTAR no debe entregar recompensa. P1-e conectará las ofertas visibles de munición, curativo y continuar.
+- **Dudas / decisiones que necesito:** ninguna nueva. La URL de privacidad continúa pendiente de confirmación.
+- **Estado:** P1-d VALIDADO — CI verde, pendiente revisión final de Claude al cierre del paquete.
+
+### 2026-11-20 — P1-c: conectar SFX pendientes y música (PR #9)
+
+- **Qué hice:** Conecté los sonidos chase, death, rise, heavy_step, groan_far, hurt_low, breath_low, door_close, door_metal, gate_chain, heal y radio_static en sus eventos de juego. Añadí aliases sintetizados para que sigan sonando si falta su OGG, y un contador de solicitudes en Sfx para pruebas. AudioDirector ahora selecciona title en la pantalla de título, safe en salas con máquina de escribir y expone play_music("leo") para el epílogo; el final de capítulo 5 lo invoca.
+- **Archivos tocados:** systems/sfx.gd, actors/enemies/infected.gd, actors/player/player.gd, levels/kit/interact/door.gd, levels/kit/interact/chapter_exit.gd, ui/inventory/inventory_menu.gd, systems/scene_loader.gd, systems/audio_director.gd, ui/title/title_screen.gd, ui/chapter_end/chapter_end.gd, tests/systems_test.gd, tests/credits_test.gd, docs/CHATGPT_LOG.md.
+- **Pruebas:** amplié las pruebas de audio para comprobar OGG, fallback sintetizado, contador y eventos de juego; verifiqué las pistas title, safe y leo. No subí ni modifiqué archivos de audio. Godot no está disponible localmente. El primer CI detectó cuatro SCRIPT ERROR de tipado en la prueba (radio_script.new y main.player); añadí tipos explícitos Interactable, Player, int y bool. El commit corregido espera un nuevo CI y debe pasar sin SCRIPT ERROR antes de P1-d.
+- **Qué debe probar Chris en el teléfono:** tras CI verde, recorrer un infectado rápido y uno pesado, recibir daño hasta Peligro, usar una máquina de escribir, abrir una puerta de reja, comer un objeto y escuchar la radio de Paz. Revisar la música de título y la sala segura. La pista leo queda lista para la escena de epílogo que implementará P3.
+- **Dudas:** el código actual aún no tiene la escena del epílogo Para Leo. Dejé disponible AudioDirector.play_music("leo") y una llamada para el capítulo 5; [CONFIRMAR] P3 debe llamar también a ese método si el epílogo se implementa como escena independiente.
+- **Estado:** IMPLEMENTADO; CI pendiente.
+
+### 2026-11-20 — P1-b: menú de opciones (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Añadí OPCIONES desde el título y la mochila. Incluye sliders táctiles de 0–100 % para Sfx, Música y Ambiente; persiste en `user://ajustes.cfg` y aplica los valores al iniciar, manteniendo el nivel base actual de cada bus. Incluye el interruptor gráfico existente, acceso a créditos reutilizable como panel y enlace de privacidad bloqueado de forma segura mientras la URL siga pendiente.
+- **Archivos tocados:** `systems/game_settings.gd`, `data/store_links.gd`, `data/store_links.tres`, `ui/options/options_menu.gd`, `ui/options/options_menu.tscn`, `ui/title/title_screen.gd`, `ui/title/title_screen.tscn`, `tools/level_gen/title.py`, `tools/level_gen/inventory.py`, `ui/title/credits_screen.gd`, `ui/inventory/inventory_menu.gd`, `ui/inventory/inventory_menu.tscn`, `tests/credits_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** amplié la prueba de créditos para comprobar persistencia/aplicación de volumen, rangos, botones y acceso desde título/mochila. Godot no está disponible localmente. El primer CI detectó que faltaba reflejar el nuevo botón en `tools/level_gen/inventory.py`; corregí el generador y la escena. El commit final `0489d63` pasó «Pruebas en PR» (run 44828958837) y «Validación de pistola» (run 44828958783); los logs registran 0 `SCRIPT ERROR`.
+- **Qué debe probar Chris en el teléfono:** cuando CI esté verde, abrir OPCIONES desde título y mochila; mover los tres sliders, cerrar y reabrir el juego para comprobar persistencia; abrir CRÉDITOS desde opciones; pulsar POLÍTICA DE PRIVACIDAD (debe informar que falta confirmar la URL, sin abrir una dirección inventada).
+- **Dudas:** [CONFIRMAR] URL pública final de la política de privacidad para `data/store_links.tres`.
+- **Estado:** P1-b VALIDADO — CI verde, 0 `SCRIPT ERROR`.
+
+### 2026-11-20 — P1-a2: correcciones visuales y limpieza de créditos (PR #9)
+
+- **Qué corregí:** Moví CRÉDITOS a la esquina superior derecha (220×56, margen 20 px); restauré los pies a 18 px y 15 px con offsets verticales −50/−16. La pantalla ahora quita delimitadores de código y negrita sin destruir el comodín de `assets/*/LICENSE.txt`, convierte viñetas y omite el encabezado duplicado «Créditos».
+- **Pruebas añadidas:** comprueban que el texto no contenga acentos graves ni `**`, que conserve `assets/*/LICENSE.txt` y que no repita el encabezado.
+- **Archivos tocados:** `tools/level_gen/title.py`, `ui/title/title_screen.tscn` (regenerada según el generador), `ui/title/credits_screen.gd`, `tests/credits_test.gd`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** Godot no está disponible localmente. El commit anterior `8069b44` tuvo «Pruebas en PR» verde (run 44825621399) y «Validación de pistola» verde (run 44825621231), con el paso de sincronía de generadores y exportación completados; el log de ese CI se revisará también para confirmar 0 `SCRIPT ERROR`. «Pruebas en PR» (run 44827329255) y «Validación de pistola» (run 44827329157) terminaron en verde. El log completo del job de pruebas contiene 0 `SCRIPT ERROR`; también pasaron generadores, auditoría de cámaras y paquete exportado.
+- **Qué debe probar Chris en el teléfono:** nada todavía; después del CI, comprobar el título y los créditos a 1280×544.
+- **Dudas:** ninguna.
+- **Estado:** P1-a2 VALIDADO — CI verde, 0 `SCRIPT ERROR`.
+
+### 2026-11-20 — P1-a: créditos en el juego (rama: chatgpt/P1-menus-audio-ads, PR: #9)
+
+- **Qué hice:** Añadí el botón CRÉDITOS al título y una pantalla desplazable que carga `CREDITS.md` en tiempo de ejecución. Conserva las atribuciones CC-BY de Kevin MacLeod y Pixelhouse y agrega «Personaje simple PSX — JashiPSX (itch.io)». Añadí una prueba específica y la incorporé al corredor estricto. El primer CI detectó que el título se regenera desde `tools/level_gen/title.py`; actualicé esa fuente y regeneré la escena para mantenerla sincronizada.
+- **Archivos tocados:** `ui/title/title_screen.gd`, `ui/title/title_screen.tscn`, `ui/title/credits_screen.gd`, `ui/title/credits_screen.tscn`, `tools/level_gen/title.py`, `tests/credits_test.gd`, `tools/run_tests.sh`, `docs/CHATGPT_LOG.md`.
+- **Pruebas:** no pude ejecutar Godot localmente. El primer «Pruebas en PR» falló en la sincronía del generador (0 `SCRIPT ERROR`); la corrección está subida y espera una nueva ejecución. El corredor ahora ejecuta smoke, systems, levels y credits, y falla ante `SCRIPT ERROR`. No declaro el cambio validado hasta revisar el nuevo CI y sus logs.
+- **Qué debe probar Chris en el teléfono:** cuando CI esté verde sin `SCRIPT ERROR`, abrir CRÉDITOS desde el título, desplazar la lista y volver al título.
+- **Dudas / decisiones que necesito:** ninguna para P1-a. `CREDITS.md` está incluido por el filtro `all_resources` actual; la comprobación explícita de su presencia en el paquete exportado queda para P1-f.
+- **Estado:** EN REVISIÓN — P1 en curso; P1-a corregido, CI pendiente.
+
 ### 2026-11-20 — T8: ambiente por sala (rama: chatgpt/T8-room-ambience)
 
 - **Qué hice:** Añadí `Room.ambience: StringName` exportado y el parámetro `ambience=` a `roomkit.Kit`. Asigné los 14 ambientes de AUDIO_PLAN §5 a las 19 salas de los capítulos 1–3 mediante sus generadores; actualicé también los dos generadores antiguos que no usan Kit.

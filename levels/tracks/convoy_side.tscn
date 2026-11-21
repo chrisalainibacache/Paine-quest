@@ -336,6 +336,7 @@ target_spawn = "from_convoy"
 key_item = ExtResource("19_engineer_key")
 lock_id = "underpass_gate"
 locked_text = "La reja del paso bajo nivel. Tiene un candado de EFE."
+metal_door = true
 
 [node name="Grenades" type="Node3D" parent="Interactables"]
 position = Vector3(0.5, 0, 3)

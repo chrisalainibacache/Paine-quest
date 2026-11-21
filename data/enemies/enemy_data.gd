@@ -23,3 +23,5 @@ extends Resource
 @export var tint: Color = Color.WHITE
 ## Casco militar (soldado infectado).
 @export var helmet: bool = false
+## Usa pasos pesados; es una propiedad del tipo de infectado, no del nombre visible.
+@export var heavy: bool = false

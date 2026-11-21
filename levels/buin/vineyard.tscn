@@ -203,6 +203,7 @@ key_item = ExtResource("13_shed_key")
 lock_id = "shed_door"
 locked_text = "El portón del galpón. Tiene un candado grande y alguien lo trancó por dentro también."
 prompt = "ABRIR"
+metal_door = true
 
 [node name="Grapes" type="Node3D" parent="Interactables"]
 position = Vector3(-3, 0, -1.2)

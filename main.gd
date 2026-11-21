@@ -30,6 +30,7 @@ func _ready() -> void:
     $HUD.bind(player)
     $HUD.inventory_requested.connect(func() -> void: $InventoryMenu.open(player))
     $HUD.retry_requested.connect(retry)
+    $HUD.rewarded_continue_requested.connect(continue_after_reward)
     loader.setup($World, player, leo, $Fade/Black)
     await loader.enter_first_room()
 
@@ -43,5 +44,14 @@ func _process(delta: float) -> void:
 func retry() -> void:
     if not SaveSystem.load_game():
         GameState.new_game()
+    get_tree().paused = false
+    get_tree().reload_current_scene()
+
+
+## Tras ver un anuncio con recompensa: vuelve al último guardado con media salud.
+func continue_after_reward() -> void:
+    if not SaveSystem.load_game():
+        GameState.new_game()
+    GameState.health = 50
     get_tree().paused = false
     get_tree().reload_current_scene()

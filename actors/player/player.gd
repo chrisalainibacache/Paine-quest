@@ -52,6 +52,7 @@ var _action_anim := ""
 var _action_time := 0.0
 var _hurt_time := 0.0
 var _invulnerable_time := 0.0
+var _danger_breath_timer := 0.0
 
 
 func _ready() -> void:
@@ -120,7 +121,9 @@ func take_damage(amount: int, from_position: Vector3) -> void:
     health = maxi(health - amount, 0)
     GameState.health = health
     _invulnerable_time = INVULNERABLE_TIME
-    Sfx.play("hurt", null, -2.0)
+    _play_hurt_sound()
+    if get_condition() == "Peligro":
+        _danger_breath_timer = 2.5
     Input.vibrate_handheld(180)
     face_direction(from_position - global_position, 1.0)
     health_changed.emit(health, MAX_HEALTH)
@@ -133,6 +136,20 @@ func take_damage(amount: int, from_position: Vector3) -> void:
     else:
         _hurt_time = HURT_TIME
         play_action("Hit_Chest", HURT_TIME)
+
+
+func _play_hurt_sound() -> void:
+    Sfx.play("hurt_low" if get_condition() == "Peligro" else "hurt", null, -2.0)
+
+
+func _update_danger_breath(delta: float) -> void:
+    if not is_alive() or controls_locked or get_condition() != "Peligro":
+        _danger_breath_timer = 0.0
+        return
+    _danger_breath_timer -= delta
+    if _danger_breath_timer <= 0.0:
+        _danger_breath_timer = 5.5
+        Sfx.play("breath_low", global_position, -12.0, 0.03)
 
 
 func heal(amount: int) -> void:
@@ -167,6 +184,7 @@ func _physics_process(delta: float) -> void:
     _hurt_time = maxf(_hurt_time - delta, 0.0)
     _invulnerable_time = maxf(_invulnerable_time - delta, 0.0)
     _action_time = maxf(_action_time - delta, 0.0)
+    _update_danger_breath(delta)
     if _action_time <= 0.0:
         _action_anim = ""
 

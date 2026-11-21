@@ -4,6 +4,7 @@ extends CanvasLayer
 
 const ITEM_VIEW := preload("res://ui/inventory/item_view.gd")
 const SLOT_SIZE := Vector2(98, 98)
+const OPTIONS_SCENE := preload("res://ui/options/options_menu.tscn")
 
 @onready var root: Control = $Root
 @onready var grid: GridContainer = $Root/Grid
@@ -20,6 +21,8 @@ const SLOT_SIZE := Vector2(98, 98)
 @onready var examine_view: SubViewportContainer = $Root/Examine/View
 @onready var examine_name: Label = $Root/Examine/Name
 @onready var examine_text: Label = $Root/Examine/Description
+@onready var reward_ammo_button: Button = $Root/Info/RewardButtons/RewardAmmo
+@onready var reward_heal_button: Button = $Root/Info/RewardButtons/RewardHeal
 
 var player: Player
 var selected := -1
@@ -29,6 +32,7 @@ var _counts: Array[Label] = []
 var _paused_before := false
 ## Cuadro en que se abrió: el mismo toque de MOCHILA no debe cerrarla al tiro.
 var _opened_frame := -1
+var options_menu: OptionsMenu
 
 
 func _ready() -> void:
@@ -38,11 +42,16 @@ func _ready() -> void:
     for i in Inventory.SIZE:
         _build_slot(i)
     $Root/Header/Close.pressed.connect(close)
+    options_menu = OPTIONS_SCENE.instantiate() as OptionsMenu
+    add_child(options_menu)
+    $Root/Header/Options.pressed.connect(options_menu.open)
     $Root/Header/ItemsTab.pressed.connect(_show_tab.bind(false))
     $Root/Header/NotesTab.pressed.connect(_show_tab.bind(true))
     $Root/Examine/Close.pressed.connect(func() -> void: examine.visible = false)
     use_button.pressed.connect(_use_selected)
     examine_button.pressed.connect(_examine_selected)
+    reward_ammo_button.pressed.connect(_offer_ammo_reward)
+    reward_heal_button.pressed.connect(_offer_healing_reward)
     GameState.inventory.changed.connect(_refresh)
 
 
@@ -76,8 +85,8 @@ func close() -> void:
 
 
 func _process(_delta: float) -> void:
-    if visible and not Dialogue.is_open() and Engine.get_process_frames() != _opened_frame \
-            and Input.is_action_just_pressed(&"inventory"):
+    if visible and (options_menu == null or not options_menu.visible) and not Dialogue.is_open() \
+            and Engine.get_process_frames() != _opened_frame and Input.is_action_just_pressed(&"inventory"):
         close()
 
 
@@ -136,6 +145,7 @@ func _refresh() -> void:
         _views[i].spin_speed = 0.7 if i == selected else 0.0
     _refresh_info()
     _refresh_status()
+    _refresh_reward_offers()
 
 
 func _refresh_info() -> void:
@@ -173,6 +183,72 @@ func _refresh_status() -> void:
         weapon_label.text = "Sin arma"
 
 
+func _refresh_reward_offers() -> void:
+    reward_ammo_button.visible = false
+    reward_heal_button.visible = false
+    if player == null or not visible or notes_panel.visible:
+        return
+    if not Ads.available():
+        return
+
+    var equipped := GameState.equipped
+    var weapon := equipped.weapon if equipped != null else null
+    if weapon != null and weapon.ammo_item != null:
+        var reserve := player.combat.reserve
+        var low_reserve := reserve == 0 or float(reserve) < float(weapon.clip_size) * 0.25
+        var ammo_reward := Ads.config.ammo_reward_for(weapon.ammo_item)
+        reward_ammo_button.visible = low_reserve and ammo_reward > 0 \
+                and GameState.inventory.space_for(weapon.ammo_item) > 0
+
+    var healing_item := Ads.config.get_healing_item()
+    reward_heal_button.visible = player.get_condition() == "Peligro" \
+            and not _has_healing_item() and healing_item != null \
+            and GameState.inventory.space_for(healing_item) > 0
+
+
+func _has_healing_item() -> bool:
+    for index in Inventory.SIZE:
+        var item := GameState.inventory.get_item(index)
+        if item != null and item.kind == ItemData.Kind.HEALING:
+            return true
+    return false
+
+
+func _offer_ammo_reward() -> void:
+    if player == null or not reward_ammo_button.visible:
+        return
+    Ads.show_rewarded(&"inventory_ammo", func(rewarded: bool) -> void:
+        if not rewarded:
+            _refresh_reward_offers()
+            return
+        var equipped := GameState.equipped
+        var weapon := equipped.weapon if equipped != null else null
+        if weapon == null or weapon.ammo_item == null:
+            return
+        var amount := mini(Ads.config.ammo_reward_for(weapon.ammo_item),
+                GameState.inventory.space_for(weapon.ammo_item))
+        if amount > 0:
+            GameState.inventory.add(weapon.ammo_item, amount)
+            Sfx.play("pickup", null, -6.0)
+        _refresh()
+    )
+
+
+func _offer_healing_reward() -> void:
+    if player == null or not reward_heal_button.visible:
+        return
+    Ads.show_rewarded(&"inventory_healing", func(rewarded: bool) -> void:
+        if not rewarded:
+            _refresh_reward_offers()
+            return
+        var healing_item := Ads.config.get_healing_item()
+        if healing_item != null and GameState.inventory.space_for(healing_item) > 0:
+            GameState.inventory.add(healing_item, 1)
+            Sfx.play("heal", null, -6.0)
+        _refresh()
+    )
+
+
 func _use_selected() -> void:
     var item := GameState.inventory.get_item(selected)
     if item == null:
@@ -184,7 +260,7 @@ func _use_selected() -> void:
                 return
             player.heal(item.heal_amount)
             GameState.inventory.remove_at(selected)
-            Sfx.play("pickup", null, -6.0)
+            Sfx.play("heal", null, -6.0)
             if GameState.inventory.get_item(selected) == null:
                 selected = _first_filled()
             _refresh()

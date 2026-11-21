@@ -382,7 +382,16 @@ muestra una imagen renderizada con calidad de película (como RE3) y los persona
 - **Interacción táctil:** ACCIÓN guarda el toque unos instantes (no se pierde en cuadros
   lentos), prefiere notas/ítems sobre Leo y muestra un aviso gris con el último uso.
 
-## 11. Fuera de alcance (por ahora)
+## Monetización y anuncios
+
+- **Proveedor actual:** `Ads` usa la interfaz `AdProvider`; `DebugAdProvider` muestra un anuncio simulado de tres segundos con botón SALTAR. No hay SDK publicitario real integrado en esta fase.
+- **Reglas antiabuso:** enfriamiento de 300 segundos entre anuncios, máximo 3 anuncios por capítulo y al menos 60 segundos de juego entre recompensas. No se muestran anuncios durante combate, diálogos ni cinemáticas.
+- **Recompensas:** munición cuando la reserva está vacía o bajo el 25 % del cargador; un Sushi (curación de 30 puntos) cuando Isabella está en Peligro y no lleva curativos; CONTINUAR desde el último guardado seguro con 50 % de salud, una vez por muerte.
+- **Cantidades configurables:** 12 balas de 9 mm, 6 cartuchos de escopeta, 12 de rifle, 2 granadas y 1 cohete. El recurso `data/ads_config.tres` concentra cantidades, límites y el recurso de curación.
+- **Quitar anuncios:** `Ads.removed` se guarda en `user://ajustes.cfg`; si está activo, las recompensas se entregan sin mostrar anuncios.
+- **Privacidad:** la URL pública de la política sigue pendiente de confirmación. No se debe activar un SDK ni recopilar datos publicitarios hasta definir proveedor y política.
+
+## 12. Fuera de alcance (por ahora)
 
 - Cuerpo a cuerpo, cambio rápido de armas, salto, mundo abierto, multijugador.
 - Cinemática del choque del tren (el tren ya está destruido cuando llegan).

@@ -5,6 +5,7 @@ extends CanvasLayer
 
 signal inventory_requested
 signal retry_requested
+signal rewarded_continue_requested
 
 const CONDITION_COLORS := {
     "Bien": Color(0.45, 0.85, 0.45),
@@ -19,10 +20,12 @@ const CONDITION_COLORS := {
 @onready var condition_label: Label = $ConditionLabel
 @onready var damage_flash: ColorRect = $DamageFlash
 @onready var death_screen: Control = $DeathScreen
+@onready var reward_continue_button: Button = $DeathScreen/RewardContinue
 
 var player: Player
 var _objective_label: Label
 var _objective_timer := 0.0
+var _reward_continue_used := false
 
 
 func _ready() -> void:
@@ -32,6 +35,8 @@ func _ready() -> void:
     damage_flash.color.a = 0.0
     death_screen.visible = false
     $DeathScreen/Retry.pressed.connect(func() -> void: retry_requested.emit())
+    reward_continue_button.visible = false
+    reward_continue_button.pressed.connect(_offer_rewarded_continue)
 
 
 func bind(new_player: Player) -> void:
@@ -140,8 +145,25 @@ func _on_damaged(_amount: int) -> void:
 func _on_died() -> void:
     await get_tree().create_timer(1.8).timeout
     death_screen.visible = true
+    reward_continue_button.visible = not _reward_continue_used and Ads.available()
+    reward_continue_button.disabled = false
     death_screen.modulate.a = 0.0
     create_tween().tween_property(death_screen, "modulate:a", 1.0, 0.8)
+
+
+func _offer_rewarded_continue() -> void:
+    if _reward_continue_used or not reward_continue_button.visible:
+        return
+    reward_continue_button.disabled = true
+    Ads.show_rewarded(&"death_continue", func(rewarded: bool) -> void:
+        if rewarded:
+            _reward_continue_used = true
+            reward_continue_button.visible = false
+            rewarded_continue_requested.emit()
+            return
+        reward_continue_button.disabled = false
+        reward_continue_button.visible = Ads.available()
+    )
 
 
 ## Línea de objetivo: lo último que Leo diría en la pista activa de la sala.

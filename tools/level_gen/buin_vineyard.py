@@ -24,7 +24,7 @@ k.decal("Drag", "blood_drag", (4.0, 0.02, 0.3), (2.8, 0.9), "up", rot=0.1)
 # Interactuables.
 k.door("ToStation", (-9.4, 0, 0.0), B % "field", "from_vineyard", prompt="VOLVER", reach=1.4)
 k.door("ToShed", (9.2, 0, 0.0), B % "shed", "from_vineyard", key="shed_key", lock_id="shed_door", prompt="ABRIR", reach=1.4,
-       locked_text="El portón del galpón. Tiene un candado grande y alguien lo trancó por dentro también.")
+       locked_text="El portón del galpón. Tiene un candado grande y alguien lo trancó por dentro también.", metal_door=True)
 k.examine("Grapes", (-3.0, 0, -1.2), ["Racimos maduros que nadie cosechó.", "Ayer era la vendimia."], reach=1.0)
 k.pickup("Handroll", (-2.5, 0.72, 0.9), "handroll", rot=(0, 0.4, 0))
 k.pickup("RifleAmmo", (6.4, 0.0, -0.6), "ammo_rifle", 15, rot=(0, 1.1, 0))

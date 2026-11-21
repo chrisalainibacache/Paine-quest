@@ -25,15 +25,16 @@ s.node("Header", "HBoxContainer", "Root", anchors_preset="10", anchor_right="1.0
        theme_override_constants_separation="14", **rect(left=40, top=22, right=-40, bottom=92))
 label("Title", "Root/Header", "MOCHILA", 38, col((0.85, 0.72, 0.5)), size_flags_horizontal="3", vertical_alignment="1")
 # Interruptor de gráficos (Retro / Moderno): se compara en la misma sala.
-button("Graphics", "Root/Header", "GRÁFICOS: RETRO", 22, custom_minimum_size="Vector2(240, 64)",
+button("Graphics", "Root/Header", "GRÁFICOS: RETRO", 22, custom_minimum_size="Vector2(220, 64)",
        script=s.res("res://ui/graphics_toggle.gd", "Script"))
-button("Brightness", "Root/Header", "BRILLO 3/5", 22, custom_minimum_size="Vector2(150, 64)",
+button("Brightness", "Root/Header", "BRILLO 3/5", 22, custom_minimum_size="Vector2(130, 64)",
        script=s.res("res://ui/brightness_toggle.gd", "Script"))
-button("Diag", "Root/Header", "DIAG", 22, custom_minimum_size="Vector2(100, 64)",
+button("Diag", "Root/Header", "DIAG", 22, custom_minimum_size="Vector2(80, 64)",
        script=s.res("res://ui/diag_toggle.gd", "Script"))
-button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(150, 64)")
-button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(150, 64)")
-button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(150, 64)")
+button("Options", "Root/Header", "OPCIONES", 22, custom_minimum_size="Vector2(150, 64)")
+button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(140, 64)")
+button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(120, 64)")
+button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(130, 64)")
 # Estado de Isabella.
 s.node("Status", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=40, top=118, right=330, bottom=430))
 label("Label", "Root/Status", "ESTADO", 22, DIM, **rect(left=18, top=12, right=270, bottom=42))
@@ -47,10 +48,13 @@ s.node("Grid", "GridContainer", "Root", columns="8", theme_override_constants_h_
 # Información del ítem.
 s.node("Info", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=360, top=404, right=1240, bottom=694))
 label("Name", "Root/Info", "", 30, col((0.85, 0.72, 0.5)), **rect(left=24, top=14, right=840, bottom=54))
-label("Description", "Root/Info", "", 24, TXT, autowrap_mode="3", **rect(left=24, top=60, right=600, bottom=274))
-s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=640, top=60, right=856, bottom=274))
-button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 80)")
-button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 80)")
+label("Description", "Root/Info", "", 24, TXT, autowrap_mode="3", **rect(left=24, top=60, right=600, bottom=210))
+s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=640, top=60, right=856, bottom=210))
+button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 64)")
+button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 64)")
+s.node("RewardButtons", "HBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=24, top=220, right=856, bottom=276))
+button("RewardAmmo", "Root/Info/RewardButtons", "VER ANUNCIO: +MUNICIÓN", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")
+button("RewardHeal", "Root/Info/RewardButtons", "VER ANUNCIO: +1 CURATIVO", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")
 # Notas.
 s.node("Notes", "ScrollContainer", "Root", **rect(left=360, top=118, right=1240, bottom=694))
 # Cuadrícula de 2 columnas: caben 18 notas sin tener que arrastrar (con 10 en una

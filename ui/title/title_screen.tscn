@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://ui/graphics_toggle.gd" id="2_graphics_tog"]
 [ext_resource type="Script" path="res://ui/brightness_toggle.gd" id="3_brightness_t"]
 [ext_resource type="PackedScene" path="res://ui/ps1_filter.tscn" id="4_ps1_filter"]
+[ext_resource type="PackedScene" path="res://ui/options/options_menu.tscn" id="5_options_menu"]
 
 [node name="TitleScreen" type="Control"]
 script = ExtResource("1_title_screen")
@@ -87,6 +88,40 @@ text = "BRILLO 3/5"
 theme_override_font_sizes/font_size = 26
 script = ExtResource("3_brightness_t")
 
+[node name="OptionsButton" type="Button" parent="."]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 240.0
+offset_bottom = 76.0
+custom_minimum_size = Vector2(220, 56)
+text = "OPCIONES"
+theme_override_font_sizes/font_size = 24
+focus_mode = 0
+
+[node name="CreditsButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+offset_left = -240.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 76.0
+custom_minimum_size = Vector2(220, 56)
+text = "CRÉDITOS"
+theme_override_font_sizes/font_size = 24
+focus_mode = 0
+
 [node name="Credits" type="Label" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
@@ -111,10 +146,12 @@ anchor_bottom = 1.0
 grow_vertical = 0
 offset_left = 24.0
 offset_top = -50.0
-offset_right = 760.0
+offset_right = 500.0
 offset_bottom = -16.0
 text = "Modelos: Pixelhouse (CC-BY 3.0), Rikindle3D, Quaternius · Texturas: ambientCG"
 theme_override_font_sizes/font_size = 15
 theme_override_colors/font_color = Color(0.33, 0.31, 0.28, 1)
 
 [node name="Filter" parent="." instance=ExtResource("4_ps1_filter")]
+
+[node name="OptionsMenu" parent="." instance=ExtResource("5_options_menu")]
