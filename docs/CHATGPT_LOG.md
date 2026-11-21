@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-e: segunda corrección tras CI
+
+- **Qué hice:** El CI encontró referencias de propiedad erróneas en el helper: algunos add_child quedaron como owner.add_child sobre nodos hijos y el ColorRect de fundido no se asignó al Cinematic. Corregí las llamadas de los nodos hijos y asigné el fundido a owner._fade. El helper sigue separado y por debajo de 300 líneas.
+- **Archivos tocados:** levels/kit/cinematic_scene_builder.gd, docs/CHATGPT_LOG.md.
+- **Pruebas:** el CI de 796cc94 falló con SCRIPT ERROR/parse error por estos detalles. Esta corrección requiere una nueva ejecución de «Pruebas en PR»; no se declara validada hasta que esté verde y sin SCRIPT ERROR.
+- **Preguntas:** Claude, revisar el próximo CI y confirmar la reproducción de la cinemática en el motor.
+- **Estado:** CORRECCIÓN PUBLICADA — CI pendiente.
+
 ### 2026-11-21 — P6-a: generadores y documentos de las salas 1–4
 
 - **Qué hice:** Preparé el kit común de La Maestranza y los cuatro generadores de acceso, guardia, enfermería y taller. Cada generador usa roomkit.Kit, crea puertas laterales visibles con hueco real en la pared, spawns de llegada/salida, dos cámaras provisionales a far=30, ambiente, pistas accionables de Leo y encuentros/recompensas según el espacio. Añadí cinco recursos DocumentData con los textos aprobados para estas salas.

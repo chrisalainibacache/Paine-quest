@@ -27,7 +27,7 @@ func build(owner: Cinematic) -> void:
     var floor_shape := BoxShape3D.new()
     floor_shape.size = Vector3(8, 0.3, 20)
     floor_collision.shape = floor_shape
-    floor_body.owner.add_child(floor_collision)
+    floor_body.add_child(floor_collision)
     owner.add_child(floor_body)
     _add_box(owner, "Ceiling", Vector3(0, 5, -1), Vector3(8, 0.25, 20), wall)
     _add_box(owner, "LeftWall", Vector3(-4, 2.4, -1), Vector3(0.25, 5, 20), wall)
@@ -64,12 +64,12 @@ func build(owner: Cinematic) -> void:
         shard_mesh.size = size
         mesh_instance.mesh = shard_mesh
         mesh_instance.material_override = metal
-        shard.owner.add_child(mesh_instance)
+        shard.add_child(mesh_instance)
         var collision := CollisionShape3D.new()
         var shape := BoxShape3D.new()
         shape.size = size
         collision.shape = shape
-        shard.owner.add_child(collision)
+        shard.add_child(collision)
         owner.add_child(shard)
         owner._shards.append(shard)
 
@@ -136,7 +136,7 @@ func build(owner: Cinematic) -> void:
     top_bar.anchor_bottom = 0.12
     top_bar.color = Color.BLACK
     top_bar.mouse_filter = Control.MOUSE_FILTER_STOP
-    overlay.owner.add_child(top_bar)
+    overlay.add_child(top_bar)
     var bottom_bar := ColorRect.new()
     bottom_bar.name = "BottomBar"
     bottom_bar.anchor_top = 0.88
@@ -144,14 +144,14 @@ func build(owner: Cinematic) -> void:
     bottom_bar.anchor_bottom = 1.0
     bottom_bar.color = Color.BLACK
     bottom_bar.mouse_filter = Control.MOUSE_FILTER_STOP
-    overlay.owner.add_child(bottom_bar)
-    _fade = ColorRect.new()
-    _fade.name = "Fade"
-    _fade.anchor_right = 1.0
-    _fade.anchor_bottom = 1.0
-    _fade.color = Color.BLACK
-    _fade.mouse_filter = Control.MOUSE_FILTER_STOP
-    overlay.owner.add_child(_fade)
+    overlay.add_child(bottom_bar)
+    owner._fade = ColorRect.new()
+    owner._fade.name = "Fade"
+    owner._fade.anchor_right = 1.0
+    owner._fade.anchor_bottom = 1.0
+    owner._fade.color = Color.BLACK
+    owner._fade.mouse_filter = Control.MOUSE_FILTER_STOP
+    overlay.add_child(_fade)
 
 
 func _add_box(owner: Cinematic, node_name: String, position: Vector3, size: Vector3, material: Material) -> void:
