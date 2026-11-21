@@ -11,6 +11,10 @@ extends SceneTree
 ## Deja assets/backgrounds/<sala>/<Cámara>.png (1680x720, 21:9: cubre cualquier teléfono).
 
 const OUT_SIZE := Vector2i(1680, 720)
+## Si la escena de detalle trae el metadato «sky», el fondo es un cielo de amanecer en vez de un color.
+var _want_sky := false
+## Densidad de la niebla volumétrica que pide la escena de detalle (metadato «fog»); -1 = la de siempre.
+var _fog_override := -1.0
 
 
 func _init() -> void:
@@ -34,6 +38,8 @@ func _run() -> void:
     if ResourceLoader.exists(detail_path):
         var detail := (load(detail_path) as PackedScene).instantiate()
         room.add_child(detail)
+        _want_sky = bool(detail.get_meta("sky", false))
+        _fog_override = float(detail.get_meta("fog", -1.0))
         # La escena de detalle puede pedir ocultar piezas del juego que reemplaza (metadato «hide»).
         for hidden_path: String in detail.get_meta("hide", []):
             var hidden := room.get_node_or_null(hidden_path) as Node3D
@@ -73,8 +79,23 @@ func _run() -> void:
 func _upgrade_for_render(room: Node3D) -> void:
     for world_env: WorldEnvironment in room.find_children("*", "WorldEnvironment", true, false):
         var env := world_env.environment.duplicate() as Environment
+        if _want_sky:
+            var sky_material := ProceduralSkyMaterial.new()
+            sky_material.sky_top_color = Color(0.52, 0.64, 0.84)
+            sky_material.sky_horizon_color = Color(0.93, 0.89, 0.80)
+            sky_material.ground_horizon_color = Color(0.62, 0.58, 0.52)
+            sky_material.ground_bottom_color = Color(0.30, 0.28, 0.26)
+            sky_material.sun_angle_max = 25.0
+            var sky := Sky.new()
+            sky.sky_material = sky_material
+            env.background_mode = Environment.BG_SKY
+            env.sky = sky
+            env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
+            env.ambient_light_energy = 0.9
         env.tonemap_mode = Environment.TONE_MAPPER_ACES
-        env.tonemap_exposure = 1.1
+        env.tonemap_exposure = 1.1 if not _want_sky else 1.5
+        if _fog_override >= 0.0:
+            env.fog_density *= 0.2   # la niebla normal también se aclara (si no, el campo queda gris y lejano)
         env.ssao_enabled = true
         env.ssao_radius = 1.2
         env.ssao_intensity = 2.2
@@ -86,7 +107,7 @@ func _upgrade_for_render(room: Node3D) -> void:
         env.glow_intensity = 0.6
         env.glow_bloom = 0.05
         env.volumetric_fog_enabled = true
-        env.volumetric_fog_density = 0.025
+        env.volumetric_fog_density = 0.025 if _fog_override < 0.0 else _fog_override
         env.volumetric_fog_albedo = Color(0.55, 0.58, 0.68)
         env.volumetric_fog_emission = env.fog_light_color * 0.15
         env.adjustment_enabled = true

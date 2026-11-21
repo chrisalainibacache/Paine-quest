@@ -178,3 +178,18 @@ y escribir especificaciones. Todo en `docs/trenes/` (solo texto).
   según tu diseño), `docs/store/licencias_activos.md` (agrega **Josefin Sans (OFL)**, los **trenes CC0 de tevy.dev y grab3d.com**, el **fondo del título generado con IA, términos por confirmar**).
 **Hecho cuando:** CI verde en el PR, sin `SCRIPT ERROR`; Claude revisa con capturas y planifica cámaras/renders. **No avances al capítulo 5.**
 
+---
+
+## P7 — Capítulo 5 y epílogo en el juego (código + texto, ~5 tareas) · después de P6
+Mismas reglas que P6 y **`docs/LECCIONES_SALAS.md`**. Un PR aparte (`chatgpt/P7-capitulo-5`), un commit por tarea. Usa tu diseño de `docs/GDD.md` (capítulo 5 y epílogo) y `docs/cap4_dialogos.md`.
+- **P7-a** Salas 1 a 4 de **Santiago / Centro de Nos** (`santiago_via_norte`, `centro_nos_acceso`, `centro_nos_recepcion`, `centro_nos_archivo`): carpeta `levels/centro_nos/`, generadores `tools/level_gen/centro_nos_*.py`, notas en `data/documents/*.tres`, pistas de Leo, enemigos y recompensas de tu tabla.
+- **P7-b** Salas 5 a 7 (`enfermeria`, `pasillo_transferencia`, `preaislamiento`). La del jefe final (`sala_aislamiento`, Rosa-Skull) **no**: la hago yo.
+- **P7-c** Peldaño 6 de «La señora» (grabación de Rosa C. en preaislamiento) y el resto de las pistas del capítulo 5, con los textos exactos de `docs/cap4_dialogos.md`.
+- **P7-d** Epílogo «Para Leo» (`epilogo_amanecer`): sala sin enemigos, la despedida aprobada (Leo camina hacia la luz, se gira, maúlla una vez y se va; dedicatoria **«Para Leo»**), pantalla final y vuelta al título. Música `leo` ya está en `AudioDirector`.
+- **P7-e** Pruebas en `tests/levels_test.gd` (solo agregar) y entrega en el registro. **No** implementes el jefe final.
+
+## Reglas de entrega para P6 y P7 (la vez pasada no llegó nada a GitHub)
+1. Crea la rama, haz el **primer commit** y **empuja** (`git push -u origin chatgpt/P6-capitulo-4`); abre el PR **en borrador** de inmediato y deja el enlace en el registro.
+2. Cada tarea = un commit **empujado** (no acumules local). Si no puedes empujar, di **exactamente** qué falló en «Preguntas»; no digas «terminé» sin enlace al PR.
+3. Al terminar, escribe la entrega en `docs/CHATGPT_LOG.md` (qué hiciste por tarea, archivos, pruebas, qué debe revisar Claude) y quita el borrador del PR.
+
