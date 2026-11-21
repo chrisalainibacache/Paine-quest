@@ -1,0 +1,52 @@
+# Regenera los .tscn desde sus generadores (.py) en las ramas chatgpt/**, así quien programa sin Godot
+# (ChatGPT) solo edita los .py y no tiene que ejecutar nada. Sube los .tscn resultantes a la misma rama y
+# lanza «Pruebas en PR» sobre ella (los commits del bot no disparan otros flujos por sí solos).
+# NO replanifica cámaras: eso lo hace Claude (tools/plan_cameras.gd) al revisar la sala.
+name: Regenerar escenas
+
+on:
+  push:
+    branches: ["chatgpt/**"]
+    paths: ["tools/level_gen/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: regenerar-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regenerar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Regenerar todo
+        run: ./tools/level_gen/regenerar_todo.sh
+
+      - name: Subir los .tscn que cambiaron
+        id: commit
+        run: |
+          set -e
+          git checkout -- levels/kit/items/pistol_item.tscn 2>/dev/null || true   # diferencia conocida e inocua
+          if [ -z "$(git status --porcelain -- levels ui)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"; echo "Nada que regenerar."; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add levels ui
+          git commit -m "Regenerar escenas desde sus generadores (automático)"
+          git push origin "HEAD:${{ github.ref_name }}"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Lanzar «Pruebas en PR» sobre la rama
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pruebas-pr.yml --ref "${{ github.ref_name }}"

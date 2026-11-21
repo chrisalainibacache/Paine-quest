@@ -193,3 +193,36 @@ Mismas reglas que P6 y **`docs/LECCIONES_SALAS.md`**. Un PR aparte (`chatgpt/P7-
 2. Cada tarea = un commit **empujado** (no acumules local). Si no puedes empujar, di **exactamente** qué falló en «Preguntas»; no digas «terminé» sin enlace al PR.
 3. Al terminar, escribe la entrega en `docs/CHATGPT_LOG.md` (qué hiciste por tarea, archivos, pruebas, qué debe revisar Claude) y quita el borrador del PR.
 
+---
+
+## ⚡ CAMBIO DE PROTOCOLO (2026-11-21, léelo antes de P8 y P7) — ya no necesitas Godot
+**P6 está FUSIONADO en `main`** (PR #13): las 7 salas de La Maestranza ya existen en `levels/maestranza/`. Dos cosas nuevas que te destraban:
+1. **Regeneración automática.** Edita SOLO los `.py` de `tools/level_gen/`. Al hacer push a una rama `chatgpt/**`, el flujo **«Regenerar escenas»** corre `regenerar_todo.sh`, sube los `.tscn`
+   resultantes a tu rama (commit «Regenerar escenas… (automático)») y lanza **«Pruebas en PR»**. Mira ese resultado (`actions_list` / `get_job_logs`), no esperes a Claude para cada cambio.
+   Si agregas un generador nuevo, **ponlo en la lista de `tools/level_gen/regenerar_todo.sh`**. Si algo falla, lee el log y corrige; no digas «bloqueado» sin haber leído el log.
+2. **Las salas se diseñan en 16 × 10 m** (`X -8..8`, `Z -5..5`) y `maestranza_common._squeeze` las construye en 12 × 8 m. Escribe las posiciones en el espacio de diseño. Alto del techo útil: 4,4 m.
+   **Reglas de cámara** (Claude las replanifica al final, tú no puedes): nada sólido más alto de **1,3 m** en la franja central de la sala (|Z| < 2,5) ni pegado a las puertas (|X| > 6,5);
+   lo alto va **contra los muros norte/oeste/este**; deja siempre 1,2 m libres frente a cada puerta; sin cajas sólidas grandes en el eje puerta-puerta.
+**Materiales** (`block(..., "mat")`): asphalt barrel_wood bricks_wall bulb canvas concrete_floor concrete_wall dirt gravel iron_green metal old_bricks_wall olive paint_red paving_floor planks plaster_wall river roof rust safety_yellow sandbag seat_fabric sign_board soot tiles_wall train_blue train_cream train_red window_glow wood.
+**Decales** (`k.decal(nombre, tex, pos, tamaño, normal)`): blood_drag blood_footprints blood_handprint blood_pool blood_smear blood_splatter_a/b/c bullet_holes cracks damp_stain debris graffiti_* oil_stain wall_hole_a/b.
+**Props existentes** (`k.prop(nombre, "Props", "<escena>", pos, rot=)`): army_tent army_truck barrier bench crate field_radio fire iron_column park_bench plant_pot sandbags seat_pair sodium_lamp station_sign tractor typewriter_desk vending_machine wall_clock wall_lantern window_arch wine_barrel…
+Mira `tools/level_gen/*.py` (p. ej. `buin_*.py`, `derailed_train.py`) para ver cómo los usan; **copia patrones, no inventes funciones** que no estén en `roomkit.py`.
+
+## P8 — Vida y detalle de La Maestranza (código + texto, ~8 tareas, trabajo LARGO) · rama `chatgpt/P8-detalle-maestranza`, PR aparte, un commit por tarea
+Hoy las 7 salas son cajas casi vacías (una radio, tres camillas…). Hay que convertirlas en lugares que cuenten una historia. Haz **todas** las tareas; no pidas OK entre ellas, sí el verde del CI en cada una.
+- **P8-a Biblia de arte** `docs/cap4_arte.md`: por sala (acceso, guardia, enfermería, taller, vestuario, cuarentena, puesto sanitario): propósito dramático, paleta (3 colores), luz (fuente, color, si parpadea),
+  lista de objetos que **cuentan lo ocurrido** (evidencia: barricada, camilla volcada, huellas, tazas, mapa en la pared…), y **2 puntos de interés** (algo para examinar) por sala. Coherente con `docs/cap4_notas.md`, `docs/cap4_dialogos.md` y el GDD.
+- **P8-b Piezas nuevas** `tools/level_gen/maestranza_props.py` (nuevo; añádelo a `regenerar_todo.sh`): genera escenas `levels/kit/props/*.tscn` armadas con bloques (mira `train_props.py`/`station_props.py` para el patrón):
+  camilla con sábana (baja, ≤ 0.9 m), carrito médico, biombo/cortina de hospital, soporte de suero, estante metálico, archivador, mesa de taller con tornillo de banco, caja de herramientas, cinta de peligro, barricada de sacos y tablas, silla volcada, casillero abierto.
+  Una función por pieza, tamaños reales, materiales de la lista, **sin colisión sólida** salvo la base.
+- **P8-c Detalle salas 1–3** (`maestranza_acceso/guardia/enfermeria.py`): según tu biblioteca de arte, **≥ 12 elementos por sala** entre props, decales, rótulos y luces (`k.light(..., flicker=True)` en 1 por sala), más los 2 puntos de interés como `k.examine(...)` con texto nuevo (3 líneas, tono Isabella, sin nombres internos).
+- **P8-d Detalle salas 4–7** (`taller/vestuario/pasillo_cuarentena/puesto_sanitario`): igual. En cuarentena: precinto, cinta, luz roja de emergencia; en el puesto sanitario: sensación de refugio (luz cálida, mantas, comida, radio).
+- **P8-e Combate y recursos**: en `docs/cap4_balance.md` tabla por sala de enemigos (tipo, cantidad, vida) y munición/curas disponibles; ajusta `k.infected`/`k.pickup` para que un jugador cuidadoso llegue con ~5 balas de reserva y 1 cura, y uno descuidado sufra. Máx. **1 infectado pesado** en todo el capítulo y **2 rápidos**. Mira `data/` y `docs/GDD.md` para las vidas.
+- **P8-f Texto y voz**: revisa pistas de Leo (3 niveles: pista, ayuda, solución concreta con la flecha amarilla) y notas; ninguna debe mencionar nombres de archivo ni términos de programación. Agrega **2 diálogos ambientales** cortos (radio/altavoz que se oye al entrar a guardia y cuarentena) con el patrón de `k.examine`/`room.intro` que ya exista.
+- **P8-g Pruebas** (solo **agregar** a `tests/levels_test.gd`; recuerda que `var x := f()` que devuelve Variant **no compila**: tipa `var x: Tipo = f()`): cada sala de Maestranza tiene ≥ 12 hijos en `Props`/`Details`, ≥ 1 `LeoHint`, ≥ 2 `examine`, ningún sólido de > 1,3 m en la franja central, y un recorrido puerta→puerta posible (ya hay auditoría de spawns).
+- **P8-h Diseño del jefe** `docs/cap4_jefe.md` (yo lo implemento): patio de maniobras de 26 × 16 m con grúa, vagón de la cuarentena y Skull (diseño original aprobado en el GDD). Fases, reglas de la arena (dónde está el cobertor, qué hace Leo), cámaras (descríbelas por zona), tabla de sonidos que haga falta, recompensa, cinemática final del capítulo y puente al capítulo 5. **Sin implementar.**
+**Hecho cuando:** CI verde (sin `SCRIPT ERROR`), `docs/CHATGPT_LOG.md` con la entrega, PR fuera de borrador. Después de mi replanificación de cámaras y mi revisión con capturas, se fusiona.
+
+## P7 (capítulo 5) — ya puedes empezar tras P8-c
+P6 ya está fusionado, así que **P7 queda autorizado**. Sigue el texto de P7 más arriba en una rama y PR separados (`chatgpt/P7-capitulo-5`), con el protocolo nuevo (solo `.py`, regeneración automática, reglas de cámara de arriba).
+**Agrega a P7:** (a) `ui/chapter_end/chapter_end.gd`: el final del capítulo 4 («CONTINUAR» en el puesto sanitario) debe llevar a `santiago_via_norte`; (b) todas las salas con **detalle desde el inicio** (≥ 12 elementos, 2 puntos de interés, usando las piezas de P8-b). Orden: P8-a, P8-b, P8-c → empiezas P7 en paralelo (otro PR) → terminas P8.
