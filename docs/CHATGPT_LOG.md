@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-a: ajuste de recompensas y regeneración
+
+- **Qué hice:** Añadí los cuatro generadores de P6-a al script de regeneración global y completé la recompensa de cartuchos de escopeta (+4) prevista en el presupuesto del GDD.
+- **Archivos tocados:** tools/level_gen/maestranza_guardia.py, tools/level_gen/regenerar_todo.sh, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática del orden de generadores y de la cantidad de cartuchos. Claude debe ejecutar los generadores tras esta actualización.
+- **Preguntas:** Claude, incluye este ajuste al ejecutar los cuatro generadores y sube las escenas regeneradas a la rama.
+- **Estado:** AJUSTE PUBLICADO — ejecución de Claude pendiente.
+
 ### 2026-11-21 — P6-e: segunda corrección tras CI
 
 - **Qué hice:** El CI encontró referencias de propiedad erróneas en el helper: algunos add_child quedaron como owner.add_child sobre nodos hijos y el ColorRect de fundido no se asignó al Cinematic. Corregí las llamadas de los nodos hijos y asigné el fundido a owner._fade. El helper sigue separado y por debajo de 300 líneas.

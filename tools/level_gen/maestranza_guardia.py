@@ -12,6 +12,7 @@ k.block("MapBoard", "Details", (4.7, 1.8, -4.78), (3.0, 1.8, 0.12), "wood", soli
 k.label("MapTitle", "Details", (4.7, 2.2, -4.68), "CONTROL DE SECTOR", 22, (0.9, 0.82, 0.66))
 k.note("SurveillanceReport", (-2.1, 0.9, -1.7), "maestranza_surveillance_report", paper_scale=0.72)
 k.pickup("SmallKey", (1.0, 0.82, 2.2), "engineer_key")
+k.pickup("ShotgunAmmo", (3.2, 0.0, -2.8), "ammo_shells", 4)
 k.examine("RadioMessage", (-2.5, 0.0, -1.1), [
     "La radio escupe estática. Una voz de mujer pregunta por sobrevivientes del sector.",
     "Paz: ¿Hay sobrevivientes en el sector? Si pueden responder, indiquen cuántos son y dónde están."
