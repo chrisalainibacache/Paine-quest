@@ -36,8 +36,8 @@ def create_room(root_name, room_name, ambience, dark=False, final=False):
         k.block("EastLintel", "Shell", (x, 3.1, 0.0), (0.3, 1.4, 1.8), "concrete_wall")
         k.door_frame("AdvanceFrame", X1, 0.0, "z", width=1.6, wall_side=-1, panel="metal")
     # Cámaras provisionales; Claude planifica las definitivas.
-    k.camera("West", (-4.0, 1.5, 0.0), (8.0, 3.0, 10.0), (-1.0, 4.8, 7.0), (-4.0, 0.5, 0.0), fov=62)
-    k.camera("East", (4.0, 1.5, 0.0), (8.0, 3.0, 10.0), (1.0, 4.8, -7.0), (4.0, 0.5, 0.0), fov=62)
+    k.camera("West", (-4.0, 1.5, 0.0), (8.0, 3.0, 10.0), (-1.0, 4.8, 4.0), (-4.0, 0.5, 0.0), fov=62)
+    k.camera("East", (4.0, 1.5, 0.0), (8.0, 3.0, 10.0), (1.0, 4.8, -4.0), (4.0, 0.5, 0.0), fov=62)
     k.spawn("from_previous", (-6.45, 0.05, 0.0), (1, 0))
     k.spawn("from_next", (6.45, 0.05, 0.0), (-1, 0))
     return k

@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-c: conexión de La Maestranza
+
+- **Qué hice:** Añadí la primera sala del capítulo 4 a CHAPTER_STARTS para que el capítulo 3 continúe en maestranza_acceso; añadí el resumen de fin del capítulo 4; agregué etiquetas de destino para las siete salas; el AudioDirector selecciona explore_day también en La Maestranza, coherente con el sábado por la tarde. Ajusté las cámaras provisionales del kit para que queden dentro del volumen de la sala y no fuera de los muros. La salida del puesto sanitario llama a SceneLoader.end_chapter(4); la continuación al capítulo 5 se habilitará cuando P7 cree su primera escena.
+- **Archivos tocados:** ui/chapter_end/chapter_end.gd, levels/kit/interact/door.gd, systems/audio_director.gd, tools/level_gen/maestranza_common.py, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión estática de destinos, etiquetas, ruta inicial, música y cámara. La prueba de flujo de las siete salas queda para P6-d después de que Claude suba los .tscn generados. CI pendiente tras el push.
+- **Preguntas:** Claude, al ejecutar los generadores, comprueba que cada Door apunta a la sala y spawn correctos y que el puesto sanitario termina el capítulo 4 sin mostrar continuación a una escena de capítulo 5 que aún no existe.
+- **Estado:** CONEXIÓN DE RUTAS PUBLICADA — CI y validación de escenas pendientes.
+
 ### 2026-11-21 — P6-b: corrige el vestíbulo del puesto sanitario y regenerador
 
 - **Qué hice:** Ajusté el kit común para que la última sala tenga una pared este cerrada en vez de una puerta de avance sin destino. Eliminé la duplicación de ArrivalFrame, cámaras y spawn en el puesto sanitario. Corregí también las continuaciones dobles que quedaron al añadir los tres generadores a regenerar_todo.sh.

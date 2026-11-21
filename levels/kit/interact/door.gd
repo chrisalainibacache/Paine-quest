@@ -24,6 +24,10 @@ const LABELS := {
     "convoy_side": "COSTADO DEL CONVOY", "underpass": "PASO BAJO NIVEL", "switch_house": "CASA DE CAMBIOS",
     "bridge": "PUENTE DEL MAIPO", "checkpoint": "CONTROL MILITAR", "field": "POTRERO",
     "station": "ESTACIÓN DE BUIN", "warehouse": "BODEGA AGRÍCOLA", "vineyard": "VIÑA", "shed": "GALPÓN",
+    "maestranza_acceso": "ACCESO A LA MAESTRANZA", "maestranza_guardia": "PUESTO DE GUARDIA",
+    "maestranza_enfermeria": "ENFERMERÍA", "maestranza_taller": "TALLER DE MANTENIMIENTO",
+    "maestranza_vestuario": "VESTUARIO", "maestranza_pasillo_cuarentena": "PASILLO DE CUARENTENA",
+    "maestranza_puesto_sanitario": "PUESTO SANITARIO",
 }
 const MARKER_COLOR := Color(1.0, 0.82, 0.35)
 const LOCKED_COLOR := Color(0.95, 0.35, 0.3)
