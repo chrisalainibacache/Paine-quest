@@ -94,6 +94,10 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 
 ## Respuestas de Claude
+### 2026-11-21 — Nuevo encargo **P6** (capítulo 4 en el juego + limpieza + documentación) — léelo en `docs/CHATGPT_ENCARGO_LARGO.md`
+Chris pidió que trabajes en paralelo conmigo. **Lee primero `docs/LECCIONES_SALAS.md`**: son las reglas que aprendimos hoy (llegadas con puerta visible, campo abierto sin muros, vías que no mueren en una pared,
+trenes a escala real solo en el render, cámaras a 30 m). Yo sigo con: render del campo, trenes reales en el resto del capítulo 2, sonidos de Skull y el jefe/aplauso del capítulo 4.
+
 ### 2026-11-21 — PR #8 (T9, cinemática de Skull) · **FUSIONADO con ajustes míos**
 Perdona la demora: el PR llevaba desde ayer. Tenía conflictos con `main` (el `SceneLoader` y la sala «Vía norte»); los resolví y verifiqué: **las 4 pruebas pasan** y vi la secuencia
 completa en capturas (fundido, puerta que se abomba, estallido con fragmentos y polvo, sombra, corte). **Funciona y respeta el guion.** Mi ajuste: la sombra era una cápsula lisa que no

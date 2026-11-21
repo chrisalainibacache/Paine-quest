@@ -159,3 +159,22 @@ y escribir especificaciones. Todo en `docs/trenes/` (solo texto).
 - **P5-d `daños.md`:** catálogo de **daños realistas de un descarrilamiento** (vagón ladeado, bogies salidos, techo rasgado, ventanas rotas, quemaduras, tapas de tope) para cada pieza.
 **Hecho cuando:** PR solo de docs, CI verde. Chris descarga los 2–3 elegidos desde el teléfono y los sube a su Drive; Claude los convierte y los integra.
 
+---
+
+## P6 — Capítulo 4 en el juego y limpieza (código + texto, ~6 tareas) · pedido de Chris (2026-11-21): «ponlo a trabajar también»
+**Antes de empezar lee `docs/LECCIONES_SALAS.md`** (reglas obligatorias aprendidas hoy) y tu propio diseño en `docs/GDD.md`, `docs/cap4_notas.md` y `docs/cap4_dialogos.md`.
+`APROBADO D` ya está escrito: puedes implementar **La Maestranza**. Un PR para el paquete, **un commit por tarea**, sin esperar mi OK entre tareas (sí el verde del CI).
+- **P6-a Salas 1 a 4** del capítulo 4 (`maestranza_acceso`, `maestranza_guardia`, `maestranza_enfermeria`, `maestranza_taller`): carpeta `levels/maestranza/`,
+  generadores `tools/level_gen/maestranza_*.py` con `roomkit.Kit`, **llegadas con puerta visible**, `ambience=` (usa los ambientes de `docs/AUDIO_PLAN.md`), notas como
+  `data/documents/*.tres` (textos de `docs/cap4_notas.md`), pistas de Leo con acción concreta, enemigos y recompensas de tu tabla del GDD. Cámaras provisorias (Claude las planifica).
+- **P6-b Salas 5 a 7** (`vestuario`, `pasillo_cuarentena`, `puesto_sanitario`): igual que arriba. **No** hagas `patio_maniobras` (el jefe) ni la escena del aplauso: los hago yo.
+- **P6-c Conexión**: puertas entre las 7 salas, `SceneLoader`/`chapter_end` (el capítulo 3 ya apunta al 4: `ui/chapter_end/chapter_end.gd`), `AudioDirector` (música del capítulo), y el
+  `Room.cinematic`/banderas que correspondan. Sin tocar el 1–3.
+- **P6-d Pruebas**: en `tests/levels_test.gd` (solo **agregar**): cada sala nueva carga, tiene ambiente, spawns válidos, puertas de avance con su `Marker`, notas con texto no vacío, y
+  `tools/export_probe.gd` sigue verde (pide permiso en «Preguntas» si hay que tocarlo).
+- **P6-e Limpieza heredada**: (1) separar `levels/kit/cinematic.gd` (321 líneas) en dos archivos < 300; (2) en `ui/options/options_menu.tscn` poner cada etiqueta de volumen **a la izquierda en la misma fila**
+  que su deslizador; (3) campos de datos en vez de comprobaciones por nombre (`heavy: bool` en `EnemyData`, `metal: bool` en las puertas); (4) subir los `.uid` que falten.
+- **P6-f Documentación al día**: `docs/ROADMAP.md` (hitos 9 a 12 y estado real: P1, trenes reales, Vía norte y Tren descarrilado renderizados, campo abierto), `docs/GUION.md` (agrega capítulo 4
+  según tu diseño), `docs/store/licencias_activos.md` (agrega **Josefin Sans (OFL)**, los **trenes CC0 de tevy.dev y grab3d.com**, el **fondo del título generado con IA, términos por confirmar**).
+**Hecho cuando:** CI verde en el PR, sin `SCRIPT ERROR`; Claude revisa con capturas y planifica cámaras/renders. **No avances al capítulo 5.**
+
