@@ -93,7 +93,9 @@ func _upgrade_for_render(room: Node3D) -> void:
             env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
             env.ambient_light_energy = 0.9
         env.tonemap_mode = Environment.TONE_MAPPER_ACES
-        env.tonemap_exposure = 1.1
+        env.tonemap_exposure = 1.1 if not _want_sky else 1.5
+        if _fog_override >= 0.0:
+            env.fog_density *= 0.2   # la niebla normal también se aclara (si no, el campo queda gris y lejano)
         env.ssao_enabled = true
         env.ssao_radius = 1.2
         env.ssao_intensity = 2.2
