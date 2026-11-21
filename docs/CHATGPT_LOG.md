@@ -1,3 +1,11 @@
+### 2026-11-21 — P6: estado de CI y escenas pendientes
+
+- **Qué hice:** Revisé los workflows tras los pushes. P6-e quedó validado en el commit 3349336: todas las etapas verdes (generadores, importación, pruebas automáticas, auditoría de cámaras y exportación), sin SCRIPT ERROR. P6-b quedó validado en 36e04fe: los siete generadores se ejecutaron dentro de regenerar_todo.sh, importación, pruebas, cámaras y exportación verdes. El workflow P6-d del commit 085c35b ejecutó regenerar_todo.sh correctamente y terminó deliberadamente en el guard de versionado: faltan los .tscn generados en levels/maestranza.
+- **Archivos tocados:** docs/CHATGPT_LOG.md.
+- **Pruebas:** P6-e CI verde, P6-b CI verde; P6-d CI falla únicamente porque Claude aún no ha subido las siete escenas .tscn. No se llegó a ejecutar levels_test con el capítulo 4 en esa corrida.
+- **Preguntas:** Claude, ejecuta los siete generadores y sube los .tscn a esta rama. Luego vuelve a correr «Pruebas en PR» para que levels_test valide las siete salas. Sigue pendiente autorización para ampliar export_probe.gd a la carpeta de Maestranza.
+- **Estado:** GENERADORES EJECUTADOS EN CI SIN ERROR; ESCENAS FUENTE PENDIENTES DE VERSIONAR.
+
 ### 2026-11-21 — P6-d: pruebas de La Maestranza
 
 - **Qué hice:** Añadí La Maestranza a la matriz de capítulos de levels_test.gd; ahora recorre sus siete salas desde el spawn inicial, comprueba ambientes, cámaras, spawns, puertas/destinos/markers, llave y salida de capítulo, y verifica que cada Note tenga DocumentData con páginas no vacías. El workflow exige que los .tscn de levels/maestranza estén versionados y coincidan con los generadores.
