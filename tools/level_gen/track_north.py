@@ -8,7 +8,7 @@ T = "res://levels/tracks/%s.tscn"
 INTRO = ['Pasada la medianoche. La vía hacia el norte.', 'Allá adelante se ve un resplandor rojo y humo. Tiene que ser el tren de las 6:30, el que nunca llegó a Santiago.', 'Paz, aguanta. Vamos caminando.', 'Leo: Yo voy adelante, como siempre.']
 k = Kit("TrackNorth", "Vía norte", intro=INTRO, ambience="tracks_night")
 night(k)
-X0, X1, Z0, Z1 = -9.0, 9.0, -3.5, 3.5
+X0, X1, Z0, Z1 = -9.0, 9.0, -5.2, 3.5   # trinchera más ancha al norte: cabe el ramal con el vagón
 track_bed(k, X0, X1, Z0, Z1, track_z=0.0)
 walls(k, X0, X1, Z0, Z1, north="old_bricks_wall", south="concrete_wall", skip=("W", "E"))
 # Túnel de regreso a la estación (oeste): portal de ladrillo y tubo con la vía.
@@ -35,23 +35,29 @@ k.mesh("ServiceBulb", "Props", (0.16, 0.1, 0.1), k.emissive((1.0, 0.5, 0.2), 1.6
 k.s.node("EastMouthBlock", "StaticBody3D", ".", position=v3((8.75, 1.5, 0.0)))
 k.s.node("Shape", "CollisionShape3D", "EastMouthBlock", shape=k.s.subres("BoxShape3D", {"size": v3((0.3, 3.0, 4.2))}))
 # Desvío: de la vía principal sale un ramal al norte. El maquinista metió el tren por ahí a propósito (nota del
-# maquinista); el ramal termina en un tope de vía y ahí quedó descarrilado el último vagón, destrozado.
-k.s.node("Siding", "Node3D", "Ground", position=v3((1.3, 0.0, -1.2)), rotation=v3((0, 0.3, 0)),
-         script=k.s.res("res://levels/kit/rail_track.gd", "Script"), length="8.0",
+# maquinista); el ramal termina en un tope de vía y ahí quedó descarrilado el último vagón (la mitad delantera: el
+# vagón se partió en el choque). Todo cabe dentro de la trinchera: nada atraviesa los muros.
+ANG = 0.26
+SX = -3.0                                  # punto del cambio de vía, sobre la vía principal
+SLEN = 9.0
+cx, cz = SX + SLEN / 2 * math.cos(ANG), -SLEN / 2 * math.sin(ANG)
+k.s.node("Siding", "Node3D", "Ground", position=v3((cx, 0.0, cz)), rotation=v3((0, ANG, 0)),
+         script=k.s.res("res://levels/kit/rail_track.gd", "Script"), length=fmt(SLEN),
          sleeper_material=k.s.res(M("wood"), "Material"), rail_material=k.s.res(M("metal"), "Material"))
 # Cambio de vía: caja y palanca junto al desvío (quedó puesta hacia el ramal).
-k.block("SwitchStand", "Props", (-2.2, 0.35, 1.1), (0.3, 0.7, 0.3), "metal", solid=False)
-k.block("SwitchLever", "Props", (-2.2, 0.85, 1.1), (0.06, 0.06, 0.7), "rust", solid=False, rot=(0.9, 0, 0))
-k.mesh("SwitchLamp", "Props", (0.12, 0.12, 0.12), k.emissive((1.0, 0.15, 0.08), 1.8), (-2.2, 1.0, 1.1))
+k.block("SwitchStand", "Props", (SX + 0.7, 0.35, 1.15), (0.3, 0.7, 0.3), "metal", solid=False)
+k.block("SwitchLever", "Props", (SX + 0.7, 0.85, 1.15), (0.06, 0.06, 0.7), "rust", solid=False, rot=(0.9, 0, 0))
+k.mesh("SwitchLamp", "Props", (0.12, 0.12, 0.12), k.emissive((1.0, 0.15, 0.08), 1.8), (SX + 0.7, 1.0, 1.15))
 # Tope de vía al final del ramal, doblado por el impacto.
-k.block("BufferStop", "Props", (5.6, 0.4, -2.55), (0.4, 0.8, 1.7), "rust", solid=False, rot=(0, 0.3, 0.2))
-k.block("BufferBeam", "Props", (5.3, 0.15, -2.45), (0.5, 0.3, 1.9), "metal", solid=False, rot=(0, 0.3, 0))
-# Último vagón del tren de las 6:30: salió del ramal y quedó ladeado contra el talud, con daños.
-k.prop("CrossWagon", "Props", "train_wagon_wrecked", (10.4, 0.15, -3.7), rot=(-0.3, 0.08, 0))
+ex, ez = SX + SLEN * math.cos(ANG), -SLEN * math.sin(ANG)
+k.block("BufferStop", "Props", (ex + 0.1, 0.45, ez), (0.4, 0.9, 1.7), "rust", solid=False, rot=(0, ANG, 0.2))
+k.block("BufferBeam", "Props", (ex - 0.1, 0.2, ez), (0.5, 0.3, 1.9), "metal", solid=False, rot=(0, ANG, 0))
+# Mitad delantera del último vagón, salida del ramal y ladeada contra el talud, con daños.
+k.prop("CrossWagon", "Props", "train_wagon_half_wrecked", (ex - 1.0, 0.12, ez - 1.35), rot=(-0.2, ANG - 0.04, 0))
 # Restos tirados en el suelo: una puerta arrancada y un bogie salido del vagón.
-k.block("FallenDoor", "Props", (4.3, 0.04, -1.0), (0.9, 0.07, 1.9), "rust", solid=False, rot=(0, 0.9, 0.0))
-k.block("LooseBogie", "Props", (7.0, 0.3, -1.1), (1.9, 0.6, 1.0), "rust", solid=False, rot=(0, 0.5, 0.12))
-k.prop("FireEast", "Props", "fire", (8.0, 0, -1.9))
+k.block("FallenDoor", "Props", (ex - 3.6, 0.04, ez + 0.9), (0.9, 0.07, 1.9), "rust", solid=False, rot=(0, 0.9, 0.0))
+k.block("LooseBogie", "Props", (ex - 0.2, 0.3, ez + 2.0), (1.9, 0.6, 1.0), "rust", solid=False, rot=(0, 0.5, 0.12))
+k.prop("FireEast", "Props", "fire", (ex + 0.9, 0, ez + 1.2))
 # Poste de señales con la luz roja.
 k.block("SignalPole", "Props", (-3.5, 2.0, -2.9), (0.15, 4.0, 0.15), "metal")
 k.block("SignalHead", "Props", (-3.5, 3.6, -2.75), (0.4, 0.7, 0.25), "metal", solid=False)
@@ -81,8 +87,8 @@ k.infected("Runner", (5.4, 0.05, 1.3), yaw=-math.pi / 2, kind="infected_fast")
 k.infected("Body1", (0.4, 0.05, 1.9), yaw=0.8, state="corpse", kind="infected_burnt")
 k.infected("Body2", (2.2, 0.05, 2.5), yaw=2.4, state="corpse")
 # Cámaras.
-k.camera("West", (-4.5, 1.5, 0.0), (9.0, 3.0, 7.0), (1.6, 3.2, 3.1), (-6.5, 0.3, -1.0), fov=58)
-k.camera("East", (4.5, 1.5, 0.0), (9.0, 3.0, 7.0), (-1.6, 3.2, 3.1), (6.5, 0.5, -0.4), fov=58)
+k.camera("West", (-4.5, 1.5, -0.85), (9.0, 3.0, 8.7), (1.6, 3.2, 3.1), (-6.5, 0.3, -1.0), fov=58)
+k.camera("East", (4.5, 1.5, -0.85), (9.0, 3.0, 8.7), (-1.6, 3.2, 3.1), (6.5, 0.5, -0.4), fov=58)
 k.spawn("start", (-7.4, 0.05, 0.8), (1, 0))
 k.spawn("from_derailed", (6.2, 0.05, 2.1), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.

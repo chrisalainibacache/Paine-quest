@@ -7,7 +7,7 @@
 render_priority = 0
 shader = ExtResource("1_shader")
 shader_parameter/albedo_tex = ExtResource("2_tex")
-shader_parameter/tint = Color(0.28, 0.38, 0.62, 1)
+shader_parameter/tint = Color(0.17, 0.25, 0.42, 1)
 shader_parameter/tile_meters = 1.5
-shader_parameter/grime_strength = 0.45
+shader_parameter/grime_strength = 0.6
 shader_parameter/macro_strength = 0.25

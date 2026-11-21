@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/tunnel_portal_dark.tscn" id="9_tunnel_porta"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/tunnel_portal_red.tscn" id="10_tunnel_porta"]
 [ext_resource type="Material" path="res://levels/kit/materials/rust.tres" id="11_rust"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/train_wagon_wrecked.tscn" id="12_train_wagon_"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/train_wagon_half_wrecked.tscn" id="12_train_wagon_"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/fire.tscn" id="13_fire"]
 [ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="14_planks"]
 [ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_sur.png" id="15_graffiti_sur"]
@@ -81,16 +81,16 @@ emission_energy_multiplier = 2
 size = Vector3(0.16, 0.16, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_10"]
-size = Vector3(6.6875, 3, 8)
+size = Vector3(5.75, 3, 9.75)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_11"]
-size = Vector3(6.1875, 3, 8)
+size = Vector3(5.25, 3, 9.75)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_12"]
-size = Vector3(6.1875, 3, 8)
+size = Vector3(5.25, 3, 9.75)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_13"]
-size = Vector3(6.6875, 3, 8)
+size = Vector3(5.75, 3, 9.75)
 
 [node name="TrackNorth" type="Node3D"]
 script = ExtResource("1_room")
@@ -109,9 +109,9 @@ light_energy = 0.75
 [node name="Ground" type="Node3D" parent="."]
 
 [node name="Ground" type="StaticBody3D" parent="Ground"]
-position = Vector3(0, -0.5, 0)
+position = Vector3(0, -0.5, -0.85)
 script = ExtResource("2_kit_block")
-size = Vector3(18.6, 1, 7.6)
+size = Vector3(18.6, 1, 9.3)
 surface = ExtResource("3_gravel")
 
 [node name="Track0" type="Node3D" parent="Ground"]
@@ -124,7 +124,7 @@ rail_material = ExtResource("6_metal")
 [node name="Walls" type="Node3D" parent="."]
 
 [node name="NorthWall" type="StaticBody3D" parent="Walls"]
-position = Vector3(0, 2.6, -3.65)
+position = Vector3(0, 2.6, -5.35)
 script = ExtResource("2_kit_block")
 size = Vector3(18.6, 5.8, 0.3)
 surface = ExtResource("7_old_bricks_w")
@@ -136,9 +136,9 @@ size = Vector3(18.6, 5.8, 0.3)
 surface = ExtResource("8_concrete_wal")
 
 [node name="WestTunnelWallN" type="StaticBody3D" parent="Walls"]
-position = Vector3(-9.15, 2.6, -2.55)
+position = Vector3(-9.15, 2.6, -3.4)
 script = ExtResource("2_kit_block")
-size = Vector3(0.3, 5.8, 1.9)
+size = Vector3(0.3, 5.8, 3.6)
 surface = ExtResource("8_concrete_wal")
 
 [node name="WestTunnelWallS" type="StaticBody3D" parent="Walls"]
@@ -212,9 +212,9 @@ position = Vector3(-9, 0, 0)
 rotation = Vector3(0, 3.1416, 0)
 
 [node name="EastTunnelWallN" type="StaticBody3D" parent="Walls"]
-position = Vector3(9.15, 2.6, -2.55)
+position = Vector3(9.15, 2.6, -3.4)
 script = ExtResource("2_kit_block")
-size = Vector3(0.3, 5.8, 1.9)
+size = Vector3(0.3, 5.8, 3.6)
 surface = ExtResource("8_concrete_wal")
 
 [node name="EastTunnelWallS" type="StaticBody3D" parent="Walls"]
@@ -442,22 +442,22 @@ position = Vector3(8.75, 1.5, 0)
 shape = SubResource("BoxShape3D_5")
 
 [node name="Siding" type="Node3D" parent="Ground"]
-position = Vector3(1.3, 0, -1.2)
-rotation = Vector3(0, 0.3, 0)
+position = Vector3(1.3488, 0, -1.1569)
+rotation = Vector3(0, 0.26, 0)
 script = ExtResource("4_rail_track")
-length = 8.0
+length = 9
 sleeper_material = ExtResource("5_wood")
 rail_material = ExtResource("6_metal")
 
 [node name="SwitchStand" type="StaticBody3D" parent="Props"]
-position = Vector3(-2.2, 0.35, 1.1)
+position = Vector3(-2.3, 0.35, 1.15)
 script = ExtResource("2_kit_block")
 size = Vector3(0.3, 0.7, 0.3)
 surface = ExtResource("6_metal")
 solid = false
 
 [node name="SwitchLever" type="StaticBody3D" parent="Props"]
-position = Vector3(-2.2, 0.85, 1.1)
+position = Vector3(-2.3, 0.85, 1.15)
 rotation = Vector3(0.9, 0, 0)
 script = ExtResource("2_kit_block")
 size = Vector3(0.06, 0.06, 0.7)
@@ -465,32 +465,32 @@ surface = ExtResource("11_rust")
 solid = false
 
 [node name="SwitchLamp" type="MeshInstance3D" parent="Props"]
-position = Vector3(-2.2, 1, 1.1)
+position = Vector3(-2.3, 1, 1.15)
 mesh = SubResource("BoxMesh_7")
 material_override = SubResource("StandardMaterial3D_6")
 
 [node name="BufferStop" type="StaticBody3D" parent="Props"]
-position = Vector3(5.6, 0.4, -2.55)
-rotation = Vector3(0, 0.3, 0.2)
+position = Vector3(5.7975, 0.45, -2.3137)
+rotation = Vector3(0, 0.26, 0.2)
 script = ExtResource("2_kit_block")
-size = Vector3(0.4, 0.8, 1.7)
+size = Vector3(0.4, 0.9, 1.7)
 surface = ExtResource("11_rust")
 solid = false
 
 [node name="BufferBeam" type="StaticBody3D" parent="Props"]
-position = Vector3(5.3, 0.15, -2.45)
-rotation = Vector3(0, 0.3, 0)
+position = Vector3(5.5975, 0.2, -2.3137)
+rotation = Vector3(0, 0.26, 0)
 script = ExtResource("2_kit_block")
 size = Vector3(0.5, 0.3, 1.9)
 surface = ExtResource("6_metal")
 solid = false
 
 [node name="CrossWagon" parent="Props" instance=ExtResource("12_train_wagon_")]
-position = Vector3(10.4, 0.15, -3.7)
-rotation = Vector3(-0.3, 0.08, 0)
+position = Vector3(4.6975, 0.12, -3.6637)
+rotation = Vector3(-0.2, 0.22, 0)
 
 [node name="FallenDoor" type="StaticBody3D" parent="Props"]
-position = Vector3(4.3, 0.04, -1)
+position = Vector3(2.0975, 0.04, -1.4137)
 rotation = Vector3(0, 0.9, 0)
 script = ExtResource("2_kit_block")
 size = Vector3(0.9, 0.07, 1.9)
@@ -498,7 +498,7 @@ surface = ExtResource("11_rust")
 solid = false
 
 [node name="LooseBogie" type="StaticBody3D" parent="Props"]
-position = Vector3(7, 0.3, -1.1)
+position = Vector3(5.4975, 0.3, -0.3137)
 rotation = Vector3(0, 0.5, 0.12)
 script = ExtResource("2_kit_block")
 size = Vector3(1.9, 0.6, 1)
@@ -506,7 +506,7 @@ surface = ExtResource("11_rust")
 solid = false
 
 [node name="FireEast" parent="Props" instance=ExtResource("13_fire")]
-position = Vector3(8, 0, -1.9)
+position = Vector3(6.5975, 0, -1.1137)
 
 [node name="SignalPole" type="StaticBody3D" parent="Props"]
 position = Vector3(-3.5, 2, -2.9)
@@ -703,57 +703,57 @@ script = ExtResource("36_leo_hint")
 lines = PackedStringArray("Leo: Ese humo es del tren de las 6:30. Huele a fierro quemado... y a ellos.", "Leo: Por ahí se sigue. Pégate a mí.", "Leo: Sigue la flecha amarilla hacia TREN DESCARRILADO.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
-position = Vector3(-10.1562, 1.5, 0)
+position = Vector3(-6.625, 1.5, -0.875)
 script = ExtResource("35_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_10")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam1"]
-position = Vector3(6.4563, 1.3, 0.8)
-rotation = Vector3(-0.346, 1.4393, 0)
+position = Vector3(6.925, 2.2, 0.925)
+rotation = Vector3(-0.4455, 1.4278, 0)
 fov = 56
 near = 0.1
 far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
-position = Vector3(-4.7188, 1.5, 0)
+position = Vector3(-2.125, 1.5, -0.875)
 script = ExtResource("35_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_11")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam2"]
-position = Vector3(6.0188, 0.6, 1.8)
-rotation = Vector3(-0.2333, 1.2816, 0)
+position = Vector3(-5.575, 3.4, -0.075)
+rotation = Vector3(-0.657, -1.5842, 0)
 fov = 56
 near = 0.1
 far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
-position = Vector3(0.4688, 1.5, 0)
+position = Vector3(2.125, 1.5, -0.875)
 script = ExtResource("35_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_12")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam3"]
-position = Vector3(-6.1687, 2.2, -0.2)
-rotation = Vector3(-0.4634, -1.603, 0)
+position = Vector3(-5.825, 0.3, 3.925)
+rotation = Vector3(-0.1692, -0.9779, 0)
 fov = 56
 near = 0.1
 far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
-position = Vector3(5.9062, 1.5, 0)
+position = Vector3(6.625, 1.5, -0.875)
 script = ExtResource("35_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_13")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam4"]
-position = Vector3(-6.6062, 2.2, 0.8)
-rotation = Vector3(-0.4604, -1.4425, 0)
+position = Vector3(-5.325, 3.4, 0.925)
+rotation = Vector3(-0.7279, -1.5863, 0)
 fov = 56
 near = 0.1
 far = 60.0
