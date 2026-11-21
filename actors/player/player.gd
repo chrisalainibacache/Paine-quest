@@ -29,6 +29,8 @@ const MAX_HEALTH := 100
 const HURT_TIME := 0.55
 const INVULNERABLE_TIME := 0.9
 const ANIMATIONS := preload("res://actors/player/cony_animations.res")
+## Modelo de Ignacia (misma biblioteca de animaciones: ambos esqueletos son humanoides de Godot).
+const IGNACIA_MODEL := preload("res://assets/characters/ignacia/ignacia.glb")
 
 @onready var model: Node3D = $Model
 @onready var anim: AnimationPlayer = $AnimationPlayer
@@ -53,6 +55,20 @@ var _action_time := 0.0
 var _hurt_time := 0.0
 var _invulnerable_time := 0.0
 var _danger_breath_timer := 0.0
+
+
+func _enter_tree() -> void:
+    # Antes de _ready, para que el arma y las animaciones se monten sobre el modelo definitivo.
+    if GameSettings.get_character() == "ignacia":
+        var old := get_node_or_null("Model") as Node3D
+        if old != null:
+            var fresh := IGNACIA_MODEL.instantiate() as Node3D
+            fresh.name = "NewModel"
+            fresh.transform = old.transform
+            remove_child(old)
+            old.free()
+            add_child(fresh)
+            fresh.name = "Model"
 
 
 func _ready() -> void:

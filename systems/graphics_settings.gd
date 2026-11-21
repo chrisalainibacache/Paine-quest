@@ -53,6 +53,7 @@ static func cycle_brightness(tree: SceneTree) -> void:
 
 static func _save() -> void:
     var cfg := ConfigFile.new()
+    cfg.load(PATH)   # conserva las demás secciones del archivo (volúmenes, personaje)
     cfg.set_value("graficos", "version", SETTINGS_VERSION)
     cfg.set_value("graficos", "modo", "moderno" if _modern else "retro")
     cfg.set_value("graficos", "brillo", _brightness)

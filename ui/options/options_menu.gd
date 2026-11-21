@@ -21,6 +21,7 @@ func _ready() -> void:
     sfx_slider.value_changed.connect(_set_sfx_volume)
     music_slider.value_changed.connect(_set_music_volume)
     ambience_slider.value_changed.connect(_set_ambience_volume)
+    $Panel/Layout/Character.pressed.connect(_toggle_character)
     $Panel/Layout/Buttons/Credits.pressed.connect(_show_credits)
     $Panel/Layout/Buttons/Privacy.pressed.connect(_open_privacy)
     $Panel/Layout/Buttons/Close.pressed.connect(close)
@@ -28,9 +29,23 @@ func _ready() -> void:
 
 func open() -> void:
     _sync_sliders()
+    _refresh_character()
     message.text = ""
     visible = true
     Sfx.play("menu", null, -6.0)
+
+
+## Prueba de Ignacia (jugadora 2): hasta el modo cooperativo, se puede elegir con quién jugar. Se aplica al cargar la siguiente sala.
+func _toggle_character() -> void:
+    GameSettings.set_character("isabella" if GameSettings.get_character() == "ignacia" else "ignacia")
+    _refresh_character()
+    message.text = "Cambia al cargar la siguiente sala."
+    Sfx.play("menu", null, -6.0)
+
+
+func _refresh_character() -> void:
+    var character := $Panel/Layout/Character as Button
+    character.text = "PERSONAJE: IGNACIA (PRUEBA)" if GameSettings.get_character() == "ignacia" else "PERSONAJE: ISABELLA"
 
 
 func close() -> void:

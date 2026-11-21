@@ -8,7 +8,7 @@
   https://opengameart.org/content/zombie
 - Infectado detallado (modo Moderno): **"Male City Zombie" de Rikindle3D**, CC0 —
   https://opengameart.org/content/male-city-zombie-ready-for-use-in-game-engines
-- Leo, animaciones de infectados (UAL), escopeta, fusil y rifle: **Quaternius**, CC0 —
+- **Ignacia** (modelo base, pelo y esqueleto, «Universal Base Characters»), Leo, animaciones de infectados (UAL), escopeta, fusil y rifle: **Quaternius**, CC0 —
   https://quaternius.com
 - Más detalle de cada asset y su licencia: `assets/**/LICENSE.txt` y `docs/ASSETS.md`.
 

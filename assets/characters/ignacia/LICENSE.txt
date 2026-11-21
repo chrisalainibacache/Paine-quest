@@ -1,0 +1,4 @@
+Ignacia (jugadora 2): base humana "Universal Base Characters [Standard]" de Quaternius (CC0 1.0, dominio público),
+esqueleto Unreal/UAL de 65 huesos; pelo largo y cejas del mismo pack. Cuerpo, ropa (polerón, buzo, zapatillas) y mochila
+generados por tools/build_ignacia.gd; texturas a 512 px. La apariencia está inspirada en una persona real con su permiso
+(pendiente de confirmar antes de publicar en tienda; ver docs/DISENO_IGNACIA.md).

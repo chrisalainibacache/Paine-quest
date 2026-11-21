@@ -30,6 +30,21 @@ static func set_volume_percent(bus_name: String, percent: float) -> void:
     _apply_bus(bus_name)
 
 
+## Personaje jugable: "isabella" o "ignacia" (ajuste de prueba hasta que exista el modo cooperativo).
+static func get_character() -> String:
+    _ensure_loaded()
+    var value := str(_config.get_value("juego", "personaje", "isabella"))
+    return value if value in ["isabella", "ignacia"] else "isabella"
+
+
+static func set_character(character: String) -> void:
+    _ensure_loaded()
+    _config.set_value("juego", "personaje", character if character in ["isabella", "ignacia"] else "isabella")
+    var error := _config.save(SETTINGS_PATH)
+    if error != OK:
+        push_warning("No se pudo guardar el personaje: %s" % error)
+
+
 static func _ensure_loaded() -> void:
     if _loaded:
         return

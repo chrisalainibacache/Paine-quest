@@ -60,6 +60,7 @@ func _run() -> void:
     await _chapter_route(player)
     await _chapter_two()
     await _cinematic()
+    await _ignacia()
     _finish()
 
 
@@ -880,3 +881,24 @@ func _cinematic() -> void:
     _check(get_root().get_tree().get_first_node_in_group("cinematics") == null,
         "T9: la cinemática no se reproduce una segunda vez")
     SceneLoader.cinematics_enabled = false
+
+
+## Ignacia (jugadora 2): el modelo con esqueleto carga, comparte las animaciones de Isabella y puede llevar arma.
+func _ignacia() -> void:
+    var previous := GameSettings.get_character()
+    GameSettings.set_character("ignacia")
+    var player := (load("res://actors/player/player.tscn") as PackedScene).instantiate() as Player
+    current_scene.add_child(player)
+    await _frames(2)
+    _check(player.model.scene_file_path == "res://assets/characters/ignacia/ignacia.glb", "Ignacia: el jugador usa su modelo")
+    var skeleton := player.model.find_child("GeneralSkeleton", true, false) as Skeleton3D
+    _check(skeleton != null and skeleton.find_bone("RightHand") >= 0, "Ignacia: tiene esqueleto humanoide con mano derecha")
+    var idle := player.anim.get_animation("cony/Idle")
+    var resolved := 0
+    for t in idle.get_track_count():
+        if player.model.get_node_or_null(String(idle.track_get_path(t)).get_slice(":", 0)) != null:
+            resolved += 1
+    _check(idle.get_track_count() > 0 and resolved == idle.get_track_count(), "Ignacia: las animaciones de Isabella encajan en su esqueleto (%d/%d)" % [resolved, idle.get_track_count()])
+    player.queue_free()
+    GameSettings.set_character(previous)
+    await _frames(1)
