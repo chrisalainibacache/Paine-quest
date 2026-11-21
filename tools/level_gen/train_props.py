@@ -111,6 +111,21 @@ for ex in (-1, 1):
     quad(s, "TailLamp%d" % ex, ".", (ex * (L / 2 + 0.02), 1.0, 0.95), (0.02, 0.16, 0.16), emissive(s, (0.9, 0.05, 0.03), 0.8))
 s.save(OUT + "train_wagon.tscn")
 
+# --- Vagón siniestrado: el mismo vagón con daños (frente aplastado, tajo en el costado, techo rasgado,
+# hollín del incendio). La puerta arrancada y el bogie salido van sueltos en el suelo de la sala.
+s = Scene(); s.node("TrainWagonWrecked", "Node3D")
+s.node("Wagon", None, ".", instance=s.res("res://levels/kit/props/train_wagon.tscn", "PackedScene"))
+L, W = 14.0, 2.9
+blk(s, "CrushedFront", ".", (L / 2 + 0.25, 1.9, 0.1), (0.9, 2.8, 2.6), "soot", solid=False, rot=(0.05, 0.0, -0.18))
+blk(s, "CrushedRoofEdge", ".", (L / 2 - 0.5, 3.45, 0.0), (1.6, 0.2, 2.5), "rust", solid=False, rot=(0.0, 0.0, 0.35))
+blk(s, "GashS", ".", (2.4, 2.0, W / 2 + 0.04), (3.2, 1.5, 0.08), "soot", solid=False)
+blk(s, "TornFlap1", ".", (0.6, 2.5, W / 2 + 0.25), (1.4, 0.06, 0.7), "rust", solid=False, rot=(0.6, 0.0, 0.1))
+blk(s, "TornFlap2", ".", (4.1, 1.5, W / 2 + 0.3), (1.2, 0.06, 0.6), "rust", solid=False, rot=(-0.7, 0.0, -0.1))
+blk(s, "RoofTear", ".", (-2.8, 3.52, 0.2), (2.8, 0.14, 1.6), "soot", solid=False, rot=(0.0, 0.2, 0.08))
+blk(s, "SootUpperS", ".", (5.0, 2.55, W / 2 + 0.03), (4.0, 1.1, 0.06), "soot", solid=False)
+blk(s, "SootUpperN", ".", (4.0, 2.55, -W / 2 - 0.03), (5.0, 1.1, 0.06), "soot", solid=False)
+s.save(OUT + "train_wagon_wrecked.tscn")
+
 # --- Locomotora diésel (largo en X, 12 m), cabina en +X.
 s = Scene(); s.node("Locomotive", "Node3D")
 L, W = 12.0, 3.0

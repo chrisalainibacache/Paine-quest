@@ -9,32 +9,33 @@
 [ext_resource type="Material" path="res://levels/kit/materials/old_bricks_wall.tres" id="7_old_bricks_w"]
 [ext_resource type="Material" path="res://levels/kit/materials/concrete_wall.tres" id="8_concrete_wal"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/tunnel_portal_dark.tscn" id="9_tunnel_porta"]
-[ext_resource type="Material" path="res://levels/kit/materials/rust.tres" id="10_rust"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/train_wagon.tscn" id="11_train_wagon"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/fire.tscn" id="12_fire"]
-[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="13_planks"]
-[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_sur.png" id="14_graffiti_sur"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="15_decal"]
-[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_no_signal.png" id="16_graffiti_no_"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_splatter_b.png" id="17_blood_splatt"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_handprint.png" id="18_blood_handpr"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="19_blood_drag"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="20_blood_pool"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="21_blood_footpr"]
-[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="22_door"]
-[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="23_examine_spot"]
-[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="24_note"]
-[ext_resource type="Resource" path="res://data/documents/passenger_ticket.tres" id="25_passenger_ti"]
-[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="26_paper"]
-[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="27_pickup"]
-[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="28_ammo_shells"]
-[ext_resource type="Resource" path="res://data/items/sushi.tres" id="29_sushi"]
-[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="30_infected_wor"]
-[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="31_infected"]
-[ext_resource type="Resource" path="res://data/enemies/infected_fast.tres" id="32_infected_fas"]
-[ext_resource type="Resource" path="res://data/enemies/infected_burnt.tres" id="33_infected_bur"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="34_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="35_leo_hint"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/tunnel_portal_red.tscn" id="10_tunnel_porta"]
+[ext_resource type="Material" path="res://levels/kit/materials/rust.tres" id="11_rust"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/train_wagon_wrecked.tscn" id="12_train_wagon_"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/fire.tscn" id="13_fire"]
+[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="14_planks"]
+[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_sur.png" id="15_graffiti_sur"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="16_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_no_signal.png" id="17_graffiti_no_"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_splatter_b.png" id="18_blood_splatt"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_handprint.png" id="19_blood_handpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="20_blood_drag"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="21_blood_pool"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="22_blood_footpr"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="23_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="24_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="25_note"]
+[ext_resource type="Resource" path="res://data/documents/passenger_ticket.tres" id="26_passenger_ti"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="27_paper"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="28_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="29_ammo_shells"]
+[ext_resource type="Resource" path="res://data/items/sushi.tres" id="30_sushi"]
+[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="31_infected_wor"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="32_infected"]
+[ext_resource type="Resource" path="res://data/enemies/infected_fast.tres" id="33_infected_fas"]
+[ext_resource type="Resource" path="res://data/enemies/infected_burnt.tres" id="34_infected_bur"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="35_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="36_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -58,25 +59,37 @@ emission_energy_multiplier = 1.6
 [sub_resource type="BoxMesh" id="BoxMesh_4"]
 size = Vector3(0.16, 0.1, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5"]
+size = Vector3(0.3, 3, 4.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6"]
+albedo_color = Color(1, 0.15, 0.08, 1)
+emission_enabled = true
+emission = Color(1, 0.15, 0.08, 1)
+emission_energy_multiplier = 1.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.12, 0.12, 0.12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8"]
 albedo_color = Color(1, 0.1, 0.05, 1)
 emission_enabled = true
 emission = Color(1, 0.1, 0.05, 1)
 emission_energy_multiplier = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_6"]
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
 size = Vector3(0.16, 0.16, 0.04)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
 size = Vector3(6.6875, 3, 8)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_11"]
 size = Vector3(6.1875, 3, 8)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_9"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_12"]
 size = Vector3(6.1875, 3, 8)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_13"]
 size = Vector3(6.6875, 3, 8)
 
 [node name="TrackNorth" type="Node3D"]
@@ -120,12 +133,6 @@ surface = ExtResource("7_old_bricks_w")
 position = Vector3(0, 2.6, 3.65)
 script = ExtResource("2_kit_block")
 size = Vector3(18.6, 5.8, 0.3)
-surface = ExtResource("8_concrete_wal")
-
-[node name="EastWall" type="StaticBody3D" parent="Walls"]
-position = Vector3(9.15, 2.6, 0)
-script = ExtResource("2_kit_block")
-size = Vector3(0.3, 5.8, 7)
 surface = ExtResource("8_concrete_wal")
 
 [node name="WestTunnelWallN" type="StaticBody3D" parent="Walls"]
@@ -203,6 +210,82 @@ surface = ExtResource("8_concrete_wal")
 [node name="WestTunnelPortal" parent="Walls" instance=ExtResource("9_tunnel_porta")]
 position = Vector3(-9, 0, 0)
 rotation = Vector3(0, 3.1416, 0)
+
+[node name="EastTunnelWallN" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.6, -2.55)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.8, 1.9)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelWallS" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.6, 2.55)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 5.8, 1.9)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelUnder" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, -0.15, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.3, 3.2)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelStepL1" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.28, -1.5838)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.32, 0.0323)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelStepR1" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.28, 1.5838)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.32, 0.0323)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelStepL2" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.6, -1.5332)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.32, 0.1336)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelStepR2" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.6, 1.5332)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.32, 0.1336)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelStepL3" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.92, -1.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.32, 0.32)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelStepR3" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 2.92, 1.44)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.32, 0.32)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelStepL4" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 3.24, -1.28)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.32, 0.64)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelStepR4" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 3.24, 1.28)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.32, 0.64)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelLintel" type="StaticBody3D" parent="Walls"]
+position = Vector3(9.15, 4.45, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 2.1, 3.2)
+surface = ExtResource("8_concrete_wal")
+
+[node name="EastTunnelPortal" parent="Walls" instance=ExtResource("10_tunnel_porta")]
+position = Vector3(9, 0, 0)
+rotation = Vector3(0, 0, 0)
 
 [node name="FenceAPost0" type="StaticBody3D" parent="Walls"]
 position = Vector3(-9, 0.5, 3.42)
@@ -334,7 +417,7 @@ position = Vector3(6.65, 1.05, 3.28)
 rotation = Vector3(0, 0.9, 0)
 script = ExtResource("2_kit_block")
 size = Vector3(0.12, 2.1, 0.9)
-surface = ExtResource("10_rust")
+surface = ExtResource("11_rust")
 solid = false
 
 [node name="Lights" type="Node3D" parent="."]
@@ -352,12 +435,78 @@ position = Vector3(7, 2.45, 3.4)
 mesh = SubResource("BoxMesh_4")
 material_override = SubResource("StandardMaterial3D_3")
 
-[node name="CrossWagon" parent="Props" instance=ExtResource("11_train_wagon")]
-position = Vector3(10.6, 0.15, -1.5)
-rotation = Vector3(-0.42, 0.1, 0)
+[node name="EastMouthBlock" type="StaticBody3D" parent="."]
+position = Vector3(8.75, 1.5, 0)
 
-[node name="FireEast" parent="Props" instance=ExtResource("12_fire")]
-position = Vector3(8.3, 0, -2.3)
+[node name="Shape" type="CollisionShape3D" parent="EastMouthBlock"]
+shape = SubResource("BoxShape3D_5")
+
+[node name="Siding" type="Node3D" parent="Ground"]
+position = Vector3(1.3, 0, -1.2)
+rotation = Vector3(0, 0.3, 0)
+script = ExtResource("4_rail_track")
+length = 8.0
+sleeper_material = ExtResource("5_wood")
+rail_material = ExtResource("6_metal")
+
+[node name="SwitchStand" type="StaticBody3D" parent="Props"]
+position = Vector3(-2.2, 0.35, 1.1)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 0.7, 0.3)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="SwitchLever" type="StaticBody3D" parent="Props"]
+position = Vector3(-2.2, 0.85, 1.1)
+rotation = Vector3(0.9, 0, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 0.06, 0.7)
+surface = ExtResource("11_rust")
+solid = false
+
+[node name="SwitchLamp" type="MeshInstance3D" parent="Props"]
+position = Vector3(-2.2, 1, 1.1)
+mesh = SubResource("BoxMesh_7")
+material_override = SubResource("StandardMaterial3D_6")
+
+[node name="BufferStop" type="StaticBody3D" parent="Props"]
+position = Vector3(5.6, 0.4, -2.55)
+rotation = Vector3(0, 0.3, 0.2)
+script = ExtResource("2_kit_block")
+size = Vector3(0.4, 0.8, 1.7)
+surface = ExtResource("11_rust")
+solid = false
+
+[node name="BufferBeam" type="StaticBody3D" parent="Props"]
+position = Vector3(5.3, 0.15, -2.45)
+rotation = Vector3(0, 0.3, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.5, 0.3, 1.9)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="CrossWagon" parent="Props" instance=ExtResource("12_train_wagon_")]
+position = Vector3(10.4, 0.15, -3.7)
+rotation = Vector3(-0.3, 0.08, 0)
+
+[node name="FallenDoor" type="StaticBody3D" parent="Props"]
+position = Vector3(4.3, 0.04, -1)
+rotation = Vector3(0, 0.9, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.9, 0.07, 1.9)
+surface = ExtResource("11_rust")
+solid = false
+
+[node name="LooseBogie" type="StaticBody3D" parent="Props"]
+position = Vector3(7, 0.3, -1.1)
+rotation = Vector3(0, 0.5, 0.12)
+script = ExtResource("2_kit_block")
+size = Vector3(1.9, 0.6, 1)
+surface = ExtResource("11_rust")
+solid = false
+
+[node name="FireEast" parent="Props" instance=ExtResource("13_fire")]
+position = Vector3(8, 0, -1.9)
 
 [node name="SignalPole" type="StaticBody3D" parent="Props"]
 position = Vector3(-3.5, 2, -2.9)
@@ -374,8 +523,8 @@ solid = false
 
 [node name="SignalRed" type="MeshInstance3D" parent="Props"]
 position = Vector3(-3.5, 3.75, -2.62)
-mesh = SubResource("BoxMesh_6")
-material_override = SubResource("StandardMaterial3D_5")
+mesh = SubResource("BoxMesh_9")
+material_override = SubResource("StandardMaterial3D_8")
 
 [node name="SignalLight" type="OmniLight3D" parent="Lights"]
 position = Vector3(-3.5, 3.6, -2.4)
@@ -388,7 +537,7 @@ position = Vector3(-1.5, 0.2, 1.6)
 rotation = Vector3(0, 0.4, 0)
 script = ExtResource("2_kit_block")
 size = Vector3(0.6, 0.4, 0.35)
-surface = ExtResource("13_planks")
+surface = ExtResource("14_planks")
 solid = false
 
 [node name="Luggage1" type="StaticBody3D" parent="Props"]
@@ -396,7 +545,7 @@ position = Vector3(2.2, 0.2, -2.1)
 rotation = Vector3(0, 1.2, 0)
 script = ExtResource("2_kit_block")
 size = Vector3(0.6, 0.4, 0.35)
-surface = ExtResource("13_planks")
+surface = ExtResource("14_planks")
 solid = false
 
 [node name="Luggage2" type="StaticBody3D" parent="Props"]
@@ -404,7 +553,7 @@ position = Vector3(4.6, 0.2, 2.8)
 rotation = Vector3(0, -0.5, 0)
 script = ExtResource("2_kit_block")
 size = Vector3(0.6, 0.4, 0.35)
-surface = ExtResource("13_planks")
+surface = ExtResource("14_planks")
 solid = false
 
 [node name="Luggage3" type="StaticBody3D" parent="Props"]
@@ -412,60 +561,60 @@ position = Vector3(-5.6, 0.2, -2.6)
 rotation = Vector3(0, 0.9, 0)
 script = ExtResource("2_kit_block")
 size = Vector3(0.6, 0.4, 0.35)
-surface = ExtResource("13_planks")
+surface = ExtResource("14_planks")
 solid = false
 
 [node name="Decals" type="Node3D" parent="."]
 
-[node name="GraffitiSur" parent="Decals" instance=ExtResource("15_decal")]
+[node name="GraffitiSur" parent="Decals" instance=ExtResource("16_decal")]
 position = Vector3(-2, 2, 3.49)
 rotation = Vector3(0, 3.1416, 0)
-texture = ExtResource("14_graffiti_sur")
+texture = ExtResource("15_graffiti_sur")
 size = Vector2(2.6, 1.3)
 wear = 0.4
 
-[node name="GraffitiNoSignal" parent="Decals" instance=ExtResource("15_decal")]
+[node name="GraffitiNoSignal" parent="Decals" instance=ExtResource("16_decal")]
 position = Vector3(3.5, 2.2, -3.49)
 rotation = Vector3(0, 0, 0)
-texture = ExtResource("16_graffiti_no_")
+texture = ExtResource("17_graffiti_no_")
 size = Vector2(2.8, 1.4)
 wear = 0.45
 
-[node name="BloodWall" parent="Decals" instance=ExtResource("15_decal")]
+[node name="BloodWall" parent="Decals" instance=ExtResource("16_decal")]
 position = Vector3(0.8, 1.2, 3.49)
 rotation = Vector3(0, 3.1416, 0)
-texture = ExtResource("17_blood_splatt")
+texture = ExtResource("18_blood_splatt")
 size = Vector2(1.2, 1.2)
 
-[node name="HandWall" parent="Decals" instance=ExtResource("15_decal")]
+[node name="HandWall" parent="Decals" instance=ExtResource("16_decal")]
 position = Vector3(-6.5, 1.3, -3.49)
 rotation = Vector3(0, 0, 0)
-texture = ExtResource("18_blood_handpr")
+texture = ExtResource("19_blood_handpr")
 size = Vector2(0.4, 0.4)
 
-[node name="Drag" parent="Decals" instance=ExtResource("15_decal")]
+[node name="Drag" parent="Decals" instance=ExtResource("16_decal")]
 position = Vector3(1, 0.03, -1)
 rotation = Vector3(-1.5708, 0.3, 0)
-texture = ExtResource("19_blood_drag")
+texture = ExtResource("20_blood_drag")
 size = Vector2(3, 1)
 
-[node name="Pool" parent="Decals" instance=ExtResource("15_decal")]
+[node name="Pool" parent="Decals" instance=ExtResource("16_decal")]
 position = Vector3(4, 0.03, 1.2)
 rotation = Vector3(-1.5708, 0, 0)
-texture = ExtResource("20_blood_pool")
+texture = ExtResource("21_blood_pool")
 size = Vector2(1.6, 1.6)
 
-[node name="Footprints" parent="Decals" instance=ExtResource("15_decal")]
+[node name="Footprints" parent="Decals" instance=ExtResource("16_decal")]
 position = Vector3(-3, 0.03, 1.4)
 rotation = Vector3(-1.5708, 0.1, 0)
-texture = ExtResource("21_blood_footpr")
+texture = ExtResource("22_blood_footpr")
 size = Vector2(2, 1)
 
 [node name="Interactables" type="Node3D" parent="."]
 
 [node name="ToDerailedTrain" type="Node3D" parent="Interactables"]
 position = Vector3(7, 0, 2.7)
-script = ExtResource("22_door")
+script = ExtResource("23_door")
 reach = 1.5
 target_room = "res://levels/tracks/derailed_train.tscn"
 target_spawn = "from_track_north"
@@ -473,60 +622,66 @@ prompt = "SEGUIR"
 
 [node name="Tunnel" type="Node3D" parent="Interactables"]
 position = Vector3(-8.3, 0, 0)
-script = ExtResource("23_examine_spot")
+script = ExtResource("24_examine_spot")
 reach = 1.4
 lines = PackedStringArray("El túnel de vuelta a la estación.", "Detrás quedó Paine. No hay vuelta atrás.")
 
+[node name="EastTunnel" type="Node3D" parent="Interactables"]
+position = Vector3(7.9, 0, 0)
+script = ExtResource("24_examine_spot")
+reach = 1.4
+lines = PackedStringArray("La vía principal sigue por ese túnel, pero adentro todo es rojo y humo.", "Por ahí no se puede. Habrá que rodear por la puerta de servicio.")
+
 [node name="Signal" type="Node3D" parent="Interactables"]
 position = Vector3(-3.5, 0, -2.3)
-script = ExtResource("23_examine_spot")
+script = ExtResource("24_examine_spot")
 reach = 1.2
 lines = PackedStringArray("Una señal en rojo. Nadie la cambió desde la mañana.")
 
 [node name="Ticket" type="Node3D" parent="Interactables"]
 position = Vector3(-1.2, 0.03, 2.5)
-script = ExtResource("24_note")
-document = ExtResource("25_passenger_ti")
+script = ExtResource("25_note")
+document = ExtResource("26_passenger_ti")
 reach = 1.4
 
-[node name="Paper" parent="Interactables/Ticket" instance=ExtResource("26_paper")]
+[node name="Paper" parent="Interactables/Ticket" instance=ExtResource("27_paper")]
 rotation = Vector3(0, 0.7, 0)
 scale = Vector3(0.6, 0.6, 0.6)
 
 [node name="Shells" type="Node3D" parent="Interactables"]
 position = Vector3(-4.2, 0, 3)
-script = ExtResource("27_pickup")
-item = ExtResource("28_ammo_shells")
+script = ExtResource("28_pickup")
+item = ExtResource("29_ammo_shells")
 count = 6
 model_rotation = Vector3(0, 0.4, 0)
 
 [node name="Sushi" type="Node3D" parent="Interactables"]
 position = Vector3(-6.3, 0, -3)
-script = ExtResource("27_pickup")
-item = ExtResource("29_sushi")
+script = ExtResource("28_pickup")
+item = ExtResource("30_sushi")
 count = 1
 model_rotation = Vector3(0, 1.2, 0)
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Walker" parent="Enemies" instance=ExtResource("31_infected")]
-position = Vector3(2.6, 0.05, -1.4)
+[node name="Walker" parent="Enemies" instance=ExtResource("32_infected")]
+position = Vector3(3, 0.05, 1.3)
 rotation = Vector3(0, -1.5708, 0)
-data = ExtResource("30_infected_wor")
+data = ExtResource("31_infected_wor")
 
-[node name="Runner" parent="Enemies" instance=ExtResource("31_infected")]
+[node name="Runner" parent="Enemies" instance=ExtResource("32_infected")]
 position = Vector3(5.4, 0.05, 1.3)
 rotation = Vector3(0, -1.5708, 0)
-data = ExtResource("32_infected_fas")
+data = ExtResource("33_infected_fas")
 
-[node name="Body1" parent="Enemies" instance=ExtResource("31_infected")]
+[node name="Body1" parent="Enemies" instance=ExtResource("32_infected")]
 position = Vector3(0.4, 0.05, 1.9)
 rotation = Vector3(0, 0.8, 0)
-data = ExtResource("33_infected_bur")
+data = ExtResource("34_infected_bur")
 start_state = "corpse"
 
-[node name="Body2" parent="Enemies" instance=ExtResource("31_infected")]
-position = Vector3(3.6, 0.05, -2.6)
+[node name="Body2" parent="Enemies" instance=ExtResource("32_infected")]
+position = Vector3(2.2, 0.05, 2.5)
 rotation = Vector3(0, 2.4, 0)
 start_state = "corpse"
 
@@ -544,15 +699,15 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="LeoFire" type="Marker3D" parent="."]
 position = Vector3(6.3, 0, 2.7)
-script = ExtResource("35_leo_hint")
+script = ExtResource("36_leo_hint")
 lines = PackedStringArray("Leo: Ese humo es del tren de las 6:30. Huele a fierro quemado... y a ellos.", "Leo: Por ahí se sigue. Pégate a mí.", "Leo: Sigue la flecha amarilla hacia TREN DESCARRILADO.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-10.1562, 1.5, 0)
-script = ExtResource("34_camera_zone")
+script = ExtResource("35_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
-shape = SubResource("BoxShape3D_7")
+shape = SubResource("BoxShape3D_10")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam1"]
 position = Vector3(6.4563, 1.3, 0.8)
@@ -563,10 +718,10 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(-4.7188, 1.5, 0)
-script = ExtResource("34_camera_zone")
+script = ExtResource("35_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
-shape = SubResource("BoxShape3D_8")
+shape = SubResource("BoxShape3D_11")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam2"]
 position = Vector3(6.0188, 0.6, 1.8)
@@ -577,10 +732,10 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(0.4688, 1.5, 0)
-script = ExtResource("34_camera_zone")
+script = ExtResource("35_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
-shape = SubResource("BoxShape3D_9")
+shape = SubResource("BoxShape3D_12")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam3"]
 position = Vector3(-6.1687, 2.2, -0.2)
@@ -591,10 +746,10 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(5.9062, 1.5, 0)
-script = ExtResource("34_camera_zone")
+script = ExtResource("35_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
-shape = SubResource("BoxShape3D_10")
+shape = SubResource("BoxShape3D_13")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam4"]
 position = Vector3(-6.6062, 2.2, 0.8)

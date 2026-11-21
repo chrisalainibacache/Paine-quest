@@ -58,6 +58,10 @@ boletería; encuentra la pistola, notas de lo que pasó y la llave del portón q
 las vías. Cierra el capítulo saliendo a la vía.
 
 ### Capítulo 2 — Las vías
+> **Lógica de la primera sala (decisión de Chris, noviembre):** la vía **se divide en dos** en un cambio de vía (desvío) con su palanca y su lámpara roja:
+> la **vía principal** sigue al norte por un túnel que arde por dentro, y el **ramal** termina en un **tope de vía** doblado donde el último vagón quedó
+> **descarrilado y destrozado** (frente aplastado, tajo en el costado, techo rasgado, hollín, puerta y bogie sueltos). El túnel por donde vinieron (oeste)
+> está **abierto pero a oscuras** y no se puede volver. El paso sigue por una **puerta de servicio** en el muro sur. Las vías **nunca terminan en una pared**.
 Siguiendo las vías encuentran **el tren de las 6:30 ya destruido** (descarrilado y volcado;
 no se ve el choque, se encuentra así). No sirve para viajar: hay que seguir a pie,
 atravesando el convoy, un paso bajo nivel en apagón y una casa de cambios. El maquinista
