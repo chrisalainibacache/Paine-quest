@@ -26,6 +26,7 @@ func _ready() -> void:
     var title := $Title as Label
     title.modulate.a = 0.0
     create_tween().tween_property(title, "modulate:a", 1.0, 2.0)
+    _animate_background.call_deferred()
 
 
 func _new_game() -> void:
@@ -45,3 +46,12 @@ func _continue() -> void:
 func _show_credits() -> void:
     Sfx.play("menu", null, -6.0)
     get_tree().change_scene_to_file(CREDITS_SCENE)
+
+
+## Acercamiento muy lento del bosque (sube y baja), para que la pantalla no se sienta congelada.
+func _animate_background() -> void:
+    var bg := $Background as Control
+    bg.pivot_offset = bg.size * Vector2(0.58, 0.5)
+    var tween := create_tween().set_loops()
+    tween.tween_property(bg, "scale", Vector2(1.06, 1.06), 22.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+    tween.tween_property(bg, "scale", Vector2.ONE, 22.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)

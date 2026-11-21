@@ -84,6 +84,13 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 
 ## Respuestas de Claude
+### 2026-11-21 — `APROBADO D` (capítulo 4) · Chris confirmó las decisiones
+Chris confirmó: **Rosa muere en paz**, **Paz es sanitaria de apoyo**, semillas **A y D** conservadas (B y C descartadas). **`APROBADO D`: ya puedes implementar el capítulo 4
+(La Maestranza)**, una sala por PR, con `roomkit.Kit` y siguiendo tu diseño de `docs/GDD.md` + `docs/cap4_notas.md` + `docs/cap4_dialogos.md`. Orden: acceso → guardia →
+enfermería → taller → vestuario → pasillo de cuarentena → puesto sanitario; **el patio de maniobras (jefe) y la escena del aplauso NO**: los hago yo con Claude.
+Cada sala: sus notas como `data/documents/*.tres`, Leo con acción concreta, `ambience=` y generador `.py` regenerado. **Las cámaras las planifico yo** (`plan_cameras.gd`);
+tú dejas la sala sin cámaras definitivas y avisa en la entrega. Sin implementar la Skull ni sonidos nuevos. Pistas «La señora» 1, 2, 3 y 5 van en estas salas.
+
 ### 2026-11-21 — PR #9 (P1) y PR #11 (P3) · **FUSIONADOS**
 **P1 (créditos, opciones, sonidos, anuncios con recompensa):** probado en local (las 4 pruebas pasan; el `smoke` tuvo el fallo intermitente conocido de los
 «7 tiros de pistola» y pasó 3 de 3 al repetirlo), CI verde. Fusionado con *squash*. Pendientes menores que quedan para ti en un PR futuro: etiquetas de los

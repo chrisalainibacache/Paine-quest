@@ -218,8 +218,14 @@ capítulos 4 y 5, epílogo) debe respetar esto.
 **Tomadas por Claude (Chris delegó el detalle):** (1) **Skull mide 2,6 m**; las notas del ejército dicen «≈ 2,3 m» porque es una **estimación**; (2) la **grúa del patio** es la
 ventana táctica contra el Skull original (aprobada); (3) **el pasajero del asiento 15 y el vagón del Centro de Nos quedan sin resolver y cerrados durante todo el primer
 juego** (misterios de la parte 2; sustituye lo que decía antes «se cierra en el capítulo 5»).
-**Pendientes de Chris:** (a) ¿Rosa **muere** tras el jefe final o su destino queda ambiguo? *(recomendación de Claude: muere en paz, con la forma humana por unos segundos)*; (b) ¿Paz
-es **personal sanitario de apoyo**? *(provisorio)*; (c) semillas para la parte 2 de `docs/continuidad_p3.md` §4 *(recomendación: conservar A, registro alterado, y D, destino cambiado)*.
+**Confirmado por Chris (noviembre):** (a) **Rosa muere en paz** tras el jefe final (su forma humana reaparece unos segundos); (b) **Paz es personal sanitario de apoyo**
+(canon); (c) para la parte 2 se **conservan las semillas A (orden de traslado con dos horas distintas y el origen vacío) y D (destino del asiento 15 corregido sin firma)**;
+B y C se descartan.
+
+### Pantalla de título (decisión de Chris, noviembre)
+Fondo nuevo: **un bosque de pinos de noche, con niebla, y la vía del tren perdiéndose hacia un resplandor cálido donde se ve, muy lejos, una silueta alta** (Skull, apenas
+distinguible). Se renderiza con `tools/prerender/render_title.gd` (Forward+, lavapipe) y se guarda en `assets/ui/title_forest.jpg`. El título y el menú van **alineados a la
+izquierda** y el fondo hace un acercamiento muy lento (22 s) de ida y vuelta.
 
 ### Capítulo 4 — La Maestranza (P3; propuesta pendiente de aprobación)
 

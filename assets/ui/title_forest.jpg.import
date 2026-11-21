@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4n5qjd4ml2f8"
-path="res://.godot/imported/skull_sombra.png-1776a3fedb473e40c47c77fc3aac76df.ctex"
+uid="uid://dd4xxk2v8lafp"
+path="res://.godot/imported/title_forest.jpg-7d5c6ead75e2e640eb31274f1c280f06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/arte/skull_sombra.png"
-dest_files=["res://.godot/imported/skull_sombra.png-1776a3fedb473e40c47c77fc3aac76df.ctex"]
+source_file="res://assets/ui/title_forest.jpg"
+dest_files=["res://.godot/imported/title_forest.jpg-7d5c6ead75e2e640eb31274f1c280f06.ctex"]
 
 [params]
 
