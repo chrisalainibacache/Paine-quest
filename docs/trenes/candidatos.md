@@ -15,7 +15,7 @@
 | 9 | [Freight wagon — Innerscene](https://www.innerscene.com/tools/library/3d-parts/freight-wagon-764e8b2c) | Innerscene, modelo original | CC0 / public domain; uso comercial, modificación y redistribución | No informado | GLB 4,5 MB; glTF con materiales | 18,07 × 3,364 × 3,14 m. Escala real declarada; revisar polígonos antes de integrar. |
 | 10 | [Train Kit — Kenney](https://kenney.nl/assets/train-kit) | Kenney | Creative Commons CC0 | No informado por modelo | Paquete de 100 archivos; la ficha no desglosa formatos | Trenes, tranvías y vías low-poly. Útil para piezas auxiliares/prototipos, no material chileno realista. |
 | 11 | [Train Pack 1.0 — itch.io](https://ward727.itch.io/train-pack) | Ward727 | CC0; «free to use in commercial, personal and educational projects» | No informado | FBX y GLB; Blender; texturas no especificadas | Low-poly; descarga «Name your own price». La ficha no desglosa polígonos. |
-| 12 | [Caboose — Grab3D Cozy Trains](https://grab3d.com/models/vehicles/caboose/) | Grab3D | CC0 1.0 | 25.800 | GLB; textura PBR, detalle individual por verificar | Ligeramente sobre el límite. No priorizar salvo reducción. |
+| 12 | [Caboose — Grab3D Cozy Trains](https://grab3d.com/models/vehicles/caboose/) | Grab3D | CC0 1.0; uso comercial sin atribución | 25.764; Light 14.174 | GLB, FBX, BLEND, USDZ, OBJ; PBR 2K / Light 1K | Cumple con Light. 10 m, plataformas abiertas, barandas y cupola; es un furgón de cola estadounidense, no coche EFE. |
 
 ## Descarga y requisitos
 
@@ -24,7 +24,7 @@
 3. **OpenGameArt:** descargar locomotive00.zip desde el enlace de archivo de la ficha. La página muestra CC0 y el ZIP de 3,5 MB.
 4. **Innerscene:** pulsar Download GLB; el visor permite exportar a otros formatos. La ficha no aclara si el flujo exige cuenta; comprobar desde Android.
 5. **Kenney:** pulsar Download en la ficha oficial; descargar el paquete y revisar su documentación para conocer formatos reales.
-6. **Ward727:** pulsar Download Now en itch.io y elegir precio cero; la ficha indica FBX y GLB.
+6. **Ward727:** pulsar Download Now en itch.io y elegir precio cero; la ficha indica FBX y GLB. **Precaución:** el bloque de descargas muestra el nombre «City pack - 1.0» (2,7 MB), no «Train Pack». Confirmar el contenido del ZIP antes de considerar el paquete descargado como válido.
 
 ## Observaciones de licencia y técnica
 
