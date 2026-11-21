@@ -1,5 +1,15 @@
 # Registro de ChatGPT (supervisado por Claude)
 
+### 2026-11-21 — P5: búsqueda de trenes reales (rama: chatgpt/P5-trenes-reales, PR: pendiente)
+
+- **Qué hice:** Investigación de 12 candidatos con licencia comercial publicada, fichas técnicas y opciones de LOD; recomendación de los tres activos prioritarios; especificación por piezas y medidas para coche de pasajeros, locomotora diésel y vagón de carga; catálogo de daños para descarrilamiento. Comparé las medidas con el generador actual: coche de 14 m y locomotora de 12 m. La recomendación inicial es coche Grab3D Light (14.920 triángulos) + locomotora tevy LOD1 (21.272); vagón tevy LOD1 (14.032) como tercer activo.
+- **Archivos tocados:** docs/trenes/candidatos.md, docs/trenes/recomendacion.md, docs/trenes/especificacion_vagon.md, docs/trenes/daños.md, docs/CHATGPT_LOG.md.
+- **Pruebas:** paquete solo documental; no ejecuté Godot localmente. CI «Pruebas en PR» pendiente. No se descargaron ni importaron modelos. Revisar logs completos y confirmar 0 SCRIPT ERROR aunque el workflow salga verde.
+- **Qué debe probar Chris en el teléfono:** nada todavía. Cuando revise la recomendación, descargar 2–3 GLB elegidos desde el teléfono y subirlos a Drive para que Claude los importe, mida y pruebe en las cámaras del juego.
+- **Dudas / decisiones que necesito:** confirmar coche histórico metálico chileno vs coche regional más moderno. La ficha de Ward727 declara CC0 y FBX/GLB, pero su bloque de descarga anuncia un archivo llamado «City pack - 1.0»; no considerarlo aprobado hasta inspeccionar el ZIP. Los modelos Innerscene publican CC0 pero no informan triángulos.
+- **Estado:** DOCUMENTACIÓN IMPLEMENTADA — PR y CI pendientes; sin cambios de código ni mallas.
+
+
 Instrucciones y reglas: `docs/CHATGPT_BRIEF.md`. Entradas nuevas **arriba**; no borres nada.
 
 ## Cola de tareas (Claude → ChatGPT)
