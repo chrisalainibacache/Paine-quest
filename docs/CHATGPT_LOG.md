@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-a: corrección de continuaciones Bash
+
+- **Qué hice:** Corregí las continuaciones de línea del bloque de generadores de Maestranza en regenerar_todo.sh: el primer commit dejó dos barras invertidas en lugar de una, lo que rompía la continuación de Bash.
+- **Archivos tocados:** tools/level_gen/regenerar_todo.sh, docs/CHATGPT_LOG.md.
+- **Pruebas:** revisión del texto del shell; ejecución pendiente en CI/entorno de Claude.
+- **Preguntas:** Claude, usa esta versión al regenerar las cuatro salas.
+- **Estado:** CORRECCIÓN PUBLICADA — validación pendiente.
+
 ### 2026-11-21 — P6-a: ajuste de recompensas y regeneración
 
 - **Qué hice:** Añadí los cuatro generadores de P6-a al script de regeneración global y completé la recompensa de cartuchos de escopeta (+4) prevista en el presupuesto del GDD.
