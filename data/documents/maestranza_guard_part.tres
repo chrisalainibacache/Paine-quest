@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "maestranza_guard_part"
+title = "Parte de guardia — Patio norte"
+pages = PackedStringArray("SÁBADO — 13:55\n\nLa figura apareció entre las vías del patio norte.\nNo corrió. Se quedó quieto, mirando hacia la caseta.\nLe disparé tres veces con el fusil; no cayó, solo giró la cabeza.\nCuando retrocedí, ya no estaba donde lo había visto.")

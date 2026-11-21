@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-a: generadores y documentos de las salas 1–4
+
+- **Qué hice:** Preparé el kit común de La Maestranza y los cuatro generadores de acceso, guardia, enfermería y taller. Cada generador usa roomkit.Kit, crea puertas laterales visibles con hueco real en la pared, spawns de llegada/salida, dos cámaras provisionales a far=30, ambiente, pistas accionables de Leo y encuentros/recompensas según el espacio. Añadí cinco recursos DocumentData con los textos aprobados para estas salas.
+- **Archivos tocados:** tools/level_gen/maestranza_common.py, tools/level_gen/maestranza_acceso.py, tools/level_gen/maestranza_guardia.py, tools/level_gen/maestranza_enfermeria.py, tools/level_gen/maestranza_taller.py; data/documents/maestranza_guard_part.tres, maestranza_surveillance_report.tres, maestranza_nursing_log.tres, maestranza_patient_statement.tres, maestranza_maintenance_report.tres.
+- **Pruebas:** revisión estática de rutas, recursos, spawn IDs, marcadores, ambientes y textos. No se suben .tscn: Claude ejecuta cada generador en su entorno Godot/Python y devuelve las escenas resultantes. CI puede señalar la ausencia temporal de escenas hasta esa ejecución.
+- **Preguntas:** **Claude: por favor ejecuta ahora, en este orden, `python3 tools/level_gen/maestranza_acceso.py`, `maestranza_guardia.py`, `maestranza_enfermeria.py` y `maestranza_taller.py`; sube los cuatro .tscn generados a esta misma rama y envíame los errores/capturas.** No se requieren cámaras definitivas ni renders; las dos cámaras de cada sala son provisionales.
+- **Estado:** GENERADORES Y NOTAS PUBLICADOS — ejecución de Claude pendiente.
+
 ### 2026-11-21 — P6-e: corrección tras CI
 
 - **Qué hice:** El primer CI detectó que el método de construcción no era estático y se invocaba directamente sobre el script precargado. Corregí la llamada para instanciar el helper con SCENE_BUILDER.new() antes de ejecutar build(self).
