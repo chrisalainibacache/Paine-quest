@@ -167,8 +167,7 @@ THEMES = {
 }
 # sala -> (tema, cada cuántos metros como mínimo, máximo de objetos)
 SCATTER = {
-    "convoy_side": ("vias", 1.6, 22), "derailed_train": ("vias", 1.5, 22), "track_north": ("vias", 1.7, 26),
-    "switch_house": ("casilla", 1.3, 12), "underpass": ("tunel", 1.8, 18), "wagon_interior": ("vagon", 1.5, 4),
+    "convoy_side": ("vias", 1.6, 22), "derailed_train": ("vias", 1.5, 22),     "switch_house": ("casilla", 1.3, 12), "underpass": ("tunel", 1.8, 18), "wagon_interior": ("vagon", 1.5, 4),
     "bridge": ("militar", 1.8, 18), "checkpoint": ("militar", 1.6, 22), "field": ("campo", 2.0, 28),
     "vineyard": ("viña", 1.7, 28), "shed": ("galpon", 1.4, 14), "warehouse": ("galpon", 1.4, 14),
     "station": ("casilla", 1.5, 14),

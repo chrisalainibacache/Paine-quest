@@ -32,7 +32,13 @@ func _run() -> void:
     root.add_child(room)
     var detail_path := "res://render_src/scenes/%s_detail.tscn" % room_name
     if ResourceLoader.exists(detail_path):
-        room.add_child((load(detail_path) as PackedScene).instantiate())
+        var detail := (load(detail_path) as PackedScene).instantiate()
+        room.add_child(detail)
+        # La escena de detalle puede pedir ocultar piezas del juego que reemplaza (metadato «hide»).
+        for hidden_path: String in detail.get_meta("hide", []):
+            var hidden := room.get_node_or_null(hidden_path) as Node3D
+            if hidden:
+                hidden.visible = false
     # Lo que se mueve o se recoge no va en la foto: queda en 3D en el juego.
     for group_name in ["Enemies", "Interactables", "Spawns"]:
         var group := room.get_node_or_null(group_name) as Node3D
