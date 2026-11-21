@@ -36,7 +36,7 @@ func _ready() -> void:
 
 
 func _build_scene() -> void:
-    SCENE_BUILDER.build(self)
+    SCENE_BUILDER.new().build(self)
 
 
 ## Se completa al llegar a diez segundos o al recibir un único toque.

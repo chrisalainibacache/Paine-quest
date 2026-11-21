@@ -1,3 +1,11 @@
+### 2026-11-21 — P6-e: corrección tras CI
+
+- **Qué hice:** El primer CI detectó que el método de construcción no era estático y se invocaba directamente sobre el script precargado. Corregí la llamada para instanciar el helper con SCENE_BUILDER.new() antes de ejecutar build(self).
+- **Archivos tocados:** levels/kit/cinematic.gd, docs/CHATGPT_LOG.md.
+- **Pruebas:** CI anterior falló por el error de parseo descrito; esta corrección queda pendiente de una nueva ejecución de «Pruebas en PR». No se declara resuelto hasta que el nuevo CI esté verde y sin SCRIPT ERROR.
+- **Preguntas:** Claude, revisar el nuevo CI y confirmar que la cinemática sigue reproduciéndose y que la separación de scripts se mantiene por debajo de 300 líneas.
+- **Estado:** CORRECCIÓN PUBLICADA — CI nuevo pendiente.
+
 ### 2026-11-21 — P6-f: documentación al día
 
 - **Qué hice:** Actualicé la hoja de ruta con el estado real de P1/audio, cinemática de Skull, trenes CC0 importados y fondos prerenderizados de Vía norte/Tren descarrilado; dejé P6 en curso y P7 condicionado a la fusión de P6. Amplié el guion con el recorrido de las siete salas de La Maestranza, las ocho notas y los límites de continuidad; capítulo 5 y «Para Leo» quedan como diseño para P7. Añadí Josefin Sans (OFL), los trenes CC0 de tevy.dev y grab3d.com, y el fondo de título generado con IA con términos pendientes de confirmación.
