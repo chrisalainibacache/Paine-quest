@@ -1,3 +1,4 @@
+class_name NetMessages
 extends RefCounted
 ## Codec de mensajes cooperativos. No depende de nodos ni de transporte.
 
