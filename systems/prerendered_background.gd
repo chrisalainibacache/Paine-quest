@@ -131,17 +131,19 @@ func teardown() -> void:
 
 ## Devuelve la sala al render en vivo (materiales, letreros, sombras, ambiente).
 func _restore() -> void:
-    for node: GeometryInstance3D in _saved_overrides:
-        if is_instance_valid(node):
-            node.material_override = _saved_overrides[node]
+    # Los nodos pueden haberse liberado entre tanto (un infectado que murió): se recorre sin tipar para que
+    # Godot no falle al asignar una instancia ya liberada.
+    for key in _saved_overrides:
+        if is_instance_valid(key):
+            (key as GeometryInstance3D).material_override = _saved_overrides[key]
     _saved_overrides.clear()
-    for node: Node3D in _hidden:
-        if is_instance_valid(node):
-            node.visible = true
+    for item in _hidden:
+        if is_instance_valid(item):
+            (item as Node3D).visible = true
     _hidden.clear()
-    for light: Light3D in _shadow_lights:
-        if is_instance_valid(light):
-            light.shadow_enabled = true
+    for item in _shadow_lights:
+        if is_instance_valid(item):
+            (item as Light3D).shadow_enabled = true
     _shadow_lights.clear()
     if _env_node and is_instance_valid(_env_node) and _saved_env:
         _env_node.environment = _saved_env
