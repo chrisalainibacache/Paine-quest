@@ -34,10 +34,10 @@ func _ready() -> void:
     _session.connect("peer_left", _on_peer_left)
     _session.connect("message_received", _on_message_received)
     _discovery.connect("games_changed", _refresh_games)
-    $Panel/Layout/HostButton.pressed.connect(_create_game)
-    $Panel/Layout/JoinButton.pressed.connect(_join_selected)
+    $Panel/Layout/Actions/HostButton.pressed.connect(_create_game)
+    $Panel/Layout/Actions/JoinButton.pressed.connect(_join_selected)
     $Panel/Layout/ManualRow/ManualJoin.pressed.connect(_join_manual)
-    $Panel/Layout/BackButton.pressed.connect(_back_to_title)
+    $Panel/Layout/Actions/BackButton.pressed.connect(_back_to_title)
     $Panel/Layout/TestPanel/SignalButton.pressed.connect(_send_signal)
     $Panel/Layout/TestPanel/DisconnectButton.pressed.connect(_back_to_title)
     test_panel.visible = false
@@ -69,8 +69,8 @@ func _create_game() -> void:
     status_label.text = "Esperando a Ignacia… tu IP: %s" % local_ip
     if discovery_error != OK:
         status_label.text += "\nEl anuncio automático no está disponible; comparte tu IP."
-    $Panel/Layout/HostButton.disabled = true
-    $Panel/Layout/JoinButton.disabled = true
+    $Panel/Layout/Actions/HostButton.disabled = true
+    $Panel/Layout/Actions/JoinButton.disabled = true
 
 
 func _join_selected() -> void:
@@ -96,16 +96,16 @@ func _join_address(address: String) -> void:
         status_label.text = "No se pudo iniciar la conexión (código %d)." % join_error
         return
     status_label.text = "Conectando con %s…" % address
-    $Panel/Layout/HostButton.disabled = true
-    $Panel/Layout/JoinButton.disabled = true
+    $Panel/Layout/Actions/HostButton.disabled = true
+    $Panel/Layout/Actions/JoinButton.disabled = true
 
 
 func _on_connected() -> void:
     _in_test = true
     _ping_elapsed = 1.0
     _discovery.call("stop")
-    $Panel/Layout/HostButton.disabled = true
-    $Panel/Layout/JoinButton.disabled = true
+    $Panel/Layout/Actions/HostButton.disabled = true
+    $Panel/Layout/Actions/JoinButton.disabled = true
     $Panel/Layout/ManualRow/ManualJoin.disabled = true
     $Panel/Layout/Games.disabled = true
     test_panel.visible = true
@@ -168,8 +168,8 @@ func _local_ipv4() -> String:
 
 
 func _restore_controls() -> void:
-    $Panel/Layout/HostButton.disabled = false
-    $Panel/Layout/JoinButton.disabled = false
+    $Panel/Layout/Actions/HostButton.disabled = false
+    $Panel/Layout/Actions/JoinButton.disabled = false
     $Panel/Layout/ManualRow/ManualJoin.disabled = false
     $Panel/Layout/Games.disabled = false
 
