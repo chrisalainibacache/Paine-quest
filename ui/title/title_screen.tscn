@@ -75,9 +75,9 @@ anchor_left = 0.0
 anchor_right = 0.0
 grow_horizontal = 1
 offset_left = 70.0
-offset_top = 320.0
+offset_top = 300.0
 offset_right = 430.0
-offset_bottom = 646.0
+offset_bottom = 716.0
 theme_override_constants/separation = 14
 
 [node name="NewGame" type="Button" parent="Menu"]
@@ -90,6 +90,12 @@ focus_mode = 0
 custom_minimum_size = Vector2(0, 68)
 text = "CONTINUAR"
 theme_override_font_sizes/font_size = 30
+focus_mode = 0
+
+[node name="CoopButton" type="Button" parent="Menu"]
+custom_minimum_size = Vector2(0, 68)
+text = "COOPERATIVO (PRUEBA)"
+theme_override_font_sizes/font_size = 22
 focus_mode = 0
 
 [node name="Graphics" type="Button" parent="Menu"]
