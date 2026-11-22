@@ -18,17 +18,27 @@ const MESSAGE_FIELDS: Dictionary = {
     "room_prepare": ["transition_id", "room_path", "spawn_id", "server_tick"],
     "room_commit": ["transition_id", "room_path", "spawn_id", "server_tick"],
 }
+const FIELD_TYPES: Dictionary = {
+    "hello": {"display_name": TYPE_STRING, "role": TYPE_STRING},
+    "welcome": {"host_name": TYPE_STRING, "guest_name": TYPE_STRING, "room_id": TYPE_STRING, "session_id": TYPE_STRING},
+    "input": {"sequence": TYPE_INT, "move": TYPE_VECTOR2, "aim": TYPE_VECTOR3, "actions": TYPE_DICTIONARY},
+    "snapshot": {"sequence": TYPE_INT, "server_tick": TYPE_INT, "players": TYPE_ARRAY, "enemies": TYPE_ARRAY},
+    "event": {"event_id": TYPE_INT, "kind": TYPE_STRING, "payload": TYPE_DICTIONARY},
+    "request": {"request_id": TYPE_INT, "kind": TYPE_STRING, "payload": TYPE_DICTIONARY},
+    "request_result": {"request_id": TYPE_INT, "accepted": TYPE_BOOL, "reason": TYPE_STRING, "state_delta": TYPE_DICTIONARY},
+    "ping": {"nonce": TYPE_INT, "sent_msec": TYPE_INT},
+    "pong": {"nonce": TYPE_INT, "sent_msec": TYPE_INT},
+    "signal": {"event_id": TYPE_INT, "tone_id": TYPE_STRING},
+    "room_prepare": {"transition_id": TYPE_INT, "room_path": TYPE_STRING, "spawn_id": TYPE_STRING, "server_tick": TYPE_INT},
+    "room_commit": {"transition_id": TYPE_INT, "room_path": TYPE_STRING, "spawn_id": TYPE_STRING, "server_tick": TYPE_INT},
+}
 
 
 static func encode(kind: String, fields: Dictionary) -> Dictionary:
     if not MESSAGE_FIELDS.has(kind):
         return _failure("Tipo de mensaje desconocido.")
-    if fields == null:
-        return _failure("Los campos deben ser un diccionario.")
-    var allowed: Array = MESSAGE_FIELDS[kind]
-    for key: Variant in fields.keys():
-        if not key is String or not allowed.has(key):
-            return _failure("Campo no permitido en el mensaje.")
+    if not _valid_fields(kind, fields):
+        return _failure("Los campos del mensaje no son válidos.")
     var message: Dictionary = {
         "protocol_version": PROTOCOL_VERSION,
         "kind": kind,
@@ -61,10 +71,8 @@ static func decode(raw: Variant) -> Dictionary:
     var encoded_size: int = var_to_bytes(message).size()
     if encoded_size > MAX_MESSAGE_BYTES:
         return _failure("El mensaje supera el tamaño permitido.")
-    var allowed: Array = MESSAGE_FIELDS[kind]
-    for key: Variant in fields.keys():
-        if not key is String or not allowed.has(key):
-            return _failure("Campo no permitido en el mensaje.")
+    if not _valid_fields(String(kind), fields):
+        return _failure("Los campos del mensaje no son válidos.")
     return {
         "ok": true,
         "error": "",
@@ -72,6 +80,17 @@ static func decode(raw: Variant) -> Dictionary:
         "fields": (fields as Dictionary).duplicate(true),
         "protocol_version": PROTOCOL_VERSION,
     }
+
+
+static func _valid_fields(kind: String, fields: Dictionary) -> bool:
+    var allowed: Array = MESSAGE_FIELDS[kind]
+    var types: Dictionary = FIELD_TYPES[kind]
+    for key: Variant in fields.keys():
+        if not key is String or not allowed.has(key) or not types.has(key):
+            return false
+        if typeof(fields[key]) != int(types[key]):
+            return false
+    return true
 
 
 static func _failure(reason: String) -> Dictionary:
