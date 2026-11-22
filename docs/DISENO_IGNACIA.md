@@ -15,12 +15,12 @@ Ignacia salió **a toda prisa de su casa** a las 22:40 a buscar a la hermana de 
 | --- | --- |
 | Polerón rojo burdeo, mangas largas | Ya con manchas de polvo y hollín al avanzar los capítulos (versión «sucia» en capítulo 3+). |
 | Buzo gris | Rodillas gastadas. |
-| **Mochila de paramédico** | Verde oscuro con cruz blanca descolorida: el rasgo que la distingue de Isabella a lo lejos. |
+| **Mochila de paramédico** | Roja con el **emblema propio** (rombo blanco con línea de pulso): el rasgo que la distingue de Isabella a lo lejos. |
 | **Linterna frontal** | La que usa en los apagones (guion §10.5). |
 | **Credencial de la clínica** colgando | Detalle para el primer plano de las cinemáticas. |
 | Zapatillas blancas, sucias | — |
 
-**Silueta y color:** Isabella es oscura y angulosa (negro, carcaj); Ignacia es **roja, redonda y cálida**. En las cámaras fijas, con el piso gris, el **burdeo** la hace identificable al instante. Paleta: burdeo `#7b1a2a`, gris `#6f7378`, verde mochila `#2f4a3a`, acento blanco cruz.
+**Silueta y color:** Isabella es oscura y angulosa (negro, carcaj); Ignacia es **roja, redonda y cálida**. En las cámaras fijas, con el piso gris, el **burdeo** la hace identificable al instante. Paleta: burdeo `#7b1a2a`, gris `#6f7378`, rojo mochila `#85101a`, acento blanco del emblema.
 
 ## 3. Papel jugable (PROPUESTA; decide Chris)
 | Isabella | Ignacia |
@@ -38,17 +38,18 @@ Isabella es un modelo con rig Mixamo. Opciones para Ignacia:
 Siguiente paso que propongo: **(3) concepto 2D → aprobación de Chris → (1) modelo 3D → pruebas con el motor**.
 
 ## 5. Ficha para pasarle a ChatGPT (concepto 2D)
-> Personaje de videojuego de survival horror 2.5D estilo PS1 en Chile. **Ignacia**, técnica en enfermería, mujer joven de complexión robusta, pelo largo ondulado rojo oscuro con flequillo, cara redonda, mirada tranquila y seria. Polerón rojo burdeo amplio de mangas largas, buzo gris, zapatillas blancas sucias, mochila de paramédico verde oscuro con cruz blanca, linterna frontal en la frente, credencial colgando. Aspecto de noche de apocalipsis: polvo, hollín. Hoja de personaje: vista frontal, lateral y de espaldas, y tres expresiones (serena, asustada, decidida). Sin armas de fuego; lleva una llave inglesa. Estilo realista estilizado, paleta cálida.
+> Personaje de videojuego de survival horror 2.5D estilo PS1 en Chile. **Ignacia**, técnica en enfermería, mujer joven de complexión robusta, pelo largo ondulado rojo oscuro con flequillo, cara redonda, mirada tranquila y seria. Polerón rojo burdeo amplio de mangas largas, buzo gris, zapatillas blancas sucias, mochila de paramédico roja con un emblema propio (rombo blanco con una línea de pulso, sin cruces), linterna frontal en la frente, credencial colgando. Aspecto de noche de apocalipsis: polvo, hollín. Hoja de personaje: vista frontal, lateral y de espaldas, y tres expresiones (serena, asustada, decidida). Sin armas de fuego; lleva una llave inglesa. Estilo realista estilizado, paleta cálida.
 
 ## 6. Estado (2026-11-21): modelo jugable v1 HECHO
 - **Modelo con huesos:** `assets/characters/ignacia/ignacia.glb`, generado por `tools/build_ignacia.gd` a partir de la base CC0 de Quaternius (esqueleto de 65 huesos, humanoide de Godot). **Usa las mismas animaciones que Isabella** (caminar, trotar, apuntar, disparar, recargar, morir…) y el mismo control con joystick.
 - **Cómo se ve:** pelo largo burdeo, polerón rojo burdeo, buzo gris, zapatillas blancas, mochila verde de paramédico, complexión **delgada** (v2; ajustable en `INFLATE` de `tools/build_ignacia.gd`).
 - **Cómo probarla en el teléfono:** Opciones → botón **«PERSONAJE: ISABELLA»** → pasa a **IGNACIA (PRUEBA)**; se aplica al cargar la siguiente sala (o al volver a entrar a la partida). Es un interruptor temporal hasta que exista el modo cooperativo.
-- **Pendiente de pulir:** cara (más parecida a la referencia), mochila con cruz blanca, textura de tela del polerón, versión «sucia» desde el capítulo 3, habilidades de paramédica (curar +50 %, llave inglesa).
+- **Pendiente de pulir:** cara (más parecida a la referencia), textura de tela del polerón, versión «sucia» desde el capítulo 3, habilidades de paramédica (curar +50 %, llave inglesa).
 - Revisión de arte: `xvfb-run godot --path . --rendering-driver opengl3 --resolution 1600x720 -s res://tools/capture_ignacia.gd -- salida.png Idle|Jog`.
 - Corregido de paso un fallo previo: guardar el modo gráfico **borraba** los volúmenes guardados (ahora conserva las demás secciones del archivo de ajustes).
 
 ## 7. Vestuario v3 (2026-11-21): uniforme táctico de paramédica (pedido de Chris: «casi fuerzas especiales de la Cruz Roja»)
-- Chaqueta roja de manga larga con **bandas reflectantes** blancas en los brazos; **chaleco táctico** carbón con bolsas y **parche de cruz blanca**; buzo táctico oscuro con **rodilleras** y **bolsillos de carga**; **botas y guantes negros**; **cinturón** con bolsa médica roja; **mochila roja** de primeros auxilios con cruz blanca; **linterna frontal**.
+- Chaqueta roja de manga larga con **bandas reflectantes** blancas en los brazos; **chaleco táctico** carbón con bolsas y **parche con el emblema propio**; buzo táctico oscuro con **rodilleras** y **bolsillos de carga**; **botas y guantes negros**; **cinturón** con bolsa médica roja; **mochila roja** de primeros auxilios con el emblema; **linterna frontal**.
 - Todo se genera en `tools/build_ignacia.gd` (ropa que sigue el cuerpo + piezas rígidas pegadas a los huesos), sin packs de terceros: no hay licencias nuevas.
-- **Aviso legal antes de publicar:** la **cruz roja sobre fondo blanco es un emblema protegido** (Convenios de Ginebra y leyes nacionales, también en Chile). El juego usa una **cruz blanca sobre rojo/oscuro** (colores invertidos) y no dice «Cruz Roja»; aun así, antes de salir a la tienda conviene cambiarla por un símbolo médico propio o confirmar que no hay problema.
+- **Emblema (cambiado el 2026-11-22):** se **eliminó la cruz**. El emblema es **propio**: un **rombo blanco con una línea de pulso** (en el chaleco y en la mochila). Ninguna cruz (ni roja ni blanca) ni la frase «Cruz Roja» aparecen en el juego, para no usar un símbolo protegido por los Convenios de Ginebra y las leyes nacionales.
+- Regla para el resto del juego: **no usar cruces rojas/blancas como símbolo médico** (puesto sanitario, botiquines, carteles, mapas). Usar el rombo con pulso u otro diseño propio.

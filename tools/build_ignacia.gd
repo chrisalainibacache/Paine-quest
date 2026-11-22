@@ -335,23 +335,38 @@ func _rigid(node_name: String, boxes: Array, bone: String, color: Color, rough :
     _skel.add_child(_node(node_name, out, null, true))
 
 
+## Emblema del equipo de rescate: rombo blanco + línea de pulso del color 'ink'. 'size' = diagonal del rombo. Mira hacia +Z (el parche
+## de la espalda se pone mirando hacia -Z con la misma geometría: es simétrico, no hace falta girarlo).
+func _emblem(node_name: String, center: Vector3, size: float, ink: Color, bone: String, facing := 1.0) -> void:
+    var d := size / sqrt(2.0)
+    var diamond := Basis(Vector3.BACK, PI / 4.0)
+    _rigid(node_name + "Plate", [[center, Vector3(d, d, 0.008), diamond]], bone, COLOR_WHITE, 0.6)
+    var pts := [Vector2(-0.38, 0.0), Vector2(-0.16, 0.0), Vector2(-0.06, 0.2), Vector2(0.06, -0.22), Vector2(0.16, 0.0), Vector2(0.38, 0.0)]
+    var boxes := []
+    for i in pts.size() - 1:
+        var p0: Vector2 = Vector2(pts[i].x * facing, pts[i].y) * size
+        var p1: Vector2 = Vector2(pts[i + 1].x * facing, pts[i + 1].y) * size
+        var mid := (p0 + p1) / 2.0
+        var length := p0.distance_to(p1)
+        boxes.append([center + Vector3(mid.x, mid.y, 0.006 * facing), Vector3(length + size * 0.03, size * 0.045, 0.006), Basis(Vector3.BACK, (p1 - p0).angle())])
+    _rigid(node_name + "Pulse", boxes, bone, ink, 0.6)
+
+
 func _add_gear(verts: PackedVector3Array, hem_y: float, neck_y: float) -> void:
     var chest := _bone_pos("spine_03")
     var cross_y := chest.y + 0.03
     var front := _surface_z(verts, -0.05, 0.12, cross_y - 0.05, cross_y + 0.05, true) + 0.044
-    # Parche de pecho (cruz blanca sobre el chaleco) y bolsas del chaleco.
-    _rigid("PatchCross", [[Vector3(0.09, cross_y, front), Vector3(0.026, 0.09, 0.008)], [Vector3(0.09, cross_y, front), Vector3(0.09, 0.026, 0.008)]],
-        "spine_03", COLOR_WHITE, 0.6)
+    # Parche de pecho: EMBLEMA PROPIO (rombo blanco con una línea de pulso). No es una cruz: el emblema de la cruz roja está protegido.
+    _emblem("PatchEmblem", Vector3(0.09, cross_y, front), 0.085, COLOR_VEST, "spine_03")
     var pouch_front := _surface_z(verts, -0.12, 0.12, hem_y + 0.05, hem_y + 0.14, true) + 0.05
     _rigid("VestPouches", [[Vector3(0.09, hem_y + 0.09, pouch_front), Vector3(0.09, 0.09, 0.05)], [Vector3(-0.09, hem_y + 0.09, pouch_front), Vector3(0.09, 0.09, 0.05)],
         [Vector3(-0.1, cross_y, front - 0.004), Vector3(0.07, 0.05, 0.03)]], "spine_02", Color(0.09, 0.1, 0.12))
-    # Mochila roja de primeros auxilios con cruz blanca en la espalda.
+    # Mochila roja de primeros auxilios con el emblema en la espalda.
     var back := _surface_z(verts, -0.1, 0.1, chest.y - 0.12, chest.y + 0.1, false) - 0.05
     var pack_y := chest.y - 0.05
     _rigid("Backpack", [[Vector3(0.0, pack_y, back - 0.07), Vector3(0.28, 0.34, 0.12)], [Vector3(0.0, pack_y + 0.2, back - 0.06), Vector3(0.21, 0.06, 0.1)]],
         "spine_03", COLOR_BAG)
-    _rigid("BackpackCross", [[Vector3(0.0, pack_y, back - 0.134), Vector3(0.045, 0.15, 0.008)], [Vector3(0.0, pack_y, back - 0.134), Vector3(0.15, 0.045, 0.008)]],
-        "spine_03", COLOR_WHITE, 0.6)
+    _emblem("BackpackEmblem", Vector3(0.0, pack_y, back - 0.134), 0.2, COLOR_BAG, "spine_03", -1.0)
     # Bandas reflectantes en los brazos: anillos cuadrados alineados con el eje del brazo (en reposo el brazo va inclinado).
     for side in ["l", "r"]:
         var arm := _bone_pos("upperarm_" + side)
