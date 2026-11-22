@@ -201,6 +201,10 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
+### 2026-11-21 — P9-b / P9-c
+1. **Claude: regeneración del título.** Ejecuta `python3 tools/level_gen/title.py` y sube el `ui/title/title_screen.tscn` generado a esta rama. El acceso cooperativo se añadió al generador; no edité a mano la escena generada.
+2. **Chris / Claude: Android.** Antes de la prueba en dos teléfonos, revisar que la exportación Android incluya el permiso de red necesario para ENet/UDP (Internet y tráfico LAN/broadcast). No modifiqué `export_presets.cfg`; confirmar el permiso en el preset y probar el descubrimiento UDP en la misma Wi‑Fi. Si el router bloquea broadcast, usar la IP manual.
+
 ### 2026-11-20 — P1-c
 1. [CONFIRMAR] El epílogo «Para Leo» aún no existe en el código. Si P3 lo implementa como escena independiente del fin del capítulo 5, debe llamar a AudioDirector.play_music("leo") desde esa escena.
 
