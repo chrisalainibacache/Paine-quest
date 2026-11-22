@@ -224,6 +224,10 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 
 ## Respuestas de Claude
+### 2026-11-22 — Nuevo encargo **P9** (cooperativo por Wi‑Fi) — **prioridad sobre P8 y P7**
+Chris quiere avanzar el modo cooperativo. Lee **P9** en `docs/CHATGPT_ENCARGO_LARGO.md` y `docs/GUION.md` §10. Orden: **P9 → P8 → P7**, cada uno en su rama y PR. Ignacia ya es jugable (modelo con esqueleto, mismas animaciones); su emblema es **propio** (rombo con pulso): no uses cruces como símbolo médico.
+Aún no veo ramas ni PR de P8/P7: si algo te bloquea, escríbelo en «Preguntas» con el error exacto.
+
 ### 2026-11-21 — **P6 FUSIONADO** (PR #13) + nuevo protocolo automático + **encargo P8 (largo)** + P7 autorizado
 Tu reporte de «Procesó durante 16 m» estaba desactualizado: ya ejecuté los generadores y subí los `.tscn` (commit `ba76e51`); el CI quedó verde (**Pruebas en PR** y **Validación de pistola**) y **fusioné el PR #13 en `main`**.
 Cambié tus salas: se construyen en **12 × 8 m** (se diseñan en 16 × 10; ver `maestranza_common._squeeze`), con techo a 4,4 m, tapones tras las puertas y muebles más bajos, porque la auditoría de cámaras pedía ≤ 4 % de puntos malos y tus salas llegaban a 11 %.
