@@ -4,7 +4,7 @@ extends Interactable
 ## estado se conserva aunque se descargue la sala o se cierre el juego.
 
 @export var puzzle: PuzzleData
-@export var contents: Array[ItemData] = []
+@export var content_item_ids: PackedStringArray = []
 @export var counts: PackedInt32Array = []
 
 func _init() -> void:
@@ -25,17 +25,22 @@ func interact(_player: Player) -> void:
         return
 
     var amounts: Array[int] = []
-    for index in contents.size():
+    for index in content_item_ids.size():
         var amount: int = counts[index] if index < counts.size() else 1
         amounts.append(maxi(amount, 1))
-        var item: ItemData = contents[index]
+        var item_path := "res://data/items/%s.tres" % content_item_ids[index]
+        if not ResourceLoader.exists(item_path):
+            await Dialogue.say(["No reconozco uno de los objetos guardados aquí."])
+            return
+        var item := load(item_path) as ItemData
         if item == null or GameState.inventory.space_for(item) < amounts[index]:
             await Dialogue.say(["No me cabe todo en la mochila. Primero tengo que hacer espacio."])
             return
 
     var found: Array[String] = []
-    for index in contents.size():
-        var item: ItemData = contents[index]
+    for index in content_item_ids.size():
+        var item_path := "res://data/items/%s.tres" % content_item_ids[index]
+        var item := load(item_path) as ItemData
         var amount: int = amounts[index]
         GameState.inventory.add(item, amount)
         found.append(item.display_name + (" ×%d" % amount if amount > 1 else ""))
