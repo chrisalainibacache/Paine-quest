@@ -1,3 +1,20 @@
+### 2026-11-24 — P12-d: sala segura de prueba
+
+- **Qué hice:** Añadí `tools/level_gen/puzzle_lab.py`, que genera una sala independiente en `levels/test/puzzle_lab.tscn`, fuera de las cuatro carpetas de capítulos. Incluye cerradura 0712, tablero de dos fusibles, tres palancas, cajón REGISTRAR, componentes para COMBINAR y un atajo unidireccional. No hay enemigos.
+- **Recursos de prueba:** `test_code_lock.tres`, `test_fuse_box.tres`, `test_lever_sequence.tres`, `test_container.tres` y `fuse_10a.tres`.
+- **Automatización:** agregué `puzzle_lab` a `regenerar_todo.sh`; `tests/levels_test.gd` inspecciona la sala por separado de CHAPTERS y verifica los interactuables, spawns, cámaras, fusibles, piezas y ausencia de enemigos. Añadí `tests/puzzle_lab_runner.gd` para arrancar Main directamente en esa sala con una partida temporal en memoria, sin tocar el guardado habitual.
+- **Documentación:** `tools/level_gen/README.md` contiene el comando de ejecución `godot --path . --script res://tests/puzzle_lab_runner.gd`.
+- **CI:** falta ejecutar el generador y versionar la escena generada; la cabeza actual todavía no tiene `levels/test/puzzle_lab.tscn`. La comprobación de sincronía fallará hasta que Claude la genere y suba. También falta una ejecución CI de la cabeza actual después de regenerar.
+- **Qué debe probar Chris (paso a paso):**
+  1. Ejecutar el lanzador de prueba indicado en README; confirmar que aparece Isabella en una sala iluminada y sin infectados.
+  2. En la cerradura, probar un código incorrecto (sonido + mensaje) y luego `0712` (éxito y puerta desbloqueada).
+  3. Recoger los dos fusibles; intentar el tablero con uno solo (no consume) y después instalar los dos (éxito).
+  4. Accionar las palancas fuera de orden (se reinicia) y luego `north → west → east` (éxito).
+  5. Pulsar REGISTRAR en el cajón; recoger el contenido y volver a registrarlo (no duplica objetos).
+  6. Recoger manivela y eje; abrir la mochila, seleccionar uno, pulsar COMBINAR y comprobar que aparece la manija y desaparecen los ingredientes.
+  7. Probar el atajo desde el lado de origen y regresar por el otro lado.
+- **Siguiente:** P12-e, mapa de zona y pestaña MAPA.
+
 ### 2026-11-24 — P12-c: combinación de objetos
 
 - **Qué hice:** Añadí `RecipeData` para recetas A + B → C y `Inventory.combine(a, b)`. La mochila busca recetas en `res://data/recipes/*.tres`, acepta ambos órdenes, consume una unidad de cada ingrediente y entrega el resultado. Si falta un ingrediente o el resultado no cabe, restaura el inventario completo.
@@ -237,6 +254,11 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
+### 2026-11-24 — P12-d: regeneración de la sala segura y sincronía de escenas
+3. **Claude: generar y versionar la sala de prueba.** Ejecuta `python3 tools/level_gen/puzzle_lab.py` (o `./tools/level_gen/regenerar_todo.sh`) en `chatgpt/P12-puzzles` y sube `levels/test/puzzle_lab.tscn`. El generador ya está incluido en `regenerar_todo.sh`; no edites la escena a mano. Ejecuta `tests/levels_test.gd` y confirma que el nuevo test room pasa.
+### 2026-11-24 — P12-c: regenerar la mochila y validar la cabeza actual
+1. **Claude: regeneración obligatoria.** Actualicé `tools/level_gen/inventory.py` para generar el botón «COMBINAR». CI #181 falló exactamente en el paso «Los .tscn coinciden con sus generadores (.py)» y mostró: `ui/inventory/inventory_menu.tscn | 6 deletions(-)`; el workflow informó: `Hay .tscn que no coinciden con su generador. Corre ./tools/level_gen/regenerar_todo.sh y sube el resultado.` Ejecuta `python3 tools/level_gen/inventory.py` (o `./tools/level_gen/regenerar_todo.sh`) en `chatgpt/P12-puzzles` y sube el `ui/inventory/inventory_menu.tscn` generado. No lo edites manualmente.
+2. **Claude: validación completa.** Tras regenerar, ejecuta CI sobre la cabeza actual (incluye P12-b/c) y confirma importación, pruebas automáticas y ausencia de `SCRIPT ERROR`. Asegúrate de que Godot genere y versiona los `.uid` necesarios para los scripts nuevos.
 ### 2026-11-23 — P11: revisión de CI y lock_ids
 1. **Claude: regeneración pendiente.** Reejecuta los generadores de ticket_office, waiting_room, wagon_interior, buin_shed, buin_checkpoint, switch_house, maestranza_guardia y maestranza_taller; cambié pickups/baúles y no edité .tscn manualmente. Sube las escenas regeneradas a chatgpt/P11-mochila-armas.
 2. **Claude: engineer_key.** El encargo dice que engineer_key abre más de una puerta, pero al buscar key="engineer_key" solo encuentro door lock_id="underpass_gate" en convoy_side.py; maestranza_guardia.py contiene otro pickup de engineer_key, pero no veo la segunda cerradura. ¿Cuál es el segundo lock_id exacto? No inventé uno para evitar que la llave nunca se consuma.
