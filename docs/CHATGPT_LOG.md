@@ -393,6 +393,16 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **2026-11-19 — Inicio.** Aún no hay tareas aprobadas más allá de A–C (solo diseño y texto).
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
+### 2026-11-23 — P9-d…f: pruebas, líneas cooperativas y documentación (rama: `chatgpt/P9-cooperativo`, PR #14)
+- **P9-d — pruebas** (commit `0fbfca8`): agregué pruebas headless del codec (ping válido, ida y vuelta, tipo desconocido, campo extra, tipo incorrecto, versión incompatible y límite de tamaño), validación de IP/puerto y carga de la escena del menú. No agregué un bucle ENet host+cliente en el mismo proceso: `NetSession` usa el `MultiplayerAPI` global de SceneTree; probar dos instancias aisladas requeriría primero refactorizar el transporte para inyectar dos APIs independientes. El CI no sustituye la prueba física de dos teléfonos.
+- **P9-e — líneas de Ignacia** (commits `42a3ddd` y `48250ce`): añadí `GameState.cooperative` (falso por defecto, persistido; guardados anteriores sin la clave se cargan como individual), `CoopLines.lines_for(room, event)` y `data/coop/ignacia_lines.tres` con 46 entradas asociadas a salas y disparadores de §10.3–§10.5. Añadí pruebas: individual devuelve vacío, cooperativo devuelve las nueve líneas del encuentro, filtro por sala/evento y ausencia de «Skull»/identificadores internos.
+- **P9-f — documentación**: actualicé GDD, Hito 13 de ROADMAP y este registro. Queda explícito que P9 solo entrega conexión de prueba: no sincroniza todavía dos avatares ni el gameplay.
+- **P9-b/c — base técnica previa**: commits `8f7fa17`, `9a3d007`, `1527cb3`, `51185df`, `5d7528e`, `3181897`, `b92ed09`, `a1d1406`, `a439bff`, `00c2c75` y `75bcad7`.
+- **CI de referencia previo a P9-d/e/f:** ejecución «Pruebas en PR» #86 terminó en `success`; regeneración, importación, pruebas, auditoría de cámaras y paquete exportado completaron; revisión del log completo: 0 apariciones de `SCRIPT ERROR`. Esa ejecución valida el commit anterior a P9-d/e/f, no estos cambios nuevos; sus pushes disparan nueva ejecución.
+- **Qué debe probar Chris en dos teléfonos:** ambos con la misma APK y conectados a la misma Wi‑Fi; anfitrión crea partida y comparte IP; invitado descubre o introduce IP; comprobar conexión, ping que cambia cada segundo, botón «ENVIAR SEÑAL» audible en el otro teléfono; volver y repetir con el router sin broadcast (IP manual). No se debe anunciar multijugador jugable hasta completar los hitos posteriores.
+- **Pendiente de Claude:** regenerar `ui/title/title_screen.tscn` desde `tools/level_gen/title.py` si su revisión del CI lo requiere; verificar permisos Android y la prueba real entre dos dispositivos.
+- **Estado:** P9-b…f implementado en la rama; CI nuevo y revisión de Claude pendientes. No se toca `main` ni `levels/**`.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 
