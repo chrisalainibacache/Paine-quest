@@ -15,6 +15,11 @@ extends Interactable
 @export var marker_text: String = ""
 ## Tipo de material explícito para seleccionar sonidos; no se infiere del nombre.
 @export var metal_door: bool = false
+## Atajo que se habilita desde un solo lado; ambas puertas comparten lock_id.
+@export var one_way: bool = false
+## true en el lado desde el que se puede abrir por primera vez.
+@export var one_way_origin: bool = true
+@export_multiline var one_way_locked_text: String = "Solo se puede abrir desde el otro lado."
 
 ## Nombre de cada sala (para el letrero de las puertas).
 const LABELS := {
@@ -96,7 +101,12 @@ func _refresh_marker() -> void:
         return
     # Ajuste del jugador: por defecto no se muestran flechas ni letreros (el nodo existe, pero oculto).
     _marker.visible = GameSettings.get_door_markers()
-    var blocked := is_locked() and not GameState.inventory.has_id(key_item.id)
+    var blocked := false
+    if is_locked():
+        if one_way and not one_way_origin and not GameState.has_flag(_one_way_flag()):
+            blocked = true
+        elif key_item != null and not GameState.inventory.has_id(key_item.id):
+            blocked = true
     var color := LOCKED_COLOR if blocked else MARKER_COLOR
     _marker_arrow.modulate = color
     _marker_arrow.outline_modulate = Color(0.05, 0.04, 0.03)
@@ -106,6 +116,8 @@ func _refresh_marker() -> void:
 
 
 func is_locked() -> bool:
+    if one_way and not GameState.has_flag(_one_way_flag()):
+        return true
     return key_item != null and not GameState.has_flag("unlocked:" + _lock_key())
 
 
@@ -122,6 +134,12 @@ func _play_open_sound() -> void:
 
 
 func interact(_player: Player) -> void:
+    if one_way and not GameState.has_flag(_one_way_flag()):
+        if not one_way_origin:
+            _play_locked_sound()
+            await Dialogue.say([one_way_locked_text])
+            return
+        GameState.set_flag(_one_way_flag())
     if is_locked():
         if GameState.inventory.has_id(key_item.id):
             GameState.set_flag("unlocked:" + _lock_key())
@@ -146,6 +164,10 @@ func interact(_player: Player) -> void:
 
 func _lock_key() -> String:
     return lock_id if not lock_id.is_empty() else GameState.node_key(self)
+
+
+func _one_way_flag() -> String:
+    return "one_way_open:" + _lock_key()
 
 
 
