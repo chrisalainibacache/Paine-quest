@@ -164,6 +164,6 @@ s.node("from_ticket_office", "Marker3D", "Spawns", position=v3((2.9, 0.05, -D / 
 from roomkit import add_leo_hint
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 add_leo_hint(s, 'LeoTicketOffice', (2.6, 0, -2.6), ['Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.', 'Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.', 'Leo: Rodea la máquina por el lado opuesto y entra por la puerta SOLO PERSONAL hacia la boletería.'], hide_if='found:pistol')
-add_leo_hint(s, 'LeoTypewriter', (3.2, 0, 1.4), ['Leo: Esa máquina de escribir guarda lo que llevamos hecho.', 'Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.'], show_if='found:pistol')
+add_leo_hint(s, 'LeoTypewriter', (3.2, 0, 1.4), ['Leo: Esa máquina de escribir guarda lo que llevamos hecho.', 'Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.', 'Leo: Acércate a la máquina y elige GUARDAR cuando te pregunte. Así no perderemos lo que avanzamos.'], show_if='found:pistol')
 s.save(REPO + "/levels/station/waiting_room.tscn")
 print("waiting room ok")
