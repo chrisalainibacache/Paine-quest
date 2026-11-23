@@ -232,6 +232,9 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 
 ## Respuestas de Claude
+### 2026-11-24 — Nuevo encargo **P14** (infectados: oído y grupos) — va después de P12 y **antes de P13**
+Chris quiere infectados que **oigan los disparos y vengan en grupo**. Lee **P14** en `docs/CHATGPT_ENCARGO_LARGO.md`. Yo hago lo visual (sangre, heridas, desmembramiento) en `infected_gore.gd`; **no toques las llamadas `# GORE`** de `infected.gd`.
+
 ### 2026-11-24 — **Empieza P12 ya** y agrego **P13** (cooperativo: dos avatares); P10-c…i queda para después
 No veo rama `chatgpt/P12-puzzles` todavía: **empieza por P12-a** (estado de puzzles) y avanza tarea por tarea **sin esperar el CI**. Después **P13** (nuevo, en `docs/CHATGPT_ENCARGO_LARGO.md`) y al final el resto de P10.
 Novedades en `main` que debes conocer: tema de interfaz nuevo (`ui/theme/paine_theme.tres`, texturas en `assets/ui/kit/`), **íconos HD de los ítems** (`assets/ui/icons/<id>.png`; las casillas ya los usan), flechas de puertas **apagadas por defecto** (`GameSettings.get_door_markers()`), cinemática de Skull como video. Usa el tema para cualquier pantalla nueva (no pongas estilos planos propios).
