@@ -93,6 +93,14 @@ var _sprint_timer := 0.0
 var _step_timer := 0.0
 
 
+## Último impacto recibido (lo usa InfectedGore) y reacción en curso.
+var _last_hit := Vector3.ZERO
+var _last_from := Vector3.ZERO
+var _last_damage := 0
+var _stagger_anim := "Hit_Chest"
+var _knock := Vector3.ZERO
+
+
 func _ready() -> void:
     if not requires_flag.is_empty() and not GameState.has_flag(requires_flag):
         queue_free()
@@ -114,6 +122,7 @@ func _ready() -> void:
     if modern:
         _enable_specular()
     _vary_look()
+    InfectedGore.dress(self)  # GORE: manchas de sangre propias de este infectado
     if data.helmet:
         _add_helmet()
     _anim = AnimationPlayer.new()
@@ -247,7 +256,11 @@ func take_hit(damage: int, from_position: Vector3, hit_point: Vector3, stagger_c
     if state == State.DEAD:
         return
     health -= damage
-    BloodBurst.spawn(get_parent(), hit_point, hit_point - from_position)
+    _last_hit = hit_point
+    _last_from = from_position
+    _last_damage = damage
+    BloodBurst.spawn(get_parent(), hit_point, hit_point - from_position, 1.0 + minf(float(damage) * 0.25, 2.0))
+    InfectedGore.wound(self, hit_point, from_position)  # GORE: herida en el cuerpo donde pegó el tiro
     Sfx.play("hit", hit_point, -2.0)
     if health <= 0:
         _die()
@@ -258,7 +271,11 @@ func take_hit(damage: int, from_position: Vector3, hit_point: Vector3, stagger_c
         State.IDLE, State.FEEDING:
             _enter(State.CHASE)
         State.CHASE, State.ATTACK:
-            if randf() < stagger_chance:
+            if randf() < stagger_chance or damage >= 5:
+                _stagger_anim = InfectedGore.reaction(hit_point, global_position.y, damage)  # GORE: reacción según el lugar del impacto
+                var away := global_position - from_position
+                away.y = 0.0
+                _knock = away.normalized() * (2.2 if _stagger_anim == "Hit_Knockback" else 0.6)
                 _enter(State.STAGGER)
 
 
@@ -310,7 +327,9 @@ func _physics_process(delta: float) -> void:
                 _cooldown = data.attack_cooldown
                 _enter(State.CHASE)
         State.STAGGER:
-            if _state_time > _anim_length("Hit_Chest") * 0.9:
+            move = _knock
+            _knock = _knock.move_toward(Vector3.ZERO, 6.0 * delta)
+            if _state_time > _anim_length(_stagger_anim) * 0.9:
                 _enter(State.CHASE)
         State.DEAD:
             pass
@@ -376,12 +395,13 @@ func _enter(new_state: State) -> void:
             _attack_landed = false
             _play("Zombie_Scratch", 0.15)
         State.STAGGER:
-            _play("Hit_Chest", 0.1)
+            _play(_stagger_anim, 0.1)
         State.DEAD:
             _play("Death01", 0.15)
 
 
 func _die() -> void:
+    InfectedGore.death_gore(self, _last_hit, _last_from, _last_damage)  # GORE: cabeza y miembros según el daño
     _enter(State.DEAD)
     remove_from_group("enemies")
     collision_layer = 0

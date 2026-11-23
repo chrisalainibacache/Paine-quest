@@ -252,6 +252,12 @@ La primera entrega técnica añade una conexión de prueba LAN, no el modo coope
 - **Skull:** la cinemática en vivo (cajas grises) se veía «horrible». Ahora es un **video renderizado** (`assets/video/skull_door.ogv`, 10 s, 15 fps, 1280×544): pasillo de servicio con utilería real CC0 (tuberías, cajas militares, barriles, silla de ruedas), lámpara con jaula que parpadea, niebla volumétrica, charcos, puerta que cede y revienta con fragmentos y polvo, y **solo la silueta** de la criatura cruzando el resplandor rojo. Herramientas: `tools/prerender/render_skull_door.gd` (necesita `render_src/`) y `skull_door_video.sh`. El código de `levels/kit/cinematic.gd` reproduce el video y **conserva los sonidos y tiempos**; si el video falta, usa la escena 3D en vivo de respaldo.
 - **Interfaz:** tema nuevo de metal oscuro con borde de bronce, remaches y grano (`tools/ui/build_ui_kit.py`, `build_theme.py`), casillas hundidas, deslizadores de bronce, fondo con viñeta y tipografía Josefin Sans.
 
+### Infectados: violencia fuerte, oído y grupos (decisiones de Chris, 2026-11-24)
+- **Problemas señalados:** se ven poco realistas, se mueven raro, son todos iguales, son fáciles de matar, no dan miedo. **Violencia: fuerte.** **Deben venir en grupo** y oír los disparos.
+- **Hecho (Claude):** manchas de sangre propias en cada infectado, **heridas que quedan pegadas al cuerpo** en cada impacto (hasta 10), **reacciones según dónde pega** (cabeza / pecho / empujón), **desmembramiento** (la cabeza sale volando con tiro alto o de escopeta; con explosivos también brazos y piernas) con muñones, más sangre al disparar. Código: `actors/enemies/infected_gore.gd`; revisión de arte: `tools/capture_gore.gd`; texturas: `tools/ui/build_gore_textures.py`.
+- **En manos de ChatGPT (P14):** ruido de las armas, estado ALERT, alerta en grupo y tope de 3 agresores simultáneos.
+- **Pendiente (Claude):** más variedad de modelos y ropa, sonido distinto por tipo, que se vean mejor en la oscuridad, gatear sin piernas. **Nota de producción:** la violencia fuerte tiene implicaciones de clasificación por edades en las tiendas (ver `docs/store/`).
+
 ### Pantalla de título (decisión de Chris, noviembre)
 Fondo: **bosque con niebla y la vía del tren al atardecer, con dos figuras caminando hacia el sol** (imagen aportada por Chris, `assets/ui/title_bg.jpg`; respaldo
 renderizado con `tools/prerender/render_title.gd`). Título «PAINE» en **Josefin Sans** fina y espaciada; botones con borde fino y el principal (NUEVA PARTIDA) con
