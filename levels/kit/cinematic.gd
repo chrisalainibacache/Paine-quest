@@ -6,8 +6,12 @@ signal finished
 
 const DURATION := 10.0
 const SCENE_BUILDER := preload("res://levels/kit/cinematic_scene_builder.gd")
+## Versión renderizada (calidad de render, ver tools/prerender/render_skull_door.gd). Si existe, se reproduce en lugar de la escena 3D en vivo,
+## que queda como respaldo; los sonidos y el tiempo siguen los de _update_scene.
+const VIDEO_PATH := "res://assets/video/skull_door.ogv"
 
 var _camera: Camera3D
+var _video: VideoStreamPlayer
 var _door_panel: Node3D
 var _fluorescent: OmniLight3D
 var _lamp_material: StandardMaterial3D
@@ -27,12 +31,36 @@ var _roar_played := false
 func _ready() -> void:
     add_to_group("cinematics")
     _build_scene()
+    _setup_video()
     _camera.make_current()
     _fade.color.a = 1.0
     _shadow.visible = false
     for shard in _shards:
         shard.freeze = true
         shard.visible = false
+
+
+## Usa el video renderizado si está en el paquete: oculta la escena 3D y lo pone a pantalla completa bajo el fundido.
+func _setup_video() -> void:
+    if not ResourceLoader.exists(VIDEO_PATH):
+        return
+    var stream := load(VIDEO_PATH) as VideoStream
+    if stream == null:
+        return
+    visible = false
+    var layer := CanvasLayer.new()
+    layer.name = "VideoLayer"
+    layer.layer = 90
+    add_child(layer)
+    _video = VideoStreamPlayer.new()
+    _video.stream = stream
+    _video.expand = true
+    _video.set_anchors_preset(Control.PRESET_FULL_RECT)
+    layer.add_child(_video)
+    for bar_name in ["TopBar", "BottomBar"]:
+        var bar := find_child(bar_name, true, false) as CanvasItem
+        if bar:
+            bar.visible = false
 
 
 func _build_scene() -> void:
@@ -43,6 +71,8 @@ func _build_scene() -> void:
 func play() -> void:
     _elapsed = 0.0
     _active = true
+    if _video:
+        _video.play()
     _update_scene()
     await finished
 

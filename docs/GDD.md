@@ -248,6 +248,10 @@ La primera entrega técnica añade una conexión de prueba LAN, no el modo coope
 - **Carcaj, flechas y correa quitados** del modelo de Isabella (`tools/strip_quiver.gd`: borra por piezas de geometría las flechas, el carcaj y la correa que cruza el pecho; el original queda en el historial de git).
 - **Caminar más natural:** las animaciones iban más lentas que el cuerpo (los pies patinaban: ~1 m/s al caminar). Ahora la velocidad de la animación sigue a la velocidad real (`WALK_NATURAL_SPEED` 1,0 y `JOG_NATURAL_SPEED` 1,45 m/s, medidas con los pies apoyados) y hay **arranque y frenada suaves** (`ACCELERATION` 9, `DECELERATION` 14 m/s²). Patinaje medido: caminar −0,98 → −0,18 m/s; trotar −0,56 → 0,08 m/s.
 
+### Cinemática de Skull como video renderizado y mochila con estilo del juego (2026-11-24, pedido de Chris)
+- **Skull:** la cinemática en vivo (cajas grises) se veía «horrible». Ahora es un **video renderizado** (`assets/video/skull_door.ogv`, 10 s, 15 fps, 1280×544): pasillo de servicio con utilería real CC0 (tuberías, cajas militares, barriles, silla de ruedas), lámpara con jaula que parpadea, niebla volumétrica, charcos, puerta que cede y revienta con fragmentos y polvo, y **solo la silueta** de la criatura cruzando el resplandor rojo. Herramientas: `tools/prerender/render_skull_door.gd` (necesita `render_src/`) y `skull_door_video.sh`. El código de `levels/kit/cinematic.gd` reproduce el video y **conserva los sonidos y tiempos**; si el video falta, usa la escena 3D en vivo de respaldo.
+- **Interfaz:** tema nuevo de metal oscuro con borde de bronce, remaches y grano (`tools/ui/build_ui_kit.py`, `build_theme.py`), casillas hundidas, deslizadores de bronce, fondo con viñeta y tipografía Josefin Sans.
+
 ### Pantalla de título (decisión de Chris, noviembre)
 Fondo: **bosque con niebla y la vía del tren al atardecer, con dos figuras caminando hacia el sol** (imagen aportada por Chris, `assets/ui/title_bg.jpg`; respaldo
 renderizado con `tools/prerender/render_title.gd`). Título «PAINE» en **Josefin Sans** fina y espaciada; botones con borde fino y el principal (NUEVA PARTIDA) con
