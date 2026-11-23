@@ -59,6 +59,6 @@ k.camera("East", (8.6, 1.5, 0.4), (8.8, 3.0, 11.2), (3.5, 4.8, 3.6), (9.5, 0.4, 
 k.spawn("from_track_north", (-11.5, 0.05, TZ), (1, 0))
 k.spawn("from_wagon", (4.4, 0.05, 0.9), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoWagon', (4.6, 0, 1.25), ['Leo: Por fuera no se pasa: el vagón de carga cerró el túnel.', 'Leo: Hay que subirse al coche de pasajeros y cruzarlo por dentro. La puerta es la de la flecha amarilla.'])
+k.leo_hint('LeoWagon', (4.6, 0, 1.25), ['Leo: Por fuera no se pasa: el vagón de carga cerró el túnel.', 'Leo: Hay que subirse al coche de pasajeros y cruzarlo por dentro. Se sube por el estribo.'])
 k.save(REPO + "/levels/tracks/derailed_train.tscn")
 print("derailed ok")

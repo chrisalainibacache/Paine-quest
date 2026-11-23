@@ -419,7 +419,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="LeoWagon" type="Marker3D" parent="."]
 position = Vector3(4.6, 0, 1.25)
 script = ExtResource("29_leo_hint")
-lines = PackedStringArray("Leo: Por fuera no se pasa: el vagón de carga cerró el túnel.", "Leo: Hay que subirse al coche de pasajeros y cruzarlo por dentro. La puerta es la de la flecha amarilla.")
+lines = PackedStringArray("Leo: Por fuera no se pasa: el vagón de carga cerró el túnel.", "Leo: Hay que subirse al coche de pasajeros y cruzarlo por dentro. Se sube por el estribo.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-9.4583, 1.5, 0.9375)

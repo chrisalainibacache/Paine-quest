@@ -21,7 +21,7 @@ k.infected("QuarantinePatient", (-2.5, 0.05, 2.1), yaw=0.8, state="lying", kind=
 k.leo_hint("LeoSeal", (1.0, 0.0, -2.0), [
     "Leo: Ese vagón tiene el sello intacto. Paz dijo que nadie lo abriera.",
     "Leo: La franja amarilla llega hasta la puerta del puesto sanitario.",
-    "Leo: No toques el precinto; sigue la franja amarilla hasta la puerta de la flecha amarilla."
+    "Leo: No toques el precinto; sigue la franja amarilla hasta la puerta de servicio."
 ])
 save_room(k, "maestranza_pasillo_cuarentena")
 print("maestranza_pasillo_cuarentena: generador listo")

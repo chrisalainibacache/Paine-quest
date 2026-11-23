@@ -264,7 +264,7 @@ data = ExtResource("20_infected_wor")
 [node name="LeoAccess" type="Marker3D" parent="."]
 position = Vector3(-0.75, 0, -1.44)
 script = ExtResource("22_leo_hint")
-lines = PackedStringArray("Leo: El puesto está detrás de la barrera. Hay una puerta lateral.", "Leo: No cruces por el centro; ese infectado puede oírte.", "Leo: Rodea la barrera y entra por la puerta de la flecha amarilla hacia el puesto de guardia.")
+lines = PackedStringArray("Leo: El puesto está detrás de la barrera. Hay una puerta lateral.", "Leo: No cruces por el centro; ese infectado puede oírte.", "Leo: Rodea la barrera y entra por la puerta lateral hacia el puesto de guardia.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-4.4167, 1.5, 0)

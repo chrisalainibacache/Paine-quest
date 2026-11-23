@@ -16,7 +16,7 @@ k.infected("Worker", (2.0, 0.05, -1.0), yaw=2.4, kind="infected_worker")
 k.leo_hint("LeoAccess", (-1.0, 0.0, -1.8), [
     "Leo: El puesto está detrás de la barrera. Hay una puerta lateral.",
     "Leo: No cruces por el centro; ese infectado puede oírte.",
-    "Leo: Rodea la barrera y entra por la puerta de la flecha amarilla hacia el puesto de guardia."
+    "Leo: Rodea la barrera y entra por la puerta lateral hacia el puesto de guardia."
 ])
 save_room(k, "maestranza_acceso")
 print("maestranza_acceso: generador listo")
