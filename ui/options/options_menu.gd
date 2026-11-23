@@ -22,6 +22,7 @@ func _ready() -> void:
     music_slider.value_changed.connect(_set_music_volume)
     ambience_slider.value_changed.connect(_set_ambience_volume)
     $Panel/Layout/Character.pressed.connect(_toggle_character)
+    $Panel/Layout/DoorMarkers.pressed.connect(_toggle_door_markers)
     $Panel/Layout/Buttons/Credits.pressed.connect(_show_credits)
     $Panel/Layout/Buttons/Privacy.pressed.connect(_open_privacy)
     $Panel/Layout/Buttons/Close.pressed.connect(close)
@@ -30,6 +31,7 @@ func _ready() -> void:
 func open() -> void:
     _sync_sliders()
     _refresh_character()
+    _refresh_door_markers()
     message.text = ""
     visible = true
     Sfx.play("menu", null, -6.0)
@@ -46,6 +48,17 @@ func _toggle_character() -> void:
 func _refresh_character() -> void:
     var character := $Panel/Layout/Character as Button
     character.text = "PERSONAJE: IGNACIA (PRUEBA)" if GameSettings.get_character() == "ignacia" else "PERSONAJE: ISABELLA"
+
+
+## Flechas y letreros sobre las puertas: apagados por defecto.
+func _toggle_door_markers() -> void:
+    GameSettings.set_door_markers(not GameSettings.get_door_markers())
+    _refresh_door_markers()
+    Sfx.play("menu", null, -6.0)
+
+
+func _refresh_door_markers() -> void:
+    ($Panel/Layout/DoorMarkers as Button).text = "FLECHAS EN LAS PUERTAS: " + ("SÍ" if GameSettings.get_door_markers() else "NO")
 
 
 func close() -> void:

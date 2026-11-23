@@ -45,6 +45,20 @@ static func set_character(character: String) -> void:
         push_warning("No se pudo guardar el personaje: %s" % error)
 
 
+## Flechas y letreros sobre las puertas («a cuál entrar»). Desactivadas por defecto: el jugador explora; se pueden activar en Opciones.
+static func get_door_markers() -> bool:
+    _ensure_loaded()
+    return bool(_config.get_value("juego", "flechas_puertas", false))
+
+
+static func set_door_markers(enabled: bool) -> void:
+    _ensure_loaded()
+    _config.set_value("juego", "flechas_puertas", enabled)
+    var error := _config.save(SETTINGS_PATH)
+    if error != OK:
+        push_warning("No se pudo guardar el ajuste de flechas: %s" % error)
+
+
 static func _ensure_loaded() -> void:
     if _loaded:
         return

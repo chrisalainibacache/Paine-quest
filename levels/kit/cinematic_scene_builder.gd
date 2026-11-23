@@ -7,9 +7,17 @@ const SKULL_BODY := preload("res://levels/kit/skull_body.gd")
 func build(owner: Cinematic) -> void:
     owner._camera = Camera3D.new()
     owner._camera.name = "Camera"
-    owner._camera.position = Vector3(0.0, 3.0, 8.2)
-    owner._camera.rotation = Vector3(-0.1099, 0.0, 0.0)
-    owner._camera.fov = 48.0
+    owner._camera.position = Vector3(0.0, 2.9, 6.9)
+    owner._camera.rotation = Vector3(-0.09, 0.0, 0.0)
+    owner._camera.fov = 38.0
+    # Ambiente propio (antes quedaba casi negro en el teléfono: «no se ve nada»): luz ambiente fría y suficiente.
+    var env := Environment.new()
+    env.background_mode = Environment.BG_COLOR
+    env.background_color = Color.BLACK
+    env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+    env.ambient_light_color = Color(0.55, 0.6, 0.68)
+    env.ambient_light_energy = 0.4
+    owner._camera.environment = env
     owner.add_child(owner._camera)
 
     var metal := load("res://levels/kit/materials/metal.tres") as Material
@@ -88,9 +96,9 @@ func build(owner: Cinematic) -> void:
     spot.position = Vector3(0, 4.1, 1.2)
     spot.rotation = Vector3(-0.311, 0.0, 0.0)
     spot.light_color = Color(0.72, 0.78, 0.84)
-    spot.light_energy = 2.0
+    spot.light_energy = 3.2
     spot.spot_range = 22.0
-    spot.spot_angle = 58.0
+    spot.spot_angle = 75.0
     spot.shadow_enabled = true
     owner.add_child(spot)
 
@@ -98,8 +106,8 @@ func build(owner: Cinematic) -> void:
     owner._fluorescent.name = "Fluorescent"
     owner._fluorescent.position = Vector3(0, 4, -3)
     owner._fluorescent.light_color = Color(0.62, 0.72, 0.8)
-    owner._fluorescent.light_energy = 0.85
-    owner._fluorescent.omni_range = 7.0
+    owner._fluorescent.light_energy = 1.3
+    owner._fluorescent.omni_range = 10.0
     owner.add_child(owner._fluorescent)
 
     owner._dust = CPUParticles3D.new()

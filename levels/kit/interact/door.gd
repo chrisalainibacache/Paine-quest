@@ -94,6 +94,8 @@ func _build_marker() -> void:
 func _refresh_marker() -> void:
     if _marker == null:
         return
+    # Ajuste del jugador: por defecto no se muestran flechas ni letreros (el nodo existe, pero oculto).
+    _marker.visible = GameSettings.get_door_markers()
     var blocked := is_locked() and not GameState.inventory.has_id(key_item.id)
     var color := LOCKED_COLOR if blocked else MARKER_COLOR
     _marker_arrow.modulate = color
