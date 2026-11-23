@@ -18,6 +18,7 @@ const OPTIONS_SCENE := preload("res://ui/options/options_menu.tscn")
 @onready var use_button: Button = $Root/Info/Buttons/Use
 @onready var examine_button: Button = $Root/Info/Buttons/Examine
 @onready var discard_button: Button = $Root/Info/Buttons/Discard
+@onready var combine_button: Button = $Root/Info/Buttons/Combine
 @onready var ecg: Control = $Root/Status/Ecg
 @onready var condition_label: Label = $Root/Status/Condition
 @onready var weapon_label: Label = $Root/Status/Weapon
@@ -71,6 +72,7 @@ func _ready() -> void:
     use_button.pressed.connect(_use_selected)
     examine_button.pressed.connect(_examine_selected)
     discard_button.pressed.connect(_discard_selected)
+    combine_button.pressed.connect(_combine_selected)
     move_button.pressed.connect(_move_selected)
     _build_discard_dialog()
     reward_ammo_button.pressed.connect(_offer_ammo_reward)
@@ -200,9 +202,11 @@ func _refresh() -> void:
 func _refresh_info() -> void:
     var inventory: Inventory = _active_inventory()
     var item: ItemData = inventory.get_item(selected) if selected >= 0 and selected < inventory.capacity else null
-    use_button.visible = item != null and not _chest_mode
+    use_button.visible = item != null and item.kind != ItemData.Kind.COMPONENT and not _chest_mode
     examine_button.visible = item != null
     discard_button.visible = item != null and not _chest_mode
+    combine_button.visible = item != null and not _chest_mode \
+            and not GameState.inventory.combination_partners(item).is_empty()
     discard_button.text = "DESCARTAR Y RECOGER" if _choose_discard_mode else "DESCARTAR"
     discard_button.disabled = item == null or _discard_block_reason(item) != ""
     move_button.visible = _chest_open and item != null
@@ -327,6 +331,39 @@ func _use_selected() -> void:
             player.combat.sync_from_state()
             Sfx.play("reload", null, -6.0)
             _refresh()
+
+
+func _combine_selected() -> void:
+    if _chest_mode or selected < 0:
+        return
+    var item: ItemData = GameState.inventory.get_item(selected)
+    if item == null:
+        return
+    var partners: Array[ItemData] = GameState.inventory.combination_partners(item)
+    if partners.is_empty():
+        _refresh()
+        return
+    var options: Array[String] = []
+    for partner: ItemData in partners:
+        options.append(partner.display_name)
+    var choice: int = await Dialogue.ask("¿Con qué combino %s?" % item.display_name, options)
+    if choice < 0 or choice >= partners.size():
+        return
+    var partner: ItemData = partners[choice]
+    var result: ItemData = GameState.inventory.combine(item, partner)
+    if result == null:
+        await Dialogue.say(["No puedo combinar esos objetos. Necesito espacio en la mochila y los dos componentes."])
+        _refresh()
+        return
+    selected = -1
+    for index in GameState.inventory.capacity:
+        if GameState.inventory.get_item(index) == result:
+            selected = index
+            break
+    _refresh()
+    Sfx.play("pickup", null, -5.0)
+    await Dialogue.say(["Combiné %s con %s." % [item.display_name, partner.display_name],
+        "Obtuve: %s." % result.display_name])
 
 
 func _examine_selected() -> void:
