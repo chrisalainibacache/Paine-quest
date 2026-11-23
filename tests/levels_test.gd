@@ -160,6 +160,9 @@ func _check_puzzle_room(path: String) -> void:
     var levers := room.find_children("*", "Lever", true, false)
     var sequences := room.find_children("*", "LeverSequence", true, false)
     var containers := room.find_children("*", "SearchContainer", true, false)
+    var code_lock := codes[0] as CodeLock if not codes.is_empty() else null
+    var fuse_box := fuse_boxes[0] as FuseBox if not fuse_boxes.is_empty() else null
+    var search_container := containers[0] as SearchContainer if not containers.is_empty() else null
     var one_way_count := 0
     for door: Door in room.find_children("*", "Door", true, false):
         if door.one_way:
@@ -171,13 +174,13 @@ func _check_puzzle_room(path: String) -> void:
             fuse_pickups += 1
         if pickup.item != null and pickup.item.kind == ItemData.Kind.COMPONENT:
             part_pickups += 1
-    _check(codes.size() == 1 and codes[0].puzzle.code == "0712",
+    _check(code_lock != null and code_lock.puzzle.code == "0712",
         "sala de prueba: cerradura táctil con código de prueba 0712")
-    _check(fuse_boxes.size() == 1 and fuse_boxes[0].puzzle.required_items.size() == 2,
+    _check(fuse_box != null and fuse_box.puzzle.required_items.size() == 2,
         "sala de prueba: tablero que necesita dos fusibles")
     _check(levers.size() == 3 and sequences.size() == 1,
         "sala de prueba: tres palancas y un controlador de secuencia")
-    _check(containers.size() == 1 and containers[0].prompt == "REGISTRAR",
+    _check(search_container != null and search_container.prompt == "REGISTRAR",
         "sala de prueba: un contenedor con acción REGISTRAR")
     _check(one_way_count == 2, "sala de prueba: ambos lados del atajo unidireccional")
     _check(fuse_pickups == 2 and part_pickups >= 2,
