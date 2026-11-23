@@ -7,6 +7,9 @@ const AMMO := preload("res://data/items/ammo_9mm.tres")
 const SUSHI := preload("res://data/items/sushi.tres")
 const KEY := preload("res://data/items/gate_key.tres")
 const PISTOL := preload("res://data/items/pistol.tres")
+const CRANK := preload("res://data/items/manivela.tres")
+const RUSTED_AXLE := preload("res://data/items/eje_oxidado.tres")
+const GATE_HANDLE := preload("res://data/items/manija_reja.tres")
 const WAITING_ROOM := "res://levels/station/waiting_room.tscn"
 const TICKET_OFFICE := "res://levels/station/ticket_office.tscn"
 const SOUTH_PLATFORM := "res://levels/station/south_platform.tscn"
@@ -50,6 +53,7 @@ func _run() -> void:
     _chest_rules()
     _puzzle_state()
     _puzzle_interactables()
+    _combine_rules()
     _coop_network()
     _coop_lines()
     await _leo_warns(player)
@@ -1160,3 +1164,28 @@ func _puzzle_interactables() -> void:
     lever.free()
     container.free()
     reverse_door.free()
+
+
+## P12-c: combinar consume ambos componentes y entrega el resultado una sola vez.
+func _combine_rules() -> void:
+    var recipe := RecipeData.find_recipe(CRANK, RUSTED_AXLE)
+    _check(recipe != null and recipe.result_item == GATE_HANDLE and recipe.matches(RUSTED_AXLE, CRANK),
+        "P12: la receta reconoce ingredientes en ambos órdenes")
+    var inventory := Inventory.new()
+    inventory.add(CRANK)
+    inventory.add(RUSTED_AXLE)
+    var partners: Array[ItemData] = inventory.combination_partners(CRANK)
+    _check(partners.size() == 1 and partners[0] == RUSTED_AXLE,
+        "P12: la mochila ofrece el componente compatible")
+    var result: ItemData = inventory.combine(CRANK, RUSTED_AXLE)
+    _check(result == GATE_HANDLE and inventory.count_of(CRANK) == 0
+        and inventory.count_of(RUSTED_AXLE) == 0 and inventory.count_of(GATE_HANDLE) == 1,
+        "P12: COMBINAR consume manivela y eje y entrega una manija")
+    _check(inventory.combine(CRANK, RUSTED_AXLE) == null and inventory.count_of(GATE_HANDLE) == 1,
+        "P12: una receta no puede duplicar el resultado sin ingredientes")
+    var incomplete := Inventory.new()
+    incomplete.add(CRANK)
+    _check(incomplete.combine(CRANK, RUSTED_AXLE) == null and incomplete.count_of(CRANK) == 1,
+        "P12: una combinación fallida conserva el ingrediente disponible")
+    _check(main.get_node_or_null("InventoryMenu/Root/Info/Buttons/Combine") is Button,
+        "P12: el detalle de mochila contiene el botón COMBINAR")
