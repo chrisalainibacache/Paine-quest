@@ -89,7 +89,7 @@ class Kit:
         self.s.node(name, "Label3D", parent, **p)
 
     # --- Interactuables
-    def door(self, name, pos, target_room, target_spawn, key=None, lock_id="", locked_text=None, prompt=None, reach=1.3, marker=None, metal_door=False):
+    def door(self, name, pos, target_room, target_spawn, key=None, lock_id="", locked_text=None, prompt=None, reach=1.3, marker=None, metal_door=False, one_way=False, one_way_origin=True):
         self.group("Interactables")
         p = {"position": v3(pos), "script": self.s.res(IA("door"), "Script"), "reach": fmt(reach)}
         if target_room: p["target_room"] = '"%s"' % target_room
@@ -100,6 +100,9 @@ class Kit:
         if prompt: p["prompt"] = '"%s"' % prompt
         if marker: p["marker_text"] = '"%s"' % marker
         if metal_door: p["metal_door"] = "true"
+        if one_way:
+            p["one_way"] = "true"
+            p["one_way_origin"] = "true" if one_way_origin else "false"
         self.s.node(name, "Node3D", "Interactables", **p)
 
     def pickup(self, name, pos, item, count=1, rot=(0, 0, 0), sets_flag=None):
@@ -128,6 +131,38 @@ class Kit:
 
     def storage_chest(self, name, pos, reach=1.3):
         self.interact(name, "storage_chest", pos, reach=fmt(reach))
+
+    def _puzzle_resource(self, puzzle):
+        return self.s.res("res://data/puzzles/%s.tres" % puzzle, "Resource")
+
+    def code_lock(self, name, pos, puzzle, unlock_id="", reach=1.4):
+        props = {"puzzle": self._puzzle_resource(puzzle), "reach": fmt(reach)}
+        if unlock_id: props["unlock_id"] = '"%s"' % unlock_id
+        self.interact(name, "code_lock", pos, **props)
+
+    def fuse_box(self, name, pos, puzzle, unlock_id="", fuse_item=None, reach=1.4):
+        props = {"puzzle": self._puzzle_resource(puzzle), "reach": fmt(reach)}
+        if unlock_id: props["unlock_id"] = '"%s"' % unlock_id
+        if fuse_item: props["fuse_item"] = self.s.res(ITEM(fuse_item), "Resource")
+        self.interact(name, "fuse_box", pos, **props)
+
+    def lever(self, name, pos, puzzle, lever_id, unlock_id="", reach=1.3):
+        props = {"puzzle": self._puzzle_resource(puzzle), "lever_id": '"%s"' % lever_id, "reach": fmt(reach)}
+        if unlock_id: props["unlock_id"] = '"%s"' % unlock_id
+        self.interact(name, "lever", pos, **props)
+
+    def lever_sequence(self, name, pos, puzzle, reach=1.4):
+        self.interact(name, "lever_sequence", pos, puzzle=self._puzzle_resource(puzzle), reach=fmt(reach))
+
+    def container(self, name, pos, puzzle, item_ids=(), counts=(), reach=1.2):
+        ids = "PackedStringArray(%s)" % ", ".join('"%s"' % item_id for item_id in item_ids)
+        amounts = "PackedInt32Array(%s)" % ", ".join(str(int(amount)) for amount in counts)
+        self.interact(name, "container", pos, puzzle=self._puzzle_resource(puzzle),
+                      content_item_ids=ids, counts=amounts, reach=fmt(reach))
+
+    def one_way_door(self, name, pos, target_room, target_spawn, lock_id, origin=True, marker=None, reach=1.3):
+        self.door(name, pos, target_room, target_spawn, lock_id=lock_id, marker=marker,
+                  reach=reach, one_way=True, one_way_origin=origin)
 
     # --- Infectados
     def infected(self, name, pos, yaw=0.0, state="idle", heavy=False, requires_flag=None, kind=None):
