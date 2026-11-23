@@ -418,6 +418,10 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - El CI ya pasó regeneración/importación y todas las pruebas funcionales, pero el parser detectó que Godot 4.7.2 acepta solo un argumento en bytes_to_var(). Cambié el anuncio UDP a JSON UTF-8 (JSON.stringify / JSON.parse_string), adecuado para los campos de texto y enteros del descubrimiento y sin deserializar objetos desde la red.
 - Estado: corrección subida; nueva ejecución CI pendiente.
 
+### 2026-11-23 — P9: seguimiento de CI #131
+- CI #131 confirmó que la regeneración y la importación pasan; las pruebas smoke, systems y levels reportaron 0 fallas funcionales, pero el compilador detectó la llamada incompatible a bytes_to_var(packet, false) en LAN discovery.
+- Se sustituyó por JSON UTF-8 y se empujó la corrección. Esta actualización registra el estado; el CI de la corrección aún debe ejecutarse.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 
