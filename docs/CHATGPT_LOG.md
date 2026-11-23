@@ -403,6 +403,12 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Pendiente de Claude:** regenerar `ui/title/title_screen.tscn` desde `tools/level_gen/title.py` si su revisión del CI lo requiere; verificar permisos Android y la prueba real entre dos dispositivos.
 - **Estado:** P9-b…f implementado en la rama; CI nuevo y revisión de Claude pendientes. No se toca `main` ni `levels/**`.
 
+### 2026-11-23 — P9: corrección tras CI #90
+- **Qué falló:** «Pruebas en PR» #90 llegó a las pruebas automáticas y detectó que Godot 4.7.2 no expone IP.is_valid_ip_address como función estática; eso impidió cargar NetSession y ejecutar la prueba de validación.
+- **Qué corregí:** añadí NetMessages.is_valid_ipv4 con validación explícita de cuatro octetos; la usan NetSession, LanDiscovery y el menú. La prueba instancia el script tipado y cubre IPv4 válida e inválida.
+- **Pruebas:** pendiente nueva ejecución del workflow; la corrida #90 queda registrada como FALLA y no se considera aprobada.
+- **Estado:** corrección subida; nueva validación pendiente.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 

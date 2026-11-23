@@ -39,7 +39,7 @@ func host(port: int = DEFAULT_PORT) -> Error:
 
 
 func join(ip: String, port: int = DEFAULT_PORT) -> Error:
-    if not IP.is_valid_ip_address(ip) or port < 1 or port > 65535:
+    if not NetMessages.is_valid_ipv4(ip) or port < 1 or port > 65535:
         return ERR_INVALID_PARAMETER
     close()
     var client: ENetMultiplayerPeer = ENetMultiplayerPeer.new()

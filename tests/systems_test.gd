@@ -933,7 +933,10 @@ func _coop_network() -> void:
         {"event_id": 1, "kind": "large", "payload": {"text": "x".repeat(70000)}})
     _check(not bool(oversized.get("ok", false)), "P9: el codec limita el tamaño de los mensajes")
 
-    var session: Node = load("res://systems/net/net_session.gd").new()
+    _check(NetMessages.is_valid_ipv4("192.168.1.20") and not NetMessages.is_valid_ipv4("256.168.1.20"),
+        "P9: valida direcciones IPv4 y rechaza octetos fuera de rango")
+    var session_script: Script = load("res://systems/net/net_session.gd") as Script
+    var session: Node = session_script.new()
     _check(session.call("join", "esto-no-es-una-ip", 7777) == ERR_INVALID_PARAMETER,
         "P9: la sesión rechaza una IP inválida")
     _check(session.call("host", 0) == ERR_INVALID_PARAMETER,

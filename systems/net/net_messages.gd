@@ -93,5 +93,18 @@ static func _valid_fields(kind: String, fields: Dictionary) -> bool:
     return true
 
 
+static func is_valid_ipv4(address: String) -> bool:
+    var parts: PackedStringArray = address.split(".", false)
+    if parts.size() != 4:
+        return false
+    for part: String in parts:
+        if part.is_empty() or not part.is_valid_int():
+            return false
+        var octet: int = int(part)
+        if octet < 0 or octet > 255 or str(octet) != part:
+            return false
+    return true
+
+
 static func _failure(reason: String) -> Dictionary:
     return {"ok": false, "error": reason}

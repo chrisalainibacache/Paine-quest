@@ -88,7 +88,7 @@ func _join_manual() -> void:
 
 
 func _join_address(address: String) -> void:
-    if not IP.is_valid_ip_address(address) or address.contains(":"):
+    if not NetMessages.is_valid_ipv4(address) or address.contains(":"):
         status_label.text = "Escribe una dirección IPv4 válida."
         return
     var join_error: int = int(_session.call("join", address, GAME_PORT))

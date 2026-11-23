@@ -112,7 +112,7 @@ func _poll_packets() -> void:
         if not game_name is String or not host_name is String:
             continue
         var address: String = _listener.get_packet_ip()
-        if not IP.is_valid_ip_address(address) or address.contains(":"):
+        if not NetMessages.is_valid_ipv4(address) or address.contains(":"):
             continue
         var game: Dictionary = {
             "ip": address,
