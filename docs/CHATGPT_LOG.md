@@ -422,6 +422,12 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - CI #131 confirmó que la regeneración y la importación pasan; las pruebas smoke, systems y levels reportaron 0 fallas funcionales, pero el compilador detectó la llamada incompatible a bytes_to_var(packet, false) en LAN discovery.
 - Se sustituyó por JSON UTF-8 y se empujó la corrección. Esta actualización registra el estado; el CI de la corrección aún debe ejecutarse.
 
+### 2026-11-23 — P9: CI #136 validado
+- **Pruebas en PR #136:** SUCCESS. Regeneración de escenas, importación, pruebas automáticas, auditoría de cámaras y comprobación de textos exportados terminaron en verde.
+- **Validación de pistola #170:** SUCCESS (capturas en juego y al disparar).
+- **Errores de script:** la ejecución #136 no registró SCRIPT ERROR; las correcciones IPv4 y JSON UTF-8 están validadas por Godot 4.7.2.
+- **Alcance:** P9-b…f queda validado por CI. Falta la prueba manual de conexión entre dos teléfonos Android; la sincronización de gameplay no forma parte de esta entrega.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 
