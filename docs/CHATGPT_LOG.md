@@ -433,6 +433,10 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Dudas:** la meta de 25 balas al final de cap. 1 se aproxima con 27 de reserva; el consumo de dos disparos es supuesto de balance, debe validarse en playtest.
 - **Estado:** P11-a…g implementados en la rama; falta CI verde y revisión de Claude.
 
+### 2026-11-23 — P11-d: corrección de capacidad real del baúl
+- La revisión del código detectó que Inventory.new(24) creaba 24 casillas, pero add() seguía iterando hasta SIZE (16). Ahora el bucle usa capacity y la cuadrícula generada deja altura para las tres filas. Añadí prueba que llena 24 slots con objetos no apilables.
+- Estado: corrección subida; CI pendiente.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 

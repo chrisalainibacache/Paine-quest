@@ -50,7 +50,7 @@ func add(item: ItemData, count: int = 1) -> int:
             var moved := mini(left, item.max_stack - slot.count)
             slot.count += moved
             left -= moved
-    for i in SIZE:
+    for i in capacity:
         if left > 0 and slots[i].is_empty():
             var moved := mini(left, item.max_stack)
             slots[i] = {"item": item, "count": moved}

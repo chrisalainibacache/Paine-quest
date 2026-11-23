@@ -965,6 +965,11 @@ func _ignacia() -> void:
 ## P11-d: baúl compartido y guardado persistente.
 func _chest_rules() -> void:
     _check(GameState.chest.capacity == 24, "P11: el baúl tiene 24 casillas")
+    var full_chest := Inventory.new(24)
+    for i in 24:
+        full_chest.add(PISTOL)
+    _check(full_chest.count_of(PISTOL) == 24 and full_chest.space_for(SUSHI) == 0,
+        "P11: las 24 casillas del baúl admiten objetos independientes")
     var previous: Dictionary = GameState.to_data()
     GameState.chest.clear()
     GameState.chest.add(AMMO, 25)
