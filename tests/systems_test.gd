@@ -48,6 +48,7 @@ func _run() -> void:
     var player: Player = main.player
     _inventory_rules()
     _chest_rules()
+    _puzzle_state()
     _coop_network()
     _coop_lines()
     await _leo_warns(player)
@@ -1052,3 +1053,45 @@ func _coop_lines() -> void:
             forbidden += 1
     _check(forbidden == 0, "P9: los textos no revelan nombres internos ni el nombre de diseño de la criatura")
     GameState.cooperative = false
+
+
+## P12-a: progreso de puzzles persistente y aislado por instancia.
+func _puzzle_state() -> void:
+    var definition := PuzzleData.new()
+    definition.id = "test_code_lock"
+    definition.puzzle_type = PuzzleData.PuzzleType.CODE_LOCK
+    definition.code = "0712"
+    _check(definition.is_valid(), "P12: PuzzleData valida una cerradura numérica de cuatro dígitos")
+    definition.puzzle_type = PuzzleData.PuzzleType.LEVER_SEQUENCE
+    definition.sequence = PackedStringArray(["north", "west", "east"])
+    _check(definition.is_valid(), "P12: PuzzleData valida una secuencia de palancas")
+    definition.puzzle_type = PuzzleData.PuzzleType.FUSE_BOX
+    definition.required_items = PackedStringArray(["fuse_a", "fuse_b"])
+    _check(definition.is_valid(), "P12: PuzzleData valida los objetos requeridos")
+
+    PuzzleState.reset_puzzle("p12_test")
+    PuzzleState.set_code_solved("p12_test")
+    PuzzleState.set_fuse_installed("p12_test", "fuse_a")
+    PuzzleState.set_fuse_installed("p12_test", "fuse_b")
+    PuzzleState.set_lever_sequence_progress("p12_test", 2)
+    var first_search: bool = PuzzleState.mark_container_searched("p12_test")
+    var second_search: bool = PuzzleState.mark_container_searched("p12_test")
+    _check(PuzzleState.is_code_solved("p12_test"), "P12: la cerradura registra su código resuelto")
+    _check(PuzzleState.installed_fuse_count("p12_test") == 2,
+        "P12: los fusibles instalados se cuentan por instancia")
+    _check(PuzzleState.get_lever_sequence_progress("p12_test") == 2,
+        "P12: la secuencia conserva el avance de palancas")
+    _check(first_search and not second_search and PuzzleState.is_container_searched("p12_test"),
+        "P12: REGISTRAR solo se marca como primera búsqueda una vez")
+
+    _check(SaveSystem.save_game(), "P12: el estado de puzzles se puede guardar")
+    PuzzleState.reset_puzzle("p12_test")
+    _check(SaveSystem.load_game(), "P12: el estado de puzzles se puede cargar")
+    _check(PuzzleState.is_code_solved("p12_test")
+        and PuzzleState.installed_fuse_count("p12_test") == 2
+        and PuzzleState.get_lever_sequence_progress("p12_test") == 2
+        and PuzzleState.is_container_searched("p12_test"),
+        "P12: códigos, fusibles, palancas y contenedores sobreviven al guardado")
+    _check(not PuzzleState.is_code_solved("p12_other"),
+        "P12: el progreso queda aislado por identificador de puzzle")
+    PuzzleState.reset_puzzle("p12_test")
