@@ -237,6 +237,10 @@ B y C se descartan.
 - **Dirección pedida:** **mapas de zona** que se encuentran; **salas más chicas, con más curvas y más conectadas**, «casi Resident Evil 3 de PS1», **todo prerenderizado**.
 - **Propuesta de Claude (pendiente de V°B° de Chris):** ver `docs/REDISENO_NIVELES.md`: zonas con bucles y atajos, mapa como objeto con pantalla propia, catálogo de puzzles (códigos deducidos de notas, fusibles, palancas, combinar objetos, llaves ocultas en contenedores y en infectados), pistas de Leo a demanda y piloto en el capítulo 1.
 
+### Isabella: sin carcaj y caminar natural (2026-11-23, pedido de Chris)
+- **Carcaj, flechas y correa quitados** del modelo de Isabella (`tools/strip_quiver.gd`: borra por piezas de geometría las flechas, el carcaj y la correa que cruza el pecho; el original queda en el historial de git).
+- **Caminar más natural:** las animaciones iban más lentas que el cuerpo (los pies patinaban: ~1 m/s al caminar). Ahora la velocidad de la animación sigue a la velocidad real (`WALK_NATURAL_SPEED` 1,0 y `JOG_NATURAL_SPEED` 1,45 m/s, medidas con los pies apoyados) y hay **arranque y frenada suaves** (`ACCELERATION` 9, `DECELERATION` 14 m/s²). Patinaje medido: caminar −0,98 → −0,18 m/s; trotar −0,56 → 0,08 m/s.
+
 ### Pantalla de título (decisión de Chris, noviembre)
 Fondo: **bosque con niebla y la vía del tren al atardecer, con dos figuras caminando hacia el sol** (imagen aportada por Chris, `assets/ui/title_bg.jpg`; respaldo
 renderizado con `tools/prerender/render_title.gd`). Título «PAINE» en **Josefin Sans** fina y espaciada; botones con borde fino y el principal (NUEVA PARTIDA) con

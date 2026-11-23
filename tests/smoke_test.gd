@@ -50,7 +50,8 @@ func _run() -> void:
     Input.action_release(&"move_right")
     Input.action_press(&"move_forward", 1.0)
     await _seconds(0.2)
-    var expected := -Player._flat_basis(cameras[1].get_camera().global_basis).z
+    # La cámara «nueva» es la que tenga activa ahora (las zonas pueden haberla cambiado según hasta dónde llegó).
+    var expected := -Player._flat_basis(player._camera.global_basis).z
     var now := Vector3(player.velocity.x, 0, player.velocity.z).normalized()
     _check(now.dot(expected) > 0.95, "al corregir el stick, se usa la cámara nueva")
     Input.action_release(&"move_forward")
