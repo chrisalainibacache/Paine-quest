@@ -6,7 +6,8 @@
 [ext_resource type="Script" path="res://ui/brightness_toggle.gd" id="4_brightness_t"]
 [ext_resource type="Script" path="res://ui/diag_toggle.gd" id="5_diag_toggle"]
 [ext_resource type="Script" path="res://ui/inventory/ecg.gd" id="6_ecg"]
-[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="7_item_view"]
+[ext_resource type="Script" path="res://ui/inventory/zone_map_view.gd" id="7_zone_map_vie"]
+[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="8_item_view"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.04, 0.045, 0.05, 0.85)
@@ -102,6 +103,13 @@ theme_override_font_sizes/font_size = 22
 focus_mode = 0
 toggle_mode = true
 custom_minimum_size = Vector2(106, 64)
+
+[node name="MapTab" type="Button" parent="Root/Header"]
+text = "MAPA"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
+toggle_mode = true
+custom_minimum_size = Vector2(90, 64)
 
 [node name="ChestTab" type="Button" parent="Root/Header"]
 text = "BAÚL"
@@ -274,6 +282,31 @@ offset_bottom = 694
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
+[node name="Map" type="ScrollContainer" parent="Root"]
+offset_left = 360
+offset_top = 118
+offset_right = 1240
+offset_bottom = 694
+
+[node name="Content" type="VBoxContainer" parent="Root/Map"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="MapTitle" type="Label" parent="Root/Map/Content"]
+text = "MAPA DE ZONA"
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.85, 0.72, 0.5, 1)
+
+[node name="MapLegend" type="Label" parent="Root/Map/Content"]
+text = "SIN VISITAR · VISITADA · CON PENDIENTES · 🔑 PUERTA CERRADA"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.6, 0.57, 0.5, 1)
+
+[node name="MapView" type="Control" parent="Root/Map/Content"]
+script = ExtResource("7_zone_map_vie")
+custom_minimum_size = Vector2(900, 500)
+size_flags_horizontal = 3
+
 [node name="Examine" type="Control" parent="Root"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -290,7 +323,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.92)
 
 [node name="View" type="SubViewportContainer" parent="Root/Examine"]
-script = ExtResource("7_item_view")
+script = ExtResource("8_item_view")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
