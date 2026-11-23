@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="ZoneMapData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/zones/zone_map_data.gd" id="1_map"]
+
+[resource]
+script = ExtResource("1_map")
+id = "station"
+display_name = "ESTACIÓN DE PAINE"
+map_item_id = "map_station"
+grid_size = Vector2i(3, 3)
+rooms = Array[Dictionary]([{
+"id": "platform",
+"name": "Andén norte",
+"scene_path": "res://levels/station/platform.tscn",
+"grid_position": Vector2i(1, 0),
+"connections": PackedStringArray("waiting_room", "south_platform"),
+"doors": Array[Dictionary]([{"label": "Sala de espera", "target": "waiting_room", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Reja al andén sur", "target": "south_platform", "key_item_id": "gate_key", "lock_id": "gate_south", "one_way": false}])
+},
+{
+"id": "waiting_room",
+"name": "Sala de espera",
+"scene_path": "res://levels/station/waiting_room.tscn",
+"grid_position": Vector2i(0, 1),
+"connections": PackedStringArray("platform", "ticket_office"),
+"doors": Array[Dictionary]([{"label": "Andén norte", "target": "platform", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Boletería", "target": "ticket_office", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "ticket_office",
+"name": "Boletería",
+"scene_path": "res://levels/station/ticket_office.tscn",
+"grid_position": Vector2i(1, 1),
+"connections": PackedStringArray("waiting_room", "service_corridor"),
+"doors": Array[Dictionary]([{"label": "Sala de espera", "target": "waiting_room", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Pasillo de servicio", "target": "service_corridor", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "service_corridor",
+"name": "Pasillo de servicio",
+"scene_path": "res://levels/station/service_corridor.tscn",
+"grid_position": Vector2i(2, 1),
+"connections": PackedStringArray("ticket_office", "storeroom"),
+"doors": Array[Dictionary]([{"label": "Boletería", "target": "ticket_office", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Bodega", "target": "storeroom", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "storeroom",
+"name": "Bodega",
+"scene_path": "res://levels/station/storeroom.tscn",
+"grid_position": Vector2i(2, 2),
+"connections": PackedStringArray("service_corridor"),
+"doors": Array[Dictionary]([{"label": "Pasillo de servicio", "target": "service_corridor", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "south_platform",
+"name": "Andén sur",
+"scene_path": "res://levels/station/south_platform.tscn",
+"grid_position": Vector2i(1, 2),
+"connections": PackedStringArray("platform"),
+"doors": Array[Dictionary]([{"label": "Reja al andén norte", "target": "platform", "key_item_id": "gate_key", "lock_id": "gate_south", "one_way": false}])
+}])
