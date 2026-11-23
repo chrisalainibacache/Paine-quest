@@ -14,6 +14,10 @@ var key_items: Array[Dictionary] = []
 var capacity: int = SIZE
 
 
+static func _is_key_item(item: ItemData) -> bool:
+    return item != null and (item.kind == ItemData.Kind.KEY or item.kind == ItemData.Kind.MAP)
+
+
 func _init(slot_count: int = SIZE) -> void:
     capacity = maxi(slot_count, 1)
     clear()
@@ -39,7 +43,7 @@ func get_count(index: int) -> int:
 func add(item: ItemData, count: int = 1) -> int:
     if item == null or count <= 0:
         return count
-    if item.kind == ItemData.Kind.KEY:
+    if _is_key_item(item):
         _store_key(item, count)
         changed.emit()
         return 0
@@ -62,7 +66,7 @@ func add(item: ItemData, count: int = 1) -> int:
 
 ## Cuántas unidades de un ítem se pueden guardar ahora.
 func space_for(item: ItemData) -> int:
-    if item != null and item.kind == ItemData.Kind.KEY:
+    if _is_key_item(item):
         return 2147483647
     var space := 0
     for slot in slots:
@@ -74,7 +78,7 @@ func space_for(item: ItemData) -> int:
 
 
 func count_of(item: ItemData) -> int:
-    if item != null and item.kind == ItemData.Kind.KEY:
+    if _is_key_item(item):
         for entry: Dictionary in key_items:
             var key: ItemData = entry.get("item") as ItemData
             if key != null and key.id == item.id:
@@ -100,7 +104,7 @@ func has_id(item_id: String) -> bool:
 
 ## Saca hasta `amount` unidades del ítem. Devuelve cuántas sacó.
 func take(item: ItemData, amount: int) -> int:
-    if item != null and item.kind == ItemData.Kind.KEY:
+    if _is_key_item(item):
         for index in range(key_items.size() - 1, -1, -1):
             var entry: Dictionary = key_items[index]
             var key: ItemData = entry.get("item") as ItemData
@@ -202,7 +206,7 @@ func from_data(data: Array) -> void:
             if ResourceLoader.exists(path):
                 var item: ItemData = load(path) as ItemData
                 var amount: int = int(raw_entry[1])
-                if item != null and item.kind == ItemData.Kind.KEY:
+                if _is_key_item(item):
                     _store_key(item, amount)
                 elif item != null:
                     slots.append({"item": item, "count": amount})
@@ -219,7 +223,7 @@ func from_data(data: Array) -> void:
             var key_path: String = String(raw_key[0])
             if ResourceLoader.exists(key_path):
                 var key_item: ItemData = load(key_path) as ItemData
-                if key_item != null and key_item.kind == ItemData.Kind.KEY:
+                if _is_key_item(key_item):
                     _store_key(key_item, int(raw_key[1]))
     changed.emit()
 
