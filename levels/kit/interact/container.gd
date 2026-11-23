@@ -25,6 +25,8 @@ func interact(_player: Player) -> void:
         return
 
     var amounts: Array[int] = []
+    var totals: Dictionary = {}
+    var loaded_items: Array[ItemData] = []
     for index in content_item_ids.size():
         var amount: int = counts[index] if index < counts.size() else 1
         amounts.append(maxi(amount, 1))
@@ -33,14 +35,21 @@ func interact(_player: Player) -> void:
             await Dialogue.say(["No reconozco uno de los objetos guardados aquí."])
             return
         var item := load(item_path) as ItemData
-        if item == null or GameState.inventory.space_for(item) < amounts[index]:
+        if item == null:
+            await Dialogue.say(["No puedo identificar uno de los objetos."])
+            return
+        loaded_items.append(item)
+        totals[item.id] = int(totals.get(item.id, 0)) + amounts[index]
+    for item_id: String in totals:
+        var item_path := "res://data/items/%s.tres" % item_id
+        var item := load(item_path) as ItemData
+        if item == null or GameState.inventory.space_for(item) < int(totals[item_id]):
             await Dialogue.say(["No me cabe todo en la mochila. Primero tengo que hacer espacio."])
             return
 
     var found: Array[String] = []
     for index in content_item_ids.size():
-        var item_path := "res://data/items/%s.tres" % content_item_ids[index]
-        var item := load(item_path) as ItemData
+        var item: ItemData = loaded_items[index]
         var amount: int = amounts[index]
         GameState.inventory.add(item, amount)
         found.append(item.display_name + (" ×%d" % amount if amount > 1 else ""))
