@@ -141,4 +141,9 @@ func _on_pad_button(value: String) -> void:
     elif _entered_code.length() < 6:
         _entered_code += value
     if _display:
-        _display.text = " ".join(_entered_code.split("")) if not _entered_code.is_empty() else "— — —"
+        var spaced := ""
+        for index in _entered_code.length():
+            if index > 0:
+                spaced += " "
+            spaced += _entered_code.substr(index, 1)
+        _display.text = spaced if not spaced.is_empty() else "— — —"
