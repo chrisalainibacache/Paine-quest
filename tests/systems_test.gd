@@ -353,6 +353,14 @@ func _inventory_rules() -> void:
     discard_inventory.remove_at(0, 10)
     _check(discard_inventory.count_of(AMMO) == 0 and discard_inventory.get_item(0) == null,
         "P11: descartar todo libera la casilla")
+    var full_inventory := Inventory.new()
+    for i in Inventory.SIZE:
+        full_inventory.add(PISTOL)
+    _check(full_inventory.space_for(SUSHI) == 0, "P11: una mochila llena activa el flujo de elegir descarte")
+    var key_only_inventory := Inventory.new()
+    key_only_inventory.add(KEY)
+    _check(key_only_inventory.space_for(KEY) > 0 and key_only_inventory.has_id(KEY.id),
+        "P11: recoger una llave nunca depende del espacio de casillas")
 
 
 func _leo_warns(player: Player) -> void:

@@ -421,6 +421,11 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Qué debe probar Chris:** empezar partida nueva sin arma; recoger la pistola de la boletería; confirmar que la pistola no reaparece tras cambiar de sala/guardar; recoger las armas en su ubicación de capítulo y comprobar que el bazooka no aparece.
 - **Estado:** P11-e implementado; CI y regeneración pendientes.
 
+### 2026-11-23 — P11-f: mochila llena y elección de descarte
+- **Qué hice:** Pickup ya no falla al no haber espacio: abre la mochila en modo «¿QUÉ DEJO?». Al confirmar el descarte, vuelve a intentar recoger el objeto; si se cancela, el pickup permanece. Las llaves siguen entrando sin consumir casillas. Añadí pruebas de mochila llena y espacio ilimitado para llaves.
+- **Pruebas:** no ejecutadas localmente; falta regenerar inventory_menu.tscn desde su generador y ejecutar CI.
+- **Estado:** implementación subida; validación pendiente.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 

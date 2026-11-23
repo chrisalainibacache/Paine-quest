@@ -42,6 +42,8 @@ var _discard_options: OptionButton
 var _discard_amounts: Array[int] = []
 var _chest_open: bool = false
 var _chest_mode: bool = false
+var _choose_discard_mode: bool = false
+var _pending_pickup: Pickup
 
 
 func _ready() -> void:
@@ -50,6 +52,8 @@ func _ready() -> void:
     visible = false
     _chest_open = false
     _chest_mode = false
+    _choose_discard_mode = false
+    _pending_pickup = null
     examine.visible = false
     for i in 24:
         _build_slot(i)
@@ -179,6 +183,7 @@ func _refresh_info() -> void:
     use_button.visible = item != null and not _chest_mode
     examine_button.visible = item != null
     discard_button.visible = item != null and not _chest_mode
+    discard_button.text = "DESCARTAR Y RECOGER" if _choose_discard_mode else "DESCARTAR"
     discard_button.disabled = item == null or _discard_block_reason(item) != ""
     move_button.visible = _chest_open and item != null
     move_button.text = "RETIRAR" if _chest_mode else "GUARDAR"
@@ -471,6 +476,13 @@ func _confirm_discard() -> void:
         selected = _first_filled()
     Sfx.play("pickup", null, -6.0)
     _refresh()
+    if _pending_pickup != null and is_instance_valid(_pending_pickup):
+        var pickup: Pickup = _pending_pickup
+        _pending_pickup = null
+        _choose_discard_mode = false
+        close()
+        pickup.interact(player)
+        return
     item_text.text = "Dejé: %s." % name
 
 
@@ -528,3 +540,17 @@ func _move_selected() -> void:
     Sfx.play("pickup", null, -6.0)
     _refresh()
     item_text.text = "%s: %s (%d)." % ["Retiré" if _chest_mode else "Guardé", item.display_name, moved]
+
+
+
+func open_for_pickup(new_player: Player, pickup: Pickup) -> void:
+    if pickup == null or not is_instance_valid(pickup):
+        return
+    _pending_pickup = pickup
+    _choose_discard_mode = true
+    if not visible:
+        open(new_player)
+    _show_tab(false)
+    item_text.text = "¿QUÉ DEJO para poder recoger: %s?" % pickup.item.display_name
+    discard_button.text = "DESCARTAR Y RECOGER"
+    _refresh()
