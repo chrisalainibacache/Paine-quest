@@ -47,6 +47,7 @@ func _run() -> void:
     var player: Player = main.player
     _inventory_rules()
     _coop_network()
+    _coop_lines()
     await _leo_warns(player)
     _graphics_modes()
     _leo_guides(player)
@@ -947,3 +948,24 @@ func _coop_network() -> void:
             "P9: el menú contiene el panel de ping")
         if instance != null:
             instance.free()
+
+
+## P9-e: las líneas de Ignacia solo aparecen cuando la partida es cooperativa.
+func _coop_lines() -> void:
+    var lines: CoopLines = load("res://data/coop/ignacia_lines.tres") as CoopLines
+    _check(lines != null and lines.entries.size() >= 35, "P9: el recurso de líneas de Ignacia contiene el guion cooperativo")
+    GameState.cooperative = false
+    _check(lines.lines_for("station/platform", "coop_intro").is_empty(),
+        "P9: una partida individual no muestra líneas de Ignacia")
+    GameState.cooperative = true
+    var intro: PackedStringArray = lines.lines_for("station/platform", "coop_intro")
+    _check(intro.size() == 9, "P9: el encuentro de Ignacia devuelve las nueve líneas aprobadas")
+    _check(lines.lines_for("station/ticket_office", "pistol").size() == 1,
+        "P9: las líneas se filtran por sala y disparador")
+    var forbidden: int = 0
+    for entry: Dictionary in lines.entries:
+        var line: String = String(entry.get("text", ""))
+        if line.contains("Skull") or line.contains("skull") or line.contains("net_session") or line.contains("GameState"):
+            forbidden += 1
+    _check(forbidden == 0, "P9: los textos no revelan nombres internos ni el nombre de diseño de la criatura")
+    GameState.cooperative = false
