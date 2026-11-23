@@ -35,6 +35,7 @@ button("Options", "Root/Header", "OPCIONES", 20, custom_minimum_size="Vector2(12
 button("ItemsTab", "Root/Header", "OBJETOS", 22, toggle_mode="true", custom_minimum_size="Vector2(124, 64)")
 button("NotesTab", "Root/Header", "NOTAS", 22, toggle_mode="true", custom_minimum_size="Vector2(106, 64)")
 button("KeysTab", "Root/Header", "LLAVES", 22, toggle_mode="true", custom_minimum_size="Vector2(106, 64)")
+button("MapTab", "Root/Header", "MAPA", 22, toggle_mode="true", custom_minimum_size="Vector2(90, 64)")
 button("ChestTab", "Root/Header", "BAÚL", 22, toggle_mode="true", custom_minimum_size="Vector2(96, 64)")
 button("Close", "Root/Header", "CERRAR", 22, custom_minimum_size="Vector2(116, 64)")
 # Estado de Isabella.
@@ -69,6 +70,14 @@ s.node("List", "GridContainer", "Root/Notes", columns="2", size_flags_horizontal
 s.node("Keys", "ScrollContainer", "Root", **rect(left=360, top=118, right=1240, bottom=694))
 s.node("List", "VBoxContainer", "Root/Keys", size_flags_horizontal="3",
        theme_override_constants_separation="12")
+# Mapa de zona: se activa solo cuando Isabella encuentra el mapa correspondiente.
+s.node("Map", "ScrollContainer", "Root", **rect(left=360, top=118, right=1240, bottom=694))
+s.node("Content", "VBoxContainer", "Root/Map", size_flags_horizontal="3",
+       theme_override_constants_separation="12")
+label("MapTitle", "Root/Map/Content", "MAPA DE ZONA", 30, col((0.85, 0.72, 0.5)))
+label("MapLegend", "Root/Map/Content", "SIN VISITAR · VISITADA · CON PENDIENTES · 🔑 PUERTA CERRADA", 18, DIM)
+s.node("MapView", "Control", "Root/Map/Content", script=s.res("res://ui/inventory/zone_map_view.gd", "Script"),
+       custom_minimum_size="Vector2(900, 500)", size_flags_horizontal="3")
 # Examinar: el ítem en grande, se gira con el dedo.
 s.node("Examine", "Control", "Root", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2")
 s.node("Shade", "ColorRect", "Root/Examine", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2",
