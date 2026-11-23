@@ -8,7 +8,7 @@ for s in train_props station_props props props2 items food ammo_items buin_props
          track_north derailed_train wagon_interior convoy_side underpass switch_house \
          buin_bridge buin_checkpoint buin_field buin_station buin_warehouse buin_vineyard buin_shed \
          maestranza_acceso maestranza_guardia maestranza_enfermeria maestranza_taller maestranza_vestuario maestranza_pasillo_cuarentena maestranza_puesto_sanitario \
-         title chapter_end inventory creature_door; do
+         title chapter_end inventory creature_door puzzle_lab; do
     python3 "tools/level_gen/$s.py" > /dev/null
 done
 echo "regenerado"
