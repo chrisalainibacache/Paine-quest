@@ -409,6 +409,11 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Pruebas:** pendiente nueva ejecución del workflow; la corrida #90 queda registrada como FALLA y no se considera aprobada.
 - **Estado:** corrección subida; nueva validación pendiente.
 
+### 2026-11-23 — P9: segundo arreglo de IPv4 tras CI #100
+- La prueba automática pasó (0 fallas), pero el detector de SCRIPT ERROR encontró una segunda llamada residual a IP.is_valid_ip_address en _local_ipv4() del menú. El primer reemplazo había corregido la validación de la IP escrita, no la enumeración de direcciones locales.
+- Sustituí también esa llamada por NetMessages.is_valid_ipv4. El siguiente CI debe validar el menú completo.
+- Estado: nueva corrección subida; CI pendiente.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 

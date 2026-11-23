@@ -162,7 +162,7 @@ func _local_ipv4() -> String:
     for address: String in IP.get_local_addresses():
         if address.contains(":") or address.begins_with("127.") or address.begins_with("169.254."):
             continue
-        if IP.is_valid_ip_address(address):
+        if NetMessages.is_valid_ipv4(address):
             return address
     return "IP no disponible"
 
