@@ -1,11 +1,12 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://ui/inventory/inventory_menu.gd" id="1_inventory_me"]
-[ext_resource type="Script" path="res://ui/graphics_toggle.gd" id="2_graphics_tog"]
-[ext_resource type="Script" path="res://ui/brightness_toggle.gd" id="3_brightness_t"]
-[ext_resource type="Script" path="res://ui/diag_toggle.gd" id="4_diag_toggle"]
-[ext_resource type="Script" path="res://ui/inventory/ecg.gd" id="5_ecg"]
-[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="6_item_view"]
+[ext_resource type="Texture2D" path="res://assets/ui/kit/background.png" id="2_background"]
+[ext_resource type="Script" path="res://ui/graphics_toggle.gd" id="3_graphics_tog"]
+[ext_resource type="Script" path="res://ui/brightness_toggle.gd" id="4_brightness_t"]
+[ext_resource type="Script" path="res://ui/diag_toggle.gd" id="5_diag_toggle"]
+[ext_resource type="Script" path="res://ui/inventory/ecg.gd" id="6_ecg"]
+[ext_resource type="Script" path="res://ui/inventory/item_view.gd" id="7_item_view"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.04, 0.045, 0.05, 0.85)
@@ -26,19 +27,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Shade" type="ColorRect" parent="Root"]
+[node name="Shade" type="TextureRect" parent="Root"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.01, 0.012, 0.016, 0.93)
+texture = ExtResource("2_background")
+expand_mode = 1
+stretch_mode = 0
+modulate = Color(1, 1, 1, 0.97)
 
 [node name="Header" type="HBoxContainer" parent="Root"]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 10
 offset_left = 40
 offset_top = 22
 offset_right = -40
@@ -53,67 +57,66 @@ vertical_alignment = 1
 
 [node name="Graphics" type="Button" parent="Root/Header"]
 text = "GRÁFICOS: RETRO"
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 20
 focus_mode = 0
-custom_minimum_size = Vector2(220, 64)
-script = ExtResource("2_graphics_tog")
+custom_minimum_size = Vector2(190, 64)
+script = ExtResource("3_graphics_tog")
 
 [node name="Brightness" type="Button" parent="Root/Header"]
 text = "BRILLO 3/5"
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 20
 focus_mode = 0
-custom_minimum_size = Vector2(130, 64)
-script = ExtResource("3_brightness_t")
+custom_minimum_size = Vector2(112, 64)
+script = ExtResource("4_brightness_t")
 
 [node name="Diag" type="Button" parent="Root/Header"]
 text = "DIAG"
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 20
 focus_mode = 0
-custom_minimum_size = Vector2(80, 64)
-script = ExtResource("4_diag_toggle")
+custom_minimum_size = Vector2(70, 64)
+script = ExtResource("5_diag_toggle")
 
 [node name="Options" type="Button" parent="Root/Header"]
 text = "OPCIONES"
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 20
 focus_mode = 0
-custom_minimum_size = Vector2(150, 64)
+custom_minimum_size = Vector2(128, 64)
 
 [node name="ItemsTab" type="Button" parent="Root/Header"]
 text = "OBJETOS"
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 focus_mode = 0
 toggle_mode = true
-custom_minimum_size = Vector2(140, 64)
+custom_minimum_size = Vector2(124, 64)
 
 [node name="NotesTab" type="Button" parent="Root/Header"]
 text = "NOTAS"
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 focus_mode = 0
 toggle_mode = true
-custom_minimum_size = Vector2(120, 64)
+custom_minimum_size = Vector2(106, 64)
 
 [node name="KeysTab" type="Button" parent="Root/Header"]
 text = "LLAVES"
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 focus_mode = 0
 toggle_mode = true
-custom_minimum_size = Vector2(120, 64)
+custom_minimum_size = Vector2(106, 64)
 
 [node name="ChestTab" type="Button" parent="Root/Header"]
 text = "BAÚL"
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 focus_mode = 0
 toggle_mode = true
-custom_minimum_size = Vector2(110, 64)
+custom_minimum_size = Vector2(96, 64)
 
 [node name="Close" type="Button" parent="Root/Header"]
 text = "CERRAR"
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 focus_mode = 0
-custom_minimum_size = Vector2(130, 64)
+custom_minimum_size = Vector2(116, 64)
 
 [node name="Status" type="Panel" parent="Root"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 offset_left = 40
 offset_top = 118
 offset_right = 330
@@ -129,7 +132,7 @@ offset_right = 270
 offset_bottom = 42
 
 [node name="Ecg" type="Control" parent="Root/Status"]
-script = ExtResource("5_ecg")
+script = ExtResource("6_ecg")
 offset_left = 18
 offset_top = 48
 offset_right = 272
@@ -173,7 +176,6 @@ offset_right = 1240
 offset_bottom = 450
 
 [node name="Info" type="Panel" parent="Root"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 offset_left = 360
 offset_top = 404
 offset_right = 1240
@@ -288,7 +290,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.92)
 
 [node name="View" type="SubViewportContainer" parent="Root/Examine"]
-script = ExtResource("6_item_view")
+script = ExtResource("7_item_view")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

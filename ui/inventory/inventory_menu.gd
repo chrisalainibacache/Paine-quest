@@ -134,6 +134,7 @@ func _build_slot(index: int) -> void:
     var slot := Button.new()
     slot.custom_minimum_size = SLOT_SIZE
     slot.toggle_mode = true
+    slot.theme_type_variation = &"Slot"
     slot.focus_mode = Control.FOCUS_NONE
     slot.pressed.connect(select.bind(index))
     grid.add_child(slot)

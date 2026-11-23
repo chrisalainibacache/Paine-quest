@@ -18,27 +18,27 @@ def button(name, parent, text, size=24, **kw):
 
 s.node("InventoryMenu", "CanvasLayer", script=s.res("res://ui/inventory/inventory_menu.gd", "Script"), layer="20")
 s.node("Root", "Control", ".", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2")
-s.node("Shade", "ColorRect", "Root", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2",
-       color=col((0.01, 0.012, 0.016, 0.93)))
+s.node("Shade", "TextureRect", "Root", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2",
+       texture=s.res("res://assets/ui/kit/background.png", "Texture2D"), expand_mode="1", stretch_mode="0", modulate=col((1, 1, 1, 0.97)))
 # Encabezado: título, pestañas y cerrar.
 s.node("Header", "HBoxContainer", "Root", anchors_preset="10", anchor_right="1.0", grow_horizontal="2",
-       theme_override_constants_separation="14", **rect(left=40, top=22, right=-40, bottom=92))
+       theme_override_constants_separation="10", **rect(left=40, top=22, right=-40, bottom=92))
 label("Title", "Root/Header", "MOCHILA", 38, col((0.85, 0.72, 0.5)), size_flags_horizontal="3", vertical_alignment="1")
 # Interruptor de gráficos (Retro / Moderno): se compara en la misma sala.
-button("Graphics", "Root/Header", "GRÁFICOS: RETRO", 22, custom_minimum_size="Vector2(220, 64)",
+button("Graphics", "Root/Header", "GRÁFICOS: RETRO", 20, custom_minimum_size="Vector2(190, 64)",
        script=s.res("res://ui/graphics_toggle.gd", "Script"))
-button("Brightness", "Root/Header", "BRILLO 3/5", 22, custom_minimum_size="Vector2(130, 64)",
+button("Brightness", "Root/Header", "BRILLO 3/5", 20, custom_minimum_size="Vector2(112, 64)",
        script=s.res("res://ui/brightness_toggle.gd", "Script"))
-button("Diag", "Root/Header", "DIAG", 22, custom_minimum_size="Vector2(80, 64)",
+button("Diag", "Root/Header", "DIAG", 20, custom_minimum_size="Vector2(70, 64)",
        script=s.res("res://ui/diag_toggle.gd", "Script"))
-button("Options", "Root/Header", "OPCIONES", 22, custom_minimum_size="Vector2(150, 64)")
-button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(140, 64)")
-button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(120, 64)")
-button("KeysTab", "Root/Header", "LLAVES", 24, toggle_mode="true", custom_minimum_size="Vector2(120, 64)")
-button("ChestTab", "Root/Header", "BAÚL", 24, toggle_mode="true", custom_minimum_size="Vector2(110, 64)")
-button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(130, 64)")
+button("Options", "Root/Header", "OPCIONES", 20, custom_minimum_size="Vector2(128, 64)")
+button("ItemsTab", "Root/Header", "OBJETOS", 22, toggle_mode="true", custom_minimum_size="Vector2(124, 64)")
+button("NotesTab", "Root/Header", "NOTAS", 22, toggle_mode="true", custom_minimum_size="Vector2(106, 64)")
+button("KeysTab", "Root/Header", "LLAVES", 22, toggle_mode="true", custom_minimum_size="Vector2(106, 64)")
+button("ChestTab", "Root/Header", "BAÚL", 22, toggle_mode="true", custom_minimum_size="Vector2(96, 64)")
+button("Close", "Root/Header", "CERRAR", 22, custom_minimum_size="Vector2(116, 64)")
 # Estado de Isabella.
-s.node("Status", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=40, top=118, right=330, bottom=430))
+s.node("Status", "Panel", "Root", **rect(left=40, top=118, right=330, bottom=430))
 label("Label", "Root/Status", "ESTADO", 22, DIM, **rect(left=18, top=12, right=270, bottom=42))
 s.node("Ecg", "Control", "Root/Status", script=s.res("res://ui/inventory/ecg.gd", "Script"), **rect(left=18, top=48, right=272, bottom=150))
 label("Condition", "Root/Status", "BIEN", 30, TXT, **rect(left=18, top=158, right=272, bottom=198))
@@ -48,7 +48,7 @@ label("Weapon", "Root/Status", "Pistola", 22, TXT, autowrap_mode="3", **rect(lef
 s.node("Grid", "GridContainer", "Root", columns="8", theme_override_constants_h_separation="10",
        theme_override_constants_v_separation="10", **rect(left=360, top=118, right=1240, bottom=450))
 # Información del ítem.
-s.node("Info", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=360, top=404, right=1240, bottom=694))
+s.node("Info", "Panel", "Root", **rect(left=360, top=404, right=1240, bottom=694))
 label("Name", "Root/Info", "", 30, col((0.85, 0.72, 0.5)), **rect(left=24, top=14, right=840, bottom=54))
 label("Description", "Root/Info", "", 24, TXT, autowrap_mode="3", **rect(left=24, top=60, right=600, bottom=210))
 s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=640, top=60, right=856, bottom=210))
