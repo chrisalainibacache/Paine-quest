@@ -59,6 +59,7 @@ func _run() -> void:
     _puzzle_interactables()
     _combine_rules()
     _zone_maps()
+    _leo_hint_levels()
     _coop_network()
     _coop_lines()
     await _leo_warns(player)
@@ -1182,10 +1183,13 @@ func _combine_rules() -> void:
     var partners: Array[ItemData] = inventory.combination_partners(CRANK)
     _check(partners.size() == 1 and partners[0] == RUSTED_AXLE,
         "P12: la mochila ofrece el componente compatible")
+    var revision_before_combine := GameState.progress_revision
     var result: ItemData = inventory.combine(CRANK, RUSTED_AXLE)
     _check(result == GATE_HANDLE and inventory.count_of(CRANK) == 0
         and inventory.count_of(RUSTED_AXLE) == 0 and inventory.count_of(GATE_HANDLE) == 1,
         "P12: COMBINAR consume manivela y eje y entrega una manija")
+    _check(GameState.progress_revision == revision_before_combine + 1,
+        "P12: combinar objetos reinicia el contador de progreso de Leo")
     _check(inventory.combine(CRANK, RUSTED_AXLE) == null and inventory.count_of(GATE_HANDLE) == 1,
         "P12: una receta no puede duplicar el resultado sin ingredientes")
     var incomplete := Inventory.new()
@@ -1248,3 +1252,37 @@ func _zone_maps() -> void:
     _check(main.get_node_or_null("InventoryMenu/Root/Header/MapTab") is Button
         and main.get_node_or_null("InventoryMenu/Root/Map/Content/MapView") is ZoneMapView,
         "P12: la mochila contiene la pestaña MAPA y su vista de zona")
+
+
+## P12-f: los niveles de Leo separan señal, pista vaga y ayuda explícita.
+func _leo_hint_levels() -> void:
+    var hud: Node = get_tree().get_first_node_in_group("hud")
+    _check(hud != null and hud.get_node_or_null("HelpButton") is Control,
+        "P12: HUD crea botón AYUDA dinámico sin editar su escena")
+    var hint_script := load("res://levels/kit/leo_hint.gd") as Script
+    var hint := hint_script.new() as Marker3D
+    hint.set("lines", PackedStringArray([
+        "Leo: señal inicial que ya no se muestra",
+        "Leo: frase vaga",
+        "Leo: instrucción explícita"
+    ]))
+    _check(hint.call("vague_line_text") == "frase vaga",
+        "P12: N2 usa la segunda línea vaga")
+    _check(hint.call("explicit_line_text") == "instrucción explícita"
+        and bool(hint.call("has_explicit_help")),
+        "P12: N3 usa solo la tercera línea explícita")
+    hint.set("lines", PackedStringArray(["Leo: señal", "Leo: frase vaga"]))
+    _check(not bool(hint.call("has_explicit_help")),
+        "P12: una pista de dos líneas no habilita ayuda explícita")
+    hint.free()
+
+    GameState.flags.erase("read:p12_progress_test")
+    var revision := GameState.progress_revision
+    GameState.set_flag("leo:n1:test:hint")
+    GameState.set_flag("leo:n2:test:hint")
+    _check(GameState.progress_revision == revision,
+        "P12: las señales de Leo no reinician el contador de progreso")
+    GameState.set_flag("read:p12_progress_test")
+    _check(GameState.progress_revision == revision + 1,
+        "P12: leer un documento reinicia el contador de progreso")
+    GameState.flags.erase("read:p12_progress_test")

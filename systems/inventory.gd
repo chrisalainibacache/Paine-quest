@@ -164,6 +164,7 @@ func combine(a: ItemData, b: ItemData) -> ItemData:
     if add(recipe.result_item, recipe.result_count) > 0:
         from_data(before)
         return null
+    GameState.register_progress()
     return recipe.result_item
 
 

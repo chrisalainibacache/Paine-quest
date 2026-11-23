@@ -3,9 +3,8 @@ extends CharacterBody3D
 ## según qué tan lejos quedó, y se queda sentada mirando cuando Isabella se detiene.
 ## Si hay un infectado cerca (aunque se esté haciendo el muerto), Leo lo mira
 ## y le bufa: es el aviso para el jugador.
-## Leo también guía: si Isabella se queda quieta un rato, Leo camina hasta la pista
-## activa de la sala (nodos del grupo "leo_hints"), maúlla y, cuando Isabella llega,
-## le explica qué hacer.
+## Ayuda escalonada: primero mira y maúlla hacia la pista, luego da una frase vaga
+## tras 40 s sin progreso; la explicación explícita solo sale con el botón AYUDA.
 
 const FOLLOW_DISTANCE := 1.3
 const WALK_SPEED := 1.4
@@ -22,15 +21,10 @@ const SCAN_INTERVAL := 0.3
 const HEAD_BONE := "Bone_003"
 const EYE_POINTS := [Vector3(0.0281, 0.0025, 0.0296), Vector3(0.0281, -0.0025, 0.0296)]
 const EYE_COLOR := Color(0.55, 0.85, 0.25)
-## Segundos quieta antes de que Leo guíe.
-const GUIDE_DELAY := 5.0
-## Distancia a la pista a la que Leo se sienta a esperar.
-const GUIDE_ARRIVE := 0.6
-## Leo habla cuando Isabella llega a esta distancia de ella (estando en la pista).
-const EXPLAIN_RANGE := 1.8
-## Si Isabella se aleja tanto, Leo deja de guiar y vuelve con ella.
-const GUIDE_GIVE_UP := 8.0
-const MEOW_INTERVAL := 3.5
+## Segundos sin progreso antes de la señal no verbal de Leo.
+const LOOK_HINT_DELAY := 6.0
+## Segundos sin progreso antes de la pista vaga.
+const VAGUE_HINT_DELAY := 40.0
 
 ## Las pruebas automáticas lo apagan (los diálogos pausan el juego).
 static var guide_enabled := true
@@ -45,15 +39,18 @@ var threat: Node3D
 var _scan_timer := 0.0
 var _hiss_timer := 0.0
 var _hiss_anim_time := 0.0
-## Pista a la que Leo está guiando (null = sigue a Isabella).
-var guide: Node3D
-var _idle_time := 0.0
-var _meow_timer := 0.0
+## Pista a la que Leo mira (no camina hasta ella).
+var _point_hint: Node3D
+var _last_progress_revision := -1
+var _no_progress_time := 0.0
+var _vague_requested := false
+var _vague_speaking := false
 var _explaining := false
 
 
 func _ready() -> void:
     add_to_group("leo")
+    _last_progress_revision = GameState.progress_revision
     collision_layer = 4
     collision_mask = 1
     Player._make_textures_crisp(model)
@@ -102,17 +99,15 @@ func is_alert() -> bool:
 
 func _physics_process(delta: float) -> void:
     _update_threat(delta)
-    _update_guide(delta)
+    _update_hint_behavior(delta)
     var move := Vector3.ZERO
     if target:
-        var goal := guide.global_position if guide else target.global_position
-        var stop := GUIDE_ARRIVE if guide else FOLLOW_DISTANCE
-        var to_target := goal - global_position
+        var to_target := target.global_position - global_position
         to_target.y = 0.0
         var distance := to_target.length()
-        if distance > stop:
-            var speed := RUN_SPEED if distance > stop + 1.6 else WALK_SPEED
-            move = to_target / distance * minf(speed, (distance - stop) * 4.0)
+        if distance > FOLLOW_DISTANCE:
+            var speed := RUN_SPEED if distance > FOLLOW_DISTANCE + 1.6 else WALK_SPEED
+            move = to_target / distance * minf(speed, (distance - FOLLOW_DISTANCE) * 4.0)
     velocity.x = move.x
     velocity.z = move.z
     velocity.y = 0.0 if is_on_floor() else velocity.y - GRAVITY * delta
@@ -121,13 +116,15 @@ func _physics_process(delta: float) -> void:
     var horizontal := Vector2(velocity.x, velocity.z).length()
     if horizontal > 0.1:
         model.rotation.y = lerp_angle(model.rotation.y, atan2(velocity.x, velocity.z), minf(TURN_SPEED * delta, 1.0))
-    elif guide and target:
-        # Esperando en la pista: mira a Isabella para que la siga.
-        var to_cony := target.global_position - global_position
-        model.rotation.y = lerp_angle(model.rotation.y, atan2(to_cony.x, to_cony.z), minf(TURN_SPEED * delta, 1.0))
     elif threat:
         var to_threat := threat.global_position - global_position
         model.rotation.y = lerp_angle(model.rotation.y, atan2(to_threat.x, to_threat.z), minf(TURN_SPEED * delta, 1.0))
+    elif _point_hint and is_instance_valid(_point_hint):
+        var to_hint := _point_hint.global_position - global_position
+        model.rotation.y = lerp_angle(model.rotation.y, atan2(to_hint.x, to_hint.z), minf(TURN_SPEED * delta, 1.0))
+    elif target:
+        var to_cony := target.global_position - global_position
+        model.rotation.y = lerp_angle(model.rotation.y, atan2(to_cony.x, to_cony.z), minf(TURN_SPEED * delta, 1.0))
     if _hiss_anim_time > 0.0 and horizontal <= 0.15:
         _play("Idle", 2.6)
     elif horizontal > WALK_SPEED * 1.4:
@@ -138,56 +135,62 @@ func _physics_process(delta: float) -> void:
         _play("Idle")
 
 
-## Guía: decide cuándo llevar a Isabella a la pista activa y cuándo explicarle.
-func _update_guide(delta: float) -> void:
+## Ayuda escalonada: señal visual/sonora, frase vaga y ayuda explícita manual.
+func _update_hint_behavior(delta: float) -> void:
     if target == null or not guide_enabled:
         return
-    var cony_moving := target is CharacterBody3D and Vector2(target.velocity.x, target.velocity.z).length() > 0.2
-    _idle_time = 0.0 if cony_moving else _idle_time + delta
     if threat:
-        guide = null
+        _point_hint = null
         return
-    if guide and (not is_instance_valid(guide) or not guide.is_inside_tree() or not guide.is_active()):
-        guide = null
-    if guide == null:
-        if _idle_time >= GUIDE_DELAY:
-            var hint := active_hint()
-            if hint and target.global_position.distance_to(hint.global_position) > 2.4:
-                guide = hint
-                _meow_timer = 0.0
+    if _last_progress_revision != GameState.progress_revision:
+        _last_progress_revision = GameState.progress_revision
+        _no_progress_time = 0.0
+        _point_hint = null
+        _vague_requested = false
         return
-    var cony_to_leo := target.global_position.distance_to(global_position)
-    var cony_to_hint := target.global_position.distance_to(guide.global_position)
-    if cony_to_leo > GUIDE_GIVE_UP:
-        guide = null
-        _idle_time = 0.0
+    _no_progress_time += delta
+    var hint := active_hint()
+    if hint == null:
+        _point_hint = null
         return
-    var arrived := global_position.distance_to(guide.global_position) <= GUIDE_ARRIVE + 0.2
-    if arrived:
-        _meow_timer -= delta
-        if _meow_timer <= 0.0:
-            _meow_timer = MEOW_INTERVAL
-            Sfx.play("meow", global_position + Vector3.UP * 0.3, -4.0, 0.08)
-    if (arrived and cony_to_leo <= EXPLAIN_RANGE) or cony_to_hint <= 1.4:
-        var hint := guide
-        guide = null
-        _idle_time = 0.0
-        if not hint.was_heard():
-            explain(hint)
+    if not hint.was_looked() and _no_progress_time >= LOOK_HINT_DELAY:
+        GameState.set_flag(hint.look_flag())
+        _point_hint = hint
+        Sfx.play("meow", global_position + Vector3.UP * 0.3, -4.0, 0.08)
+    if not hint.was_vague() and not hint.vague_line_text().is_empty() \
+            and _no_progress_time >= VAGUE_HINT_DELAY and not _vague_requested and not Dialogue.is_open():
+        _vague_requested = true
+        _say_vague.call_deferred(hint)
+
+
+func _say_vague(hint: Node3D) -> void:
+    if _vague_speaking or Dialogue.is_open() or not is_instance_valid(hint) or not hint.is_active():
+        _vague_requested = false
+        return
+    var line := hint.vague_line_text()
+    if line.is_empty() or hint.was_vague():
+        _vague_requested = false
+        return
+    _vague_speaking = true
+    GameState.set_flag(hint.vague_flag())
+    Sfx.play("meow", global_position + Vector3.UP * 0.3, -3.0, 0.08)
+    await Dialogue.say([line])
+    _vague_speaking = false
+    _vague_requested = false
 
 
 ## Primera pista activa de la sala (en el orden en que están en la escena).
 func active_hint() -> Node3D:
     for hint: Node3D in get_tree().get_nodes_in_group("leo_hints"):
-        if hint.is_inside_tree() and hint.is_active():
+        if hint.is_inside_tree() and hint.is_active() and not hint.was_heard():
             return hint
     return null
 
 
-## Leo tiene algo que no ha contado en esta sala.
+## El botón AYUDA aparece solo si la pista tiene una tercera línea explícita.
 func has_news() -> bool:
     var hint := active_hint()
-    return hint != null and not hint.was_heard() and not _explaining
+    return hint != null and hint.has_explicit_help() and not _explaining
 
 
 func explain_news() -> void:
@@ -197,12 +200,15 @@ func explain_news() -> void:
 
 
 func explain(hint: Node3D) -> void:
-    if _explaining or Dialogue.is_open() or SceneLoader.is_busy() or hint.lines.is_empty():
+    if _explaining or Dialogue.is_open() or SceneLoader.is_busy() or not hint.has_explicit_help():
         return
     _explaining = true
+    _no_progress_time = 0.0
+    _point_hint = null
+    _vague_requested = false
     GameState.set_flag(hint.heard_flag())
     Sfx.play("meow", global_position + Vector3.UP * 0.3, -2.0, 0.05)
-    await Dialogue.say(Array(hint.lines))
+    await Dialogue.say([hint.explicit_line_text()])
     _explaining = false
 
 

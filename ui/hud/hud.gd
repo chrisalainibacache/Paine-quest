@@ -23,12 +23,12 @@ const CONDITION_COLORS := {
 @onready var reward_continue_button: Button = $DeathScreen/RewardContinue
 
 var player: Player
-var _objective_label: Label
-var _objective_timer := 0.0
+var _help_button: Button
 var _reward_continue_used := false
 
 
 func _ready() -> void:
+    add_to_group("hud")
     add_to_group("hud")
     fire_button.visible = false
     action_button.visible = false
@@ -37,6 +37,7 @@ func _ready() -> void:
     $DeathScreen/Retry.pressed.connect(func() -> void: retry_requested.emit())
     reward_continue_button.visible = false
     reward_continue_button.pressed.connect(_offer_rewarded_continue)
+    _create_help_button()
 
 
 func bind(new_player: Player) -> void:
@@ -55,12 +56,40 @@ func bind(new_player: Player) -> void:
 
 
 func _process(delta: float) -> void:
-    _objective_timer -= delta
-    if _objective_timer <= 0.0:
-        _objective_timer = 1.0
-        _update_objective()
+    if _help_button:
+        var leo: Node = get_tree().get_first_node_in_group("leo")
+        _help_button.visible = leo != null and leo.has_news() and player != null \
+                and player.is_alive() and not player.controls_locked \
+                and not Dialogue.is_open() and not SceneLoader.is_busy()
     if player and player.is_alive() and not player.controls_locked and Input.is_action_just_pressed(&"inventory"):
         inventory_requested.emit()
+
+
+## Botón táctil dinámico: no requiere editar hud.tscn ni un generador inexistente.
+func _create_help_button() -> void:
+    _help_button = Button.new()
+    _help_button.name = "HelpButton"
+    _help_button.text = "AYUDA"
+    _help_button.custom_minimum_size = Vector2(116, 64)
+    _help_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+    _help_button.anchor_left = 1.0
+    _help_button.anchor_right = 1.0
+    _help_button.offset_left = -260.0
+    _help_button.offset_top = 38.0
+    _help_button.offset_right = -144.0
+    _help_button.offset_bottom = 102.0
+    _help_button.theme = preload("res://ui/theme/paine_theme.tres")
+    _help_button.add_theme_font_size_override("font_size", 22)
+    _help_button.focus_mode = Control.FOCUS_NONE
+    _help_button.visible = false
+    add_child(_help_button)
+    _help_button.pressed.connect(_on_help_tapped)
+
+
+func _on_help_tapped() -> void:
+    var leo: Node = get_tree().get_first_node_in_group("leo")
+    if leo != null and leo.has_news():
+        leo.explain_news()
 
 
 ## Cartel con el nombre del lugar: entra, se queda un rato y se apaga.
@@ -164,20 +193,3 @@ func _offer_rewarded_continue() -> void:
         reward_continue_button.disabled = false
         reward_continue_button.visible = Ads.available()
     )
-
-
-## Línea de objetivo: lo último que Leo diría en la pista activa de la sala.
-func _update_objective() -> void:
-    if _objective_label == null:
-        _objective_label = Label.new()
-        _objective_label.name = "Objective"
-        _objective_label.position = Vector2(28.0, 60.0)
-        _objective_label.add_theme_font_size_override("font_size", 15)
-        _objective_label.modulate = Color(0.95, 0.9, 0.7, 0.75)
-        add_child(_objective_label)
-    var text := ""
-    for hint: Node in get_tree().get_nodes_in_group("leo_hints"):
-        if hint.has_method("is_active") and hint.is_active() and not hint.lines.is_empty():
-            text = hint.lines[hint.lines.size() - 1].trim_prefix("Leo: ")
-            break
-    _objective_label.text = "» " + text if text != "" else ""
