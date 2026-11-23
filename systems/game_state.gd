@@ -34,6 +34,8 @@ static var spawn_transform: Transform3D
 static var use_spawn_transform := false
 ## Segundos jugados (se muestra en la máquina de escribir).
 static var play_time := 0.0
+## Cambia cuando Isabella recoge, lee, abre o resuelve algo relevante.
+static var progress_revision := 0
 
 
 static func new_game() -> void:
@@ -46,6 +48,7 @@ static func new_game() -> void:
     spawn_id = START_SPAWN
     use_spawn_transform = false
     play_time = 0.0
+    progress_revision = 0
     started = true
     cooperative = false
     # Partida nueva: se mostrará la cinemática de apertura (una sola vez; no al continuar).
@@ -76,7 +79,22 @@ static func equip(item: ItemData) -> void:
 
 
 static func set_flag(flag: String, value: Variant = true) -> void:
+    var previous: Variant = flags.get(flag, null)
     flags[flag] = value
+    if previous != value and _is_progress_flag(flag):
+        register_progress()
+
+
+static func register_progress() -> void:
+    progress_revision += 1
+
+
+static func _is_progress_flag(flag: String) -> bool:
+    for prefix: String in ["left:", "read:", "found:", "unlocked:", "puzzle:",
+            "dead:", "visited:", "one_way_open:", "chapter_done:"]:
+        if flag.begins_with(prefix):
+            return true
+    return false
 
 
 static func has_flag(flag: String) -> bool:
@@ -136,6 +154,7 @@ static func from_data(data: Dictionary) -> void:
     for path: String in data.get("documents", []):
         documents.append(path)
     flags = (data.get("flags", {}) as Dictionary).duplicate()
+    progress_revision = 0
     health = int(data.get("health", 100))
     clip = int(data.get("clip", 0))
     clips = (data.get("clips", {}) as Dictionary).duplicate()
