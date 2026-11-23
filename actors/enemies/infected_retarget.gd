@@ -13,6 +13,15 @@ const ARM_FIX_ANIMS: Array[String] = ["Zombie_Walk_Fwd", "Zombie_Idle", "Zombie_
 const ARM_REACH := Vector3(0.30, -0.45, 0.84)
 const FOREARM_REACH := Vector3(0.05, -0.10, 0.99)
 const ARM_SWAY := 0.35
+const THROW_LENGTH := 1.0
+## Teclas del brazo derecho al lanzar: [segundo, dirección del brazo, dirección del antebrazo] (x<0 = lado derecho).
+const THROW_KEYS := [
+    [0.0, Vector3(-0.30, -0.45, 0.84), Vector3(-0.05, -0.10, 0.99)],
+    [0.30, Vector3(-0.35, 0.80, -0.50), Vector3(-0.15, 0.95, -0.25)],
+    [0.45, Vector3(-0.20, 0.45, 0.87), Vector3(-0.08, 0.40, 0.91)],
+    [0.55, Vector3(-0.10, 0.05, 0.99), Vector3(-0.05, 0.05, 0.99)],
+    [1.00, Vector3(-0.25, -0.55, 0.80), Vector3(-0.05, -0.30, 0.95)],
+]
 
 ## Reposo del esqueleto fuente: nombre -> {parent, local, global (Quaternion), frame (Basis)}.
 static var _source: Dictionary = {}
@@ -58,6 +67,12 @@ static func apply(library: AnimationLibrary, skeleton: Skeleton3D, model: Node3D
     var target_rest: Dictionary = {}
     for i in skeleton.get_bone_count():
         target_rest[skeleton.get_bone_name(i)] = i
+    # Gesto de lanzar: parte de la pose de reposo (Zombie_Idle) y se sobrescribe el brazo derecho.
+    if library.has_animation("Zombie_Idle") and not library.has_animation("Zombie_Throw"):
+        var throw := library.get_animation("Zombie_Idle").duplicate(true) as Animation
+        throw.loop_mode = Animation.LOOP_NONE
+        throw.length = THROW_LENGTH
+        library.add_animation("Zombie_Throw", throw)
     for anim_name: StringName in library.get_animation_list():
         _convert(anim_name, library.get_animation(anim_name), skeleton, target_rest, to_target_q, skeleton_path)
 
@@ -118,7 +133,11 @@ static func _convert(animation_name: StringName, animation: Animation, skeleton:
                     d = delta[skeleton.get_bone_name(p)]
             target_global[i] = d * rest_global
         frames.append(target_global)
-    if String(animation_name) in ARM_FIX_ANIMS:
+    if String(animation_name) == "Zombie_Throw":
+        _reach_arm(skeleton, frames, "Left")
+        _aim_keyed(skeleton, frames, "RightUpperArm", "RightLowerArm", 1)
+        _aim_keyed(skeleton, frames, "RightLowerArm", "RightHand", 2)
+    elif String(animation_name) in ARM_FIX_ANIMS:
         for side in ["Left", "Right"]:
             _reach_arm(skeleton, frames, side)
     for frame: Array[Quaternion] in frames:
@@ -175,5 +194,36 @@ static func _aim(skeleton: Skeleton3D, frames: Array[Array], bone_name: String, 
     for f in frames.size():
         var wanted := (reach + (dirs[f] - mean) * sway).normalized()
         var extra := Quaternion(dirs[f].normalized(), wanted)
+        for i in subtree:
+            frames[f][i] = extra * frames[f][i]
+
+
+## Como _aim, pero la dirección sale de las teclas THROW_KEYS (columna `column`: 1 brazo, 2 antebrazo) según el segundo.
+static func _aim_keyed(skeleton: Skeleton3D, frames: Array[Array], bone_name: String, child_name: String, column: int) -> void:
+    var bone := skeleton.find_bone(bone_name)
+    var child := skeleton.find_bone(child_name)
+    if bone < 0 or child < 0:
+        return
+    var axis_local := skeleton.get_bone_rest(child).origin.normalized()
+    var subtree: Array[int] = []
+    for i in skeleton.get_bone_count():
+        var p := i
+        while p >= 0 and p != bone:
+            p = skeleton.get_bone_parent(p)
+        if p == bone:
+            subtree.append(i)
+    for f in frames.size():
+        var time := minf(float(f) / FPS, THROW_LENGTH)
+        var wanted: Vector3 = (THROW_KEYS[0][column] as Vector3)
+        for k in range(1, THROW_KEYS.size()):
+            var a: Array = THROW_KEYS[k - 1]
+            var b: Array = THROW_KEYS[k]
+            if time <= float(b[0]):
+                var u := smoothstep(0.0, 1.0, inverse_lerp(float(a[0]), float(b[0]), time))
+                wanted = (a[column] as Vector3).lerp(b[column] as Vector3, u)
+                break
+            wanted = b[column] as Vector3
+        var current: Vector3 = frames[f][bone] * axis_local
+        var extra := Quaternion(current.normalized(), wanted.normalized())
         for i in subtree:
             frames[f][i] = extra * frames[f][i]

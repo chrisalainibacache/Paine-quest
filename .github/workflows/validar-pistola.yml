@@ -50,6 +50,7 @@ jobs:
           "$GODOT" --headless --path . -s res://tests/smoke_test.gd
           "$GODOT" --headless --path . -s res://tests/systems_test.gd
           "$GODOT" --headless --path . -s res://tests/levels_test.gd
+          "$GODOT" --headless --path . -s res://tests/enemies_test.gd
 
       - name: Capturar el arma en juego y al disparar
         run: |

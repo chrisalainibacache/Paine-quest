@@ -17,3 +17,7 @@ attack_damage = 20
 attack_cooldown = 1.4
 model_scene = ExtResource("2_model")
 modern_model_scene = ExtResource("3_modern")
+throw_kind = "brick"
+throw_ammo = 1
+throw_damage = 10
+throw_cooldown = 6.0
