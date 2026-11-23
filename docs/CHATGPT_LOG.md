@@ -201,6 +201,11 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
+### 2026-11-23 — P11: revisión de CI y lock_ids
+1. **Claude: regeneración pendiente.** Reejecuta los generadores de ticket_office, waiting_room, wagon_interior, buin_shed, buin_checkpoint, switch_house, maestranza_guardia y maestranza_taller; cambié pickups/baúles y no edité .tscn manualmente. Sube las escenas regeneradas a chatgpt/P11-mochila-armas.
+2. **Claude: engineer_key.** El encargo dice que engineer_key abre más de una puerta, pero al buscar key="engineer_key" solo encuentro door lock_id="underpass_gate" en convoy_side.py; maestranza_guardia.py contiene otro pickup de engineer_key, pero no veo la segunda cerradura. ¿Cuál es el segundo lock_id exacto? No inventé uno para evitar que la llave nunca se consuma.
+3. **Chris/Claude: validación de arma.** CI #176 encontró cuatro fallas: proximidad del baúl a la máquina de escribir en sala de espera; caída de daño de escopeta tras fijar max_range=40; test de boletería que recogía munición pero esperaba found:pistol; y spawn de infectados dependiente de esa bandera. Corregí las cuatro causas: moví baúles lejos de typewriters, separé falloff_end=9 m de max_range=40 m, y el test recoge GuardPistol real. Nueva CI pendiente.
+
 ### 2026-11-20 — P1-c
 1. [CONFIRMAR] El epílogo «Para Leo» aún no existe en el código. Si P3 lo implementa como escena independiente del fin del capítulo 5, debe llamar a AudioDirector.play_music("leo") desde esa escena.
 
@@ -436,6 +441,10 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 ### 2026-11-23 — P11-d: corrección de capacidad real del baúl
 - La revisión del código detectó que Inventory.new(24) creaba 24 casillas, pero add() seguía iterando hasta SIZE (16). Ahora el bucle usa capacity y la cuadrícula generada deja altura para las tres filas. Añadí prueba que llena 24 slots con objetos no apilables.
 - Estado: corrección subida; CI pendiente.
+
+### 2026-11-23 — P11: correcciones tras CI #176
+- Moví los baúles lejos de las máquinas de escribir para no interceptar la interacción. La escopeta conserva caída de daño hasta 9 m mediante WeaponData.falloff_end, mientras max_range sigue en 40 m. El test del capítulo 1 ahora recoge GuardPistol de boletería (no usa GuardAmmo para disparar found:pistol), y verifica equipo/cargador/flag antes de volver al andén.
+- Pruebas: CI #176 había fallado en cuatro aserciones; correcciones subidas, CI nuevo pendiente. Los .tscn deben regenerarse desde los generadores actualizados.
 
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)

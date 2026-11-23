@@ -16,6 +16,7 @@ reload_time = 2.4
 max_range = 40.0
 stagger_chance = 1.0
 falloff_start = 2.5
+falloff_end = 9.0
 min_damage = 1
 muzzle_offset = Vector3(0, 0.081, 0.64)
 flash_scale = 1.6

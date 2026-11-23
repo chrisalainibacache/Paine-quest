@@ -37,7 +37,7 @@ k.door("ToStation", (8.4, 0, -2.6), B % "station", "from_checkpoint", prompt="SE
 k.label("StationSign", "Details", (8.97, 2.6, -2.6), "ESTACIÓN BUIN →", 34, (0.9, 0.88, 0.8), rot=(0, -math.pi / 2, 0))
 k.note("Order", (-4.7, 0.78, -3.6), "military_order", paper_rot=(0, 0.3, 0), paper_scale=0.7, reach=1.4)
 k.interact("Typewriter", "typewriter", (-6.2, 0.78, -3.6), reach="1.3")
-k.storage_chest("StorageChest", (-5.0, 0.45, -3.6))
+k.storage_chest("StorageChest", (4.5, 0.45, 3.5))
 k.examine("TruckBed", (4.6, 0, 1.8), ["La caja del camión está llena de camillas.", "Todas tienen correas. Para los brazos y para las piernas."], reach=1.3)
 k.pickup("RifleAmmo", (6.5, 0.0, -2.8), "ammo_rifle", 20, rot=(0, 0.3, 0))
 k.pickup("Grenades", (-6.8, 0.0, 0.9), "ammo_grenades", 2, rot=(0, 1.2, 0))

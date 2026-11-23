@@ -719,19 +719,20 @@ func _chapter_route(player: Player) -> void:
     await _frames(2)
     _check(not main.get_node("HUD/AimButton").visible, "sin arma no aparece APUNTAR")
 
-    # Un arma recogida sin tener otra equipada queda lista y cargada.
-    var found := Pickup.new()
-    found.item = PISTOL
-    main.room.add_child(found)
-    found.global_position = player.global_position + player.get_forward() * 0.6
-    player.interaction.use(found)
-    await _close_dialogues()
-    _check(GameState.equipped == PISTOL and player.combat.clip == 10, "un arma recogida sin otra equipada queda equipada y cargada")
-    _check(main.get_node("HUD/AimButton").visible, "con un arma aparece APUNTAR")
-
     SceneLoader.go_to(TICKET_OFFICE, "from_waiting_room")
     await _seconds(1.4)
     _check(main.room.scene_file_path == TICKET_OFFICE, "se puede entrar a la boletería")
+    var guard_pistol: Pickup = main.room.get_node("Interactables/GuardPistol")
+    player.global_position = Vector3(guard_pistol.global_position.x + 0.65, 0.05, guard_pistol.global_position.z)
+    player.face_direction(Vector3.LEFT, 1.0)
+    await _frames(3)
+    _check(player.interaction.focus == guard_pistol, "Isabella tiene a mano la pistola del guardia")
+    player.interaction.use(guard_pistol)
+    await _close_dialogues()
+    _check(GameState.equipped == PISTOL and player.combat.clip == 10,
+        "la pistola de boletería queda equipada y cargada")
+    _check(GameState.has_flag("found:pistol") and main.get_node("HUD/AimButton").visible,
+        "recoger la pistola queda anotado y habilita APUNTAR")
     var guard_ammo: Pickup = main.room.get_node("Interactables/GuardAmmo")
     var ammo_before := GameState.inventory.count_of(AMMO)
     player.global_position = Vector3(guard_ammo.global_position.x + 0.65, 0.05, guard_ammo.global_position.z)
@@ -741,7 +742,6 @@ func _chapter_route(player: Player) -> void:
     player.interaction.use(guard_ammo)
     await _close_dialogues()
     _check(GameState.inventory.count_of(AMMO) > ammo_before, "la munición del guardia queda en la mochila")
-    _check(GameState.has_flag("found:pistol"), "pasar por la boletería queda anotado")
 
     # Con la pistola, el andén ya tiene infectados.
     SceneLoader.go_to(GameState.START_ROOM, "from_south_platform")

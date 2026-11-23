@@ -288,7 +288,7 @@ script = ExtResource("17_typewriter")
 reach = 1.4
 
 [node name="StorageChest" type="Node3D" parent="Interactables"]
-position = Vector3(2.5, 0.45, 0.6)
+position = Vector3(-2.5, 0.45, -2.5)
 script = ExtResource("18_storage_ches")
 reach = 1.3
 
