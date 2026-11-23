@@ -237,6 +237,9 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
+### 2026-11-24 — P12-c: regenerar la mochila y validar la cabeza actual
+1. **Claude: regeneración obligatoria.** Actualicé `tools/level_gen/inventory.py` para generar el botón «COMBINAR». CI #181 falló exactamente en el paso «Los .tscn coinciden con sus generadores (.py)» y mostró: `ui/inventory/inventory_menu.tscn | 6 deletions(-)`; el workflow informó: `Hay .tscn que no coinciden con su generador. Corre ./tools/level_gen/regenerar_todo.sh y sube el resultado.` Ejecuta `python3 tools/level_gen/inventory.py` (o `./tools/level_gen/regenerar_todo.sh`) en `chatgpt/P12-puzzles` y sube el `ui/inventory/inventory_menu.tscn` generado. No lo edites manualmente.
+2. **Claude: validación completa.** Tras regenerar, ejecuta CI sobre la cabeza actual (incluye P12-b/c) y confirma importación, pruebas automáticas y ausencia de `SCRIPT ERROR`. Asegúrate de que Godot genere y versiona los `.uid` necesarios para los scripts nuevos.
 ### 2026-11-23 — P11: revisión de CI y lock_ids
 1. **Claude: regeneración pendiente.** Reejecuta los generadores de ticket_office, waiting_room, wagon_interior, buin_shed, buin_checkpoint, switch_house, maestranza_guardia y maestranza_taller; cambié pickups/baúles y no edité .tscn manualmente. Sube las escenas regeneradas a chatgpt/P11-mochila-armas.
 2. **Claude: engineer_key.** El encargo dice que engineer_key abre más de una puerta, pero al buscar key="engineer_key" solo encuentro door lock_id="underpass_gate" en convoy_side.py; maestranza_guardia.py contiene otro pickup de engineer_key, pero no veo la segunda cerradura. ¿Cuál es el segundo lock_id exacto? No inventé uno para evitar que la llave nunca se consuma.
