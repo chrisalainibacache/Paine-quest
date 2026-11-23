@@ -53,6 +53,7 @@ label("Name", "Root/Info", "", 30, col((0.85, 0.72, 0.5)), **rect(left=24, top=1
 label("Description", "Root/Info", "", 24, TXT, autowrap_mode="3", **rect(left=24, top=60, right=600, bottom=210))
 s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=640, top=60, right=856, bottom=210))
 button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 64)")
+button("Combine", "Root/Info/Buttons", "COMBINAR", 26, custom_minimum_size="Vector2(0, 64)")
 button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 64)")
 button("Discard", "Root/Info/Buttons", "DESCARTAR", 26, custom_minimum_size="Vector2(0, 64)")
 button("Move", "Root/Info/Buttons", "GUARDAR", 26, custom_minimum_size="Vector2(0, 64)")
