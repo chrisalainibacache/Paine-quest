@@ -10,6 +10,8 @@ const OPTIONS_SCENE := preload("res://ui/options/options_menu.tscn")
 @onready var grid: GridContainer = $Root/Grid
 @onready var notes_list: GridContainer = $Root/Notes/List
 @onready var notes_panel: Control = $Root/Notes
+@onready var keys_panel: Control = $Root/Keys
+@onready var keys_list: VBoxContainer = $Root/Keys/List
 @onready var item_name: Label = $Root/Info/Name
 @onready var item_text: Label = $Root/Info/Description
 @onready var use_button: Button = $Root/Info/Buttons/Use
@@ -47,6 +49,7 @@ func _ready() -> void:
     $Root/Header/Options.pressed.connect(options_menu.open)
     $Root/Header/ItemsTab.pressed.connect(_show_tab.bind(false))
     $Root/Header/NotesTab.pressed.connect(_show_tab.bind(true))
+    $Root/Header/KeysTab.pressed.connect(_show_keys)
     $Root/Examine/Close.pressed.connect(func() -> void: examine.visible = false)
     use_button.pressed.connect(_use_selected)
     examine_button.pressed.connect(_examine_selected)
@@ -144,6 +147,8 @@ func _refresh() -> void:
         # Solo gira el ítem elegido (los demás quedan quietos y legibles).
         _views[i].spin_speed = 0.7 if i == selected else 0.0
     _refresh_info()
+    if keys_panel.visible:
+        _fill_keys()
     _refresh_status()
     _refresh_reward_offers()
 
@@ -287,6 +292,8 @@ func _show_tab(notes: bool) -> void:
     grid.visible = not notes
     $Root/Info.visible = not notes
     notes_panel.visible = notes
+    keys_panel.visible = false
+    $Root/Header/KeysTab.button_pressed = false
     $Root/Header/ItemsTab.button_pressed = not notes
     $Root/Header/NotesTab.button_pressed = notes
     if notes:
@@ -330,3 +337,37 @@ func _first_filled() -> int:
         if GameState.inventory.get_item(i) != null:
             return i
     return -1
+
+
+
+func _show_keys() -> void:
+    grid.visible = false
+    $Root/Info.visible = false
+    notes_panel.visible = false
+    keys_panel.visible = true
+    $Root/Header/ItemsTab.button_pressed = false
+    $Root/Header/NotesTab.button_pressed = false
+    $Root/Header/KeysTab.button_pressed = true
+    _fill_keys()
+
+
+func _fill_keys() -> void:
+    for child: Node in keys_list.get_children():
+        child.queue_free()
+    var inventory: Inventory = GameState.inventory
+    if inventory.key_items.is_empty():
+        var empty: Label = Label.new()
+        empty.text = "Todavía no has encontrado llaves."
+        empty.add_theme_font_size_override("font_size", 26)
+        keys_list.add_child(empty)
+        return
+    for index in inventory.key_items.size():
+        var item: ItemData = inventory.key_item_at(index)
+        if item == null:
+            continue
+        var row: Label = Label.new()
+        row.text = "%s   ×%d\n%s" % [item.display_name, inventory.key_count_at(index), item.description]
+        row.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+        row.custom_minimum_size = Vector2(0, 76)
+        row.add_theme_font_size_override("font_size", 22)
+        keys_list.add_child(row)

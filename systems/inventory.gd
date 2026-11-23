@@ -9,6 +9,8 @@ const SIZE := 16
 
 ## Cada casilla: {"item": ItemData, "count": int} o vacía ({}).
 var slots: Array[Dictionary] = []
+## Llaves fuera de las casillas: cada entrada guarda ItemData y cantidad.
+var key_items: Array[Dictionary] = []
 
 
 func _init() -> void:
@@ -17,6 +19,7 @@ func _init() -> void:
 
 func clear() -> void:
     slots.clear()
+    key_items.clear()
     for i in SIZE:
         slots.append({})
     changed.emit()
@@ -32,6 +35,12 @@ func get_count(index: int) -> int:
 
 ## Guarda hasta `count` unidades. Devuelve las que no cupieron.
 func add(item: ItemData, count: int = 1) -> int:
+    if item == null or count <= 0:
+        return count
+    if item.kind == ItemData.Kind.KEY:
+        _store_key(item, count)
+        changed.emit()
+        return 0
     var left := count
     # Primero completa las casillas que ya tienen ese ítem.
     for slot in slots:
@@ -51,6 +60,8 @@ func add(item: ItemData, count: int = 1) -> int:
 
 ## Cuántas unidades de un ítem se pueden guardar ahora.
 func space_for(item: ItemData) -> int:
+    if item != null and item.kind == ItemData.Kind.KEY:
+        return 2147483647
     var space := 0
     for slot in slots:
         if slot.is_empty():
@@ -61,6 +72,12 @@ func space_for(item: ItemData) -> int:
 
 
 func count_of(item: ItemData) -> int:
+    if item != null and item.kind == ItemData.Kind.KEY:
+        for entry: Dictionary in key_items:
+            var key: ItemData = entry.get("item") as ItemData
+            if key != null and key.id == item.id:
+                return int(entry.get("count", 0))
+        return 0
     var total := 0
     for slot in slots:
         if not slot.is_empty() and slot.item == item:
@@ -69,6 +86,10 @@ func count_of(item: ItemData) -> int:
 
 
 func has_id(item_id: String) -> bool:
+    for entry: Dictionary in key_items:
+        var key: ItemData = entry.get("item") as ItemData
+        if key != null and key.id == item_id:
+            return true
     for slot in slots:
         if not slot.is_empty() and slot.item.id == item_id:
             return true
@@ -77,6 +98,19 @@ func has_id(item_id: String) -> bool:
 
 ## Saca hasta `amount` unidades del ítem. Devuelve cuántas sacó.
 func take(item: ItemData, amount: int) -> int:
+    if item != null and item.kind == ItemData.Kind.KEY:
+        for index in range(key_items.size() - 1, -1, -1):
+            var entry: Dictionary = key_items[index]
+            var key: ItemData = entry.get("item") as ItemData
+            if key != null and key.id == item.id:
+                var taken_key: int = mini(maxi(amount, 0), int(entry.get("count", 0)))
+                entry["count"] = int(entry.get("count", 0)) - taken_key
+                if int(entry["count"]) <= 0:
+                    key_items.remove_at(index)
+                if taken_key > 0:
+                    changed.emit()
+                return taken_key
+        return 0
     var taken := 0
     # Desde la última casilla, para vaciar primero las cajas a medio usar.
     for i in range(SIZE - 1, -1, -1):
@@ -104,18 +138,74 @@ func remove_at(index: int, amount: int = 1) -> void:
 
 ## Para guardar la partida: [[ruta del ítem, cantidad], ...].
 func to_data() -> Array:
-    var data := []
-    for slot in slots:
+    var data: Array = []
+    for slot: Dictionary in slots:
         data.append([] if slot.is_empty() else [slot.item.resource_path, slot.count])
+    var saved_keys: Array = []
+    for entry: Dictionary in key_items:
+        var key: ItemData = entry.get("item") as ItemData
+        if key != null:
+            saved_keys.append([key.resource_path, int(entry.get("count", 1))])
+    data.append({"_inventory_version": 2, "key_items": saved_keys})
     return data
 
 
 func from_data(data: Array) -> void:
     slots.clear()
-    for i in SIZE:
-        var entry: Array = data[i] if i < data.size() else []
-        if entry.size() == 2 and ResourceLoader.exists(entry[0]):
-            slots.append({"item": load(entry[0]) as ItemData, "count": int(entry[1])})
+    key_items.clear()
+    var saved_keys: Array = []
+    for raw_entry: Variant in data:
+        if raw_entry is Dictionary and int(raw_entry.get("_inventory_version", 0)) == 2:
+            saved_keys = raw_entry.get("key_items", [])
+            continue
+        if slots.size() >= SIZE:
+            continue
+        if raw_entry is Array and raw_entry.size() == 2:
+            var path: String = String(raw_entry[0])
+            if ResourceLoader.exists(path):
+                var item: ItemData = load(path) as ItemData
+                var amount: int = int(raw_entry[1])
+                if item != null and item.kind == ItemData.Kind.KEY:
+                    _store_key(item, amount)
+                elif item != null:
+                    slots.append({"item": item, "count": amount})
+                else:
+                    slots.append({})
+            else:
+                slots.append({})
         else:
             slots.append({})
+    while slots.size() < SIZE:
+        slots.append({})
+    for raw_key: Variant in saved_keys:
+        if raw_key is Array and raw_key.size() == 2:
+            var key_path: String = String(raw_key[0])
+            if ResourceLoader.exists(key_path):
+                var key_item: ItemData = load(key_path) as ItemData
+                if key_item != null and key_item.kind == ItemData.Kind.KEY:
+                    _store_key(key_item, int(raw_key[1]))
     changed.emit()
+
+
+func _store_key(item: ItemData, count: int) -> void:
+    if item == null or count <= 0:
+        return
+    for entry: Dictionary in key_items:
+        var existing: ItemData = entry.get("item") as ItemData
+        if existing != null and existing.id == item.id:
+            entry["count"] = int(entry.get("count", 0)) + count
+            return
+    key_items.append({"item": item, "count": count})
+
+
+func key_item_at(index: int) -> ItemData:
+    if index < 0 or index >= key_items.size():
+        return null
+    return key_items[index].get("item") as ItemData
+
+
+func key_count_at(index: int) -> int:
+    if index < 0 or index >= key_items.size():
+        return 0
+    return int(key_items[index].get("count", 0))
+

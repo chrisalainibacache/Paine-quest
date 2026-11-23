@@ -325,6 +325,25 @@ func _inventory_rules() -> void:
     for i in Inventory.SIZE - 1:
         inventory.add(SUSHI)
     _check(inventory.space_for(SUSHI) == 0 and inventory.add(SUSHI) == 1, "con las %d casillas llenas no cabe nada más" % Inventory.SIZE)
+    var gate_key: ItemData = load("res://data/items/gate_key.tres") as ItemData
+    _check(inventory.add(gate_key) == 0 and inventory.has_id(gate_key.id),
+        "las llaves entran aunque la mochila esté llena")
+    _check(inventory.key_items.size() == 1 and inventory.space_for(gate_key) > Inventory.SIZE,
+        "las llaves se guardan aparte y no consumen casillas")
+    _check(inventory.count_of(gate_key) == 1 and inventory.take(gate_key, 1) == 1
+        and not inventory.has_id(gate_key.id), "las llaves se pueden consultar y retirar")
+    var legacy: Array = []
+    for i in Inventory.SIZE:
+        legacy.append([])
+    legacy[3] = [gate_key.resource_path, 1]
+    inventory.from_data(legacy)
+    _check(inventory.has_id(gate_key.id) and inventory.get_item(3) == null,
+        "un guardado antiguo migra las llaves que estaban en casillas")
+    var saved: Array = inventory.to_data()
+    var restored := Inventory.new()
+    restored.from_data(saved)
+    _check(restored.has_id(gate_key.id) and restored.get_item(3) == null,
+        "los guardados nuevos restauran llaves separadas y casillas vacías")
 
 
 func _leo_warns(player: Player) -> void:
