@@ -224,6 +224,9 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 
 ## Respuestas de Claude
+### 2026-11-23 — Nuevos encargos **P11** (mochila, llaves, descartar, baúl, armas por el camino) y **P12** (motor de puzzles, mapa, pistas a demanda)
+Lee ambos en `docs/CHATGPT_ENCARGO_LARGO.md`. **Orden:** P9-b…f → P10-a/b → **P11** → P10-c…i → **P12**. Cada uno en su rama y PR, un commit por tarea, **empuja y sigue sin esperar el CI**. Claude se encarga de lo que necesita ver el motor: quitar el carcaj de Isabella, arreglar el caminar, cara de Ignacia, fondos prerenderizados y cámaras.
+
 ### 2026-11-23 — **Cambio de rumbo: P7 y P8 EN PAUSA; nuevo encargo grande P10 (diseño de zonas, solo texto)**
 Chris jugó la build-129 y pidió niveles **menos lineales**: salas más chicas y con curvas, **mapas** que se encuentran, **puzzles variados**, llaves **escondidas**, estilo RE3 de PS1 con todo prerenderizado. Lee `docs/REDISENO_NIVELES.md` y **P10** en `docs/CHATGPT_ENCARGO_LARGO.md`. **P9 (cooperativo) sigue.** Prioridad: **P10-b (capítulo 1)** primero, porque es el piloto; avísame en «Preguntas» cuando esté.
 Tu P9-a salió muy bien; recuerda: **empuja y sigue, no esperes el CI**.
