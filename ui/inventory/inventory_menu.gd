@@ -130,6 +130,14 @@ func select(index: int) -> void:
     _refresh()
 
 
+## Ícono HD del ítem (null si no hay: la casilla queda vacía).
+func _icon_for(item: ItemData) -> Texture2D:
+    if item == null:
+        return null
+    var path := "res://assets/ui/icons/%s.png" % item.id
+    return load(path) as Texture2D if ResourceLoader.exists(path) else null
+
+
 func _build_slot(index: int) -> void:
     var slot := Button.new()
     slot.custom_minimum_size = SLOT_SIZE
@@ -138,13 +146,17 @@ func _build_slot(index: int) -> void:
     slot.focus_mode = Control.FOCUS_NONE
     slot.pressed.connect(select.bind(index))
     grid.add_child(slot)
-    var view := ITEM_VIEW.new() as SubViewportContainer
+    # Ícono HD prerenderizado (assets/ui/icons, ver tools/prerender/render_item_icons.gd): más nítido y liviano que un visor 3D por casilla.
+    var view := TextureRect.new()
     view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    view.offset_left = 8
-    view.offset_top = 8
-    view.offset_right = -8
-    view.offset_bottom = -8
-    view.spin_speed = 0.0
+    view.offset_left = 6
+    view.offset_top = 6
+    view.offset_right = -6
+    view.offset_bottom = -6
+    view.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    view.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    view.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+    view.mouse_filter = Control.MOUSE_FILTER_IGNORE
     slot.add_child(view)
     var count := Label.new()
     count.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
@@ -172,14 +184,12 @@ func _refresh() -> void:
             continue
         var item := inventory.get_item(i)
         if not _views[i].has_meta("item") or _views[i].get_meta("item") != item:
-            _views[i].set_item(item)
+            _views[i].texture = _icon_for(item)
             _views[i].set_meta("item", item)
         _counts[i].text = str(inventory.get_count(i)) if item and item.is_stackable() else ""
         if item == GameState.equipped and item != null:
             _counts[i].text = "E"
         _slots[i].button_pressed = i == selected
-        # Solo gira el ítem elegido (los demás quedan quietos y legibles).
-        _views[i].spin_speed = 0.7 if i == selected else 0.0
     _refresh_info()
     if keys_panel.visible:
         _fill_keys()
