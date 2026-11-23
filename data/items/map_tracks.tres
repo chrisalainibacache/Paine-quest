@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/items/item_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "map_tracks"
+display_name = "Mapa de las Vías"
+description = "Plano de la zona Vías. Se consulta desde la pestaña MAPA."
+kind = 5
+max_stack = 1
+heal_amount = 0

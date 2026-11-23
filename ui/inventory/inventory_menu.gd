@@ -12,6 +12,9 @@ const OPTIONS_SCENE := preload("res://ui/options/options_menu.tscn")
 @onready var notes_panel: Control = $Root/Notes
 @onready var keys_panel: Control = $Root/Keys
 @onready var keys_list: VBoxContainer = $Root/Keys/List
+@onready var map_panel: Control = $Root/Map
+@onready var map_view: ZoneMapView = $Root/Map/Content/MapView
+@onready var map_tab: Button = $Root/Header/MapTab
 @onready var move_button: Button = $Root/Info/Buttons/Move
 @onready var item_name: Label = $Root/Info/Name
 @onready var item_text: Label = $Root/Info/Description
@@ -67,6 +70,7 @@ func _ready() -> void:
     $Root/Header/ItemsTab.pressed.connect(_show_tab.bind(false))
     $Root/Header/NotesTab.pressed.connect(_show_tab.bind(true))
     $Root/Header/KeysTab.pressed.connect(_show_keys)
+    map_tab.pressed.connect(_show_map)
     $Root/Header/ChestTab.pressed.connect(_show_chest)
     $Root/Examine/Close.pressed.connect(func() -> void: examine.visible = false)
     use_button.pressed.connect(_use_selected)
@@ -193,6 +197,11 @@ func _refresh() -> void:
             _counts[i].text = "E"
         _slots[i].button_pressed = i == selected
     _refresh_info()
+    _refresh_map_tab()
+    if map_panel.visible:
+        var zone := _current_zone_map()
+        if zone != null and GameState.inventory.has_id(zone.map_item_id):
+            map_view.render(zone)
     if keys_panel.visible:
         _fill_keys()
     _refresh_status()
@@ -385,6 +394,8 @@ func _show_tab(notes: bool) -> void:
     $Root/Info.visible = not notes
     notes_panel.visible = notes
     keys_panel.visible = false
+    map_panel.visible = false
+    map_tab.button_pressed = false
     $Root/Header/KeysTab.button_pressed = false
     $Root/Header/ChestTab.button_pressed = false
     $Root/Header/ItemsTab.button_pressed = not notes
@@ -445,32 +456,73 @@ func _show_keys() -> void:
     $Root/Info.visible = false
     notes_panel.visible = false
     keys_panel.visible = true
+    map_panel.visible = false
+    map_tab.button_pressed = false
     $Root/Header/ItemsTab.button_pressed = false
     $Root/Header/NotesTab.button_pressed = false
     $Root/Header/KeysTab.button_pressed = true
     _fill_keys()
 
 
+func _current_zone_map() -> ZoneMapData:
+    var zone_id := GameState.room_path.get_base_dir().get_file()
+    var map_path := "res://data/zones/%s.tres" % zone_id
+    if not ResourceLoader.exists(map_path):
+        return null
+    return load(map_path) as ZoneMapData
+
+
+func _refresh_map_tab() -> void:
+    if map_tab == null:
+        return
+    var zone := _current_zone_map()
+    map_tab.disabled = zone == null or not GameState.inventory.has_id(zone.map_item_id)
+
+
+func _show_map() -> void:
+    if _chest_open:
+        map_tab.button_pressed = false
+        return
+    var zone := _current_zone_map()
+    if zone == null or not GameState.inventory.has_id(zone.map_item_id):
+        map_tab.button_pressed = false
+        return
+    _chest_mode = false
+    grid.visible = false
+    $Root/Info.visible = false
+    notes_panel.visible = false
+    keys_panel.visible = false
+    map_panel.visible = true
+    $Root/Header/ItemsTab.button_pressed = false
+    $Root/Header/NotesTab.button_pressed = false
+    $Root/Header/KeysTab.button_pressed = false
+    $Root/Header/ChestTab.button_pressed = false
+    map_tab.button_pressed = true
+    move_button.visible = false
+    map_view.render(zone)
+
+
 func _fill_keys() -> void:
     for child: Node in keys_list.get_children():
         child.queue_free()
     var inventory: Inventory = GameState.inventory
-    if inventory.key_items.is_empty():
-        var empty: Label = Label.new()
-        empty.text = "Todavía no has encontrado llaves."
-        empty.add_theme_font_size_override("font_size", 26)
-        keys_list.add_child(empty)
-        return
+    var visible_keys := 0
     for index in inventory.key_items.size():
         var item: ItemData = inventory.key_item_at(index)
-        if item == null:
+        if item == null or item.kind == ItemData.Kind.MAP:
             continue
+        visible_keys += 1
         var row: Label = Label.new()
         row.text = "%s   ×%d\n%s" % [item.display_name, inventory.key_count_at(index), item.description]
         row.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         row.custom_minimum_size = Vector2(0, 76)
         row.add_theme_font_size_override("font_size", 22)
         keys_list.add_child(row)
+    if visible_keys == 0:
+        var empty: Label = Label.new()
+        empty.text = "Todavía no has encontrado llaves."
+        empty.add_theme_font_size_override("font_size", 26)
+        keys_list.add_child(empty)
 
 
 
@@ -488,8 +540,8 @@ func _build_discard_dialog() -> void:
 
 
 func _discard_block_reason(item: ItemData) -> String:
-    if item.kind == ItemData.Kind.KEY:
-        return "Las llaves no se pueden descartar."
+    if item.kind == ItemData.Kind.KEY or item.kind == ItemData.Kind.MAP:
+        return "Las llaves y los mapas no se pueden descartar."
     if item.kind == ItemData.Kind.WEAPON and item == GameState.equipped \
             and GameState.inventory.count_of(item) <= 1:
         return "Primero debo equipar otra arma."
@@ -570,6 +622,8 @@ func _show_chest() -> void:
     $Root/Info.visible = true
     notes_panel.visible = false
     keys_panel.visible = false
+    map_panel.visible = false
+    map_tab.button_pressed = false
     $Root/Header/ItemsTab.button_pressed = false
     $Root/Header/NotesTab.button_pressed = false
     $Root/Header/KeysTab.button_pressed = false
@@ -590,7 +644,7 @@ func _move_selected() -> void:
     var source: Inventory = _active_inventory()
     var destination: Inventory = GameState.inventory if _chest_mode else GameState.chest
     var item: ItemData = source.get_item(selected)
-    if item == null or item.kind == ItemData.Kind.KEY:
+    if item == null or item.kind == ItemData.Kind.KEY or item.kind == ItemData.Kind.MAP:
         return
     var count: int = source.get_count(selected)
     var left: int = destination.add(item, count)

@@ -127,6 +127,7 @@ func _place_room(room_path: String, spawn_id: String, use_saved_transform: bool)
     GraphicsSettings.apply(room)
     GameState.room_path = room_path
     GameState.spawn_id = spawn_id
+    GameState.set_flag("visited:" + room_path.get_file().get_basename())
 
     var spawn := GameState.spawn_transform if use_saved_transform else room.get_spawn(spawn_id)
     # Los marcadores miran hacia -Z; el modelo de Isabella mira hacia +Z.
