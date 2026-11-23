@@ -414,6 +414,13 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Pruebas:** añadí pruebas de capacidad, guardado/restauración y compatibilidad de save antiguo. No ejecutadas localmente; Claude debe regenerar inventory_menu.tscn y las dos salas desde sus generadores.
 - **Estado:** implementación subida; CI pendiente.
 
+### 2026-11-23 — P11-e: arsenal progresivo y partida sin armas
+- **Qué hice:** quité el STARTING_LOADOUT de GameState.new_game(); la partida empieza sin arma ni munición. give_pistol() se conserva para pruebas/capturas. Añadí pickups sobre muebles/objetos: pistola en boletería, escopeta junto al carabinero del vagón, Mauser en la mesa de la bodega, fusil de asalto en la caja de armamento del control militar, rifle de precisión en el banco de guardia y lanzagranadas en la mesa del taller. Bazooka no se coloca todavía (reservada para cap. 5). Los siete recursos de armas tienen max_range=40.0.
+- **Munición cap. 1:** boletería mantiene 12 + 15 balas de 9 mm (27 de reserva; objetivo de diseño ~25 al final si se consumen 2). No se añaden balas iniciales.
+- **Pruebas:** actualicé systems_test para comprobar que new_game no regala armas ni munición; pickups quedan protegidos por sus banderas de recogida. Claude debe regenerar las escenas desde los generadores y revisar levels_test/auditoría.
+- **Qué debe probar Chris:** empezar partida nueva sin arma; recoger la pistola de la boletería; confirmar que la pistola no reaparece tras cambiar de sala/guardar; recoger las armas en su ubicación de capítulo y comprobar que el bazooka no aparece.
+- **Estado:** P11-e implementado; CI y regeneración pendientes.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 

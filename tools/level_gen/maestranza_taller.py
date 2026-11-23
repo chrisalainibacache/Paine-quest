@@ -17,6 +17,8 @@ k.examine("PowerPanel", (3.0, 0.0, -3.0), [
     "La palanca principal está abajo. El circuito del pasillo depende de este panel."
 ])
 k.pickup("RifleAmmo", (1.2, 0.0, 2.8), "ammo_rifle", 10)
+# Lanzagranadas almacenado en la mesa de mantenimiento.
+k.pickup("WorkshopGrenadeLauncher", (-3.0, 0.82, -2.2), "grenade_launcher", rot=(0, 0.4, 0), sets_flag="found:grenade_launcher")
 k.pickup("Grenades", (5.4, 0.0, 2.8), "ammo_grenades", 1)
 k.infected("Mechanic", (-0.8, 0.05, 1.0), yaw=1.5, kind="infected_worker")
 k.leo_hint("LeoPanel", (2.7, 0.0, -2.5), [

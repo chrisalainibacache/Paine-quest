@@ -36,9 +36,10 @@ func _run() -> void:
         var item := GameState.inventory.get_item(i)
         if item and item.kind == ItemData.Kind.WEAPON:
             weapons += 1
-    _check(weapons == 7 and GameState.equipped == PISTOL, "partida nueva: Isabella empieza con las 7 armas en la mochila (hay %d)" % weapons)
+    _check(weapons == 0 and GameState.equipped == null,
+        "P11: una partida nueva empieza sin armas")
     for ammo_id in ["ammo_9mm", "ammo_shells", "ammo_rifle", "ammo_grenades", "ammo_rockets"]:
-        _check(GameState.inventory.has_id(ammo_id), "y munición %s" % ammo_id)
+        _check(not GameState.inventory.has_id(ammo_id), "P11: no se regala munición inicial (%s)" % ammo_id)
     await _start_game("user://test_sistemas.json")
     _audio_systems()
     _ads_systems()

@@ -10,22 +10,6 @@ const START_ROOM := "res://levels/station/platform.tscn"
 const START_SPAWN := "start"
 const PISTOL := preload("res://data/items/pistol.tres")
 const AMMO_9MM := preload("res://data/items/ammo_9mm.tres")
-## Lo que lleva Isabella al empezar: [ítem, cantidad]. 7 armas + 5 tipos de munición.
-const STARTING_LOADOUT := [
-    ["res://data/items/pistol.tres", 1],
-    ["res://data/items/mauser.tres", 1],
-    ["res://data/items/shotgun.tres", 1],
-    ["res://data/items/assault_rifle.tres", 1],
-    ["res://data/items/sniper_rifle.tres", 1],
-    ["res://data/items/grenade_launcher.tres", 1],
-    ["res://data/items/bazooka.tres", 1],
-    ["res://data/items/ammo_9mm.tres", 30],
-    ["res://data/items/ammo_shells.tres", 10],
-    ["res://data/items/ammo_rifle.tres", 45],
-    ["res://data/items/ammo_grenades.tres", 6],
-    ["res://data/items/ammo_rockets.tres", 2],
-]
-
 static var inventory := Inventory.new()
 ## Baúl común de 24 casillas, compartido por todas las salas seguras.
 static var chest := Inventory.new(24)
@@ -64,11 +48,9 @@ static func new_game() -> void:
     # Partida nueva: se mostrará la cinemática de apertura (una sola vez; no al continuar).
     set_flag("cinematic:intro_pending")
     clips.clear()
-    # Isabella empieza con su arsenal en la mochila (todas las armas cargadas).
-    for entry in STARTING_LOADOUT:
-        inventory.add(load(entry[0]) as ItemData, entry[1])
-    equipped = PISTOL
-    clip = PISTOL.weapon.clip_size
+    # La partida empieza sin armas ni munición; se encuentran durante el recorrido.
+    equipped = null
+    clip = 0
 
 
 ## Asegura la pistola equipada y balas extra (pruebas y capturas).

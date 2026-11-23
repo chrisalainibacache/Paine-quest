@@ -12,6 +12,9 @@ walls(k, X0, X1, Z0, Z1, north="bricks_wall", south="plaster_wall", west="sky_da
 fence_top(k, X0, X1, Z1 - 0.1, 0.0)
 # Carpa (noroeste) con la mesa del capitán.
 k.prop("Tent", "Props", "army_tent", (-5.5, 0, -2.9))
+k.prop("WeaponCrate", "Props", "crate", (-3.6, 0, -3.0))
+k.label("WeaponCrateLabel", "Details", (-3.6, 0.8, -3.0), "ARMAMENTO", 18, (0.85, 0.78, 0.6))
+k.pickup("MilitaryAssaultRifle", (-3.6, 0.76, -3.0), "assault_rifle", rot=(0, 0.2, 0), sets_flag="found:assault_rifle")
 k.prop("Radio", "Props", "field_radio", (-4.9, 0.75, -3.9))
 # Camión (sureste) y sacos de arena alrededor de la barrera.
 k.prop("Truck", "Props", "army_truck", (4.6, 0, 3.3), rot=(0, 0.08, 0))

@@ -20,6 +20,8 @@ for i in range(4):
 for i in range(3):
     k.prop("BarrelW%d" % i, "Props", "wine_barrel", (-4.3, 0, -3.2 + i * 1.1))
 k.prop("Desk", "Props", "typewriter_desk", (3.9, 0, 0.6), rot=(0, -math.pi / 2, 0))
+# Rifle de cacería sobre el escritorio de la bodega.
+k.pickup("HuntingMauser", (3.9, 0.82, 0.6), "mauser", rot=(0, 0.4, 0), sets_flag="found:mauser")
 k.block("RadioTable", "Props", (0.6, 0.38, 0.3), (1.2, 0.76, 0.7), "wood")
 k.prop("Radio", "Props", "field_radio", (0.6, 0.76, 0.3))
 k.light("Lamp", "Lights", (0.0, H - 0.5, 0.5), (1.0, 0.82, 0.6), 1.1, 7.5)

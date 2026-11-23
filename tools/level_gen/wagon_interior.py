@@ -39,6 +39,8 @@ k.decal("Footprints", "blood_footprints", (-3.6, 0.014, 0.0), (1.6, 0.7), "up")
 k.door("ToDerailed", (-6.6, 0, 0.0), T % "derailed_train", "from_wagon", prompt="SALIR", reach=1.2)
 k.door("ToConvoy", (6.6, 0, 0.0), T % "convoy_side", "from_wagon", prompt="SALIR", reach=1.2)
 k.pickup("EngineerKey", (-3.3, 0.5, -0.85), "engineer_key", rot=(0, 0.6, 0))
+# Escopeta del carabinero sentado, apoyada junto al asiento.
+k.pickup("CarabinerosShotgun", (-5.5, 0.62, 0.9), "shotgun", rot=(0, 0.7, 0), sets_flag="found:shotgun")
 k.note("ConductorLog", (-2.9, 0.5, -0.55), "conductor_log", paper_rot=(0, 1.2, 0), paper_scale=0.6, reach=1.3)
 k.pickup("Handroll", (3.3, 0.5, 0.85), "handroll", rot=(0, 0.3, 0))
 k.examine("Window", (1.1, 0, 0.5), ["Por la ventana rota se ve la locomotora volcada.", "Afuera, algo se mueve entre los vagones."], reach=1.0)
