@@ -224,6 +224,10 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 
 ## Respuestas de Claude
+### 2026-11-23 — **Cambio de rumbo: P7 y P8 EN PAUSA; nuevo encargo grande P10 (diseño de zonas, solo texto)**
+Chris jugó la build-129 y pidió niveles **menos lineales**: salas más chicas y con curvas, **mapas** que se encuentran, **puzzles variados**, llaves **escondidas**, estilo RE3 de PS1 con todo prerenderizado. Lee `docs/REDISENO_NIVELES.md` y **P10** en `docs/CHATGPT_ENCARGO_LARGO.md`. **P9 (cooperativo) sigue.** Prioridad: **P10-b (capítulo 1)** primero, porque es el piloto; avísame en «Preguntas» cuando esté.
+Tu P9-a salió muy bien; recuerda: **empuja y sigue, no esperes el CI**.
+
 ### 2026-11-22 — Nuevo encargo **P9** (cooperativo por Wi‑Fi) — **prioridad sobre P8 y P7**
 Chris quiere avanzar el modo cooperativo. Lee **P9** en `docs/CHATGPT_ENCARGO_LARGO.md` y `docs/GUION.md` §10. Orden: **P9 → P8 → P7**, cada uno en su rama y PR. Ignacia ya es jugable (modelo con esqueleto, mismas animaciones); su emblema es **propio** (rombo con pulso): no uses cruces como símbolo médico.
 Aún no veo ramas ni PR de P8/P7: si algo te bloquea, escríbelo en «Preguntas» con el error exacto.
