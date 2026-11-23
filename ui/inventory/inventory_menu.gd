@@ -52,6 +52,8 @@ func _ready() -> void:
     visible = false
     _chest_open = false
     _chest_mode = false
+    $Root/Header/NotesTab.disabled = false
+    $Root/Header/KeysTab.disabled = false
     _choose_discard_mode = false
     _pending_pickup = null
     examine.visible = false
@@ -322,6 +324,8 @@ func _examine_selected() -> void:
 
 func _show_tab(notes: bool) -> void:
     _chest_mode = false
+    if selected >= GameState.inventory.capacity:
+        selected = _first_filled()
     grid.visible = not notes
     $Root/Info.visible = not notes
     notes_panel.visible = notes
@@ -378,7 +382,10 @@ func _first_filled() -> int:
 
 
 func _show_keys() -> void:
+    if _chest_open:
+        return
     _chest_mode = false
+    move_button.visible = false
     grid.visible = false
     $Root/Info.visible = false
     notes_panel.visible = false
@@ -496,6 +503,8 @@ func open_chest(new_player: Player) -> void:
     _show_tab(false)
     move_button.visible = true
     move_button.text = "GUARDAR"
+    $Root/Header/NotesTab.disabled = true
+    $Root/Header/KeysTab.disabled = true
 
 
 func _show_chest() -> void:
