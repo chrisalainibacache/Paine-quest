@@ -3,7 +3,7 @@ extends Resource
 ## Un tipo de ítem de la mochila (balas, comida, llaves, armas).
 ## Cambiar textos o balance = editar el .tres, no el código.
 
-enum Kind { WEAPON, AMMO, HEALING, KEY }
+enum Kind { WEAPON, AMMO, HEALING, KEY, COMPONENT }
 
 ## Identificador estable: se usa en las partidas guardadas y en las puertas.
 @export var id: String = ""
