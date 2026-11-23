@@ -101,18 +101,21 @@ func _refresh_marker() -> void:
         return
     # Ajuste del jugador: por defecto no se muestran flechas ni letreros (el nodo existe, pero oculto).
     _marker.visible = GameSettings.get_door_markers()
-    var blocked := false
-    if is_locked():
-        if one_way and not one_way_origin and not GameState.has_flag(_one_way_flag()):
-            blocked = true
-        elif key_item != null and not GameState.inventory.has_id(key_item.id):
-            blocked = true
+    var one_way_blocked := one_way and not one_way_origin and not GameState.has_flag(_one_way_flag())
+    var key_blocked := key_item != null and not GameState.has_flag("unlocked:" + _lock_key()) \
+            and not GameState.inventory.has_id(key_item.id)
+    var blocked := one_way_blocked or key_blocked
     var color := LOCKED_COLOR if blocked else MARKER_COLOR
     _marker_arrow.modulate = color
     _marker_arrow.outline_modulate = Color(0.05, 0.04, 0.03)
     _marker_label.modulate = color
     _marker_label.outline_modulate = Color(0.05, 0.04, 0.03)
-    _marker_label.text = "CON LLAVE" if blocked else (marker_text if not marker_text.is_empty() else label_for(target_room))
+    if one_way_blocked:
+        _marker_label.text = "SOLO DESDE EL OTRO LADO"
+    elif key_blocked:
+        _marker_label.text = "CON LLAVE"
+    else:
+        _marker_label.text = marker_text if not marker_text.is_empty() else label_for(target_room)
 
 
 func is_locked() -> bool:
