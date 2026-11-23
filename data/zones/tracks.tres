@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="ZoneMapData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/zones/zone_map_data.gd" id="1_map"]
+
+[resource]
+script = ExtResource("1_map")
+id = "tracks"
+display_name = "VÍAS"
+map_item_id = "map_tracks"
+grid_size = Vector2i(3, 2)
+rooms = Array[Dictionary]([{
+"id": "track_north",
+"name": "Vía norte",
+"scene_path": "res://levels/tracks/track_north.tscn",
+"grid_position": Vector2i(0, 0),
+"connections": PackedStringArray("derailed_train"),
+"doors": Array[Dictionary]([{"label": "Tren descarrilado", "target": "derailed_train", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "derailed_train",
+"name": "Tren descarrilado",
+"scene_path": "res://levels/tracks/derailed_train.tscn",
+"grid_position": Vector2i(1, 0),
+"connections": PackedStringArray("track_north", "wagon_interior"),
+"doors": Array[Dictionary]([{"label": "Vía norte", "target": "track_north", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Interior del vagón", "target": "wagon_interior", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "wagon_interior",
+"name": "Interior del vagón",
+"scene_path": "res://levels/tracks/wagon_interior.tscn",
+"grid_position": Vector2i(2, 0),
+"connections": PackedStringArray("derailed_train", "convoy_side"),
+"doors": Array[Dictionary]([{"label": "Tren descarrilado", "target": "derailed_train", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Lateral del convoy", "target": "convoy_side", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "convoy_side",
+"name": "Lateral del convoy",
+"scene_path": "res://levels/tracks/convoy_side.tscn",
+"grid_position": Vector2i(2, 1),
+"connections": PackedStringArray("wagon_interior", "underpass"),
+"doors": Array[Dictionary]([{"label": "Interior del vagón", "target": "wagon_interior", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Paso inferior", "target": "underpass", "key_item_id": "engineer_key", "lock_id": "underpass_gate", "one_way": false}])
+},
+{
+"id": "underpass",
+"name": "Paso inferior",
+"scene_path": "res://levels/tracks/underpass.tscn",
+"grid_position": Vector2i(1, 1),
+"connections": PackedStringArray("convoy_side", "switch_house"),
+"doors": Array[Dictionary]([{"label": "Lateral del convoy", "target": "convoy_side", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Caseta de cambios", "target": "switch_house", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "switch_house",
+"name": "Caseta de cambios",
+"scene_path": "res://levels/tracks/switch_house.tscn",
+"grid_position": Vector2i(0, 1),
+"connections": PackedStringArray("underpass"),
+"doors": Array[Dictionary]([{"label": "Paso inferior", "target": "underpass", "key_item_id": "", "lock_id": "", "one_way": false}])
+}])
