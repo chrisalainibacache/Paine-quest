@@ -674,24 +674,26 @@ func _locked_door(player: Player) -> void:
     await _close_dialogues()
     _check(not door.is_locked() and GameState.has_flag("unlocked:prueba"), "con la llave la puerta se abre y queda abierta")
     door.free()
-    KEY.lock_ids = PackedStringArray(["consume_one", "consume_two"])
+    var test_key: ItemData = KEY.duplicate(true) as ItemData
+    test_key.lock_ids = PackedStringArray(["consume_one", "consume_two"])
+    GameState.inventory.clear()
+    GameState.inventory.add(test_key)
     var first_lock := Door.new()
-    first_lock.key_item = KEY
+    first_lock.key_item = test_key
     first_lock.lock_id = "consume_one"
     main.room.add_child(first_lock)
     first_lock.interact(player)
     await _close_dialogues()
-    _check(GameState.inventory.has_id(KEY.id), "P11: la llave se conserva mientras queda otra cerradura pendiente")
+    _check(GameState.inventory.has_id(test_key.id), "P11: la llave se conserva mientras queda otra cerradura pendiente")
     var second_lock := Door.new()
-    second_lock.key_item = KEY
+    second_lock.key_item = test_key
     second_lock.lock_id = "consume_two"
     main.room.add_child(second_lock)
     second_lock.interact(player)
     await _close_dialogues()
-    _check(not GameState.inventory.has_id(KEY.id), "P11: la llave desaparece al abrir todas sus cerraduras")
+    _check(not GameState.inventory.has_id(test_key.id), "P11: la llave desaparece al abrir todas sus cerraduras")
     _check(GameState.has_flag("unlocked:consume_one") and GameState.has_flag("unlocked:consume_two"),
         "P11: quedan persistidas todas las cerraduras abiertas")
-    KEY.lock_ids = PackedStringArray()
     first_lock.free()
     second_lock.free()
 

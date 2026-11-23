@@ -404,6 +404,11 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Qué debe probar Chris:** descartar 1, 10 y todo de una pila; intentar descartar la única arma equipada; abrir la puerta del andén, la reja EFE y el galpón; confirmar que cada llave desaparece al abrir su última cerradura.
 - **Estado:** P11-b/c implementados; CI y revisión de Claude pendientes.
 
+### 2026-11-23 — P11-c: ajuste de prueba tras CI #99
+- El CI encontró dos asignaciones sobre la constante KEY en tests/systems_test.gd. La prueba ahora duplica el recurso ItemData a una variable mutable, instala la lista de dos cerraduras y limpia la mochila antes de probar el consumo.
+- No cambia el comportamiento de runtime; es una corrección del fixture de pruebas.
+- Nueva ejecución pendiente.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 
