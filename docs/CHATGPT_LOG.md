@@ -426,6 +426,13 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Pruebas:** no ejecutadas localmente; falta regenerar inventory_menu.tscn desde su generador y ejecutar CI.
 - **Estado:** implementación subida; validación pendiente.
 
+### 2026-11-23 — P11-g: documentación final y baúles de puntos seguros
+- **Qué hice:** alineé GDD y ROADMAP con el nuevo contrato: partida sin armas, distribución progresiva, llaves fuera de casillas, baúl de 24 espacios, descarte protegido, consumo de llaves al abrir todas sus cerraduras y alcance máximo 40 m. Actualicé la economía del capítulo 1 a 10 balas en cargador + 27 de reserva en boletería (objetivo aproximado de 25 al salir). Añadí baúles a las otras dos salas con máquina de escribir: control militar de Buin y galpón.
+- **Archivos tocados:** docs/GDD.md, docs/ROADMAP.md, tools/level_gen/buin_checkpoint.py, tools/level_gen/buin_shed.py.
+- **Pruebas:** documental y revisión de generadores; no ejecutadas localmente. Claude debe regenerar las escenas de inventario y las salas con baúles.
+- **Dudas:** la meta de 25 balas al final de cap. 1 se aproxima con 27 de reserva; el consumo de dos disparos es supuesto de balance, debe validarse en playtest.
+- **Estado:** P11-a…g implementados en la rama; falta CI verde y revisión de Claude.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 

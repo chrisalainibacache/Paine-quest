@@ -32,6 +32,7 @@ k.decal("Drops", "blood_footprints", (1.8, 0.012, -0.8), (1.6, 0.8), "up", rot=1
 # Interactuables.
 k.door("ToVineyard", (-4.6, 0, 0.0), B % "vineyard", "from_shed", prompt="SALIR", reach=1.3)
 k.interact("Typewriter", "typewriter", (3.55, 0.8, 0.6), reach="1.4")
+k.storage_chest("StorageChest", (2.5, 0.45, 0.6))
 k.interact("RosaDoor", "voice_door", (2.6, 0, -1.0), reach="1.3", sets_flag='"talked:rosa"',
     lines="PackedStringArray(%s)" % ", ".join('"%s"' % l for l in [
         "La puerta de la oficina tiene llave. Adentro alguien respira.",
