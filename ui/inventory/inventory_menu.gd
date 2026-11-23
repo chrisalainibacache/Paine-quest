@@ -16,6 +16,7 @@ const OPTIONS_SCENE := preload("res://ui/options/options_menu.tscn")
 @onready var item_text: Label = $Root/Info/Description
 @onready var use_button: Button = $Root/Info/Buttons/Use
 @onready var examine_button: Button = $Root/Info/Buttons/Examine
+@onready var discard_button: Button = $Root/Info/Buttons/Discard
 @onready var ecg: Control = $Root/Status/Ecg
 @onready var condition_label: Label = $Root/Status/Condition
 @onready var weapon_label: Label = $Root/Status/Weapon
@@ -35,6 +36,9 @@ var _paused_before := false
 ## Cuadro en que se abrió: el mismo toque de MOCHILA no debe cerrarla al tiro.
 var _opened_frame := -1
 var options_menu: OptionsMenu
+var _discard_dialog: ConfirmationDialog
+var _discard_options: OptionButton
+var _discard_amounts: Array[int] = []
 
 
 func _ready() -> void:
@@ -53,6 +57,8 @@ func _ready() -> void:
     $Root/Examine/Close.pressed.connect(func() -> void: examine.visible = false)
     use_button.pressed.connect(_use_selected)
     examine_button.pressed.connect(_examine_selected)
+    discard_button.pressed.connect(_discard_selected)
+    _build_discard_dialog()
     reward_ammo_button.pressed.connect(_offer_ammo_reward)
     reward_heal_button.pressed.connect(_offer_healing_reward)
     GameState.inventory.changed.connect(_refresh)
@@ -157,6 +163,8 @@ func _refresh_info() -> void:
     var item := GameState.inventory.get_item(selected) if selected >= 0 else null
     use_button.visible = item != null
     examine_button.visible = item != null
+    discard_button.visible = item != null
+    discard_button.disabled = item == null or _discard_block_reason(item) != ""
     if item == null:
         item_name.text = ""
         item_text.text = "Toca una casilla para ver el ítem."
@@ -371,3 +379,71 @@ func _fill_keys() -> void:
         row.custom_minimum_size = Vector2(0, 76)
         row.add_theme_font_size_override("font_size", 22)
         keys_list.add_child(row)
+
+
+
+func _build_discard_dialog() -> void:
+    _discard_dialog = ConfirmationDialog.new()
+    _discard_dialog.title = "DESCARTAR OBJETO"
+    _discard_dialog.dialog_text = "¿Qué dejo?"
+    _discard_options = OptionButton.new()
+    _discard_options.name = "Amount"
+    _discard_options.custom_minimum_size = Vector2(280, 54)
+    _discard_options.add_theme_font_size_override("font_size", 24)
+    _discard_dialog.add_child(_discard_options)
+    add_child(_discard_dialog)
+    _discard_dialog.confirmed.connect(_confirm_discard)
+
+
+func _discard_block_reason(item: ItemData) -> String:
+    if item.kind == ItemData.Kind.KEY:
+        return "Las llaves no se pueden descartar."
+    if item.kind == ItemData.Kind.WEAPON and item == GameState.equipped \
+            and GameState.inventory.count_of(item) <= 1:
+        return "Primero debo equipar otra arma."
+    return ""
+
+
+func _discard_selected() -> void:
+    if selected < 0:
+        return
+    var item: ItemData = GameState.inventory.get_item(selected)
+    if item == null:
+        return
+    var reason: String = _discard_block_reason(item)
+    if not reason.is_empty():
+        item_text.text = reason
+        return
+    var count: int = GameState.inventory.get_count(selected)
+    _discard_amounts.clear()
+    _discard_options.clear()
+    var amounts: Array[int] = [1]
+    if item.is_stackable():
+        amounts.append(mini(10, count))
+        amounts.append(count)
+    for amount: int in amounts:
+        if amount <= 0 or _discard_amounts.has(amount):
+            continue
+        _discard_amounts.append(amount)
+        _discard_options.add_item("TODO" if amount == count and count > 1 else "−%d" % amount)
+    _discard_dialog.dialog_text = "¿Qué dejo de %s?" % item.display_name
+    _discard_dialog.popup_centered()
+
+
+func _confirm_discard() -> void:
+    if selected < 0 or _discard_options.selected < 0:
+        return
+    var item: ItemData = GameState.inventory.get_item(selected)
+    if item == null or not _discard_block_reason(item).is_empty():
+        return
+    var amount_index: int = _discard_options.selected
+    if amount_index >= _discard_amounts.size():
+        return
+    var amount: int = _discard_amounts[amount_index]
+    var name: String = item.display_name
+    GameState.inventory.remove_at(selected, amount)
+    if GameState.inventory.get_item(selected) == null:
+        selected = _first_filled()
+    Sfx.play("pickup", null, -6.0)
+    _refresh()
+    item_text.text = "Dejé: %s." % name

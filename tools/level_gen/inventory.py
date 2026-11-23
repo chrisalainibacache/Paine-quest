@@ -53,6 +53,7 @@ label("Description", "Root/Info", "", 24, TXT, autowrap_mode="3", **rect(left=24
 s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=640, top=60, right=856, bottom=210))
 button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 64)")
 button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 64)")
+button("Discard", "Root/Info/Buttons", "DESCARTAR", 26, custom_minimum_size="Vector2(0, 64)")
 s.node("RewardButtons", "HBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=24, top=220, right=856, bottom=276))
 button("RewardAmmo", "Root/Info/RewardButtons", "VER ANUNCIO: +MUNICIÓN", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")
 button("RewardHeal", "Root/Info/RewardButtons", "VER ANUNCIO: +1 CURATIVO", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")

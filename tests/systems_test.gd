@@ -344,6 +344,13 @@ func _inventory_rules() -> void:
     restored.from_data(saved)
     _check(restored.has_id(gate_key.id) and restored.get_item(3) == null,
         "los guardados nuevos restauran llaves separadas y casillas vacías")
+    var discard_inventory := Inventory.new()
+    discard_inventory.add(AMMO, 20)
+    discard_inventory.remove_at(0, 10)
+    _check(discard_inventory.count_of(AMMO) == 10, "P11: descartar diez unidades reduce el apilable")
+    discard_inventory.remove_at(0, 10)
+    _check(discard_inventory.count_of(AMMO) == 0 and discard_inventory.get_item(0) == null,
+        "P11: descartar todo libera la casilla")
 
 
 func _leo_warns(player: Player) -> void:
