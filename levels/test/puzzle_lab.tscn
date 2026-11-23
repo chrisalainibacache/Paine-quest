@@ -1,0 +1,305 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/room.gd" id="1_room"]
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="2_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/concrete_floor.tres" id="3_concrete_flo"]
+[ext_resource type="Material" path="res://levels/kit/materials/concrete_wall.tres" id="4_concrete_wal"]
+[ext_resource type="Material" path="res://levels/kit/materials/plaster_wall.tres" id="5_plaster_wall"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="6_wood"]
+[ext_resource type="Material" path="res://levels/kit/materials/planks.tres" id="7_planks"]
+[ext_resource type="Resource" path="res://data/puzzles/test_code_lock.tres" id="8_test_code_lo"]
+[ext_resource type="Script" path="res://levels/kit/interact/code_lock.gd" id="9_code_lock"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="10_door"]
+[ext_resource type="Resource" path="res://data/items/gate_key.tres" id="11_gate_key"]
+[ext_resource type="Resource" path="res://data/puzzles/test_fuse_box.tres" id="12_test_fuse_bo"]
+[ext_resource type="Script" path="res://levels/kit/interact/fuse_box.gd" id="13_fuse_box"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="14_pickup"]
+[ext_resource type="Resource" path="res://data/items/fuse_10a.tres" id="15_fuse_10a"]
+[ext_resource type="Resource" path="res://data/puzzles/test_lever_sequence.tres" id="16_test_lever_s"]
+[ext_resource type="Script" path="res://levels/kit/interact/lever_sequence.gd" id="17_lever_sequen"]
+[ext_resource type="Script" path="res://levels/kit/interact/lever.gd" id="18_lever"]
+[ext_resource type="Resource" path="res://data/puzzles/test_container.tres" id="19_test_contain"]
+[ext_resource type="Script" path="res://levels/kit/interact/container.gd" id="20_container"]
+[ext_resource type="Resource" path="res://data/items/manivela.tres" id="21_manivela"]
+[ext_resource type="Resource" path="res://data/items/eje_oxidado.tres" id="22_eje_oxidado"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="23_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="24_camera_zone"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.035, 0.03, 0.025, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.62, 0.57, 0.48, 1)
+ambient_light_energy = 0.95
+fog_enabled = true
+fog_light_color = Color(0.08, 0.07, 0.06, 1)
+fog_density = 0.015
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
+size = Vector3(13.5, 2.8, 9.5)
+
+[node name="PuzzleLab" type="Node3D"]
+script = ExtResource("1_room")
+room_name = "Laboratorio de puzzles"
+ambience = &"storeroom"
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, -0.5, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(14.6, 1, 10.6)
+surface = ExtResource("3_concrete_flo")
+
+[node name="Ceiling" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 3.25, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(14.6, 0.1, 10.6)
+surface = ExtResource("4_concrete_wal")
+
+[node name="NorthWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 1.6, -5.15)
+script = ExtResource("2_kit_block")
+size = Vector3(14.6, 3.2, 0.3)
+surface = ExtResource("5_plaster_wall")
+
+[node name="SouthWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(0, 1.6, 5.15)
+script = ExtResource("2_kit_block")
+size = Vector3(14.6, 3.2, 0.3)
+surface = ExtResource("5_plaster_wall")
+
+[node name="WestWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(-7.15, 1.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 3.2, 10)
+surface = ExtResource("5_plaster_wall")
+
+[node name="EastWall" type="StaticBody3D" parent="Shell"]
+position = Vector3(7.15, 1.6, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 3.2, 10)
+surface = ExtResource("5_plaster_wall")
+
+[node name="Furniture" type="Node3D" parent="."]
+
+[node name="BenchA" type="StaticBody3D" parent="Furniture"]
+position = Vector3(0, 0.34, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(1.8, 0.68, 0.65)
+surface = ExtResource("6_wood")
+
+[node name="BenchB" type="StaticBody3D" parent="Furniture"]
+position = Vector3(3, 0.34, -1)
+script = ExtResource("2_kit_block")
+size = Vector3(1.2, 0.68, 0.65)
+surface = ExtResource("6_wood")
+
+[node name="LowCrate" type="StaticBody3D" parent="Furniture"]
+position = Vector3(3.8, 0.25, 2.4)
+script = ExtResource("2_kit_block")
+size = Vector3(0.7, 0.5, 0.7)
+surface = ExtResource("7_planks")
+
+[node name="Details" type="Node3D" parent="."]
+
+[node name="RoomTitle" type="Label3D" parent="Details"]
+position = Vector3(0, 2.55, -4.7)
+text = "SALA SEGURA · PRUEBAS P12"
+font_size = 24
+pixel_size = 0.004
+modulate = Color(0.92, 0.82, 0.62, 1)
+outline_size = 0
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="CodeLock" type="Node3D" parent="Interactables"]
+position = Vector3(-5.7, 0, -3.5)
+script = ExtResource("9_code_lock")
+puzzle = ExtResource("8_test_code_lo")
+reach = 1.4
+unlock_id = "test_code_gate"
+
+[node name="CodeGate" type="Node3D" parent="Interactables"]
+position = Vector3(6.2, 0, -3.5)
+script = ExtResource("10_door")
+reach = 1.3
+target_room = "res://levels/test/puzzle_lab.tscn"
+target_spawn = "after_code"
+key_item = ExtResource("11_gate_key")
+lock_id = "test_code_gate"
+marker_text = "CERRADURA DE CÓDIGO"
+
+[node name="FuseBoard" type="Node3D" parent="Interactables"]
+position = Vector3(-5.7, 0, 0)
+script = ExtResource("13_fuse_box")
+puzzle = ExtResource("12_test_fuse_bo")
+reach = 1.4
+unlock_id = "test_fuse_gate"
+
+[node name="FuseA" type="Node3D" parent="Interactables"]
+position = Vector3(-3.8, 0.05, 0.8)
+script = ExtResource("14_pickup")
+item = ExtResource("15_fuse_10a")
+count = 1
+model_rotation = Vector3(0, 0, 0)
+
+[node name="FuseB" type="Node3D" parent="Interactables"]
+position = Vector3(-2.6, 0.05, 0.8)
+script = ExtResource("14_pickup")
+item = ExtResource("15_fuse_10a")
+count = 1
+model_rotation = Vector3(0, 0, 0)
+
+[node name="FuseGate" type="Node3D" parent="Interactables"]
+position = Vector3(6.2, 0, 0)
+script = ExtResource("10_door")
+reach = 1.3
+target_room = "res://levels/test/puzzle_lab.tscn"
+target_spawn = "after_fuse"
+key_item = ExtResource("11_gate_key")
+lock_id = "test_fuse_gate"
+marker_text = "TABLERO DE FUSIBLES"
+
+[node name="LeverController" type="Node3D" parent="Interactables"]
+position = Vector3(0, 0, -2.6)
+script = ExtResource("17_lever_sequen")
+puzzle = ExtResource("16_test_lever_s")
+reach = 1.4
+
+[node name="LeverNorth" type="Node3D" parent="Interactables"]
+position = Vector3(-1.6, 0, -1.3)
+script = ExtResource("18_lever")
+puzzle = ExtResource("16_test_lever_s")
+lever_id = "north"
+reach = 1.3
+unlock_id = "test_lever_gate"
+
+[node name="LeverWest" type="Node3D" parent="Interactables"]
+position = Vector3(0, 0, -1.3)
+script = ExtResource("18_lever")
+puzzle = ExtResource("16_test_lever_s")
+lever_id = "west"
+reach = 1.3
+unlock_id = "test_lever_gate"
+
+[node name="LeverEast" type="Node3D" parent="Interactables"]
+position = Vector3(1.6, 0, -1.3)
+script = ExtResource("18_lever")
+puzzle = ExtResource("16_test_lever_s")
+lever_id = "east"
+reach = 1.3
+unlock_id = "test_lever_gate"
+
+[node name="LeverGate" type="Node3D" parent="Interactables"]
+position = Vector3(6.2, 0, 3.5)
+script = ExtResource("10_door")
+reach = 1.3
+target_room = "res://levels/test/puzzle_lab.tscn"
+target_spawn = "after_levers"
+key_item = ExtResource("11_gate_key")
+lock_id = "test_lever_gate"
+marker_text = "SECUENCIA DE PALANCAS"
+
+[node name="SearchDrawer" type="Node3D" parent="Interactables"]
+position = Vector3(-5.7, 0, 3.5)
+script = ExtResource("20_container")
+puzzle = ExtResource("19_test_contain")
+content_item_ids = PackedStringArray("sushi")
+counts = PackedInt32Array(1)
+reach = 1.2
+
+[node name="Crank" type="Node3D" parent="Interactables"]
+position = Vector3(3, 0.05, 3.5)
+script = ExtResource("14_pickup")
+item = ExtResource("21_manivela")
+count = 1
+model_rotation = Vector3(0, 0, 0)
+
+[node name="RustedAxle" type="Node3D" parent="Interactables"]
+position = Vector3(4.2, 0.05, 3.5)
+script = ExtResource("14_pickup")
+item = ExtResource("22_eje_oxidado")
+count = 1
+model_rotation = Vector3(0, 0, 0)
+
+[node name="ShortcutOrigin" type="Node3D" parent="Interactables"]
+position = Vector3(-5.8, 0, 1.5)
+script = ExtResource("10_door")
+reach = 1.3
+target_room = "res://levels/test/puzzle_lab.tscn"
+target_spawn = "shortcut_return"
+lock_id = "test_shortcut"
+marker_text = "ATAJO"
+one_way = true
+one_way_origin = true
+
+[node name="ShortcutReverse" type="Node3D" parent="Interactables"]
+position = Vector3(-5.8, 0, -1.5)
+script = ExtResource("10_door")
+reach = 1.3
+target_room = "res://levels/test/puzzle_lab.tscn"
+target_spawn = "shortcut_origin"
+lock_id = "test_shortcut"
+marker_text = "ATAJO"
+one_way = true
+one_way_origin = false
+
+[node name="Instructions" type="Node3D" parent="Interactables"]
+position = Vector3(0, 0, 4.35)
+script = ExtResource("23_examine_spot")
+reach = 1.4
+lines = PackedStringArray("Sala segura para probar las mecánicas P12. No hay enemigos ni forma de perder salud.", "Código de prueba: 0712. Recoge dos fusibles, instala ambos y prueba las tres palancas.", "Registra el cajón una vez y combina la manivela con el eje oxidado desde la mochila.")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="CeilingLight" type="OmniLight3D" parent="Lights"]
+position = Vector3(0, 2.85, 0)
+light_color = Color(1, 0.82, 0.62, 1)
+light_energy = 1.8
+omni_range = 9
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="WholeRoom" type="Area3D" parent="Cameras"]
+position = Vector3(0, 1.4, 0)
+script = ExtResource("24_camera_zone")
+
+[node name="Zone" type="CollisionShape3D" parent="Cameras/WholeRoom"]
+shape = SubResource("BoxShape3D_2")
+
+[node name="Camera" type="Camera3D" parent="Cameras/WholeRoom"]
+position = Vector3(0, 6.6, 12)
+rotation = Vector3(-0.5764, 0, 0)
+fov = 66
+near = 0.1
+far = 30.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="start" type="Marker3D" parent="Spawns"]
+position = Vector3(2, 0.05, 4)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="after_code" type="Marker3D" parent="Spawns"]
+position = Vector3(5, 0.05, -3.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="after_fuse" type="Marker3D" parent="Spawns"]
+position = Vector3(5, 0.05, 0)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="after_levers" type="Marker3D" parent="Spawns"]
+position = Vector3(5, 0.05, 3.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="shortcut_return" type="Marker3D" parent="Spawns"]
+position = Vector3(-4.5, 0.05, -3.5)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="shortcut_origin" type="Marker3D" parent="Spawns"]
+position = Vector3(-4.5, 0.05, 3.5)
+rotation = Vector3(0, -1.5708, 0)

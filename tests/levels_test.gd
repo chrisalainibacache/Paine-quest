@@ -6,6 +6,8 @@ extends "res://tests/test_case.gd"
 ## Uso: godot --headless --path . -s res://tests/levels_test.gd
 
 ## Cada capítulo: carpeta de salas, sala inicial y llave necesaria para avanzar.
+const TEST_ROOMS := ["res://levels/test/puzzle_lab.tscn"]
+
 const CHAPTERS := [
     ["res://levels/station/", "res://levels/station/platform.tscn", "gate_key"],
     ["res://levels/tracks/", "res://levels/tracks/track_north.tscn", "engineer_key"],
@@ -25,6 +27,9 @@ func _run() -> void:
         for path in rooms:
             await _check_room(path)
         _check_chapter_flow(i + 1, chapter[0], chapter[1], chapter[2])
+    for test_path: String in TEST_ROOMS:
+        await _check_room(test_path)
+        await _check_puzzle_room(test_path)
     _check((load(CHAPTERS[1][1]) as PackedScene).instantiate().get_node_or_null("Spawns/start") != null,
         "el capítulo 2 tiene su punto de inicio")
     _finish()
@@ -74,7 +79,9 @@ func _check_room(path: String) -> void:
             _check(marker != null, "%s: la puerta de avance %s crea Marker" % [name, door.name])
             if marker != null:
                 var expected_text := door.marker_text if not door.marker_text.is_empty() else Door.label_for(door.target_room)
-                if door.is_locked() and door.key_item != null and not GameState.inventory.has_id(door.key_item.id):
+                if door.one_way and not door.one_way_origin and door.is_locked():
+                    expected_text = "SOLO DESDE EL OTRO LADO"
+                elif door.is_locked() and door.key_item != null and not GameState.inventory.has_id(door.key_item.id):
                     expected_text = "CON LLAVE"
                 _check(door._marker_label != null and door._marker_label.text == expected_text,
                     "%s: Marker de %s muestra el destino o CON LLAVE" % [name, door.name])
@@ -141,3 +148,44 @@ func _check_chapter_flow(chapter: int, dir: String, start_room: String, needed_k
     _check(reached.size() == total, "capítulo %d: desde el inicio se llega a todas las salas (%d de %d)" % [chapter, reached.size(), total])
     _check(keys.has(needed_key), "capítulo %d: la llave %s se encuentra antes de su puerta" % [chapter, needed_key])
     _check(exit_found, "capítulo %d: se llega a la salida que cierra el capítulo" % chapter)
+
+
+## P12-d: la sala de prueba existe fuera de los capítulos y contiene todas las mecánicas.
+func _check_puzzle_room(path: String) -> void:
+    var room := (load(path) as PackedScene).instantiate() as Room
+    root.add_child(room)
+    await _frames(2)
+    var codes := room.find_children("*", "CodeLock", true, false)
+    var fuse_boxes := room.find_children("*", "FuseBox", true, false)
+    var levers := room.find_children("*", "Lever", true, false)
+    var sequences := room.find_children("*", "LeverSequence", true, false)
+    var containers := room.find_children("*", "SearchContainer", true, false)
+    var code_lock := codes[0] as CodeLock if not codes.is_empty() else null
+    var fuse_box := fuse_boxes[0] as FuseBox if not fuse_boxes.is_empty() else null
+    var search_container := containers[0] as SearchContainer if not containers.is_empty() else null
+    var one_way_count := 0
+    for door: Door in room.find_children("*", "Door", true, false):
+        if door.one_way:
+            one_way_count += 1
+    var fuse_pickups := 0
+    var part_pickups := 0
+    for pickup: Pickup in room.find_children("*", "Pickup", true, false):
+        if pickup.item != null and pickup.item.id == "fuse_10a":
+            fuse_pickups += 1
+        if pickup.item != null and pickup.item.kind == ItemData.Kind.COMPONENT:
+            part_pickups += 1
+    _check(code_lock != null and code_lock.puzzle.code == "0712",
+        "sala de prueba: cerradura táctil con código de prueba 0712")
+    _check(fuse_box != null and fuse_box.puzzle.required_items.size() == 2,
+        "sala de prueba: tablero que necesita dos fusibles")
+    _check(levers.size() == 3 and sequences.size() == 1,
+        "sala de prueba: tres palancas y un controlador de secuencia")
+    _check(search_container != null and search_container.prompt == "REGISTRAR",
+        "sala de prueba: un contenedor con acción REGISTRAR")
+    _check(one_way_count == 2, "sala de prueba: ambos lados del atajo unidireccional")
+    _check(fuse_pickups == 2 and part_pickups >= 2,
+        "sala de prueba: fusibles y piezas para combinar disponibles")
+    _check(room.find_children("*", "Infected", true, false).is_empty(),
+        "sala de prueba: no contiene enemigos")
+    room.free()
+    await _frames(1)
