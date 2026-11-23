@@ -18,10 +18,12 @@ s.node("Subtitle", "Label", ".", anchors_preset="0", anchor_left="0.0", anchor_r
        text='"La estación  ·  Las vías  ·  Buin"', theme_override_font_sizes_font_size="26", theme_override_colors_font_color=col((0.9, 0.86, 0.8)),
        theme_override_colors_font_shadow_color=col((0, 0, 0, 0.85)), theme_override_constants_shadow_offset_x="2", theme_override_constants_shadow_offset_y="2")
 s.node("Menu", "VBoxContainer", ".", anchors_preset="0", anchor_left="0.0", anchor_right="0.0", grow_horizontal="1",
-       offset_left="70.0", offset_top="320.0", offset_right="430.0", offset_bottom="646.0", theme_override_constants_separation="14")
+       offset_left="70.0", offset_top="300.0", offset_right="430.0", offset_bottom="716.0", theme_override_constants_separation="14")
 for name, text in [("NewGame", "NUEVA PARTIDA"), ("Continue", "CONTINUAR")]:
     s.node(name, "Button", "Menu", custom_minimum_size="Vector2(0, 68)", text='"%s"' % text, theme_override_font_sizes_font_size="30",
            focus_mode="0")
+s.node("CoopButton", "Button", "Menu", custom_minimum_size="Vector2(0, 68)", text='"COOPERATIVO (PRUEBA)"',
+       theme_override_font_sizes_font_size="22", focus_mode="0")
 s.node("Graphics", "Button", "Menu", custom_minimum_size="Vector2(0, 68)", text='"GRÁFICOS: RETRO"', theme_override_font_sizes_font_size="26",
        script=s.res("res://ui/graphics_toggle.gd", "Script"))
 s.node("Brightness", "Button", "Menu", custom_minimum_size="Vector2(0, 68)", text='"BRILLO 3/5"', theme_override_font_sizes_font_size="26",

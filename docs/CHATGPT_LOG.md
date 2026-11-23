@@ -201,6 +201,10 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
+### 2026-11-21 — P9-b / P9-c
+1. **Claude: regeneración del título.** Ejecuta `python3 tools/level_gen/title.py` y sube el `ui/title/title_screen.tscn` generado a esta rama. El acceso cooperativo se añadió al generador; no edité a mano la escena generada.
+2. **Chris / Claude: Android.** Antes de la prueba en dos teléfonos, revisar que la exportación Android incluya el permiso de red necesario para ENet/UDP (Internet y tráfico LAN/broadcast). No modifiqué `export_presets.cfg`; confirmar el permiso en el preset y probar el descubrimiento UDP en la misma Wi‑Fi. Si el router bloquea broadcast, usar la IP manual.
+
 ### 2026-11-20 — P1-c
 1. [CONFIRMAR] El epílogo «Para Leo» aún no existe en el código. Si P3 lo implementa como escena independiente del fin del capítulo 5, debe llamar a AudioDirector.play_music("leo") desde esa escena.
 
@@ -395,6 +399,41 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 
 - **2026-11-19 — Inicio.** Aún no hay tareas aprobadas más allá de A–C (solo diseño y texto).
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
+
+### 2026-11-23 — P9-d…f: pruebas, líneas cooperativas y documentación (rama: `chatgpt/P9-cooperativo`, PR #14)
+- **P9-d — pruebas** (commit `0fbfca8`): agregué pruebas headless del codec (ping válido, ida y vuelta, tipo desconocido, campo extra, tipo incorrecto, versión incompatible y límite de tamaño), validación de IP/puerto y carga de la escena del menú. No agregué un bucle ENet host+cliente en el mismo proceso: `NetSession` usa el `MultiplayerAPI` global de SceneTree; probar dos instancias aisladas requeriría primero refactorizar el transporte para inyectar dos APIs independientes. El CI no sustituye la prueba física de dos teléfonos.
+- **P9-e — líneas de Ignacia** (commits `42a3ddd` y `48250ce`): añadí `GameState.cooperative` (falso por defecto, persistido; guardados anteriores sin la clave se cargan como individual), `CoopLines.lines_for(room, event)` y `data/coop/ignacia_lines.tres` con 46 entradas asociadas a salas y disparadores de §10.3–§10.5. Añadí pruebas: individual devuelve vacío, cooperativo devuelve las nueve líneas del encuentro, filtro por sala/evento y ausencia de «Skull»/identificadores internos.
+- **P9-f — documentación**: actualicé GDD, Hito 13 de ROADMAP y este registro. Queda explícito que P9 solo entrega conexión de prueba: no sincroniza todavía dos avatares ni el gameplay.
+- **P9-b/c — base técnica previa**: commits `8f7fa17`, `9a3d007`, `1527cb3`, `51185df`, `5d7528e`, `3181897`, `b92ed09`, `a1d1406`, `a439bff`, `00c2c75` y `75bcad7`.
+- **CI de referencia previo a P9-d/e/f:** ejecución «Pruebas en PR» #86 terminó en `success`; regeneración, importación, pruebas, auditoría de cámaras y paquete exportado completaron; revisión del log completo: 0 apariciones de `SCRIPT ERROR`. Esa ejecución valida el commit anterior a P9-d/e/f, no estos cambios nuevos; sus pushes disparan nueva ejecución.
+- **Qué debe probar Chris en dos teléfonos:** ambos con la misma APK y conectados a la misma Wi‑Fi; anfitrión crea partida y comparte IP; invitado descubre o introduce IP; comprobar conexión, ping que cambia cada segundo, botón «ENVIAR SEÑAL» audible en el otro teléfono; volver y repetir con el router sin broadcast (IP manual). No se debe anunciar multijugador jugable hasta completar los hitos posteriores.
+- **Pendiente de Claude:** regenerar `ui/title/title_screen.tscn` desde `tools/level_gen/title.py` si su revisión del CI lo requiere; verificar permisos Android y la prueba real entre dos dispositivos.
+- **Estado:** P9-b…f implementado en la rama; CI nuevo y revisión de Claude pendientes. No se toca `main` ni `levels/**`.
+
+### 2026-11-23 — P9: corrección tras CI #90
+- **Qué falló:** «Pruebas en PR» #90 llegó a las pruebas automáticas y detectó que Godot 4.7.2 no expone IP.is_valid_ip_address como función estática; eso impidió cargar NetSession y ejecutar la prueba de validación.
+- **Qué corregí:** añadí NetMessages.is_valid_ipv4 con validación explícita de cuatro octetos; la usan NetSession, LanDiscovery y el menú. La prueba instancia el script tipado y cubre IPv4 válida e inválida.
+- **Pruebas:** pendiente nueva ejecución del workflow; la corrida #90 queda registrada como FALLA y no se considera aprobada.
+- **Estado:** corrección subida; nueva validación pendiente.
+
+### 2026-11-23 — P9: segundo arreglo de IPv4 tras CI #100
+- La prueba automática pasó (0 fallas), pero el detector de SCRIPT ERROR encontró una segunda llamada residual a IP.is_valid_ip_address en _local_ipv4() del menú. El primer reemplazo había corregido la validación de la IP escrita, no la enumeración de direcciones locales.
+- Sustituí también esa llamada por NetMessages.is_valid_ipv4. El siguiente CI debe validar el menú completo.
+- Estado: nueva corrección subida; CI pendiente.
+
+### 2026-11-23 — P9: serialización segura del anuncio LAN tras CI #131
+- El CI ya pasó regeneración/importación y todas las pruebas funcionales, pero el parser detectó que Godot 4.7.2 acepta solo un argumento en bytes_to_var(). Cambié el anuncio UDP a JSON UTF-8 (JSON.stringify / JSON.parse_string), adecuado para los campos de texto y enteros del descubrimiento y sin deserializar objetos desde la red.
+- Estado: corrección subida; nueva ejecución CI pendiente.
+
+### 2026-11-23 — P9: seguimiento de CI #131
+- CI #131 confirmó que la regeneración y la importación pasan; las pruebas smoke, systems y levels reportaron 0 fallas funcionales, pero el compilador detectó la llamada incompatible a bytes_to_var(packet, false) en LAN discovery.
+- Se sustituyó por JSON UTF-8 y se empujó la corrección. Esta actualización registra el estado; el CI de la corrección aún debe ejecutarse.
+
+### 2026-11-23 — P9: CI #136 validado
+- **Pruebas en PR #136:** SUCCESS. Regeneración de escenas, importación, pruebas automáticas, auditoría de cámaras y comprobación de textos exportados terminaron en verde.
+- **Validación de pistola #170:** SUCCESS (capturas en juego y al disparar).
+- **Errores de script:** la ejecución #136 no registró SCRIPT ERROR; las correcciones IPv4 y JSON UTF-8 están validadas por Godot 4.7.2.
+- **Alcance:** P9-b…f queda validado por CI. Falta la prueba manual de conexión entre dos teléfonos Android; la sincronización de gameplay no forma parte de esta entrega.
 
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)

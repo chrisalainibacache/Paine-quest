@@ -3,6 +3,7 @@ extends Control
 
 const GAME_SCENE := "res://main.tscn"
 const CREDITS_SCENE := "res://ui/title/credits_screen.tscn"
+const COOP_SCENE := "res://ui/coop/coop_menu.tscn"
 const TITLE_FONT := "res://assets/fonts/JosefinSans.ttf"
 const GOLD := Color(0.93, 0.66, 0.25)
 ## Etiqueta OpenType "wght" (peso de la fuente variable) = 0x77676874.
@@ -24,6 +25,7 @@ func _ready() -> void:
     AudioDirector.play_music("title")
     continue_button.disabled = not SaveSystem.has_save()
     $Menu/NewGame.pressed.connect(_new_game)
+    $Menu/CoopButton.pressed.connect(_open_coop)
     continue_button.pressed.connect(_continue)
     credits_button.pressed.connect(_show_credits)
     options_button.pressed.connect(options_menu.open)
@@ -46,6 +48,11 @@ func _continue() -> void:
         get_tree().change_scene_to_file(GAME_SCENE)
     else:
         continue_button.disabled = true
+
+
+func _open_coop() -> void:
+    Sfx.play("menu", null, -6.0)
+    get_tree().change_scene_to_file(COOP_SCENE)
 
 
 func _show_credits() -> void:
@@ -72,7 +79,7 @@ func _style_title() -> void:
     var button_font := FontVariation.new()
     button_font.base_font = load(TITLE_FONT) as Font
     button_font.variation_opentype = {WEIGHT_TAG: 600}
-    for path: String in ["Menu/NewGame", "Menu/Continue", "Menu/Graphics", "Menu/Brightness", "OptionsButton", "CreditsButton"]:
+    for path: String in ["Menu/NewGame", "Menu/Continue", "Menu/CoopButton", "Menu/Graphics", "Menu/Brightness", "OptionsButton", "CreditsButton"]:
         var button := get_node(path) as Button
         button.add_theme_font_override("font", button_font)
         var accent := path == "Menu/NewGame"

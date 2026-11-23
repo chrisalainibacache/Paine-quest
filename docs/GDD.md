@@ -226,6 +226,13 @@ juego** (misterios de la parte 2; sustituye lo que decía antes «se cierra en e
 (canon); (c) para la parte 2 se **conservan las semillas A (orden de traslado con dos horas distintas y el origen vacío) y D (destino del asiento 15 corregido sin firma)**;
 B y C se descartan.
 
+### Estado de implementación P9 (2026-11-23)
+La primera entrega técnica añade una conexión de prueba LAN, no el modo cooperativo jugable completo:
+- Codec versionado y limitado por tamaño en `systems/net/net_messages.gd`; transporte ENet para anfitrión/invitado en `systems/net/net_session.gd`; descubrimiento UDP broadcast y unión manual por IPv4 en `systems/net/lan_discovery.gd`.
+- Menú «COOPERATIVO (PRUEBA)» con selección de partida, IP manual, ping/pong y señal sonora en `ui/coop/`; se accede desde el título.
+- Las líneas adicionales de Ignacia se almacenan en `data/coop/ignacia_lines.tres` y se consultan con `CoopLines.lines_for(room, event)`. La bandera `GameState.cooperative` es falsa por defecto, se guarda/carga y mantiene compatibilidad con partidas antiguas (ausencia de la clave = falso).
+- **Fuera de esta entrega:** no hay todavía dos avatares sincronizados, simulación autoritativa, transición de sala, inventario compartido ni reconexión. No presentar P9 como multijugador terminado. Antes de jugar, Claude debe validar el handshake y la señal en dos Android reales; revisar permisos/red local y routers que bloquean broadcast. IP manual es el respaldo.
+
 ### Modo cooperativo por Wi‑Fi e **Ignacia** (decisión de Chris, 2026-11-21)
 - Chris quiere poder jugar **de a dos, cada uno en su teléfono, con la misma APK**. Primera etapa: **misma red Wi‑Fi** (anfitrión + invitado); por internet queda para después.
 - **Nuevo personaje: Ignacia** (jugadora 2). Guion adaptado en `docs/GUION.md` §10 (**aprobado por Chris**: Ignacia, sin apellido, existe **solo en el cooperativo**, donde avanzan juntas toda la partida; en un jugador el guion no cambia; ve a Leo como una gata normal); el diseño del personaje (aspecto, habilidad, equipo) viene **después** de aprobar el guion.

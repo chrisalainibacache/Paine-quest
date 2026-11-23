@@ -35,6 +35,8 @@ static var documents: Array[String] = []
 static var flags: Dictionary = {}
 ## true cuando ya hay una partida en curso (nueva o cargada).
 static var started := false
+## Solo se activa al iniciar una partida cooperativa; individual permanece falso.
+static var cooperative: bool = false
 static var health := 100
 static var clip := 0
 ## Balas que quedaron en el cargador de cada arma guardada (id del ítem → balas).
@@ -58,6 +60,7 @@ static func new_game() -> void:
     use_spawn_transform = false
     play_time = 0.0
     started = true
+    cooperative = false
     # Partida nueva: se mostrará la cinemática de apertura (una sola vez; no al continuar).
     set_flag("cinematic:intro_pending")
     clips.clear()
@@ -121,6 +124,7 @@ static func add_document(document: DocumentData) -> bool:
 static func to_data() -> Dictionary:
     return {
         "version": 1,
+        "cooperative": cooperative,
         "inventory": inventory.to_data(),
         "equipped": equipped.resource_path if equipped else "",
         "documents": documents.duplicate(),
@@ -137,6 +141,7 @@ static func to_data() -> Dictionary:
 
 
 static func from_data(data: Dictionary) -> void:
+    cooperative = bool(data.get("cooperative", false))
     inventory.from_data(data.get("inventory", []))
     var equipped_path: String = data.get("equipped", "")
     equipped = load(equipped_path) as ItemData if ResourceLoader.exists(equipped_path) else null

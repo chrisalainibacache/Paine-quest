@@ -1,0 +1,151 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/coop/coop_menu.gd" id="1_coop_menu"]
+
+[node name="CoopMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_coop_menu")
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.015, 0.02, 0.025, 0.94)
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = -520.0
+offset_top = -300.0
+offset_right = 520.0
+offset_bottom = 300.0
+
+[node name="Layout" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Panel/Layout"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 58)
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "COOPERATIVO (PRUEBA)"
+theme_override_font_sizes/font_size = 34
+
+[node name="Status" type="Label" parent="Panel/Layout"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 52)
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "Busca una partida en tu red Wi-Fi o crea una nueva."
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 20
+
+[node name="Actions" type="HBoxContainer" parent="Panel/Layout"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 68)
+theme_override_constants/separation = 14
+
+[node name="HostButton" type="Button" parent="Panel/Layout/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 68)
+text = "CREAR PARTIDA"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
+
+[node name="JoinButton" type="Button" parent="Panel/Layout/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 68)
+text = "UNIRSE A SELECCIONADA"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
+
+[node name="BackButton" type="Button" parent="Panel/Layout/Actions"]
+layout_mode = 2
+size_flags_horizontal = 1
+custom_minimum_size = Vector2(180, 68)
+text = "VOLVER"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
+
+[node name="GamesTitle" type="Label" parent="Panel/Layout"]
+layout_mode = 2
+text = "PARTIDAS ENCONTRADAS"
+theme_override_font_sizes/font_size = 19
+
+[node name="Games" type="OptionButton" parent="Panel/Layout"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 58)
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+focus_mode = 0
+
+[node name="ManualRow" type="HBoxContainer" parent="Panel/Layout"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 64)
+theme_override_constants/separation = 12
+
+[node name="Address" type="LineEdit" parent="Panel/Layout/ManualRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 58)
+placeholder_text = "IP del anfitrión (ej. 192.168.1.20)"
+theme_override_font_sizes/font_size = 20
+clear_button_enabled = true
+
+[node name="ManualJoin" type="Button" parent="Panel/Layout/ManualRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(220, 58)
+text = "UNIRSE POR IP"
+theme_override_font_sizes/font_size = 20
+focus_mode = 0
+
+[node name="TestPanel" type="VBoxContainer" parent="Panel/Layout"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Players" type="Label" parent="Panel/Layout/TestPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 38)
+horizontal_alignment = 1
+text = "Tú: Isabella  ·  Invitada: Ignacia"
+theme_override_font_sizes/font_size = 22
+
+[node name="Ping" type="Label" parent="Panel/Layout/TestPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 38)
+horizontal_alignment = 1
+text = "PING: -- ms"
+theme_override_font_sizes/font_size = 24
+
+[node name="SignalButton" type="Button" parent="Panel/Layout/TestPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 64)
+text = "ENVIAR SEÑAL"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
+
+[node name="DisconnectButton" type="Button" parent="Panel/Layout/TestPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 64)
+text = "VOLVER AL TÍTULO"
+theme_override_font_sizes/font_size = 22
+focus_mode = 0
