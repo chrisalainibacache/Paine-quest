@@ -12,6 +12,7 @@ const OPTIONS_SCENE := preload("res://ui/options/options_menu.tscn")
 @onready var notes_panel: Control = $Root/Notes
 @onready var keys_panel: Control = $Root/Keys
 @onready var keys_list: VBoxContainer = $Root/Keys/List
+@onready var move_button: Button = $Root/Info/Buttons/Move
 @onready var item_name: Label = $Root/Info/Name
 @onready var item_text: Label = $Root/Info/Description
 @onready var use_button: Button = $Root/Info/Buttons/Use
@@ -39,13 +40,18 @@ var options_menu: OptionsMenu
 var _discard_dialog: ConfirmationDialog
 var _discard_options: OptionButton
 var _discard_amounts: Array[int] = []
+var _chest_open: bool = false
+var _chest_mode: bool = false
 
 
 func _ready() -> void:
     process_mode = Node.PROCESS_MODE_ALWAYS
+    add_to_group("inventory_menu")
     visible = false
+    _chest_open = false
+    _chest_mode = false
     examine.visible = false
-    for i in Inventory.SIZE:
+    for i in 24:
         _build_slot(i)
     $Root/Header/Close.pressed.connect(close)
     options_menu = OPTIONS_SCENE.instantiate() as OptionsMenu
@@ -54,14 +60,17 @@ func _ready() -> void:
     $Root/Header/ItemsTab.pressed.connect(_show_tab.bind(false))
     $Root/Header/NotesTab.pressed.connect(_show_tab.bind(true))
     $Root/Header/KeysTab.pressed.connect(_show_keys)
+    $Root/Header/ChestTab.pressed.connect(_show_chest)
     $Root/Examine/Close.pressed.connect(func() -> void: examine.visible = false)
     use_button.pressed.connect(_use_selected)
     examine_button.pressed.connect(_examine_selected)
     discard_button.pressed.connect(_discard_selected)
+    move_button.pressed.connect(_move_selected)
     _build_discard_dialog()
     reward_ammo_button.pressed.connect(_offer_ammo_reward)
     reward_heal_button.pressed.connect(_offer_healing_reward)
     GameState.inventory.changed.connect(_refresh)
+    GameState.chest.changed.connect(_refresh)
 
 
 func is_open() -> bool:
@@ -72,6 +81,8 @@ func open(new_player: Player) -> void:
     if visible:
         return
     player = new_player
+    _chest_open = false
+    _chest_mode = false
     _paused_before = get_tree().paused
     get_tree().paused = true
     visible = true
@@ -140,8 +151,11 @@ func _build_slot(index: int) -> void:
 func _refresh() -> void:
     if not is_node_ready() or not visible:
         return
-    var inventory := GameState.inventory
-    for i in Inventory.SIZE:
+    var inventory: Inventory = _active_inventory()
+    for i in _slots.size():
+        _slots[i].visible = i < inventory.capacity
+        if i >= inventory.capacity:
+            continue
         var item := inventory.get_item(i)
         if not _views[i].has_meta("item") or _views[i].get_meta("item") != item:
             _views[i].set_item(item)
@@ -160,11 +174,14 @@ func _refresh() -> void:
 
 
 func _refresh_info() -> void:
-    var item := GameState.inventory.get_item(selected) if selected >= 0 else null
-    use_button.visible = item != null
+    var inventory: Inventory = _active_inventory()
+    var item: ItemData = inventory.get_item(selected) if selected >= 0 and selected < inventory.capacity else null
+    use_button.visible = item != null and not _chest_mode
     examine_button.visible = item != null
-    discard_button.visible = item != null
+    discard_button.visible = item != null and not _chest_mode
     discard_button.disabled = item == null or _discard_block_reason(item) != ""
+    move_button.visible = _chest_open and item != null
+    move_button.text = "RETIRAR" if _chest_mode else "GUARDAR"
     if item == null:
         item_name.text = ""
         item_text.text = "Toca una casilla para ver el ítem."
@@ -199,7 +216,7 @@ func _refresh_status() -> void:
 func _refresh_reward_offers() -> void:
     reward_ammo_button.visible = false
     reward_heal_button.visible = false
-    if player == null or not visible or notes_panel.visible:
+    if player == null or not visible or notes_panel.visible or _chest_open:
         return
     if not Ads.available():
         return
@@ -263,6 +280,8 @@ func _offer_healing_reward() -> void:
 
 
 func _use_selected() -> void:
+    if _chest_mode:
+        return
     var item := GameState.inventory.get_item(selected)
     if item == null:
         return
@@ -286,7 +305,7 @@ func _use_selected() -> void:
 
 
 func _examine_selected() -> void:
-    var item := GameState.inventory.get_item(selected)
+    var item: ItemData = _active_inventory().get_item(selected)
     if item == null:
         return
     examine_view.set_item(item)
@@ -297,13 +316,17 @@ func _examine_selected() -> void:
 
 
 func _show_tab(notes: bool) -> void:
+    _chest_mode = false
     grid.visible = not notes
     $Root/Info.visible = not notes
     notes_panel.visible = notes
     keys_panel.visible = false
     $Root/Header/KeysTab.button_pressed = false
+    $Root/Header/ChestTab.button_pressed = false
     $Root/Header/ItemsTab.button_pressed = not notes
     $Root/Header/NotesTab.button_pressed = notes
+    move_button.visible = _chest_open and not notes
+    move_button.text = "GUARDAR"
     if notes:
         _fill_notes()
 
@@ -341,14 +364,16 @@ func _open_document(document: DocumentData) -> void:
 
 
 func _first_filled() -> int:
-    for i in Inventory.SIZE:
-        if GameState.inventory.get_item(i) != null:
+    var inventory: Inventory = _active_inventory()
+    for i in inventory.capacity:
+        if inventory.get_item(i) != null:
             return i
     return -1
 
 
 
 func _show_keys() -> void:
+    _chest_mode = false
     grid.visible = false
     $Root/Info.visible = false
     notes_panel.visible = false
@@ -447,3 +472,59 @@ func _confirm_discard() -> void:
     Sfx.play("pickup", null, -6.0)
     _refresh()
     item_text.text = "Dejé: %s." % name
+
+
+
+func open_chest(new_player: Player) -> void:
+    if visible:
+        return
+    open(new_player)
+    _chest_open = true
+    _chest_mode = false
+    _show_tab(false)
+    move_button.visible = true
+    move_button.text = "GUARDAR"
+
+
+func _show_chest() -> void:
+    if not _chest_open:
+        return
+    _chest_mode = true
+    grid.visible = true
+    $Root/Info.visible = true
+    notes_panel.visible = false
+    keys_panel.visible = false
+    $Root/Header/ItemsTab.button_pressed = false
+    $Root/Header/NotesTab.button_pressed = false
+    $Root/Header/KeysTab.button_pressed = false
+    $Root/Header/ChestTab.button_pressed = true
+    selected = _first_filled()
+    move_button.visible = true
+    move_button.text = "RETIRAR"
+    _refresh()
+
+
+func _active_inventory() -> Inventory:
+    return GameState.chest if _chest_mode else GameState.inventory
+
+
+func _move_selected() -> void:
+    if not _chest_open or selected < 0:
+        return
+    var source: Inventory = _active_inventory()
+    var destination: Inventory = GameState.inventory if _chest_mode else GameState.chest
+    var item: ItemData = source.get_item(selected)
+    if item == null or item.kind == ItemData.Kind.KEY:
+        return
+    var count: int = source.get_count(selected)
+    var left: int = destination.add(item, count)
+    var moved: int = count - left
+    if moved <= 0:
+        item_text.text = "No hay espacio en el otro inventario."
+        return
+    source.remove_at(selected, moved)
+    if source.get_item(selected) == null:
+        selected = _first_filled()
+    Sfx.play("pickup", null, -6.0)
+    _refresh()
+    item_text.text = "%s: %s (%d)." % ["Retiré" if _chest_mode else "Guardé", item.display_name, moved]

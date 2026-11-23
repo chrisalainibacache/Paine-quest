@@ -35,6 +35,7 @@ button("Options", "Root/Header", "OPCIONES", 22, custom_minimum_size="Vector2(15
 button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(140, 64)")
 button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(120, 64)")
 button("KeysTab", "Root/Header", "LLAVES", 24, toggle_mode="true", custom_minimum_size="Vector2(120, 64)")
+button("ChestTab", "Root/Header", "BAÚL", 24, toggle_mode="true", custom_minimum_size="Vector2(110, 64)")
 button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(130, 64)")
 # Estado de Isabella.
 s.node("Status", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=40, top=118, right=330, bottom=430))
@@ -54,6 +55,7 @@ s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separat
 button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 64)")
 button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 64)")
 button("Discard", "Root/Info/Buttons", "DESCARTAR", 26, custom_minimum_size="Vector2(0, 64)")
+button("Move", "Root/Info/Buttons", "GUARDAR", 26, custom_minimum_size="Vector2(0, 64)")
 s.node("RewardButtons", "HBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=24, top=220, right=856, bottom=276))
 button("RewardAmmo", "Root/Info/RewardButtons", "VER ANUNCIO: +MUNICIÓN", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")
 button("RewardHeal", "Root/Info/RewardButtons", "VER ANUNCIO: +1 CURATIVO", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")

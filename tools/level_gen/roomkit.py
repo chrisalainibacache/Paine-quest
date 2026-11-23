@@ -126,6 +126,9 @@ class Kit:
         self.group("Interactables")
         self.s.node(name, "Node3D", "Interactables", position=v3(pos), script=self.s.res(IA(script), "Script"), **props)
 
+    def storage_chest(self, name, pos, reach=1.3):
+        self.interact(name, "storage_chest", pos, reach=fmt(reach))
+
     # --- Infectados
     def infected(self, name, pos, yaw=0.0, state="idle", heavy=False, requires_flag=None, kind=None):
         self.group("Enemies")

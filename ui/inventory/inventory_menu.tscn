@@ -99,6 +99,13 @@ focus_mode = 0
 toggle_mode = true
 custom_minimum_size = Vector2(120, 64)
 
+[node name="ChestTab" type="Button" parent="Root/Header"]
+text = "BAÚL"
+theme_override_font_sizes/font_size = 24
+focus_mode = 0
+toggle_mode = true
+custom_minimum_size = Vector2(110, 64)
+
 [node name="Close" type="Button" parent="Root/Header"]
 text = "CERRAR"
 theme_override_font_sizes/font_size = 24
@@ -212,6 +219,12 @@ custom_minimum_size = Vector2(0, 64)
 
 [node name="Discard" type="Button" parent="Root/Info/Buttons"]
 text = "DESCARTAR"
+theme_override_font_sizes/font_size = 26
+focus_mode = 0
+custom_minimum_size = Vector2(0, 64)
+
+[node name="Move" type="Button" parent="Root/Info/Buttons"]
+text = "GUARDAR"
 theme_override_font_sizes/font_size = 26
 focus_mode = 0
 custom_minimum_size = Vector2(0, 64)

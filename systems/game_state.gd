@@ -27,6 +27,8 @@ const STARTING_LOADOUT := [
 ]
 
 static var inventory := Inventory.new()
+## Baúl común de 24 casillas, compartido por todas las salas seguras.
+static var chest := Inventory.new(24)
 ## Arma equipada (null = sin arma).
 static var equipped: ItemData
 ## Rutas de los DocumentData leídos, en orden.
@@ -50,6 +52,7 @@ static var play_time := 0.0
 
 static func new_game() -> void:
     inventory.clear()
+    chest.clear()
     documents.clear()
     flags.clear()
     health = 100
@@ -122,6 +125,7 @@ static func to_data() -> Dictionary:
     return {
         "version": 1,
         "inventory": inventory.to_data(),
+        "chest": chest.to_data(),
         "equipped": equipped.resource_path if equipped else "",
         "documents": documents.duplicate(),
         "flags": flags.duplicate(),
@@ -138,6 +142,7 @@ static func to_data() -> Dictionary:
 
 static func from_data(data: Dictionary) -> void:
     inventory.from_data(data.get("inventory", []))
+    chest.from_data(data.get("chest", []))
     var equipped_path: String = data.get("equipped", "")
     equipped = load(equipped_path) as ItemData if ResourceLoader.exists(equipped_path) else null
     documents.clear()

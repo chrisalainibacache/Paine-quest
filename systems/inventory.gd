@@ -11,16 +11,18 @@ const SIZE := 16
 var slots: Array[Dictionary] = []
 ## Llaves fuera de las casillas: cada entrada guarda ItemData y cantidad.
 var key_items: Array[Dictionary] = []
+var capacity: int = SIZE
 
 
-func _init() -> void:
+func _init(slot_count: int = SIZE) -> void:
+    capacity = maxi(slot_count, 1)
     clear()
 
 
 func clear() -> void:
     slots.clear()
     key_items.clear()
-    for i in SIZE:
+    for i in capacity:
         slots.append({})
     changed.emit()
 
@@ -113,7 +115,7 @@ func take(item: ItemData, amount: int) -> int:
         return 0
     var taken := 0
     # Desde la última casilla, para vaciar primero las cajas a medio usar.
-    for i in range(SIZE - 1, -1, -1):
+    for i in range(capacity - 1, -1, -1):
         var slot := slots[i]
         if taken < amount and not slot.is_empty() and slot.item == item:
             var moved := mini(amount - taken, slot.count)
@@ -158,7 +160,7 @@ func from_data(data: Array) -> void:
         if raw_entry is Dictionary and int(raw_entry.get("_inventory_version", 0)) == 2:
             saved_keys = raw_entry.get("key_items", [])
             continue
-        if slots.size() >= SIZE:
+        if slots.size() >= capacity:
             continue
         if raw_entry is Array and raw_entry.size() == 2:
             var path: String = String(raw_entry[0])
@@ -175,7 +177,7 @@ func from_data(data: Array) -> void:
                 slots.append({})
         else:
             slots.append({})
-    while slots.size() < SIZE:
+    while slots.size() < capacity:
         slots.append({})
     for raw_key: Variant in saved_keys:
         if raw_key is Array and raw_key.size() == 2:

@@ -409,6 +409,11 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - No cambia el comportamiento de runtime; es una corrección del fixture de pruebas.
 - Nueva ejecución pendiente.
 
+### 2026-11-23 — P11-d: baúl compartido en salas seguras
+- **Qué hice:** Inventory ahora admite capacidad configurable; GameState.chest usa 24 casillas y se persiste. La mochila reutiliza su cuadrícula para guardar/retirar objetos desde la pestaña BAÚL. Añadí storage_chest.gd y Kit.storage_chest; coloqué el baúl junto a las máquinas de escribir de sala de espera y casa de cambios.
+- **Pruebas:** añadí pruebas de capacidad, guardado/restauración y compatibilidad de save antiguo. No ejecutadas localmente; Claude debe regenerar inventory_menu.tscn y las dos salas desde sus generadores.
+- **Estado:** implementación subida; CI pendiente.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 

@@ -46,6 +46,7 @@ func _run() -> void:
     await _opening_cinematic()
     var player: Player = main.player
     _inventory_rules()
+    _chest_rules()
     await _leo_warns(player)
     _graphics_modes()
     _leo_guides(player)
@@ -950,3 +951,20 @@ func _ignacia() -> void:
     player.queue_free()
     GameSettings.set_character(previous)
     await _frames(1)
+
+
+## P11-d: baúl compartido y guardado persistente.
+func _chest_rules() -> void:
+    _check(GameState.chest.capacity == 24, "P11: el baúl tiene 24 casillas")
+    var previous: Dictionary = GameState.to_data()
+    GameState.chest.clear()
+    GameState.chest.add(AMMO, 25)
+    var saved: Dictionary = GameState.to_data()
+    GameState.chest.clear()
+    GameState.from_data(saved)
+    _check(GameState.chest.count_of(AMMO) == 25, "P11: el baúl compartido se guarda y restaura")
+    var legacy: Dictionary = previous.duplicate(true)
+    legacy.erase("chest")
+    GameState.from_data(legacy)
+    _check(GameState.chest.count_of(AMMO) == 0, "P11: un guardado antiguo carga con el baúl vacío")
+    GameState.from_data(previous)
