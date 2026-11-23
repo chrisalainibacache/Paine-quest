@@ -21,10 +21,10 @@ func interact(_player: Player) -> void:
         return
     var result: int = LeverSequence.register_lever(puzzle, lever_id, unlock_id)
     match result:
-        LeverSequence.RESULT_PROGRESS:
+        LeverSequence.Result.RESULT_PROGRESS:
             Sfx.play("menu", global_position, -7.0)
             await Dialogue.say(["La palanca encajó."])
-        LeverSequence.RESULT_SOLVED:
+        LeverSequence.Result.RESULT_SOLVED:
             Sfx.play("unlock", global_position, -4.0)
             await Dialogue.say(["Las palancas quedaron en el orden correcto. El mecanismo se abrió."])
         _:
