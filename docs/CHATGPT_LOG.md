@@ -396,6 +396,22 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **2026-11-19 — Inicio.** Aún no hay tareas aprobadas más allá de A–C (solo diseño y texto).
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
+### 2026-11-23 — P10-b: capítulo 1 como zona no lineal (rama: chatgpt/P10-zonas, PR #15)
+- **Qué hice:** Diseñé diez salas (seis actuales y cuatro nuevas), tres bucles, dos rutas al andén sur, dos atajos de retorno, siete puzzles de seis tipos, pistas N1/N2/N3, mapa, recursos, ocho notas nuevas y propuesta de cámaras. Incluí la caja fuerte 0712, dos fusibles y la llave oculta en el casillero 04.
+- **Archivos tocados:** docs/zonas/cap1_estacion.md.
+- **Pruebas:** entrega solo documental; no requiere Godot. Revisé la cronología contra GUION §§2–4, el modelo REDISENO_NIVELES.md y las lecciones de salas. No afirmo pruebas de juego.
+- **Qué debe probar Chris en el teléfono:** nada por ahora; es diseño. Claude debe validar el grafo y, cuando lo implemente, probar las dos rutas y los atajos.
+- **Dudas / decisiones que necesito:** hay una contradicción de economía entre P10 (~5 balas al terminar la zona) y P11-e (~25 balas de 9 mm al final del capítulo 1). La dejé explícita en el documento sin ocultarla.
+- **Estado:** P10-b entregado para revisión; pendiente OK de Claude y decisión de economía.
+
+### 2026-11-23 — P10-a: índice y catálogo de puzzles (rama: chatgpt/P10-zonas, PR #15)
+- **Qué hice:** Creé el índice de zonas y las reglas comunes; documenté 34 plantillas de puzzle con tipo, ingredientes, variante, dificultad y persistencia. Añadí contrato de datos para códigos, fusibles, secuencias, objetos instalados, recompensas y banderas.
+- **Archivos tocados:** docs/zonas/README.md, docs/zonas/catalogo_puzzles.md.
+- **Pruebas:** solo texto; contrastado con REDISENO_NIVELES.md §4 y el encargo P10. No requiere Godot.
+- **Qué debe probar Chris en el teléfono:** nada (documentación).
+- **Dudas / decisiones que necesito:** ninguna.
+- **Estado:** P10-a entregado; PR #15 sigue en borrador mientras continúan las entregas P10.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 
