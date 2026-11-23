@@ -1,12 +1,20 @@
 ### 2026-11-24 — P12-e: mapa de zona
 
-- **Qué hice:** Añadí `ZoneMapData` y cuatro grafos de puertas: Estación (6 salas), Vías (6), Buin (7) y Maestranza (7). El grafo de Estación/Vías/Buin se derivó de sus llamadas `k.door(...)`; Maestranza usa `connect_room` de `maestranza_common.py`.
-- **Estado visual:** `ZoneMapView` dibuja conexiones y casillas con estados sin visitar, visitada y con pendientes (pickups disponibles, documentos sin leer y puzzles sin resolver). Las puertas que aún requieren una llave muestran 🔑.
-- **Ítems:** `map_station`, `map_tracks`, `map_buin`, `map_maestranza`. `ItemData.Kind.MAP` se guarda como objeto clave, no ocupa casillas y no aparece mezclado con las llaves normales.
-- **Integración:** `SceneLoader` registra `visited:<room_id>`; la mochila incluye pestaña MAPA y la habilita solo si Isabella posee el ítem de esa zona.
-- **Generación:** Claude ya dejó regeneradas `ui/inventory/inventory_menu.tscn` y `levels/test/puzzle_lab.tscn`; ambas están presentes en la rama. La validación de sincronía/importación y las pruebas siguen pendientes de CI.
-- **Ubicaciones:** no puse pickups de mapas en salas; P10 debe decidir dónde se encuentra cada mapa y añadirlos en sus generadores.
-- **Pruebas:** `tests/systems_test.gd` valida los cuatro recursos, el grafo, la puerta bloqueada, el estado visitado, el guardado del ítem y la vista con una casilla por sala.
+- **Qué hice:** Añadí `ZoneMapData` y cuatro recursos con el grafo de puertas de las zonas actuales: Estación (6 salas), Vías (6), Buin (7) y Maestranza (7). El grafo de Estación/Vías/Buin se transcribió de los `k.door(...)` de sus generadores; Maestranza usa el helper `connect_room` de `maestranza_common.py`.
+- **Estado visual:** `ZoneMapView` dibuja conexiones y casillas; usa estados sin visitar, visitada y con pendientes (recoge pickups, documentos sin leer y puzzles sin resolver) y muestra icono 🔑 cuando una puerta requiere una llave que aún no se tiene.
+- **Ítems:** `map_station`, `map_tracks`, `map_buin`, `map_maestranza`; añadí `ItemData.Kind.MAP` y persistencia como objeto clave sin ocupar casillas ni mostrarse como llave normal.
+- **Integración:** `SceneLoader` guarda `visited:<room_id>`; el generador de mochila añade pestaña MAPA y su panel. Solo se activa cuando Isabella tiene el ítem `map_<zona>`.
+- **Ubicación de los mapas:** no agregué pickups ni elegí dónde se encuentran; P10 debe decidir esas ubicaciones y poner los ítems en las salas correspondientes.
+- **Generación/CI:** `ui/inventory/inventory_menu.tscn` ya está regenerada desde `tools/level_gen/inventory.py` e incluye COMBINAR y MAPA. `levels/test/puzzle_lab.tscn` también está versionada. Falta CI completo sobre la cabeza actual y verificar importación/`.uid` de los scripts nuevos.
+
+### 2026-11-24 — P12-f: pistas escalonadas de Leo
+
+- **N1:** Leo no camina hacia la pista ni muestra texto; mira hacia el marcador y maúlla una vez.
+- **N2:** si no cambia el progreso durante 40 segundos, dice la segunda línea vaga de la pista. El contador se reinicia al recoger, leer, abrir, resolver o entrar en una sala.
+- **N3:** la tercera línea explícita solo se entrega por `Leo.explain_news()`; no se llama automáticamente. El HUD crea un botón AYUDA dinámico desde `hud.gd`, visible solo si Leo tiene una tercera línea explícita. No edité `hud.tscn` porque no existe generador HUD.
+- **Persistencia/medición:** `GameState.progress_revision` rastrea cambios significativos; pickups, documentos, puzzles, puertas, entrada a salas y combinaciones reinician el contador. Las señales N1/N2 no cuentan como progreso y cada nivel se muestra una vez por pista.
+- **Pruebas:** añadí pruebas para distinguir segunda/tercera línea, desactivar N3 cuando no existe y no contar los flags N1/N2 como progreso.
+- **Pendiente:** añadí la tercera línea explícita de `LeoTypewriter` en `tools/level_gen/waiting_room.py`: indica acercarse a la máquina y elegir GUARDAR, coherente con `typewriter.gd`. Falta regenerar `levels/station/waiting_room.tscn` desde ese generador y validar N1/N2/N3 en CI.
 
 ### 2026-11-24 — P12-d: sala segura de prueba
 
@@ -14,7 +22,7 @@
 - **Recursos de prueba:** `test_code_lock.tres`, `test_fuse_box.tres`, `test_lever_sequence.tres`, `test_container.tres` y `fuse_10a.tres`.
 - **Automatización:** agregué `puzzle_lab` a `regenerar_todo.sh`; `tests/levels_test.gd` inspecciona la sala por separado de CHAPTERS y verifica los interactuables, spawns, cámaras, fusibles, piezas y ausencia de enemigos. Añadí `tests/puzzle_lab_runner.gd` para arrancar Main directamente en esa sala con una partida temporal en memoria, sin tocar el guardado habitual.
 - **Documentación:** `tools/level_gen/README.md` contiene el comando de ejecución `godot --path . --script res://tests/puzzle_lab_runner.gd`.
-- **CI:** falta ejecutar el generador y versionar la escena generada; la cabeza actual todavía no tiene `levels/test/puzzle_lab.tscn`. La comprobación de sincronía fallará hasta que Claude la genere y suba. También falta una ejecución CI de la cabeza actual después de regenerar.
+- **Generación/CI:** `levels/test/puzzle_lab.tscn` ya está generada y versionada en la rama. Falta confirmar la auditoría de cámaras y las pruebas de `levels_test.gd` en CI sobre la cabeza actual.
 - **Qué debe probar Chris (paso a paso):**
   1. Ejecutar el lanzador de prueba indicado en README; confirmar que aparece Isabella en una sala iluminada y sin infectados.
   2. En la cerradura, probar un código incorrecto (sonido + mensaje) y luego `0712` (éxito y puerta desbloqueada).
@@ -264,10 +272,15 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
+### 2026-11-24 — P12-e/f: regenerar escenas y cerrar datos de Leo
+5. **Resuelto en la rama:** `ui/inventory/inventory_menu.tscn` ya incluye COMBINAR y MAPA desde su generador, y `levels/test/puzzle_lab.tscn` ya está versionada. CI completo y `.uid` de scripts nuevos siguen pendientes.
+6. **Claude: regenerar waiting_room.** Añadí la tercera línea explícita de `LeoTypewriter` en `tools/level_gen/waiting_room.py`. Ejecuta ese generador y sube `levels/station/waiting_room.tscn`; no edites la escena manualmente.
+### 2026-11-24 — P12-f: botón AYUDA del HUD
+4. **Resuelto:** no existe generador HUD. Añadí `AYUDA` dinámicamente desde `hud.gd`, con el tema nuevo y sin editar `hud.tscn`; solo aparece cuando Leo tiene una tercera línea explícita.
 ### 2026-11-24 — P12-d: regeneración de la sala segura y sincronía de escenas
-3. **Resuelto en la rama:** `levels/test/puzzle_lab.tscn` ya está generado y versionado. Falta que CI confirme `tests/levels_test.gd` y la auditoría de cámaras.
+3. **Resuelto en la rama:** `levels/test/puzzle_lab.tscn` está generada y versionada; falta confirmar `tests/levels_test.gd` y auditoría de cámaras en CI.
 ### 2026-11-24 — P12-c: regenerar la mochila y validar la cabeza actual
-1. **Resuelto en la rama:** `tools/level_gen/inventory.py` y `ui/inventory/inventory_menu.tscn` ya incluyen COMBINAR y MAPA; la escena generada está versionada. CI #181 fue el fallo anterior por COMBINAR ausente en el generador.
+1. **Resuelto en la rama:** `tools/level_gen/inventory.py` y `ui/inventory/inventory_menu.tscn` ya incluyen COMBINAR y MAPA; CI #181 fue el fallo anterior antes de actualizar el generador.
 2. **Claude: validación completa.** Tras regenerar, ejecuta CI sobre la cabeza actual (incluye P12-b/c) y confirma importación, pruebas automáticas y ausencia de `SCRIPT ERROR`. Asegúrate de que Godot genere y versiona los `.uid` necesarios para los scripts nuevos.
 ### 2026-11-23 — P11: revisión de CI y lock_ids
 1. **Claude: regeneración pendiente.** Reejecuta los generadores de ticket_office, waiting_room, wagon_interior, buin_shed, buin_checkpoint, switch_house, maestranza_guardia y maestranza_taller; cambié pickups/baúles y no edité .tscn manualmente. Sube las escenas regeneradas a chatgpt/P11-mochila-armas.
