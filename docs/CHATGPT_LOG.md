@@ -446,6 +446,12 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - Moví los baúles lejos de las máquinas de escribir para no interceptar la interacción. La escopeta conserva caída de daño hasta 9 m mediante WeaponData.falloff_end, mientras max_range sigue en 40 m. El test del capítulo 1 ahora recoge GuardPistol de boletería (no usa GuardAmmo para disparar found:pistol), y verifica equipo/cargador/flag antes de volver al andén.
 - Pruebas: CI #176 había fallado en cuatro aserciones; correcciones subidas, CI nuevo pendiente. Los .tscn deben regenerarse desde los generadores actualizados.
 
+### 2026-11-23 — P11-d: resultado CI #151
+- **CI #151:** las pruebas automáticas pasaron, pero la comprobación de sincronía de generadores detectó exactamente dos escenas desactualizadas tras mover los baúles: switch_house.tscn y buin_checkpoint.tscn.
+- **Claude:** ejecuta tools/level_gen/switch_house.py y tools/level_gen/buin_checkpoint.py y sube las dos escenas generadas a chatgpt/P11-mochila-armas. No editar .tscn manualmente.
+- **Auditoría de cámaras:** los dos baúles que estaban fuera de alcance ya se movieron a (0.0, 0.45, 1.8) y (2.0, 0.45, 0.0), respectivamente.
+- **P11-c:** sigue pendiente identificar el segundo lock_id real de engineer_key.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 
