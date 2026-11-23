@@ -105,6 +105,13 @@ func close() -> void:
     if not visible:
         return
     visible = false
+    _chest_open = false
+    _chest_mode = false
+    _choose_discard_mode = false
+    _pending_pickup = null
+    $Root/Header/NotesTab.disabled = false
+    $Root/Header/KeysTab.disabled = false
+    move_button.visible = false
     examine.visible = false
     get_tree().paused = _paused_before
     Sfx.play("menu", null, -8.0)
