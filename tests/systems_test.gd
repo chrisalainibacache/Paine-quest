@@ -48,6 +48,8 @@ func _run() -> void:
     var player: Player = main.player
     _inventory_rules()
     _chest_rules()
+    _coop_network()
+    _coop_lines()
     await _leo_warns(player)
     _graphics_modes()
     _leo_guides(player)
@@ -982,3 +984,71 @@ func _chest_rules() -> void:
     GameState.from_data(legacy)
     _check(GameState.chest.count_of(AMMO) == 0, "P11: un guardado antiguo carga con el baúl vacío")
     GameState.from_data(previous)
+
+
+## P9-d: codec puro, validación de transporte y carga del menú cooperativo.
+func _coop_network() -> void:
+    var encoded: Dictionary = NetMessages.encode("ping", {"nonce": 7, "sent_msec": 12})
+    _check(bool(encoded.get("ok", false)), "P9: el codec codifica un ping válido")
+    var decoded: Dictionary = NetMessages.decode(encoded.get("message", {}))
+    _check(bool(decoded.get("ok", false)) and decoded.get("kind", "") == "ping",
+        "P9: el codec decodifica el ping")
+    _check(decoded.get("fields", {}).get("nonce", -1) == 7, "P9: el codec conserva los campos")
+
+    var unknown: Dictionary = NetMessages.encode("unknown", {})
+    _check(not bool(unknown.get("ok", false)), "P9: el codec rechaza tipos desconocidos")
+    var extra: Dictionary = {"protocol_version": NetMessages.PROTOCOL_VERSION,
+        "kind": "ping", "fields": {"nonce": 1, "sent_msec": 2, "admin": true}}
+    _check(not bool(NetMessages.decode(extra).get("ok", false)),
+        "P9: el codec rechaza campos no permitidos")
+    var wrong_type: Dictionary = {"protocol_version": NetMessages.PROTOCOL_VERSION,
+        "kind": "ping", "fields": {"nonce": "7", "sent_msec": 2}}
+    _check(not bool(NetMessages.decode(wrong_type).get("ok", false)),
+        "P9: el codec rechaza tipos de campo incorrectos")
+    var wrong_version: Dictionary = {"protocol_version": 999, "kind": "ping",
+        "fields": {"nonce": 1, "sent_msec": 2}}
+    _check(not bool(NetMessages.decode(wrong_version).get("ok", false)),
+        "P9: el codec rechaza versiones incompatibles")
+    var oversized: Dictionary = NetMessages.encode("event",
+        {"event_id": 1, "kind": "large", "payload": {"text": "x".repeat(70000)}})
+    _check(not bool(oversized.get("ok", false)), "P9: el codec limita el tamaño de los mensajes")
+
+    _check(NetMessages.is_valid_ipv4("192.168.1.20") and not NetMessages.is_valid_ipv4("256.168.1.20"),
+        "P9: valida direcciones IPv4 y rechaza octetos fuera de rango")
+    var session_script: Script = load("res://systems/net/net_session.gd") as Script
+    var session: Node = session_script.new()
+    _check(session.call("join", "esto-no-es-una-ip", 7777) == ERR_INVALID_PARAMETER,
+        "P9: la sesión rechaza una IP inválida")
+    _check(session.call("host", 0) == ERR_INVALID_PARAMETER,
+        "P9: la sesión rechaza un puerto fuera de rango")
+    session.free()
+
+    var menu: PackedScene = load("res://ui/coop/coop_menu.tscn") as PackedScene
+    _check(menu != null, "P9: el menú cooperativo carga como PackedScene")
+    if menu != null:
+        var instance: Control = menu.instantiate() as Control
+        _check(instance != null and instance.has_node("Panel/Layout/TestPanel/Ping"),
+            "P9: el menú contiene el panel de ping")
+        if instance != null:
+            instance.free()
+
+
+## P9-e: las líneas de Ignacia solo aparecen cuando la partida es cooperativa.
+func _coop_lines() -> void:
+    var lines: CoopLines = load("res://data/coop/ignacia_lines.tres") as CoopLines
+    _check(lines != null and lines.entries.size() >= 35, "P9: el recurso de líneas de Ignacia contiene el guion cooperativo")
+    GameState.cooperative = false
+    _check(lines.lines_for("station/platform", "coop_intro").is_empty(),
+        "P9: una partida individual no muestra líneas de Ignacia")
+    GameState.cooperative = true
+    var intro: PackedStringArray = lines.lines_for("station/platform", "coop_intro")
+    _check(intro.size() == 9, "P9: el encuentro de Ignacia devuelve las nueve líneas aprobadas")
+    _check(lines.lines_for("station/ticket_office", "pistol").size() == 1,
+        "P9: las líneas se filtran por sala y disparador")
+    var forbidden: int = 0
+    for entry: Dictionary in lines.entries:
+        var line: String = String(entry.get("text", ""))
+        if line.contains("Skull") or line.contains("skull") or line.contains("net_session") or line.contains("GameState"):
+            forbidden += 1
+    _check(forbidden == 0, "P9: los textos no revelan nombres internos ni el nombre de diseño de la criatura")
+    GameState.cooperative = false

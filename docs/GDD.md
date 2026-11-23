@@ -226,6 +226,13 @@ juego** (misterios de la parte 2; sustituye lo que decía antes «se cierra en e
 (canon); (c) para la parte 2 se **conservan las semillas A (orden de traslado con dos horas distintas y el origen vacío) y D (destino del asiento 15 corregido sin firma)**;
 B y C se descartan.
 
+### Estado de implementación P9 (2026-11-23)
+La primera entrega técnica añade una conexión de prueba LAN, no el modo cooperativo jugable completo:
+- Codec versionado y limitado por tamaño en `systems/net/net_messages.gd`; transporte ENet para anfitrión/invitado en `systems/net/net_session.gd`; descubrimiento UDP broadcast y unión manual por IPv4 en `systems/net/lan_discovery.gd`.
+- Menú «COOPERATIVO (PRUEBA)» con selección de partida, IP manual, ping/pong y señal sonora en `ui/coop/`; se accede desde el título.
+- Las líneas adicionales de Ignacia se almacenan en `data/coop/ignacia_lines.tres` y se consultan con `CoopLines.lines_for(room, event)`. La bandera `GameState.cooperative` es falsa por defecto, se guarda/carga y mantiene compatibilidad con partidas antiguas (ausencia de la clave = falso).
+- **Fuera de esta entrega:** no hay todavía dos avatares sincronizados, simulación autoritativa, transición de sala, inventario compartido ni reconexión. No presentar P9 como multijugador terminado. Antes de jugar, Claude debe validar el handshake y la señal en dos Android reales; revisar permisos/red local y routers que bloquean broadcast. IP manual es el respaldo.
+
 ### Modo cooperativo por Wi‑Fi e **Ignacia** (decisión de Chris, 2026-11-21)
 - Chris quiere poder jugar **de a dos, cada uno en su teléfono, con la misma APK**. Primera etapa: **misma red Wi‑Fi** (anfitrión + invitado); por internet queda para después.
 - **Nuevo personaje: Ignacia** (jugadora 2). Guion adaptado en `docs/GUION.md` §10 (**aprobado por Chris**: Ignacia, sin apellido, existe **solo en el cooperativo**, donde avanzan juntas toda la partida; en un jugador el guion no cambia; ve a Leo como una gata normal); el diseño del personaje (aspecto, habilidad, equipo) viene **después** de aprobar el guion.
@@ -236,6 +243,10 @@ B y C se descartan.
 - **Problemas señalados:** se avanza «hacia adelante todo el tiempo»; los **puzzles son muy básicos**; las **llaves están tiradas en el piso**; las salas son **grandes y rectas**.
 - **Dirección pedida:** **mapas de zona** que se encuentran; **salas más chicas, con más curvas y más conectadas**, «casi Resident Evil 3 de PS1», **todo prerenderizado**.
 - **Propuesta de Claude (pendiente de V°B° de Chris):** ver `docs/REDISENO_NIVELES.md`: zonas con bucles y atajos, mapa como objeto con pantalla propia, catálogo de puzzles (códigos deducidos de notas, fusibles, palancas, combinar objetos, llaves ocultas en contenedores y en infectados), pistas de Leo a demanda y piloto en el capítulo 1.
+
+### Isabella: sin carcaj y caminar natural (2026-11-23, pedido de Chris)
+- **Carcaj, flechas y correa quitados** del modelo de Isabella (`tools/strip_quiver.gd`: borra por piezas de geometría las flechas, el carcaj y la correa que cruza el pecho; el original queda en el historial de git).
+- **Caminar más natural:** las animaciones iban más lentas que el cuerpo (los pies patinaban: ~1 m/s al caminar). Ahora la velocidad de la animación sigue a la velocidad real (`WALK_NATURAL_SPEED` 1,0 y `JOG_NATURAL_SPEED` 1,45 m/s, medidas con los pies apoyados) y hay **arranque y frenada suaves** (`ACCELERATION` 9, `DECELERATION` 14 m/s²). Patinaje medido: caminar −0,98 → −0,18 m/s; trotar −0,56 → 0,08 m/s.
 
 ### Pantalla de título (decisión de Chris, noviembre)
 Fondo: **bosque con niebla y la vía del tren al atardecer, con dos figuras caminando hacia el sol** (imagen aportada por Chris, `assets/ui/title_bg.jpg`; respaldo

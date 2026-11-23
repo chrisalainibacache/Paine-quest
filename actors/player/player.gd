@@ -14,7 +14,13 @@ const WALK_SPEED := 1.5
 const JOG_SPEED := 2.5
 ## Velocidad a la que avanza la animación de trote (Mixamo) a ritmo normal:
 ## se usa para que los pies no patinen.
-const JOG_NATURAL_SPEED := 1.9
+const JOG_NATURAL_SPEED := 1.45
+## Velocidad a la que está hecha la animación de caminar (medida con los pies apoyados: ~1,0 m/s). Con
+## anim.speed_scale = velocidad / este valor los pies no patinan sobre el suelo.
+const WALK_NATURAL_SPEED := 1.0
+## Arranque y frenada: la velocidad sube y baja en vez de saltar (se ve más natural y evita el patinaje).
+const ACCELERATION := 9.0
+const DECELERATION := 14.0
 ## En "Peligro" Isabella cojea: todo más lento.
 const DANGER_SPEED_FACTOR := 0.7
 ## Bajo este empuje del stick camina; sobre él, trota.
@@ -55,6 +61,10 @@ var _action_time := 0.0
 var _hurt_time := 0.0
 var _invulnerable_time := 0.0
 var _danger_breath_timer := 0.0
+## Velocidad real actual y dirección en la que se mueve (para frenar suave al soltar el stick).
+var _speed := 0.0
+var _move_direction := Vector3.ZERO
+var _wants_jog := false
 
 
 func _enter_tree() -> void:
@@ -215,23 +225,28 @@ func _physics_process(delta: float) -> void:
     if strength >= 0.15:
         direction = (_reference.x * input.x + _reference.z * input.y).normalized()
 
-    var speed := 0.0
+    var target_speed := 0.0
+    _wants_jog = false
     var aiming := combat.aiming or combat.reloading
     if aiming:
         # Apuntando no camina: el stick sólo la gira (si no hay blanco).
         if direction != Vector3.ZERO and combat.target == null:
             face_direction(direction, AIM_STICK_TURN_SPEED * delta)
     elif strength >= 0.15:
-        speed = JOG_SPEED if strength >= JOG_THRESHOLD else WALK_SPEED
+        _wants_jog = strength >= JOG_THRESHOLD
+        target_speed = JOG_SPEED if _wants_jog else WALK_SPEED
         if get_condition() == "Peligro":
-            speed *= DANGER_SPEED_FACTOR
+            target_speed *= DANGER_SPEED_FACTOR
         face_direction(direction, TURN_SPEED * delta)
 
-    velocity.x = direction.x * speed
-    velocity.z = direction.z * speed
+    if direction != Vector3.ZERO:
+        _move_direction = direction
+    _speed = move_toward(_speed, target_speed, (ACCELERATION if target_speed > _speed else DECELERATION) * delta)
+    velocity.x = _move_direction.x * _speed
+    velocity.z = _move_direction.z * _speed
     velocity.y = 0.0 if is_on_floor() else velocity.y - GRAVITY * delta
     move_and_slide()
-    _update_animation(speed, strength, aiming)
+    _update_animation(_speed, aiming)
 
 
 func _update_reference(input: Vector2, strength: float) -> void:
@@ -248,18 +263,18 @@ func _update_reference(input: Vector2, strength: float) -> void:
     _last_input = input
 
 
-func _update_animation(speed: float, strength: float, aiming: bool) -> void:
+func _update_animation(speed: float, aiming: bool) -> void:
     if not is_alive() or _action_anim != "":
         return
-    var danger := get_condition() == "Peligro"
     if aiming:
         _play("Pistol_Aim_Neutral")
-    elif speed == 0.0:
+    elif speed < 0.05:
         _play("Idle")
-    elif speed < WALK_SPEED * 1.01:
-        _play("Walk", clampf(strength / JOG_THRESHOLD, 0.6, 1.0) * (DANGER_SPEED_FACTOR if danger else 1.0))
-    else:
+    elif _wants_jog and speed > WALK_SPEED * 0.9:
         _play("Jog", speed / JOG_NATURAL_SPEED)
+    else:
+        # La velocidad de la animación sigue a la velocidad real: los pies no patinan.
+        _play("Walk", maxf(speed / WALK_NATURAL_SPEED, 0.5))
 
 
 func get_current_animation() -> String:
