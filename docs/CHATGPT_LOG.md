@@ -1,3 +1,15 @@
+### 2026-11-24 — P12-c: combinación de objetos
+
+- **Qué hice:** Añadí `RecipeData` para recetas A + B → C y `Inventory.combine(a, b)`. La mochila busca recetas en `res://data/recipes/*.tres`, acepta ambos órdenes, consume una unidad de cada ingrediente y entrega el resultado. Si falta un ingrediente o el resultado no cabe, restaura el inventario completo.
+- **Datos:** añadí la plantilla PZ-13 del catálogo P10-a: manivela + eje oxidado = manija de reja. Añadí el tipo `ItemData.Kind.COMPONENT` para piezas combinables, sin alterar los valores de los tipos existentes.
+- **Interfaz:** agregué el botón «COMBINAR» al detalle de la mochila; muestra solo los componentes compatibles que ya están en el inventario y solicita elegir con cuál combinar. Reutiliza el tema global nuevo.
+- **Pruebas añadidas:** receta en ambos órdenes, lista de compañeros compatibles, consumo de ingredientes, entrega única del resultado y fallo sin pérdida de ingredientes.
+- **Archivos:** `data/recipes/recipe_data.gd`, `data/recipes/manivela_eje.tres`, `data/items/{manivela,eje_oxidado,manija_reja}.tres`, `data/items/item_data.gd`, `systems/inventory.gd`, `ui/inventory/inventory_menu.gd`, `ui/inventory/inventory_menu.tscn`, `tests/systems_test.gd`.
+- **CI:** los workflows #168 / #198 terminaron SUCCESS para la revisión anterior a las últimas pruebas de combinación. Ambos logs tienen 0 apariciones literales de `SCRIPT ERROR`. Se necesita una nueva ejecución sobre la cabeza actual para validar P12-b/c.
+- **Qué debe probar Chris:** al integrarse el piloto de una zona, recoger ambas piezas, abrir la mochila, seleccionar una, pulsar COMBINAR y confirmar que las piezas desaparecen y la manija aparece una sola vez.
+- **Dudas:** las piezas no tienen todavía iconos HD propios; no se agregan al recorrido ni se colocan en salas hasta que P10 defina su uso. Claude debe preparar los iconos antes de integrar estos componentes en un nivel.
+- **Siguiente:** P12-d, métodos de generador y sala segura de prueba fuera del recorrido.
+
 ### 2026-11-24 — P12-b: interactuables de puzzles
 
 - **Qué hice:** Añadí la cerradura numérica táctil (3–6 dígitos), el tablero de fusibles, palancas con secuencia ordenada, contenedores con acción «REGISTRAR» y el modo de puerta de apertura unilateral. El error de código/orden reproduce sonido y muestra mensaje; los desbloqueos se guardan en banderas persistentes.
