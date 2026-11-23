@@ -49,6 +49,7 @@ func _run() -> void:
     _inventory_rules()
     _chest_rules()
     _puzzle_state()
+    _puzzle_interactables()
     _coop_network()
     _coop_lines()
     await _leo_warns(player)
@@ -1095,3 +1096,67 @@ func _puzzle_state() -> void:
     _check(not PuzzleState.is_code_solved("p12_other"),
         "P12: el progreso queda aislado por identificador de puzzle")
     PuzzleState.reset_puzzle("p12_test")
+
+
+## P12-b: los interactuables nuevos validan sus recursos y su progreso.
+func _puzzle_interactables() -> void:
+    var code_data := PuzzleData.new()
+    code_data.id = "p12_code_interactable"
+    code_data.puzzle_type = PuzzleData.PuzzleType.CODE_LOCK
+    code_data.code = "0712"
+    var code_lock := CodeLock.new()
+    code_lock.puzzle = code_data
+    _check(code_lock.can_interact(), "P12: la cerradura acepta un PuzzleData válido")
+
+    var fuse_data := PuzzleData.new()
+    fuse_data.id = "p12_fuse_interactable"
+    fuse_data.puzzle_type = PuzzleData.PuzzleType.FUSE_BOX
+    fuse_data.required_items = PackedStringArray(["fuse_a", "fuse_b"])
+    var fuse_box := FuseBox.new()
+    fuse_box.puzzle = fuse_data
+    _check(fuse_box.can_interact(), "P12: el tablero acepta una lista de fusibles")
+
+    var sequence_data := PuzzleData.new()
+    sequence_data.id = "p12_lever_interactable"
+    sequence_data.puzzle_type = PuzzleData.PuzzleType.LEVER_SEQUENCE
+    sequence_data.sequence = PackedStringArray(["north", "west", "east"])
+    var lever := Lever.new()
+    lever.puzzle = sequence_data
+    lever.lever_id = "north"
+    _check(lever.can_interact(), "P12: una palanca se vincula con la secuencia configurada")
+    PuzzleState.reset_puzzle(sequence_data.id)
+    _check(LeverSequence.register_lever(sequence_data, "north", "p12_test_gate")
+        == LeverSequence.Result.RESULT_PROGRESS, "P12: la primera palanca correcta avanza la secuencia")
+    _check(LeverSequence.register_lever(sequence_data, "east") == LeverSequence.Result.WRONG
+        and PuzzleState.get_lever_sequence_progress(sequence_data.id) == 0,
+        "P12: una palanca fuera de orden reinicia el progreso")
+    LeverSequence.register_lever(sequence_data, "north", "p12_test_gate")
+    LeverSequence.register_lever(sequence_data, "west", "p12_test_gate")
+    var final_result: int = LeverSequence.register_lever(sequence_data, "east", "p12_test_gate")
+    _check(final_result == LeverSequence.Result.RESULT_SOLVED
+        and GameState.has_flag("unlocked:p12_test_gate"),
+        "P12: completar el orden abre la bandera de la puerta")
+
+    var container_data := PuzzleData.new()
+    container_data.id = "p12_container_interactable"
+    container_data.puzzle_type = PuzzleData.PuzzleType.CONTAINER
+    var container := SearchContainer.new()
+    container.puzzle = container_data
+    _check(container.can_interact() and container.prompt == "REGISTRAR",
+        "P12: el contenedor presenta la acción REGISTRAR")
+
+    var reverse_door := Door.new()
+    reverse_door.one_way = true
+    reverse_door.one_way_origin = false
+    reverse_door.lock_id = "p12_one_way_test"
+    _check(reverse_door.is_locked(), "P12: la puerta de un solo lado bloquea el acceso inverso antes de abrirse")
+    GameState.set_flag("one_way_open:p12_one_way_test")
+    _check(not reverse_door.is_locked(), "P12: el lado opuesto queda habilitado después de abrir el atajo")
+    GameState.flags.erase("one_way_open:p12_one_way_test")
+    GameState.flags.erase("unlocked:p12_test_gate")
+
+    code_lock.free()
+    fuse_box.free()
+    lever.free()
+    container.free()
+    reverse_door.free()
