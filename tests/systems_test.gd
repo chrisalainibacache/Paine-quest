@@ -46,6 +46,7 @@ func _run() -> void:
     await _opening_cinematic()
     var player: Player = main.player
     _inventory_rules()
+    _coop_network()
     await _leo_warns(player)
     _graphics_modes()
     _leo_guides(player)
@@ -902,3 +903,47 @@ func _ignacia() -> void:
     player.queue_free()
     GameSettings.set_character(previous)
     await _frames(1)
+
+
+## P9-d: codec puro, validación de transporte y carga del menú cooperativo.
+func _coop_network() -> void:
+    var encoded: Dictionary = NetMessages.encode("ping", {"nonce": 7, "sent_msec": 12})
+    _check(bool(encoded.get("ok", false)), "P9: el codec codifica un ping válido")
+    var decoded: Dictionary = NetMessages.decode(encoded.get("message", {}))
+    _check(bool(decoded.get("ok", false)) and decoded.get("kind", "") == "ping",
+        "P9: el codec decodifica el ping")
+    _check(decoded.get("fields", {}).get("nonce", -1) == 7, "P9: el codec conserva los campos")
+
+    var unknown: Dictionary = NetMessages.encode("unknown", {})
+    _check(not bool(unknown.get("ok", false)), "P9: el codec rechaza tipos desconocidos")
+    var extra: Dictionary = {"protocol_version": NetMessages.PROTOCOL_VERSION,
+        "kind": "ping", "fields": {"nonce": 1, "sent_msec": 2, "admin": true}}
+    _check(not bool(NetMessages.decode(extra).get("ok", false)),
+        "P9: el codec rechaza campos no permitidos")
+    var wrong_type: Dictionary = {"protocol_version": NetMessages.PROTOCOL_VERSION,
+        "kind": "ping", "fields": {"nonce": "7", "sent_msec": 2}}
+    _check(not bool(NetMessages.decode(wrong_type).get("ok", false)),
+        "P9: el codec rechaza tipos de campo incorrectos")
+    var wrong_version: Dictionary = {"protocol_version": 999, "kind": "ping",
+        "fields": {"nonce": 1, "sent_msec": 2}}
+    _check(not bool(NetMessages.decode(wrong_version).get("ok", false)),
+        "P9: el codec rechaza versiones incompatibles")
+    var oversized: Dictionary = NetMessages.encode("event",
+        {"event_id": 1, "kind": "large", "payload": {"text": "x".repeat(70000)}})
+    _check(not bool(oversized.get("ok", false)), "P9: el codec limita el tamaño de los mensajes")
+
+    var session: Node = load("res://systems/net/net_session.gd").new()
+    _check(session.call("join", "esto-no-es-una-ip", 7777) == ERR_INVALID_PARAMETER,
+        "P9: la sesión rechaza una IP inválida")
+    _check(session.call("host", 0) == ERR_INVALID_PARAMETER,
+        "P9: la sesión rechaza un puerto fuera de rango")
+    session.free()
+
+    var menu: PackedScene = load("res://ui/coop/coop_menu.tscn") as PackedScene
+    _check(menu != null, "P9: el menú cooperativo carga como PackedScene")
+    if menu != null:
+        var instance: Control = menu.instantiate() as Control
+        _check(instance != null and instance.has_node("Panel/Layout/TestPanel/Ping"),
+            "P9: el menú contiene el panel de ping")
+        if instance != null:
+            instance.free()
