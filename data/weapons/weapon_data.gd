@@ -19,6 +19,8 @@ extends Resource
 @export_group("Daño a distancia")
 ## Desde esta distancia el daño baja hasta min_damage en max_range (0 = no baja).
 @export var falloff_start: float = 0.0
+## Distancia donde termina la caída de daño; -1 usa max_range.
+@export var falloff_end: float = -1.0
 @export var min_damage: int = 1
 ## Balas por toque de DISPARAR (ráfaga del fusil).
 @export var burst: int = 1
@@ -42,7 +44,8 @@ extends Resource
 
 ## Daño de un impacto a cierta distancia.
 func damage_at(distance: float) -> int:
-    if falloff_start <= 0.0 or distance <= falloff_start or max_range <= falloff_start:
+    var end_distance: float = falloff_end if falloff_end > falloff_start else max_range
+    if falloff_start <= 0.0 or distance <= falloff_start or end_distance <= falloff_start:
         return damage
-    var t := clampf((distance - falloff_start) / (max_range - falloff_start), 0.0, 1.0)
+    var t := clampf((distance - falloff_start) / (end_distance - falloff_start), 0.0, 1.0)
     return maxi(roundi(lerpf(damage, min_damage, t)), min_damage)

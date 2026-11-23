@@ -201,6 +201,10 @@ Reglas: sin `Decal` (no existen en Compatibility); ≤ 2 luces; materiales del k
 Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
+### 2026-11-23 — P11: revisión de CI y lock_ids
+1. **Claude: regeneración pendiente.** Reejecuta los generadores de ticket_office, waiting_room, wagon_interior, buin_shed, buin_checkpoint, switch_house, maestranza_guardia y maestranza_taller; cambié pickups/baúles y no edité .tscn manualmente. Sube las escenas regeneradas a chatgpt/P11-mochila-armas.
+2. **Claude: engineer_key.** El encargo dice que engineer_key abre más de una puerta, pero al buscar key="engineer_key" solo encuentro door lock_id="underpass_gate" en convoy_side.py; maestranza_guardia.py contiene otro pickup de engineer_key, pero no veo la segunda cerradura. ¿Cuál es el segundo lock_id exacto? No inventé uno para evitar que la llave nunca se consuma.
+3. **Chris/Claude: validación de arma.** CI #176 encontró cuatro fallas: proximidad del baúl a la máquina de escribir en sala de espera; caída de daño de escopeta tras fijar max_range=40; test de boletería que recogía munición pero esperaba found:pistol; y spawn de infectados dependiente de esa bandera. Corregí las cuatro causas: moví baúles lejos de typewriters, separé falloff_end=9 m de max_range=40 m, y el test recoge GuardPistol real. Nueva CI pendiente.
 ### 2026-11-21 — P9-b / P9-c
 1. **Claude: regeneración del título.** Ejecuta `python3 tools/level_gen/title.py` y sube el `ui/title/title_screen.tscn` generado a esta rama. El acceso cooperativo se añadió al generador; no edité a mano la escena generada.
 2. **Chris / Claude: Android.** Antes de la prueba en dos teléfonos, revisar que la exportación Android incluya el permiso de red necesario para ENet/UDP (Internet y tráfico LAN/broadcast). No modifiqué `export_presets.cfg`; confirmar el permiso en el preset y probar el descubrimiento UDP en la misma Wi‑Fi. Si el router bloquea broadcast, usar la IP manual.
@@ -408,6 +412,56 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **2026-11-19 — Inicio.** Aún no hay tareas aprobadas más allá de A–C (solo diseño y texto).
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
+### 2026-11-23 — P11-b/c: descarte y llaves consumibles (rama: chatgpt/P11-mochila-armas, PR #16)
+- **P11-b (commit afd0a16):** añadí DESCARTAR al generador de la mochila, confirmación y cantidades −1 / −10 / TODO para apilables. Se bloquea descartar llaves y la única arma equipada; se muestra un mensaje de Isabella. Agregué pruebas de Inventory.remove_at.
+- **P11-c (este commit):** añadí ItemData.lock_ids y declaré las cerraduras de gate_key (gate_south), engineer_key (underpass_gate) y shed_key (shed_door). Door consume la llave solo cuando todas las cerraduras declaradas están marcadas unlocked:<id>, con el aviso «Ya no necesito esta llave.». Añadí prueba con una llave que abre dos cerraduras.
+- **Archivos tocados:** ui/inventory/inventory_menu.gd, tools/level_gen/inventory.py, tests/systems_test.gd; data/items/item_data.gd, data/items/{gate_key,engineer_key,shed_key}.tres, levels/kit/interact/door.gd.
+- **Pruebas:** no ejecutadas localmente; Godot/CI debe validar GDScript. Claude debe regenerar ui/inventory/inventory_menu.tscn desde el generador. No se editó la escena a mano.
+- **Qué debe probar Chris:** descartar 1, 10 y todo de una pila; intentar descartar la única arma equipada; abrir la puerta del andén, la reja EFE y el galpón; confirmar que cada llave desaparece al abrir su última cerradura.
+- **Estado:** P11-b/c implementados; CI y revisión de Claude pendientes.
+
+### 2026-11-23 — P11-c: ajuste de prueba tras CI #99
+- El CI encontró dos asignaciones sobre la constante KEY en tests/systems_test.gd. La prueba ahora duplica el recurso ItemData a una variable mutable, instala la lista de dos cerraduras y limpia la mochila antes de probar el consumo.
+- No cambia el comportamiento de runtime; es una corrección del fixture de pruebas.
+- Nueva ejecución pendiente.
+
+### 2026-11-23 — P11-d: baúl compartido en salas seguras
+- **Qué hice:** Inventory ahora admite capacidad configurable; GameState.chest usa 24 casillas y se persiste. La mochila reutiliza su cuadrícula para guardar/retirar objetos desde la pestaña BAÚL. Añadí storage_chest.gd y Kit.storage_chest; coloqué el baúl junto a las máquinas de escribir de sala de espera y casa de cambios.
+- **Pruebas:** añadí pruebas de capacidad, guardado/restauración y compatibilidad de save antiguo. No ejecutadas localmente; Claude debe regenerar inventory_menu.tscn y las dos salas desde sus generadores.
+- **Estado:** implementación subida; CI pendiente.
+
+### 2026-11-23 — P11-e: arsenal progresivo y partida sin armas
+- **Qué hice:** quité el STARTING_LOADOUT de GameState.new_game(); la partida empieza sin arma ni munición. give_pistol() se conserva para pruebas/capturas. Añadí pickups sobre muebles/objetos: pistola en boletería, escopeta junto al carabinero del vagón, Mauser en la mesa de la bodega, fusil de asalto en la caja de armamento del control militar, rifle de precisión en el banco de guardia y lanzagranadas en la mesa del taller. Bazooka no se coloca todavía (reservada para cap. 5). Los siete recursos de armas tienen max_range=40.0.
+- **Munición cap. 1:** boletería mantiene 12 + 15 balas de 9 mm (27 de reserva; objetivo de diseño ~25 al final si se consumen 2). No se añaden balas iniciales.
+- **Pruebas:** actualicé systems_test para comprobar que new_game no regala armas ni munición; pickups quedan protegidos por sus banderas de recogida. Claude debe regenerar las escenas desde los generadores y revisar levels_test/auditoría.
+- **Qué debe probar Chris:** empezar partida nueva sin arma; recoger la pistola de la boletería; confirmar que la pistola no reaparece tras cambiar de sala/guardar; recoger las armas en su ubicación de capítulo y comprobar que el bazooka no aparece.
+- **Estado:** P11-e implementado; CI y regeneración pendientes.
+
+### 2026-11-23 — P11-f: mochila llena y elección de descarte
+- **Qué hice:** Pickup ya no falla al no haber espacio: abre la mochila en modo «¿QUÉ DEJO?». Al confirmar el descarte, vuelve a intentar recoger el objeto; si se cancela, el pickup permanece. Las llaves siguen entrando sin consumir casillas. Añadí pruebas de mochila llena y espacio ilimitado para llaves.
+- **Pruebas:** no ejecutadas localmente; falta regenerar inventory_menu.tscn desde su generador y ejecutar CI.
+- **Estado:** implementación subida; validación pendiente.
+
+### 2026-11-23 — P11-g: documentación final y baúles de puntos seguros
+- **Qué hice:** alineé GDD y ROADMAP con el nuevo contrato: partida sin armas, distribución progresiva, llaves fuera de casillas, baúl de 24 espacios, descarte protegido, consumo de llaves al abrir todas sus cerraduras y alcance máximo 40 m. Actualicé la economía del capítulo 1 a 10 balas en cargador + 27 de reserva en boletería (objetivo aproximado de 25 al salir). Añadí baúles a las otras dos salas con máquina de escribir: control militar de Buin y galpón.
+- **Archivos tocados:** docs/GDD.md, docs/ROADMAP.md, tools/level_gen/buin_checkpoint.py, tools/level_gen/buin_shed.py.
+- **Pruebas:** documental y revisión de generadores; no ejecutadas localmente. Claude debe regenerar las escenas de inventario y las salas con baúles.
+- **Dudas:** la meta de 25 balas al final de cap. 1 se aproxima con 27 de reserva; el consumo de dos disparos es supuesto de balance, debe validarse en playtest.
+- **Estado:** P11-a…g implementados en la rama; falta CI verde y revisión de Claude.
+
+### 2026-11-23 — P11-d: corrección de capacidad real del baúl
+- La revisión del código detectó que Inventory.new(24) creaba 24 casillas, pero add() seguía iterando hasta SIZE (16). Ahora el bucle usa capacity y la cuadrícula generada deja altura para las tres filas. Añadí prueba que llena 24 slots con objetos no apilables.
+- Estado: corrección subida; CI pendiente.
+
+### 2026-11-23 — P11: correcciones tras CI #176
+- Moví los baúles lejos de las máquinas de escribir para no interceptar la interacción. La escopeta conserva caída de daño hasta 9 m mediante WeaponData.falloff_end, mientras max_range sigue en 40 m. El test del capítulo 1 ahora recoge GuardPistol de boletería (no usa GuardAmmo para disparar found:pistol), y verifica equipo/cargador/flag antes de volver al andén.
+- Pruebas: CI #176 había fallado en cuatro aserciones; correcciones subidas, CI nuevo pendiente. Los .tscn deben regenerarse desde los generadores actualizados.
+
+### 2026-11-23 — P11-d: resultado CI #151
+- **CI #151:** las pruebas automáticas pasaron, pero la comprobación de sincronía de generadores detectó exactamente dos escenas desactualizadas tras mover los baúles: switch_house.tscn y buin_checkpoint.tscn.
+- **Claude:** ejecuta tools/level_gen/switch_house.py y tools/level_gen/buin_checkpoint.py y sube las dos escenas generadas a chatgpt/P11-mochila-armas. No editar .tscn manualmente.
+- **Auditoría de cámaras:** los dos baúles que estaban fuera de alcance ya se movieron a (0.0, 0.45, 1.8) y (2.0, 0.45, 0.0), respectivamente.
+- **P11-c:** sigue pendiente identificar el segundo lock_id real de engineer_key.
 ### 2026-11-23 — P9-d…f: pruebas, líneas cooperativas y documentación (rama: `chatgpt/P9-cooperativo`, PR #14)
 - **P9-d — pruebas** (commit `0fbfca8`): agregué pruebas headless del codec (ping válido, ida y vuelta, tipo desconocido, campo extra, tipo incorrecto, versión incompatible y límite de tamaño), validación de IP/puerto y carga de la escena del menú. No agregué un bucle ENet host+cliente en el mismo proceso: `NetSession` usa el `MultiplayerAPI` global de SceneTree; probar dos instancias aisladas requeriría primero refactorizar el transporte para inyectar dos APIs independientes. El CI no sustituye la prueba física de dos teléfonos.
 - **P9-e — líneas de Ignacia** (commits `42a3ddd` y `48250ce`): añadí `GameState.cooperative` (falso por defecto, persistido; guardados anteriores sin la clave se cargan como individual), `CoopLines.lines_for(room, event)` y `data/coop/ignacia_lines.tres` con 46 entradas asociadas a salas y disparadores de §10.3–§10.5. Añadí pruebas: individual devuelve vacío, cooperativo devuelve las nueve líneas del encuentro, filtro por sala/evento y ausencia de «Skull»/identificadores internos.

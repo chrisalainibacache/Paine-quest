@@ -126,7 +126,11 @@ func interact(_player: Player) -> void:
         if GameState.inventory.has_id(key_item.id):
             GameState.set_flag("unlocked:" + _lock_key())
             Sfx.play("unlock", null, -3.0)
-            await Dialogue.say(["Usé: %s." % key_item.display_name])
+            if _all_key_locks_unlocked(key_item):
+                GameState.inventory.take(key_item, 1)
+                await Dialogue.say(["Usé: %s." % key_item.display_name, "Ya no necesito esta llave."])
+            else:
+                await Dialogue.say(["Usé: %s." % key_item.display_name])
         else:
             _play_locked_sound()
             await Dialogue.say([locked_text])
@@ -142,3 +146,13 @@ func interact(_player: Player) -> void:
 
 func _lock_key() -> String:
     return lock_id if not lock_id.is_empty() else GameState.node_key(self)
+
+
+
+func _all_key_locks_unlocked(item: ItemData) -> bool:
+    if item.lock_ids.is_empty():
+        return false
+    for required_lock: String in item.lock_ids:
+        if not GameState.has_flag("unlocked:" + required_lock):
+            return false
+    return true

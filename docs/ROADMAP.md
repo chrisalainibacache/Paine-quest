@@ -58,8 +58,11 @@ Seis salas: andén norte, sala de espera, boletería, pasillo de servicio, bodeg
 
 ## Arsenal y remaster de la estación
 
-- [x] Siete armas disponibles y mochila ampliada a 16 espacios.
-- [x] Escopeta, fusil, rifle, lanzagranadas y bazuca, además de la pistola.
+- [x] Mochila de 16 casillas; llaves en lista separada, sin límite de espacio.
+- [x] Armas repartidas progresivamente por capítulos; la partida nueva empieza sin arma ni munición.
+- [x] Baúl compartido de 24 casillas en salas con máquina de escribir; guardar y retirar desde la cuadrícula de mochila.
+- [x] Descarte con confirmación (1 / 10 / TODO); se protege la única arma equipada y no se descartan llaves.
+- [x] Bazuca reservada para el capítulo 5; todas las armas tienen max_range de 40 m.
 - [x] Remaster de arquitectura y texturas de la estación.
 - [x] Filtro Retro ajustado a 480 líneas.
 
@@ -179,6 +182,15 @@ bodega agrícola, potrero, viña Santa Rosa y galpón.
 Ver docs/MONETIZACION.md para el detalle del modelo y los riesgos pendientes.
 
 ## Próximos trabajos
+
+### P11 — Mochila, llaves, baúl y armas por el camino (implementación en PR #16)
+- [x] Pestaña LLAVES separada y migración de guardados antiguos.
+- [x] Descartar con confirmación y cantidades.
+- [x] Consumir llaves cuando todas sus cerraduras estén abiertas.
+- [x] Baúl compartido de 24 casillas y persistencia.
+- [x] Arsenal progresivo; nueva partida sin armas y bazuca reservada al capítulo 5.
+- [x] Flujo «¿QUÉ DEJO?» cuando la mochila está llena.
+- [ ] CI verde, escenas regeneradas por Claude y prueba manual en teléfono.
 
 Orden vigente: terminar P6 (siete salas, notas, conexiones, pruebas, limpieza y documentación); Claude ejecuta los generadores y prepara cámaras/renders; tras la fusión de P6 comienza P7 (capítulo 5 y epílogo). Los OGG definitivos y las tareas visuales reservadas permanecen con Claude.
 

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" path="res://levels/kit/items/key.tscn" id="2_model"]
 
 [resource]
+lock_ids = PackedStringArray("underpass_gate")
 script = ExtResource("1_data")
 id = "engineer_key"
 display_name = "Llave del maquinista"

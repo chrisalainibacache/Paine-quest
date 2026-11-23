@@ -36,9 +36,10 @@ func _run() -> void:
         var item := GameState.inventory.get_item(i)
         if item and item.kind == ItemData.Kind.WEAPON:
             weapons += 1
-    _check(weapons == 7 and GameState.equipped == PISTOL, "partida nueva: Isabella empieza con las 7 armas en la mochila (hay %d)" % weapons)
+    _check(weapons == 0 and GameState.equipped == null,
+        "P11: una partida nueva empieza sin armas")
     for ammo_id in ["ammo_9mm", "ammo_shells", "ammo_rifle", "ammo_grenades", "ammo_rockets"]:
-        _check(GameState.inventory.has_id(ammo_id), "y munición %s" % ammo_id)
+        _check(not GameState.inventory.has_id(ammo_id), "P11: no se regala munición inicial (%s)" % ammo_id)
     await _start_game("user://test_sistemas.json")
     _audio_systems()
     _ads_systems()
@@ -46,6 +47,7 @@ func _run() -> void:
     await _opening_cinematic()
     var player: Player = main.player
     _inventory_rules()
+    _chest_rules()
     _coop_network()
     _coop_lines()
     await _leo_warns(player)
@@ -327,6 +329,40 @@ func _inventory_rules() -> void:
     for i in Inventory.SIZE - 1:
         inventory.add(SUSHI)
     _check(inventory.space_for(SUSHI) == 0 and inventory.add(SUSHI) == 1, "con las %d casillas llenas no cabe nada más" % Inventory.SIZE)
+    var gate_key: ItemData = load("res://data/items/gate_key.tres") as ItemData
+    _check(inventory.add(gate_key) == 0 and inventory.has_id(gate_key.id),
+        "las llaves entran aunque la mochila esté llena")
+    _check(inventory.key_items.size() == 1 and inventory.space_for(gate_key) > Inventory.SIZE,
+        "las llaves se guardan aparte y no consumen casillas")
+    _check(inventory.count_of(gate_key) == 1 and inventory.take(gate_key, 1) == 1
+        and not inventory.has_id(gate_key.id), "las llaves se pueden consultar y retirar")
+    var legacy: Array = []
+    for i in Inventory.SIZE:
+        legacy.append([])
+    legacy[3] = [gate_key.resource_path, 1]
+    inventory.from_data(legacy)
+    _check(inventory.has_id(gate_key.id) and inventory.get_item(3) == null,
+        "un guardado antiguo migra las llaves que estaban en casillas")
+    var saved: Array = inventory.to_data()
+    var restored := Inventory.new()
+    restored.from_data(saved)
+    _check(restored.has_id(gate_key.id) and restored.get_item(3) == null,
+        "los guardados nuevos restauran llaves separadas y casillas vacías")
+    var discard_inventory := Inventory.new()
+    discard_inventory.add(AMMO, 20)
+    discard_inventory.remove_at(0, 10)
+    _check(discard_inventory.count_of(AMMO) == 10, "P11: descartar diez unidades reduce el apilable")
+    discard_inventory.remove_at(0, 10)
+    _check(discard_inventory.count_of(AMMO) == 0 and discard_inventory.get_item(0) == null,
+        "P11: descartar todo libera la casilla")
+    var full_inventory := Inventory.new()
+    for i in Inventory.SIZE:
+        full_inventory.add(PISTOL)
+    _check(full_inventory.space_for(SUSHI) == 0, "P11: una mochila llena activa el flujo de elegir descarte")
+    var key_only_inventory := Inventory.new()
+    key_only_inventory.add(KEY)
+    _check(key_only_inventory.space_for(KEY) > 0 and key_only_inventory.has_id(KEY.id),
+        "P11: recoger una llave nunca depende del espacio de casillas")
 
 
 func _leo_warns(player: Player) -> void:
@@ -650,6 +686,28 @@ func _locked_door(player: Player) -> void:
     await _close_dialogues()
     _check(not door.is_locked() and GameState.has_flag("unlocked:prueba"), "con la llave la puerta se abre y queda abierta")
     door.free()
+    var test_key: ItemData = KEY.duplicate(true) as ItemData
+    test_key.lock_ids = PackedStringArray(["consume_one", "consume_two"])
+    GameState.inventory.clear()
+    GameState.inventory.add(test_key)
+    var first_lock := Door.new()
+    first_lock.key_item = test_key
+    first_lock.lock_id = "consume_one"
+    main.room.add_child(first_lock)
+    first_lock.interact(player)
+    await _close_dialogues()
+    _check(GameState.inventory.has_id(test_key.id), "P11: la llave se conserva mientras queda otra cerradura pendiente")
+    var second_lock := Door.new()
+    second_lock.key_item = test_key
+    second_lock.lock_id = "consume_two"
+    main.room.add_child(second_lock)
+    second_lock.interact(player)
+    await _close_dialogues()
+    _check(not GameState.inventory.has_id(test_key.id), "P11: la llave desaparece al abrir todas sus cerraduras")
+    _check(GameState.has_flag("unlocked:consume_one") and GameState.has_flag("unlocked:consume_two"),
+        "P11: quedan persistidas todas las cerraduras abiertas")
+    first_lock.free()
+    second_lock.free()
 
 
 ## Recorrido del capítulo: munición del guardia en la boletería, abrir el
@@ -663,19 +721,20 @@ func _chapter_route(player: Player) -> void:
     await _frames(2)
     _check(not main.get_node("HUD/AimButton").visible, "sin arma no aparece APUNTAR")
 
-    # Un arma recogida sin tener otra equipada queda lista y cargada.
-    var found := Pickup.new()
-    found.item = PISTOL
-    main.room.add_child(found)
-    found.global_position = player.global_position + player.get_forward() * 0.6
-    player.interaction.use(found)
-    await _close_dialogues()
-    _check(GameState.equipped == PISTOL and player.combat.clip == 10, "un arma recogida sin otra equipada queda equipada y cargada")
-    _check(main.get_node("HUD/AimButton").visible, "con un arma aparece APUNTAR")
-
     SceneLoader.go_to(TICKET_OFFICE, "from_waiting_room")
     await _seconds(1.4)
     _check(main.room.scene_file_path == TICKET_OFFICE, "se puede entrar a la boletería")
+    var guard_pistol: Pickup = main.room.get_node("Interactables/GuardPistol")
+    player.global_position = Vector3(guard_pistol.global_position.x + 0.65, 0.05, guard_pistol.global_position.z)
+    player.face_direction(Vector3.LEFT, 1.0)
+    await _frames(3)
+    _check(player.interaction.focus == guard_pistol, "Isabella tiene a mano la pistola del guardia")
+    player.interaction.use(guard_pistol)
+    await _close_dialogues()
+    _check(GameState.equipped == PISTOL and player.combat.clip == 10,
+        "la pistola de boletería queda equipada y cargada")
+    _check(GameState.has_flag("found:pistol") and main.get_node("HUD/AimButton").visible,
+        "recoger la pistola queda anotado y habilita APUNTAR")
     var guard_ammo: Pickup = main.room.get_node("Interactables/GuardAmmo")
     var ammo_before := GameState.inventory.count_of(AMMO)
     player.global_position = Vector3(guard_ammo.global_position.x + 0.65, 0.05, guard_ammo.global_position.z)
@@ -685,7 +744,6 @@ func _chapter_route(player: Player) -> void:
     player.interaction.use(guard_ammo)
     await _close_dialogues()
     _check(GameState.inventory.count_of(AMMO) > ammo_before, "la munición del guardia queda en la mochila")
-    _check(GameState.has_flag("found:pistol"), "pasar por la boletería queda anotado")
 
     # Con la pistola, el andén ya tiene infectados.
     SceneLoader.go_to(GameState.START_ROOM, "from_south_platform")
@@ -904,6 +962,28 @@ func _ignacia() -> void:
     player.queue_free()
     GameSettings.set_character(previous)
     await _frames(1)
+
+
+## P11-d: baúl compartido y guardado persistente.
+func _chest_rules() -> void:
+    _check(GameState.chest.capacity == 24, "P11: el baúl tiene 24 casillas")
+    var full_chest := Inventory.new(24)
+    for i in 24:
+        full_chest.add(PISTOL)
+    _check(full_chest.count_of(PISTOL) == 24 and full_chest.space_for(SUSHI) == 0,
+        "P11: las 24 casillas del baúl admiten objetos independientes")
+    var previous: Dictionary = GameState.to_data()
+    GameState.chest.clear()
+    GameState.chest.add(AMMO, 25)
+    var saved: Dictionary = GameState.to_data()
+    GameState.chest.clear()
+    GameState.from_data(saved)
+    _check(GameState.chest.count_of(AMMO) == 25, "P11: el baúl compartido se guarda y restaura")
+    var legacy: Dictionary = previous.duplicate(true)
+    legacy.erase("chest")
+    GameState.from_data(legacy)
+    _check(GameState.chest.count_of(AMMO) == 0, "P11: un guardado antiguo carga con el baúl vacío")
+    GameState.from_data(previous)
 
 
 ## P9-d: codec puro, validación de transporte y carga del menú cooperativo.

@@ -28,6 +28,7 @@ k.decal("Debris", "debris", (1.0, 0.013, 1.5), 1.2, "up")
 # Interactuables.
 k.door("ToUnderpass", (-2.6, 0, 0.0), T % "underpass", "from_switch", reach=1.3)
 k.interact("Typewriter", "typewriter", (2.15, 0.8, -1.4), reach="1.4")
+k.storage_chest("StorageChest", (0.0, 0.45, 1.8))
 k.note("EngineerNote", (-1.6, 0.47, 1.6), "engineer_note", paper_rot=(0, 0.4, 0), paper_scale=0.7, reach=1.4)
 k.pickup("Shells", (1.4, 0.0, 2.1), "ammo_shells", 6, rot=(0, 0.5, 0))
 k.pickup("Rocket", (-0.6, 0.0, 2.1), "ammo_rockets", 1, rot=(0, 1.4, 0))

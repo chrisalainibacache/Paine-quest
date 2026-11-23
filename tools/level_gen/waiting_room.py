@@ -124,6 +124,8 @@ interact("DoorToPlatform", "door", (-2.5, 0, D / 2 - 0.35), target_room='"res://
 interact("DoorToTicketOffice", "door", (2.9, 0, -D / 2 + 0.35), reach="1.3",
          target_room='"res://levels/station/ticket_office.tscn"', target_spawn='"from_waiting_room"')
 interact("Typewriter", "typewriter", (3.75, 0.8, 1.4), reach="1.4")
+# Baúl compartido junto a la máquina de escribir.
+interact("StorageChest", "storage_chest", (-2.5, 0.45, -0.8), reach="1.4")
 interact("Notice", "note", (1.4, 1.45, -D / 2 + 0.03), document=s.res("res://data/documents/station_notice.tres", "Resource"), reach="1.4")
 s.node("Paper", None, "Interactables/Notice", instance=s.res("res://levels/kit/items/paper.tscn", "PackedScene"),
        rotation=v3((math.pi / 2, 0, 0.05)), scale=v3((1.6, 1.6, 1.6)))

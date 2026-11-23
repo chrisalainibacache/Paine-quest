@@ -18,19 +18,20 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="16_debris"]
 [ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="17_door"]
 [ext_resource type="Script" path="res://levels/kit/interact/typewriter.gd" id="18_typewriter"]
-[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="19_note"]
-[ext_resource type="Resource" path="res://data/documents/engineer_note.tres" id="20_engineer_not"]
-[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="21_paper"]
-[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="22_pickup"]
-[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="23_ammo_shells"]
-[ext_resource type="Resource" path="res://data/items/ammo_rockets.tres" id="24_ammo_rockets"]
-[ext_resource type="Resource" path="res://data/items/handroll.tres" id="25_handroll"]
-[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="26_examine_spot"]
-[ext_resource type="Script" path="res://levels/kit/interact/chapter_exit.gd" id="27_chapter_exit"]
-[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="28_infected_wor"]
-[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="29_infected"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="30_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="31_leo_hint"]
+[ext_resource type="Script" path="res://levels/kit/interact/storage_chest.gd" id="19_storage_ches"]
+[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="20_note"]
+[ext_resource type="Resource" path="res://data/documents/engineer_note.tres" id="21_engineer_not"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="22_paper"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="23_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="24_ammo_shells"]
+[ext_resource type="Resource" path="res://data/items/ammo_rockets.tres" id="25_ammo_rockets"]
+[ext_resource type="Resource" path="res://data/items/handroll.tres" id="26_handroll"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="27_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/chapter_exit.gd" id="28_chapter_exit"]
+[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="29_infected_wor"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="30_infected"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="31_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="32_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -350,56 +351,61 @@ position = Vector3(2.15, 0.8, -1.4)
 script = ExtResource("18_typewriter")
 reach = 1.4
 
+[node name="StorageChest" type="Node3D" parent="Interactables"]
+position = Vector3(0, 0.45, 1.8)
+script = ExtResource("19_storage_ches")
+reach = 1.3
+
 [node name="EngineerNote" type="Node3D" parent="Interactables"]
 position = Vector3(-1.6, 0.47, 1.6)
-script = ExtResource("19_note")
-document = ExtResource("20_engineer_not")
+script = ExtResource("20_note")
+document = ExtResource("21_engineer_not")
 reach = 1.4
 
-[node name="Paper" parent="Interactables/EngineerNote" instance=ExtResource("21_paper")]
+[node name="Paper" parent="Interactables/EngineerNote" instance=ExtResource("22_paper")]
 rotation = Vector3(0, 0.4, 0)
 scale = Vector3(0.7, 0.7, 0.7)
 
 [node name="Shells" type="Node3D" parent="Interactables"]
 position = Vector3(1.4, 0, 2.1)
-script = ExtResource("22_pickup")
-item = ExtResource("23_ammo_shells")
+script = ExtResource("23_pickup")
+item = ExtResource("24_ammo_shells")
 count = 6
 model_rotation = Vector3(0, 0.5, 0)
 
 [node name="Rocket" type="Node3D" parent="Interactables"]
 position = Vector3(-0.6, 0, 2.1)
-script = ExtResource("22_pickup")
-item = ExtResource("24_ammo_rockets")
+script = ExtResource("23_pickup")
+item = ExtResource("25_ammo_rockets")
 count = 1
 model_rotation = Vector3(0, 1.4, 0)
 
 [node name="Handroll" type="Node3D" parent="Interactables"]
 position = Vector3(2.5, 0.77, -1)
-script = ExtResource("22_pickup")
-item = ExtResource("25_handroll")
+script = ExtResource("23_pickup")
+item = ExtResource("26_handroll")
 count = 1
 model_rotation = Vector3(0, 0.3, 0)
 
 [node name="Levers" type="Node3D" parent="Interactables"]
 position = Vector3(0, 0, -1.6)
-script = ExtResource("26_examine_spot")
+script = ExtResource("27_examine_spot")
 reach = 1.3
 lines = PackedStringArray("El bastidor de cambios. Todas las palancas apuntan al desvío.", "Así fue como el maquinista frenó el tren.")
 
 [node name="TrackExit" type="Node3D" parent="Interactables"]
 position = Vector3(2.6, 0, 0.6)
-script = ExtResource("27_chapter_exit")
+script = ExtResource("28_chapter_exit")
 reach = 1.3
 chapter = 2
 question = "Afuera, la vía sigue hacia el norte, hacia Santiago. Empieza a aclarar.\n¿Seguir caminando con Leo?"
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Engineer" parent="Enemies" instance=ExtResource("29_infected")]
+[node name="Engineer" parent="Enemies" instance=ExtResource("30_infected")]
 position = Vector3(-2, 0.36, 1.6)
 rotation = Vector3(0, 1.57, 0)
-data = ExtResource("28_infected_wor")
+data = ExtResource("29_infected_wor")
 start_state = "corpse"
 
 [node name="Cameras" type="Node3D" parent="."]
@@ -412,12 +418,12 @@ rotation = Vector3(0, -1.5708, 0)
 
 [node name="LeoDawn" type="Marker3D" parent="."]
 position = Vector3(2, 0, 0.6)
-script = ExtResource("31_leo_hint")
+script = ExtResource("32_leo_hint")
 lines = PackedStringArray("Leo: Ya casi amanece, Isabella.", "Leo: Guarda en la máquina antes de salir. Lo que viene es largo, y quiero que llegues.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-1.5, 1.5, -1.25)
-script = ExtResource("30_camera_zone")
+script = ExtResource("31_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_4")
@@ -431,7 +437,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(1.5, 1.5, -1.25)
-script = ExtResource("30_camera_zone")
+script = ExtResource("31_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_5")
@@ -445,7 +451,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(-1.5, 1.5, 1.25)
-script = ExtResource("30_camera_zone")
+script = ExtResource("31_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_6")
@@ -459,7 +465,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(1.5, 1.5, 1.25)
-script = ExtResource("30_camera_zone")
+script = ExtResource("31_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_7")

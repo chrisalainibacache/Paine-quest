@@ -12,6 +12,9 @@ walls(k, X0, X1, Z0, Z1, north="bricks_wall", south="plaster_wall", west="sky_da
 fence_top(k, X0, X1, Z1 - 0.1, 0.0)
 # Carpa (noroeste) con la mesa del capitán.
 k.prop("Tent", "Props", "army_tent", (-5.5, 0, -2.9))
+k.prop("WeaponCrate", "Props", "crate", (-3.6, 0, -3.0))
+k.label("WeaponCrateLabel", "Details", (-3.6, 0.8, -3.0), "ARMAMENTO", 18, (0.85, 0.78, 0.6))
+k.pickup("MilitaryAssaultRifle", (-3.6, 0.76, -3.0), "assault_rifle", rot=(0, 0.2, 0), sets_flag="found:assault_rifle")
 k.prop("Radio", "Props", "field_radio", (-4.9, 0.75, -3.9))
 # Camión (sureste) y sacos de arena alrededor de la barrera.
 k.prop("Truck", "Props", "army_truck", (4.6, 0, 3.3), rot=(0, 0.08, 0))
@@ -34,6 +37,7 @@ k.door("ToStation", (8.4, 0, -2.6), B % "station", "from_checkpoint", prompt="SE
 k.label("StationSign", "Details", (8.97, 2.6, -2.6), "ESTACIÓN BUIN →", 34, (0.9, 0.88, 0.8), rot=(0, -math.pi / 2, 0))
 k.note("Order", (-4.7, 0.78, -3.6), "military_order", paper_rot=(0, 0.3, 0), paper_scale=0.7, reach=1.4)
 k.interact("Typewriter", "typewriter", (-6.2, 0.78, -3.6), reach="1.3")
+k.storage_chest("StorageChest", (2.0, 0.45, 0.0))
 k.examine("TruckBed", (4.6, 0, 1.8), ["La caja del camión está llena de camillas.", "Todas tienen correas. Para los brazos y para las piernas."], reach=1.3)
 k.pickup("RifleAmmo", (6.5, 0.0, -2.8), "ammo_rifle", 20, rot=(0, 0.3, 0))
 k.pickup("Grenades", (-6.8, 0.0, 0.9), "ammo_grenades", 2, rot=(0, 1.2, 0))

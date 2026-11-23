@@ -18,9 +18,10 @@
 [ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="16_paper"]
 [ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="17_pickup"]
 [ext_resource type="Resource" path="res://data/items/engineer_key.tres" id="18_engineer_key"]
-[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="19_ammo_shells"]
-[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="20_examine_spot"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="21_leo_hint"]
+[ext_resource type="Resource" path="res://data/items/sniper_rifle.tres" id="19_sniper_rifle"]
+[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="20_ammo_shells"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="21_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="22_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -261,22 +262,30 @@ item = ExtResource("18_engineer_key")
 count = 1
 model_rotation = Vector3(0, 0, 0)
 
+[node name="GuardSniperRifle" type="Node3D" parent="Interactables"]
+position = Vector3(2.625, 0.72, 2.08)
+script = ExtResource("17_pickup")
+item = ExtResource("19_sniper_rifle")
+count = 1
+model_rotation = Vector3(0, 0.5, 0)
+sets_flag = "found:sniper_rifle"
+
 [node name="ShotgunAmmo" type="Node3D" parent="Interactables"]
 position = Vector3(2.4, 0, -2.24)
 script = ExtResource("17_pickup")
-item = ExtResource("19_ammo_shells")
+item = ExtResource("20_ammo_shells")
 count = 4
 model_rotation = Vector3(0, 0, 0)
 
 [node name="RadioMessage" type="Node3D" parent="Interactables"]
 position = Vector3(-1.875, 0, -0.88)
-script = ExtResource("20_examine_spot")
+script = ExtResource("21_examine_spot")
 reach = 1.4
 lines = PackedStringArray("La radio escupe estática. Una voz de mujer pregunta por sobrevivientes del sector.", "Paz: ¿Hay sobrevivientes en el sector? Si pueden responder, indiquen cuántos son y dónde están.")
 
 [node name="LeoKey" type="Marker3D" parent="."]
 position = Vector3(0.525, 0, 1.6)
-script = ExtResource("21_leo_hint")
+script = ExtResource("22_leo_hint")
 lines = PackedStringArray("Leo: Hay una llave pequeña bajo la mesa. La necesitamos para los casilleros.", "Leo: Acércate al escritorio y recoge la llave pequeña que quedó debajo.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]

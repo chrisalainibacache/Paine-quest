@@ -34,6 +34,8 @@ button("Diag", "Root/Header", "DIAG", 22, custom_minimum_size="Vector2(80, 64)",
 button("Options", "Root/Header", "OPCIONES", 22, custom_minimum_size="Vector2(150, 64)")
 button("ItemsTab", "Root/Header", "OBJETOS", 24, toggle_mode="true", custom_minimum_size="Vector2(140, 64)")
 button("NotesTab", "Root/Header", "NOTAS", 24, toggle_mode="true", custom_minimum_size="Vector2(120, 64)")
+button("KeysTab", "Root/Header", "LLAVES", 24, toggle_mode="true", custom_minimum_size="Vector2(120, 64)")
+button("ChestTab", "Root/Header", "BAÚL", 24, toggle_mode="true", custom_minimum_size="Vector2(110, 64)")
 button("Close", "Root/Header", "CERRAR", 24, custom_minimum_size="Vector2(130, 64)")
 # Estado de Isabella.
 s.node("Status", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=40, top=118, right=330, bottom=430))
@@ -44,7 +46,7 @@ label("WeaponTitle", "Root/Status", "ARMA", 22, DIM, **rect(left=18, top=214, ri
 label("Weapon", "Root/Status", "Pistola", 22, TXT, autowrap_mode="3", **rect(left=18, top=244, right=272, bottom=306))
 # Casillas.
 s.node("Grid", "GridContainer", "Root", columns="8", theme_override_constants_h_separation="10",
-       theme_override_constants_v_separation="10", **rect(left=360, top=118, right=1240, bottom=330))
+       theme_override_constants_v_separation="10", **rect(left=360, top=118, right=1240, bottom=450))
 # Información del ítem.
 s.node("Info", "Panel", "Root", theme_override_styles_panel=panel, **rect(left=360, top=404, right=1240, bottom=694))
 label("Name", "Root/Info", "", 30, col((0.85, 0.72, 0.5)), **rect(left=24, top=14, right=840, bottom=54))
@@ -52,6 +54,8 @@ label("Description", "Root/Info", "", 24, TXT, autowrap_mode="3", **rect(left=24
 s.node("Buttons", "VBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=640, top=60, right=856, bottom=210))
 button("Use", "Root/Info/Buttons", "USAR", 26, custom_minimum_size="Vector2(0, 64)")
 button("Examine", "Root/Info/Buttons", "EXAMINAR", 26, custom_minimum_size="Vector2(0, 64)")
+button("Discard", "Root/Info/Buttons", "DESCARTAR", 26, custom_minimum_size="Vector2(0, 64)")
+button("Move", "Root/Info/Buttons", "GUARDAR", 26, custom_minimum_size="Vector2(0, 64)")
 s.node("RewardButtons", "HBoxContainer", "Root/Info", theme_override_constants_separation="14", **rect(left=24, top=220, right=856, bottom=276))
 button("RewardAmmo", "Root/Info/RewardButtons", "VER ANUNCIO: +MUNICIÓN", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")
 button("RewardHeal", "Root/Info/RewardButtons", "VER ANUNCIO: +1 CURATIVO", 19, size_flags_horizontal="3", custom_minimum_size="Vector2(0, 56)")
@@ -61,6 +65,10 @@ s.node("Notes", "ScrollContainer", "Root", **rect(left=360, top=118, right=1240,
 # sola columna, las 3 más nuevas quedaban fuera de la pantalla).
 s.node("List", "GridContainer", "Root/Notes", columns="2", size_flags_horizontal="3",
        theme_override_constants_h_separation="12", theme_override_constants_v_separation="10")
+# Llaves: lista separada, no consume casillas de la mochila.
+s.node("Keys", "ScrollContainer", "Root", **rect(left=360, top=118, right=1240, bottom=694))
+s.node("List", "VBoxContainer", "Root/Keys", size_flags_horizontal="3",
+       theme_override_constants_separation="12")
 # Examinar: el ítem en grande, se gira con el dedo.
 s.node("Examine", "Control", "Root", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2")
 s.node("Shade", "ColorRect", "Root/Examine", anchors_preset="15", anchor_right="1.0", anchor_bottom="1.0", grow_horizontal="2", grow_vertical="2",

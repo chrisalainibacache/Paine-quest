@@ -45,7 +45,11 @@ func _process(delta: float) -> void:
 func interact(player: Player) -> void:
     var space := GameState.inventory.space_for(item)
     if space <= 0:
-        await Dialogue.say(["Es: %s." % _describe(count), "No me cabe nada más en la mochila."])
+        var menu: Node = get_tree().get_first_node_in_group("inventory_menu")
+        if menu != null:
+            menu.call("open_for_pickup", player, self)
+        else:
+            await Dialogue.say(["Es: %s." % _describe(count), "No me cabe nada más en la mochila."])
         return
     var taken := mini(count, space)
     GameState.inventory.add(item, taken)

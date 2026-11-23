@@ -31,17 +31,18 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/damp_stain.png" id="29_damp_stain"]
 [ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="30_door"]
 [ext_resource type="Script" path="res://levels/kit/interact/typewriter.gd" id="31_typewriter"]
-[ext_resource type="Resource" path="res://data/documents/station_notice.tres" id="32_station_noti"]
-[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="33_note"]
-[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="34_paper"]
-[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="35_examine_spot"]
-[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="36_pickup"]
-[ext_resource type="Resource" path="res://data/items/sushi.tres" id="37_sushi"]
-[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="38_ammo_9mm"]
-[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="39_infected"]
-[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="40_infected_wor"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="41_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="42_leo_hint"]
+[ext_resource type="Script" path="res://levels/kit/interact/storage_chest.gd" id="32_storage_ches"]
+[ext_resource type="Resource" path="res://data/documents/station_notice.tres" id="33_station_noti"]
+[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="34_note"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="35_paper"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="36_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="37_pickup"]
+[ext_resource type="Resource" path="res://data/items/sushi.tres" id="38_sushi"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="39_ammo_9mm"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="40_infected"]
+[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="41_infected_wor"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="42_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="43_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -533,54 +534,59 @@ position = Vector3(3.75, 0.8, 1.4)
 script = ExtResource("31_typewriter")
 reach = 1.4
 
-[node name="Notice" type="Node3D" parent="Interactables"]
-position = Vector3(1.4, 1.45, -3.47)
-script = ExtResource("33_note")
-document = ExtResource("32_station_noti")
+[node name="StorageChest" type="Node3D" parent="Interactables"]
+position = Vector3(-2.5, 0.45, -0.8)
+script = ExtResource("32_storage_ches")
 reach = 1.4
 
-[node name="Paper" parent="Interactables/Notice" instance=ExtResource("34_paper")]
+[node name="Notice" type="Node3D" parent="Interactables"]
+position = Vector3(1.4, 1.45, -3.47)
+script = ExtResource("34_note")
+document = ExtResource("33_station_noti")
+reach = 1.4
+
+[node name="Paper" parent="Interactables/Notice" instance=ExtResource("35_paper")]
 rotation = Vector3(1.5708, 0, 0.05)
 scale = Vector3(1.6, 1.6, 1.6)
 
 [node name="Clock" type="Node3D" parent="Interactables"]
 position = Vector3(0.6, 0, 3.3)
-script = ExtResource("35_examine_spot")
+script = ExtResource("36_examine_spot")
 reach = 1.6
 lines = PackedStringArray("Un reloj de pared. Se detuvo a las 7:12.", "Tiene un agujero de bala en el vidrio.")
 
 [node name="Vending" type="Node3D" parent="Interactables"]
 position = Vector3(-3.6, 0, -2.6)
-script = ExtResource("35_examine_spot")
+script = ExtResource("36_examine_spot")
 reach = 1.3
 lines = PackedStringArray("Una máquina de bebidas. Alguien rompió el vidrio y se llevó todo.", "Hay sangre seca en los bordes.")
 
 [node name="Ticket" type="Node3D" parent="Interactables"]
 position = Vector3(-1.2, 0, -3.05)
-script = ExtResource("35_examine_spot")
+script = ExtResource("36_examine_spot")
 reach = 1.5
 lines = PackedStringArray("Las ventanillas tienen rejas.", "Adentro hay una lámpara encendida. Se entra por la puerta de SOLO PERSONAL.")
 
 [node name="Sushi" type="Node3D" parent="Interactables"]
 position = Vector3(-1, 0.49, -1)
-script = ExtResource("36_pickup")
-item = ExtResource("37_sushi")
+script = ExtResource("37_pickup")
+item = ExtResource("38_sushi")
 model_rotation = Vector3(0, 0.4, 0)
 
 [node name="Ammo" type="Node3D" parent="Interactables"]
 position = Vector3(-3.55, 0, -1.9)
-script = ExtResource("36_pickup")
-item = ExtResource("38_ammo_9mm")
+script = ExtResource("37_pickup")
+item = ExtResource("39_ammo_9mm")
 count = 15
 model_rotation = Vector3(0, 0.9, 0)
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Feeding" parent="Enemies" instance=ExtResource("39_infected")]
+[node name="Feeding" parent="Enemies" instance=ExtResource("40_infected")]
 position = Vector3(-2.7, 0.05, -2.75)
 rotation = Vector3(0, -1.5708, 0)
 start_state = "feeding"
-data = ExtResource("40_infected_wor")
+data = ExtResource("41_infected_wor")
 
 [node name="Cameras" type="Node3D" parent="."]
 
@@ -595,19 +601,19 @@ rotation = Vector3(0, 3.1416, 0)
 
 [node name="LeoTicketOffice" type="Marker3D" parent="."]
 position = Vector3(2.6, 0, -2.6)
-script = ExtResource("42_leo_hint")
+script = ExtResource("43_leo_hint")
 lines = PackedStringArray("Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.", "Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.", "Leo: Rodea la máquina por el lado opuesto y entra por la puerta SOLO PERSONAL hacia la boletería.")
 hide_if_flag = "found:pistol"
 
 [node name="LeoTypewriter" type="Marker3D" parent="."]
 position = Vector3(3.2, 0, 1.4)
-script = ExtResource("42_leo_hint")
+script = ExtResource("43_leo_hint")
 lines = PackedStringArray("Leo: Esa máquina de escribir guarda lo que llevamos hecho.", "Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.")
 show_if_flag = "found:pistol"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-2.25, 1.5, 0)
-script = ExtResource("41_camera_zone")
+script = ExtResource("42_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_6")
@@ -621,7 +627,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(2.25, 1.5, 0)
-script = ExtResource("41_camera_zone")
+script = ExtResource("42_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_7")

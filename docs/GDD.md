@@ -355,7 +355,7 @@ No se explica el motivo de la partida ni se convierte el momento en una escena d
 
 Decisión: **nada de cuerpo a cuerpo ni barra de cambio rápido**. Como en RE: el arma se
 elige desde la mochila (EQUIPAR); cada arma guarda las balas de su cargador.
-**Isabella empieza con todo el arsenal en la mochila** (pedido de Chris). Modelos de dos
+**Isabella empieza sin arma ni munición**; encuentra las armas progresivamente durante el recorrido. Modelos de dos
 packs: *Heavy Weapons Pack* (Mauser, lanzagranadas, bazuca) y Quaternius CC0
 (escopeta, fusil, rifle). El cuchillo del pack no se usa.
 
@@ -365,13 +365,11 @@ packs: *Heavy Weapons Pack* (Mauser, lanzagranadas, bazuca) y Quaternius CC0
 | Mauser C96 | Balas 9 mm | 10 | Más lenta, pega el doble. |
 | Escopeta | Cartuchos | 6 | 5 de daño de cerca, cae a 1 a 9 m; siempre hace tambalear. |
 | Fusil de asalto | Balas de fusil | 30 | Ráfaga de 3 por toque. |
-| Rifle de francotirador | Balas de fusil | 5 | 7 de daño, alcance 28 m, recarga lenta. |
+| Rifle de francotirador | Balas de fusil | 5 | 7 de daño, alcance máximo 40 m, recarga lenta. |
 | Lanzagranadas | Granadas 40 mm | 6 | Explota al impactar (radio 2,6 m). Cerca, daña a Isabella. |
 | Bazuca | Cohetes | 1 | Explosión grande (radio 4 m). Último recurso. |
 
-Mochila inicial: las 7 armas + 30 balas 9 mm, 10 cartuchos, 45 balas de fusil, 6 granadas
-y 2 cohetes (12 de 16 casillas). Recarga automática al vaciar el cargador. Sin
-munición: "clic".
+Distribución progresiva: pistola en boletería (cap. 1), escopeta junto al carabinero del vagón (cap. 2), Mauser en la bodega del galpón (cap. 3), fusil de asalto en el control militar (cap. 3), rifle de precisión en el puesto de guardia y lanzagranadas en el taller de La Maestranza (cap. 4). La bazuca queda reservada para el capítulo 5 y no aparece antes. Las armas se encuentran sobre muebles, junto a cuerpos o dentro de contenedores, nunca como pickups desnudos en el suelo. Todas las armas tienen alcance máximo configurado de 40 m; daño y caída de daño siguen sus parámetros. Recarga automática al vaciar el cargador. Sin munición: "clic".
 
 ## 6. Mecánicas
 
@@ -379,12 +377,12 @@ munición: "clic".
 | --- | --- |
 | Salud | Bien / Precaución / Peligro (electrocardiograma en la mochila, cojea en Peligro). |
 | Curación | Comida, se come desde la mochila: sushi (+30) y handroll (+70). |
-| Mochila | 16 casillas. Las balas se apilan (60 por casilla); armas, comida y llaves usan una casilla cada una. La munición de reserva es la que hay en la mochila. |
+| Mochila | 16 casillas. Las balas se apilan (60 por casilla); armas y comida ocupan casillas. Las llaves van en una lista separada sin límite y no consumen casillas. La munición de reserva es la que hay en la mochila. |
 | Examinar | Cualquier ítem se ve en 3D y se gira con el dedo. |
-| Guardado | Máquina de escribir (una ranura, sin cintas de tinta). Al morir, REINTENTAR vuelve a la última partida guardada. |
+| Baúl | Inventario compartido de 24 casillas disponible junto a las máquinas de escribir; se puede guardar y retirar desde la cuadrícula de la mochila. |\n| Descartar | Confirmación y cantidades 1, 10 o todo. No se descartan llaves ni la única arma equipada. Si la mochila está llena al recoger, se ofrece elegir qué dejar. |\n| Guardado | Máquina de escribir (una ranura, sin cintas de tinta). Mochila, llaves y baúl persisten. Al morir, REINTENTAR vuelve a la última partida guardada. |
 | Documentos | Notas legibles (papel en pantalla) que cuentan qué pasó en Paine; quedan en NOTAS. |
 | Leo | Gatita gris con pecho y patas blancas y ojos verdes que brillan en la oscuridad. Guía a Isabella (ver sección 2). Sigue a Isabella y entra con ella a cada sala. Bufa y mira a cualquier infectado vivo a menos de 5,5 m, aunque se esté haciendo el muerto (es la pista para el jugador). No pelea, no muere. |
-| Puertas | Fundido corto entre salas (oculta la carga). Las que piden llave quedan abiertas para siempre al usarla. |
+| Puertas | Fundido corto entre salas. Las que piden llave quedan abiertas para siempre; una llave se consume cuando todas las cerraduras que abre están desbloqueadas. |
 | Memoria de las salas | Lo recogido no vuelve a aparecer y los infectados muertos siguen en el suelo al volver. |
 
 ## 7. Enemigos y daño
@@ -411,12 +409,12 @@ Isabella empieza **sin arma**. Recorrido:
 | --- | --- | --- |
 | 1 | Andén norte (`platform`) | Inicio tranquilo, nota en la banca, balas junto a los cajones. El portón al andén sur tiene candado. Al volver con la pistola, llegaron 2 infectados desde la vía (uno comiendo, uno haciéndose el muerto). |
 | 2 | Sala de espera (`waiting_room`) | Máquina de escribir. Un infectado come junto a la máquina de bebidas: se puede pasar por el lado este sin despertarlo. Aviso de la estación (pistola en la boletería, llave en la bodega). |
-| 3 | Boletería (`ticket_office`) | Sala segura. **Pistola cargada** + 15 balas en el escritorio del guardia, libro de la boletería. |
+| 3 | Boletería (`ticket_office`) | Sala segura. **Pistola cargada** sobre el escritorio del guardia y 27 balas de 9 mm (12 + 15) en dos pickups registrables; libro de la boletería. |
 | 4 | Pasillo de servicio (`service_corridor`) | 3 cámaras, luz que parpadea. Un cadáver de verdad (Leo no le bufa), uno haciéndose el muerto (Leo sí) y uno de espaldas. Handroll y balas. |
 | 5 | Bodega (`storeroom`) | El guardia convertido (infectado pesado, 11 balazos). **Llave del portón** y diario del jefe de estación sobre la mesa. |
 | 6 | Andén sur (`south_platform`) | Por el portón del andén norte. Infectados, carro de equipaje, túnel con resplandor rojo. **Bajar a la vía** cierra el capítulo (pantalla de fin). |
 
-Munición del capítulo: 10 (cargador) + 75 en cajas. La resistencia queda en 5 disparos para infectados comunes y 7 para el pesado, dejando margen para fallar tiros.
+Munición del capítulo 1: cargador de 10 + 27 balas de reserva en boletería (objetivo aproximado: 25 al salir, según consumo). La resistencia queda en 5 disparos para infectados comunes y 7 para el pesado, dejando margen para fallar tiros.
 
 ### Capítulo 2 — Las vías (completo)
 Se llega con CONTINUAR al terminar el capítulo 1 (punto de control: guarda la partida).
@@ -425,7 +423,7 @@ Se llega con CONTINUAR al terminar el capítulo 1 (punto de control: guarda la p
 | --- | --- | --- |
 | 1 | Vía norte (`track_north`) | Inicio. Vagón volcado de través y fuego al fondo. Primer **infectado rápido**. Boleto con mensaje. |
 | 2 | Tren descarrilado (`derailed_train`) | Locomotora volcada y vagón fuera de la vía; el guardia pesado comiendo. Se entra al vagón. |
-| 3 | Interior del vagón (`wagon_interior`) | Pasillo entre asientos, 3 cámaras. **Llave del maquinista** y planilla del conductor. |
+| 3 | Interior del vagón (`wagon_interior`) | Pasillo entre asientos, 3 cámaras. **Llave del maquinista**, planilla del conductor y escopeta del carabinero sentado. |
 | 4 | Costado del convoy (`convoy_side`) | Infectados entre los vagones. Reja del paso bajo nivel (se abre con la llave del maquinista). |
 | 5 | Paso bajo nivel (`underpass`) | **Apagón**: Isabella usa la linterna. Dos infectados rápidos. |
 | 6 | Casa de cambios (`switch_house`) | Sala segura: máquina de escribir, nota del maquinista. La salida a la vía termina el juego. |
@@ -437,12 +435,12 @@ Se llega con CONTINUAR al terminar el capítulo 2. Sábado en la mañana: luz de
 | # | Sala (`levels/buin/`) | Qué pasa |
 | --- | --- | --- |
 | 1 | Puente del Maipo (`bridge`) | Inicio. Puente de fierro sobre el río crecido. |
-| 2 | Control militar (`checkpoint`) | Carpa, camión con camillas, **soldados infectados con casco** (10 balazos). **Orden del día**: el "tren de evacuación" era para los mordidos. Máquina de escribir. |
+| 2 | Control militar (`checkpoint`) | Carpa, camión con camillas, **soldados infectados con casco** (10 balazos), fusil de asalto sobre caja de armamento. **Orden del día** y máquina de escribir. |
 | 3 | Estación de Buin (`station`) | Hall convertido en espera del tren sanitario. **Lista del tren** (Raúl, el capitán, un niño). |
 | 4 | Bodega agrícola (`warehouse`) | Apagón (linterna). Dos infectados rápidos. **Llave del galpón** en el tractor y la **carta de Ana**. |
 | 4b | Potrero (`field`) | Despejado... demasiado. **Escena de Kiara y Nala** (`levels/kit/rescue_scene.gd`): aparece una horda, a Isabella se le traba la pistola, Leo se pone delante ("Tranquila, Isabella. Yo te protejo") y llegan **Kiara** (akita naranja, enorme: parada en dos patas es más alta que Isabella) y **Nala** (bull terrier gris atigrado con café, más chica). Las salvan; Isabella les da las gracias y les pide que sigan sacando gente; ladran y se van. Una sola vez. |
 | 5 | Viña Santa Rosa (`vineyard`) | Hileras de parras; el galpón se abre con la llave. |
-| 6 | Galpón (`shed`) | Sala segura. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio** (la voz de Paz pregunta si hay **sobrevivientes**): Paz está en la Maestranza de San Bernardo → fin del capítulo. **Rosa es sospechosa:** estaba en Paine a las 23:00 y nadie explica cómo cruzó sola hasta Buin (**sin explicación a propósito**). Isabella empieza a sospechar y **Leo, más aún**: cree que Rosa es **un infectado distinto**, no como los demás. |
+| 6 | Galpón (`shed`) | Sala segura. Rifle Mauser de cacería sobre el escritorio. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio** (la voz de Paz pregunta si hay **sobrevivientes**): Paz está en la Maestranza de San Bernardo → fin del capítulo. **Rosa es sospechosa:** estaba en Paine a las 23:00 y nadie explica cómo cruzó sola hasta Buin (**sin explicación a propósito**). Isabella empieza a sospechar y **Leo, más aún**: cree que Rosa es **un infectado distinto**, no como los demás. |
 
 
 ### Capítulo 4 — La Maestranza (8 salas propuestas; P3)
