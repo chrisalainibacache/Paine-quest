@@ -12,7 +12,8 @@ extends Resource
 
 func is_valid() -> bool:
     return not id.strip_edges().is_empty() and ingredient_a != null and ingredient_b != null \
-        and result_item != null and result_count > 0
+        and result_item != null and result_count > 0 \
+        and result_item.id != ingredient_a.id and result_item.id != ingredient_b.id
 
 
 func matches(first: ItemData, second: ItemData) -> bool:
