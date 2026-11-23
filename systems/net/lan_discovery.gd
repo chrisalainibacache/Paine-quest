@@ -86,7 +86,7 @@ func _broadcast() -> void:
     }
     if _sender.set_dest_address("255.255.255.255", _discovery_port) != OK:
         return
-    _sender.put_packet(var_to_bytes(announcement))
+    _sender.put_packet(JSON.stringify(announcement).to_utf8_buffer())
 
 
 func _poll_packets() -> void:
@@ -96,7 +96,7 @@ func _poll_packets() -> void:
         var packet: PackedByteArray = _listener.get_packet()
         if packet.size() > 2048:
             continue
-        var raw: Variant = bytes_to_var(packet, false)
+        var raw: Variant = JSON.parse_string(packet.get_string_from_utf8())
         if not raw is Dictionary:
             continue
         var announcement: Dictionary = raw

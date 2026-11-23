@@ -414,6 +414,10 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - Sustituí también esa llamada por NetMessages.is_valid_ipv4. El siguiente CI debe validar el menú completo.
 - Estado: nueva corrección subida; CI pendiente.
 
+### 2026-11-23 — P9: serialización segura del anuncio LAN tras CI #131
+- El CI ya pasó regeneración/importación y todas las pruebas funcionales, pero el parser detectó que Godot 4.7.2 acepta solo un argumento en bytes_to_var(). Cambié el anuncio UDP a JSON UTF-8 (JSON.stringify / JSON.parse_string), adecuado para los campos de texto y enteros del descubrimiento y sin deserializar objetos desde la red.
+- Estado: corrección subida; nueva ejecución CI pendiente.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 
