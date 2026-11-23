@@ -9,8 +9,11 @@ signal died(infected: Infected)
 enum State { IDLE, FEEDING, LYING, RISING, CHASE, ATTACK, STAGGER, DEAD }
 
 const ANIMATIONS := preload("res://actors/enemies/infected_animations.res")
+const RETARGET := preload("res://actors/enemies/infected_retarget.gd")
 const STAIN_SCENE := preload("res://levels/kit/props/stain.tscn")
 const GRAVITY := 18.0
+## Bibliotecas ya reorientadas, por escena de modelo (se calculan una sola vez).
+static var _library_cache: Dictionary = {}
 ## Velocidad a la que avanza la animación de caminar a ritmo normal.
 const WALK_ANIM_SPEED := 0.9
 ## Correspondencia entre los nombres UAL de las animaciones y el perfil humanoide
@@ -165,6 +168,9 @@ func _find_model_skeleton(root_node: Node) -> Skeleton3D:
 ## Los clips UAL llegan desde otra escena: no se asume que su ruta Armature
 ## coincida con el nodo Skeleton3D del modelo Mixamo instanciado.
 func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
+    var key := model.scene_file_path
+    if _library_cache.has(key):
+        return _library_cache[key] as AnimationLibrary
     var library := ANIMATIONS.duplicate(true) as AnimationLibrary
     var skeleton_path := str(model.get_path_to(skeleton))
     var mapped_tracks := 0
@@ -188,6 +194,9 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
             mapped_tracks += 1
     if mapped_tracks == 0:
         push_warning("No se encontraron pistas de huesos para las animaciones de %s." % data.display_name)
+    # Compensa la pose de reposo de este modelo (si no, los brazos quedan detrás del cuerpo).
+    RETARGET.apply(library, skeleton, model, skeleton_path)
+    _library_cache[key] = library
     return library
 
 
