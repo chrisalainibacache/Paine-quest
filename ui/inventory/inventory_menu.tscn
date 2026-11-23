@@ -92,6 +92,13 @@ focus_mode = 0
 toggle_mode = true
 custom_minimum_size = Vector2(120, 64)
 
+[node name="KeysTab" type="Button" parent="Root/Header"]
+text = "LLAVES"
+theme_override_font_sizes/font_size = 24
+focus_mode = 0
+toggle_mode = true
+custom_minimum_size = Vector2(120, 64)
+
 [node name="Close" type="Button" parent="Root/Header"]
 text = "CERRAR"
 theme_override_font_sizes/font_size = 24
@@ -235,6 +242,16 @@ columns = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 10
+
+[node name="Keys" type="ScrollContainer" parent="Root"]
+offset_left = 360
+offset_top = 118
+offset_right = 1240
+offset_bottom = 694
+
+[node name="List" type="VBoxContainer" parent="Root/Keys"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
 
 [node name="Examine" type="Control" parent="Root"]
 anchors_preset = 15
