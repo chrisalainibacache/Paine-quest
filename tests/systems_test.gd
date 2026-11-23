@@ -10,6 +10,10 @@ const PISTOL := preload("res://data/items/pistol.tres")
 const CRANK := preload("res://data/items/manivela.tres")
 const RUSTED_AXLE := preload("res://data/items/eje_oxidado.tres")
 const GATE_HANDLE := preload("res://data/items/manija_reja.tres")
+const MAP_STATION := preload("res://data/items/map_station.tres")
+const MAP_TRACKS := preload("res://data/items/map_tracks.tres")
+const MAP_BUIN := preload("res://data/items/map_buin.tres")
+const MAP_MAESTRANZA := preload("res://data/items/map_maestranza.tres")
 const WAITING_ROOM := "res://levels/station/waiting_room.tscn"
 const TICKET_OFFICE := "res://levels/station/ticket_office.tscn"
 const SOUTH_PLATFORM := "res://levels/station/south_platform.tscn"
@@ -54,6 +58,7 @@ func _run() -> void:
     _puzzle_state()
     _puzzle_interactables()
     _combine_rules()
+    _zone_maps()
     _coop_network()
     _coop_lines()
     await _leo_warns(player)
@@ -1189,3 +1194,57 @@ func _combine_rules() -> void:
         "P12: una combinación fallida conserva el ingrediente disponible")
     _check(main.get_node_or_null("InventoryMenu/Root/Info/Buttons/Combine") is Button,
         "P12: el detalle de mochila contiene el botón COMBINAR")
+
+
+## P12-e: mapas por zona, estados y llaves de puerta.
+func _zone_maps() -> void:
+    var station := load("res://data/zones/station.tres") as ZoneMapData
+    var tracks := load("res://data/zones/tracks.tres") as ZoneMapData
+    var buin := load("res://data/zones/buin.tres") as ZoneMapData
+    var maestranza := load("res://data/zones/maestranza.tres") as ZoneMapData
+    _check(GameState.has_flag("visited:" + GameState.room_path.get_file().get_basename()),
+        "P12: SceneLoader registra la sala al entrar")
+    _check(station != null and station.is_valid() and station.rooms.size() == 6,
+        "P12: mapa de estación contiene seis salas y un grafo válido")
+    _check(tracks != null and tracks.is_valid() and tracks.rooms.size() == 6,
+        "P12: mapa de vías contiene seis salas y un grafo válido")
+    _check(buin != null and buin.is_valid() and buin.rooms.size() == 7,
+        "P12: mapa de Buin contiene siete salas y un grafo válido")
+    _check(maestranza != null and maestranza.is_valid() and maestranza.rooms.size() == 7,
+        "P12: mapa de Maestranza contiene siete salas y un grafo válido")
+
+    GameState.flags.erase("visited:platform")
+    _check(station.room_state("platform") == ZoneMapData.RoomState.NOT_VISITED,
+        "P12: sala no visitada usa el estado inicial del mapa")
+    GameState.set_flag("visited:platform")
+    _check(station.is_room_visited("platform"), "P12: SceneLoader puede registrar una visita por ID de sala")
+    GameState.flags.erase("unlocked:gate_south")
+    _check(station.has_locked_door("platform") and station.locked_key_item_id("platform") == "gate_key",
+        "P12: el mapa identifica la puerta cerrada y la llave que pide")
+    GameState.set_flag("unlocked:gate_south")
+    _check(not station.has_locked_door("platform"),
+        "P12: la puerta deja de figurar cerrada al guardar su desbloqueo")
+    GameState.flags.erase("unlocked:gate_south")
+    GameState.flags.erase("visited:platform")
+
+    var map_inventory := Inventory.new()
+    map_inventory.add(MAP_STATION)
+    _check(map_inventory.has_id("map_station") and map_inventory.key_items.size() == 1,
+        "P12: encontrar el mapa de zona lo guarda como objeto clave sin ocupar casillas")
+    var saved := map_inventory.to_data()
+    var restored := Inventory.new()
+    restored.from_data(saved)
+    _check(restored.has_id("map_station"),
+        "P12: el mapa de zona sobrevive al guardado y carga de inventario")
+    var map_view := ZoneMapView.new()
+    map_view.render(station)
+    _check(map_view.get_child_count() == station.rooms.size(),
+        "P12: la vista dibuja una casilla por sala del grafo")
+    map_view.free()
+    map_inventory.clear()
+    restored.clear()
+    _check(MAP_TRACKS != null and MAP_BUIN != null and MAP_MAESTRANZA != null,
+        "P12: existen los cuatro ítems de mapa de zona")
+    _check(main.get_node_or_null("InventoryMenu/Root/Header/MapTab") is Button
+        and main.get_node_or_null("InventoryMenu/Root/Map/Content/MapView") is ZoneMapView,
+        "P12: la mochila contiene la pestaña MAPA y su vista de zona")
