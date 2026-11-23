@@ -17,6 +17,8 @@ enum Kind { WEAPON, AMMO, HEALING, KEY }
 ## Datos del arma (solo armas).
 @export var weapon: WeaponData
 ## Modelo 3D: se usa en el suelo, en el ícono de la mochila y al examinar.
+## Cerraduras que consume esta llave cuando todas están abiertas.
+@export var lock_ids: PackedStringArray = []
 @export var model: PackedScene
 
 

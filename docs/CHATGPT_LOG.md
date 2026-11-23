@@ -396,6 +396,14 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **2026-11-19 — Inicio.** Aún no hay tareas aprobadas más allá de A–C (solo diseño y texto).
   Trabaja en una rama `chatgpt/<tema>` y abre PR; no hagas push a `main`.
 
+### 2026-11-23 — P11-b/c: descarte y llaves consumibles (rama: chatgpt/P11-mochila-armas, PR #16)
+- **P11-b (commit afd0a16):** añadí DESCARTAR al generador de la mochila, confirmación y cantidades −1 / −10 / TODO para apilables. Se bloquea descartar llaves y la única arma equipada; se muestra un mensaje de Isabella. Agregué pruebas de Inventory.remove_at.
+- **P11-c (este commit):** añadí ItemData.lock_ids y declaré las cerraduras de gate_key (gate_south), engineer_key (underpass_gate) y shed_key (shed_door). Door consume la llave solo cuando todas las cerraduras declaradas están marcadas unlocked:<id>, con el aviso «Ya no necesito esta llave.». Añadí prueba con una llave que abre dos cerraduras.
+- **Archivos tocados:** ui/inventory/inventory_menu.gd, tools/level_gen/inventory.py, tests/systems_test.gd; data/items/item_data.gd, data/items/{gate_key,engineer_key,shed_key}.tres, levels/kit/interact/door.gd.
+- **Pruebas:** no ejecutadas localmente; Godot/CI debe validar GDScript. Claude debe regenerar ui/inventory/inventory_menu.tscn desde el generador. No se editó la escena a mano.
+- **Qué debe probar Chris:** descartar 1, 10 y todo de una pila; intentar descartar la única arma equipada; abrir la puerta del andén, la reja EFE y el galpón; confirmar que cada llave desaparece al abrir su última cerradura.
+- **Estado:** P11-b/c implementados; CI y revisión de Claude pendientes.
+
 ## Entregas
 ### 2026-11-20 — P3: diseño narrativo capítulos 4–5 y epílogo (rama: chatgpt/P3-historia-cap4-cap5, PR: #11)
 
