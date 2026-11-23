@@ -232,6 +232,11 @@ B y C se descartan.
 - Reglas de diseño: **dos versiones del mismo guion** (en un jugador no hay Ignacia ni compañera controlada por el juego); los dos jugadores siempre en la **misma sala**; el anfitrión manda (infectados, daño, puertas, banderas); cada teléfono usa **su propia cámara fija**; solo el anfitrión guarda.
 - Antes de adaptar el juego: **prueba de conexión** en dos teléfonos (un cubo que se mueve y se ve en ambos) para medir el esfuerzo real.
 
+### Feedback de Chris tras probar la build-129 (2026-11-23): «demasiado lineal»
+- **Problemas señalados:** se avanza «hacia adelante todo el tiempo»; los **puzzles son muy básicos**; las **llaves están tiradas en el piso**; las salas son **grandes y rectas**.
+- **Dirección pedida:** **mapas de zona** que se encuentran; **salas más chicas, con más curvas y más conectadas**, «casi Resident Evil 3 de PS1», **todo prerenderizado**.
+- **Propuesta de Claude (pendiente de V°B° de Chris):** ver `docs/REDISENO_NIVELES.md`: zonas con bucles y atajos, mapa como objeto con pantalla propia, catálogo de puzzles (códigos deducidos de notas, fusibles, palancas, combinar objetos, llaves ocultas en contenedores y en infectados), pistas de Leo a demanda y piloto en el capítulo 1.
+
 ### Pantalla de título (decisión de Chris, noviembre)
 Fondo: **bosque con niebla y la vía del tren al atardecer, con dos figuras caminando hacia el sol** (imagen aportada por Chris, `assets/ui/title_bg.jpg`; respaldo
 renderizado con `tools/prerender/render_title.gd`). Título «PAINE» en **Josefin Sans** fina y espaciada; botones con borde fino y el principal (NUEVA PARTIDA) con
