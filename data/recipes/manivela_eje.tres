@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://data/recipes/recipe_data.gd" id="1_recipe"]
+[ext_resource type="Resource" path="res://data/items/manivela.tres" id="2_manivela"]
+[ext_resource type="Resource" path="res://data/items/eje_oxidado.tres" id="3_eje"]
+[ext_resource type="Resource" path="res://data/items/manija_reja.tres" id="4_manija"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = "manivela_eje_manija"
+ingredient_a = ExtResource("2_manivela")
+ingredient_b = ExtResource("3_eje")
+result_item = ExtResource("4_manija")
+result_count = 1
