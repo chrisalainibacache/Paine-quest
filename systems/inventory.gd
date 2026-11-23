@@ -128,6 +128,41 @@ func take(item: ItemData, amount: int) -> int:
     return taken
 
 
+## Ingredientes compatibles que el jugador ya lleva en la mochila.
+func combination_partners(item: ItemData) -> Array[ItemData]:
+    var partners: Array[ItemData] = []
+    if item == null:
+        return partners
+    for recipe: RecipeData in RecipeData.all_recipes():
+        var partner := recipe.partner_for(item)
+        if partner != null and count_of(partner) > 0 and not partners.has(partner):
+            partners.append(partner)
+    return partners
+
+
+## Consume A y B y entrega el resultado. Si no cabe, restaura la mochila intacta.
+func combine(a: ItemData, b: ItemData) -> ItemData:
+    if a == null or b == null:
+        return null
+    var recipe := RecipeData.find_recipe(a, b)
+    if recipe == null:
+        return null
+    if a.id == b.id:
+        if count_of(a) < 2:
+            return null
+    elif count_of(a) < 1 or count_of(b) < 1:
+        return null
+
+    var before: Array = to_data()
+    if take(a, 1) != 1 or take(b, 1) != 1:
+        from_data(before)
+        return null
+    if add(recipe.result_item, recipe.result_count) > 0:
+        from_data(before)
+        return null
+    return recipe.result_item
+
+
 func remove_at(index: int, amount: int = 1) -> void:
     var slot := slots[index]
     if slot.is_empty():
