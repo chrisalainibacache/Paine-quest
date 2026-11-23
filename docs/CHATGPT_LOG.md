@@ -1,3 +1,13 @@
+### 2026-11-24 — P12-e: mapa de zona
+
+- **Qué hice:** Añadí `ZoneMapData` y cuatro grafos de puertas: Estación (6 salas), Vías (6), Buin (7) y Maestranza (7). El grafo de Estación/Vías/Buin se derivó de sus llamadas `k.door(...)`; Maestranza usa `connect_room` de `maestranza_common.py`.
+- **Estado visual:** `ZoneMapView` dibuja conexiones y casillas con estados sin visitar, visitada y con pendientes (pickups disponibles, documentos sin leer y puzzles sin resolver). Las puertas que aún requieren una llave muestran 🔑.
+- **Ítems:** `map_station`, `map_tracks`, `map_buin`, `map_maestranza`. `ItemData.Kind.MAP` se guarda como objeto clave, no ocupa casillas y no aparece mezclado con las llaves normales.
+- **Integración:** `SceneLoader` registra `visited:<room_id>`; la mochila incluye pestaña MAPA y la habilita solo si Isabella posee el ítem de esa zona.
+- **Generación:** Claude ya dejó regeneradas `ui/inventory/inventory_menu.tscn` y `levels/test/puzzle_lab.tscn`; ambas están presentes en la rama. La validación de sincronía/importación y las pruebas siguen pendientes de CI.
+- **Ubicaciones:** no puse pickups de mapas en salas; P10 debe decidir dónde se encuentra cada mapa y añadirlos en sus generadores.
+- **Pruebas:** `tests/systems_test.gd` valida los cuatro recursos, el grafo, la puerta bloqueada, el estado visitado, el guardado del ítem y la vista con una casilla por sala.
+
 ### 2026-11-24 — P12-d: sala segura de prueba
 
 - **Qué hice:** Añadí `tools/level_gen/puzzle_lab.py`, que genera una sala independiente en `levels/test/puzzle_lab.tscn`, fuera de las cuatro carpetas de capítulos. Incluye cerradura 0712, tablero de dos fusibles, tres palancas, cajón REGISTRAR, componentes para COMBINAR y un atajo unidireccional. No hay enemigos.
@@ -255,9 +265,9 @@ Claude revisará con capturas y ajustará tiempos y luz.
 
 8012## Preguntas de ChatGPT
 ### 2026-11-24 — P12-d: regeneración de la sala segura y sincronía de escenas
-3. **Claude: generar y versionar la sala de prueba.** Ejecuta `python3 tools/level_gen/puzzle_lab.py` (o `./tools/level_gen/regenerar_todo.sh`) en `chatgpt/P12-puzzles` y sube `levels/test/puzzle_lab.tscn`. El generador ya está incluido en `regenerar_todo.sh`; no edites la escena a mano. Ejecuta `tests/levels_test.gd` y confirma que el nuevo test room pasa.
+3. **Resuelto en la rama:** `levels/test/puzzle_lab.tscn` ya está generado y versionado. Falta que CI confirme `tests/levels_test.gd` y la auditoría de cámaras.
 ### 2026-11-24 — P12-c: regenerar la mochila y validar la cabeza actual
-1. **Claude: regeneración obligatoria.** Actualicé `tools/level_gen/inventory.py` para generar el botón «COMBINAR». CI #181 falló exactamente en el paso «Los .tscn coinciden con sus generadores (.py)» y mostró: `ui/inventory/inventory_menu.tscn | 6 deletions(-)`; el workflow informó: `Hay .tscn que no coinciden con su generador. Corre ./tools/level_gen/regenerar_todo.sh y sube el resultado.` Ejecuta `python3 tools/level_gen/inventory.py` (o `./tools/level_gen/regenerar_todo.sh`) en `chatgpt/P12-puzzles` y sube el `ui/inventory/inventory_menu.tscn` generado. No lo edites manualmente.
+1. **Resuelto en la rama:** `tools/level_gen/inventory.py` y `ui/inventory/inventory_menu.tscn` ya incluyen COMBINAR y MAPA; la escena generada está versionada. CI #181 fue el fallo anterior por COMBINAR ausente en el generador.
 2. **Claude: validación completa.** Tras regenerar, ejecuta CI sobre la cabeza actual (incluye P12-b/c) y confirma importación, pruebas automáticas y ausencia de `SCRIPT ERROR`. Asegúrate de que Godot genere y versiona los `.uid` necesarios para los scripts nuevos.
 ### 2026-11-23 — P11: revisión de CI y lock_ids
 1. **Claude: regeneración pendiente.** Reejecuta los generadores de ticket_office, waiting_room, wagon_interior, buin_shed, buin_checkpoint, switch_house, maestranza_guardia y maestranza_taller; cambié pickups/baúles y no edité .tscn manualmente. Sube las escenas regeneradas a chatgpt/P11-mochila-armas.
