@@ -1,3 +1,14 @@
+### 2026-11-24 — P12-a: estado persistente de puzzles (PR #17)
+
+- **Qué hice:** Añadí el recurso tipado `PuzzleData` (cerradura de código, caja de fusibles, secuencia de palancas y contenedor) y `PuzzleState`, que guarda el progreso de cada instancia en `GameState.flags`. El guardado/cargado existente ya serializa esas banderas, por lo que no se modificó el formato de partida.
+- **Estado por instancia:** código resuelto, fusibles instalados, avance de secuencia y contenedor registrado. Añadí reinicio aislado por ID y protección para que «REGISTRAR» solo marque la primera búsqueda.
+- **Pruebas añadidas:** validez de definiciones, aislamiento por identificador y persistencia de los cuatro tipos de progreso mediante `SaveSystem.save_game/load_game`.
+- **Archivos:** `data/puzzles/puzzle_data.gd`, `systems/puzzle_state.gd`, `tests/systems_test.gd`.
+- **CI:** «Pruebas en PR» run 159 y «Validación de pistola» run 189 estaban en ejecución tras el push del código. No declaro P12-a validado hasta revisar ambos resultados y buscar `SCRIPT ERROR` en los logs. No hay Godot local en este entorno.
+- **Qué debe probar Chris:** todavía nada en el teléfono; es infraestructura de progreso. Más adelante, en la sala de prueba P12-d, revisar que cada puzzle conserve el estado al guardar, cerrar el juego y continuar.
+- **Dudas:** ninguna para P12-a. No se inventaron códigos ni ubicaciones; el contenido concreto lo definirá el diseño de P10.
+- **Siguiente:** P12-b, interactuables. La interfaz nueva debe reutilizar `ui/theme/paine_theme.tres` y los íconos HD; las flechas de puertas permanecen apagadas por defecto.
+
 ### 2026-11-21 — P6-f: alinea el GDD con APROBADO D
 
 - **Qué hice:** Corregí la ficha del capítulo 4 en GDD.md: dejó de figurar como propuesta pendiente; ahora refleja la aprobación de Chris, la función de Paz como sanitaria de apoyo y el reparto del jefe/aplauso a Claude. También se aclara que las semillas A y D de «La señora» están aprobadas.
