@@ -1,3 +1,20 @@
+### 2026-11-24 — P12-d: sala segura de prueba
+
+- **Qué hice:** Añadí `tools/level_gen/puzzle_lab.py`, que genera una sala independiente en `levels/test/puzzle_lab.tscn`, fuera de las cuatro carpetas de capítulos. Incluye cerradura 0712, tablero de dos fusibles, tres palancas, cajón REGISTRAR, componentes para COMBINAR y un atajo unidireccional. No hay enemigos.
+- **Recursos de prueba:** `test_code_lock.tres`, `test_fuse_box.tres`, `test_lever_sequence.tres`, `test_container.tres` y `fuse_10a.tres`.
+- **Automatización:** agregué `puzzle_lab` a `regenerar_todo.sh`; `tests/levels_test.gd` inspecciona la sala por separado de CHAPTERS y verifica los interactuables, spawns, cámaras, fusibles, piezas y ausencia de enemigos. Añadí `tests/puzzle_lab_runner.gd` para arrancar Main directamente en esa sala con una partida temporal en memoria, sin tocar el guardado habitual.
+- **Documentación:** `tools/level_gen/README.md` contiene el comando de ejecución `godot --path . --script res://tests/puzzle_lab_runner.gd`.
+- **CI:** falta ejecutar el generador y versionar la escena generada; la cabeza actual todavía no tiene `levels/test/puzzle_lab.tscn`. La comprobación de sincronía fallará hasta que Claude la genere y suba. También falta una ejecución CI de la cabeza actual después de regenerar.
+- **Qué debe probar Chris (paso a paso):**
+  1. Ejecutar el lanzador de prueba indicado en README; confirmar que aparece Isabella en una sala iluminada y sin infectados.
+  2. En la cerradura, probar un código incorrecto (sonido + mensaje) y luego `0712` (éxito y puerta desbloqueada).
+  3. Recoger los dos fusibles; intentar el tablero con uno solo (no consume) y después instalar los dos (éxito).
+  4. Accionar las palancas fuera de orden (se reinicia) y luego `north → west → east` (éxito).
+  5. Pulsar REGISTRAR en el cajón; recoger el contenido y volver a registrarlo (no duplica objetos).
+  6. Recoger manivela y eje; abrir la mochila, seleccionar uno, pulsar COMBINAR y comprobar que aparece la manija y desaparecen los ingredientes.
+  7. Probar el atajo desde el lado de origen y regresar por el otro lado.
+- **Siguiente:** P12-e, mapa de zona y pestaña MAPA.
+
 ### 2026-11-24 — P12-c: combinación de objetos
 
 - **Qué hice:** Añadí `RecipeData` para recetas A + B → C y `Inventory.combine(a, b)`. La mochila busca recetas en `res://data/recipes/*.tres`, acepta ambos órdenes, consume una unidad de cada ingrediente y entrega el resultado. Si falta un ingrediente o el resultado no cabe, restaura el inventario completo.
@@ -211,7 +228,9 @@ Una rama y un PR por ticket (`chatgpt/<ID>-<tema>`), con su entrada en «Entrega
 | T9 | código+py | **Cinemática de la Criatura (en vivo, ~10 s)** — ver diseño abajo. Escena nueva `levels/cinematics/creature_door.tscn` (generada con Python, `roomkit`/`tscn`), script `levels/kit/cinematic.gd` que la reproduce, y gancho en `SceneLoader` (`Room.cinematic`, una sola vez por partida con bandera `cinematic:<ruta>`, antes de las líneas de intro; saltable con un toque). Asígnala a `track_north` (primera sala del capítulo 2). Pruebas: que la escena cargue, termine y marque la bandera. | CI verde; Claude la revisa con capturas |
 | T10 | código | **Créditos en el juego** (obligatorio: la música es CC BY 4.0): botón CRÉDITOS en la pantalla de título que muestra, en una pantalla simple con desplazamiento, los créditos de `CREDITS.md` (música de Kevin MacLeod con su frase de licencia; audio, modelos y texturas CC0/CC-BY). Pruebas incluidas. | CI verde; Claude revisa |
 | T11 | código | **Conectar los sonidos que faltan**: `chase_N` (infectado rápido), `death_N`, `rise_N` (se levanta), `heavy_step_N` (pesado), `groan_far_N` (infectado fuera de cuadro), `hurt_low_N` y `breath_low_1` (Isabella en Peligro), `door_close_N`, `door_metal_N` (reja/portón), `gate_chain_N`, `heal_N` (comer), `radio_static_1` (radio de Paz); y la música `title` (título), `safe` (sala de la máquina de escribir) y `leo` (epílogo). Ver `docs/AUDIO_PLAN.md` §9. | CI verde; todo con respaldo si falta el archivo |
-| T12 | texto | **Textos legales y de ficha** (ver `docs/MONETIZACION.md` §3 y §4, M3 y M5): borrador de **política de privacidad** (español e inglés; el juego guarda partida local y, con anuncios, usa AdMob), **descripción corta (80 car.) y larga** para Google Play, y respuestas borrador de «Seguridad de los datos» y del cuestionario de clasificación (violencia, armas, sangre, terror). Solo texto en `docs/store/`. **No afirmes datos que no sabes**: marca `[CONFIRMAR]` lo que dependa de decisiones de Chris. | PR solo de docs; CI verde |
+| T12 | texto | **Textos legales y de ficha** (ver `docs/MONETIZACION.md` §3 y §4, M3 y M5): borrador de **política de privacidad** (español e inglés; el juego guarda partida local y, con anuncios, usa AdMob), **descripción corta (80 car.) y larga** para Google Play, y respuestas borrador de «Seguridad de los datos» y del cuestionario de clasificación (violencia, armas, sangre, terror). Solo texto en `docs/store/`. **No a### 2026-11-24 — P12-d: regeneración de la sala segura y sincronía de escenas
+3. **Claude: generar y versionar la sala de prueba.** Ejecuta `python3 tools/level_gen/puzzle_lab.py` (o `./tools/level_gen/regenerar_todo.sh`) en `chatgpt/P12-puzzles` y sube `levels/test/puzzle_lab.tscn`. El generador ya está incluido en `regenerar_todo.sh`; no edites la escena a mano. Ejecuta `tests/levels_test.gd` y confirma que el nuevo test room pasa.
+firmes datos que no sabes**: marca `[CONFIRMAR]` lo que dependa de decisiones de Chris. | PR solo de docs; CI verde |
 | T13 | código | **Menú de opciones** (M9): desde el título y la mochila, sliders de volumen (Sfx, Música, Ambiente), botón CRÉDITOS (T10) y enlace a la política de privacidad. Guardar en `user://ajustes.cfg`. Pruebas. | CI verde |
 | D | código | **Implementar el capítulo 4** con `roomkit.Kit` (una sala por PR). | **BLOQUEADO hasta que Claude escriba `APROBADO D`** |
 
