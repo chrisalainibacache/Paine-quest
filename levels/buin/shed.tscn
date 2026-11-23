@@ -17,12 +17,13 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="15_blood_footpr"]
 [ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="16_door"]
 [ext_resource type="Script" path="res://levels/kit/interact/typewriter.gd" id="17_typewriter"]
-[ext_resource type="Script" path="res://levels/kit/interact/voice_door.gd" id="18_voice_door"]
-[ext_resource type="Script" path="res://levels/kit/interact/chapter_exit.gd" id="19_chapter_exit"]
-[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="20_ammo_shells"]
-[ext_resource type="Resource" path="res://data/items/sushi.tres" id="21_sushi"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="22_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="23_leo_hint"]
+[ext_resource type="Script" path="res://levels/kit/interact/storage_chest.gd" id="18_storage_ches"]
+[ext_resource type="Script" path="res://levels/kit/interact/voice_door.gd" id="19_voice_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/chapter_exit.gd" id="20_chapter_exit"]
+[ext_resource type="Resource" path="res://data/items/ammo_shells.tres" id="21_ammo_shells"]
+[ext_resource type="Resource" path="res://data/items/sushi.tres" id="22_sushi"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="23_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="24_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -286,9 +287,14 @@ position = Vector3(3.55, 0.8, 0.6)
 script = ExtResource("17_typewriter")
 reach = 1.4
 
+[node name="StorageChest" type="Node3D" parent="Interactables"]
+position = Vector3(2.5, 0.45, 0.6)
+script = ExtResource("18_storage_ches")
+reach = 1.3
+
 [node name="RosaDoor" type="Node3D" parent="Interactables"]
 position = Vector3(2.6, 0, -1)
-script = ExtResource("18_voice_door")
+script = ExtResource("19_voice_door")
 reach = 1.3
 sets_flag = "talked:rosa"
 lines = PackedStringArray("La puerta de la oficina tiene llave. Adentro alguien respira.", "Rosa: ¿Quién está ahí? ...No abras. Por favor, no abras.", "Rosa: Soy Rosa, de la boletería de Paine. Me mordieron en el puente, anoche. Ya tengo el frío del que hablaba don Héctor.", "Rosa: Algo enorme me agarró en el puente. No me terminó de matar... me miró, y se fue. Como si me hubiera dejado guardada.", "Rosa: Escúchame bien, niña. Al hombre de la mano vendada yo le vendí el boleto del 6:30.", "Rosa: Llevaba una credencial colgando: «Centro de Investigación Sanitaria — Nos». Venía de ahí.", "Rosa: Y la radio de los militares... no para de sonar. Es una mujer. Pregunta si hay sobrevivientes.", "Algo no cuadra. Rosa estaba en Paine a las once de la noche. ¿Cómo cruzó sola hasta aquí, con ellos por todos lados?", "Leo: Isabella... no le creas. Ese olor no es de persona, y tampoco es de los otros. Es distinto. Ella no es como los demás.", "Leo: No abras esa puerta. La radio está en la mesa.")
@@ -296,7 +302,7 @@ repeat_lines = PackedStringArray("Rosa: Ándate, niña. Llévate al gato. Y escu
 
 [node name="Radio" type="Node3D" parent="Interactables"]
 position = Vector3(0.6, 0, 0.9)
-script = ExtResource("19_chapter_exit")
+script = ExtResource("20_chapter_exit")
 reach = 1.3
 chapter = 3
 accept_text = "ESCUCHAR"
@@ -306,14 +312,14 @@ before_lines = PackedStringArray("Paz: ...¿Hay sobrevivientes? Si alguien me es
 [node name="Shells" type="Node3D" parent="Interactables"]
 position = Vector3(-3, 0, 1.8)
 script = ExtResource("9_pickup")
-item = ExtResource("20_ammo_shells")
+item = ExtResource("21_ammo_shells")
 count = 6
 model_rotation = Vector3(0, 0.8, 0)
 
 [node name="Sushi" type="Node3D" parent="Interactables"]
 position = Vector3(3.7, 0.77, 1)
 script = ExtResource("9_pickup")
-item = ExtResource("21_sushi")
+item = ExtResource("22_sushi")
 count = 1
 model_rotation = Vector3(0, 0.3, 0)
 
@@ -327,19 +333,19 @@ rotation = Vector3(0, -1.5708, 0)
 
 [node name="LeoRosa" type="Marker3D" parent="."]
 position = Vector3(2.6, 0, -0.5)
-script = ExtResource("23_leo_hint")
+script = ExtResource("24_leo_hint")
 lines = PackedStringArray("Leo: Ahí adentro está Rosa. Huele a ella... y a algo más que no me gusta.", "Leo: Háblale, Isabella, pero con cuidado. Y no abras esa puerta.", "Leo: Interactúa con la puerta para hablar con Rosa, pero no la abras.")
 hide_if_flag = "talked:rosa"
 
 [node name="LeoRadio" type="Marker3D" parent="."]
 position = Vector3(0.6, 0, 1.2)
-script = ExtResource("23_leo_hint")
+script = ExtResource("24_leo_hint")
 lines = PackedStringArray("Leo: La radio. Alguien te está llamando, Isabella.", "Leo: Acércate a la radio y escucha el mensaje de Paz antes de salir.")
 show_if_flag = "talked:rosa"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-2.5, 1.5, -2)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_6")
@@ -353,7 +359,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(2.5, 1.5, -2)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_7")
@@ -367,7 +373,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(-2.5, 1.5, 2)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_8")
@@ -381,7 +387,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(2.5, 1.5, 2)
-script = ExtResource("22_camera_zone")
+script = ExtResource("23_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_9")
