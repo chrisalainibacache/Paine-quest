@@ -608,7 +608,7 @@ hide_if_flag = "found:pistol"
 [node name="LeoTypewriter" type="Marker3D" parent="."]
 position = Vector3(3.2, 0, 1.4)
 script = ExtResource("43_leo_hint")
-lines = PackedStringArray("Leo: Esa máquina de escribir guarda lo que llevamos hecho.", "Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.")
+lines = PackedStringArray("Leo: Esa máquina de escribir guarda lo que llevamos hecho.", "Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.", "Leo: Acércate a la máquina y elige GUARDAR cuando te pregunte. Así no perderemos lo que avanzamos.")
 show_if_flag = "found:pistol"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
