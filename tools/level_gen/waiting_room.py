@@ -138,7 +138,7 @@ s.node("Paper", None, "Interactables/Notice", instance=s.res("res://levels/kit/i
        rotation=v3((math.pi / 2, 0, 0.05)), scale=v3((1.6, 1.6, 1.6)))
 interact("Clock", "examine_spot", (0.6, 0, D / 2 - 0.2), reach="1.6",
          lines=lines("Un reloj de pared. Se detuvo a las 7:12.", "Tiene un agujero de bala en el vidrio."))
-interact("Vending", "examine_spot", (-3.6, 0, -2.6), reach="1.3",
+interact("Vending", "vending_noise", (-3.6, 0, -2.6), reach="1.3",
          lines=lines("Una máquina de bebidas. Alguien rompió el vidrio y se llevó todo.", "Hay sangre seca en los bordes."))
 interact("Ticket", "examine_spot", (-1.2, 0, -D / 2 + 0.45), reach="1.5",
          lines=lines("Las ventanillas tienen rejas.", "Adentro hay una lámpara encendida. Se entra por la puerta de SOLO PERSONAL."))
