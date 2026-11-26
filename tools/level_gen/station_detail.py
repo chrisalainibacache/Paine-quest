@@ -154,3 +154,10 @@ class SceneKitAdapter:
         self.s.node("Camera", "Camera3D", "Cameras/" + name, position=v3(relative),
                     rotation=v3(look_rotation(cam_pos, target)), fov=fmt(float(fov)),
                     near="0.1", far="30.0")
+
+
+    def mesh(self, name, parent, size, material, pos):
+        self._group(parent)
+        self.s.node(name, "MeshInstance3D", parent,
+                    mesh=self.s.subres("BoxMesh", {"size": v3(size)}),
+                    material_override=material, position=v3(pos))
