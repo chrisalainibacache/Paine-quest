@@ -41,7 +41,7 @@ k.door("DoorToStoreroom", (5.6, 0, 0.0), "res://levels/station/storeroom.tscn", 
        locked_text="Una barra caída traba el paso. Puedo apartarla desde aquí.")
 k.door("door_pasillo_banos", (-4.0, 0, 1.0), "res://levels/station/banos.tscn", "from_service_corridor")
 k.door("door_pasillo_maquinas", (0.5, 0, -0.8), "res://levels/station/sala_maquinas.tscn", "from_service_corridor",
-       lock_id="station_power", requires_flag=True,
+       lock_id="station_power", requires_flag=True, one_way=True, one_way_origin=False,
        locked_text="La compuerta eléctrica no tiene energía.")
 k.interact("FallenBar", "bar_latch", (4.8, 0, 0.55), lock_id='"station_latch_removed"', reach=fmt(1.3))
 k.container("Locker04", (-1.55, 0.1, -0.76), "station_gate_locker",
