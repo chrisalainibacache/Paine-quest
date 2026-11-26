@@ -82,7 +82,7 @@ el suelo.
 **Puzzles y pistas**
 - **PZ-01 — Caja fuerte:** código **0712**, deducido del reloj de B y del libro de C;
   recompensa: munición y copia del diagrama de señales.
-- **PZ-02 — Tablero de fusibles:** instalar los dos fusibles de 10 A (E y D) en I.
+- **PZ-02 — Tablero de fusibles:** instalar los dos fusibles de 10 A (E y D) en I; tras restaurar energía se puede registrar un escondite opcional con 5 balas.
 - **PZ-03 — Barra caída:** retirar el pestillo desde F; después F↔G queda abierto desde ambos lados.
 - **PZ-04 — Palancas:** seguir el diagrama **2 → 1 → 3** (desvío, libre, bloqueo); libera
   la cabina y permite registrar la caja de herramientas con la llave de señales.
