@@ -2,7 +2,7 @@
 Cada sala mantiene su geometría principal y su propia distribución narrativa."""
 import math
 from roomkit import v3, add_decal
-from tscn import fmt, look_rotation
+from tscn import fmt, look_rotation, col
 
 
 def add_station_detail(k, room_key, prop_types, labels, camera_specs, bounds):
