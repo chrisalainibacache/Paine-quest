@@ -1269,10 +1269,12 @@ func _zone_maps() -> void:
     GameState.flags.erase("one_way_open:station_shortcut_1")
 
     GameState.flags.erase("unlocked:station_power")
+    GameState.flags.erase("one_way_open:station_power")
     GameState.flags.erase("unlocked:station_latch_removed")
     _check(station.has_locked_door("service_corridor"),
         "P15: el mapa marca las puertas de pasillo bloqueadas por fusibles y pestillo")
     GameState.set_flag("unlocked:station_power")
+    GameState.set_flag("one_way_open:station_power")
     GameState.set_flag("unlocked:station_latch_removed")
     _check(not station.has_locked_door("service_corridor"),
         "P15: el mapa abre el pasillo tras activar energía y retirar la barra")
