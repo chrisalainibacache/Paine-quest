@@ -19,5 +19,5 @@ func interact(_player: Player) -> void:
         await Dialogue.say(["La barra ya está apartada."])
         return
     GameState.set_flag(flag_name)
-    Sfx.play("gate_chain", global_position, -5.0)
+    Sfx.play("unlock", global_position, -5.0)
     await Dialogue.say(["Aparté la barra caída. El paso entre el pasillo y la bodega queda libre desde ambos lados."])
