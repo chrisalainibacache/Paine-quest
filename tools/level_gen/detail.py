@@ -18,22 +18,23 @@ THEMES = {
     "guard":     {"dado": "olive", "wall": "concrete_wall", "items": ["office_desk", "filing_cabinet", "filing_cabinet", "notice_board", "sandbags", "crate", "shelf_unit", "extinguisher", "office_desk", "crate"]},
     "corridor":  {"dado": "paint_red", "wall": "concrete_wall", "items": ["shelf_unit", "oil_barrel", "oil_barrel", "extinguisher", "notice_board", "crate", "crate", "tire", "shelf_unit", "filing_cabinet"]},
     "office":    {"dado": "wood", "wall": "plaster_wall", "items": ["office_desk", "filing_cabinet", "filing_cabinet", "shelf_unit", "notice_board", "plant_pot", "extinguisher", "office_desk", "filing_cabinet"]},
+    "bathroom":  {"dado": "tiles_wall", "wall": "plaster_wall", "items": ["shelf_unit", "notice_board", "extinguisher", "plant_pot", "filing_cabinet", "locker_row", "shelf_unit", "extinguisher", "plant_pot"]},
     "storage":   {"dado": "rust", "wall": "bricks_wall", "items": ["shelf_unit", "shelf_unit", "crate", "crate", "crate", "oil_barrel", "oil_barrel", "cable_drum", "ladder", "shelf_unit", "crate"]},
-    "bathroom": {"dado": "tiles_wall", "wall": "plaster_wall", "items": ["shelf_unit", "notice_board", "extinguisher", "plant_pot", "filing_cabinet", "locker_row", "shelf_unit", "extinguisher", "plant_pot"]},
 }
 WALL_DECALS = ["cracks", "wall_hole_a", "bullet_holes", "blood_splatter_a", "damp_stain", "wall_hole_b", "blood_splatter_b", "cracks"]
 FLOOR_DECALS = ["oil_stain", "debris", "damp_stain", "blood_drag", "blood_footprints", "blood_smear", "debris", "blood_pool"]
 CLEAR = 1.4     # franja central libre (|z| < CLEAR)
 
 
-def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(), doors_z=(0.0,)):
+def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(), doors_z=(0.0,), avoid_rects=()):
     rnd = random.Random(seed)
     sx, sz = sq
     T = THEMES[theme]
     W, D = x1 - x0, z1 - z0
     cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
     P = lambda x, y, z: (x / sx, y, z / sz)           # real -> espacio de diseño (los envoltorios de Maestranza lo comprimen)
-    ok = lambda x, z, r=0.9: all(math.hypot(x - ax, z - az) > r + ar for ax, az, ar in avoid) and all(abs(z - dz) > 1.3 or (x0 + 1.2 < x < x1 - 1.2) for dz in doors_z)
+    inrect = lambda x, z, m: any(rx0 - m < x < rx1 + m and rz0 - m < z < rz1 + m for rx0, rx1, rz0, rz1 in avoid_rects)
+    ok = lambda x, z, r=0.9: not inrect(x, z, 0.5) and all(math.hypot(x - ax, z - az) > r + ar for ax, az, ar in avoid) and all(abs(z - dz) > 1.3 or (x0 + 1.2 < x < x1 - 1.2) for dz in doors_z)
 
     # --- Estructura de muros: zócalo, moldura, pilastras y rodapié (N y S) ---
     for tag, zw, face in (("N", z0 + 0.03, 1.0), ("S", z1 - 0.03, -1.0)):

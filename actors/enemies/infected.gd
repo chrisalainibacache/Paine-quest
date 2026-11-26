@@ -6,9 +6,11 @@ extends CharacterBody3D
 
 signal died(infected: Infected)
 
-enum State { IDLE, FEEDING, LYING, RISING, CHASE, ATTACK, STAGGER, DEAD, THROW }
+enum State { IDLE, FEEDING, LYING, RISING, CHASE, ATTACK, STAGGER, DEAD, THROW, CHARGE }
 
 const ANIMATIONS := preload("res://actors/enemies/infected_animations.res")
+const SKULL_KIT := preload("res://actors/enemies/infected_skull_kit.gd")
+const SKULL_CHARGE := preload("res://actors/enemies/skull_charge.gd")
 const THROWER := preload("res://actors/enemies/infected_thrower.gd")
 const SOLDIER_KIT := preload("res://actors/enemies/infected_soldier_kit.gd")
 const RETARGET := preload("res://actors/enemies/infected_retarget.gd")
@@ -107,6 +109,10 @@ var _knock := Vector3.ZERO
 ## Lanzador de objetos (botellas, ladrillos); null si este tipo no lanza.
 var _thrower: Node
 var _thrown := false
+## Embestida (solo Skull) y aturdimiento: mientras `_stun_extra` > 0 recibe doble daño.
+var _charger: Node
+var _charge_hit := false
+var _stun_extra := 0.0
 
 
 func _ready() -> void:
@@ -135,6 +141,13 @@ func _ready() -> void:
         var gear_skeleton := _find_model_skeleton(model)
         if gear_skeleton != null:
             SOLDIER_KIT.dress(model, gear_skeleton)
+    if data.kit == "skull":
+        var boss_skeleton := _find_model_skeleton(model)
+        if boss_skeleton != null:
+            SKULL_KIT.dress(model, boss_skeleton)
+        set_meta("gibbed", true)  # el cráneo es parte del cuerpo: no sale volando
+        _charger = SKULL_CHARGE.new()
+        add_child(_charger)
     _anim = AnimationPlayer.new()
     _anim.name = "AnimationPlayer"
     add_child(_anim)
@@ -243,6 +256,8 @@ func get_aim_point() -> Vector3:
 func take_hit(damage: int, from_position: Vector3, hit_point: Vector3, stagger_chance: float) -> void:
     if state == State.DEAD:
         return
+    if _stun_extra > 0.0:
+        damage *= 2  # aturdido tras chocar: punto débil
     health -= damage
     _last_hit = hit_point
     _last_from = from_position
@@ -258,7 +273,7 @@ func take_hit(damage: int, from_position: Vector3, hit_point: Vector3, stagger_c
             _enter(State.RISING)
         State.IDLE, State.FEEDING:
             _enter(State.CHASE)
-        State.CHASE, State.ATTACK, State.THROW:
+        State.CHASE, State.ATTACK, State.THROW, State.CHARGE:
             if randf() < stagger_chance or damage >= 5:
                 _stagger_anim = InfectedGore.reaction(hit_point, global_position.y, damage)  # GORE: reacción según el lugar del impacto
                 var away := global_position - from_position
@@ -301,6 +316,8 @@ func _physics_process(delta: float) -> void:
                 _face(to_target, delta)
                 if distance <= data.attack_range and _cooldown <= 0.0:
                     _enter(State.ATTACK)
+                elif _charger != null and _charger.wants_charge(distance) and _can_see_target():
+                    _enter(State.CHARGE)
                 elif _thrower != null and _thrower.wants_throw(distance) and _can_see_target():
                     _enter(State.THROW)
                 elif distance > data.attack_range * 0.8:
@@ -324,10 +341,19 @@ func _physics_process(delta: float) -> void:
                     _thrower.release(target)
             if _state_time > _anim_length("Zombie_Throw"):
                 _enter(State.CHASE)
+        State.CHARGE:
+            if _state_time < _charger.WINDUP:
+                _face(to_target, delta)
+                _charger.direction = to_target.normalized()
+            else:
+                move = _charger.direction * _charger.DASH_SPEED
+                if _state_time > _charger.WINDUP + _charger.DASH_TIME:
+                    _enter(State.CHASE)
         State.STAGGER:
             move = _knock
             _knock = _knock.move_toward(Vector3.ZERO, 6.0 * delta)
-            if _state_time > _anim_length(_stagger_anim) * 0.9:
+            if _state_time > _anim_length(_stagger_anim) * 0.9 + _stun_extra:
+                _stun_extra = 0.0
                 _enter(State.CHASE)
         State.DEAD:
             pass
@@ -336,6 +362,8 @@ func _physics_process(delta: float) -> void:
     velocity.z = move.z
     velocity.y = 0.0 if is_on_floor() else velocity.y - GRAVITY * delta
     move_and_slide()
+    if state == State.CHARGE and _state_time >= _charger.WINDUP:
+        _resolve_charge_collisions()
 
     if state == State.CHASE and move.length() > 0.1 and data.heavy:
         _step_timer -= delta
@@ -395,10 +423,35 @@ func _enter(new_state: State) -> void:
         State.THROW:
             _thrown = false
             _play("Zombie_Throw", 0.15)
+        State.CHARGE:
+            _charge_hit = false
+            _charger.begin(global_position, target.global_position if target else global_position + _forward())
+            _play("Zombie_Idle", 0.15, 1.8)
+            Sfx.play("creature_roar_far", global_position + Vector3.UP * 2.0, 4.0, 0.0)
         State.STAGGER:
             _play(_stagger_anim, 0.1)
         State.DEAD:
             _play("Death01", 0.15)
+
+
+## Embestida de Skull: pega a Isabella si la alcanza; si choca con el entorno queda aturdido (doble daño).
+func _resolve_charge_collisions() -> void:
+    for i in get_slide_collision_count():
+        var collider := get_slide_collision(i).get_collider() as Node
+        if collider == null:
+            continue
+        if collider.has_method("take_damage"):
+            if not _charge_hit:
+                _charge_hit = true
+                collider.take_damage(data.attack_damage + _charger.HIT_BONUS, global_position)
+            _enter(State.CHASE)
+            return
+        _stun_extra = _charger.STUN_TIME
+        _stagger_anim = "Hit_Knockback"
+        _knock = -_forward() * 1.5
+        Sfx.play("creature_door_smash", global_position + Vector3.UP, 2.0, 0.05)
+        _enter(State.STAGGER)
+        return
 
 
 func _die() -> void:

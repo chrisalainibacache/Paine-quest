@@ -613,3 +613,5 @@ muestra una imagen renderizada con calidad de película (como RE3) y los persona
 2. **Guion de lo que falta** rediseñado: `docs/GUION_FINAL.md` (Skull como «puesto», asiento 15 como persona, Paz con culpa, Tomás opcional, jefe final en tres fases, epílogo «Para Leo»).
 3. **Mismo detalle que el andén norte** en todo el juego: `docs/ESTANDAR_DETALLE.md` y `tools/audit_detail.py` (CI).
 4. **Se eliminan Kiara y Nala.**
+
+5. **Skull jugable como jefe (prototipo, Claude):** `data/enemies/skull.tres` (120 de vida) + `actors/enemies/infected_skull_kit.gd` (≈2,5 m, brazos largos, garras, cráneo, púas) + `skull_charge.gd`: **embestida** (rugido de 0,9 s, carrera de 1,1 s a 6,5 m/s; se esquiva apartándose); si choca con una pared o un vagón **queda aturdido 3 s y recibe doble daño**; si alcanza a Isabella pega 45. Falta la arena (P18 deja los vagones y coberturas del patio) y el aspecto final. Revisión: `tools/capture_infected_closeup.gd … skull`.

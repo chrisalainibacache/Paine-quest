@@ -21,6 +21,7 @@ func _run() -> void:
     GraphicsSettings.set_modern(previous)
     await _throwing("infected_pale", "bottle", 6)
     await _throwing("infected_worker", "brick", 10)
+    await _skull_boss()
     _finish()
 
 
@@ -91,5 +92,54 @@ func _throwing(type_name: String, kind: String, damage: int) -> void:
     _check(not infected._thrower.wants_throw(1.0), "%s: de cerca no lanza" % type_name)
     infected.queue_free()
     player.queue_free()
+    ground.queue_free()
+    await _frames(2)
+
+
+## Skull (jefe del capítulo 4): más alto que un humano, embiste, y si choca con una pared queda aturdido (doble daño).
+func _skull_boss() -> void:
+    GraphicsSettings.set_modern(true)
+    var ground := StaticBody3D.new()
+    ground.collision_layer = 1
+    var shape := CollisionShape3D.new()
+    var box := BoxShape3D.new()
+    box.size = Vector3(40, 1, 40)
+    shape.shape = box
+    shape.position = Vector3(0, -0.5, 0)
+    ground.add_child(shape)
+    stage.add_child(ground)
+    var wall := StaticBody3D.new()
+    wall.collision_layer = 1
+    var wall_shape := CollisionShape3D.new()
+    var wall_box := BoxShape3D.new()
+    wall_box.size = Vector3(10, 4, 1)
+    wall_shape.shape = wall_box
+    wall.add_child(wall_shape)
+    wall.position = Vector3(0, 2, 6)
+    stage.add_child(wall)
+    var skull := _spawn("skull")
+    skull.global_position = Vector3(0, 0.05, 0)
+    skull.model.rotation.y = 0.0
+    await _frames(3)
+    _check(skull.health == 120 and skull._charger != null, "Skull: jefe con 120 de vida y embestida")
+    var top := 0.0
+    for mesh_instance: MeshInstance3D in skull.model.find_children("*", "MeshInstance3D", true, false):
+        top = maxf(top, (mesh_instance.global_transform * mesh_instance.get_aabb()).end.y)
+    _check(top > 2.1, "Skull: mide más de 2,1 m (%.2f)" % top)
+    # Embiste contra la pared (sin Isabella en medio): queda aturdido.
+    skull.target = null
+    skull._charger.direction = Vector3.BACK
+    skull._enter(Infected.State.CHARGE)
+    skull._charger.direction = Vector3.BACK
+    for i in 200:
+        await _frames(2)
+        if skull.state == Infected.State.STAGGER:
+            break
+    _check(skull.state == Infected.State.STAGGER and skull._stun_extra > 0.0, "Skull: al chocar con la pared queda aturdido")
+    var before := skull.health
+    skull.take_hit(1, Vector3(0, 1, -3), Vector3(0, 1.5, 0), 0.0)
+    _check(before - skull.health == 2, "Skull: aturdido recibe doble daño (%d)" % (before - skull.health))
+    skull.queue_free()
+    wall.queue_free()
     ground.queue_free()
     await _frames(2)
