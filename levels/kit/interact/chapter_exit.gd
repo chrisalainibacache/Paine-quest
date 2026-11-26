@@ -3,6 +3,8 @@ extends Interactable
 ## porque no se puede volver.
 
 @export var chapter: int = 1
+@export var required_flags: PackedStringArray = []
+@export_multiline var blocked_text: String = "Todavía faltan pasos para abrir la salida."
 @export_multiline var question: String = "¿Seguir? No podré volver."
 ## Lo que se oye/lee al aceptar, antes de cerrar el capítulo (p. ej. la radio).
 @export var before_lines: PackedStringArray = []
@@ -19,6 +21,10 @@ func _play_radio_static() -> void:
 
 
 func interact(_player: Player) -> void:
+    for required_flag: String in required_flags:
+        if not GameState.has_flag(required_flag):
+            await Dialogue.say([blocked_text])
+            return
     if await Dialogue.ask(question, [accept_text, "TODAVÍA NO"]) == 0:
         if not before_lines.is_empty():
             _play_radio_static()
