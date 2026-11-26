@@ -5,7 +5,7 @@ código termina con «Pruebas en PR» verde. Chris prueba el APK en su teléfono
 
 ## Estado general
 
-- **Capítulos completos:** 1 (Estación de Paine), 2 (vías y tren destruido) y 3 (Buin).
+- **Capítulos completos (base):** 1 (Estación de Paine), 2 (vías y tren destruido) y 3 (Buin). El capítulo 1 está en rediseño P15 como hub de diez salas.
 - **Capítulo 4:** diseño aprobado (APROBADO D); implementación de La Maestranza en curso en PR #13. Las siete salas jugables se separan del patio de maniobras y la escena del aplauso, a cargo de Claude.
 - **Capítulo 5 y epílogo:** diseño narrativo documentado; implementación posterior a la fusión de P6.
 - **Sistemas:** P1 (créditos, opciones, sonidos y anuncios de prueba) fusionado; audio por sala y director de audio integrados. Los OGG definitivos y sus ajustes de mezcla se incorporan por Claude.
@@ -47,14 +47,22 @@ código termina con «Pruebas en PR» verde. Chris prueba el APK en su teléfono
 - [x] Diálogos y pistas de Leo; Leo detecta también a los infectados que fingen estar muertos.
 - [x] Pantallas de título, fin de capítulo y continuación.
 
-## Hito 4 — Capítulo 1: Estación de Paine (completo)
+## Hito 4 — Capítulo 1: Estación de Paine (remodelación P15 en curso)
 
-Seis salas: andén norte, sala de espera, boletería, pasillo de servicio, bodega y andén sur.
+La versión base tenía seis salas. P15 la convierte en un **hub no lineal de diez salas**:
+andén norte, sala de espera, boletería, oficina del jefe, baños, pasillo de servicio,
+bodega, andén sur, sala de máquinas y cabina de señales.
 
-- [x] Isabella comienza sin arma; encuentra la pistola y munición en la boletería.
-- [x] Llave de la bodega para abrir el portón del andén sur.
-- [x] Infectados con aparición condicionada por el progreso, cadáveres y luces que parpadean.
-- [x] El túnel del andén sur permite bajar a la vía y cerrar el capítulo.
+- [x] Diseño de hub + tres alas, dos rutas al andén sur y dos atajos de regreso.
+- [x] Generadores de las cuatro salas nuevas y reformas de las salas existentes.
+- [x] Recursos de puzzles: código 0712, fusibles, palancas 2-1-3, cisterna, casillero 04,
+  pestillo, máquina de ruido y salida con tres sellos.
+- [x] Mapa de zona actualizado a diez salas y conexiones.
+- [x] Todas las salas nuevas/rehechas registradas en `tools/detail_rooms.json`.
+- [~] Regeneración de escenas desde los generadores y auditoría `python3 tools/audit_detail.py --check`
+  pendientes de ejecución/confirmación en GitHub Actions.
+- [~] Replanificación de cámaras y fondos por Claude pendiente.
+- [ ] Prueba manual de recorrido completo en Android.
 
 ## Arsenal y remaster de la estación
 
@@ -203,3 +211,12 @@ Orden vigente: terminar P6 (siete salas, notas, conexiones, pruebas, limpieza y 
 - [ ] Equilibrio para dos jugadores (enemigos, munición).
 - [ ] (Más adelante) juego por internet con servidor intermediario.
 - [ ] Sincronización jugable de avatares, combate, inventario, puertas, diálogos, transiciones y reconexión.
+
+
+## P15 — Capítulo 1: Estación de Paine (2026-11-26)
+
+- Rama: `chatgpt/P15-cap1`, PR #25.
+- Objetivo: rehacer el capítulo como hub de diez salas, con tres sellos para abrir la salida.
+- No tocar `main`; no editar `.tscn` a mano; regenerar desde `tools/level_gen/regenerar_todo.sh`.
+- Cada sala nueva o rehecha debe estar en `tools/detail_rooms.json` y pasar `python3 tools/audit_detail.py --check`.
+- La guía de detalle oficial es `tools/level_gen/detail.py` + `props3.py`; Claude planifica cámaras y fondos.
