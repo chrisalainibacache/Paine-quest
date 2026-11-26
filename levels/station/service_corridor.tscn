@@ -13,27 +13,30 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/stain.tscn" id="11_stain"]
 [ext_resource type="Script" path="res://levels/kit/flicker_light.gd" id="12_flicker_ligh"]
 [ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="13_door"]
-[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="14_pickup"]
-[ext_resource type="Resource" path="res://data/items/handroll.tres" id="15_handroll"]
-[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="16_ammo_9mm"]
+[ext_resource type="Script" path="res://levels/kit/interact/bar_latch.gd" id="14_bar_latch"]
+[ext_resource type="Resource" path="res://data/puzzles/station_gate_locker.tres" id="15_station_gate"]
+[ext_resource type="Script" path="res://levels/kit/interact/container.gd" id="16_container"]
 [ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="17_examine_spot"]
-[ext_resource type="Resource" path="res://data/enemies/infected_burnt.tres" id="18_infected_bur"]
-[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="19_infected"]
-[ext_resource type="Resource" path="res://data/enemies/infected_pale.tres" id="20_infected_pal"]
-[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="21_infected_wor"]
-[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_noche.png" id="22_graffiti_noc"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="23_decal"]
-[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_no_signal.png" id="24_graffiti_no_"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_handprint.png" id="25_blood_handpr"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_smear.png" id="26_blood_smear"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_splatter_c.png" id="27_blood_splatt"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/wall_hole_a.png" id="28_wall_hole_a"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/bullet_holes.png" id="29_bullet_holes"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="30_blood_drag"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="31_blood_footpr"]
-[ext_resource type="Texture2D" path="res://assets/environment/decals/damp_stain.png" id="32_damp_stain"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="33_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="34_leo_hint"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="18_pickup"]
+[ext_resource type="Resource" path="res://data/items/handroll.tres" id="19_handroll"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="20_ammo_9mm"]
+[ext_resource type="Resource" path="res://data/enemies/infected_burnt.tres" id="21_infected_bur"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="22_infected"]
+[ext_resource type="Resource" path="res://data/enemies/infected_pale.tres" id="23_infected_pal"]
+[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="24_infected_wor"]
+[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_noche.png" id="25_graffiti_noc"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="26_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/graffiti/graffiti_no_signal.png" id="27_graffiti_no_"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_handprint.png" id="28_blood_handpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_smear.png" id="29_blood_smear"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_splatter_c.png" id="30_blood_splatt"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/wall_hole_a.png" id="31_wall_hole_a"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/bullet_holes.png" id="32_bullet_holes"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="33_blood_drag"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="34_blood_footpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/damp_stain.png" id="35_damp_stain"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="36_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="37_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -321,27 +324,68 @@ script = ExtResource("12_flicker_ligh")
 position = Vector3(-5.6, 0, 0)
 script = ExtResource("13_door")
 reach = 1.3
-target_room = "res://levels/station/ticket_office.tscn"
-target_spawn = "from_corridor"
+target_room = "res://levels/station/platform.tscn"
+target_spawn = "from_service_corridor"
+prompt = "VOLVER"
 
 [node name="DoorToStoreroom" type="Node3D" parent="Interactables"]
 position = Vector3(5.6, 0, 0)
 script = ExtResource("13_door")
 reach = 1.3
 target_room = "res://levels/station/storeroom.tscn"
-target_spawn = "from_corridor"
+target_spawn = "from_service_corridor"
+lock_id = "station_latch_removed"
+locked_text = "Una barra caída traba el paso. Puedo apartarla desde aquí."
+requires_flag = true
+
+[node name="door_pasillo_banos" type="Node3D" parent="Interactables"]
+position = Vector3(-4, 0, 1)
+script = ExtResource("13_door")
+reach = 1.3
+target_room = "res://levels/station/banos.tscn"
+target_spawn = "from_service_corridor"
+
+[node name="door_pasillo_maquinas" type="Node3D" parent="Interactables"]
+position = Vector3(0.5, 0, -0.8)
+script = ExtResource("13_door")
+reach = 1.3
+target_room = "res://levels/station/sala_maquinas.tscn"
+target_spawn = "from_service_corridor"
+lock_id = "station_power"
+locked_text = "La compuerta eléctrica no tiene energía."
+requires_flag = true
+
+[node name="FallenBar" type="Node3D" parent="Interactables"]
+position = Vector3(4.8, 0, 0.55)
+script = ExtResource("14_bar_latch")
+lock_id = "station_latch_removed"
+reach = 1.3
+
+[node name="Locker04" type="Node3D" parent="Interactables"]
+position = Vector3(-1.55, 0.1, -0.76)
+script = ExtResource("16_container")
+puzzle = ExtResource("15_station_gate")
+content_item_ids = PackedStringArray("gate_key")
+counts = PackedInt32Array(1)
+reach = 1.2
+
+[node name="Locker04Clue" type="Node3D" parent="Interactables"]
+position = Vector3(-1.55, 0, -0.4)
+script = ExtResource("17_examine_spot")
+reach = 1
+lines = PackedStringArray("Casillero 04. La pintura azul es reciente.", "La chapa tiene una marca semicircular y está raspada.")
 
 [node name="Handroll" type="Node3D" parent="Interactables"]
 position = Vector3(-1.7, 0.45, -0.4)
-script = ExtResource("14_pickup")
-item = ExtResource("15_handroll")
+script = ExtResource("18_pickup")
+item = ExtResource("19_handroll")
 count = 1
 model_rotation = Vector3(0, 0.8, 0)
 
 [node name="Ammo" type="Node3D" parent="Interactables"]
 position = Vector3(4.45, 0, 0.7)
-script = ExtResource("14_pickup")
-item = ExtResource("16_ammo_9mm")
+script = ExtResource("18_pickup")
+item = ExtResource("20_ammo_9mm")
 count = 10
 model_rotation = Vector3(0, 2, 0)
 
@@ -359,85 +403,85 @@ lines = PackedStringArray("Casilleros del personal. Todos con candado,", "menos 
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Corpse" parent="Enemies" instance=ExtResource("19_infected")]
+[node name="Corpse" parent="Enemies" instance=ExtResource("22_infected")]
 position = Vector3(-3.6, 0.05, 0.45)
 rotation = Vector3(0, 0.4, 0)
-data = ExtResource("18_infected_bur")
+data = ExtResource("21_infected_bur")
 start_state = "corpse"
 
-[node name="Lying" parent="Enemies" instance=ExtResource("19_infected")]
+[node name="Lying" parent="Enemies" instance=ExtResource("22_infected")]
 position = Vector3(1.2, 0.05, 0.25)
 rotation = Vector3(0, 1.3, 0)
-data = ExtResource("20_infected_pal")
+data = ExtResource("23_infected_pal")
 start_state = "lying"
 
-[node name="Standing" parent="Enemies" instance=ExtResource("19_infected")]
+[node name="Standing" parent="Enemies" instance=ExtResource("22_infected")]
 position = Vector3(4.7, 0.05, -0.35)
 rotation = Vector3(0, 1.5708, 0)
-data = ExtResource("21_infected_wor")
+data = ExtResource("24_infected_wor")
 
 [node name="Decals" type="Node3D" parent="."]
 
-[node name="GraffitiNoche" parent="Decals" instance=ExtResource("23_decal")]
+[node name="GraffitiNoche" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(-4.6, 2.05, -0.98)
 rotation = Vector3(0, 0, 0)
-texture = ExtResource("22_graffiti_noc")
+texture = ExtResource("25_graffiti_noc")
 size = Vector2(2.4, 1.2)
 wear = 0.4
 
-[node name="GraffitiSignal" parent="Decals" instance=ExtResource("23_decal")]
+[node name="GraffitiSignal" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(3.4, 1.85, -0.98)
 rotation = Vector3(0, 0, 0)
-texture = ExtResource("24_graffiti_no_")
+texture = ExtResource("27_graffiti_no_")
 size = Vector2(2.8, 1.4)
 wear = 0.3
 
-[node name="HandSouth" parent="Decals" instance=ExtResource("23_decal")]
+[node name="HandSouth" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(-4.4, 1.15, 0.98)
 rotation = Vector3(0, 3.1416, 0.4)
-texture = ExtResource("25_blood_handpr")
+texture = ExtResource("28_blood_handpr")
 size = Vector2(0.4, 0.4)
 
-[node name="SmearNorth" parent="Decals" instance=ExtResource("23_decal")]
+[node name="SmearNorth" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(0.1, 1, -0.98)
 rotation = Vector3(0, 0, 0.1)
-texture = ExtResource("26_blood_smear")
+texture = ExtResource("29_blood_smear")
 size = Vector2(1.2, 0.6)
 
-[node name="BloodSouth" parent="Decals" instance=ExtResource("23_decal")]
+[node name="BloodSouth" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(-3, 1.05, 0.98)
 rotation = Vector3(0, 3.1416, 0)
-texture = ExtResource("27_blood_splatt")
+texture = ExtResource("30_blood_splatt")
 size = Vector2(1, 1)
 
-[node name="HoleSouth" parent="Decals" instance=ExtResource("23_decal")]
+[node name="HoleSouth" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(2.9, 0.75, 0.98)
 rotation = Vector3(0, 3.1416, 0)
-texture = ExtResource("28_wall_hole_a")
+texture = ExtResource("31_wall_hole_a")
 size = Vector2(0.8, 0.8)
 
-[node name="BulletsNorth" parent="Decals" instance=ExtResource("23_decal")]
+[node name="BulletsNorth" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(4.9, 1.45, -0.98)
 rotation = Vector3(0, 0, 0)
-texture = ExtResource("29_bullet_holes")
+texture = ExtResource("32_bullet_holes")
 size = Vector2(0.9, 0.9)
 
-[node name="DragCorpse" parent="Decals" instance=ExtResource("23_decal")]
+[node name="DragCorpse" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(-2.5, 0.017, 0.3)
 rotation = Vector3(-1.5708, 3, 0)
-texture = ExtResource("30_blood_drag")
+texture = ExtResource("33_blood_drag")
 size = Vector2(2.4, 0.9)
 
-[node name="Footprints" parent="Decals" instance=ExtResource("23_decal")]
+[node name="Footprints" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(4, 0.018, 0.2)
 rotation = Vector3(-1.5708, 3.14, 0)
-texture = ExtResource("31_blood_footpr")
+texture = ExtResource("34_blood_footpr")
 size = Vector2(1.8, 0.85)
 
-[node name="Damp" parent="Decals" instance=ExtResource("23_decal")]
+[node name="Damp" parent="Decals" instance=ExtResource("26_decal")]
 position = Vector3(-5, 0.015, -0.3)
 rotation = Vector3(-1.5708, 0, 0)
-texture = ExtResource("32_damp_stain")
+texture = ExtResource("35_damp_stain")
 size = Vector2(1.4, 1.4)
 
 [node name="Cameras" type="Node3D" parent="."]
@@ -454,20 +498,20 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="LeoStoreroom" type="Marker3D" parent="."]
 position = Vector3(4.8, 0, 0)
-script = ExtResource("34_leo_hint")
+script = ExtResource("37_leo_hint")
 lines = PackedStringArray("Leo: Cuidado. No todos los que están en el suelo están muertos.", "Leo: Yo los huelo. Si les bufo, es que se van a levantar. Si no, déjalos dormir.", "Leo: Busca la puerta BODEGA y avanza con cuidado; si bufo, alguno se levantará.")
 hide_if_item = "gate_key"
 
 [node name="LeoBack" type="Marker3D" parent="."]
 position = Vector3(-4.8, 0, 0)
-script = ExtResource("34_leo_hint")
+script = ExtResource("37_leo_hint")
 lines = PackedStringArray("Leo: Ya tienes la llave. Volvamos al andén: el portón sur nos espera.", "Leo: Vuelve por BOLETERÍA, atraviesa la SALA DE ESPERA y regresa al ANDÉN NORTE.")
 hide_if_flag = "unlocked:gate_south"
 show_if_item = "gate_key"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-3, 1.5, 0)
-script = ExtResource("33_camera_zone")
+script = ExtResource("36_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_6")
@@ -481,7 +525,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(3, 1.5, 0)
-script = ExtResource("33_camera_zone")
+script = ExtResource("36_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_7")
