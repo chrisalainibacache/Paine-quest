@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.3, 0.32, 0.3, 1)
+roughness = 0.6
+metallic = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.65, 0.12, 0.1, 1)
+roughness = 0.5
+metallic = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 3
+radial_segments = 10
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 0.035
+bottom_radius = 0.035
+height = 3
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5"]
+top_radius = 0.045
+bottom_radius = 0.045
+height = 1.6
+radial_segments = 10
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6"]
+albedo_color = Color(0.15, 0.15, 0.15, 1)
+roughness = 0.6
+metallic = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.06, 0.28, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8"]
+albedo_color = Color(0.15, 0.15, 0.15, 1)
+roughness = 0.6
+metallic = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+size = Vector3(0.06, 0.28, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10"]
+albedo_color = Color(0.15, 0.15, 0.15, 1)
+roughness = 0.6
+metallic = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+size = Vector3(0.06, 0.28, 0.04)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_12"]
+top_radius = 0.09
+bottom_radius = 0.09
+height = 0.02
+radial_segments = 10
+
+[node name="PipeRack" type="Node3D"]
+
+[node name="PipeA" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.4, 0.08)
+rotation = Vector3(0, 0, 1.5708)
+mesh = SubResource("CylinderMesh_3")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="PipeB" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.2, 0.07)
+rotation = Vector3(0, 0, 1.5708)
+mesh = SubResource("CylinderMesh_4")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Riser" type="MeshInstance3D" parent="."]
+position = Vector3(1.4, 1.6, 0.08)
+mesh = SubResource("CylinderMesh_5")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Clamp0" type="MeshInstance3D" parent="."]
+position = Vector3(-1.2, 2.3, 0.07)
+mesh = SubResource("BoxMesh_7")
+material_override = SubResource("StandardMaterial3D_6")
+
+[node name="Clamp1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.3, 0.07)
+mesh = SubResource("BoxMesh_9")
+material_override = SubResource("StandardMaterial3D_8")
+
+[node name="Clamp2" type="MeshInstance3D" parent="."]
+position = Vector3(1.2, 2.3, 0.07)
+mesh = SubResource("BoxMesh_11")
+material_override = SubResource("StandardMaterial3D_10")
+
+[node name="ValveWheel" type="MeshInstance3D" parent="."]
+position = Vector3(-0.6, 2.4, 0.16)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_12")
+material_override = SubResource("StandardMaterial3D_2")

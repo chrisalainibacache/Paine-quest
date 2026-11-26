@@ -1,0 +1,166 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="2_wood"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.5, 0.36, 0.2, 1)
+roughness = 0.95
+metallic = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(1.2, 0.8, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.86, 0.84, 0.74, 1)
+roughness = 0.9
+metallic = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
+albedo_color = Color(0.85, 0.78, 0.4, 1)
+roughness = 0.9
+metallic = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.25, 0.32, 0.004)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6"]
+albedo_color = Color(0.7, 0.1, 0.1, 1)
+roughness = 0.4
+metallic = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7"]
+top_radius = 0.012
+bottom_radius = 0.012
+height = 0.02
+radial_segments = 6
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+size = Vector3(0.3, 0.22, 0.004)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_9"]
+albedo_color = Color(0.7, 0.1, 0.1, 1)
+roughness = 0.4
+metallic = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10"]
+top_radius = 0.012
+bottom_radius = 0.012
+height = 0.02
+radial_segments = 6
+
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+size = Vector3(0.26, 0.36, 0.004)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_12"]
+albedo_color = Color(0.7, 0.1, 0.1, 1)
+roughness = 0.4
+metallic = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_13"]
+top_radius = 0.012
+bottom_radius = 0.012
+height = 0.02
+radial_segments = 6
+
+[sub_resource type="BoxMesh" id="BoxMesh_14"]
+size = Vector3(0.2, 0.2, 0.004)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_15"]
+albedo_color = Color(0.7, 0.1, 0.1, 1)
+roughness = 0.4
+metallic = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_16"]
+top_radius = 0.012
+bottom_radius = 0.012
+height = 0.02
+radial_segments = 6
+
+[sub_resource type="BoxMesh" id="BoxMesh_17"]
+size = Vector3(0.22, 0.26, 0.004)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18"]
+albedo_color = Color(0.7, 0.1, 0.1, 1)
+roughness = 0.4
+metallic = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_19"]
+top_radius = 0.012
+bottom_radius = 0.012
+height = 0.02
+radial_segments = 6
+
+[node name="NoticeBoard" type="Node3D"]
+
+[node name="Frame" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.6, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(1.3, 0.9, 0.05)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Cork" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.6, 0.03)
+mesh = SubResource("BoxMesh_2")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Paper0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.4, 1.75, 0.045)
+rotation = Vector3(0, 0, 0.05)
+mesh = SubResource("BoxMesh_5")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Pin0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.4, 1.88, 0.055)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_7")
+material_override = SubResource("StandardMaterial3D_6")
+
+[node name="Paper1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.05, 1.5, 0.045)
+rotation = Vector3(0, 0, -0.08)
+mesh = SubResource("BoxMesh_8")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Pin1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.05, 1.58, 0.055)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_10")
+material_override = SubResource("StandardMaterial3D_9")
+
+[node name="Paper2" type="MeshInstance3D" parent="."]
+position = Vector3(0.3, 1.72, 0.045)
+rotation = Vector3(0, 0, 0.12)
+mesh = SubResource("BoxMesh_11")
+material_override = SubResource("StandardMaterial3D_4")
+
+[node name="Pin2" type="MeshInstance3D" parent="."]
+position = Vector3(0.3, 1.87, 0.055)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_13")
+material_override = SubResource("StandardMaterial3D_12")
+
+[node name="Paper3" type="MeshInstance3D" parent="."]
+position = Vector3(0.4, 1.42, 0.045)
+rotation = Vector3(0, 0, 0)
+mesh = SubResource("BoxMesh_14")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Pin3" type="MeshInstance3D" parent="."]
+position = Vector3(0.4, 1.49, 0.055)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_16")
+material_override = SubResource("StandardMaterial3D_15")
+
+[node name="Paper4" type="MeshInstance3D" parent="."]
+position = Vector3(-0.45, 1.4, 0.045)
+rotation = Vector3(0, 0, -0.1)
+mesh = SubResource("BoxMesh_17")
+material_override = SubResource("StandardMaterial3D_3")
+
+[node name="Pin4" type="MeshInstance3D" parent="."]
+position = Vector3(-0.45, 1.5, 0.055)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_19")
+material_override = SubResource("StandardMaterial3D_18")

@@ -3,7 +3,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path: sys.path.insert(0, HERE)
 from maestranza_common import *
 
-k = create_room("MaestranzaGuardia", "Puesto de guardia", "office")
+k = create_room("MaestranzaGuardia", "Puesto de guardia", "office", theme="guard")
 connect_room(k, "maestranza_acceso", "maestranza_enfermeria", "ENFERMERÍA")
 k.prop("Desk", "Props", "typewriter_desk", (-2.5, 0.0, -1.8), rot=(0.0, 0.2, 0.0))
 k.prop("Radio", "Props", "field_radio", (-2.5, 0.8, -1.8))

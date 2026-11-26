@@ -3,7 +3,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path: sys.path.insert(0, HERE)
 from maestranza_common import *
 
-k = create_room("MaestranzaPasilloCuarentena", "Pasillo de cuarentena", "underpass")
+k = create_room("MaestranzaPasilloCuarentena", "Pasillo de cuarentena", "underpass", theme="corridor")
 connect_room(k, "maestranza_vestuario", "maestranza_puesto_sanitario", "PUESTO SANITARIO")
 k.block("YellowRoute", "Details", (0.0, 0.015, 0.0), (1.0, 0.03, 8.5), "safety_yellow", solid=False)
 k.block("QuarantineFenceA", "Props", (2.8, 0.65, -1.5), (0.12, 1.3, 6.8), "metal")

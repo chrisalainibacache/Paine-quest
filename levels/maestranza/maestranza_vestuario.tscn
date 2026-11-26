@@ -21,6 +21,32 @@
 [ext_resource type="Resource" path="res://data/enemies/infected_pale.tres" id="19_infected_pal"]
 [ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="20_infected"]
 [ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="21_leo_hint"]
+[ext_resource type="Material" path="res://levels/kit/materials/olive.tres" id="22_olive"]
+[ext_resource type="Material" path="res://levels/kit/materials/window_glow.tres" id="23_window_glow"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/pipe_rack.tscn" id="24_pipe_rack"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/hanging_lamp.tscn" id="25_hanging_lamp"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/wall_lantern.tscn" id="26_wall_lantern"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/extinguisher.tscn" id="27_extinguisher"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/wall_clock.tscn" id="28_wall_clock"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/locker_row.tscn" id="29_locker_row"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/park_bench.tscn" id="30_park_bench"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/notice_board.tscn" id="31_notice_board"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/shelf_unit.tscn" id="32_shelf_unit"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/crate.tscn" id="33_crate"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/cracks.png" id="34_cracks"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="35_decal"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/wall_hole_a.png" id="36_wall_hole_a"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/bullet_holes.png" id="37_bullet_holes"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_splatter_a.png" id="38_blood_splatt"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/damp_stain.png" id="39_damp_stain"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/wall_hole_b.png" id="40_wall_hole_b"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_splatter_b.png" id="41_blood_splatt"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/oil_stain.png" id="42_oil_stain"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/debris.png" id="43_debris"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_drag.png" id="44_blood_drag"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_footprints.png" id="45_blood_footpr"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_smear.png" id="46_blood_smear"]
+[ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="47_blood_pool"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -32,13 +58,19 @@ fog_enabled = true
 fog_light_color = Color(0.12, 0.14, 0.17, 1)
 fog_density = 0.018
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
-size = Vector3(5.6667, 3, 9)
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(1.3, 1, 0.03)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3"]
-size = Vector3(5.1667, 3, 9)
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(1.3, 1, 0.03)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4"]
+size = Vector3(5.6667, 3, 9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5"]
+size = Vector3(5.1667, 3, 9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6"]
 size = Vector3(5.6667, 3, 9)
 
 [node name="MaestranzaVestuario" type="Node3D"]
@@ -341,12 +373,536 @@ position = Vector3(2.85, 0, 0.96)
 script = ExtResource("21_leo_hint")
 lines = PackedStringArray("Leo: Ese operario vio a una mujer detrás del vidrio. No le vio la cara.", "Leo: La carta habla de una puerta arrancada desde dentro. No es el mismo informe del taller.", "Leo: Habla con el operario desde el lado seguro y lee la carta que quedó junto al casillero.")
 
+[node name="Detail" type="Node3D" parent="."]
+
+[node name="DadoMidN" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 0.55, -3.67)
+script = ExtResource("2_kit_block")
+size = Vector3(11.3, 1.1, 0.05)
+surface = ExtResource("22_olive")
+solid = false
+
+[node name="DadoCapN" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 1.12, -3.65)
+script = ExtResource("2_kit_block")
+size = Vector3(11.3, 0.06, 0.09)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="BaseN" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 0.07, -3.65)
+script = ExtResource("2_kit_block")
+size = Vector3(11.3, 0.14, 0.09)
+surface = ExtResource("4_concrete_wal")
+solid = false
+
+[node name="PilasterN0" type="StaticBody3D" parent="Detail"]
+position = Vector3(-4.2, 2, -3.655)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 4, 0.06)
+surface = ExtResource("4_concrete_wal")
+solid = false
+
+[node name="PilasterN1" type="StaticBody3D" parent="Detail"]
+position = Vector3(-1.2, 2, -3.655)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 4, 0.06)
+surface = ExtResource("4_concrete_wal")
+solid = false
+
+[node name="PilasterN2" type="StaticBody3D" parent="Detail"]
+position = Vector3(1.8, 2, -3.655)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 4, 0.06)
+surface = ExtResource("4_concrete_wal")
+solid = false
+
+[node name="DadoMidS" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 0.55, 3.67)
+script = ExtResource("2_kit_block")
+size = Vector3(11.3, 1.1, 0.05)
+surface = ExtResource("22_olive")
+solid = false
+
+[node name="DadoCapS" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 1.12, 3.65)
+script = ExtResource("2_kit_block")
+size = Vector3(11.3, 0.06, 0.09)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="BaseS" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 0.07, 3.65)
+script = ExtResource("2_kit_block")
+size = Vector3(11.3, 0.14, 0.09)
+surface = ExtResource("4_concrete_wal")
+solid = false
+
+[node name="PilasterS0" type="StaticBody3D" parent="Detail"]
+position = Vector3(-4.2, 2, 3.655)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 4, 0.06)
+surface = ExtResource("4_concrete_wal")
+solid = false
+
+[node name="PilasterS1" type="StaticBody3D" parent="Detail"]
+position = Vector3(-1.2, 2, 3.655)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 4, 0.06)
+surface = ExtResource("4_concrete_wal")
+solid = false
+
+[node name="PilasterS2" type="StaticBody3D" parent="Detail"]
+position = Vector3(1.8, 2, 3.655)
+script = ExtResource("2_kit_block")
+size = Vector3(0.3, 4, 0.06)
+surface = ExtResource("4_concrete_wal")
+solid = false
+
+[node name="Window0" type="MeshInstance3D" parent="Detail"]
+position = Vector3(-4.56, 2.2, -4.5)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("23_window_glow")
+
+[node name="Sill0" type="StaticBody3D" parent="Detail"]
+position = Vector3(-3.42, 1.65, -3.58)
+script = ExtResource("2_kit_block")
+size = Vector3(1.5, 0.08, 0.16)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="Lintel0" type="StaticBody3D" parent="Detail"]
+position = Vector3(-3.42, 2.78, -3.58)
+script = ExtResource("2_kit_block")
+size = Vector3(1.5, 0.1, 0.16)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="Bar0_0" type="StaticBody3D" parent="Detail"]
+position = Vector3(-3.87, 2.2, -3.61)
+script = ExtResource("2_kit_block")
+size = Vector3(0.035, 1, 0.035)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Bar0_1" type="StaticBody3D" parent="Detail"]
+position = Vector3(-3.57, 2.2, -3.61)
+script = ExtResource("2_kit_block")
+size = Vector3(0.035, 1, 0.035)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Bar0_2" type="StaticBody3D" parent="Detail"]
+position = Vector3(-3.27, 2.2, -3.61)
+script = ExtResource("2_kit_block")
+size = Vector3(0.035, 1, 0.035)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Bar0_3" type="StaticBody3D" parent="Detail"]
+position = Vector3(-2.97, 2.2, -3.61)
+script = ExtResource("2_kit_block")
+size = Vector3(0.035, 1, 0.035)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Window2" type="MeshInstance3D" parent="Detail"]
+position = Vector3(5.32, 2.2, -4.5)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("23_window_glow")
+
+[node name="Sill2" type="StaticBody3D" parent="Detail"]
+position = Vector3(3.99, 1.65, -3.58)
+script = ExtResource("2_kit_block")
+size = Vector3(1.5, 0.08, 0.16)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="Lintel2" type="StaticBody3D" parent="Detail"]
+position = Vector3(3.99, 2.78, -3.58)
+script = ExtResource("2_kit_block")
+size = Vector3(1.5, 0.1, 0.16)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="Bar2_0" type="StaticBody3D" parent="Detail"]
+position = Vector3(3.54, 2.2, -3.61)
+script = ExtResource("2_kit_block")
+size = Vector3(0.035, 1, 0.035)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Bar2_1" type="StaticBody3D" parent="Detail"]
+position = Vector3(3.84, 2.2, -3.61)
+script = ExtResource("2_kit_block")
+size = Vector3(0.035, 1, 0.035)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Bar2_2" type="StaticBody3D" parent="Detail"]
+position = Vector3(4.14, 2.2, -3.61)
+script = ExtResource("2_kit_block")
+size = Vector3(0.035, 1, 0.035)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Bar2_3" type="StaticBody3D" parent="Detail"]
+position = Vector3(4.44, 2.2, -3.61)
+script = ExtResource("2_kit_block")
+size = Vector3(0.035, 1, 0.035)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Seam1" type="StaticBody3D" parent="Detail"]
+position = Vector3(-4.0714, 0.012, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 0.01, 7.2)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="Seam2" type="StaticBody3D" parent="Detail"]
+position = Vector3(-2.4429, 0.012, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 0.01, 7.2)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="Seam3" type="StaticBody3D" parent="Detail"]
+position = Vector3(-0.8143, 0.012, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 0.01, 7.2)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="Seam4" type="StaticBody3D" parent="Detail"]
+position = Vector3(0.8143, 0.012, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 0.01, 7.2)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="Seam5" type="StaticBody3D" parent="Detail"]
+position = Vector3(2.4429, 0.012, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 0.01, 7.2)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="Seam6" type="StaticBody3D" parent="Detail"]
+position = Vector3(4.0714, 0.012, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 0.01, 7.2)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="SeamZ1" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 0.012, -1.85)
+script = ExtResource("2_kit_block")
+size = Vector3(11.2, 0.01, 0.04)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="SeamZ2" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 0.012, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(11.2, 0.01, 0.04)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="SeamZ3" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 0.012, 1.85)
+script = ExtResource("2_kit_block")
+size = Vector3(11.2, 0.01, 0.04)
+surface = ExtResource("8_soot")
+solid = false
+
+[node name="Beam0" type="StaticBody3D" parent="Detail"]
+position = Vector3(-4.8, 4.24, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.14, 0.22, 7.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Beam1" type="StaticBody3D" parent="Detail"]
+position = Vector3(-3.3, 4.24, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.14, 0.22, 7.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Beam2" type="StaticBody3D" parent="Detail"]
+position = Vector3(-1.8, 4.24, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.14, 0.22, 7.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Beam3" type="StaticBody3D" parent="Detail"]
+position = Vector3(-0.3, 4.24, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.14, 0.22, 7.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Beam4" type="StaticBody3D" parent="Detail"]
+position = Vector3(1.2, 4.24, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.14, 0.22, 7.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Beam5" type="StaticBody3D" parent="Detail"]
+position = Vector3(2.7, 4.24, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.14, 0.22, 7.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Beam6" type="StaticBody3D" parent="Detail"]
+position = Vector3(4.2, 4.24, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(0.14, 0.22, 7.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Girder" type="StaticBody3D" parent="Detail"]
+position = Vector3(0, 4, 0)
+script = ExtResource("2_kit_block")
+size = Vector3(11.2, 0.18, 0.2)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="PipeRack" parent="Detail" instance=ExtResource("24_pipe_rack")]
+position = Vector3(-0.5, 0, -3.58)
+rotation = Vector3(0, 0, 0)
+
+[node name="HangLamp0" parent="Detail" instance=ExtResource("25_hanging_lamp")]
+position = Vector3(-2.508, 4.3, -1)
+
+[node name="HangLamp1" parent="Detail" instance=ExtResource("25_hanging_lamp")]
+position = Vector3(2.508, 4.3, 1)
+
+[node name="WallLantern0" parent="Detail" instance=ExtResource("26_wall_lantern")]
+position = Vector3(-3.648, 2.35, -3.6)
+rotation = Vector3(0, 0, 0)
+
+[node name="WallLantern1" parent="Detail" instance=ExtResource("26_wall_lantern")]
+position = Vector3(0, 2.35, -3.6)
+rotation = Vector3(0, 0, 0)
+
+[node name="WallLantern2" parent="Detail" instance=ExtResource("26_wall_lantern")]
+position = Vector3(3.648, 2.35, -3.6)
+rotation = Vector3(0, 0, 0)
+
+[node name="Extinguisher" parent="Detail" instance=ExtResource("27_extinguisher")]
+position = Vector3(-5.2, 0.35, 3.5)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="Clock" parent="Detail" instance=ExtResource("28_wall_clock")]
+position = Vector3(4.1, 2.6, -3.6)
+
+[node name="Conduit0" type="StaticBody3D" parent="Detail"]
+position = Vector3(-5.45, 2.2, -3.6)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 4.1, 0.04)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Conduit1" type="StaticBody3D" parent="Detail"]
+position = Vector3(-5.33, 2.2, -3.6)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 4.1, 0.04)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="Conduit2" type="StaticBody3D" parent="Detail"]
+position = Vector3(-5.21, 2.2, -3.6)
+script = ExtResource("2_kit_block")
+size = Vector3(0.04, 4.1, 0.04)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="LockerRow0" parent="Props" instance=ExtResource("29_locker_row")]
+position = Vector3(2.2938, 0, -3.15)
+rotation = Vector3(0, -0.1175, 0)
+
+[node name="LockerRow1" parent="Props" instance=ExtResource("29_locker_row")]
+position = Vector3(0.623, 0, -3.15)
+rotation = Vector3(0, -0.0226, 0)
+
+[node name="LockerRow2" parent="Props" instance=ExtResource("29_locker_row")]
+position = Vector3(-0.9975, 0, -3.15)
+rotation = Vector3(0, 0.1396, 0)
+
+[node name="ParkBench3" parent="Props" instance=ExtResource("30_park_bench")]
+position = Vector3(-2.5186, 0, -3.15)
+rotation = Vector3(0, -0.0556, 0)
+
+[node name="ParkBench4" parent="Props" instance=ExtResource("30_park_bench")]
+position = Vector3(0.7592, 0, 3.15)
+rotation = Vector3(0, 3.2851, 0)
+
+[node name="NoticeBoard5" parent="Props" instance=ExtResource("31_notice_board")]
+position = Vector3(-4.0977, 0, 3.15)
+rotation = Vector3(0, 3.0892, 0)
+
+[node name="ShelfUnit6" parent="Props" instance=ExtResource("32_shelf_unit")]
+position = Vector3(2.2594, 0, 3.15)
+rotation = Vector3(0, 3.1378, 0)
+
+[node name="Extinguisher7" parent="Props" instance=ExtResource("27_extinguisher")]
+position = Vector3(-0.8204, 0, 3.15)
+rotation = Vector3(0, 3.2504, 0)
+
+[node name="LockerRow8" parent="Props" instance=ExtResource("29_locker_row")]
+position = Vector3(-2.5689, 0, 3.15)
+rotation = Vector3(0, 3.2817, 0)
+
+[node name="CornerCrate0" parent="Props" instance=ExtResource("33_crate")]
+position = Vector3(5, 0, 3)
+rotation = Vector3(0, 1.6312, 0)
+
+[node name="CornerCrateTop0" parent="Props" instance=ExtResource("33_crate")]
+position = Vector3(5, 0.9, 3)
+rotation = Vector3(0, 0.4481, 0)
+
+[node name="CornerCrate1" parent="Props" instance=ExtResource("33_crate")]
+position = Vector3(-5, 0, -3)
+rotation = Vector3(0, 2.2076, 0)
+
+[node name="CornerCrateTop1" parent="Props" instance=ExtResource("33_crate")]
+position = Vector3(-5, 0.9, -3)
+rotation = Vector3(0, 1.0715, 0)
+
+[node name="Decals" type="Node3D" parent="."]
+
+[node name="WallDirt0" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(3.4574, 1.2837, -3.688)
+rotation = Vector3(0, 0, -0.047)
+texture = ExtResource("34_cracks")
+size = Vector2(0.9014, 0.9014)
+wear = 0.3
+
+[node name="WallDirt1" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(1.1716, 2.3602, 3.688)
+rotation = Vector3(0, 3.1416, 0.208)
+texture = ExtResource("36_wall_hole_a")
+size = Vector2(1.293, 1.293)
+wear = 0.3
+
+[node name="WallDirt2" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(3.7954, 2.2364, -3.688)
+rotation = Vector3(0, 0, -0.044)
+texture = ExtResource("37_bullet_holes")
+size = Vector2(1.2115, 1.2115)
+wear = 0.3
+
+[node name="WallDirt3" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(2.3266, 2.4294, 3.688)
+rotation = Vector3(0, 3.1416, 0.1674)
+texture = ExtResource("38_blood_splatt")
+size = Vector2(0.9063, 0.9063)
+wear = 0.3
+
+[node name="WallDirt4" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(-2.6867, 2.509, -3.688)
+rotation = Vector3(0, 0, 0.2705)
+texture = ExtResource("39_damp_stain")
+size = Vector2(1.0138, 1.0138)
+wear = 0.3
+
+[node name="WallDirt5" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(-0.4297, 2.2794, 3.688)
+rotation = Vector3(0, 3.1416, 0.1715)
+texture = ExtResource("40_wall_hole_b")
+size = Vector2(1.1107, 1.1107)
+wear = 0.3
+
+[node name="WallDirt6" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(-2.3268, 2.3667, -3.688)
+rotation = Vector3(0, 0, 0.0385)
+texture = ExtResource("41_blood_splatt")
+size = Vector2(1.291, 1.291)
+wear = 0.3
+
+[node name="WallDirt7" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(-4.0126, 2.7657, 3.688)
+rotation = Vector3(0, 3.1416, -0.0825)
+texture = ExtResource("34_cracks")
+size = Vector2(1.3647, 1.3647)
+wear = 0.3
+
+[node name="FloorDirt0" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(-0.1282, 0.016, 1.3296)
+rotation = Vector3(-1.5708, 0.1921, 0)
+texture = ExtResource("42_oil_stain")
+size = Vector2(1.8428, 1.2399)
+
+[node name="FloorDirt1" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(0.8707, 0.016, -2.2546)
+rotation = Vector3(-1.5708, 2.187, 0)
+texture = ExtResource("43_debris")
+size = Vector2(1.3345, 1.0957)
+
+[node name="FloorDirt2" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(-1.8061, 0.016, -1.5259)
+rotation = Vector3(-1.5708, 1.6171, 0)
+texture = ExtResource("39_damp_stain")
+size = Vector2(1.6997, 1.3281)
+
+[node name="FloorDirt3" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(0.2906, 0.016, -1.79)
+rotation = Vector3(-1.5708, 2.1159, 0)
+texture = ExtResource("44_blood_drag")
+size = Vector2(1.506, 1.185)
+
+[node name="FloorDirt4" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(3.4433, 0.016, 0.2297)
+rotation = Vector3(-1.5708, 2.0832, 0)
+texture = ExtResource("45_blood_footpr")
+size = Vector2(1.3781, 0.9996)
+
+[node name="FloorDirt5" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(-4.5356, 0.016, 1.5828)
+rotation = Vector3(-1.5708, 2.7376, 0)
+texture = ExtResource("46_blood_smear")
+size = Vector2(1.1048, 0.8364)
+
+[node name="FloorDirt6" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(0.8278, 0.016, -0.3468)
+rotation = Vector3(-1.5708, 1.9462, 0)
+texture = ExtResource("43_debris")
+size = Vector2(1.243, 1.0779)
+
+[node name="FloorDirt7" parent="Decals" instance=ExtResource("35_decal")]
+position = Vector3(-4.1737, 0.016, 2.8521)
+rotation = Vector3(-1.5708, 1.6721, 0)
+texture = ExtResource("47_blood_pool")
+size = Vector2(1.0278, 0.9764)
+
+[node name="StencilN" type="Label3D" parent="Details"]
+position = Vector3(2.28, 2.7, -3.62)
+text = "SECTOR LOC"
+font_size = 26
+pixel_size = 0.004
+modulate = Color(0.82, 0.78, 0.66, 1)
+outline_size = 0
+
+[node name="StencilS" type="Label3D" parent="Details"]
+position = Vector3(-2.28, 2.5, 3.62)
+rotation = Vector3(0, 3.1416, 0)
+text = "PROHIBIDO FUMAR"
+font_size = 22
+pixel_size = 0.004
+modulate = Color(0.8, 0.3, 0.25, 1)
+outline_size = 0
+
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-4.4167, 1.5, 0)
 script = ExtResource("9_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
-shape = SubResource("BoxShape3D_2")
+shape = SubResource("BoxShape3D_4")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam1"]
 position = Vector3(5.9667, 1.7, -2.7)
@@ -360,7 +916,7 @@ position = Vector3(0, 1.5, 0)
 script = ExtResource("9_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
-shape = SubResource("BoxShape3D_3")
+shape = SubResource("BoxShape3D_5")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam2"]
 position = Vector3(5.55, 1.7, -2.7)
@@ -374,7 +930,7 @@ position = Vector3(4.4167, 1.5, 0)
 script = ExtResource("9_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
-shape = SubResource("BoxShape3D_4")
+shape = SubResource("BoxShape3D_6")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam3"]
 position = Vector3(-5.8667, 0.3, 3.3)

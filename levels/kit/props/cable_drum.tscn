@@ -1,0 +1,49 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.45, 0.32, 0.18, 1)
+roughness = 0.9
+metallic = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.08, 0.08, 0.09, 1)
+roughness = 0.5
+metallic = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.04
+radial_segments = 14
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 0.42
+bottom_radius = 0.42
+height = 0.04
+radial_segments = 14
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5"]
+top_radius = 0.28
+bottom_radius = 0.28
+height = 0.56
+radial_segments = 12
+
+[node name="CableDrum" type="Node3D"]
+
+[node name="Disc1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.42, -0.3)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_3")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Disc2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.42, 0.3)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_4")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Core" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.42, 0)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_5")
+material_override = SubResource("StandardMaterial3D_2")

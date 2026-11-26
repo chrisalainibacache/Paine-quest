@@ -28,3 +28,15 @@ La herramienta **falla** (`--check`) si una sala de `tools/detail_rooms.json` no
 2. `python3 tools/audit_detail.py` muestra la sala; si falta, se agrega detalle **antes** de pedir cámaras.
 3. Claude planifica cámaras, renderiza fondos y revisa en capturas **al lado del andén norte**.
 4. Si una sala no se parece al andén norte en la captura, **no se da por terminada** aunque pase los números.
+
+## Herramienta lista: `tools/level_gen/detail.py` (Claude, 2026-11-26)
+Una llamada viste una sala con zócalo, pilastras, vigas, ventanas con reja, tuberías, lámparas colgantes, extintor, reloj, mobiliario por **tema**
+(`workshop`, `infirmary`, `locker`, `guard`, `corridor`, `office`, `storage`), suciedad en muros y piso y rótulos:
+
+```python
+import detail
+detail.dress(k, -6, 6, -4, 4, 4.4, theme="workshop", seed=3, avoid=[(x, z, 0.6), ...])  # medidas reales; avoid = objetos propios de la sala
+```
+Piezas nuevas de utilería (en `tools/level_gen/props3.py`): `locker_row`, `shelf_unit`, `workbench`, `cot`, `oil_barrel`, `notice_board`, `extinguisher`, `pipe_rack`, `filing_cabinet`, `office_desk`, `cable_drum`, `tire`, `ladder`, `hanging_lamp`.
+**Efecto medido:** las 7 salas de La Maestranza pasaron de 2–6 props a **38–43** y de ~55 a **~140 nodos** con esta llamada (ya la usan vía `maestranza_common.create_room(..., theme=...)`).
+Úsala **y además** agrega detalle propio de cada sala (objetos con historia, carteles, desorden con causa): la herramienta pone la base, no el carácter. Si necesitas una pieza que falta, **créala en `props3.py`** (no a mano en `.tscn`).

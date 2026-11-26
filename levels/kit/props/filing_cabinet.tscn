@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/iron_green.tres" id="2_iron_green"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.05, 0.06, 0.05, 1)
+roughness = 0.6
+metallic = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.5, 0.52, 0.5, 1)
+roughness = 0.35
+metallic = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(0.4, 0.012, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.14, 0.02, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.4, 0.012, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.14, 0.02, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.4, 0.012, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+size = Vector3(0.14, 0.02, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+size = Vector3(0.4, 0.012, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_10"]
+size = Vector3(0.14, 0.02, 0.03)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11"]
+albedo_color = Color(0.2, 0.28, 0.2, 1)
+roughness = 0.6
+metallic = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+size = Vector3(0.4, 0.14, 0.3)
+
+[node name="FilingCabinet" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.65, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.46, 1.3, 0.6)
+surface = ExtResource("2_iron_green")
+
+[node name="Gap0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.3, 0.305)
+mesh = SubResource("BoxMesh_3")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Pull0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.18, 0.32)
+mesh = SubResource("BoxMesh_4")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Gap1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.6, 0.305)
+mesh = SubResource("BoxMesh_5")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Pull1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.48, 0.32)
+mesh = SubResource("BoxMesh_6")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Gap2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.9, 0.305)
+mesh = SubResource("BoxMesh_7")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Pull2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.78, 0.32)
+mesh = SubResource("BoxMesh_8")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Gap3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.2, 0.305)
+mesh = SubResource("BoxMesh_9")
+material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Pull3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.08, 0.32)
+mesh = SubResource("BoxMesh_10")
+material_override = SubResource("StandardMaterial3D_2")
+
+[node name="OpenDrawer" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.5, 0.45)
+mesh = SubResource("BoxMesh_12")
+material_override = SubResource("StandardMaterial3D_11")

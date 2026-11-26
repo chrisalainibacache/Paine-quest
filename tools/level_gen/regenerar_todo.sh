@@ -3,7 +3,7 @@
 # esto `git diff` muestra cambios, hay un .tscn que no coincide con su generador.
 set -e
 cd "$(dirname "$0")/../.."
-for s in train_props station_props props props2 items food ammo_items buin_props tunnels \
+for s in train_props station_props props props2 props3 items food ammo_items buin_props tunnels \
          platform waiting_room ticket_office service_corridor storeroom south_platform \
          track_north derailed_train wagon_interior convoy_side underpass switch_house \
          buin_bridge buin_checkpoint buin_field buin_station buin_warehouse buin_vineyard buin_shed \

@@ -1,0 +1,78 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/kit/kit_block.gd" id="1_kit_block"]
+[ext_resource type="Material" path="res://levels/kit/materials/wood.tres" id="2_wood"]
+
+[node name="Ladder" type="Node3D"]
+
+[node name="Rail0" type="StaticBody3D" parent="."]
+position = Vector3(-0.22, 1, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 2.1, 0.04)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Rail1" type="StaticBody3D" parent="."]
+position = Vector3(0.22, 1, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.05, 2.1, 0.04)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Rung0" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.25, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.44, 0.03, 0.04)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Rung1" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.53, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.44, 0.03, 0.04)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Rung2" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.81, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.44, 0.03, 0.04)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Rung3" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.09, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.44, 0.03, 0.04)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Rung4" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.37, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.44, 0.03, 0.04)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Rung5" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.65, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.44, 0.03, 0.04)
+surface = ExtResource("2_wood")
+solid = false
+
+[node name="Rung6" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.93, -0.2)
+rotation = Vector3(0.2, 0, 0)
+script = ExtResource("1_kit_block")
+size = Vector3(0.44, 0.03, 0.04)
+surface = ExtResource("2_wood")
+solid = false
