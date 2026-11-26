@@ -2,6 +2,7 @@ import sys, math, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
+import detail
 
 k = Kit("OfficeChief", "Oficina del jefe", ambience="office")
 k.env((0.018, 0.016, 0.014), (0.32, 0.30, 0.27), 0.52, (0.045, 0.035, 0.025), 0.055)
@@ -35,34 +36,27 @@ for i, z in enumerate((-3.3, -2.7, 2.7, 3.3)):
 for i, x in enumerate((-3.8, -1.0, 1.8, 4.0)):
     k.block("Pipe%d" % i, "Architecture", (x, 2.45, 3.45), (0.08, 0.08, 0.9), "rust", solid=False)
 # Props de estación: más de 40 instancias y al menos 14 familias distintas.
-prop_items = [
-    ("Column", "iron_column", (-4.3, 0, 3.1)), ("Column2", "iron_column", (0.0, 0, 3.1)),
-    ("Column3", "iron_column", (4.3, 0, 3.1)),
-    ("Bench", "park_bench", (-2.8, 0, 2.8)), ("Bench2", "park_bench", (1.0, 0, 2.8)),
-    ("Lantern", "wall_lantern", (-4.6, 2.2, 3.82)), ("Lantern2", "wall_lantern", (-1.5, 2.2, 3.82)),
-    ("Lantern3", "wall_lantern", (1.8, 2.2, 3.82)), ("Lantern4", "wall_lantern", (4.6, 2.2, 3.82)),
-    ("Arch", "window_arch", (-3.8, 1.9, 3.8)), ("Arch2", "window_arch", (0.0, 1.9, 3.8)),
-    ("Poster", "travel_poster", (-4.8, 1.5, 3.82)), ("Poster2", "travel_poster", (3.9, 1.5, 3.82)),
-    ("Plant", "plant_pot", (-3.6, 0, 2.2)), ("Plant2", "plant_pot", (3.5, 0, 2.2)),
-    ("Plant3", "plant_pot", (0.4, 0, 2.2)),
-    ("Bench3", "bench", (-1.6, 0, 2.0)), ("Bench4", "bench", (2.0, 0, 2.0)),
-    ("Sodium", "sodium_lamp", (-3.8, 2.65, 0.0)), ("Sodium2", "sodium_lamp", (0.0, 2.65, 0.0)),
-    ("Sodium3", "sodium_lamp", (3.8, 2.65, 0.0)), ("Sodium4", "sodium_lamp", (-1.8, 2.65, -2.8)),
-    ("Sign", "station_sign", (0.0, 2.3, 3.6)), ("Sign2", "station_sign", (4.2, 2.3, -2.9)),
-    ("Crate", "crate", (-3.8, 0, -3.0)), ("Crate2", "crate", (-3.0, 0, -3.0)),
-    ("Crate3", "crate", (-2.2, 0, -3.0)), ("Crate4", "crate", (-3.4, 0.9, -3.0)),
-    ("Typewriter", "typewriter_desk", (-2.8, 0, 0.0)),
-    ("Vending", "vending_machine", (3.7, 0, 1.4)),
-    ("Clock", "wall_clock", (-1.8, 2.2, 3.82)), ("Clock2", "wall_clock", (1.8, 2.2, 3.82)),
-    ("SeatPair", "seat_pair", (2.4, 0, -3.0)),
-    ("Fire", "fire", (4.2, 0, -3.0)),
-    ("AmmoBox", "ammo_box", (0.8, 0, -3.0)), ("AmmoBox2", "ammo_box", (1.6, 0, -3.0)),
-    ("Paper", "paper", (-1.4, 0.9, 0.7)), ("Paper2", "paper", (-1.0, 0.9, 0.7)),
-    ("Paper3", "paper", (-0.6, 0.9, 0.7)), ("Paper4", "paper", (-0.2, 0.9, 0.7)),
-    ("KeyProp", "key", (-4.0, 0.8, -1.5)), ("KeyProp2", "key", (-3.7, 0.8, -1.5)),
+# Pasada oficial de detalle de oficina; los objetos narrativos quedan protegidos por avoid.
+detail.dress(k, -4.7, 4.7, -3.7, 3.7, H, theme="office", seed=504,
+             avoid=[(-1.5, 0.8, 1.3), (-4.25, -1.4, 1.0), (1.0, -3.55, 1.2),
+                    (-2.0, 3.6, 0.9), (4.6, 0.0, 0.9), (0.0, -3.6, 0.9),
+                    (-4.2, -1.4, 1.0), (1.0, -3.25, 1.0)])
+own_props = [
+    ("ChiefTypewriter", "typewriter_desk", (-2.8, 0.0, 0.0)),
+    ("VendingMachine", "vending_machine", (3.7, 0.0, 1.4)),
+    ("StationSign", "station_sign", (0.0, 2.3, 3.6)),
+    ("ArchiveCrate", "crate", (-3.8, 0.0, -3.0)),
+    ("ArchiveCrate2", "crate", (-3.0, 0.0, -3.0)),
+    ("PaperStack", "paper", (-1.4, 0.9, 0.7)),
+    ("OfficeKeyProp", "key", (-4.0, 0.8, -1.5)),
+    ("AmmoBox", "ammo_box", (0.8, 0.0, -3.0)),
+    ("WaitingSeat", "seat_pair", (2.4, 0.0, -3.0)),
+    ("Plant", "plant_pot", (-3.6, 0.0, 2.2)),
+    ("Poster", "travel_poster", (-4.8, 1.5, 3.82)),
+    ("WallClock", "wall_clock", (-1.8, 2.2, 3.82)),
 ]
-for name, scene, pos in prop_items:
-    k.prop(name, "Props", scene, pos)
+for prop_name, scene_name, prop_pos in own_props:
+    k.prop(prop_name, "Props", scene_name, prop_pos, scale=v3((0.48, 0.48, 0.48)))
 # Carteles y etiquetas legibles en cuatro puntos de la oficina.
 for i, (pos, label) in enumerate([
     ((-4.8, 2.5, -0.1), "JEFATURA"), ((-1.4, 2.5, -3.8), "ARCHIVO"),
