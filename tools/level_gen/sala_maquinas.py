@@ -2,7 +2,7 @@ import sys, math, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-from station_detail import add_station_detail
+import detail
 
 k = Kit("MachineRoom", "Sala de máquinas", ambience="service_corridor")
 k.env((0.012, 0.014, 0.016), (0.26, 0.29, 0.33), 0.42, (0.035, 0.045, 0.06), 0.07)
@@ -51,21 +51,34 @@ k.leo_hint("LeoFuses", (0.0, 0, -3.2), [
     "Leo: El olor del fusible del baño y el de la oficina es el mismo.",
     "Leo: Registra el fusible de la cisterna y el cajón inferior de la oficina; instala ambos en este tablero."
 ])
-prop_types = [
-    "iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
-    "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
-    "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
-    "fire", "ammo_box", "paper", "key",
+# Pasada oficial de detalle de taller, con espacio libre para el tablero y las puertas.
+detail.dress(k, -4.2, 4.2, -3.7, 3.7, H, theme="workshop", seed=502,
+             avoid=[(0.0, -3.25, 1.4), (-2.8, -2.4, 1.2), (0.0, 3.6, 0.9),
+                    (4.1, 1.0, 0.9), (-4.1, -0.1, 0.9), (1.65, -3.3, 0.8)])
+own_props = [
+    ("Workbench", "workbench", (-3.4, 0.0, 2.8)), ("ShelfA", "shelf_unit", (-2.8, 0.0, 2.8)),
+    ("ShelfB", "shelf_unit", (2.8, 0.0, 2.8)), ("OilBarrel", "oil_barrel", (-3.7, 0.0, -1.8)),
+    ("CableDrum", "cable_drum", (-2.8, 0.0, -1.8)), ("Tire", "tire", (-3.4, 0.0, -1.0)),
+    ("Ladder", "ladder", (3.6, 0.0, -2.8)), ("CrateA", "crate", (3.2, 0.0, -2.0)),
+    ("CrateB", "crate", (3.7, 0.0, -2.0)), ("OfficeDesk", "office_desk", (2.8, 0.0, 2.0)),
+    ("Filing", "filing_cabinet", (2.6, 0.0, -1.0)), ("Radio", "field_radio", (-2.0, 0.9, 2.8)),
+    ("LampA", "hanging_lamp", (-1.8, 2.7, 0.5)), ("LampB", "hanging_lamp", (1.8, 2.7, 0.5)),
+    ("PipeRack", "pipe_rack", (-4.0, 0.0, 0.8)), ("Extinguisher", "extinguisher", (4.0, 0.0, -2.8)),
+    ("WallClock", "wall_clock", (2.2, 2.3, 3.8)), ("Sign", "station_sign", (-1.0, 2.3, 3.8)),
+    ("AmmoBox", "ammo_box", (1.8, 0.0, -2.8)), ("Paper", "paper", (-1.8, 1.0, -2.8)),
 ]
+for prop_name, scene_name, prop_pos in own_props:
+    k.prop(prop_name, "Props", scene_name, prop_pos, scale=v3((0.48, 0.48, 0.48)))
 camera_specs = [
     ("Board", (0.0, 1.5, -2.8), (6.0, 3.0, 5.5), (0.5, 3.0, 2.8), (0.0, 0.5, -3.4)),
     ("West", (-3.0, 1.5, 0.0), (5.5, 3.0, 5.5), (0.0, 3.0, 3.0), (-3.2, 0.5, -0.2)),
     ("South", (3.0, 1.5, 1.4), (5.5, 3.0, 5.5), (-1.0, 3.0, 3.8), (3.5, 0.5, 1.2)),
     ("Entry", (0.0, 1.5, 3.0), (5.5, 3.0, 5.5), (3.8, 3.0, 3.8), (-0.2, 0.5, 2.8)),
 ]
-add_station_detail(k, "MachineRoom", prop_types,
-                   ["SALA DE MÁQUINAS", "SEÑALES", "10 A", "CORTE GENERAL",
-                    "ALTA TENSIÓN", "MANTENIMIENTO", "NO PUENTEAR", "SALIDA"],
-                   camera_specs, (-4.5, 4.5, -4.0, 4.0))
+for camera_name, zone_center, zone_size, camera_pos, camera_target in camera_specs:
+    k.camera(camera_name, zone_center, zone_size, camera_pos, camera_target, fov=62)
+k.light("MachineWarm", "Lights", (-3.0, 2.5, 2.5), (1.0, 0.72, 0.42), 0.9, 4.0)
+k.light("MachineCool", "Lights", (3.0, 2.5, -2.5), (0.58, 0.72, 1.0), 0.75, 4.0, flicker=True)
+k.light("MachineEmergency", "Lights", (0.0, 2.2, 0.0), (0.65, 0.08, 0.05), 0.5, 3.0, flicker=True)
 k.save(REPO + "/levels/station/sala_maquinas.tscn")
 print("sala_maquinas ok")
