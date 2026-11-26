@@ -51,7 +51,7 @@ k.examine("Instructions", (0.0, 0.0, 4.35), [
     "Registra el cajón una vez y combina la manivela con el eje oxidado desde la mochila."
 ], reach=1.4)
 k.light("CeilingLight", "Lights", (0.0, 2.85, 0.0), (1.0, 0.82, 0.62), 1.8, 9.0)
-k.camera("WholeRoom", (0.0, 1.4, 0.0), (13.5, 2.8, 9.5), (0.0, 8.0, 12.0), (0.0, 0.2, 0.0), fov=66)
+k.camera("WholeRoom", (0.0, 1.4, 0.0), (13.5, 2.8, 9.5), (0.0, 2.55, 4.4), (0.0, 0.3, -1.2), fov=70)
 k.spawn("start", (2.0, 0.05, 4.0), (-1, 0))
 k.spawn("after_code", (5.0, 0.05, -3.5), (-1, 0))
 k.spawn("after_fuse", (5.0, 0.05, 0.0), (-1, 0))

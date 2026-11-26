@@ -1256,7 +1256,7 @@ func _zone_maps() -> void:
 
 ## P12-f: los niveles de Leo separan señal, pista vaga y ayuda explícita.
 func _leo_hint_levels() -> void:
-    var hud: Node = get_tree().get_first_node_in_group("hud")
+    var hud: Node = root.get_tree().get_first_node_in_group("hud")
     _check(hud != null and hud.get_node_or_null("HelpButton") is Control,
         "P12: HUD crea botón AYUDA dinámico sin editar su escena")
     var hint_script := load("res://levels/kit/leo_hint.gd") as Script
