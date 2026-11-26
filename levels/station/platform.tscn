@@ -993,8 +993,12 @@ rotation = Vector3(0, -1.5708, 0)
 position = Vector3(3, 0.05, 4.35)
 
 [node name="from_south_platform" type="Marker3D" parent="Spawns"]
-position = Vector3(6, 0.05, 2.6)
-rotation = Vector3(0, 1.5708, 0)
+position = Vector3(-5, 0.05, 2)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="from_service_corridor" type="Marker3D" parent="Spawns"]
+position = Vector3(-5.5, 0.05, 0.5)
+rotation = Vector3(0, 0, 0)
 
 [node name="LeoWaitingRoom" type="Marker3D" parent="."]
 position = Vector3(3, 0, 4.2)

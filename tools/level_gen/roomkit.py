@@ -266,3 +266,28 @@ def decal(self, name, tex, pos, size, normal, rot=0.0, tint=None, opacity=1.0, w
     add_decal(self.s, "Decals", name, tex, pos, size, normal, rot, tint, opacity, wear)
 
 Kit.decal = decal
+
+
+# --- Registro de lo ocupado: detail.dress no pone mobiliario sobre spawns, puertas ni objetos interactivos ---
+_OCCUPY = ("spawn", "door", "pickup", "note", "examine", "interact", "infected", "storage_chest", "code_lock", "fuse_box",
+           "lever", "lever_sequence", "container", "one_way_door")
+
+
+def _track_occupied(name):
+    if not hasattr(Kit, name):
+        return
+    original = getattr(Kit, name)
+
+    def wrapped(self, *args, **kw):
+        for a in args:
+            if isinstance(a, (tuple, list)) and len(a) == 3 and all(isinstance(v, (int, float)) for v in a):
+                if not hasattr(self, "_occupied"):
+                    self._occupied = []
+                self._occupied.append((a[0], a[2]))
+                break
+        return original(self, *args, **kw)
+    setattr(Kit, name, wrapped)
+
+
+for _name in _OCCUPY:
+    _track_occupied(_name)

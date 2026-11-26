@@ -72,7 +72,7 @@ k.camera("Wing", (-3.8, 1.3, 3.0), (5.5, 2.6, 4.5), (-1.0, 2.35, 5.0), (-4.0, 0.
 k.spawn("from_ticket_office", (-5.2, 0.05, 0.0), (1, 0))
 k.spawn("from_storeroom", (5.2, 0.05, 0.0), (-1, 0))
 k.spawn("from_platform", (-5.2, 0.05, 0.0), (1, 0))
-k.spawn("from_banos", (-4.0, 0.05, 1.5), (0, -1))
+k.spawn("from_banos", (-4.0, 0.05, 0.5), (0, -1))
 k.spawn("from_machine_room", (0.5, 0.05, -0.5), (0, 1))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoStoreroom', (4.8, 0, 0.0), ['Leo: Cuidado. No todos los que están en el suelo están muertos.', 'Leo: Yo los huelo. Si les bufo, es que se van a levantar. Si no, déjalos dormir.', 'Leo: Aparta la barra caída y avanza hacia la BODEGA; si bufo, alguno se levantará.'], hide_item='gate_key')
@@ -90,5 +90,5 @@ own_props = [
 ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.45, 0.45, 0.45)))
-k.save(REPO + "/levels/station/service_corridor.tscn")k.save(REPO + "/levels/station/service_corridor.tscn")
+k.save(REPO + "/levels/station/service_corridor.tscn")
 print("corridor ok")

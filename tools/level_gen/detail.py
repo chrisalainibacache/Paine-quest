@@ -28,6 +28,7 @@ CLEAR = 1.4     # franja central libre (|z| < CLEAR)
 
 def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(), doors_z=(0.0,), avoid_rects=()):
     rnd = random.Random(seed)
+    avoid = list(avoid) + [(x, z, 0.9) for x, z in getattr(k, "_occupied", [])]   # spawns, puertas y objetos interactivos ya colocados
     sx, sz = sq
     T = THEMES[theme]
     W, D = x1 - x0, z1 - z0

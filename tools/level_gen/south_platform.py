@@ -90,7 +90,7 @@ k.decal("Oil", "oil_stain", (1.0, 0.014, -0.4), 1.2, "up", rot=1.3)
 k.camera("West", (-3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (2.6, 3.2, 4.3), (-4.2, 0.3, 0.9), fov=58)
 k.camera("East", (3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (-2.6, 3.2, 4.3), (4.4, 0.0, -0.6), fov=58)
 k.spawn("from_north_platform", (-5.1, 0.05, 2.0), (1, 0))
-k.spawn("from_storeroom", (-4.0, 0.05, 1.0), (1, 0))
+k.spawn("from_storeroom", (-4.6, 0.05, 1.0), (1, 0))
 k.spawn("from_machine_room", (1.0, 0.05, 1.0), (-1, 0))
 k.spawn("from_signal_cabin", (4.3, 0.05, 1.0), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
@@ -107,5 +107,5 @@ own_props = [
 ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.45, 0.45, 0.45)))
-k.save(REPO + "/levels/station/south_platform.tscn")k.save(REPO + "/levels/station/south_platform.tscn")
+k.save(REPO + "/levels/station/south_platform.tscn")
 print("south platform ok")

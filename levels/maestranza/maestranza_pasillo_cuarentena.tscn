@@ -848,28 +848,28 @@ position = Vector3(-5.9739, 0, 3.15)
 rotation = Vector3(0, 3.2164, 0)
 
 [node name="NoticeBoard4" parent="Props" instance=ExtResource("28_notice_board")]
-position = Vector3(-4.2949, 0, 3.15)
-rotation = Vector3(0, 3.0454, 0)
+position = Vector3(-2.7646, 0, -3.15)
+rotation = Vector3(0, -0.0961, 0)
 
 [node name="Crate5" parent="Props" instance=ExtResource("29_crate")]
-position = Vector3(-2.7646, 0, -3.15)
-rotation = Vector3(0, -0.0685, 0)
+position = Vector3(6.8417, 0, 3.15)
+rotation = Vector3(0, 3.0731, 0)
 
 [node name="Crate6" parent="Props" instance=ExtResource("29_crate")]
-position = Vector3(-2.6681, 0, 3.15)
-rotation = Vector3(0, 3.1538, 0)
+position = Vector3(3.6344, 0, -3.15)
+rotation = Vector3(0, 0.0122, 0)
 
 [node name="Tire7" parent="Props" instance=ExtResource("30_tire")]
-position = Vector3(6.8417, 0, 3.15)
+position = Vector3(-1.1065, 0, 3.15)
 rotation = Vector3(0, 3.0181, 0)
 
 [node name="ShelfUnit8" parent="Props" instance=ExtResource("26_shelf_unit")]
-position = Vector3(3.6344, 0, -3.15)
+position = Vector3(-1.078, 0, -3.15)
 rotation = Vector3(0, -0.1059, 0)
 
 [node name="FilingCabinet9" parent="Props" instance=ExtResource("31_filing_cabin")]
-position = Vector3(-1.1065, 0, 3.15)
-rotation = Vector3(0, 3.0595, 0)
+position = Vector3(-7.5785, 0, -3.15)
+rotation = Vector3(0, -0.0821, 0)
 
 [node name="CornerCrate0" parent="Props" instance=ExtResource("29_crate")]
 position = Vector3(10, 0, 3)

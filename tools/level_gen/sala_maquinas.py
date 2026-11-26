@@ -40,8 +40,8 @@ k.door("door_maquinas_pasillo", (-4.1, 0, -0.1), "res://levels/station/service_c
        lock_id="station_power", requires_flag=True, one_way=True, one_way_origin=True,
        locked_text="La compuerta eléctrica no libera el pestillo. El tablero necesita dos fusibles de 10 A.")
 k.spawn("from_office", (0.0, 0.05, 3.0), (0, -1))
-k.spawn("from_south_platform", (3.75, 0.05, 1.0), (-1, 0))
-k.spawn("from_service_corridor", (-3.75, 0.05, -0.1), (1, 0))
+k.spawn("from_south_platform", (3.95, 0.05, 1.0), (-1, 0))
+k.spawn("from_service_corridor", (-3.95, 0.05, -0.1), (1, 0))
 # El tablero usa los fusibles que se registran en baños y oficina.
 k.fuse_box("FuseBoard", (0.0, 0, -3.25), "station_fuses", unlock_id="station_power", reach=1.5)
 k.examine("MainSwitch", (1.65, 0, -3.3), ["El interruptor principal está abajo.", "Primero debo instalar los dos fusibles; después puedo devolver la energía."])

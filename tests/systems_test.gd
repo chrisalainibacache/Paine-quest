@@ -764,13 +764,15 @@ func _chapter_route(player: Player) -> void:
     _check(main.room.get_tree().get_nodes_in_group("enemies").size() == 2, "al volver armada, llegaron infectados al andén")
     for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
         enemy.free()
+    # P15: el portón del andén norte es un atajo de un solo lado; al andén sur se llega por el pasillo y la bodega.
     var gate: Door = main.room.get_node("Interactables/Gate")
-    _check(gate.is_locked(), "el portón al andén sur tiene candado")
-    GameState.inventory.add(KEY)
-    player.interaction.use(gate)
-    await _close_dialogues()
+    _check(gate.is_locked() and gate.one_way and not gate.one_way_origin, "el portón del andén norte solo se abre desde el andén sur")
+    SceneLoader.go_to(SOUTH_PLATFORM, "from_storeroom")
     await _seconds(1.4)
-    _check(main.room.scene_file_path == SOUTH_PLATFORM, "con la llave, el portón lleva al andén sur")
+    _check(main.room.scene_file_path == SOUTH_PLATFORM, "por el pasillo y la bodega se llega al andén sur")
+    # La bajada a la vía exige los tres sellos (portón sur, energía y cabina de señales).
+    for sello in ["unlocked:gate_south", "unlocked:station_power", "unlocked:station_cabina"]:
+        GameState.set_flag(sello)
 
     for enemy in main.room.get_tree().get_nodes_in_group("enemies"):
         enemy.free()
@@ -1209,7 +1211,7 @@ func _p15_station_puzzles() -> void:
         "P15: el zumbido de máquina atenúa el radio de los pasos al 25 por ciento")
     GameState.flags.erase(VendingNoise.NOISE_FLAG)
 
-    var chapter_exit: ChapterExit = ChapterExit.new()
+    var chapter_exit = (load("res://levels/kit/interact/chapter_exit.gd") as GDScript).new()  # sin tipo: el script no declara class_name
     chapter_exit.required_flags = PackedStringArray([
         "unlocked:gate_south", "unlocked:station_power", "unlocked:station_cabina"
     ])

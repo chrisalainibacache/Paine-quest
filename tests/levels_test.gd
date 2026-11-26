@@ -137,6 +137,13 @@ func _check_chapter_flow(chapter: int, dir: String, start_room: String, needed_k
             for node in room.find_children("*", "Interactable", true, false):
                 if node.get_script().resource_path.ends_with("chapter_exit.gd"):
                     exit_found = true
+                # Las llaves también pueden estar en contenedores (REGISTRAR): cuentan como encontradas.
+                if node.get_script().resource_path.ends_with("container.gd"):
+                    for item_id: String in node.content_item_ids:
+                        var stored := load("res://data/items/%s.tres" % item_id) as ItemData
+                        if stored != null and stored.kind == ItemData.Kind.KEY and not keys.has(stored.id):
+                            keys[stored.id] = true
+                            changed = true
             for door: Door in room.find_children("*", "Door", true, false):
                 if door.target_room.is_empty() or reached.has(door.target_room):
                     continue

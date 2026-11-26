@@ -67,7 +67,7 @@ k.camera("East", (1.4, 1.4, 0.0), (2.2, 2.8, 4.0), (-2.2, 2.6, -1.6), (1.8, 0.4,
 k.spawn("from_waiting_room", (1.7, 0.05, 2.5), (0, -1))
 k.spawn("from_corridor", (3.0, 0.05, -0.6), (-1, 0))
 k.spawn("from_office", (3.0, 0.05, -0.6), (-1, 0))
-k.spawn("from_signal_cabin", (-3.0, 0.05, -1.2), (1, 0))
+k.spawn("from_signal_cabin", (-2.4, 0.05, -1.7), (1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoGuardDesk', (-1.5, 0, -0.65), ['Leo: El escritorio de don Héctor. Rosa dejó aquí sus balas.', 'Leo: No me gusta ese ruido, Isabella. Pero es mejor que lo tengas tú.'], hide_if='found:pistol')
 k.leo_hint('LeoCorridor', (1.6, 0, -0.6), ['Leo: La llave del portón está en la bodega. Este pasillo lleva allá.', 'Leo: Yo voy adelante. Si me erizo y bufo, es que alguien nos espera.', 'Leo: Sal por la puerta PASILLO DE SERVICIO; allí sigue la puerta BODEGA para buscar la llave del portón.'], show_if='found:pistol', hide_item='gate_key')
@@ -86,21 +86,5 @@ own_props = [
 ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.42, 0.42, 0.42)))
-k.save(REPO + "/levels/station/ticket_office.tscn")k.save(REPO + "/levels/station/ticket_office.tscn")
-print("ticket office ok")detail.dress(k, -3.7, 3.7, -3.2, 3.2, H, theme="office", seed=507,
-             avoid=[(-0.8, 2.7, 1.3), (-3.25, -0.3, 1.2), (2.8, -2.5, 1.1),
-                    (1.7, 3.1, 0.9), (3.6, -0.6, 0.9), (-3.6, -1.2, 0.9)])
-own_props = [
-    ("DeskRadio", "field_radio", (-3.2, 0.9, -0.3)), ("Filing", "filing_cabinet", (-3.6, 0.0, -2.8)),
-    ("Shelf", "shelf_unit", (-2.8, 0.0, -2.8)), ("NoticeBoard", "notice_board", (3.6, 0.0, 2.8)),
-    ("PipeRack", "pipe_rack", (-3.6, 0.0, 1.2)), ("Extinguisher", "extinguisher", (3.6, 0.0, -2.8)),
-    ("WallClock", "wall_clock", (0.0, 2.3, 3.4)), ("Plant", "plant_pot", (3.2, 0.0, 2.4)),
-    ("TravelPoster", "travel_poster", (-3.8, 1.5, 1.0)), ("StationSign", "station_sign", (0.0, 2.2, 3.4)),
-    ("CrateA", "crate", (2.8, 0.0, -3.0)), ("CrateB", "crate", (3.2, 0.0, -3.0)),
-    ("Paper", "paper", (-3.2, 0.9, -0.3)), ("KeyProp", "key", (-3.0, 0.9, -0.3)),
-    ("AmmoBox", "ammo_box", (2.4, 0.0, -3.0)), ("Bench", "bench", (3.0, 0.0, 2.0)),
-]
-for prop_name, scene_name, prop_pos in own_props:
-    k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.42, 0.42, 0.42)))
-k.save(REPO + "/levels/station/ticket_office.tscn")k.save(REPO + "/levels/station/ticket_office.tscn")k.save(REPO + "/levels/station/ticket_office.tscn")
+k.save(REPO + "/levels/station/ticket_office.tscn")
 print("ticket office ok")
