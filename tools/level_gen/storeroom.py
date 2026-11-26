@@ -1,7 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-from station_detail import add_station_detail
+import detail
 k = Kit("Storeroom", "Bodega", ambience="storeroom")
 k.env((0.02, 0.02, 0.025), (0.36, 0.36, 0.4), 0.7, (0.05, 0.05, 0.06), 0.05)
 H = 3.2
@@ -67,19 +67,20 @@ k.camera("East", (1.9, 1.5, 0.0), (3.2, 3.0, 6.0), (-0.5, 2.9, 2.75), (2.8, 0.3,
 k.spawn("from_corridor", (-2.7, 0.05, 1.6), (1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoKey', (2.4, 0, 1.55), ['Leo: Don Héctor cuidaba este portón. Ya no es él, Isabella.', 'Leo: La llave no está aquí; el casillero cuatro del pasillo tiene pintura fresca.', 'Leo: Vuelve al pasillo de servicio y registra el casillero 04 para conseguir la llave.'], hide_item='gate_key')
-prop_types = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
-               "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
-               "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
-               "fire", "ammo_box", "paper", "key"]
-camera_specs = [
-    ("Racks", (-1.6, 1.5, -2.0), (5.5, 3.0, 5.5), (3.2, 3.0, 2.4), (-1.6, 0.5, -2.4)),
-    ("Guard", (2.0, 1.5, -1.8), (5.5, 3.0, 5.5), (-1.0, 3.0, 2.2), (2.0, 0.5, -2.0)),
-    ("Entry", (-2.6, 1.5, 1.5), (5.5, 3.0, 5.5), (2.0, 3.0, 3.5), (-2.8, 0.5, 1.5)),
-    ("South", (3.0, 1.5, 1.0), (5.0, 3.0, 5.5), (-1.0, 3.0, 3.5), (3.0, 0.5, 1.0)),
+detail.dress(k, -3.2, 3.2, -2.8, 2.8, H, theme="storage", seed=506,
+             avoid=[(-3.1, 1.6, 0.9), (3.1, 1.0, 0.9), (2.4, -2.2, 1.1),
+                    (3.05, 1.85, 1.1), (0.0, 0.7, 1.0), (-1.9, -2.5, 0.8)])
+own_props = [
+    ("LockerRow", "locker_row", (-3.0, 0.0, -0.4)), ("ShelfA", "shelf_unit", (-2.8, 0.0, 1.8)),
+    ("ShelfB", "shelf_unit", (-2.8, 0.0, 2.4)), ("OilBarrel", "oil_barrel", (-3.0, 0.0, -1.8)),
+    ("CableDrum", "cable_drum", (-2.4, 0.0, -1.8)), ("Ladder", "ladder", (2.8, 0.0, -2.5)),
+    ("NoticeBoard", "notice_board", (-3.3, 0.0, 0.6)), ("Extinguisher", "extinguisher", (-3.2, 0.0, -2.2)),
+    ("PipeRack", "pipe_rack", (2.8, 0.0, -1.2)), ("WallClock", "wall_clock", (0.0, 2.2, 2.8)),
+    ("Radio", "field_radio", (-1.8, 0.9, 2.4)), ("TravelPoster", "travel_poster", (-3.3, 1.5, 1.5)),
+    ("StationSign", "station_sign", (3.2, 1.8, 2.2)), ("Plant", "plant_pot", (2.8, 0.0, 2.4)),
+    ("Paper", "paper", (2.2, 0.9, 2.2)), ("AmmoBox", "ammo_box", (-1.0, 0.0, 2.4)),
 ]
-add_station_detail(k, "Storeroom", prop_types,
-                   ["BODEGA", "CARGA", "DON HÉCTOR", "MANTENIMIENTO",
-                    "MATERIAL FERROVIARIO", "NO ENTRAR", "PORTÓN SUR", "ALMACÉN"],
-                   camera_specs, (-3.2, 3.2, -2.8, 2.8))
-k.save(REPO + "/levels/station/storeroom.tscn")
+for prop_name, scene_name, prop_pos in own_props:
+    k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.45, 0.45, 0.45)))
+k.save(REPO + "/levels/station/storeroom.tscn")k.save(REPO + "/levels/station/storeroom.tscn")
 print("storeroom ok")
