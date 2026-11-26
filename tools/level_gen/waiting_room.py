@@ -1,7 +1,8 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from tscn import *
-from station_detail import add_station_detail, SceneKitAdapter
+from station_detail import SceneKitAdapter
+import detail
 KB = "res://levels/kit/kit_block.gd"
 M = lambda n: "res://levels/kit/materials/%s.tres" % n
 PROP = lambda n: "res://levels/kit/props/%s.tscn" % n
@@ -173,19 +174,8 @@ from roomkit import add_leo_hint
 add_leo_hint(s, 'LeoTicketOffice', (2.6, 0, -2.6), ['Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.', 'Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.', 'Leo: Rodea la máquina por el lado opuesto y entra por la puerta SOLO PERSONAL hacia la boletería.'], hide_if='found:pistol')
 add_leo_hint(s, 'LeoTypewriter', (3.2, 0, 1.4), ['Leo: Esa máquina de escribir guarda lo que llevamos hecho.', 'Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.', 'Leo: Acércate a la máquina y elige GUARDAR cuando te pregunte. Así no perderemos lo que avanzamos.'], show_if='found:pistol')
 detail_adapter = SceneKitAdapter(s, block, prop)
-detail_props = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
-                "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
-                "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
-                "fire", "ammo_box", "paper", "key"]
-detail_cameras = [
-    ("Entry", (-2.0, 1.5, 0.0), (5.0, 3.0, 7.0), (2.4, 2.8, 3.15), (-2.6, 0.5, -0.9)),
-    ("Desk", (2.5, 1.5, 0.0), (4.0, 3.0, 7.0), (-1.9, 2.8, 3.15), (3.0, 0.5, -0.9)),
-    ("BathWing", (-3.6, 1.5, -0.5), (4.5, 3.0, 5.5), (0.5, 3.0, 3.8), (-3.8, 0.5, -0.5)),
-    ("Typewriter", (3.2, 1.5, 1.4), (4.5, 3.0, 5.5), (-1.0, 3.0, 3.8), (3.2, 0.5, 1.4)),
-]
-add_station_detail(detail_adapter, "WaitingRoom", detail_props,
-                   ["SALA DE ESPERA", "BOLETERÍA", "BAÑOS", "RELOJ DETENIDO",
-                    "NO FUMAR", "SALIDA", "PERSONAL", "PAINE"],
-                   detail_cameras, (-4.5, 4.5, -3.5, 3.5))
-s.save(REPO + "/levels/station/waiting_room.tscn")
+detail.dress(detail_adapter, -4.2, 4.2, -3.2, 3.2, H, theme="corridor", seed=506,
+             avoid=[(-2.5, 3.15, 1.0), (2.9, -3.15, 1.0), (-4.2, -0.4, 0.9),
+                    (0.0, 0.0, 1.2), (3.2, 1.4, 1.0)])
+s.save(REPO + "/levels/station/waiting_room.tscn")s.save(REPO + "/levels/station/waiting_room.tscn")
 print("waiting room ok")
