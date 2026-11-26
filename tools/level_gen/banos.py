@@ -2,7 +2,7 @@ import sys, math, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-from station_detail import add_station_detail
+import detail
 
 k = Kit("Bathrooms", "Baños", ambience="service_corridor")
 # P15: la cisterna y su válvula se generan desde este script, no desde la escena.
@@ -53,21 +53,35 @@ k.leo_hint("LeoFuseBathroom", (-3.3, 0, -0.2), [
     "Leo: Cierra la válvula de paso y registra la cisterna para buscar el fusible."
 ])
 # Propiedades de baño + utilería de estación, organizada en recodos.
-prop_types = [
-    "wall_lantern", "plant_pot", "crate", "station_sign", "wall_clock",
-    "park_bench", "window_arch", "travel_poster", "iron_column", "sodium_lamp",
-    "bench", "vending_machine", "typewriter_desk", "paper", "key", "ammo_box",
-    "seat_pair", "fire",
+# Pasada oficial de detalle (mobiliario de mantenimiento + suciedad) y props propios.
+detail.dress(k, -4.2, 4.2, -3.7, 3.7, H, theme="bathroom", seed=501,
+             avoid=[(-3.3, -0.2, 1.2), (-2.35, -0.2, 0.8), (-4.1, 1.0, 0.8),
+                    (4.1, -0.1, 0.8), (-3.2, 3.35, 0.8), (-1.1, 3.35, 0.8),
+                    (1.1, 3.35, 0.8)])
+own_props = [
+    ("TowelRack", "pipe_rack", (-4.0, 0.0, 2.6)), ("SoapShelf", "shelf_unit", (-3.8, 0.0, 2.1)),
+    ("CleaningLocker", "locker_row", (3.4, 0.0, -2.9)), ("MopBucket", "oil_barrel", (3.8, 0.0, -2.5)),
+    ("Extinguisher", "extinguisher", (-4.0, 0.0, -2.8)), ("NoticeBoard", "notice_board", (2.9, 0.0, 3.0)),
+    ("LampA", "hanging_lamp", (-2.0, 2.4, 0.0)), ("LampB", "hanging_lamp", (2.0, 2.4, 0.0)),
+    ("Clock", "wall_clock", (0.0, 2.0, 3.5)), ("Plant", "plant_pot", (3.5, 0.0, 2.5)),
+    ("Bench", "park_bench", (2.9, 0.0, 2.0)), ("Poster", "travel_poster", (-4.2, 1.4, 0.5)),
+    ("Sign", "station_sign", (4.2, 1.8, 0.8)), ("Desk", "typewriter_desk", (-1.8, 0.0, -3.2)),
+    ("CrateA", "crate", (2.8, 0.0, -3.2)), ("CrateB", "crate", (3.4, 0.0, -3.2)),
+    ("Paper", "paper", (-1.5, 0.9, 0.8)), ("KeyProp", "key", (-1.2, 0.9, 0.8)),
+    ("AmmoBox", "ammo_box", (1.7, 0.0, -3.2)), ("Vending", "vending_machine", (4.0, 0.0, 2.8)),
 ]
+for prop_name, scene_name, prop_pos in own_props:
+    k.prop(prop_name, "Props", scene_name, prop_pos, scale=v3((0.48, 0.48, 0.48)))
 camera_specs = [
     ("Entry", (-3.0, 1.5, 1.0), (5.0, 3.0, 5.5), (0.0, 3.0, 4.8), (-3.4, 0.5, 0.2)),
     ("Cubicles", (0.0, 1.5, -2.0), (5.5, 3.0, 5.5), (-2.8, 3.0, 1.0), (1.2, 0.5, -2.5)),
     ("Cistern", (-3.2, 1.5, -0.2), (5.0, 3.0, 5.5), (0.5, 3.0, 2.2), (-3.2, 0.5, -0.2)),
     ("Service", (3.0, 1.5, 0.0), (5.5, 3.0, 5.5), (-1.0, 3.0, -1.0), (3.8, 0.5, 0.0)),
 ]
-add_station_detail(k, "Bathrooms", prop_types,
-                   ["BAÑOS", "PERSONAL", "CERRAR ANTES DE ABRIR", "AGUA POTABLE",
-                    "NO PASAR", "LIMPIEZA", "SERVICIO", "SALIDA"],
-                   camera_specs, (-4.5, 4.5, -4.0, 4.0))
+for camera_name, zone_center, zone_size, camera_pos, camera_target in camera_specs:
+    k.camera(camera_name, zone_center, zone_size, camera_pos, camera_target, fov=62)
+k.light("BathroomWarm", "Lights", (-3.0, 2.4, 2.5), (1.0, 0.72, 0.42), 0.9, 4.0)
+k.light("BathroomCool", "Lights", (3.0, 2.4, -2.5), (0.58, 0.72, 1.0), 0.75, 4.0, flicker=True)
+k.light("BathroomEmergency", "Lights", (0.0, 2.2, 0.0), (0.65, 0.08, 0.05), 0.5, 3.0, flicker=True)
 k.save(REPO + "/levels/station/banos.tscn")
 print("banos ok")
