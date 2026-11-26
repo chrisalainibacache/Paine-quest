@@ -1,7 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from tscn import *
-from station_detail import SceneKitAdapter
+from legacy_detail_adapter import SceneKitAdapter
 import detail
 KB = "res://levels/kit/kit_block.gd"
 M = lambda n: "res://levels/kit/materials/%s.tres" % n
