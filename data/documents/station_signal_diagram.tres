@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "station_signal_diagram"
+title = "Copia del diagrama de señales"
+pages = PackedStringArray("Copia de la hoja del panel: LIBRE ocupa la posición 1, DESVÍO la 2 y BLOQUEO la 3. Para liberar la cabina, accionarlas en el orden 2 → 1 → 3: DESVÍO, LIBRE, BLOQUEO.", "La caja de herramientas del panel conserva una llave de señales. El portón sur exige tres pasos: llave del portón, energía de estación y señales liberadas.")
