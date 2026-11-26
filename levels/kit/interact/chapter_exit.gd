@@ -20,11 +20,17 @@ func _play_radio_static() -> void:
         Sfx.play("radio_static", global_position, -8.0)
 
 
-func interact(_player: Player) -> void:
+func requirements_met() -> bool:
     for required_flag: String in required_flags:
         if not GameState.has_flag(required_flag):
-            await Dialogue.say([blocked_text])
-            return
+            return false
+    return true
+
+
+func interact(_player: Player) -> void:
+    if not requirements_met():
+        await Dialogue.say([blocked_text])
+        return
     if await Dialogue.ask(question, [accept_text, "TODAVÍA NO"]) == 0:
         if not before_lines.is_empty():
             _play_radio_static()
