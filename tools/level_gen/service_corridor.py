@@ -7,7 +7,14 @@ k.env((0.01, 0.01, 0.012), (0.28, 0.3, 0.32), 0.45, (0.03, 0.03, 0.035), 0.07)
 H = 2.7
 k.shell(-6.0, 6.0, -1.0, 1.0, H, floor="concrete_floor", wall="concrete_wall", ceiling="concrete_wall", wainscot="tiles_wall",
         walls={"N": "old_bricks_wall"})
+# Ala de mantenimiento al sur: el pasillo se ensancha en L antes de llegar a baños.
+k.block("WingFloor", "Architecture", (-3.8, -0.5, 3.0), (4.8, 1.0, 4.2), "concrete_floor")
+k.block("WingNorthWall", "Architecture", (-3.8, 1.35, 5.1), (4.8, 2.7, 0.3), "old_bricks_wall")
+k.block("WingWestWall", "Architecture", (-6.2, 1.35, 3.0), (0.3, 2.7, 4.2), "concrete_wall")
+k.block("WingEastWall", "Architecture", (-1.4, 1.35, 3.0), (0.3, 2.7, 4.2), "concrete_wall")
+k.block("WingCeiling", "Architecture", (-3.8, 2.8, 3.0), (4.8, 0.1, 4.2), "concrete_wall")
 k.door_frame("ToOffice", -6.0, 0.0, "z", width=1.0, wall_side=1)
+k.door_frame("ToBathrooms", -4.0, 1.0, "x", width=1.1, wall_side=-1)
 k.door_frame("ToStore", 6.0, 0.0, "z", width=1.1, wall_side=-1, panel="metal")
 k.label("StoreSign", "Details", (5.95, 2.3, 0.0), "BODEGA", 30, (0.8, 0.75, 0.6), rot=(0, -math.pi / 2, 0))
 # Casilleros, banca y cañerías.
