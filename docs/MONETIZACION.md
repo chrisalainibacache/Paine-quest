@@ -10,7 +10,7 @@
 | Recurso | Dónde | Licencia | Estado |
 | --- | --- | --- | --- |
 | Armas: escopeta, fusil de asalto, rifle | `assets/weapons/` | Quaternius, CC0 | 🟢 |
-| Leo, Kiara, Nala, animaciones UAL | `assets/characters/{leo,dogs,animations}` | Quaternius, CC0 | 🟢 |
+| Leo, animaciones UAL | `assets/characters/{leo,animations}` | Quaternius, CC0 | 🟢 |
 | Infectado «Male City Zombie» | `infected_city.glb` | Rikindle3D, CC0 | 🟢 |
 | Texturas (ambientCG), modelos de relleno (Poly Haven), fondos prerenderizados | `assets/environment/`, `assets/backgrounds/` | CC0 | 🟢 |
 | Sonidos (armas, infectados, puertas, ambientes) | `assets/audio/` | OpenGameArt, CC0 | 🟢 |

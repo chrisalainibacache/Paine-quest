@@ -18,7 +18,7 @@ Isabella, que murió): todo lo de Leo se escribe con ese cariño. Lee `docs/GDD.
 línea de tiempo: las notas **deben** respetarla).
 
 Estado: capítulo 1 (estación, 6 salas), capítulo 2 (las vías, 6 salas) y capítulo 3 (Buin,
-7 salas, con Kiara y Nala) están hechos. Siguen el capítulo 4 (La Maestranza, San Bernardo),
+7 salas) están hechos. Siguen el capítulo 4 (La Maestranza, San Bernardo),
 el 5 (Santiago / Centro de Nos) y el epílogo "Para Leo". Ver `docs/ROADMAP.md`.
 
 ## 2. Lee antes de tocar nada

@@ -97,10 +97,8 @@ Tono: la estación de Paine de noche, vacía, **algo anda mal**; Leo e Isabella 
 Reglas: saltable con un toque (tras 1 s); sin diálogo; el video vive en `assets/video/intro.ogv` (Theora + Vorbis).
 La **cinemática de Skull** (puerta que estalla, capítulo 2) es otra pieza y sigue su propio ticket (T9).
 
-### Kiara y Nala (las perras de Chris)
-Aparecen en el capítulo 3 (potrero) y salvan a Isabella y Leo de una horda. Luego siguen
-rescatando gente: pueden volver a aparecer más adelante (por ejemplo, en el capítulo 4 o
-en el epílogo). Modelos: `actors/dogs/` (Quaternius CC0, pintadas por vértice).
+### Kiara y Nala — **eliminadas** (decisión de Chris, 2026-11-26)
+Se quitaron la escena, las perras y todas sus líneas; el tiempo se invierte en niveles no lineales y guion. No volver a nombrarlas. El potrero ahora es una sala de exploración con un eco de Skull (ver `docs/GUION_FINAL.md`).
 
 ### Skull, la Criatura (decisión de Chris, noviembre)
 **Se llama Skull** (nombre de código y de diseño; en el juego nadie lo dice hasta que Chris lo decida). Una amenaza que **busca a Isabella** a lo largo del juego y que **nunca se ve**
@@ -451,7 +449,7 @@ Se llega con CONTINUAR al terminar el capítulo 2. Sábado en la mañana: luz de
 | 2 | Control militar (`checkpoint`) | Carpa, camión con camillas, **soldados infectados con casco** (10 balazos), fusil de asalto sobre caja de armamento. **Orden del día** y máquina de escribir. |
 | 3 | Estación de Buin (`station`) | Hall convertido en espera del tren sanitario. **Lista del tren** (Raúl, el capitán, un niño). |
 | 4 | Bodega agrícola (`warehouse`) | Apagón (linterna). Dos infectados rápidos. **Llave del galpón** en el tractor y la **carta de Ana**. |
-| 4b | Potrero (`field`) | Despejado... demasiado. **Escena de Kiara y Nala** (`levels/kit/rescue_scene.gd`): aparece una horda, a Isabella se le traba la pistola, Leo se pone delante ("Tranquila, Isabella. Yo te protejo") y llegan **Kiara** (akita naranja, enorme: parada en dos patas es más alta que Isabella) y **Nala** (bull terrier gris atigrado con café, más chica). Las salvan; Isabella les da las gracias y les pide que sigan sacando gente; ladran y se van. Una sola vez. |
+| 4b | Potrero (`field`) | Sala de exploración con tres salidas y un **eco de Skull** (silueta alta y huella; nunca se ve completo). Se rehace en P17. *(La escena de Kiara y Nala se eliminó.)* |
 | 5 | Viña Santa Rosa (`vineyard`) | Hileras de parras; el galpón se abre con la llave. |
 | 6 | Galpón (`shed`) | Sala segura. Rifle Mauser de cacería sobre el escritorio. **Rosa**, mordida, habla a través de la puerta (credencial del Centro de Nos). La **radio** (la voz de Paz pregunta si hay **sobrevivientes**): Paz está en la Maestranza de San Bernardo → fin del capítulo. **Rosa es sospechosa:** estaba en Paine a las 23:00 y nadie explica cómo cruzó sola hasta Buin (**sin explicación a propósito**). Isabella empieza a sospechar y **Leo, más aún**: cree que Rosa es **un infectado distinto**, no como los demás. |
 
@@ -561,3 +559,10 @@ muestra una imagen renderizada con calidad de película (como RE3) y los persona
 
 - Cuerpo a cuerpo, cambio rápido de armas, salto, mundo abierto, multijugador.
 - Cinemática del choque del tren (el tren ya está destruido cuando llegan).
+
+
+## Decisiones del 2026-11-26 (prioridades de Chris)
+1. **No lineal es lo más importante:** cada capítulo es un hub con tres alas (contrato en `docs/GUION_FINAL.md` §2).
+2. **Guion de lo que falta** rediseñado: `docs/GUION_FINAL.md` (Skull como «puesto», asiento 15 como persona, Paz con culpa, Tomás opcional, jefe final en tres fases, epílogo «Para Leo»).
+3. **Mismo detalle que el andén norte** en todo el juego: `docs/ESTANDAR_DETALLE.md` y `tools/audit_detail.py` (CI).
+4. **Se eliminan Kiara y Nala.**

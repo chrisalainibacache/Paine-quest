@@ -12,7 +12,7 @@ Cada push a `main` compila y publica el APK. Responder en español, con pasos co
 ## Historia (canon, ver GDD §2)
 Isabella (antes "Cony") y su gata **Leo** (en secreto la gata que murió: es su última aventura) viajan desde Paine
 hacia Santiago a buscar a su hermana **Paz** (antes "Javiera"). Cap. 1 estación (6 salas), cap. 2 las vías (6),
-cap. 3 Buin (7, con Kiara y Nala). Faltan cap. 4 La Maestranza (San Bernardo, donde trabaja Paz), cap. 5 Santiago /
+cap. 3 Buin (7). Faltan cap. 4 La Maestranza (San Bernardo, donde trabaja Paz), cap. 5 Santiago /
 Centro de Nos y epílogo «Para Leo». **Skull**: criatura que busca a Isabella, nunca se ve (cinemática de puerta que
 estalla al empezar el cap. 2, ticket T9); no se relaciona con el pasajero del asiento 15; habrá encuentro (propuesta: cap. 4).
 

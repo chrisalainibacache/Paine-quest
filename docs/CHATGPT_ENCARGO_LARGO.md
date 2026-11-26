@@ -356,7 +356,7 @@ Chris probó la build-129: «demasiado lineal, puzzles muy básicos, llaves en e
 Es **P10-c** (diseño) **y** su implementación, en este orden: **(a)** `docs/zonas/cap2_vias.md` con el contrato de `docs/zonas/README.md` (8–12 salas, 2 bucles, 2 atajos, ≥ 6 puzzles de 4 tipos, pistas, mapa) respetando `docs/GUION.md` y las salas ya existentes (`track_north`, `derailed_train`, `wagon_interior`, `convoy_side`, `underpass`, `switch_house`); **(b)** generadores de las salas nuevas y reforma de las existentes **como en P15-a/b**; **(c)** puzzles; **(d)** objetos/mapa `map_tracks`/pistas; **(e)** pruebas de alcanzabilidad; **(f)** duración y balance; **(g)** documentación. Conserva el **final del capítulo** y la linterna/apagón, y la escena de Skull (`creature_door`).
 
 ## P17 — Capítulo 3 «Buin»: diseño + implementación (~7 tareas) · rama `chatgpt/P17-cap3`
-Igual que P16 con **P10-d**: `docs/zonas/cap3_buin.md` y las siete salas actuales (`bridge`, `checkpoint`, `field`, `station`, `warehouse`, `vineyard`, `shed`) más nuevas. Conserva el **rescate de Kiara y Nala** (`rescue_scene.gd`) y la radio de Rosa.
+Igual que P16 con **P10-d**: `docs/zonas/cap3_buin.md` y las siete salas actuales (`bridge`, `checkpoint`, `field`, `station`, `warehouse`, `vineyard`, `shed`) más nuevas. **Kiara y Nala se eliminaron** (ver la actualización de prioridades al final) y la escena `rescue_scene.gd` ya no existe; conserva **Rosa** y la radio de Paz.
 
 ## P18 — Capítulo 4 «La Maestranza»: diseño + implementación (~7 tareas) · rama `chatgpt/P18-cap4`
 **P10-e** + implementación sobre `docs/cap4_*.md` y las salas `maestranza_*` ya hechas (acceso, guardia, enfermería, taller, vestuario, pasillo de cuarentena, puesto sanitario): más salas, bucles, puzzles, **patio de maniobras** (jefe, **sin mostrar su cuerpo completo antes del combate**) y encuentro con Paz. El vagón del Centro de Nos sigue sellado.
@@ -369,3 +369,22 @@ Igual que P16 con **P10-d**: `docs/zonas/cap3_buin.md` y las siete salas actuale
 
 ## Orden de trabajo de ChatGPT (2026-11-26, vigente)
 **P15** (capítulo 1: **empieza ya**) → **P16** → **P17** → **P18** → **P19** → **P14** (IA de infectados; antes tenía prioridad, ahora va después de los niveles porque Chris necesita **terminar el juego**) → **P13** (cooperativo) → **P20**. Un PR por paquete. **Empuja cada commit y sigue sin esperar el CI**; si algo te bloquea, escríbelo en «Preguntas» con el error exacto.
+
+
+---
+
+# ACTUALIZACIÓN DE PRIORIDADES (2026-11-26, tarde) — LEER PRIMERO
+
+Chris fijó el orden de importancia. **Manda sobre todo lo anterior:**
+1. **Que el juego NO sea lineal** (lo más importante). Cada capítulo es un **hub con 3 alas** que se hacen en cualquier orden, con bucles, atajos, retroceso premiado y opcionales (`docs/GUION_FINAL.md` §2: es el contrato; **si una zona no lo cumple, no está terminada**).
+2. **Un guion bueno:** el guion de lo que falta está en **`docs/GUION_FINAL.md`** (capítulos 3 ajustado, 4 completo, 5, epílogo). **Léelo entero antes de P16.** No lo cambies sin escribirlo en «Preguntas».
+3. **Mismo nivel de detalle que el andén norte** en **todas** las salas: **`docs/ESTANDAR_DETALLE.md`** y la herramienta `python3 tools/audit_detail.py`. Cada sala que crees o rehagas **se agrega a `tools/detail_rooms.json`** el mismo día y debe pasar `python3 tools/audit_detail.py --check` (nodos ≥ 150, props ≥ 40, ≥ 14 tipos, ≥ 15 manchas, ≥ 4 cámaras). **Hoy solo el andén norte llega** (La Maestranza tiene 2–6 props por sala): **hay que rehacer también las salas existentes de los capítulos 2, 3 y 4 a ese nivel**, no solo crear nuevas.
+4. **Kiara y Nala ya no existen** (Chris las eliminó): no las nombres ni las uses en notas, pistas de Leo, líneas de Ignacia ni textos de pantalla.
+
+**Cambios en los paquetes por esto:**
+- **P15 (capítulo 1):** además de lo dicho, **todas** las salas (las 6 actuales y las 4 nuevas) **al estándar de detalle**, y **hub + 3 alas** (Estación: ala Boletería/Oficina, ala Servicios/Bodega, ala Máquinas/Cabina; los 3 objetos de paso abren el portón sur).
+- **P16 (capítulo 2):** zona-hub; incluye **la cinemática de Skull** ya existente; salas rehechas al estándar.
+- **P17 (capítulo 3):** reescribe el **potrero** como sala de exploración con tres salidas y **sin la escena de las perras** (ver `GUION_FINAL.md` §3, con el **eco de Skull**: silueta alta y huella); reescribe las pistas de Leo e Ignacia que nombraban a las perras; conserva **Rosa** y la **radio de Paz**.
+- **P18 (capítulo 4):** hub = **Patio cubierto** con **tres alas** (Administración, Enfermería/Cuarentena, Talleres) y **tres sellos**; **opcional: Tomás**; **no implementes** el jefe del patio ni la escena del aplauso (los hace Claude): deja la sala del patio de maniobras con **puntos de cobertura y vagones** y un `# CLAUDE:` donde irá el encuentro.
+- **P19 (capítulo 5):** hub = **Atrio** con **tres alas** (Investigación, Atención, Contención) y **tres llaves de paso** hacia la sala de aislamiento; **no implementes** el jefe final ni el epílogo (los hace Claude).
+- **Cada paquete cierra con una tabla de no linealidad** en el registro: hub, 3 alas, objetos de paso, **dos rutas por objetivo, dos bucles, dos atajos, ≥ 3 zonas que se abren al volver, ≥ 2 opcionales con recompensa** y la **prueba de alcanzabilidad** que lo demuestra.

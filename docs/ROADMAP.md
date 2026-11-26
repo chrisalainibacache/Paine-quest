@@ -87,9 +87,7 @@ bodega agrícola, potrero, viña Santa Rosa y galpón.
 - [x] La estación conserva la lista de pasajeros del tren sanitario.
 - [x] La bodega agrícola está a oscuras; Isabella usa la linterna para encontrar en el tractor
   la llave del galpón y leer la carta de Ana.
-- [x] En el potrero ocurre el rescate de Isabella y Leo por **Kiara y Nala**. Kiara es una
-  akita naranja, grande; Nala es una bull terrier gris atigrada con café, más pequeña.
-  La escena guionada se activa una sola vez por partida.
+- [x] ~~Escena de Kiara y Nala~~ **eliminada el 2026-11-26** (el potrero se rehace como sala de exploración, P17).
 - [x] La llave del tractor abre el galpón de la viña.
 - [x] En el galpón, Rosa habla desde la oficina cerrada y la radio transmite el mensaje de Paz:
   está en La Maestranza, San Bernardo. Fin del capítulo.

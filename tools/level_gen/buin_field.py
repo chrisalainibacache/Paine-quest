@@ -2,7 +2,7 @@ import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file_
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from buin_common import *
 # Potrero junto a la vía, entre la estación de Buin y la viña: un lugar
-# despejado... demasiado. Aquí aparecen Kiara y Nala (levels/kit/rescue_scene.gd).
+# despejado... demasiado. Sin escena guionada: la sala la rehace P17.
 k = Kit("Field", "Potrero", ambience="day_fields")
 dawn(k, 0.014)
 X0, X1, Z0, Z1 = -10.0, 10.0, -6.0, 6.0
@@ -23,15 +23,10 @@ k.door("ToVineyard", (9.4, 0, 0.0), B % "vineyard", "from_field", prompt="SEGUIR
 k.label("VineyardSign", "Details", (9.7, 2.3, -1.6), "VIÑA SANTA ROSA →", 32, (0.9, 0.86, 0.75), rot=(0, -math.pi / 2, 0))
 k.pickup("Ammo", (2.0, 0.0, 4.8), "ammo_9mm", 20, rot=(0, 0.6, 0))
 k.pickup("Handroll", (-2.4, 0.0, -4.8), "handroll", rot=(0, 1.0, 0))
-# La escena: el disparador en el centro y su cámara (plano abierto, en alto).
-k.s.node("Rescue", "Node3D", ".", position=v3((0.0, 0.0, 0.0)), script=k.s.res("res://levels/kit/rescue_scene.gd", "Script"))
-k.s.node("Camera", "Camera3D", "Rescue", position=v3((-0.6, 3.4, 4.6)), rotation=v3(look_rotation((-0.6, 3.4, 4.6), (-1.0, 0.5, -1.0))),
-         fov="62.0", near="0.1", far="40.0")
 k.camera("West", (-5.0, 1.5, 0.0), (10.0, 3.0, 12.0), (0.5, 4.4, 5.6), (-5.5, 0.3, -0.8), fov=60)
 k.camera("East", (5.0, 1.5, 0.0), (10.0, 3.0, 12.0), (-0.5, 4.4, 5.6), (5.5, 0.3, -0.8), fov=60)
 k.spawn("from_station", (-8.6, 0.05, 0.0), (1, 0))
 k.spawn("from_vineyard", (8.6, 0.05, 0.0), (-1, 0))
-k.leo_hint("LeoQuiet", (2.5, 0, 0.0), ["Leo: Todo despejado... demasiado despejado, Isabella.", "Leo: No me gusta. Camina conmigo.", "Leo: Avanza por el potrero hasta la puerta SEGUIR hacia la viña."], hide_if="rescue:kiara_nala")
-k.leo_hint("LeoAfter", (8.6, 0, 0.0), ["Leo: Kiara y Nala van a estar bien. Ahora nos toca a nosotras.", "Leo: La viña está por aquí.", "Leo: Cruza el potrero por el camino despejado hasta la puerta SEGUIR hacia la viña."], show_if="rescue:kiara_nala")
+k.leo_hint("LeoQuiet", (2.5, 0, 0.0), ["Leo: Todo despejado... demasiado despejado, Isabella.", "Leo: No me gusta. Camina conmigo.", "Leo: Avanza por el potrero hasta la puerta SEGUIR hacia la viña."])
 k.save(REPO + "/levels/buin/field.tscn")
 print("field ok")

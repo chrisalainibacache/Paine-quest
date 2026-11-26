@@ -17,9 +17,8 @@
 [ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="15_pickup"]
 [ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="16_ammo_9mm"]
 [ext_resource type="Resource" path="res://data/items/handroll.tres" id="17_handroll"]
-[ext_resource type="Script" path="res://levels/kit/rescue_scene.gd" id="18_rescue_scene"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="19_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="20_leo_hint"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="18_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="19_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -1061,17 +1060,6 @@ item = ExtResource("17_handroll")
 count = 1
 model_rotation = Vector3(0, 1, 0)
 
-[node name="Rescue" type="Node3D" parent="."]
-position = Vector3(0, 0, 0)
-script = ExtResource("18_rescue_scene")
-
-[node name="Camera" type="Camera3D" parent="Rescue"]
-position = Vector3(-0.6, 3.4, 4.6)
-rotation = Vector3(-0.4768, 0.0713, 0)
-fov = 62.0
-near = 0.1
-far = 40.0
-
 [node name="Cameras" type="Node3D" parent="."]
 
 [node name="Spawns" type="Node3D" parent="."]
@@ -1086,19 +1074,12 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="LeoQuiet" type="Marker3D" parent="."]
 position = Vector3(2.5, 0, 0)
-script = ExtResource("20_leo_hint")
+script = ExtResource("19_leo_hint")
 lines = PackedStringArray("Leo: Todo despejado... demasiado despejado, Isabella.", "Leo: No me gusta. Camina conmigo.", "Leo: Avanza por el potrero hasta la puerta SEGUIR hacia la viña.")
-hide_if_flag = "rescue:kiara_nala"
-
-[node name="LeoAfter" type="Marker3D" parent="."]
-position = Vector3(8.6, 0, 0)
-script = ExtResource("20_leo_hint")
-lines = PackedStringArray("Leo: Kiara y Nala van a estar bien. Ahora nos toca a nosotras.", "Leo: La viña está por aquí.", "Leo: Cruza el potrero por el camino despejado hasta la puerta SEGUIR hacia la viña.")
-show_if_flag = "rescue:kiara_nala"
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-6.5833, 1.5, -3)
-script = ExtResource("19_camera_zone")
+script = ExtResource("18_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_12")
@@ -1112,7 +1093,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, -3)
-script = ExtResource("19_camera_zone")
+script = ExtResource("18_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_13")
@@ -1126,7 +1107,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(6.5833, 1.5, -3)
-script = ExtResource("19_camera_zone")
+script = ExtResource("18_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_14")
@@ -1140,7 +1121,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(-6.5833, 1.5, 3)
-script = ExtResource("19_camera_zone")
+script = ExtResource("18_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_15")
@@ -1154,7 +1135,7 @@ far = 60.0
 
 [node name="Cam5" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, 3)
-script = ExtResource("19_camera_zone")
+script = ExtResource("18_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam5"]
 shape = SubResource("BoxShape3D_16")
@@ -1168,7 +1149,7 @@ far = 60.0
 
 [node name="Cam6" type="Area3D" parent="Cameras"]
 position = Vector3(6.5833, 1.5, 3)
-script = ExtResource("19_camera_zone")
+script = ExtResource("18_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam6"]
 shape = SubResource("BoxShape3D_17")

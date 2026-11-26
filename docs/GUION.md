@@ -22,7 +22,6 @@ gata **Leo** viajan a pie por la vía del tren desde Paine hacia Santiago, a bus
 | **Jorge Muñoz** | Maquinista del tren D-16008. Mete el tren al desvío a propósito. Muere mordido en la casa de cambios. |
 | **Ana Pizarro** | Temporera de Buin. Su hijo **Tomás (7)** se lo llevan en el tren sanitario. |
 | **Capitán R. Soto** | Ejército. Firma la orden del control de Buin; terminó él mismo en el tren sanitario. |
-| **Kiara y Nala** | Las perras de Chris: akita naranja enorme y bull terrier gris atigrado. Salvan a Isabella y Leo en Buin. |
 | **Skull** | Criatura que **busca a Isabella**; **nunca se ve**. (Nombre de diseño; nadie lo dice en el juego.) |
 | **Ignacia** | **Segunda protagonista (jugadora 2), solo en el modo cooperativo.** Técnica en enfermería, colega de Paz; llega a Paine a buscar a Isabella. Ver **§10**. *(Aprobada por Chris: solo «Ignacia», sin apellido.)* |
 | **Pasajero del asiento 15** | Hombre con la mano vendada, con credencial del «Centro de Investigación Sanitaria — Nos». Misterio abierto. |
@@ -127,11 +126,7 @@ ventana encendida de la sala de espera; fundido a negro. Título: **«PAINE — 
 2. **Control militar.** Carpa, camión con camillas («Todas tienen correas. Para los brazos y para las piernas.»). **Soldados infectados con casco** (10 balazos). Orden del día. Máquina de escribir.
 3. **Estación de Buin.** Hall convertido en espera del tren sanitario. Reloj: «marca las 4:10. / La hora en que salió el tren sanitario.» **Lista del tren.**
 4. **Bodega agrícola.** Apagón (linterna). Dos infectados rápidos. **Llave del galpón** en el tractor y la **carta de Ana**. Calendario: «Viernes marcado con lápiz rojo: «Vendimia. Llegan los temporeros de Paine.»»
-5. **Potrero.** Despejado… demasiado. **Escena de Kiara y Nala** (una sola vez):
-   - Aparece una horda. «Son muchos... / No. Son demasiados.»
-   - A Isabella se le traba la pistola: «*clic* ... *clic* / ¡Se trabó! ¡La pistola se trabó!»
-   - Leo se pone delante: «Leo: Tranquila, Isabella. Yo te protejo.» (bufa)
-   - Llegan **Kiara** y **Nala** y las salvan de la horda. «¿Kiara? ¿Nala?» · «Kiara: ¡Guau!» · «Gracias, chicas. Nos salvaron.» · «Hay mucha gente sola por aquí. Sigan sacándola, por favor. Ustedes pueden.» · «Nala: ¡Guau, guau!» · «Leo: Son valientes, Isabella. Ellas saben lo que hacen.» · «Golpeo la pistola contra la mano. Se destrabó.»
+5. **Potrero.** Despejado… demasiado. *(La escena de Kiara y Nala se **eliminó** el 2026-11-26; el potrero es ahora una sala de exploración con un eco de Skull: ver `docs/GUION_FINAL.md` §3.)*
 6. **Viña.** «Racimos maduros que nadie cosechó. / Ayer era la vendimia.» Leo: «El galpón. Rosa está ahí adentro, Isabella. Respira despacio.»
 7. **Galpón de la viña (sala segura).** Habla con **Rosa** a través de la puerta; luego la **radio** con la voz de Paz.
 

@@ -32,7 +32,6 @@ entries = Array[Dictionary]([
 { "room": "tracks/switch_house", "event": "safe_room", "text": "Ignacia: Descansa un rato. Yo hago guardia. En el hospital aprendí a dormir sentada." },
 { "room": "buin/bridge", "event": "chapter_entry", "text": "Ignacia: Anoche pasé por este puente en auto. No había nada de esto." },
 { "room": "buin/checkpoint", "event": "chapter_entry", "text": "Ignacia: Por aquí me dejaron pasar sin preguntar nada. Hacia el sur, todo bien. Hacia el norte, no." },
-{ "room": "buin/potrero", "event": "kiara_nala", "text": "Ignacia: ¿Eran perras de alguien? …Da igual. Gracias, chicas. Nos salvaron." },
 { "room": "buin/galpon", "event": "rosa_reveal", "text": "Ignacia: Isabella, yo crucé ese puente a las once y media y no había nadie. ¿Cómo cruzó ella?" },
 { "room": "buin/galpon", "event": "rosa_reveal", "text": "Isabella: Leo dice que no le creamos." },
 { "room": "buin/galpon", "event": "rosa_end", "text": "Ignacia: No me gusta cómo respira." },
