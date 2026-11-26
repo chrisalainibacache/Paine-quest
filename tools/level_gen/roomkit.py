@@ -89,7 +89,7 @@ class Kit:
         self.s.node(name, "Label3D", parent, **p)
 
     # --- Interactuables
-    def door(self, name, pos, target_room, target_spawn, key=None, lock_id="", locked_text=None, prompt=None, reach=1.3, marker=None, metal_door=False, one_way=False, one_way_origin=True):
+    def door(self, name, pos, target_room, target_spawn, key=None, lock_id="", locked_text=None, prompt=None, reach=1.3, marker=None, metal_door=False, one_way=False, one_way_origin=True, requires_flag=False):
         self.group("Interactables")
         p = {"position": v3(pos), "script": self.s.res(IA("door"), "Script"), "reach": fmt(reach)}
         if target_room: p["target_room"] = '"%s"' % target_room
@@ -103,6 +103,7 @@ class Kit:
         if one_way:
             p["one_way"] = "true"
             p["one_way_origin"] = "true" if one_way_origin else "false"
+        if requires_flag: p["requires_flag"] = "true"
         self.s.node(name, "Node3D", "Interactables", **p)
 
     def pickup(self, name, pos, item, count=1, rot=(0, 0, 0), sets_flag=None):
