@@ -12,7 +12,8 @@ k.shell(-4.5, 4.5, -4.0, 4.0, H, floor="tiles_wall", wall="plaster_wall",
         ceiling="concrete_wall", wainscot="tiles_wall", walls={"N": "old_bricks_wall"})
 # Forma en L: recodo hacia las cabinas; no se ve la cisterna desde la entrada.
 k.block("LPartition", "Architecture", (1.9, 1.35, -2.15), (5.2, 2.7, 0.18), "tiles_wall")
-k.block("PartitionReturn", "Architecture", (4.35, 1.35, -0.15), (0.18, 2.7, 3.8), "tiles_wall")
+k.block("PartitionReturnNorth", "Architecture", (4.35, 1.35, -2.65), (0.18, 2.7, 1.0), "tiles_wall")
+k.block("PartitionReturnSouth", "Architecture", (4.35, 1.35, 2.65), (0.18, 2.7, 1.0), "tiles_wall")
 # Dos cabinas con puertas rotas y un cubículo de limpieza.
 for index, x in enumerate((-2.5, -0.8, 1.0)):
     k.block("CubicleSide%d" % index, "Architecture", (x, 1.2, -2.8), (0.08, 2.4, 2.1), "tiles_wall")
