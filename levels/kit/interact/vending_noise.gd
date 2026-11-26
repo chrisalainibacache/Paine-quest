@@ -31,6 +31,12 @@ func _ready() -> void:
     add_child(_player)
 
 
+static func attenuate_footstep_radius(radius: float) -> float:
+    if GameState.has_flag(NOISE_FLAG):
+        return radius * 0.25
+    return radius
+
+
 func can_interact() -> bool:
     return true
 
