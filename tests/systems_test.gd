@@ -1201,6 +1201,14 @@ func _p15_station_puzzles() -> void:
         and locker_data != null and locker_data.is_valid(),
         "P15: cisterna y casillero 04 tienen recursos válidos")
 
+    GameState.flags.erase(VendingNoise.NOISE_FLAG)
+    _check(VendingNoise.attenuate_footstep_radius(4.0) == 4.0,
+        "P15: sin máquina encendida, los pasos conservan su radio normal")
+    GameState.set_flag(VendingNoise.NOISE_FLAG)
+    _check(VendingNoise.attenuate_footstep_radius(4.0) == 1.0,
+        "P15: el zumbido de máquina atenúa el radio de los pasos al 25 por ciento")
+    GameState.flags.erase(VendingNoise.NOISE_FLAG)
+
 
 ## P12-c: combinar consume ambos componentes y entrega el resultado una sola vez.
 func _combine_rules() -> void:
