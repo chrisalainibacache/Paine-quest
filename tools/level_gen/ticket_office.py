@@ -47,6 +47,9 @@ k.pickup("GuardPistol", (-3.25, 0.78, -0.3), "pistol", rot=(0, 0.5, 0), sets_fla
 k.pickup("GuardAmmo", (-3.2, 0.77, -0.65), "ammo_9mm", 12, rot=(0, 0.5, 0))
 k.pickup("Ammo", (-3.25, 0.77, -0.05), "ammo_9mm", 15, rot=(0, 1.2, 0))
 k.note("Log", (-1.3, 1.05, 2.55), "ticket_log", paper_rot=(0, 0.2, 0))
+k.note("SignalDiagram", (2.8, 0.0, -2.5), "station_signal_diagram",
+       required_flag="puzzle:station_safe:code_solved",
+       locked_text="La caja fuerte todavía está cerrada.")
 k.examine("Safe", (2.8, 0, -2.5), ["Una caja fuerte. Está cerrada con clave.", "No tengo idea de la combinación."], reach=1.2)
 k.code_lock("SafeCode", (2.8, 0, -2.5), "station_safe", unlock_id="station_safe", reach=1.2)
 k.container("SafeContents", (2.8, 0, -2.5), "station_safe",
