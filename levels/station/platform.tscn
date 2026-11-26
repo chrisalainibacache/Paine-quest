@@ -50,8 +50,7 @@
 [ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="48_paper"]
 [ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="49_pickup"]
 [ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="50_ammo_9mm"]
-[ext_resource type="Resource" path="res://data/items/gate_key.tres" id="51_gate_key"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="52_leo_hint"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="51_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -205,6 +204,18 @@ position = Vector3(0, 1.25, -5.45)
 script = ExtResource("2_kit_block")
 size = Vector3(14.6, 4.5, 0.3)
 surface = ExtResource("12_old_bricks_w")
+
+[node name="LPartition" type="StaticBody3D" parent="Walls"]
+position = Vector3(-4.5, 1.35, -0.2)
+script = ExtResource("2_kit_block")
+size = Vector3(0.18, 2.7, 5)
+surface = ExtResource("12_old_bricks_w")
+
+[node name="LPartitionReturn" type="StaticBody3D" parent="Walls"]
+position = Vector3(-3, 1.35, -2.7)
+script = ExtResource("2_kit_block")
+size = Vector3(3, 2.7, 0.18)
+surface = ExtResource("9_plaster_wall")
 
 [node name="WestTunnelWallN" type="StaticBody3D" parent="Walls"]
 position = Vector3(-7.15, 1.3, -5.25)
@@ -937,6 +948,13 @@ target_room = "res://levels/station/waiting_room.tscn"
 target_spawn = "from_platform"
 reach = 1.3
 
+[node name="door_anden_pasillo" type="Node3D" parent="Interactables"]
+position = Vector3(-6.4, 0, 0.5)
+script = ExtResource("45_door")
+target_room = "res://levels/station/service_corridor.tscn"
+target_spawn = "from_platform"
+reach = 1.3
+
 [node name="Note" type="Node3D" parent="Interactables"]
 position = Vector3(-2.8, 0.49, 4.62)
 script = ExtResource("46_note")
@@ -959,9 +977,10 @@ script = ExtResource("45_door")
 reach = 1.4
 target_room = "res://levels/station/south_platform.tscn"
 target_spawn = "from_north_platform"
-key_item = ExtResource("51_gate_key")
-lock_id = "gate_south"
-locked_text = "El portón hacia el andén sur. Tiene una cadena con un candado nuevo."
+lock_id = "station_shortcut_1"
+one_way = true
+one_way_origin = false
+locked_text = "El portón se abre desde el andén sur; es un atajo de regreso."
 metal_door = true
 
 [node name="Spawns" type="Node3D" parent="."]
@@ -979,13 +998,13 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="LeoWaitingRoom" type="Marker3D" parent="."]
 position = Vector3(3, 0, 4.2)
-script = ExtResource("52_leo_hint")
+script = ExtResource("51_leo_hint")
 lines = PackedStringArray("Leo: Isabella, aquí afuera no. Adentro hay luz.", "Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.", "Leo: Entra a la sala de espera; allí empezamos a buscar de dónde salieron las balas.")
 hide_if_flag = "found:pistol"
 
 [node name="LeoGateKey" type="Marker3D" parent="."]
 position = Vector3(5.9, 0, 2.6)
-script = ExtResource("52_leo_hint")
+script = ExtResource("51_leo_hint")
 lines = PackedStringArray("Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.", "Leo: Las llaves se guardan donde guardan todo: en la bodega, al fondo del pasillo de servicio.", "Leo: Entra primero a la sala de espera; sigue a boletería, pasillo de servicio y bodega.")
 show_if_flag = "found:pistol"
 hide_if_flag = "unlocked:gate_south"
@@ -993,7 +1012,7 @@ hide_if_item = "gate_key"
 
 [node name="LeoGateOpen" type="Marker3D" parent="."]
 position = Vector3(5.9, 0, 2.6)
-script = ExtResource("52_leo_hint")
+script = ExtResource("51_leo_hint")
 lines = PackedStringArray("Leo: Ya tienes la llave. Ábrelo, Isabella. Yo voy contigo.", "Leo: Acércate al portón del andén sur y usa la llave.")
 hide_if_flag = "unlocked:gate_south"
 show_if_item = "gate_key"
