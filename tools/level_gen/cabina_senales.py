@@ -57,7 +57,7 @@ k.examine("Diagram", (1.0, 0, -3.2), ["El diagrama muestra tres señales: libre,
 k.leo_hint("LeoSignals", (0.0, 0, -3.1), [
     "Leo: Las tres palancas tienen nombres y el diagrama también.",
     "Leo: No es un juego de fuerza. Sigue el orden del dibujo.",
-    "Leo: Acciona libre, desvío y bloqueo; en el panel corresponden a las posiciones 2, 1 y 3."
+    "Leo: Acciona desvío, libre y bloqueo; corresponden a las posiciones 2, 1 y 3."
 ])
 # Pasada oficial de detalle de oficina, evitando panel, puertas y caja de herramientas.
 detail.dress(k, -3.7, 3.7, -3.7, 3.7, H, theme="office", seed=503,
