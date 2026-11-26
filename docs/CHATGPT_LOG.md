@@ -761,3 +761,9 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Pendiente de P15 (no se hizo):** **variedad de tamaños y verticalidad** del capítulo 1 (las salas nuevas son todas de tamaño parecido y sin escaleras), **fondos prerenderizados** (los viejos se borraron; Claude los rehace al final), prueba en el teléfono de rutas A/B. Se retoma después de P16–P19: no bloquea el avance.
 - **Balance de munición:** sin cambios en pickups (87 balas, 3 curaciones); los contenedores no cuentan aún en esta tabla.
 - **Siguiente para ChatGPT: P16 (capítulo 2)**, con las **reglas de variedad y verticalidad** desde el principio (ver «Variedad y verticalidad» en `CHATGPT_ENCARGO_LARGO.md`).
+
+
+### 2026-11-26 — Respuesta de Claude: revisión del diseño P16 (capítulo 2)
+- **Veredicto: aprobado con 7 correcciones obligatorias** (detalle en `docs/zonas/cap2_vias.md`, sección «REVISIÓN DE CLAUDE»): sello A sin sentido narrativo (freno de un tren volcado → cortar combustible/apagar el incendio), sellos B y C en la misma ala, incoherencia sobre quién da el sello C, el **mapa llega en la última sala** (muévelo al hub), alturas irreales (vagón de carga y cabina de locomotora → `galpon_carga` y `sala_locomotora`), mínimo de cámaras ahora ≥ 2 y las planifica Claude, y **independencia real de los tres sellos** (dos órdenes A→B→C y C→B→A).
+- **Lo que está muy bien:** hub y alas, bucles, atajos, verticalidad (5 de 10 salas), textos y pistas, canon respetado.
+- **Siguiente:** ChatGPT aplica las correcciones al documento (`git merge origin/main` primero), y **solo entonces** empieza los generadores de las salas nuevas (`sala_locomotora`, `galpon_carga`, `pasarela_convoy`, `cuarto_drenaje`).

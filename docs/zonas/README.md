@@ -8,7 +8,7 @@ Estado: documentos de diseño P10; **no son implementación**. Los generadores, 
 | --- | --- | --- |
 | [Catálogo de puzzles](catalogo_puzzles.md) | Plantillas reutilizables para las cinco zonas | P10-a |
 | [Capítulo 1 — Estación de Paine](cap1_estacion.md) | 10 salas, bucles, caja fuerte, fusibles y llave oculta | P10-b |
-| `cap2_vias.md` | Capítulo 2 — Las vías | Pendiente P10-c |
+| [Capítulo 2 — Las vías](cap2_vias.md) | 10 salas, hub de tres alas, verticalidad y puzzles | P16-a DISEÑO EN PR #26 |
 | `cap3_buin.md` | Capítulo 3 — Buin | Pendiente P10-d |
 | `cap4_maestranza.md` | Capítulo 4 — La Maestranza y jefe del patio | Pendiente P10-e |
 | `cap5_centro_nos.md` | Capítulo 5 — Centro de Nos | Pendiente P10-f |
@@ -42,4 +42,3 @@ Cada documento de zona debe contener los 12 apartados del encargo P10: resumen; 
 ## Prueba de diseño obligatoria
 
 Antes de entregar una zona, simular al menos dos rutas distintas desde el spawn hasta cada objetivo principal. Para cada ruta, listar qué objetos/pistas se obtienen antes de cada puerta. Una llave que solo se alcanza después de su propia cerradura es una cadena imposible y obliga a rediseñar el grafo.
-
