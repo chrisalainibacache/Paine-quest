@@ -1,1 +1,1 @@
-{"salas": ["station/platform", "station/oficina_jefe"], "nota": "Agrega aquí cada sala nueva o rehecha (id = ruta bajo levels/ sin .tscn). tools/audit_detail.py --check las exige."}
+{"salas": ["station/platform", "station/oficina_jefe", "station/banos"], "nota": "Agrega aquí cada sala nueva o rehecha (id = ruta bajo levels/ sin .tscn). tools/audit_detail.py --check las exige."}
