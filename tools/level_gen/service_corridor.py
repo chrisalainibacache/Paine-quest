@@ -1,6 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
+from station_detail import add_station_detail
 k = Kit("ServiceCorridor", "Pasillo de servicio", ambience="service_corridor")
 k.env((0.01, 0.01, 0.012), (0.28, 0.3, 0.32), 0.45, (0.03, 0.03, 0.035), 0.07)
 H = 2.7
@@ -27,8 +28,18 @@ for i, x in enumerate((-3.0, 3.0)):
 k.light("BulbWest", "Lights", (-3.0, H - 0.3, 0.0), (1.0, 0.78, 0.5), 0.9, 4.8)
 k.light("BulbEast", "Lights", (3.0, H - 0.3, 0.0), (1.0, 0.78, 0.5), 0.85, 4.8, flicker=True)
 # Puertas, ítems y objetos.
-k.door("DoorToTicketOffice", (-5.6, 0, 0.0), "res://levels/station/ticket_office.tscn", "from_corridor")
-k.door("DoorToStoreroom", (5.6, 0, 0.0), "res://levels/station/storeroom.tscn", "from_corridor")
+k.door("DoorToTicketOffice", (-5.6, 0, 0.0), "res://levels/station/platform.tscn", "from_service_corridor", prompt="VOLVER")
+k.door("DoorToStoreroom", (5.6, 0, 0.0), "res://levels/station/storeroom.tscn", "from_service_corridor",
+       lock_id="station_latch_removed", requires_flag=True,
+       locked_text="Una barra caída traba el paso. Puedo apartarla desde aquí.")
+k.door("door_pasillo_banos", (-4.0, 0, 1.0), "res://levels/station/banos.tscn", "from_service_corridor")
+k.door("door_pasillo_maquinas", (0.5, 0, -0.8), "res://levels/station/sala_maquinas.tscn", "from_service_corridor",
+       lock_id="station_power", requires_flag=True,
+       locked_text="La compuerta eléctrica no tiene energía.")
+k.interact("FallenBar", "bar_latch", (4.8, 0, 0.55), lock_id='"station_latch_removed"', reach=fmt(1.3))
+k.container("Locker04", (-1.55, 0.1, -0.76), "station_gate_locker",
+            item_ids=("gate_key",), counts=(1,), reach=1.2)
+k.examine("Locker04Clue", (-1.55, 0, -0.4), ["Casillero 04. La pintura azul es reciente.", "La chapa tiene una marca semicircular y está raspada."], reach=1.0)
 k.pickup("Handroll", (-1.7, 0.45, -0.4), "handroll", rot=(0, 0.8, 0))
 k.pickup("Ammo", (4.45, 0.0, 0.7), "ammo_9mm", 10, rot=(0, 2.0, 0))
 k.examine("FuseBox", (2.0, 0, 0.55), ["Una caja de fusibles.", "Alguien arrancó los cables a tirones."], reach=1.1)
