@@ -392,3 +392,70 @@ Chris fijó el orden de importancia. **Manda sobre todo lo anterior:**
 **Herramienta para el estándar de detalle (nueva):** `tools/level_gen/detail.py` → `detail.dress(k, x0, x1, z0, z1, alto, theme=..., seed=..., avoid=[...])` viste una sala con la base de detalle (estructura, instalaciones, mobiliario por tema, suciedad). **Úsala en cada sala que armes o rehagas y luego agrega el carácter propio** (ver `docs/ESTANDAR_DETALLE.md`, final). Las salas de La Maestranza ya la usan: míralas como ejemplo (`tools/level_gen/maestranza_common.py`, `save_room`).
 
 **Variedad y verticalidad (Chris, 2026-11-26): «casi todas las salas tienen las mismas dimensiones; agrega pasillos, escaleras, pasa por balcones».** Para cada zona: **tamaños todos distintos** (≥ 3 medidas diferentes entre 8 salas), **≥ 40 % de las salas con escalera, balcón, entrepiso o pasarela** (`tools/level_gen/vertical.py`), **pasillos largos** entre alas y **al menos un recorrido que pase por un balcón con vista a otra sala**. Mira `maestranza_acceso.py` y `maestranza_taller.py` como ejemplo; añade a la prueba de cada zona que se sube y no se cae (`tests/vertical_test.gd` como modelo). Esto cuenta para decir que una zona está terminada.
+
+---
+
+# COLA LARGA PARA CHATGPT (2026-11-26) — paquetes independientes P21–P28
+
+Chris pidió **más trabajo**. Estos paquetes **no dependen entre sí** (salvo donde se indica) y se pueden hacer **mientras esperas revisión** de P15–P19. Mismas reglas de siempre (ver «Reglas del flujo» arriba): rama propia desde `origin/main`, un commit por tarea con `git push`, GDScript tipado, nada de `.tscn` a mano, no tocar los `# GORE`, `infected_thrower`, `infected_skull_kit` ni `skull_charge`.
+
+## P21 — Diario de Isabella: objetivos y registro de lo encontrado · rama `chatgpt/P21-diario` · (código + UI generada, ~6 tareas)
+**Por qué:** en un juego no lineal el jugador necesita recordar qué sabe y qué falta.
+- **P21-a Datos:** `data/journal/*.tres` (`JournalEntry`: id, zona, título, texto, `unlock_flag`) con una entrada por **objetivo** y por **hallazgo clave** de cada capítulo (empieza con el capítulo 1 de `docs/zonas/cap1_estacion.md`).
+- **P21-b Estado:** `systems/journal.gd` (clase estática, sin autoload): `Journal.entries_for(zone)`, `Journal.is_unlocked(entry)` según banderas de `GameState`; no guarda nada propio (se deriva de las banderas).
+- **P21-c UI:** pestaña **DIARIO** en la mochila (`tools/level_gen/inventory.py` + `ui/inventory/inventory_menu.gd`; separa el código en un script nuevo si pasa de ~300 líneas): lista por zona, entradas bloqueadas como «???», tema del juego.
+- **P21-d Objetivo en pantalla:** el HUD muestra la **entrada activa** más reciente (reemplaza el texto fijo de objetivo si existe).
+- **P21-e Pruebas:** entradas se desbloquean con sus banderas; no se duplican; la pestaña carga sin `SCRIPT ERROR`.
+- **P21-f Docs + registro** («qué debe probar Chris»: recoger una nota, abrir el diario).
+
+## P22 — Dificultad y economía de recursos · rama `chatgpt/P22-dificultad` · (datos + código pequeño, ~5 tareas)
+- **P22-a** Ajuste de dificultad en `GameSettings` (`FÁCIL / NORMAL / DIFÍCIL`, por defecto NORMAL) con botón en Opciones: multiplicadores de **daño recibido**, **vida de infectados** y **munición en contenedores/enemigos**. Datos en `data/difficulty.tres`.
+- **P22-b** Aplícalo en `Player.take_damage`, `Infected` al instanciar (`health`) y en el reparto de munición de los contenedores (respeta `Inventory`).
+- **P22-c** `docs/zonas/economia.md`: tabla por capítulo con **munición total, curaciones, armas** y **cuántos infectados** (usa los generadores y `docs/zonas/`); propone ajustes si un capítulo regala demasiado o poco.
+- **P22-d** Pruebas: los multiplicadores se aplican; NORMAL = comportamiento actual (no rompas `smoke_test`).
+- **P22-e** Registro con qué probar.
+
+## P23 — Controles táctiles y accesibilidad · rama `chatgpt/P23-controles` · (código + UI, ~6 tareas)
+Chris juega **solo en el teléfono**; los controles importan.
+- **P23-a** Opciones: **tamaño de botones** (3 niveles), **opacidad** de los controles, **zurdo** (invierte joystick y botones).
+- **P23-b** **Sensibilidad** y **zona muerta** del joystick (3 niveles) y **vibración** (sí/no).
+- **P23-c** **Tamaño del texto** de diálogos y notas (3 niveles) y **fondo oscuro** de los subtítulos.
+- **P23-d** Guardado de todo en `user://` (sección `controles` del mismo cfg que `GameSettings`; **carga antes de guardar** para no pisar las demás secciones).
+- **P23-e** Pruebas: cada ajuste se guarda, se recarga y se aplica; valores inválidos vuelven al defecto.
+- **P23-f** Registro con una guía de qué mirar en el teléfono.
+
+## P24 — Revisión de textos y coherencia (herramienta + correcciones) · rama `chatgpt/P24-textos` · (script + datos, ~5 tareas)
+- **P24-a** `tools/check_texts.py`: recorre `data/documents/*.tres`, los `leo_hint(...)` de los generadores, las líneas de Ignacia (`data/coop/ignacia_lines.tres`) y las pantallas de fin; **falla** si encuentra: palabras prohibidas (`Kiara`, `Nala`, `Javi,`, `Constanza`, «Skull» dicho por un personaje), **cruces rojas/blancas** como símbolo médico, horas fuera de la línea de tiempo (`docs/GUION.md` §2), o `[CONFIRMAR]` sin resolver.
+- **P24-b** Agrégalo a `.github/workflows/validar-pistola.yml` como paso.
+- **P24-c** Corrige lo que encuentre (solo textos); lista en el registro lo que **no** puedas decidir.
+- **P24-d** `docs/ORTOGRAFIA.md`: guía corta de estilo (tuteo, «Isabella» sin apodos, comillas «», tildes) y revisa que todo el texto del juego la cumple.
+- **P24-e** Registro.
+
+## P25 — Introducción y tutorial sin pantallas aburridas · rama `chatgpt/P25-tutorial` · (código + datos, ~5 tareas)
+- **P25-a** Mensajes contextuales **una sola vez** (banderas): primer movimiento, primera puerta, primer objeto recogible, primer arma equipada, primer enemigo (cómo apuntar y disparar), primera vez con la mochila llena, primer guardado. Cortos, en el estilo del juego, **sin pausar** (usa el sistema de avisos del HUD).
+- **P25-b** `Settings`: «Ayudas de juego» (sí/no) que los apaga todos.
+- **P25-c** Pruebas: cada mensaje aparece una vez y no vuelve al cargar la partida.
+- **P25-d** Registro.
+
+## P26 — Mapa del mundo y viajes rápidos entre zonas ya terminadas · rama `chatgpt/P26-mapa-mundo` · (código + UI, ~5 tareas)
+- **P26-a** Pantalla de **mapa del mundo** (4–5 zonas conectadas por la vía) accesible desde la **máquina de escribir** de cada zona.
+- **P26-b** Volver a una zona anterior para **recoger lo que faltó** (llaves opcionales, notas) **sin perder el progreso** (usa el mismo guardado; no reinicia banderas).
+- **P26-c** Mensaje de confirmación y bloqueo durante combates.
+- **P26-d** Pruebas y registro.
+(Después de P15; coordina con `ZoneMapData` de P12.)
+
+## P27 — Logros y estadísticas (sin servicios externos) · rama `chatgpt/P27-logros` · (código + UI, ~4 tareas)
+- **P27-a** `data/achievements/*.tres` (≈ 20): «Todas las notas de una zona», «Sin curarte en un capítulo», «Descubre un atajo», «Ayuda a Tomás», etc.
+- **P27-b** `systems/stats.gd` (conteos persistentes: infectados abatidos, balas disparadas, tiempo jugado, muertes) guardados en el mismo save.
+- **P27-c** Pantalla **LOGROS** en el título y aviso discreto al desbloquear.
+- **P27-d** Pruebas y registro. (Sin Google Play Games: lo decide Chris más adelante.)
+
+## P28 — QA y paquete de tienda · rama `chatgpt/P28-qa-tienda` · (docs, ~4 tareas)
+- **P28-a** `docs/QA_CHECKLIST.md`: lista de pruebas manuales **por capítulo** (rutas A/B, atajos, puzzles, jefes) para que Chris la siga en el teléfono; se actualiza con cada paquete entregado.
+- **P28-b** `docs/store/`: textos de la ficha de Google Play (título, descripción corta/larga en español e inglés), **cuestionario de clasificación por edad** respondido con la **violencia fuerte** real del juego, política de privacidad y declaración de datos (hoy: sin cuenta, anuncios opcionales, red local para el cooperativo). **Sin inventar datos legales**: lo dudoso va en «Preguntas».
+- **P28-c** `docs/store/capturas.md`: lista de 8 capturas que Claude debe tomar (cuáles salas, qué momento) y textos de cada una.
+- **P28-d** Registro.
+
+## Orden global actualizado (2026-11-26, noche)
+**P15 → P16 → P17 → P18 → P19** (niveles, lo prioritario) · **P24** (textos, rápido y útil) · **P21** (diario) · **P22** (dificultad) · **P23** (controles) · **P25** (tutorial) · **P14** (IA) · **P26** · **P27** · **P13** (cooperativo) · **P28** · **P20**.
+Si te quedas sin nada que hacer en un paquete (a la espera de revisión), **pasa al siguiente de esta lista sin preguntar**.
