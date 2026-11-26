@@ -113,10 +113,13 @@ class Kit:
         if sets_flag: p["sets_flag"] = '"%s"' % sets_flag
         self.s.node(name, "Node3D", "Interactables", **p)
 
-    def note(self, name, pos, doc, paper_rot=(0, 0, 0), paper_scale=1.0, reach=1.4):
+    def note(self, name, pos, doc, paper_rot=(0, 0, 0), paper_scale=1.0, reach=1.4, required_flag="", locked_text=""):
         self.group("Interactables")
-        self.s.node(name, "Node3D", "Interactables", position=v3(pos), script=self.s.res(IA("note"), "Script"),
-                    document=self.s.res(DOC(doc), "Resource"), reach=fmt(reach))
+        props = {"position": v3(pos), "script": self.s.res(IA("note"), "Script"),
+                 "document": self.s.res(DOC(doc), "Resource"), "reach": fmt(reach)}
+        if required_flag: props["required_flag"] = '"%s"' % required_flag
+        if locked_text: props["locked_text"] = '"%s"' % locked_text
+        self.s.node(name, "Node3D", "Interactables", **props)
         extra = {"scale": v3((paper_scale,) * 3)} if paper_scale != 1.0 else {}
         self.s.node("Paper", None, "Interactables/" + name, instance=self.s.res("res://levels/kit/items/paper.tscn", "PackedScene"),
                     rotation=v3(paper_rot), **extra)
