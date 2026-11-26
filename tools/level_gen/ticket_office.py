@@ -1,10 +1,14 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
+from station_detail import add_station_detail
 k = Kit("TicketOffice", "Boletería", ambience="office")
 k.env((0.02, 0.02, 0.025), (0.34, 0.32, 0.3), 0.5, (0.04, 0.035, 0.03), 0.05)
 H = 2.9
 k.shell(-2.5, 2.5, -2.0, 2.0, H, floor="planks", wall="plaster_wall", ceiling="concrete_wall", wainscot="wood")
+# Planta en U: el mostrador divide la entrada y la caja fuerte queda en un rincón.
+k.block("UPartition", "Architecture", (0.9, 1.35, 0.15), (0.16, 2.7, 2.7), "old_bricks_wall")
+k.block("UReturn", "Architecture", (-0.4, 1.35, -1.3), (2.6, 2.7, 0.16), "plaster_wall")
 # Mesón de atención con las ventanillas (muro sur, mirando a la sala de espera).
 k.block("Counter", "Office", (-0.8, 0.5, 1.75), (3.4, 1.0, 0.5), "wood")
 k.block("CounterTop", "Office", (-0.8, 1.02, 1.72), (3.5, 0.05, 0.6), "planks", solid=False)
@@ -34,8 +38,11 @@ k.prop("Stain0", "Props", "stain", (0.4, 0.012, -0.4), rot=(0, 2.3, 0), scale=v3
 k.door_frame("ToWaiting", 1.7, 2.0, "x", width=1.0, wall_side=-1)
 k.door_frame("ToCorridor", 2.5, -0.6, "z", width=1.0, wall_side=-1)
 k.label("CorridorSign", "Office", (2.46, 1.75, -0.6), "SERVICIO", 26, (0.8, 0.75, 0.6), rot=(0, -math.pi / 2, 0))
-k.door("DoorToWaitingRoom", (1.7, 0, 1.6), "res://levels/station/waiting_room.tscn", "from_ticket_office")
-k.door("DoorToCorridor", (2.1, 0, -0.6), "res://levels/station/service_corridor.tscn", "from_ticket_office")
+k.door("DoorToWaitingRoom", (1.7, 0, 1.6), "res://levels/station/waiting_room.tscn", "from_ticket_office", prompt="VOLVER")
+k.door("DoorToCorridor", (2.1, 0, -0.6), "res://levels/station/oficina_jefe.tscn", "from_ticket_office")
+k.door("door_boleteria_cabina", (-2.3, 0, -1.2), "res://levels/station/cabina_senales.tscn", "from_ticket_office",
+       key="office_key", lock_id="station_cabina",
+       locked_text="La cabina está cerrada con llave de servicio. El panel de señales también puede liberar el cierre.")
 k.pickup("GuardPistol", (-2.05, 0.78, -0.3), "pistol", rot=(0, 0.5, 0), sets_flag="found:pistol")
 k.pickup("GuardAmmo", (-2.0, 0.77, -0.65), "ammo_9mm", 12, rot=(0, 0.5, 0))
 k.pickup("Ammo", (-2.05, 0.77, -0.05), "ammo_9mm", 15, rot=(0, 1.2, 0))
@@ -56,8 +63,24 @@ k.camera("West", (-1.1, 1.4, 0.0), (2.8, 2.8, 4.0), (2.2, 2.6, 1.7), (-1.9, 0.5,
 k.camera("East", (1.4, 1.4, 0.0), (2.2, 2.8, 4.0), (-2.2, 2.6, -1.6), (1.8, 0.4, 1.0), fov=64)
 k.spawn("from_waiting_room", (1.7, 0.05, 1.15), (0, -1))
 k.spawn("from_corridor", (1.75, 0.05, -0.6), (-1, 0))
+k.spawn("from_office", (1.6, 0.05, -0.6), (-1, 0))
+k.spawn("from_signal_cabin", (-1.8, 0.05, -1.2), (1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoGuardDesk', (-1.5, 0, -0.65), ['Leo: El escritorio de don Héctor. Rosa dejó aquí sus balas.', 'Leo: No me gusta ese ruido, Isabella. Pero es mejor que lo tengas tú.'], hide_if='found:pistol')
 k.leo_hint('LeoCorridor', (1.6, 0, -0.6), ['Leo: La llave del portón está en la bodega. Este pasillo lleva allá.', 'Leo: Yo voy adelante. Si me erizo y bufo, es que alguien nos espera.', 'Leo: Sal por la puerta PASILLO DE SERVICIO; allí sigue la puerta BODEGA para buscar la llave del portón.'], show_if='found:pistol', hide_item='gate_key')
+prop_types = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
+               "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
+               "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
+               "fire", "ammo_box", "paper", "key"]
+camera_specs = [
+    ("West", (-1.1, 1.5, 0.0), (5.0, 3.0, 5.5), (2.8, 3.0, 3.5), (-1.9, 0.5, -0.7)),
+    ("East", (1.4, 1.5, 0.0), (5.0, 3.0, 5.5), (-2.2, 3.0, -1.6), (1.8, 0.5, 1.0)),
+    ("Safe", (1.8, 1.5, -1.5), (4.5, 3.0, 5.5), (-1.2, 3.0, 1.0), (1.8, 0.5, -1.5)),
+    ("Entry", (-1.8, 1.5, 1.0), (4.5, 3.0, 5.5), (1.0, 3.0, 3.5), (-1.8, 0.5, 1.0)),
+]
+add_station_detail(k, "TicketOffice", prop_types,
+                   ["BOLETERÍA", "SOLO PERSONAL", "CAJA FUERTE", "LIBRO DE REGISTRO",
+                    "SERVICIO", "NO PASAR", "PAINE", "HORARIO"],
+                   camera_specs, (-2.4, 2.4, -1.9, 1.9))
 k.save(REPO + "/levels/station/ticket_office.tscn")
 print("ticket office ok")
