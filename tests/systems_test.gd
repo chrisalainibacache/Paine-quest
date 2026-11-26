@@ -57,6 +57,7 @@ func _run() -> void:
     _chest_rules()
     _puzzle_state()
     _puzzle_interactables()
+    _p15_station_puzzles()
     _combine_rules()
     _zone_maps()
     _leo_hint_levels()
@@ -1165,11 +1166,40 @@ func _puzzle_interactables() -> void:
     GameState.flags.erase("one_way_open:p12_one_way_test")
     GameState.flags.erase("unlocked:p12_test_gate")
 
+    var flag_door: Door = Door.new()
+    flag_door.requires_flag = true
+    flag_door.lock_id = "p15_flag_lock_test"
+    _check(flag_door.is_locked(), "P15: puerta por bandera comienza bloqueada")
+    GameState.set_flag("unlocked:p15_flag_lock_test")
+    _check(not flag_door.is_locked(), "P15: puerta por bandera se abre al completar el puzzle")
+    GameState.flags.erase("unlocked:p15_flag_lock_test")
+
     code_lock.free()
     fuse_box.free()
     lever.free()
     container.free()
     reverse_door.free()
+    flag_door.free()
+
+
+## P15-c: los recursos concretos de estación respetan las pistas y sus IDs.
+func _p15_station_puzzles() -> void:
+    var safe_data: PuzzleData = load("res://data/puzzles/station_safe.tres") as PuzzleData
+    var fuse_data: PuzzleData = load("res://data/puzzles/station_fuses.tres") as PuzzleData
+    var lever_data: PuzzleData = load("res://data/puzzles/station_levers.tres") as PuzzleData
+    var cistern_data: PuzzleData = load("res://data/puzzles/station_cistern.tres") as PuzzleData
+    var locker_data: PuzzleData = load("res://data/puzzles/station_gate_locker.tres") as PuzzleData
+    _check(safe_data != null and safe_data.is_valid() and safe_data.code == "0712",
+        "P15: caja fuerte valida el código 0712")
+    _check(fuse_data != null and fuse_data.is_valid()
+        and fuse_data.required_items == PackedStringArray(["fuse_station_a", "fuse_station_b"]),
+        "P15: tablero requiere los dos fusibles de 10 A")
+    _check(lever_data != null and lever_data.is_valid()
+        and lever_data.sequence == PackedStringArray(["diversion", "free", "lock"]),
+        "P15: palancas siguen el orden 2, 1, 3 del diagrama")
+    _check(cistern_data != null and cistern_data.is_valid()
+        and locker_data != null and locker_data.is_valid(),
+        "P15: cisterna y casillero 04 tienen recursos válidos")
 
 
 ## P12-c: combinar consume ambos componentes y entrega el resultado una sola vez.
