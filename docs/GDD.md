@@ -51,11 +51,58 @@ Te espero en Alameda.» El juego empieza con esa intro (se muestra una vez, al l
 Geografía (Línea Sur, de sur a norte): Hospital – **Paine** – Linderos – Buin – … – Alameda.
 Santiago queda al **norte**; todo el viaje es hacia el norte por la vía.
 
-### Capítulo 1 — La estación
-Isabella llega con Leo a la estación de trenes de Paine buscando un tren a Santiago.
-La estación está vacía y algo anda mal. Recorre el andén, la sala de espera y la
-boletería; encuentra la pistola, notas de lo que pasó y la llave del portón que da a
-las vías. Cierra el capítulo saliendo a la vía.
+### Capítulo 1 — La estación de Paine (P15: hub no lineal)
+
+Isabella llega a la estación vacía buscando un tren a Santiago. La estación se rehace
+como **hub con tres alas**, diez salas y dos rutas para llegar al andén sur. El mapa de
+zona se obtiene dentro del archivador de la oficina del jefe; no aparece como pickup en
+el suelo.
+
+**Grafo de salas**
+- **A — Andén norte:** inicio; conecta con B y F. El portón hacia H es un atajo de regreso
+  que se abre desde el andén sur.
+- **B — Sala de espera:** conecta A, C y E; reloj detenido en **7:12**, máquina de bebidas
+  ruidosa y un infectado que se alimenta.
+- **C — Boletería:** conecta B, D y J; caja fuerte y libro de registro.
+- **D — Oficina del jefe:** conecta C, J e I; abrigo con llave de servicio y archivador.
+- **E — Baños:** conecta B y F; cisterna con válvula y fusible.
+- **F — Pasillo de servicio:** conecta A, E, G e I; barra caída, casillero 04 y acceso eléctrico.
+- **G — Bodega:** conecta F y H; infectado pesado y portón del andén sur.
+- **H — Andén sur:** objetivo de zona; conecta G, I y J, además del atajo de regreso a A.
+- **I — Sala de máquinas:** conecta D, F y H; tablero que requiere dos fusibles.
+- **J — Cabina de señales:** conecta D, C y H; panel de tres palancas y caja de herramientas.
+
+**Tres objetos de paso (sellos)**
+1. **Llave del portón:** en el casillero 04 del pasillo de servicio; abre G↔H.
+2. **Energía de estación:** fusible de baños + fusible del archivador, instalados en I.
+   Abre I↔F y J↔H; el atajo eléctrico se habilita desde I.
+3. **Señales liberadas:** llave de servicio del abrigo abre el archivador y C↔J; la secuencia
+   de palancas también libera el cierre de cabina. La salida de H exige los tres sellos.
+
+**Puzzles y pistas**
+- **PZ-01 — Caja fuerte:** código **0712**, deducido del reloj de B y del libro de C;
+  recompensa: munición y copia del diagrama de señales.
+- **PZ-02 — Tablero de fusibles:** instalar los dos fusibles de 10 A (E y D) en I.
+- **PZ-03 — Barra caída:** retirar el pestillo desde F; después F↔G queda abierto desde ambos lados.
+- **PZ-04 — Palancas:** seguir el diagrama **2 → 1 → 3** (desvío, libre, bloqueo); libera
+  la cabina y permite registrar la caja de herramientas con la llave de señales.
+- **PZ-05 — Cisterna:** cerrar la válvula antes de **REGISTRAR**; contiene el fusible A.
+- **PZ-06 — Casillero 04:** el rótulo y la pintura fresca, reforzados por Leo, llevan a la
+  llave del portón. Ninguna llave queda como pickup suelto en el suelo.
+- **PZ-07 — Máquina de bebidas:** activar el zumbido para cubrir los pasos; la bandera
+  `noise:station_vending` reduce el radio de pasos al 25 % cuando se conecte al sistema
+  de oído P14.
+- **PZ-08 — Salida:** H no permite bajar a la vía hasta registrar los tres sellos.
+
+**Rutas**
+- **Corta/peligrosa:** A → F → G → H (barra y llave del portón).
+- **Larga/con puzzle:** A → B → C → D → I → H (oficina y energía); J ofrece la ruta
+  de señales y el segundo atajo.
+- **Bucles:** A–B–E–F–A y F–G–H–I–F, con atajos que abren desde el otro lado.
+  Las puertas de retorno muestran «VOLVER» y no dibujan flecha.
+
+Leo da señales y maúlla; la instrucción explícita se reserva para AYUDA. El capítulo termina
+cuando Isabella sale desde H hacia la vía norte.
 
 ### Capítulo 2 — Las vías
 > **Lógica de la primera sala (decisión de Chris, noviembre):** la vía **se divide en dos** en un cambio de vía (desvío) con su palanca y su lámpara roja:
