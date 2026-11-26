@@ -37,7 +37,7 @@ k.door_frame("ToCorridor", -4.35, -0.1, "z", width=1.1, wall_side=1, panel="meta
 k.door("door_maquinas_oficina", (0.0, 0, 3.6), "res://levels/station/oficina_jefe.tscn", "from_machine_room", prompt="VOLVER")
 k.door("door_maquinas_sur", (4.1, 0, 1.0), "res://levels/station/south_platform.tscn", "from_machine_room")
 k.door("door_maquinas_pasillo", (-4.1, 0, -0.1), "res://levels/station/service_corridor.tscn", "from_machine_room",
-       lock_id="station_power", requires_flag=True,
+       lock_id="station_power", requires_flag=True, one_way=True, one_way_origin=True,
        locked_text="La compuerta eléctrica no libera el pestillo. El tablero necesita dos fusibles de 10 A.")
 k.spawn("from_office", (0.0, 0.05, 3.0), (0, -1))
 k.spawn("from_south_platform", (3.75, 0.05, 1.0), (-1, 0))
