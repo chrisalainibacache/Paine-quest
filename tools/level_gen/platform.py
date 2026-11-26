@@ -49,6 +49,9 @@ for i, x in enumerate((-6.6, -2.9, 0.7, 4.3, 6.85)):
     block("Pilaster%d" % i, "Walls", (x, 1.8, 5.27), (0.32, 3.6, 0.06), "paint_red", solid=False)
 block("Baseboard", "Walls", (0, 0.08, 5.27), (14.0, 0.16, 0.08), "concrete_wall", solid=False)
 block("RetainingWall", "Walls", (0, 1.25, -5.45), (14.6, 4.5, 0.3), "old_bricks_wall")
+# Recodo interior que rompe la línea de visión y crea una pequeña ala de servicio.
+block("LPartition", "Walls", (-4.5, 1.35, -0.2), (0.18, 2.7, 5.0), "old_bricks_wall")
+block("LPartitionReturn", "Walls", (-3.0, 1.35, -2.7), (3.0, 2.7, 0.18), "plaster_wall")
 # Los muros de los extremos tienen el hueco del túnel por donde sigue la vía.
 from tunnels import carve
 carve(block, prop, -1, -7.0, -3.3, -1.0, -1.0, 3.6, -5.6, 5.6, "concrete_wall", prefix="WestTunnel")
@@ -165,8 +168,8 @@ s.node("Ammo", "Node3D", "Interactables", position=v3((-5.9, 0.0, 1.35)), script
        item=s.res("res://data/items/ammo_9mm.tres", "Resource"), count="10", model_rotation=v3((0, 2.2, 0)))
 s.node("Gate", "Node3D", "Interactables", position=v3((6.55, 0, 2.6)), script=s.res(IA("door"), "Script"), reach="1.4",
        target_room='"res://levels/station/south_platform.tscn"', target_spawn='"from_north_platform"',
-       key_item=s.res("res://data/items/gate_key.tres", "Resource"), lock_id='"gate_south"',
-       locked_text='"El portón hacia el andén sur. Tiene una cadena con un candado nuevo."', metal_door="true")
+       lock_id='"station_shortcut_1"', one_way="true", one_way_origin="false",
+       locked_text='"El portón se abre desde el andén sur; es un atajo de regreso."', metal_door="true")
 
 # --- Puntos de aparición -------------------------------------------------
 s.node("Spawns", "Node3D", ".")
