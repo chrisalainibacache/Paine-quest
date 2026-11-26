@@ -1,3 +1,29 @@
+### 2026-11-26 — P15: remodelación del capítulo 1 (en curso, PR #25)
+
+- **Rama:** `chatgpt/P15-cap1`, creada desde `main`; no se modificó `main`.
+- **Diseño:** estación como hub de 10 salas: A andén norte, B sala de espera, C boletería, D oficina del jefe, E baños, F pasillo de servicio, G bodega, H andén sur, I sala de máquinas, J cabina de señales. Dos rutas al objetivo, dos atajos de retorno y tres sellos para salir de H.
+- **Salas nuevas:** `banos.py`, `sala_maquinas.py`, `cabina_senales.py`, `oficina_jefe.py`; registradas junto con las salas rehechas en `tools/detail_rooms.json` y `tools/level_gen/regenerar_todo.sh`.
+- **Detalle:** incorporé desde la actualización de `main` la herramienta oficial `detail.py` y `props3.py`; los generadores usan `detail.dress(...)` por tema y evitan los puntos de interacción. La sala de espera usa un adaptador para el generador antiguo `tscn.Scene`. Se retiró el helper genérico `station_detail.py`.
+- **Puzzles:** PZ-01 código 0712; PZ-02 dos fusibles; PZ-03 barra/pestillo; PZ-04 palancas 2-1-3; PZ-05 válvula + cisterna; PZ-06 llave de portón en casillero 04; PZ-07 máquina de ruido; PZ-08 salida con `unlocked:gate_south`, `unlocked:station_power` y `unlocked:station_cabina`.
+- **Llaves:** `office_key` en el abrigo; mapa y fusible B en archivador cerrado; `gate_key` en casillero 04; fusible A en cisterna; `signal_key` en caja de herramientas tras la secuencia. No quedan pickups de llaves en el suelo.
+- **Mapa:** `data/zones/station.tres` actualizado a cuadrícula 4×3 y 10 salas; `ZoneMapData` reconoce puertas bloqueadas por bandera.
+- **Atajos:** H→A abre el atajo de portón desde el lado sur; I→F abre el atajo eléctrico desde máquinas una vez restaurada la energía. La salida de H exige los tres sellos.
+- **Pruebas añadidas:** mapa de 10 salas, atajo unidireccional, puertas por bandera, recursos de puzzles y función de atenuación de pasos del zumbido.
+- **CI:** «Pruebas en PR» #260 falló por un salto de línea literal en `Door.LABELS`; corregido. No hay CI verde posterior que valide la cabeza actual. Las escenas nuevas aún requieren regeneración y la auditoría de detalle/cámaras no está confirmada. No edité `.tscn` manualmente.
+- **PZ-07:** `VendingNoise` genera un zumbido continuo y `VendingNoise.attenuate_footstep_radius(4.0)` devuelve 1.0 cuando está encendida. Falta conectar esa función desde `Noise.make` de P14, que todavía no está en `main`.
+- **Qué debe probar Chris:** cuando se regenere y pase CI, recorrer ambas rutas al andén sur, activar el atajo H→A y el eléctrico I→F, verificar las tres banderas de salida y probar el zumbido con infectados en Android.
+- **Siguiente:** terminar las conexiones/spawns, revisar el balance de munición y objetos, actualizar el GDD/roadmap y pedir a Claude la regeneración/cámaras indicadas en «Preguntas».
+
+### Preguntas de ChatGPT — P15
+
+1. Claude: ejecuta `python3 tools/level_gen/regenerar_todo.sh` en `chatgpt/P15-cap1` y sube las escenas generadas desde los scripts (no editar `.tscn` a mano). La lista ya incluye `props3`, baños, máquinas y cabina.
+2. Claude: ejecuta `python3 tools/audit_detail.py --check` y confirma por sala los mínimos de 150 nodos, 40 props, 14 tipos, 15 decals y 4 cámaras. Si falla, deja el error exacto.
+3. Claude: replanifica las cámaras de las salas rehechas (en especial waiting_room, ticket_office, service_corridor y storeroom) y las nuevas; actualiza los fondos prerenderizados y vuelve a auditar.
+4. Claude: importa el proyecto en Godot y añade los `.uid` generados para `bar_latch.gd`, `cistern_valve.gd` y `vending_noise.gd`.
+5. Claude/P14: conecta `VendingNoise.attenuate_footstep_radius` con `Noise.make` para que el zumbido reduzca realmente el ruido de pasos; el hook P15 ya está implementado.
+6. Claude: verifica en Android que el generador de audio de `VendingNoise` no cause consumo excesivo y que el sonido se perciba como máquina, no como efecto corto.
+7. Claude: confirma si el contenido del capítulo 1 debe conservar el pickup total de munición base; P15 añadió 10 balas en la caja fuerte y 5 en el escondite opcional de máquinas (total adicional +15, dentro del margen de +30%).
+
 ### 2026-11-24 — P12-e: mapa de zona
 
 - **Qué hice:** Añadí `ZoneMapData` y cuatro recursos con el grafo de puertas de las zonas actuales: Estación (6 salas), Vías (6), Buin (7) y Maestranza (7). El grafo de Estación/Vías/Buin se transcribió de los `k.door(...)` de sus generadores; Maestranza usa el helper `connect_room` de `maestranza_common.py`.
