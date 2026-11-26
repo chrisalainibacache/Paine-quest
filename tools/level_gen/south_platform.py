@@ -1,7 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-from station_detail import add_station_detail
+import detail
 k = Kit("SouthPlatform", "Andén sur", ambience="station_night")
 k.env((0.05, 0.055, 0.07), (0.36, 0.38, 0.46), 0.55, (0.06, 0.065, 0.08), 0.045)
 k.s.node("Moon", "DirectionalLight3D", ".", rotation=v3((-0.9, -0.6, 0)), light_color=col((0.55, 0.62, 0.8)), light_energy="0.25")
@@ -95,19 +95,17 @@ k.spawn("from_machine_room", (1.0, 0.05, 1.0), (-1, 0))
 k.spawn("from_signal_cabin", (4.3, 0.05, 1.0), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoTracks', (4.3, 0, -0.75), ['Leo: La vía va hacia el norte. Hacia Santiago. Hacia Paz.', 'Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.', 'Leo: Avanza por el andén hasta el túnel del extremo este, donde brilla el resplandor rojo, y toca SEGUIR para bajar a la vía.'])
-prop_types = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
-               "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
-               "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
-               "fire", "ammo_box", "paper", "key"]
-camera_specs = [
-    ("West", (-3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (2.6, 3.2, 4.3), (-4.2, 0.3, 0.9)),
-    ("East", (3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (-2.6, 3.2, 4.3), (4.4, 0.0, -0.6)),
-    ("Tunnel", (4.8, 1.5, -1.6), (5.5, 3.0, 5.5), (-1.0, 3.0, 2.2), (5.2, 0.0, -3.3)),
-    ("Gate", (-4.8, 1.5, 2.0), (5.5, 3.0, 5.5), (1.0, 3.0, 4.0), (-5.4, 0.5, 2.0)),
+detail.dress(k, -5.5, 5.5, -5.0, 5.0, 3.8, theme="corridor", seed=508,
+             avoid=[(-5.6, 2.0, 1.2), (-4.4, 1.0, 1.0), (1.0, 1.0, 1.0),
+                    (4.6, 1.0, 1.0), (5.0, -0.75, 1.2), (1.6, 3.6, 1.2),
+                    (3.4, 1.2, 1.1), (-0.8, 1.0, 1.0)])
+own_props = [
+    ("PipeRack", "pipe_rack", (-4.8, 0.0, 3.8)), ("Extinguisher", "extinguisher", (-4.6, 0.0, 2.8)),
+    ("NoticeBoard", "notice_board", (-3.6, 0.0, 4.5)), ("WallClock", "wall_clock", (0.0, 2.5, 4.8)),
+    ("Plant", "plant_pot", (3.2, 0.0, 4.2)), ("TravelPoster", "travel_poster", (-4.8, 1.5, 3.8)),
+    ("Radio", "field_radio", (2.4, 0.9, 4.2)), ("Crate", "crate", (4.8, 0.0, 3.8)),
 ]
-add_station_detail(k, "SouthPlatform", prop_types,
-                   ["ANDÉN SUR", "PORTÓN", "VÍA NORTE", "CARGA",
-                    "SALIDA", "NO PASAR", "SERVICIO", "PAINE"],
-                   camera_specs, (-5.5, 5.5, -5.0, 5.0))
-k.save(REPO + "/levels/station/south_platform.tscn")
+for prop_name, scene_name, prop_pos in own_props:
+    k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.45, 0.45, 0.45)))
+k.save(REPO + "/levels/station/south_platform.tscn")k.save(REPO + "/levels/station/south_platform.tscn")
 print("south platform ok")
