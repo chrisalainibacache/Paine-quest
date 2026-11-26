@@ -1209,6 +1209,20 @@ func _p15_station_puzzles() -> void:
         "P15: el zumbido de máquina atenúa el radio de los pasos al 25 por ciento")
     GameState.flags.erase(VendingNoise.NOISE_FLAG)
 
+    var chapter_exit: ChapterExit = ChapterExit.new()
+    chapter_exit.required_flags = PackedStringArray([
+        "unlocked:gate_south", "unlocked:station_power", "unlocked:station_cabina"
+    ])
+    _check(not chapter_exit.requirements_met(), "P15: la salida rechaza una estación sin los tres sellos")
+    GameState.set_flag("unlocked:gate_south")
+    GameState.set_flag("unlocked:station_power")
+    GameState.set_flag("unlocked:station_cabina")
+    _check(chapter_exit.requirements_met(), "P15: los tres sellos habilitan la salida de zona")
+    GameState.flags.erase("unlocked:gate_south")
+    GameState.flags.erase("unlocked:station_power")
+    GameState.flags.erase("unlocked:station_cabina")
+    chapter_exit.free()
+
 
 ## P12-c: combinar consume ambos componentes y entrega el resultado una sola vez.
 func _combine_rules() -> void:
