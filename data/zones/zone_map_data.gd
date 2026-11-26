@@ -123,7 +123,10 @@ func has_locked_door(room_id: String) -> bool:
         if bool(door.get("one_way", false)) and not bool(door.get("origin", true)) \
                 and not GameState.has_flag("one_way_open:" + lock_id):
             return true
-        var key_item_id := String(door.get("key_item_id", ""))
+        var requires_flag: bool = bool(door.get("requires_flag", false))
+        if requires_flag and not GameState.has_flag("unlocked:" + lock_id):
+            return true
+        var key_item_id: String = String(door.get("key_item_id", ""))
         if not key_item_id.is_empty() and not GameState.has_flag("unlocked:" + lock_id) \
                 and not GameState.inventory.has_id(key_item_id):
             return true
@@ -137,7 +140,10 @@ func locked_key_item_id(room_id: String) -> String:
         if bool(door.get("one_way", false)) and not bool(door.get("origin", true)) \
                 and not GameState.has_flag("one_way_open:" + lock_id):
             return String(door.get("key_item_id", ""))
-        var key_item_id := String(door.get("key_item_id", ""))
+        var requires_flag: bool = bool(door.get("requires_flag", false))
+        if requires_flag and not GameState.has_flag("unlocked:" + lock_id):
+            return ""
+        var key_item_id: String = String(door.get("key_item_id", ""))
         if not key_item_id.is_empty() and not GameState.has_flag("unlocked:" + lock_id) \
                 and not GameState.inventory.has_id(key_item_id):
             return key_item_id
