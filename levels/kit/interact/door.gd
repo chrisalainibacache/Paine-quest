@@ -17,6 +17,8 @@ extends Interactable
 @export var metal_door: bool = false
 ## Atajo que se habilita desde un solo lado; ambas puertas comparten lock_id.
 @export var one_way: bool = false
+## Bloqueo por una bandera de puzzle (código, fusibles o palancas).
+@export var requires_flag: bool = false
 ## true en el lado desde el que se puede abrir por primera vez.
 @export var one_way_origin: bool = true
 @export_multiline var one_way_locked_text: String = "Solo se puede abrir desde el otro lado."
@@ -104,7 +106,8 @@ func _refresh_marker() -> void:
     var one_way_blocked := one_way and not one_way_origin and not GameState.has_flag(_one_way_flag())
     var key_blocked := key_item != null and not GameState.has_flag("unlocked:" + _lock_key()) \
             and not GameState.inventory.has_id(key_item.id)
-    var blocked := one_way_blocked or key_blocked
+    var flag_blocked := requires_flag and not GameState.has_flag("unlocked:" + _lock_key())
+    var blocked := one_way_blocked or key_blocked or flag_blocked
     var color := LOCKED_COLOR if blocked else MARKER_COLOR
     _marker_arrow.modulate = color
     _marker_arrow.outline_modulate = Color(0.05, 0.04, 0.03)
@@ -121,7 +124,8 @@ func _refresh_marker() -> void:
 func is_locked() -> bool:
     if one_way and not GameState.has_flag(_one_way_flag()):
         return true
-    return key_item != null and not GameState.has_flag("unlocked:" + _lock_key())
+    return (key_item != null and not GameState.has_flag("unlocked:" + _lock_key())) \
+            or (requires_flag and not GameState.has_flag("unlocked:" + _lock_key()))
 
 
 func _is_metal_door() -> bool:
@@ -143,8 +147,12 @@ func interact(_player: Player) -> void:
             await Dialogue.say([one_way_locked_text])
             return
         GameState.set_flag(_one_way_flag())
+    if requires_flag and not GameState.has_flag("unlocked:" + _lock_key()):
+        _play_locked_sound()
+        await Dialogue.say([locked_text])
+        return
     if is_locked():
-        if GameState.inventory.has_id(key_item.id):
+        if key_item != null and GameState.inventory.has_id(key_item.id):
             GameState.set_flag("unlocked:" + _lock_key())
             Sfx.play("unlock", null, -3.0)
             if _all_key_locks_unlocked(key_item):
