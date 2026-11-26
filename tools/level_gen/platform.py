@@ -161,6 +161,8 @@ IA = lambda n: "res://levels/kit/interact/%s.gd" % n
 s.node("Interactables", "Node3D", ".")
 s.node("DoorToWaitingRoom", "Node3D", "Interactables", position=v3((3.0, 0, 4.95)), script=s.res(IA("door"), "Script"),
        target_room='"res://levels/station/waiting_room.tscn"', target_spawn='"from_platform"', reach="1.3")
+s.node("door_anden_pasillo", "Node3D", "Interactables", position=v3((-6.4, 0, 0.5)), script=s.res(IA("door"), "Script"),
+       target_room='"res://levels/station/service_corridor.tscn"', target_spawn='"from_platform"', reach="1.3")
 s.node("Note", "Node3D", "Interactables", position=v3((-2.8, 0.49, 4.62)), script=s.res(IA("note"), "Script"),
        document=s.res("res://data/documents/platform_note.tres", "Resource"), reach="1.4")
 s.node("Paper", None, "Interactables/Note", instance=s.res("res://levels/kit/items/paper.tscn", "PackedScene"), rotation=v3((0, 0.5, 0)))
