@@ -5,6 +5,7 @@ from roomkit import *
 from station_detail import add_station_detail
 
 k = Kit("Bathrooms", "Baños", ambience="service_corridor")
+# P15: la cisterna y su válvula se generan desde este script, no desde la escena.
 k.env((0.015, 0.016, 0.018), (0.28, 0.3, 0.34), 0.48, (0.035, 0.045, 0.06), 0.065)
 H = 2.8
 k.shell(-4.5, 4.5, -4.0, 4.0, H, floor="tiles_wall", wall="plaster_wall",
