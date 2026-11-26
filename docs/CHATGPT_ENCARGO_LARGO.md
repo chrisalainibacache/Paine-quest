@@ -323,3 +323,49 @@ Chris probó la build-129: «demasiado lineal, puzzles muy básicos, llaves en e
 
 ## Orden de trabajo de ChatGPT (2026-11-24, actualizado)
 **P12** (puzzles, mapa, pistas) → **P14** (IA de infectados: **antes que P13**, Chris lo pidió) → **P13** (cooperativo) → resto de **P10**.
+
+---
+
+# PRIORIDAD ABSOLUTA (2026-11-26): rehacer los niveles para terminar el juego
+
+**Pedido de Chris:** «necesito terminar el juego». Los problemas que **sigue habiendo** en el juego que él prueba: **demasiado lineal** (ir siempre hacia adelante, llaves a la vista en el piso, puzzles básicos), **salas aburridas** (cajas grandes y vacías) y **dura poco**. La solución ya está diseñada (`docs/REDISENO_NIVELES.md`, `docs/zonas/`): **zonas de 8–12 salas pequeñas con bucles, atajos, mapa, puzzles variados y llaves escondidas**. Los motores ya existen (P12 está **fusionado en `main`**: códigos, fusibles, palancas, REGISTRAR, puertas de un solo lado, combinar objetos, mapa de zona, pistas de Leo a demanda). **Ahora toca construir las salas.**
+
+**Reglas del flujo (leer antes de empezar):**
+1. **Parte siempre de `main` actualizado** (`git fetch`; rama nueva desde `origin/main`). P12 y P10-a/b ya están en `main`; **no vuelvas a tocar P12** salvo para corregir un fallo que bloquee tu trabajo (dilo en el registro).
+2. **Un commit por sala o por puzzle y empuja cada vez** (`git push`). No esperes al CI para seguir con la tarea siguiente. Si el CI pide aprobación o se cancela, **sigue**: Claude corre las pruebas completas en su entorno y corrige.
+3. **GDScript tipado:** nada de `var x := f()` si `f` devuelve Variant (p. ej. métodos de un `Node3D` genérico): escribe `var x: String = f()`. Es el error que más rompe el juego.
+4. Las salas **solo** se crean/editan en `tools/level_gen/*.py` con `roomkit.Kit`; **no edites `.tscn` a mano**: se regeneran (`./tools/level_gen/regenerar_todo.sh`; agrega cada generador nuevo a ese script). Mira `tools/level_gen/buin_checkpoint.py` y `docs/LECCIONES_SALAS.md` como modelo.
+5. **No inventes cámaras definitivas**: deja 2–3 `k.camera(...)` provisorias **dentro** de la sala (la cámara no puede ver el vacío exterior: `levels_test` lo exige). Claude planifica cámaras y renderiza los fondos.
+6. Salas de **6–10 m**, con forma **en L o en U** (muros interiores, recodos, mostradores) y **mucho más detalle** que hoy: mobiliario, desorden, cartelería, props de `tools/level_gen/props*.py` y `buin_props.py`. **Ninguna llave ni objeto clave a la vista en el piso.**
+7. Cada sala nueva: ≥ 2 puertas (salvo rincones), `leo_hint` N1/N2/N3, `ambience`, `Room.id` estable, y entra en `ZoneMapData` (mapa de zona de P12-e) y en `levels_test`.
+8. Cierra cada paquete con una entrada en `docs/CHATGPT_LOG.md` («qué debe probar Chris»: recorrer **dos rutas** distintas, abrir un atajo, resolver cada puzzle).
+
+## P15 — Capítulo 1 rediseñado: Estación de Paine (piloto, ~8 tareas) · rama `chatgpt/P15-cap1`, PR aparte
+**Fuente de verdad:** `docs/zonas/cap1_estacion.md` (diseño P10-b: 10 salas, 2 bucles, 2 atajos, 6+ puzzles, llaves, textos de notas). **Impleméntalo tal cual**; si algo es imposible o ambiguo, anótalo en «Preguntas» del registro y elige la opción más simple.
+- **P15-a Cuatro salas nuevas:** `oficina_jefe` (D), `banos` (E), `sala_maquinas` (I), `cabina_senales` (J): un generador cada una (`tools/level_gen/<id>.py`), formas L/U, spawns, puertas del grafo, props, `leo_hint`, ambiente. Registra la escena en `SceneLoader`/`Room` como las demás.
+- **P15-b Seis salas existentes reformadas:** `platform` (andén norte), `waiting_room`, `ticket_office`, `service_corridor`, `storeroom`, `south_platform`: darles forma en L/U y más objetos, **conectarlas según el grafo** (puertas nuevas: `door_anden_pasillo`, `door_espera_banos`, `door_banos_pasillo`, etc.), **quitar toda llave del piso** y reubicarla según la tabla «Objetos y llaves». Conserva IDs de escena y de puertas que el guardado ya usa (no rompas partidas) y los textos del guion.
+- **P15-c Puzzles del capítulo** (usa el motor de P12, un commit por puzzle): caja fuerte de la boletería con **código 0712** (hora del reloj detenido, dos pistas), **dos fusibles** (baños y oficina) → tablero de `sala_maquinas` que habilita la compuerta eléctrica y la puerta `door_cabina_sur`, **palancas** de la cabina en el orden del diagrama de la oficina, **casillero 04** del pasillo con la `gate_key` (REGISTRAR tras la pista «04»), `office_key` en el abrigo de la oficina, pestillo del pasillo→bodega (barra caída), **dos puertas de un solo lado** (atajos).
+- **P15-d Objetos, mapa y pistas:** ítem `map_station` colocado en la `oficina_jefe` (dentro de un archivador, no en el piso); notas nuevas con los textos exactos del diseño; pistas de Leo N1/N2/N3 por sala (sin flechas amarillas permanentes dentro de la zona; solo en la puerta de salida de zona).
+- **P15-e Pruebas** (solo **agregar**; no borres pruebas existentes): `tests/levels_test.gd` carga las 10 salas, spawns cubiertos por cámara, puertas con destino válido y mapa de zona coherente; una **prueba de alcanzabilidad** que recorre el grafo por **dos rutas distintas** hasta `anden_sur` y demuestra que **cada llave se obtiene antes de la puerta que la exige** (sin cadenas imposibles); guardado/carga de puzzles resueltos; `puzzle_lab` sigue verde.
+- **P15-f Equilibrio de recursos:** munición y curaciones repartidas en contenedores (sin duplicar el total actual del capítulo por más de +30 %), enemigos según el diseño (2 infectados comunes al volver con la pistola, 1 dormido, 1 fingiendo, Don Héctor).
+- **P15-g Duración objetivo:** estima en el registro el tiempo de juego del capítulo con y sin ayuda (meta: **25–35 min** la primera vez, vs. ~8 min hoy) y qué hace que no se pueda terminar «corriendo hacia adelante».
+- **P15-h Documentación:** `docs/ROADMAP.md`, `docs/GDD.md` (capítulo 1 nuevo: grafo, puertas, puzzles), y el registro con **qué debe probar Chris** (ruta A: andén→pasillo→bodega→andén sur; ruta B: espera→boletería→oficina→máquinas; abrir un atajo; la caja fuerte; los fusibles).
+**Hecho cuando:** CI verde sin `SCRIPT ERROR` (o, si el CI no corre por aprobación pendiente, lo dices y Claude valida en su entorno), PR fuera de borrador.
+
+## P16 — Capítulo 2 «Las vías»: diseño + implementación (~7 tareas) · rama `chatgpt/P16-cap2`
+Es **P10-c** (diseño) **y** su implementación, en este orden: **(a)** `docs/zonas/cap2_vias.md` con el contrato de `docs/zonas/README.md` (8–12 salas, 2 bucles, 2 atajos, ≥ 6 puzzles de 4 tipos, pistas, mapa) respetando `docs/GUION.md` y las salas ya existentes (`track_north`, `derailed_train`, `wagon_interior`, `convoy_side`, `underpass`, `switch_house`); **(b)** generadores de las salas nuevas y reforma de las existentes **como en P15-a/b**; **(c)** puzzles; **(d)** objetos/mapa `map_tracks`/pistas; **(e)** pruebas de alcanzabilidad; **(f)** duración y balance; **(g)** documentación. Conserva el **final del capítulo** y la linterna/apagón, y la escena de Skull (`creature_door`).
+
+## P17 — Capítulo 3 «Buin»: diseño + implementación (~7 tareas) · rama `chatgpt/P17-cap3`
+Igual que P16 con **P10-d**: `docs/zonas/cap3_buin.md` y las siete salas actuales (`bridge`, `checkpoint`, `field`, `station`, `warehouse`, `vineyard`, `shed`) más nuevas. Conserva el **rescate de Kiara y Nala** (`rescue_scene.gd`) y la radio de Rosa.
+
+## P18 — Capítulo 4 «La Maestranza»: diseño + implementación (~7 tareas) · rama `chatgpt/P18-cap4`
+**P10-e** + implementación sobre `docs/cap4_*.md` y las salas `maestranza_*` ya hechas (acceso, guardia, enfermería, taller, vestuario, pasillo de cuarentena, puesto sanitario): más salas, bucles, puzzles, **patio de maniobras** (jefe, **sin mostrar su cuerpo completo antes del combate**) y encuentro con Paz. El vagón del Centro de Nos sigue sellado.
+
+## P19 — Capítulo 5 «Centro de Nos» y epílogo: diseño + implementación (~8 tareas) · rama `chatgpt/P19-cap5`
+**P10-f/g**: `docs/zonas/cap5_centro_nos.md` y `epilogo.md`, y luego **todas las salas nuevas** (acceso, recepción, archivo, enfermería, pasillo de transferencia, preaislamiento, sala de aislamiento del jefe final) con puzzles y la escena final del amanecer («Para Leo»). No hay nada implementado de este capítulo: es el más grande.
+
+## P20 — Cierre de P10 (documentos) · rama `chatgpt/P20-guia`
+**P10-h/i:** `docs/zonas/guia_de_jugada.md` (recorrido completo, guardados, economía global, **duración total objetivo ≥ 2,5–3 h**) y `docs/zonas/notas_nuevas_indice.md`. Se hace **al final** o en paralelo si no hay otra tarea.
+
+## Orden de trabajo de ChatGPT (2026-11-26, vigente)
+**P15** (capítulo 1: **empieza ya**) → **P16** → **P17** → **P18** → **P19** → **P14** (IA de infectados; antes tenía prioridad, ahora va después de los niveles porque Chris necesita **terminar el juego**) → **P13** (cooperativo) → **P20**. Un PR por paquete. **Empuja cada commit y sigue sin esperar el CI**; si algo te bloquea, escríbelo en «Preguntas» con el error exacto.
