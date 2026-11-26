@@ -1,7 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-from station_detail import add_station_detail
+import detail
 k = Kit("ServiceCorridor", "Pasillo de servicio", ambience="service_corridor")
 k.env((0.01, 0.01, 0.012), (0.28, 0.3, 0.32), 0.45, (0.03, 0.03, 0.035), 0.07)
 H = 2.7
@@ -71,19 +71,17 @@ k.spawn("from_machine_room", (0.5, 0.05, -0.5), (0, 1))
 k.leo_hint('LeoStoreroom', (4.8, 0, 0.0), ['Leo: Cuidado. No todos los que están en el suelo están muertos.', 'Leo: Yo los huelo. Si les bufo, es que se van a levantar. Si no, déjalos dormir.', 'Leo: Aparta la barra caída y avanza hacia la BODEGA; si bufo, alguno se levantará.'], hide_item='gate_key')
 k.leo_hint('LeoLocker04', (-1.55, 0, -0.4), ['Leo: Hay una etiqueta cuatro y pintura fresca en ese casillero.', 'Leo: La llave huele a chaqueta mojada, no a metal del piso.', 'Leo: Registra el casillero 04; busca la llave en el bolsillo interior de la chaqueta.'], hide_item='gate_key')
 k.leo_hint('LeoBack', (-4.8, 0, 0.0), ['Leo: Ya tienes la llave. Volvamos al andén: el portón sur nos espera.', 'Leo: Vuelve por BOLETERÍA, atraviesa la SALA DE ESPERA y regresa al ANDÉN NORTE.'], show_item='gate_key', hide_if='unlocked:gate_south')
-prop_types = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
-               "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
-               "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
-               "fire", "ammo_box", "paper", "key"]
-camera_specs = [
-    ("MainWest", (-4.0, 1.5, 0.0), (5.5, 3.0, 4.5), (0.0, 3.0, 3.8), (-4.0, 0.5, 0.0)),
-    ("MainEast", (4.0, 1.5, 0.0), (5.5, 3.0, 4.5), (-1.0, 3.0, 3.8), (4.0, 0.5, 0.0)),
-    ("Wing", (-3.8, 1.5, 3.0), (5.5, 3.0, 5.5), (0.5, 3.0, 4.8), (-4.0, 0.5, 3.0)),
-    ("Hub", (0.0, 1.5, 0.0), (6.0, 3.0, 5.5), (5.0, 3.0, 2.5), (0.0, 0.5, 0.0)),
+detail.dress(k, -5.5, 5.5, -0.5, 4.5, H, theme="corridor", seed=505,
+             avoid=[(-5.6, 0.0, 1.0), (5.6, 0.0, 1.0), (-4.0, 1.0, 0.9),
+                    (0.5, -0.8, 0.9), (4.8, 0.55, 0.9), (-1.55, -0.76, 0.8),
+                    (1.2, 0.25, 0.9), (2.0, 0.55, 0.8)])
+own_props = [
+    ("LockerRow", "locker_row", (-3.3, 0.0, -0.75)), ("PipeRack", "pipe_rack", (-2.6, 0.0, 3.8)),
+    ("Shelf", "shelf_unit", (-1.0, 0.0, 3.8)), ("NoticeBoard", "notice_board", (0.4, 0.0, 3.8)),
+    ("Extinguisher", "extinguisher", (2.8, 0.0, 3.8)), ("WallClock", "wall_clock", (3.8, 2.2, 3.8)),
+    ("Radio", "field_radio", (-2.0, 0.8, 3.8)), ("Crate", "crate", (3.4, 0.0, -0.65)),
 ]
-add_station_detail(k, "ServiceCorridor", prop_types,
-                   ["PASILLO DE SERVICIO", "BODEGA", "CASILLERO 04", "MANTENIMIENTO",
-                    "PERSONAL", "NO FUMAR", "SALIDA", "BAÑOS"],
-                   camera_specs, (-5.5, 5.5, -0.5, 4.5))
-k.save(REPO + "/levels/station/service_corridor.tscn")
+for prop_name, scene_name, prop_pos in own_props:
+    k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.45, 0.45, 0.45)))
+k.save(REPO + "/levels/station/service_corridor.tscn")k.save(REPO + "/levels/station/service_corridor.tscn")
 print("corridor ok")
