@@ -1,6 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from tscn import *
+from station_detail import add_station_detail, SceneKitAdapter
 KB = "res://levels/kit/kit_block.gd"
 M = lambda n: "res://levels/kit/materials/%s.tres" % n
 PROP = lambda n: "res://levels/kit/props/%s.tscn" % n
@@ -44,6 +45,9 @@ block("NorthWall", "Shell", (0, H / 2, -D / 2 - 0.15), (W + 0.6, H, 0.3), "plast
 block("SouthWall", "Shell", (0, H / 2, D / 2 + 0.15), (W + 0.6, H, 0.3), "plaster_wall")
 block("WestWall", "Shell", (-W / 2 - 0.15, H / 2, 0), (0.3, H, D), "plaster_wall")
 block("EastWall", "Shell", (W / 2 + 0.15, H / 2, 0), (0.3, H, D), "plaster_wall")
+# L interior: un recodo de servicios y una línea de visión corta hacia la boletería.
+block("LPartition", "Shell", (1.4, 1.45, 1.15), (0.18, 2.9, 3.8), "old_bricks_wall")
+block("LPartitionReturn", "Shell", (0.0, 1.45, -0.75), (2.8, 2.9, 0.18), "plaster_wall")
 # Zócalo de azulejos y guardapolvo en todo el perímetro.
 for name, pos, size in [("N", (0, 0.6, -D / 2 + 0.02), (W, 1.2, 0.04)), ("S", (0, 0.6, D / 2 - 0.02), (W, 1.2, 0.04)),
                         ("W", (-W / 2 + 0.02, 0.6, 0), (0.04, 1.2, D)), ("E", (W / 2 - 0.02, 0.6, 0), (0.04, 1.2, D))]:
@@ -120,9 +124,11 @@ DC("DampCenter", "damp_stain", (0.9, 0.014, 1.5), 2.0, "up", rot=0.9)
 # --- Interactuables -------------------------------------------------------
 s.node("Interactables", "Node3D", ".")
 interact("DoorToPlatform", "door", (-2.5, 0, D / 2 - 0.35), target_room='"res://levels/station/platform.tscn"',
-         target_spawn='"from_waiting_room"', reach="1.3")
+         target_spawn='"from_waiting_room"', reach="1.3", prompt='"VOLVER"')
 interact("DoorToTicketOffice", "door", (2.9, 0, -D / 2 + 0.35), reach="1.3",
          target_room='"res://levels/station/ticket_office.tscn"', target_spawn='"from_waiting_room"')
+interact("door_espera_banos", "door", (-W / 2 + 0.35, 0, -0.4), reach="1.3",
+         target_room='"res://levels/station/banos.tscn"', target_spawn='"from_waiting_room"')
 interact("Typewriter", "typewriter", (3.75, 0.8, 1.4), reach="1.4")
 # Baúl compartido junto a la máquina de escribir.
 interact("StorageChest", "storage_chest", (-2.5, 0.45, -0.8), reach="1.4")
@@ -161,9 +167,25 @@ for name, zone_center, zone_size, cam_pos, target in [
 s.node("Spawns", "Node3D", ".")
 s.node("from_platform", "Marker3D", "Spawns", position=v3((-2.5, 0.05, D / 2 - 0.9)))
 s.node("from_ticket_office", "Marker3D", "Spawns", position=v3((2.9, 0.05, -D / 2 + 0.9)), rotation=v3((0, math.pi, 0)))
+s.node("from_banos", "Marker3D", "Spawns", position=v3((-W / 2 + 0.9, 0.05, -0.4)), rotation=v3((0, math.pi / 2, 0)))
 from roomkit import add_leo_hint
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 add_leo_hint(s, 'LeoTicketOffice', (2.6, 0, -2.6), ['Leo: La puerta de SOLO PERSONAL. Por ahí se llega a la boletería.', 'Leo: Y el que come junto a la máquina... no lo despiertes. Pasa por el otro lado, despacito, como camino yo.', 'Leo: Rodea la máquina por el lado opuesto y entra por la puerta SOLO PERSONAL hacia la boletería.'], hide_if='found:pistol')
 add_leo_hint(s, 'LeoTypewriter', (3.2, 0, 1.4), ['Leo: Esa máquina de escribir guarda lo que llevamos hecho.', 'Leo: Úsala cuando puedas. Yo no sé escribir, pero sé esperar.', 'Leo: Acércate a la máquina y elige GUARDAR cuando te pregunte. Así no perderemos lo que avanzamos.'], show_if='found:pistol')
+detail_adapter = SceneKitAdapter(s, block, prop)
+detail_props = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
+                "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
+                "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
+                "fire", "ammo_box", "paper", "key"]
+detail_cameras = [
+    ("Entry", (-2.0, 1.5, 0.0), (5.0, 3.0, 7.0), (2.4, 2.8, 3.15), (-2.6, 0.5, -0.9)),
+    ("Desk", (2.5, 1.5, 0.0), (4.0, 3.0, 7.0), (-1.9, 2.8, 3.15), (3.0, 0.5, -0.9)),
+    ("BathWing", (-3.6, 1.5, -0.5), (4.5, 3.0, 5.5), (0.5, 3.0, 3.8), (-3.8, 0.5, -0.5)),
+    ("Typewriter", (3.2, 1.5, 1.4), (4.5, 3.0, 5.5), (-1.0, 3.0, 3.8), (3.2, 0.5, 1.4)),
+]
+add_station_detail(detail_adapter, "WaitingRoom", detail_props,
+                   ["SALA DE ESPERA", "BOLETERÍA", "BAÑOS", "RELOJ DETENIDO",
+                    "NO FUMAR", "SALIDA", "PERSONAL", "PAINE"],
+                   detail_cameras, (-4.5, 4.5, -3.5, 3.5))
 s.save(REPO + "/levels/station/waiting_room.tscn")
 print("waiting room ok")
