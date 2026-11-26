@@ -54,7 +54,7 @@ rooms = Array[Dictionary]([{
 "scene_path": "res://levels/station/service_corridor.tscn",
 "grid_position": Vector2i(2, 2),
 "connections": PackedStringArray("platform", "banos", "storeroom", "sala_maquinas"),
-"doors": Array[Dictionary]([{"label":"Andén norte","target":"platform","key_item_id":"","lock_id":"","one_way":false,"origin":true,"requires_flag":false}, {"label":"Baños","target":"banos","key_item_id":"","lock_id":"","one_way":false,"origin":true,"requires_flag":false}, {"label":"Bodega","target":"storeroom","key_item_id":"","lock_id":"station_latch_removed","one_way":false,"origin":true,"requires_flag":true}, {"label":"Sala de máquinas","target":"sala_maquinas","key_item_id":"","lock_id":"station_power","one_way":false,"origin":true,"requires_flag":true}])
+"doors": Array[Dictionary]([{"label":"Andén norte","target":"platform","key_item_id":"","lock_id":"","one_way":false,"origin":true,"requires_flag":false}, {"label":"Baños","target":"banos","key_item_id":"","lock_id":"","one_way":false,"origin":true,"requires_flag":false}, {"label":"Bodega","target":"storeroom","key_item_id":"","lock_id":"station_latch_removed","one_way":false,"origin":true,"requires_flag":true}, {"label":"Sala de máquinas","target":"sala_maquinas","key_item_id":"","lock_id":"station_power","one_way":true,"origin":false,"requires_flag":true}])
 },
 {
 "id": "storeroom",
@@ -78,7 +78,7 @@ rooms = Array[Dictionary]([{
 "scene_path": "res://levels/station/sala_maquinas.tscn",
 "grid_position": Vector2i(2, 0),
 "connections": PackedStringArray("oficina_jefe", "service_corridor", "south_platform"),
-"doors": Array[Dictionary]([{"label":"Oficina del jefe","target":"oficina_jefe","key_item_id":"","lock_id":"","one_way":false,"origin":true,"requires_flag":false}, {"label":"Pasillo de servicio","target":"service_corridor","key_item_id":"","lock_id":"station_power","one_way":false,"origin":true,"requires_flag":true}, {"label":"Andén sur","target":"south_platform","key_item_id":"","lock_id":"","one_way":false,"origin":true,"requires_flag":false}])
+"doors": Array[Dictionary]([{"label":"Oficina del jefe","target":"oficina_jefe","key_item_id":"","lock_id":"","one_way":false,"origin":true,"requires_flag":false}, {"label":"Pasillo de servicio","target":"service_corridor","key_item_id":"","lock_id":"station_power","one_way":true,"origin":true,"requires_flag":true}, {"label":"Andén sur","target":"south_platform","key_item_id":"","lock_id":"","one_way":false,"origin":true,"requires_flag":false}])
 },
 {
 "id": "cabina_senales",
