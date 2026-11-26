@@ -36,6 +36,8 @@ func _run() -> void:
             path = "res://levels/buin/%s.tscn" % room_name
         if not ResourceLoader.exists(path):
             path = "res://levels/maestranza/%s.tscn" % room_name
+        if not ResourceLoader.exists(path):
+            path = "res://levels/test/%s.tscn" % room_name
         var probe := (load(path) as PackedScene).instantiate()
         var spawn: String = probe.get_node("Spawns").get_child(0).name
         probe.free()

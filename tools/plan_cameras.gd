@@ -7,7 +7,7 @@ extends SceneTree
 ## Uso: godot --headless --path . -s res://tools/plan_cameras.gd -- sala [sala ...]
 
 const Check := preload("res://tools/camera_check.gd")
-const DIRS := ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/", "res://levels/maestranza/"]
+const DIRS := ["res://levels/station/", "res://levels/tracks/", "res://levels/buin/", "res://levels/maestranza/", "res://levels/test/"]
 const OUT := "res://tools/level_gen/cameras.json"
 const STEP := 0.25
 ## Cantidad de zonas (en X, en Z) que se prueba, de menos a más cámaras.

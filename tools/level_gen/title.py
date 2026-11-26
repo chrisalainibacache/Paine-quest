@@ -28,6 +28,9 @@ s.node("Graphics", "Button", "Menu", custom_minimum_size="Vector2(0, 68)", text=
        script=s.res("res://ui/graphics_toggle.gd", "Script"))
 s.node("Brightness", "Button", "Menu", custom_minimum_size="Vector2(0, 68)", text='"BRILLO 3/5"', theme_override_font_sizes_font_size="26",
        script=s.res("res://ui/brightness_toggle.gd", "Script"))
+s.node("BossButton", "Button", ".", anchors_preset="1", anchor_left="1.0", anchor_top="0.0", anchor_right="1.0", anchor_bottom="0.0",
+       grow_horizontal="0", offset_left="-250.0", offset_top="20.0", offset_right="-20.0", offset_bottom="76.0", text='"JEFE · PRUEBA"',
+       theme_override_font_sizes_font_size="20", focus_mode="0")
 s.node("OptionsButton", "Button", ".", anchors_preset="0", anchor_left="0.0", anchor_top="0.0", anchor_right="0.0", anchor_bottom="0.0",
        grow_horizontal="0", grow_vertical="0", offset_left="20.0", offset_top="20.0", offset_right="240.0", offset_bottom="76.0",
        custom_minimum_size="Vector2(220, 56)", text='"OPCIONES"', theme_override_font_sizes_font_size="24", focus_mode="0")

@@ -29,6 +29,7 @@ func _ready() -> void:
     continue_button.pressed.connect(_continue)
     credits_button.pressed.connect(_show_credits)
     options_button.pressed.connect(options_menu.open)
+    $BossButton.pressed.connect(_boss_test)
     var title := $Title as Label
     title.modulate.a = 0.0
     create_tween().tween_property(title, "modulate:a", 1.0, 2.0)
@@ -39,6 +40,19 @@ func _ready() -> void:
 func _new_game() -> void:
     Sfx.play("menu", null, -6.0)
     GameState.new_game()
+    get_tree().change_scene_to_file(GAME_SCENE)
+
+
+## Sala de prueba del jefe (Skull): partida nueva aparte con armas, sin tocar el guardado.
+func _boss_test() -> void:
+    Sfx.play("menu", null, -6.0)
+    GameState.new_game()
+    GameState.give_pistol(40)
+    for item_id in ["shotgun", "assault_rifle"]:
+        GameState.inventory.add(load("res://data/items/%s.tres" % item_id) as ItemData)
+    GameState.inventory.add(load("res://data/items/ammo_shells.tres") as ItemData, 12)
+    GameState.inventory.add(load("res://data/items/ammo_rifle.tres") as ItemData, 30)
+    GameState.room_path = "res://levels/test/skull_arena.tscn"
     get_tree().change_scene_to_file(GAME_SCENE)
 
 

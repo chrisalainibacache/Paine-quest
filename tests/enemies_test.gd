@@ -22,6 +22,7 @@ func _run() -> void:
     await _throwing("infected_pale", "bottle", 6)
     await _throwing("infected_worker", "brick", 10)
     await _skull_boss()
+    await _boss_encounter()
     _finish()
 
 
@@ -142,4 +143,30 @@ func _skull_boss() -> void:
     skull.queue_free()
     wall.queue_free()
     ground.queue_free()
+    await _frames(2)
+
+
+## Arena del jefe: al acercarse Isabella aparece Skull con su barra; al caer se anota la bandera.
+func _boss_encounter() -> void:
+    GameState.new_game()
+    var room := (load("res://levels/test/skull_arena.tscn") as PackedScene).instantiate()
+    stage.add_child(room)
+    var player := (load("res://actors/player/player.tscn") as PackedScene).instantiate() as Player
+    room.add_child(player)
+    player.global_position = Vector3(-9.0, 0.05, 0.0)
+    await _frames(10)
+    var encounter := room.get_node("BossEncounter")
+    _check(encounter.boss == null, "arena: el jefe no aparece con Isabella lejos")
+    player.global_position = Vector3(0.0, 0.05, 0.0)
+    for i in 30:
+        await _frames(2)
+        if encounter.boss != null:
+            break
+    _check(encounter.boss != null and encounter._bar != null, "arena: al acercarse aparece el jefe con su barra de vida")
+    if encounter.boss != null:
+        encounter.boss.take_hit(9999, Vector3.ZERO, Vector3(8, 1.5, 0), 0.0)
+        await _frames(4)
+        _check(GameState.has_flag("boss:skull:dead"), "arena: al caer el jefe se anota la bandera")
+    GameState.flags.erase("boss:skull:dead")
+    room.queue_free()
     await _frames(2)
