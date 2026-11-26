@@ -2,7 +2,7 @@ import sys, math, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
-from station_detail import add_station_detail
+import detail
 
 k = Kit("SignalCabin", "Cabina de señales", ambience="office")
 k.env((0.018, 0.016, 0.014), (0.32, 0.3, 0.26), 0.5, (0.05, 0.04, 0.03), 0.06)
@@ -58,21 +58,34 @@ k.leo_hint("LeoSignals", (0.0, 0, -3.1), [
     "Leo: No es un juego de fuerza. Sigue el orden del dibujo.",
     "Leo: Acciona libre, desvío y bloqueo; en el panel corresponden a las posiciones 2, 1 y 3."
 ])
-prop_types = [
-    "iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
-    "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
-    "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
-    "fire", "ammo_box", "paper", "key",
+# Pasada oficial de detalle de oficina, evitando panel, puertas y caja de herramientas.
+detail.dress(k, -3.7, 3.7, -3.7, 3.7, H, theme="office", seed=503,
+             avoid=[(-1.1, -3.65, 1.5), (0.0, -3.2, 1.4), (2.4, 2.3, 1.0),
+                    (0.0, 3.6, 0.9), (-3.6, 0.0, 0.9), (3.6, 1.0, 0.9)])
+own_props = [
+    ("ControlDesk", "office_desk", (-1.2, 0.0, -1.8)), ("Filing", "filing_cabinet", (2.6, 0.0, -2.6)),
+    ("Board", "notice_board", (2.8, 0.0, 2.6)), ("Shelf", "shelf_unit", (-3.0, 0.0, 2.6)),
+    ("Radio", "field_radio", (1.8, 0.9, -1.8)), ("Typewriter", "typewriter_desk", (-2.8, 0.0, -1.0)),
+    ("LampA", "hanging_lamp", (-1.8, 2.5, 0.0)), ("LampB", "hanging_lamp", (1.8, 2.5, 0.0)),
+    ("Lantern", "wall_lantern", (-3.8, 2.2, 1.8)), ("Clock", "wall_clock", (0.0, 2.3, 3.8)),
+    ("PipeRack", "pipe_rack", (-3.8, 0.0, -2.6)), ("Extinguisher", "extinguisher", (3.5, 0.0, -2.6)),
+    ("Sign", "station_sign", (0.0, 2.2, 3.8)), ("Poster", "travel_poster", (-3.8, 1.5, 0.0)),
+    ("Paper", "paper", (-1.5, 1.0, -1.8)), ("KeyProp", "key", (-1.2, 1.0, -1.8)),
+    ("AmmoBox", "ammo_box", (2.2, 0.0, -2.8)), ("Crate", "crate", (3.0, 0.0, -2.8)),
+    ("Plant", "plant_pot", (-3.2, 0.0, 2.8)), ("Bench", "bench", (3.0, 0.0, 2.0)),
 ]
+for prop_name, scene_name, prop_pos in own_props:
+    k.prop(prop_name, "Props", scene_name, prop_pos, scale=v3((0.48, 0.48, 0.48)))
 camera_specs = [
     ("Panel", (-1.2, 1.5, -2.8), (5.5, 3.0, 5.5), (2.0, 3.0, 2.5), (-1.1, 0.5, -3.3)),
     ("Console", (-1.5, 1.5, -1.0), (5.5, 3.0, 5.5), (2.5, 3.0, 1.8), (-1.0, 0.5, -1.8)),
     ("Ticket", (-3.0, 1.5, 0.0), (5.0, 3.0, 5.5), (0.0, 3.0, 3.8), (-3.4, 0.5, 0.0)),
     ("South", (3.0, 1.5, 1.2), (5.0, 3.0, 5.5), (-1.0, 3.0, 3.5), (3.4, 0.5, 1.0)),
 ]
-add_station_detail(k, "SignalCabin", prop_types,
-                   ["CABINA DE SEÑALES", "LIBRE", "DESVÍO", "BLOQUEO",
-                    "NO TOCAR", "SEÑALES", "SERVICIO", "ANDÉN SUR"],
-                   camera_specs, (-4.0, 4.0, -4.0, 4.0))
+for camera_name, zone_center, zone_size, camera_pos, camera_target in camera_specs:
+    k.camera(camera_name, zone_center, zone_size, camera_pos, camera_target, fov=62)
+k.light("SignalWarm", "Lights", (-3.0, 2.5, 2.5), (1.0, 0.72, 0.42), 0.9, 4.0)
+k.light("SignalCool", "Lights", (3.0, 2.5, -2.5), (0.58, 0.72, 1.0), 0.75, 4.0, flicker=True)
+k.light("SignalEmergency", "Lights", (0.0, 2.2, 0.0), (0.65, 0.08, 0.05), 0.5, 3.0, flicker=True)
 k.save(REPO + "/levels/station/cabina_senales.tscn")
 print("cabina_senales ok")
