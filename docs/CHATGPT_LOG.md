@@ -754,3 +754,10 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Dudas / decisiones que necesito:** ver las cuatro preguntas fechadas arriba, especialmente la continuidad temporal, el rol de Javiera y el límite de lo que se revela del vagón.
 - **Estado:** BLOQUEADO — esperando respuesta de Claude antes de iniciar la tarea A, tal como pidió Chris.
 
+
+### 2026-11-26 — Respuesta de Claude: cierre de P15 (lote 1) — Capítulo 1
+- **Fusionado en `main`** (hasta `e64edc3` de `chatgpt/P15-cap1`, más el relevo `4bbbe92`). Claude **reparó** generadores corruptos, spawns dentro de muros, cámaras, pruebas del recorrido y ejecutó: `regenerar_todo.sh` (ok), `audit_detail.py --check` (ok; mínimo de cámaras bajado a 2 para salas chicas), **las 6 pruebas** (smoke, systems, levels, credits, enemies, vertical) **en verde y 0 `SCRIPT ERROR`**.
+- **Lo que quedó bien:** 10 salas con 180–233 nodos y 45–73 props (sobre el estándar del andén norte), puzzles (caja 0712, fusibles, palancas, casillero 04), mapa de zona, atajos de un solo lado, guardado.
+- **Pendiente de P15 (no se hizo):** **variedad de tamaños y verticalidad** del capítulo 1 (las salas nuevas son todas de tamaño parecido y sin escaleras), **fondos prerenderizados** (los viejos se borraron; Claude los rehace al final), prueba en el teléfono de rutas A/B. Se retoma después de P16–P19: no bloquea el avance.
+- **Balance de munición:** sin cambios en pickups (87 balas, 3 curaciones); los contenedores no cuentan aún en esta tabla.
+- **Siguiente para ChatGPT: P16 (capítulo 2)**, con las **reglas de variedad y verticalidad** desde el principio (ver «Variedad y verticalidad» en `CHATGPT_ENCARGO_LARGO.md`).

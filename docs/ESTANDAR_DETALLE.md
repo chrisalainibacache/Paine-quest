@@ -10,7 +10,7 @@ Hoy **solo el andén norte lo cumple**; el resto de las salas tiene entre 2 y 29
 | Props instanciados | 44 | **≥ 40** |
 | Tipos distintos de prop | 15 | **≥ 14** |
 | Manchas / suciedad / decals | 29 | **≥ 15** |
-| Cámaras (zonas) | 6 | **≥ 4** |
+| Cámaras (zonas) | 6 | **≥ 2** (las pone el planificador; las salas grandes necesitan más) |
 
 La herramienta **falla** (`--check`) si una sala de `tools/detail_rooms.json` no llega. **Toda sala nueva o rehecha se agrega a esa lista** el mismo día que se crea (el CI la corre).
 

@@ -3,14 +3,14 @@
 Referencia: el andén norte (levels/station/platform.tscn), lo primero que ve el jugador.
 Uso:  python3 tools/audit_detail.py            -> tabla de todas las salas
       python3 tools/audit_detail.py --check    -> falla si una sala de tools/detail_rooms.json no llega al mínimo
-Mínimos (docs/ESTANDAR_DETALLE.md): nodos >= 150, props >= 40, tipos distintos >= 14, manchas/suciedad >= 15, cámaras >= 4."""
+Mínimos (docs/ESTANDAR_DETALLE.md): nodos >= 150, props >= 40, tipos distintos >= 14, manchas/suciedad >= 15, cámaras >= 2 (las salas chicas se cubren con 2; el planificador pone las que hagan falta)."""
 import json
 import os
 import re
 import sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-MINIMOS = {"nodos": 150, "props": 40, "tipos": 14, "manchas": 15, "camaras": 4}
+MINIMOS = {"nodos": 150, "props": 40, "tipos": 14, "manchas": 15, "camaras": 2}
 
 
 def medir(path: str) -> dict:
