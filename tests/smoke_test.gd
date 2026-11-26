@@ -204,8 +204,13 @@ func _combat_tests(player: Player, room: Room) -> void:
     for i in shots_to_kill:
         if i == shots_to_kill - 1:
             _check(infected.is_alive(), "con %d balazos todavía sigue en pie" % i)
-        await _tap(&"fire")
-        await _seconds(0.5)
+        # Espera la condición real (una bala menos), no un tiempo fijo: tras importar archivos nuevos el primer arranque va lento.
+        var clip_now := combat.clip
+        for attempt in 6:
+            await _tap(&"fire")
+            await _seconds(0.5)
+            if combat.clip < clip_now:
+                break
     _check(combat.clip == clip_before - shots_to_kill, "cada disparo gasta una bala (%d -> %d)" % [clip_before, combat.clip])
     _check(not infected.is_alive(), "%d tiros de pistola matan al infectado (vida: %d)" % [shots_to_kill, infected.health])
     await _seconds(0.3)
