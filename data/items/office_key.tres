@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/items/item_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/key.tscn" id="2_model"]
+
+[resource]
+lock_ids = PackedStringArray("office_archive", "station_cabina")
+script = ExtResource("1_data")
+id = "office_key"
+display_name = "Llave de servicio"
+description = "Llave del jefe de estación; abre el archivador y la puerta de la cabina."
+kind = 3
+max_stack = 1
+heal_amount = 0
+model = ExtResource("2_model")
