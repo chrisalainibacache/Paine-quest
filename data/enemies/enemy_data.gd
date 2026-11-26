@@ -35,3 +35,5 @@ extends Resource
 ## Distancia mínima y máxima a Isabella para lanzar (de cerca prefiere atacar).
 @export var throw_min_range: float = 3.0
 @export var throw_max_range: float = 8.0
+## Equipo especial que se arma por código sobre el modelo ("" = ninguno, "skull" = el jefe del capítulo 4).
+@export var kit: String = ""

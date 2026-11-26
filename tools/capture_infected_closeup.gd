@@ -26,7 +26,7 @@ func _run() -> void:
         inf._play("Zombie_Idle", 0.0)
         inf._anim.seek(0.4, true)
     var cam := Camera3D.new(); room.add_child(cam)
-    cam.global_position = Vector3(0, 1.5, 4.6); cam.look_at(Vector3(0, 1.0, 0)); cam.fov = 40; cam.make_current()
+    cam.global_position = Vector3(0, 1.8, 6.2); cam.look_at(Vector3(0, 1.2, 0)); cam.fov = 45; cam.make_current()
     var l := OmniLight3D.new(); room.add_child(l); l.global_position = Vector3(0, 3, 3); l.omni_range = 12; l.light_energy = 1.7
     GraphicsSettings.apply(room)
     await create_timer(1.4).timeout
