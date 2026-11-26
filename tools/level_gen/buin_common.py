@@ -9,8 +9,8 @@ B = "res://levels/buin/%s.tscn"
 def dawn(k, fog=0.012):
     """Mañana nublada: luz difusa y un sol bajo y tibio (contraste con la noche).
     Niebla suave: más densa se come el color en el teléfono."""
-    k.env((0.6, 0.62, 0.68), (0.6, 0.6, 0.64), 0.9, (0.56, 0.58, 0.64), fog)
-    k.s.node("Sun", "DirectionalLight3D", ".", rotation=v3((-0.55, 2.3, 0)), light_color=col((1.0, 0.86, 0.7)), light_energy="1.15")
+    k.env((0.6, 0.62, 0.68), (0.6, 0.6, 0.64), 0.7, (0.5, 0.52, 0.58), fog)
+    k.s.node("Sun", "DirectionalLight3D", ".", rotation=v3((-0.55, 2.3, 0)), light_color=col((1.0, 0.86, 0.7)), light_energy="0.95")
 
 
 def sky_box(k, x0, x1, z0, z1, y_floor=-6.0, margin=5.0, top=10.0):

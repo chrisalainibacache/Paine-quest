@@ -25,3 +25,13 @@ extends Resource
 @export var helmet: bool = false
 ## Usa pasos pesados; es una propiedad del tipo de infectado, no del nombre visible.
 @export var heavy: bool = false
+## Objeto que lanza ("" = ninguno): "bottle" o "brick".
+@export var throw_kind: String = ""
+## Cuántos objetos trae (se acaban al lanzarlos).
+@export var throw_ammo: int = 0
+@export var throw_damage: int = 6
+## Segundos entre lanzamientos.
+@export var throw_cooldown: float = 5.0
+## Distancia mínima y máxima a Isabella para lanzar (de cerca prefiere atacar).
+@export var throw_min_range: float = 3.0
+@export var throw_max_range: float = 8.0

@@ -6,11 +6,15 @@ extends CharacterBody3D
 
 signal died(infected: Infected)
 
-enum State { IDLE, FEEDING, LYING, RISING, CHASE, ATTACK, STAGGER, DEAD }
+enum State { IDLE, FEEDING, LYING, RISING, CHASE, ATTACK, STAGGER, DEAD, THROW }
 
 const ANIMATIONS := preload("res://actors/enemies/infected_animations.res")
+const THROWER := preload("res://actors/enemies/infected_thrower.gd")
+const RETARGET := preload("res://actors/enemies/infected_retarget.gd")
 const STAIN_SCENE := preload("res://levels/kit/props/stain.tscn")
 const GRAVITY := 18.0
+## Bibliotecas ya reorientadas, por escena de modelo (se calculan una sola vez).
+static var _library_cache: Dictionary = {}
 ## Velocidad a la que avanza la animación de caminar a ritmo normal.
 const WALK_ANIM_SPEED := 0.9
 ## Correspondencia entre los nombres UAL de las animaciones y el perfil humanoide
@@ -99,6 +103,9 @@ var _last_from := Vector3.ZERO
 var _last_damage := 0
 var _stagger_anim := "Hit_Chest"
 var _knock := Vector3.ZERO
+## Lanzador de objetos (botellas, ladrillos); null si este tipo no lanza.
+var _thrower: Node
+var _thrown := false
 
 
 func _ready() -> void:
@@ -138,6 +145,10 @@ func _ready() -> void:
             model_nodes.append("%s (%s)" % [str(model.get_path_to(child)), child.get_class()])
         push_warning("El modelo %s no contiene Skeleton3D. Jerarquía: %s" % [data.display_name, str(model_nodes)])
         _anim.add_animation_library(&"z", ANIMATIONS)
+    if data.throw_kind != "" and data.throw_ammo > 0 and skeleton != null:
+        _thrower = THROWER.new()
+        add_child(_thrower)
+        _thrower.setup(self, data, skeleton)
     _groan_timer = randf_range(2.0, 6.0)
     if start_state == "corpse" or GameState.has_flag(_dead_flag()):
         _lie_dead()
@@ -165,6 +176,9 @@ func _find_model_skeleton(root_node: Node) -> Skeleton3D:
 ## Los clips UAL llegan desde otra escena: no se asume que su ruta Armature
 ## coincida con el nodo Skeleton3D del modelo Mixamo instanciado.
 func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
+    var key := model.scene_file_path
+    if _library_cache.has(key):
+        return _library_cache[key] as AnimationLibrary
     var library := ANIMATIONS.duplicate(true) as AnimationLibrary
     var skeleton_path := str(model.get_path_to(skeleton))
     var mapped_tracks := 0
@@ -188,6 +202,9 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
             mapped_tracks += 1
     if mapped_tracks == 0:
         push_warning("No se encontraron pistas de huesos para las animaciones de %s." % data.display_name)
+    # Compensa la pose de reposo de este modelo (si no, los brazos quedan detrás del cuerpo).
+    RETARGET.apply(library, skeleton, model, skeleton_path)
+    _library_cache[key] = library
     return library
 
 
@@ -270,7 +287,7 @@ func take_hit(damage: int, from_position: Vector3, hit_point: Vector3, stagger_c
             _enter(State.RISING)
         State.IDLE, State.FEEDING:
             _enter(State.CHASE)
-        State.CHASE, State.ATTACK:
+        State.CHASE, State.ATTACK, State.THROW:
             if randf() < stagger_chance or damage >= 5:
                 _stagger_anim = InfectedGore.reaction(hit_point, global_position.y, damage)  # GORE: reacción según el lugar del impacto
                 var away := global_position - from_position
@@ -313,6 +330,8 @@ func _physics_process(delta: float) -> void:
                 _face(to_target, delta)
                 if distance <= data.attack_range and _cooldown <= 0.0:
                     _enter(State.ATTACK)
+                elif _thrower != null and _thrower.wants_throw(distance) and _can_see_target():
+                    _enter(State.THROW)
                 elif distance > data.attack_range * 0.8:
                     move = _forward() * _chase_speed(delta)
         State.ATTACK:
@@ -325,6 +344,14 @@ func _physics_process(delta: float) -> void:
                     Sfx.play("bite", target.global_position + Vector3.UP * 1.4)
             if _state_time > length:
                 _cooldown = data.attack_cooldown
+                _enter(State.CHASE)
+        State.THROW:
+            _face(to_target, delta)
+            if not _thrown and _state_time > _thrower.RELEASE_TIME:
+                _thrown = true
+                if target_alive:
+                    _thrower.release(target)
+            if _state_time > _anim_length("Zombie_Throw"):
                 _enter(State.CHASE)
         State.STAGGER:
             move = _knock
@@ -394,6 +421,9 @@ func _enter(new_state: State) -> void:
         State.ATTACK:
             _attack_landed = false
             _play("Zombie_Scratch", 0.15)
+        State.THROW:
+            _thrown = false
+            _play("Zombie_Throw", 0.15)
         State.STAGGER:
             _play(_stagger_anim, 0.1)
         State.DEAD:

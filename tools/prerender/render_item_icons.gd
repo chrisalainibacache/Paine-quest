@@ -1,11 +1,13 @@
 extends SceneTree
-## Renderiza los íconos HD de la mochila (256×256, fondo transparente) a partir del modelo 3D de cada ítem de data/items/:
+## Renderiza los íconos HD de la mochila (512×512, fondo transparente) a partir del modelo 3D de cada ítem de data/items/:
 ## vista de tres cuartos, luz cálida de frente, luz fría de contraluz y relleno suave. Salida: assets/ui/icons/<id>.png
-## Necesita Forward+ (ver tools/prerender/render_cinematic.gd para el comando con lavapipe, con --resolution 256x256).
+## Necesita Forward+ (ver tools/prerender/render_cinematic.gd para el comando con lavapipe, con --resolution 512x512).
 ##   VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json xvfb-run -a -s "-screen 0 800x800x24" godot --path . \
-##     --rendering-method forward_plus --rendering-driver vulkan --resolution 256x256 -s res://tools/prerender/render_item_icons.gd
+##     --rendering-method forward_plus --rendering-driver vulkan --resolution 512x512 -s res://tools/prerender/render_item_icons.gd
 const OUT := "res://assets/ui/icons/"
-const SIZE := 256
+const SIZE := 512
+## Color de la etiqueta de cada llave (para distinguirlas en la mochila).
+const KEY_TAGS := {"gate_key": Color(0.92, 0.9, 0.78), "engineer_key": Color(0.8, 0.18, 0.15), "shed_key": Color(0.25, 0.6, 0.3)}
 
 
 func _init() -> void:
@@ -62,6 +64,12 @@ func _run() -> void:
         world.add_child(pivot)
         var model := item.model.instantiate() as Node3D
         pivot.add_child(model)
+        if KEY_TAGS.has(item.id) and model.has_node("Tag"):
+            var tag := model.get_node("Tag") as MeshInstance3D
+            var tag_material := StandardMaterial3D.new()
+            tag_material.albedo_color = KEY_TAGS[item.id]
+            tag_material.roughness = 0.7
+            tag.material_override = tag_material
         await process_frame
         var box := _bounds(model)
         var extent := maxf(box.size.x, maxf(box.size.y, box.size.z))
