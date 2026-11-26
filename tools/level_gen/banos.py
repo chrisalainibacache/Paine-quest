@@ -41,8 +41,10 @@ k.door("door_banos_pasillo", (4.1, 0, -0.1), "res://levels/station/service_corri
 k.spawn("from_waiting_room", (-3.75, 0.05, 1.0), (1, 0))
 k.spawn("from_service_corridor", (3.75, 0.05, -0.1), (-1, 0))
 # Interacciones: la válvula precede a REGISTRAR la cisterna.
-k.examine("Valve", (-2.35, 0, -0.2), ["Una válvula vieja. La inscripción dice: CERRAR ANTES DE ABRIR.", "El agua deja de correr cuando la giro."])
-k.examine("Cistern", (-3.3, 0, -0.2), ["La tapa de inspección está trabada por la presión del agua.", "Primero tengo que cerrar la válvula; después podré registrar el interior."])
+k.interact("Valve", "cistern_valve", (-2.35, 0, -0.2), puzzle_id='"station_cistern"', reach="1.2")
+k.container("Cistern", (-3.3, 0, -0.2), "station_cistern",
+            item_ids=("fuse_station_a",), counts=(1,),
+            required_flag="puzzle:station_cistern:valve_closed", reach=1.3)
 k.examine("BrokenMirror", (2.8, 0, 3.7), ["El espejo está roto desde dentro.", "Entre las grietas hay marcas de dedos húmedos."])
 k.leo_hint("LeoFuseBathroom", (-3.3, 0, -0.2), [
     "Leo: El agua suena debajo de esa tapa. La válvula está al lado.",
