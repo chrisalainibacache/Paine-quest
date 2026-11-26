@@ -51,7 +51,7 @@ for index, lever_id in enumerate(("free", "diversion", "lock")):
     k.lever("Lever%s" % lever_id.capitalize(), (-2.0 + index * 0.9, 0, -3.0),
             "station_levers", lever_id, unlock_id="station_cabina", reach=1.2)
 k.container("SignalToolbox", (2.4, 0, 2.3), "station_signal_toolbox",
-            item_ids=("signal_key",), counts=(1,), reach=1.3)
+            item_ids=("signal_key",), counts=(1,), required_flag="puzzle:station_levers:lever_solved", reach=1.3
 k.examine("Diagram", (1.0, 0, -3.2), ["El diagrama muestra tres señales: libre, desvío y bloqueo.", "Las posiciones numeradas son 2, 1 y 3."])
 k.leo_hint("LeoSignals", (0.0, 0, -3.1), [
     "Leo: Las tres palancas tienen nombres y el diagrama también.",
