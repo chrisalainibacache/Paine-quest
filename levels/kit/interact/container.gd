@@ -6,6 +6,9 @@ extends Interactable
 @export var puzzle: PuzzleData
 @export var content_item_ids: PackedStringArray = []
 @export var counts: PackedInt32Array = []
+@export var required_flag: String = ""
+@export var key_item: ItemData
+@export var lock_id: String = ""
 
 func _init() -> void:
     prompt = "REGISTRAR"
@@ -20,6 +23,19 @@ func interact(_player: Player) -> void:
     if not can_interact():
         await Dialogue.say(["No encuentro nada que registrar."])
         return
+    if not required_flag.is_empty() and not GameState.has_flag(required_flag):
+        await Dialogue.say(["Todavía no puedo abrir este contenedor; falta resolver el mecanismo que lo protege."])
+        return
+    if key_item != null and not GameState.has_flag("unlocked:" + _container_lock_id()):
+        if not GameState.inventory.has_id(key_item.id):
+            await Dialogue.say(["El contenedor está cerrado con llave."])
+            return
+        GameState.set_flag("unlocked:" + _container_lock_id())
+        if _all_key_locks_unlocked(key_item):
+            GameState.inventory.take(key_item, 1)
+            await Dialogue.say(["Usé: %s." % key_item.display_name, "Ya no necesito esta llave."])
+        else:
+            await Dialogue.say(["Usé: %s." % key_item.display_name])
     if PuzzleState.is_container_searched(puzzle.id):
         await Dialogue.say(["Ya revisé este lugar. No queda nada."])
         return
@@ -34,7 +50,7 @@ func interact(_player: Player) -> void:
         if not ResourceLoader.exists(item_path):
             await Dialogue.say(["No reconozco uno de los objetos guardados aquí."])
             return
-        var item := load(item_path) as ItemData
+        var item: ItemData = load(item_path) as ItemData
         if item == null:
             await Dialogue.say(["No puedo identificar uno de los objetos."])
             return
@@ -64,3 +80,18 @@ func interact(_player: Player) -> void:
         for entry: String in found:
             lines.append("— " + entry)
         await Dialogue.say(lines)
+
+
+func _container_lock_id() -> String:
+    if not lock_id.is_empty():
+        return lock_id
+    return puzzle.id if puzzle != null else ""
+
+
+func _all_key_locks_unlocked(item: ItemData) -> bool:
+    if item == null or item.lock_ids.is_empty():
+        return true
+    for required_lock: String in item.lock_ids:
+        if not GameState.has_flag("unlocked:" + required_lock):
+            return false
+    return true
