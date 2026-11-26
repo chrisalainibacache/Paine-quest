@@ -176,5 +176,5 @@ detail_adapter = SceneKitAdapter(s, block, prop)
 detail.dress(detail_adapter, -4.2, 4.2, -3.2, 3.2, H, theme="corridor", seed=506,
              avoid=[(-2.5, 3.15, 1.0), (2.9, -3.15, 1.0), (-4.2, -0.4, 0.9),
                     (0.0, 0.0, 1.2), (3.2, 1.4, 1.0)])
-s.save(REPO + "/levels/station/waiting_room.tscn")s.save(REPO + "/levels/station/waiting_room.tscn")
+s.save(REPO + "/levels/station/waiting_room.tscn")
 print("waiting room ok")
