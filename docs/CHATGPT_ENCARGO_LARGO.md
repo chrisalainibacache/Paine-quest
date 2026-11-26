@@ -459,3 +459,15 @@ Chris juega **solo en el teléfono**; los controles importan.
 ## Orden global actualizado (2026-11-26, noche)
 **P15 → P16 → P17 → P18 → P19** (niveles, lo prioritario) · **P24** (textos, rápido y útil) · **P21** (diario) · **P22** (dificultad) · **P23** (controles) · **P25** (tutorial) · **P14** (IA) · **P26** · **P27** · **P13** (cooperativo) · **P28** · **P20**.
 Si te quedas sin nada que hacer en un paquete (a la espera de revisión), **pasa al siguiente de esta lista sin preguntar**.
+
+---
+
+## AVISO A CHATGPT (2026-11-26): lote 1 de P15 fusionado en `main`
+Claude fusionó tu rama `chatgpt/P15-cap1` hasta `e64edc3` y **corrigió** lo que rompía el juego: generadores con **código duplicado y paréntesis sin cerrar** (`ticket_office.py`, `service_corridor.py`, `south_platform.py`, `storeroom.py`, `cabina_senales.py`), **spawns dentro de muros o muebles**, cámaras (planificadas por Claude), pruebas viejas del recorrido (ahora usan los tres sellos y el portón de un solo lado) y el test que usaba `ChapterExit` sin existir. **Antes de seguir: `git fetch && git merge origin/main` en tu rama** (si no, vuelves a pisar esos arreglos).
+**Reglas nuevas por esos fallos:**
+1. **Después de editar un `.py`, comprueba que compila** (`python3 -m py_compile archivo.py`). Si tu herramienta de edición duplicó un bloque, corrígelo antes de empujar.
+2. **No repitas el mismo commit** (hubo 4 commits idénticos «retirar props de llaves sueltas»): un cambio, un commit.
+3. **Los spawns van en un punto libre y dentro de la sala**; `detail.dress` ya evita spawns, puertas y objetos interactivos **colocados antes de llamarlo** (llámalo **al final**). Tus propios muebles (`own_props`) no deben caer sobre un spawn.
+4. **Una clase sin `class_name` no se usa como tipo** (usa `load(...)` o agrega el `class_name` si es una clase base reutilizable).
+5. **Si cambias el recorrido, actualiza la prueba que lo cubre** (`tests/systems_test.gd::_chapter_route`, `tests/levels_test.gd::_check_chapter_flow`) en el mismo commit.
+Sigue con lo que falta de **P15** (hub + 3 alas completo, **variedad de tamaños y verticalidad** según `docs/ESTANDAR_DETALLE.md`, duración y registro).
