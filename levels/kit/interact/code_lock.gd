@@ -105,7 +105,7 @@ func _open_pad() -> String:
         button.custom_minimum_size = Vector2(145, 66)
         button.add_theme_font_size_override("font_size", 26)
         grid.add_child(button)
-        var selected_digit := digit
+        var selected_digit: String = digit
         button.pressed.connect(func() -> void: _on_pad_button(selected_digit))
 
     var actions := HBoxContainer.new()

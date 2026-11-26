@@ -167,7 +167,7 @@ func _say_vague(hint: Node3D) -> void:
     if _vague_speaking or Dialogue.is_open() or not is_instance_valid(hint) or not hint.is_active():
         _vague_requested = false
         return
-    var line := hint.vague_line_text()
+    var line: String = hint.vague_line_text()
     if line.is_empty() or hint.was_vague():
         _vague_requested = false
         return
