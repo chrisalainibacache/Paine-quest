@@ -90,7 +90,11 @@ k.spawn("from_machine_room", (0.0, 0.05, -3.0), (0, 1))
 k.spawn("start", (-4.0, 0.05, 1.0), (1, 0))
 # Interacción provisional de la oficina; P15-c conecta llaves, fusibles y mapa.
 k.examine("ChiefDesk", (-1.5, 0, 0.8), ["El escritorio del jefe de estación.", "Los documentos están revueltos. Hay marcas de que alguien buscó algo a oscuras."])
-k.examine("Wardrobe", (-4.2, 0, -1.4), ["Un abrigo de trabajo cuelga del armario.", "Los bolsillos están abultados; tendré que registrar el abrigo."])
+k.container("Coat", (-4.2, 0, -1.4), "station_office_coat",
+            item_ids=("office_key",), counts=(1,), reach=1.3)
+k.container("Archive", (1.0, 0, -3.25), "station_office_archive",
+            item_ids=("map_station", "fuse_station_b"), counts=(1, 1),
+            key_item="office_key", lock_id="office_archive", reach=1.3)
 k.note("OfficeInventory", (-0.5, 0.95, 0.7), "station_fuse_inventory", paper_rot=(0, 0.2, 0))
 k.leo_hint("LeoOfficeMap", (-3.8, 0, -1.4), [
     "Leo: El jefe guardaba los planos en el archivador, no en el suelo.",
