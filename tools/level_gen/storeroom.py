@@ -65,6 +65,8 @@ k.decal("Debris", "debris", (-2.5, 0.015, -1.6), 1.3, "up")
 k.camera("West", (-1.6, 1.5, 0.0), (3.8, 3.0, 6.0), (3.2, 2.9, 2.7), (-2.5, 0.5, -0.9), fov=62)
 k.camera("East", (1.9, 1.5, 0.0), (3.2, 3.0, 6.0), (-0.5, 2.9, 2.75), (2.8, 0.3, -0.2), fov=62)
 k.spawn("from_corridor", (-2.7, 0.05, 1.6), (1, 0))
+k.spawn("from_service_corridor", (-2.7, 0.05, 1.6), (1, 0))
+k.spawn("from_south_platform", (2.7, 0.05, 1.0), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoKey', (2.4, 0, 1.55), ['Leo: Don Héctor cuidaba este portón. Ya no es él, Isabella.', 'Leo: La llave no está aquí; el casillero cuatro del pasillo tiene pintura fresca.', 'Leo: Vuelve al pasillo de servicio y registra el casillero 04 para conseguir la llave.'], hide_item='gate_key')
 detail.dress(k, -3.2, 3.2, -2.8, 2.8, H, theme="storage", seed=506,
