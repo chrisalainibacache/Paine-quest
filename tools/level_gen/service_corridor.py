@@ -44,10 +44,8 @@ k.pickup("Handroll", (-1.7, 0.45, -0.4), "handroll", rot=(0, 0.8, 0))
 k.pickup("Ammo", (4.45, 0.0, 0.7), "ammo_9mm", 10, rot=(0, 2.0, 0))
 k.examine("FuseBox", (2.0, 0, 0.55), ["Una caja de fusibles.", "Alguien arrancó los cables a tirones."], reach=1.1)
 k.examine("Lockers", (-2.4, 0, -0.3), ["Casilleros del personal. Todos con candado,", "menos uno: adentro solo hay un uniforme con sangre."], reach=1.0)
-# Infectados: un cadáver de verdad, uno haciéndose el muerto y uno de espaldas.
-k.infected("Corpse", (-3.6, 0.05, 0.45), yaw=0.4, state="corpse", kind="infected_burnt")
+# Un solo infectado común finge estar muerto; el resto es vestigio ambiental.
 k.infected("Lying", (1.2, 0.05, 0.25), yaw=1.3, state="lying", kind="infected_pale")
-k.infected("Standing", (4.7, 0.05, -0.35), yaw=math.pi / 2, kind="infected_worker")
 # Calcomanías.
 k.decal("GraffitiNoche", "graffiti_noche", (-4.6, 2.05, -0.98), (2.4, 1.2), "+z", wear=0.4)
 k.decal("GraffitiSignal", "graffiti_no_signal", (3.4, 1.85, -0.98), (2.8, 1.4), "+z", wear=0.3)
@@ -63,10 +61,29 @@ k.decal("Damp", "damp_stain", (-5.0, 0.015, -0.3), 1.4, "up")
 k.camera("West", (-4.0, 1.3, 0.0), (4.0, 2.6, 2.0), (-1.4, 2.35, 0.75), (-5.6, 0.4, -0.3), fov=62)
 k.camera("Middle", (0.1, 1.3, 0.0), (4.2, 2.6, 2.0), (-1.0, 2.2, 0.75), (2.8, 0.5, -0.3), fov=62)
 k.camera("East", (4.1, 1.3, 0.0), (3.8, 2.6, 2.0), (5.7, 2.35, 0.75), (1.4, 0.5, -0.3), fov=62)
+k.camera("Wing", (-3.8, 1.3, 3.0), (5.5, 2.6, 4.5), (-1.0, 2.35, 5.0), (-4.0, 0.5, 3.0), fov=62)
 k.spawn("from_ticket_office", (-5.2, 0.05, 0.0), (1, 0))
 k.spawn("from_storeroom", (5.2, 0.05, 0.0), (-1, 0))
+k.spawn("from_platform", (-5.2, 0.05, 0.0), (1, 0))
+k.spawn("from_banos", (-4.0, 0.05, 1.5), (0, -1))
+k.spawn("from_machine_room", (0.5, 0.05, -0.5), (0, 1))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoStoreroom', (4.8, 0, 0.0), ['Leo: Cuidado. No todos los que están en el suelo están muertos.', 'Leo: Yo los huelo. Si les bufo, es que se van a levantar. Si no, déjalos dormir.', 'Leo: Busca la puerta BODEGA y avanza con cuidado; si bufo, alguno se levantará.'], hide_item='gate_key')
+k.leo_hint('LeoStoreroom', (4.8, 0, 0.0), ['Leo: Cuidado. No todos los que están en el suelo están muertos.', 'Leo: Yo los huelo. Si les bufo, es que se van a levantar. Si no, déjalos dormir.', 'Leo: Aparta la barra caída y avanza hacia la BODEGA; si bufo, alguno se levantará.'], hide_item='gate_key')
+k.leo_hint('LeoLocker04', (-1.55, 0, -0.4), ['Leo: Hay una etiqueta cuatro y pintura fresca en ese casillero.', 'Leo: La llave huele a chaqueta mojada, no a metal del piso.', 'Leo: Registra el casillero 04; busca la llave en el bolsillo interior de la chaqueta.'], hide_item='gate_key')
 k.leo_hint('LeoBack', (-4.8, 0, 0.0), ['Leo: Ya tienes la llave. Volvamos al andén: el portón sur nos espera.', 'Leo: Vuelve por BOLETERÍA, atraviesa la SALA DE ESPERA y regresa al ANDÉN NORTE.'], show_item='gate_key', hide_if='unlocked:gate_south')
+prop_types = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
+               "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
+               "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
+               "fire", "ammo_box", "paper", "key"]
+camera_specs = [
+    ("MainWest", (-4.0, 1.5, 0.0), (5.5, 3.0, 4.5), (0.0, 3.0, 3.8), (-4.0, 0.5, 0.0)),
+    ("MainEast", (4.0, 1.5, 0.0), (5.5, 3.0, 4.5), (-1.0, 3.0, 3.8), (4.0, 0.5, 0.0)),
+    ("Wing", (-3.8, 1.5, 3.0), (5.5, 3.0, 5.5), (0.5, 3.0, 4.8), (-4.0, 0.5, 3.0)),
+    ("Hub", (0.0, 1.5, 0.0), (6.0, 3.0, 5.5), (5.0, 3.0, 2.5), (0.0, 0.5, 0.0)),
+]
+add_station_detail(k, "ServiceCorridor", prop_types,
+                   ["PASILLO DE SERVICIO", "BODEGA", "CASILLERO 04", "MANTENIMIENTO",
+                    "PERSONAL", "NO FUMAR", "SALIDA", "BAÑOS"],
+                   camera_specs, (-5.5, 5.5, -0.5, 4.5))
 k.save(REPO + "/levels/station/service_corridor.tscn")
 print("corridor ok")
