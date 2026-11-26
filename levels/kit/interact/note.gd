@@ -2,6 +2,8 @@ extends Interactable
 ## Nota o documento legible. Al leerla queda guardada en NOTAS de la mochila.
 
 @export var document: DocumentData
+@export var required_flag: String = ""
+@export_multiline var locked_text: String = "Todavía no puedo leer esta nota."
 
 
 func _init() -> void:
@@ -9,6 +11,9 @@ func _init() -> void:
 
 
 func interact(_player: Player) -> void:
+    if not required_flag.is_empty() and not GameState.has_flag(required_flag):
+        await Dialogue.say([locked_text])
+        return
     if document == null or document.pages.is_empty():
         push_warning("La nota %s no tiene contenido." % name)
         return
