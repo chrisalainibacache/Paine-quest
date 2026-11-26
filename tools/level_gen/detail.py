@@ -25,14 +25,15 @@ FLOOR_DECALS = ["oil_stain", "debris", "damp_stain", "blood_drag", "blood_footpr
 CLEAR = 1.4     # franja central libre (|z| < CLEAR)
 
 
-def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(), doors_z=(0.0,)):
+def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(), doors_z=(0.0,), avoid_rects=()):
     rnd = random.Random(seed)
     sx, sz = sq
     T = THEMES[theme]
     W, D = x1 - x0, z1 - z0
     cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
     P = lambda x, y, z: (x / sx, y, z / sz)           # real -> espacio de diseño (los envoltorios de Maestranza lo comprimen)
-    ok = lambda x, z, r=0.9: all(math.hypot(x - ax, z - az) > r + ar for ax, az, ar in avoid) and all(abs(z - dz) > 1.3 or (x0 + 1.2 < x < x1 - 1.2) for dz in doors_z)
+    inrect = lambda x, z, m: any(rx0 - m < x < rx1 + m and rz0 - m < z < rz1 + m for rx0, rx1, rz0, rz1 in avoid_rects)
+    ok = lambda x, z, r=0.9: not inrect(x, z, 0.5) and all(math.hypot(x - ax, z - az) > r + ar for ax, az, ar in avoid) and all(abs(z - dz) > 1.3 or (x0 + 1.2 < x < x1 - 1.2) for dz in doors_z)
 
     # --- Estructura de muros: zócalo, moldura, pilastras y rodapié (N y S) ---
     for tag, zw, face in (("N", z0 + 0.03, 1.0), ("S", z1 - 0.03, -1.0)):
