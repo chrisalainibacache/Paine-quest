@@ -66,6 +66,8 @@ k.door("door_sur_cabina", (4.6, 0, 1.0), "res://levels/station/cabina_senales.ts
        locked_text="La cabina no tiene energía. Primero hay que activar los fusibles.")
 k.pickup("Ammo", (0.4, 0.0, 4.35), "ammo_9mm", 10, rot=(0, 2.6, 0))
 k.interact("TrackExit", "chapter_exit", (5.0, 0, -0.75), reach="1.4", chapter="1",
+           required_flags='PackedStringArray("unlocked:gate_south", "unlocked:station_power", "unlocked:station_cabina")',
+           blocked_text='"El portón sur necesita los tres pasos: la llave del portón, energía y señales liberadas."',
            question='"Al fondo del túnel se ve un resplandor rojo, sobre la vía.\\n¿Bajar a la vía y seguir hacia el norte? No podré volver a la estación."')
 k.examine("Cart", (1.6, 0, 2.9), ["Un carro de equipaje volcado a medias.", "Las maletas siguen ahí. Nadie volvió por ellas."], reach=1.0)
 # Infectados.
