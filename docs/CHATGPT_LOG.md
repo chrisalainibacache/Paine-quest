@@ -1,3 +1,15 @@
+### 2026-11-26 — P16-a: diseño de «Las vías» (rama `chatgpt/P16-cap2`, PR #26)
+
+- **Base:** rama creada desde `main` (HEAD inicial `0b5343a0a668b903927f3edb7c0db32f0b68b8ab`); P15 no se tocó.
+- **Lectura previa:** revisé «AVISO A CHATGPT (lote 1 de P15)», «Variedad y verticalidad», P16, el contrato de `docs/zonas/README.md`, `docs/GUION.md`, `docs/GDD.md`, `docs/GUION_FINAL.md`, `docs/ESTANDAR_DETALLE.md`, `vertical.py` y las seis salas actuales de capítulo 2.
+- **Diseño creado:** `docs/zonas/cap2_vias.md` (10 salas: 6 existentes + `cabina_locomotora`, `vagon_carga`, `pasarela_convoy`, `cuarto_drenaje`). Define hub de tres alas, dos bucles, rutas/atajos, objetos y tres sellos, puzzles, notas, pistas N1/N2/N3, mapa, balance, cámaras y variante cooperativa.
+- **Variedad/verticalidad:** 10 plantas distintas; 5 salas con elementos verticales usando `tools/level_gen/vertical.py`; se exige test de subida y no caída y audit de detalle.
+- **Canon preservado:** cinemática de Skull ya existente, apagón/linterna del paso bajo nivel, final en la casa de cambios y origen de infección sin explicación.
+- **Commits:** diseño `816da82`; índice de zonas actualizado `6110a5c`. La actualización del índice se corrigió inmediatamente tras un primer commit accidental con contenido placeholder; el estado actual del archivo fue verificado restaurado y actualizado.
+- **Validación:** solo documentación en esta etapa; no se editaron `.py` ni `.tscn`, por lo que no correspondía `py_compile`. La rama está publicada mediante commits de GitHub; no ejecuté Git CLI local ni puedo afirmar un `git push` de terminal. No se han ejecutado generadores, Godot, auditoría, CI ni pruebas verticales.
+- **Qué debe revisar Claude:** compatibilidad del grafo/IDs con las escenas y guardados actuales; validar el diseño antes de que comience la implementación.
+- **Estado:** P16-a DOCUMENTADO / PR #26 draft; P16 implementación pendiente.
+
 ### 2026-11-26 — P15: remodelación del capítulo 1 (en curso, PR #25)
 
 - **Rama:** `chatgpt/P15-cap1`, creada desde `main`; no se modificó `main`.
