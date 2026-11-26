@@ -670,6 +670,8 @@ position = Vector3(5, 0, -0.75)
 script = ExtResource("28_chapter_exit")
 reach = 1.4
 chapter = 1
+required_flags = PackedStringArray("unlocked:gate_south", "unlocked:station_power", "unlocked:station_cabina")
+blocked_text = "El portón sur necesita los tres pasos: la llave del portón, energía y señales liberadas."
 question = "Al fondo del túnel se ve un resplandor rojo, sobre la vía.\n¿Bajar a la vía y seguir hacia el norte? No podré volver a la estación."
 
 [node name="Cart" type="Node3D" parent="Interactables"]
