@@ -6,7 +6,7 @@ docs/ESTANDAR_DETALLE.md (el andén norte es la referencia) con una sola llamada
     detail.dress(k, -6, 6, -4, 4, 4.4, theme="workshop", seed=3)       # medidas REALES del interior (m)
     detail.dress(k, ..., sq=(0.75, 0.8))                                  # salas de La Maestranza (se comprimen solas)
 
-Temas: workshop, infirmary, locker, guard, corridor, office, storage. El centro de la sala (|z| < 1.4) queda libre
+Temas: workshop, infirmary, locker, guard, corridor, office, storage, bathroom. El centro de la sala (|z| < 1.4) queda libre
 para caminar y para las puertas de los muros este y oeste. `avoid` = lista de (x, z, radio) donde no poner nada."""
 import math
 import random
@@ -19,6 +19,7 @@ THEMES = {
     "corridor":  {"dado": "paint_red", "wall": "concrete_wall", "items": ["shelf_unit", "oil_barrel", "oil_barrel", "extinguisher", "notice_board", "crate", "crate", "tire", "shelf_unit", "filing_cabinet"]},
     "office":    {"dado": "wood", "wall": "plaster_wall", "items": ["office_desk", "filing_cabinet", "filing_cabinet", "shelf_unit", "notice_board", "plant_pot", "extinguisher", "office_desk", "filing_cabinet"]},
     "storage":   {"dado": "rust", "wall": "bricks_wall", "items": ["shelf_unit", "shelf_unit", "crate", "crate", "crate", "oil_barrel", "oil_barrel", "cable_drum", "ladder", "shelf_unit", "crate"]},
+    "bathroom": {"dado": "tiles_wall", "wall": "plaster_wall", "items": ["shelf_unit", "notice_board", "extinguisher", "plant_pot", "filing_cabinet", "locker_row", "shelf_unit", "extinguisher", "plant_pot"]},
 }
 WALL_DECALS = ["cracks", "wall_hole_a", "bullet_holes", "blood_splatter_a", "damp_stain", "wall_hole_b", "blood_splatter_b", "cracks"]
 FLOOR_DECALS = ["oil_stain", "debris", "damp_stain", "blood_drag", "blood_footprints", "blood_smear", "debris", "blood_pool"]
