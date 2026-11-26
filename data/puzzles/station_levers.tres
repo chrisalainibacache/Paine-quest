@@ -6,4 +6,4 @@
 script = ExtResource("1_data")
 id = "station_levers"
 puzzle_type = 2
-sequence = PackedStringArray("free", "diversion", "lock")
+sequence = PackedStringArray("diversion", "free", "lock")
