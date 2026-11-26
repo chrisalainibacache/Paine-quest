@@ -46,6 +46,8 @@ k.spawn("from_service_corridor", (-3.75, 0.05, -0.1), (1, 0))
 k.fuse_box("FuseBoard", (0.0, 0, -3.25), "station_fuses", unlock_id="station_power", reach=1.5)
 k.examine("MainSwitch", (1.65, 0, -3.3), ["El interruptor principal está abajo.", "Primero debo instalar los dos fusibles; después puedo devolver la energía."])
 k.examine("Transformer", (-2.8, 0, -2.0), ["Un transformador de señales.", "La carcasa está caliente, pero el circuito está muerto."])
+k.container("MachineCache", (-2.8, 0, -1.8), "station_machine_cache",
+            item_ids=("ammo_9mm",), counts=(5,), required_flag="unlocked:station_power", reach=1.3)
 k.leo_hint("LeoFuses", (0.0, 0, -3.2), [
     "Leo: El tablero tiene dos ranuras vacías y una placa de diez amperes.",
     "Leo: El olor del fusible del baño y el de la oficina es el mismo.",
