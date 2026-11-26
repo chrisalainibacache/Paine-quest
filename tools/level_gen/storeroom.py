@@ -9,7 +9,7 @@ k.shell(-3.5, 3.5, -3.0, 3.0, H, floor="concrete_floor", wall="bricks_wall", cei
 k.door_frame("ToCorridor", -3.5, 1.6, "z", width=1.1, wall_side=1, panel="metal")
 # Recodo interior: la bodega no es una caja vacía; el pesado protege la zona de carga.
 k.block("LPartition", "Architecture", (1.1, 1.5, -1.4), (4.4, 3.0, 0.18), "old_bricks_wall")
-k.block("LReturn", "Architecture", (3.2, 1.5, 0.0), (0.18, 3.0, 2.8), "concrete_wall")
+k.block("LReturn", "Architecture", (3.2, 1.5, -1.4), (0.18, 3.0, 1.2), "concrete_wall")
 # Ventanuco alto con luz de luna (muro norte).
 k.mesh("HighWindow", "Details", (1.6, 0.4, 0.02), k.emissive((0.35, 0.42, 0.55), 0.6), (-0.5, 2.7, -2.99))
 for j in range(6):
