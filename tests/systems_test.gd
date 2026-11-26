@@ -1208,8 +1208,8 @@ func _zone_maps() -> void:
     var maestranza := load("res://data/zones/maestranza.tres") as ZoneMapData
     _check(GameState.has_flag("visited:" + GameState.room_path.get_file().get_basename()),
         "P12: SceneLoader registra la sala al entrar")
-    _check(station != null and station.is_valid() and station.rooms.size() == 6,
-        "P12: mapa de estación contiene seis salas y un grafo válido")
+    _check(station != null and station.is_valid() and station.rooms.size() == 10 and station.grid_size == Vector2i(4, 3),
+        "P15: mapa de estación contiene diez salas y una cuadrícula 4×3 válida")
     _check(tracks != null and tracks.is_valid() and tracks.rooms.size() == 6,
         "P12: mapa de vías contiene seis salas y un grafo válido")
     _check(buin != null and buin.is_valid() and buin.rooms.size() == 7,
@@ -1222,13 +1222,24 @@ func _zone_maps() -> void:
         "P12: sala no visitada usa el estado inicial del mapa")
     GameState.set_flag("visited:platform")
     _check(station.is_room_visited("platform"), "P12: SceneLoader puede registrar una visita por ID de sala")
-    GameState.flags.erase("unlocked:gate_south")
-    _check(station.has_locked_door("platform") and station.locked_key_item_id("platform") == "gate_key",
-        "P12: el mapa identifica la puerta cerrada y la llave que pide")
-    GameState.set_flag("unlocked:gate_south")
+    GameState.flags.erase("one_way_open:station_shortcut_1")
+    _check(station.has_locked_door("platform") and station.locked_key_item_id("platform").is_empty(),
+        "P15: el mapa marca el atajo de ida como cerrado sin inventar una llave")
+    GameState.set_flag("one_way_open:station_shortcut_1")
     _check(not station.has_locked_door("platform"),
-        "P12: la puerta deja de figurar cerrada al guardar su desbloqueo")
-    GameState.flags.erase("unlocked:gate_south")
+        "P15: el mapa abre el atajo al registrar la bandera de un solo sentido")
+    GameState.flags.erase("one_way_open:station_shortcut_1")
+
+    GameState.flags.erase("unlocked:station_power")
+    GameState.flags.erase("unlocked:station_latch_removed")
+    _check(station.has_locked_door("service_corridor"),
+        "P15: el mapa marca las puertas de pasillo bloqueadas por fusibles y pestillo")
+    GameState.set_flag("unlocked:station_power")
+    GameState.set_flag("unlocked:station_latch_removed")
+    _check(not station.has_locked_door("service_corridor"),
+        "P15: el mapa abre el pasillo tras activar energía y retirar la barra")
+    GameState.flags.erase("unlocked:station_power")
+    GameState.flags.erase("unlocked:station_latch_removed")
     GameState.flags.erase("visited:platform")
 
     var map_inventory := Inventory.new()
