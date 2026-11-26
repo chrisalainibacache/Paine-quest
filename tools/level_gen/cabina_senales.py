@@ -11,7 +11,8 @@ k.shell(-4.0, 4.0, -4.0, 4.0, H, floor="planks", wall="old_bricks_wall",
         ceiling="concrete_wall", wainscot="wood")
 # Forma en L: cabina de mando al norte y brazo estrecho hacia el andén sur.
 k.block("LWallNorth", "Architecture", (1.8, 1.4, -2.1), (4.2, 2.8, 0.18), "old_bricks_wall")
-k.block("LWallReturn", "Architecture", (3.8, 1.4, -0.2), (0.18, 2.8, 3.8), "old_bricks_wall")
+k.block("LWallReturnNorth", "Architecture", (3.8, 1.4, -2.6), (0.18, 2.8, 1.0), "old_bricks_wall")
+k.block("LWallReturnSouth", "Architecture", (3.8, 1.4, 2.6), (0.18, 2.8, 1.0), "old_bricks_wall")
 # Panel de señales, tres palancas y diagrama enmarcado.
 k.block("SignalPanel", "SignalControls", (-1.1, 1.55, -3.65), (3.4, 1.9, 0.18), "metal")
 for index, x in enumerate((-2.0, -1.1, -0.2)):
