@@ -10,6 +10,7 @@ enum State { IDLE, FEEDING, LYING, RISING, CHASE, ATTACK, STAGGER, DEAD, THROW }
 
 const ANIMATIONS := preload("res://actors/enemies/infected_animations.res")
 const THROWER := preload("res://actors/enemies/infected_thrower.gd")
+const SOLDIER_KIT := preload("res://actors/enemies/infected_soldier_kit.gd")
 const RETARGET := preload("res://actors/enemies/infected_retarget.gd")
 const STAIN_SCENE := preload("res://levels/kit/props/stain.tscn")
 const GRAVITY := 18.0
@@ -131,7 +132,9 @@ func _ready() -> void:
     _vary_look()
     InfectedGore.dress(self)  # GORE: manchas de sangre propias de este infectado
     if data.helmet:
-        _add_helmet()
+        var gear_skeleton := _find_model_skeleton(model)
+        if gear_skeleton != null:
+            SOLDIER_KIT.dress(model, gear_skeleton)
     _anim = AnimationPlayer.new()
     _anim.name = "AnimationPlayer"
     add_child(_anim)
@@ -206,38 +209,6 @@ func _retarget_animation_library(skeleton: Skeleton3D) -> AnimationLibrary:
     RETARGET.apply(library, skeleton, model, skeleton_path)
     _library_cache[key] = library
     return library
-
-
-## Casco militar pegado al hueso de la cabeza.
-func _add_helmet() -> void:
-    var skeleton := _find_model_skeleton(model)
-    if skeleton == null or skeleton.find_bone("Head") < 0:
-        return
-    var attachment := BoneAttachment3D.new()
-    attachment.bone_name = "Head"
-    skeleton.add_child(attachment)
-    var olive := preload("res://levels/kit/materials/olive.tres")
-    var shell := MeshInstance3D.new()
-    var dome := SphereMesh.new()
-    dome.radius = 0.14
-    dome.height = 0.14
-    dome.is_hemisphere = true
-    dome.radial_segments = 12
-    dome.rings = 4
-    shell.mesh = dome
-    shell.material_override = olive
-    shell.position = Vector3(0, 0.12, 0.0)
-    attachment.add_child(shell)
-    var brim := MeshInstance3D.new()
-    var ring := CylinderMesh.new()
-    ring.top_radius = 0.16
-    ring.bottom_radius = 0.16
-    ring.height = 0.015
-    ring.radial_segments = 12
-    brim.mesh = ring
-    brim.material_override = olive
-    brim.position = Vector3(0, 0.12, 0.0)
-    attachment.add_child(brim)
 
 
 ## El modelo moderno tiene relieve y rugosidad: necesita brillos.

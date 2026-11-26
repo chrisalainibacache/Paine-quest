@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3]
 
 [ext_resource type="Script" path="res://data/enemies/enemy_data.gd" id="1_data"]
-[ext_resource type="PackedScene" path="res://assets/characters/infected/infected_worker.glb" id="2_model"]
+[ext_resource type="PackedScene" path="res://assets/characters/infected/infected_burnt.glb" id="2_model"]
 [ext_resource type="PackedScene" path="res://assets/characters/infected/infected_city.glb" id="3_modern"]
 
 [resource]
@@ -16,5 +16,5 @@ attack_damage = 25
 attack_cooldown = 1.5
 model_scene = ExtResource("2_model")
 modern_model_scene = ExtResource("3_modern")
-tint = Color(0.72, 0.8, 0.58, 1)
+tint = Color(1.15, 1.25, 0.9, 1)
 helmet = true

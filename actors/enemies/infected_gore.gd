@@ -9,7 +9,7 @@ const OVERLAYS: Array[Texture2D] = [preload("res://assets/characters/infected/go
 const WOUNDS: Array[Texture2D] = [preload("res://assets/characters/infected/gore/wound_0.png"), preload("res://assets/characters/infected/gore/wound_1.png"),
     preload("res://assets/characters/infected/gore/wound_2.png")]
 const STUMP: Texture2D = preload("res://assets/characters/infected/gore/stump.png")
-const MAX_WOUNDS := 10
+const MAX_WOUNDS := 6
 ## Daño desde el que un tiro mortal puede arrancar la cabeza / varios miembros (escopeta, francotirador, explosivos).
 const HEAD_DAMAGE := 5
 const BLAST_DAMAGE := 9
@@ -60,22 +60,20 @@ static func wound(zombie: Node3D, hit_point: Vector3, from_position: Vector3) ->
     var normal := (from_position - hit_point).normalized()
     if normal.length() < 0.01:
         normal = Vector3.UP
-    var quad := MeshInstance3D.new()
-    var mesh := QuadMesh.new()
-    mesh.size = Vector2.ONE * randf_range(0.2, 0.34)
-    quad.mesh = mesh
-    var material := StandardMaterial3D.new()
-    material.albedo_texture = WOUNDS[randi() % WOUNDS.size()]
-    material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-    material.roughness = 0.35
-    material.cull_mode = BaseMaterial3D.CULL_DISABLED
-    material.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
-    quad.material_override = material
-    var up := Vector3.UP if absf(normal.y) < 0.95 else Vector3.RIGHT
-    var world_target := Transform3D(Basis.looking_at(-normal, up), hit_point + normal * 0.025)
+    # La herida es un Decal: se proyecta sobre el cuerpo y se corta en su silueta (antes era un disco plano que sobresalía).
+    var decal := Decal.new()
+    var width := randf_range(0.2, 0.3)
+    decal.size = Vector3(width, 0.2, width)
+    decal.texture_albedo = WOUNDS[randi() % WOUNDS.size()]
+    decal.upper_fade = 0.5
+    decal.lower_fade = 0.5
+    # Eje Y del decal = normal hacia afuera (proyecta hacia el cuerpo); giro al azar sobre la normal.
+    var side := normal.cross(Vector3.UP if absf(normal.y) < 0.95 else Vector3.RIGHT).normalized()
+    var basis := Basis(side, normal, side.cross(normal).normalized()).rotated(normal, randf() * TAU)
+    var world_target := Transform3D(basis, hit_point + normal * 0.04)
     var bone_world := skeleton.global_transform * skeleton.get_bone_global_pose(bone)
-    quad.transform = bone_world.affine_inverse() * world_target
-    attachment.add_child(quad)
+    decal.transform = bone_world.affine_inverse() * world_target
+    attachment.add_child(decal)
 
 
 ## Al morir: la cabeza vuela con un tiro alto o fuerte; con daño de explosivo también salen brazos y piernas.
