@@ -26,7 +26,8 @@ extends Interactable
 ## Nombre de cada sala (para el letrero de las puertas).
 const LABELS := {
     "platform": "ANDÉN NORTE", "waiting_room": "SALA DE ESPERA", "ticket_office": "BOLETERÍA",
-    "service_corridor": "PASILLO DE SERVICIO", "storeroom": "BODEGA", "south_platform": "ANDÉN SUR",\n    "oficina_jefe": "OFICINA DEL JEFE", "banos": "BAÑOS", "sala_maquinas": "SALA DE MÁQUINAS", "cabina_senales": "CABINA DE SEÑALES",
+    "service_corridor": "PASILLO DE SERVICIO", "storeroom": "BODEGA", "south_platform": "ANDÉN SUR",
+    "oficina_jefe": "OFICINA DEL JEFE", "banos": "BAÑOS", "sala_maquinas": "SALA DE MÁQUINAS", "cabina_senales": "CABINA DE SEÑALES",
     "track_north": "LA VÍA", "derailed_train": "TREN DESCARRILADO", "wagon_interior": "INTERIOR DEL VAGÓN",
     "convoy_side": "COSTADO DEL CONVOY", "underpass": "PASO BAJO NIVEL", "switch_house": "CASA DE CAMBIOS",
     "bridge": "PUENTE DEL MAIPO", "checkpoint": "CONTROL MILITAR", "field": "POTRERO",
