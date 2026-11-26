@@ -1,11 +1,15 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
+from station_detail import add_station_detail
 k = Kit("Storeroom", "Bodega", ambience="storeroom")
 k.env((0.02, 0.02, 0.025), (0.36, 0.36, 0.4), 0.7, (0.05, 0.05, 0.06), 0.05)
 H = 3.2
 k.shell(-3.5, 3.5, -3.0, 3.0, H, floor="concrete_floor", wall="bricks_wall", ceiling="concrete_wall")
 k.door_frame("ToCorridor", -3.5, 1.6, "z", width=1.1, wall_side=1, panel="metal")
+# Recodo interior: la bodega no es una caja vacía; el pesado protege la zona de carga.
+k.block("LPartition", "Architecture", (1.1, 1.5, -1.4), (4.4, 3.0, 0.18), "old_bricks_wall")
+k.block("LReturn", "Architecture", (3.2, 1.5, 0.0), (0.18, 3.0, 2.8), "concrete_wall")
 # Ventanuco alto con luz de luna (muro norte).
 k.mesh("HighWindow", "Details", (1.6, 0.4, 0.02), k.emissive((0.35, 0.42, 0.55), 0.6), (-0.5, 2.7, -2.99))
 for j in range(6):
@@ -35,8 +39,12 @@ k.mesh("Bulb", "Lights", (0.1, 0.14, 0.1), k.emissive((1.0, 0.85, 0.6), 1.2), (0
 k.light("BulbLight", "Lights", (0.3, H - 0.35, 0.0), (1.0, 0.78, 0.5), 1.1, 6.5, flicker=True)
 k.light("MoonLight", "Lights", (-0.5, 2.4, -2.2), (0.55, 0.65, 0.9), 0.5, 3.5)
 # Interactuables.
-k.door("DoorToCorridor", (-3.1, 0, 1.6), "res://levels/station/service_corridor.tscn", "from_storeroom")
-k.pickup("GateKey", (3.0, 0.77, 1.55), "gate_key", rot=(0, 0.9, 0))
+k.door("DoorToCorridor", (-3.1, 0, 1.6), "res://levels/station/service_corridor.tscn", "from_storeroom",
+       prompt="VOLVER", lock_id="station_latch_removed", requires_flag=True)
+k.door_frame("ToSouth", 3.35, 1.0, "z", width=1.1, wall_side=-1, panel="metal")
+k.door("door_bodega_sur", (3.1, 0, 1.0), "res://levels/station/south_platform.tscn", "from_storeroom",
+       key="gate_key", lock_id="gate_south", metal_door=True,
+       locked_text="El portón del andén sur tiene un candado. Necesito la llave del casillero 04.")
 k.note("Diary", (3.05, 0.77, 2.2), "stationmaster_diary", paper_rot=(0, 1.4, 0))
 k.pickup("Ammo", (-1.9, 0.43, -2.5), "ammo_9mm", 15, rot=(0, 0.3, 0))
 k.pickup("Sushi", (0.9, 1.13, -2.5), "sushi", rot=(0, 0.2, 0))
@@ -58,6 +66,20 @@ k.camera("West", (-1.6, 1.5, 0.0), (3.8, 3.0, 6.0), (3.2, 2.9, 2.7), (-2.5, 0.5,
 k.camera("East", (1.9, 1.5, 0.0), (3.2, 3.0, 6.0), (-0.5, 2.9, 2.75), (2.8, 0.3, -0.2), fov=62)
 k.spawn("from_corridor", (-2.7, 0.05, 1.6), (1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoKey', (2.4, 0, 1.55), ['Leo: Ahí, en la mesa: la llave del portón.', 'Leo: El que la cuida era don Héctor. Ya no es él, Isabella. No le tengas pena.', 'Leo: Recoge la llave de la mesa y vuelve por la puerta al pasillo de servicio.'], hide_item='gate_key')
+k.leo_hint('LeoKey', (2.4, 0, 1.55), ['Leo: Don Héctor cuidaba este portón. Ya no es él, Isabella.', 'Leo: La llave no está aquí; el casillero cuatro del pasillo tiene pintura fresca.', 'Leo: Vuelve al pasillo de servicio y registra el casillero 04 para conseguir la llave.'], hide_item='gate_key')
+prop_types = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
+               "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
+               "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
+               "fire", "ammo_box", "paper", "key"]
+camera_specs = [
+    ("Racks", (-1.6, 1.5, -2.0), (5.5, 3.0, 5.5), (3.2, 3.0, 2.4), (-1.6, 0.5, -2.4)),
+    ("Guard", (2.0, 1.5, -1.8), (5.5, 3.0, 5.5), (-1.0, 3.0, 2.2), (2.0, 0.5, -2.0)),
+    ("Entry", (-2.6, 1.5, 1.5), (5.5, 3.0, 5.5), (2.0, 3.0, 3.5), (-2.8, 0.5, 1.5)),
+    ("South", (3.0, 1.5, 1.0), (5.0, 3.0, 5.5), (-1.0, 3.0, 3.5), (3.0, 0.5, 1.0)),
+]
+add_station_detail(k, "Storeroom", prop_types,
+                   ["BODEGA", "CARGA", "DON HÉCTOR", "MANTENIMIENTO",
+                    "MATERIAL FERROVIARIO", "NO ENTRAR", "PORTÓN SUR", "ALMACÉN"],
+                   camera_specs, (-3.2, 3.2, -2.8, 2.8))
 k.save(REPO + "/levels/station/storeroom.tscn")
 print("storeroom ok")
