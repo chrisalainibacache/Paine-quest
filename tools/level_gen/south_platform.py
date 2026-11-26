@@ -1,6 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from roomkit import *
+from station_detail import add_station_detail
 k = Kit("SouthPlatform", "Andén sur", ambience="station_night")
 k.env((0.05, 0.055, 0.07), (0.36, 0.38, 0.46), 0.55, (0.06, 0.065, 0.08), 0.045)
 k.s.node("Moon", "DirectionalLight3D", ".", rotation=v3((-0.9, -0.6, 0)), light_color=col((0.55, 0.62, 0.8)), light_energy="0.25")
@@ -12,6 +13,9 @@ k.s.node("Track", "Node3D", "Ground", position=v3((0, -1.0, -3.3)), script=k.s.r
          length="12.0", sleeper_material=k.s.res(M("wood"), "Material"), rail_material=k.s.res(M("metal"), "Material"))
 k.block("BackWall", "Walls", (0, 2.0, 5.05), (12.6, 4.0, 0.3), "old_bricks_wall")
 k.block("RetainingWall", "Walls", (0, 1.25, -5.45), (12.6, 4.5, 0.3), "old_bricks_wall")
+# Ala de servicios que forma la L y separa el túnel de la zona de carga.
+k.block("LPartition", "Walls", (-3.8, 1.35, 1.0), (0.18, 2.7, 4.0), "old_bricks_wall")
+k.block("LPartitionReturn", "Walls", (-2.0, 1.35, -0.8), (3.6, 2.7, 0.18), "concrete_wall")
 # Túneles de la vía: al este sigue hacia el norte, con un resplandor rojo al fondo.
 from tunnels import carve
 carve(k.block, k.prop, -1, -6.0, -3.3, -1.0, -1.0, 3.6, -5.4, 5.4, "bricks_wall", prefix="WestTunnel")
@@ -53,7 +57,13 @@ k.prop("LampWest", "Lights", "sodium_lamp", (-3.0, 3.34, 2.2))
 k.prop("LampEast", "Lights", "sodium_lamp", (3.0, 3.34, 2.2))
 # Interactuables.
 k.door("GateToNorth", (-5.6, 0, 2.0), "res://levels/station/platform.tscn", "from_south_platform",
-       key="gate_key", lock_id="gate_south", prompt="ABRIR", metal_door=True)
+       lock_id="station_shortcut_1", prompt="VOLVER", metal_door=True, one_way=True, one_way_origin=True)
+k.door("door_sur_bodega", (-4.4, 0, 1.0), "res://levels/station/storeroom.tscn", "from_south_platform",
+       key="gate_key", lock_id="gate_south", prompt="VOLVER", metal_door=True)
+k.door("door_sur_maquinas", (1.0, 0, 1.0), "res://levels/station/sala_maquinas.tscn", "from_south_platform", prompt="VOLVER")
+k.door("door_sur_cabina", (4.6, 0, 1.0), "res://levels/station/cabina_senales.tscn", "from_south_platform",
+       lock_id="station_power", requires_flag=True, prompt="VOLVER",
+       locked_text="La cabina no tiene energía. Primero hay que activar los fusibles.")
 k.pickup("Ammo", (0.4, 0.0, 4.35), "ammo_9mm", 10, rot=(0, 2.6, 0))
 k.interact("TrackExit", "chapter_exit", (5.0, 0, -0.75), reach="1.4", chapter="1",
            question='"Al fondo del túnel se ve un resplandor rojo, sobre la vía.\\n¿Bajar a la vía y seguir hacia el norte? No podré volver a la estación."')
@@ -78,7 +88,24 @@ k.decal("Oil", "oil_stain", (1.0, 0.014, -0.4), 1.2, "up", rot=1.3)
 k.camera("West", (-3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (2.6, 3.2, 4.3), (-4.2, 0.3, 0.9), fov=58)
 k.camera("East", (3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (-2.6, 3.2, 4.3), (4.4, 0.0, -0.6), fov=58)
 k.spawn("from_north_platform", (-5.1, 0.05, 2.0), (1, 0))
+k.spawn("from_storeroom", (-4.0, 0.05, 1.0), (1, 0))
+k.spawn("from_machine_room", (1.0, 0.05, 1.0), (-1, 0))
+k.spawn("from_signal_cabin", (4.3, 0.05, 1.0), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoTracks', (4.3, 0, -0.75), ['Leo: La vía va hacia el norte. Hacia Santiago. Hacia Paz.', 'Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.', 'Leo: Avanza por el andén hasta el túnel del extremo este, donde brilla el resplandor rojo, y toca SEGUIR para bajar a la vía.'])
+prop_types = ["iron_column", "park_bench", "wall_lantern", "window_arch", "travel_poster",
+               "plant_pot", "bench", "sodium_lamp", "station_sign", "crate",
+               "typewriter_desk", "vending_machine", "wall_clock", "seat_pair",
+               "fire", "ammo_box", "paper", "key"]
+camera_specs = [
+    ("West", (-3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (2.6, 3.2, 4.3), (-4.2, 0.3, 0.9)),
+    ("East", (3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (-2.6, 3.2, 4.3), (4.4, 0.0, -0.6)),
+    ("Tunnel", (4.8, 1.5, -1.6), (5.5, 3.0, 5.5), (-1.0, 3.0, 2.2), (5.2, 0.0, -3.3)),
+    ("Gate", (-4.8, 1.5, 2.0), (5.5, 3.0, 5.5), (1.0, 3.0, 4.0), (-5.4, 0.5, 2.0)),
+]
+add_station_detail(k, "SouthPlatform", prop_types,
+                   ["ANDÉN SUR", "PORTÓN", "VÍA NORTE", "CARGA",
+                    "SALIDA", "NO PASAR", "SERVICIO", "PAINE"],
+                   camera_specs, (-5.5, 5.5, -5.0, 5.0))
 k.save(REPO + "/levels/station/south_platform.tscn")
 print("south platform ok")
