@@ -155,11 +155,15 @@ class Kit:
     def lever_sequence(self, name, pos, puzzle, reach=1.4):
         self.interact(name, "lever_sequence", pos, puzzle=self._puzzle_resource(puzzle), reach=fmt(reach))
 
-    def container(self, name, pos, puzzle, item_ids=(), counts=(), reach=1.2):
+    def container(self, name, pos, puzzle, item_ids=(), counts=(), reach=1.2, required_flag="", key_item=None, lock_id=""):
         ids = "PackedStringArray(%s)" % ", ".join('"%s"' % item_id for item_id in item_ids)
         amounts = "PackedInt32Array(%s)" % ", ".join(str(int(amount)) for amount in counts)
-        self.interact(name, "container", pos, puzzle=self._puzzle_resource(puzzle),
-                      content_item_ids=ids, counts=amounts, reach=fmt(reach))
+        props = {"puzzle": self._puzzle_resource(puzzle), "content_item_ids": ids,
+                 "counts": amounts, "reach": fmt(reach)}
+        if required_flag: props["required_flag"] = '"%s"' % required_flag
+        if key_item: props["key_item"] = self.s.res(ITEM(key_item), "Resource")
+        if lock_id: props["lock_id"] = '"%s"' % lock_id
+        self.interact(name, "container", pos, **props)
 
     def one_way_door(self, name, pos, target_room, target_spawn, lock_id, origin=True, marker=None, reach=1.3):
         self.door(name, pos, target_room, target_spawn, lock_id=lock_id, marker=marker,
