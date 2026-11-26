@@ -177,7 +177,8 @@ s.node("Gate", "Node3D", "Interactables", position=v3((6.55, 0, 2.6)), script=s.
 s.node("Spawns", "Node3D", ".")
 s.node("start", "Marker3D", "Spawns", position=v3((-5.0, 0.05, 3.0)), rotation=v3((0, -math.pi / 2, 0)))
 s.node("from_waiting_room", "Marker3D", "Spawns", position=v3((3.0, 0.05, 4.35)))
-s.node("from_south_platform", "Marker3D", "Spawns", position=v3((6.0, 0.05, 2.6)), rotation=v3((0, math.pi / 2, 0)))
+s.node("from_south_platform", "Marker3D", "Spawns", position=v3((-5.0, 0.05, 2.0)), rotation=v3((0, -math.pi / 2, 0)))
+s.node("from_service_corridor", "Marker3D", "Spawns", position=v3((-5.5, 0.05, 0.5)), rotation=v3((0, 0, 0)))
 from roomkit import add_leo_hint
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 add_leo_hint(s, 'LeoWaitingRoom', (3.0, 0, 4.2), ['Leo: Isabella, aquí afuera no. Adentro hay luz.', 'Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.', 'Leo: Entra a la sala de espera; allí empezamos a buscar de dónde salieron las balas.'], hide_if='found:pistol')
