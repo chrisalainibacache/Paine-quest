@@ -11,7 +11,8 @@ H = 3.0
 k.shell(-5.0, 5.0, -4.0, 4.0, H, floor="planks", wall="plaster_wall",
         ceiling="concrete_wall", wainscot="wood", walls={"N": "old_bricks_wall"})
 k.block("InnerWingWall", "Architecture", (2.1, 1.45, -1.65), (5.7, 2.9, 0.18), "old_bricks_wall")
-k.block("WingReturn", "Architecture", (4.85, 1.45, -0.15), (0.18, 2.9, 3.1), "old_bricks_wall")
+k.block("WingReturnNorth", "Architecture", (4.85, 1.45, -2.6), (0.18, 2.9, 1.0), "old_bricks_wall")
+k.block("WingReturnSouth", "Architecture", (4.85, 1.45, 2.6), (0.18, 2.9, 1.0), "old_bricks_wall")
 k.block("Lintel", "Architecture", (2.1, 2.55, -2.05), (1.3, 0.16, 0.2), "wood", solid=False)
 k.block("ArchiveStep", "Architecture", (-2.8, 0.08, -2.4), (2.6, 0.16, 1.4), "concrete_wall")
 # Mostrador, escritorio, archivadores y armario de personal.
