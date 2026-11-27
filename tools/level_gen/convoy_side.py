@@ -40,6 +40,7 @@ k.decal("Footprints", "blood_footprints", (1.0, 0.03, 0.9), (2.0, 1.0), "up", ro
 k.door("ToWagon", (-6.0, 0, 0.45), T % "wagon_interior", "from_convoy", prompt="ENTRAR", reach=1.3, marker="SUBIR AL COCHE")
 k.door("ToUnderpass", (X1 - 0.6, 0, 1.6), T % "underpass", "from_convoy", key="engineer_key", lock_id="underpass_gate",
        locked_text="La reja del paso bajo nivel. Tiene un candado de EFE.", reach=1.4, metal_door=True)
+k.door("ToShed", (3.0, 0, 3.1), T % "galpon_carga", "from_convoy", prompt="ENTRAR", reach=1.3, marker="GALPÓN DE CARGA")
 k.pickup("Grenades", (0.5, 0.0, 3.0), "ammo_grenades", 2, rot=(0, 0.3, 0))
 k.pickup("Sushi", (11.2, 0.0, 2.9), "sushi", rot=(0, 2.0, 0))
 # Infectados.
@@ -52,6 +53,7 @@ k.camera("Mid", (0.0, 1.5, -0.25), (8.8, 3.0, 7.5), (-3.0, 4.0, 3.3), (3.0, 0.4,
 k.camera("East", (8.6, 1.5, -0.25), (8.8, 3.0, 7.5), (4.0, 4.0, 3.3), (10.0, 0.4, 0.8), fov=58)
 k.spawn("from_wagon", (-6.0, 0.05, 1.2), (0, 1))
 k.spawn("from_underpass", (X1 - 1.4, 0.05, 1.6), (-1, 0))
+k.spawn("from_shed", (3.0, 0.05, 2.3), (0, -1))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoGate', (X1 - 1.6, 0, 1.6), ['Leo: La reja del paso bajo nivel. La llave del maquinista la abre.', 'Leo: Abajo está oscuro. No importa: yo veo en la oscuridad. Tú sigue mis ojos.', 'Leo: Acércate a la reja del paso bajo nivel y usa la llave del maquinista.'], hide_if='unlocked:underpass_gate')
 k.save(REPO + "/levels/tracks/convoy_side.tscn")

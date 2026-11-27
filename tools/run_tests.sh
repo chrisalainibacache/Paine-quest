@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Corre las 6 pruebas y FALLA también si Godot imprime "SCRIPT ERROR".
+# Corre las 7 pruebas y FALLA también si Godot imprime "SCRIPT ERROR".
 # Uso: GODOT=/ruta/godot ./tools/run_tests.sh
 GODOT="${GODOT:-godot}"
 status=0
-for t in smoke systems levels credits enemies vertical; do
+for t in smoke systems levels credits enemies vertical chapter2; do
     out=$("$GODOT" --headless --path . -s "res://tests/${t}_test.gd" 2>&1)
     code=$?
     echo "== $t: $(echo "$out" | grep 'RESULTADO' | tail -1)"

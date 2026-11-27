@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/items/item_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/key.tscn" id="2_model"]
+
+[resource]
+lock_ids = PackedStringArray()
+script = ExtResource("1_data")
+id = "signal_pin"
+display_name = "Clavija de señales"
+description = "Clavija de bronce del gabinete de señales del paso bajo nivel. Encaja en el cambio de vías de la casa de cambios."
+kind = 3
+max_stack = 1
+heal_amount = 0
+model = ExtResource("2_model")

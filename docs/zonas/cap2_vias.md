@@ -18,6 +18,15 @@ Veredicto: **aprobado con 7 correcciones.** La estructura (hub con tres alas, bu
 
 **Qué se conserva tal cual:** grafo de 10 salas (con los renombres), bucles, atajos, retroceso premiado, tamaños y verticalidad (con las alturas corregidas), textos de documentos (ajustando el 6:46 y la placa), pistas de Leo (ajustando las de la cabina y la carga), variante cooperativa, cinemática de Skull intacta.
 
+
+## IMPLEMENTACIÓN DE CLAUDE (2026-11-27) — qué quedó hecho (reemplaza al diseño donde difieran)
+ChatGPT no entregó la implementación (se quedó sin subir nada), así que **Claude implementó el capítulo 2** con las correcciones de la revisión:
+- **Salas nuevas (4):** `sala_locomotora` (9×7, techo 3,4 m, pasarela de inspección a 2,1 m con escalera), `galpon_carga` (18×6, techo 6,2 m, entrepiso a 2,7 m), `pasarela_convoy` (20×4, pasarela elevada a 2,6 m), `cuarto_drenaje` (8×6). Las 6 salas existentes **no cambiaron de geometría** (siguen con sus fondos prerenderizados); solo se les añadieron **interactuables** (puertas, contenedores, palancas).
+- **Tres sellos, uno por ala (independientes):** **A** `unlocked:tracks_fire_out` (válvulas 2→3→1 en la locomotora; **corta el combustible y apaga el incendio**); **B** `unlocked:tracks_power` (fusible 10 A de la estiba alta del galpón → tablero de carga); **C** `unlocked:tracks_line` + `unlocked:tracks_pin` (clavija de señales del gabinete del drenaje, que se abre con su propia bomba/compuerta, y palancas desvío→freno→norte de la casa de cambios). La salida de `switch_house` exige los **cuatro** flags.
+- **Mapa** `map_tracks` en el equipaje del patio (`derailed_train`, REGISTRAR), al principio. **Llave del maquinista** en un estuche con código 0648 (planilla + reloj roto) en `wagon_interior`; ya **no es necesaria** (el drenaje da otro camino al paso bajo nivel).
+- **Atajos de un solo lado:** pasarela → patio (`tracks_shortcut_walkway`) y drenaje → paso bajo nivel (`tracks_shortcut_drain`). Mapa de zona `data/zones/tracks.tres` con **10 salas**. Prueba `tests/chapter2_test.gd` (alcanzabilidad sin objetos previos, sellos en su ala, salida en dos órdenes distintos).
+- **Pendiente:** textos de documentos extra (manifiesto, placas como documentos), cámaras definitivas con fondos prerenderizados de las 4 salas nuevas, balance de munición, prueba en el teléfono.
+
 ## 1. Resumen de la zona
 
 Isabella y Leo salen del andén sur de Paine pasada la medianoche. La vía se divide en el cambio de vía: la principal continúa al norte hacia el túnel en llamas; el ramal termina en el tope doblado donde quedó el tren D-16008, descarrilado y destrozado. El túnel oeste por el que llegaron queda abierto pero oscuro y bloqueado para el retorno; la salida jugable es la puerta de servicio de la trinchera.

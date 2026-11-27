@@ -26,7 +26,7 @@ FLOOR_DECALS = ["oil_stain", "debris", "damp_stain", "blood_drag", "blood_footpr
 CLEAR = 1.4     # franja central libre (|z| < CLEAR)
 
 
-def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(), doors_z=(0.0,), avoid_rects=()):
+def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(), doors_z=(0.0,), avoid_rects=(), extra=0, base_y=0.0):
     rnd = random.Random(seed)
     avoid = list(avoid) + [(x, z, 0.9) for x, z in getattr(k, "_occupied", [])]   # spawns, puertas y objetos interactivos ya colocados
     sx, sz = sq
@@ -85,15 +85,28 @@ def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(
         while slots:
             x, z, face = slots.pop()
             if abs(z) >= CLEAR and ok(x, z):
-                k.prop("%s%d" % (scene.title().replace("_", ""), placed), "Props", scene, P(x, 0.0, z), rot=(0, face + rnd.uniform(-0.15, 0.15), 0))
+                k.prop("%s%d" % (scene.title().replace("_", ""), placed), "Props", scene, P(x, base_y, z), rot=(0, face + rnd.uniform(-0.15, 0.15), 0))
                 placed += 1
                 break
     # Desorden de esquina: cajas apiladas y un barril caído en el rincón.
     for i, (x, z) in enumerate(((x1 - 0.7, z1 - 0.7), (x0 + 0.7, z0 + 0.7))):
         if ok(x, z, 0.6):
-            k.prop("CornerCrate%d" % i, "Props", "crate", P(x, 0.0, z), rot=(0, rnd.uniform(0, 3), 0))
-            k.prop("CornerCrateTop%d" % i, "Props", "crate", P(x, 0.9, z), rot=(0, rnd.uniform(0, 3), 0))
+            k.prop("CornerCrate%d" % i, "Props", "crate", P(x, base_y, z), rot=(0, rnd.uniform(0, 3), 0))
+            k.prop("CornerCrateTop%d" % i, "Props", "crate", P(x, base_y + 0.9, z), rot=(0, rnd.uniform(0, 3), 0))
 
+    # Desorden extra (salas que piden más densidad): piezas distintas pegadas a los muros, lejos de la franja central.
+    pool = ["crate", "oil_barrel", "tire", "cable_drum", "plant_pot", "ladder", "extinguisher", "shelf_unit", "workbench", "locker_row",
+            "cot", "filing_cabinet", "office_desk", "park_bench", "sandbags", "notice_board", "wine_barrel"]
+    for i in range(extra):
+        for _try in range(30):
+            x = rnd.uniform(x0 + 0.7, x1 - 0.7)
+            z = rnd.choice((z0 + rnd.uniform(0.4, 0.9), z1 - rnd.uniform(0.4, 0.9)))
+            scene = pool[(i * 5 + seed) % len(pool)]
+            big = scene in ("office_desk", "cot", "workbench", "locker_row", "shelf_unit", "park_bench", "filing_cabinet", "ladder")
+            if abs(z) >= CLEAR * 0.6 and ok(x, z, 0.45 if big else -0.35):
+                k.prop("Extra%d" % i, "Props", scene, P(x, base_y, z), rot=(0, rnd.uniform(0, 6.28), 0))
+                avoid.append((x, z, 0.5))
+                break
     # --- Suciedad: calcomanías en muros y piso ---
     walls = [("+z", z0 + 0.012, "N"), ("-z", z1 - 0.012, "S")]
     for i, tex in enumerate(WALL_DECALS):
@@ -104,7 +117,7 @@ def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(
     for i, tex in enumerate(FLOOR_DECALS):
         x = x0 + 1.0 + rnd.random() * (W - 2.0)
         z = z0 + 0.8 + rnd.random() * (D - 1.6)
-        k.decal("FloorDirt%d" % i, tex, P(x, 0.016, z), (rnd.uniform(1.0, 2.0), rnd.uniform(0.8, 1.4)), "up", rot=rnd.uniform(0, 3.1))
+        k.decal("FloorDirt%d" % i, tex, P(x, base_y + 0.016, z), (rnd.uniform(1.0, 2.0), rnd.uniform(0.8, 1.4)), "up", rot=rnd.uniform(0, 3.1))
     # Rótulos en los muros (texto del mundo).
     k.label("StencilN", "Details", P(x0 + W * 0.7, 2.7, z0 + 0.08), "ÁREA RESTRINGIDA" if theme in ("storage", "corridor") else "SECTOR " + theme[:3].upper(), 26, (0.82, 0.78, 0.66))
     k.label("StencilS", "Details", P(x0 + W * 0.3, 2.5, z1 - 0.08), "PROHIBIDO FUMAR", 22, (0.8, 0.3, 0.25), rot=(0, math.pi, 0))

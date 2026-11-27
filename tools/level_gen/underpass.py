@@ -27,6 +27,9 @@ k.decal("Drag", "blood_drag", (2.0, 0.015, 0.2), (3.0, 1.0), "up", rot=3.1)
 # Interactuables.
 k.door("ToConvoy", (-6.6, 0, 0.0), T % "convoy_side", "from_underpass", prompt="SUBIR", reach=1.3)
 k.door("ToSwitchHouse", (6.6, 0, 0.0), T % "switch_house", "from_underpass", reach=1.3)
+# Escotilla al cuarto de drenaje: solo se abre desde el otro lado (atajo).
+k.door("ToDrain", (-3.0, 0, 1.4), T % "cuarto_drenaje", "from_underpass", prompt="SUBIR", reach=1.3,
+       lock_id="tracks_shortcut_drain", one_way=True, one_way_origin=False, metal_door=True)
 k.pickup("Ammo", (-1.5, 0.0, -1.5), "ammo_9mm", 15, rot=(0, 0.6, 0))
 k.pickup("Handroll", (3.6, 0.0, 1.5), "handroll", rot=(0, 1.0, 0))
 k.examine("Pipe", (0.0, 0, -1.3), ["Se cortó la luz en todo el paso.", "Escucho algo correr al fondo."], reach=1.1)
@@ -41,6 +44,7 @@ k.camera("Middle", (0.0, 1.4, 0.0), (4.8, 2.8, 3.6), (-2.6, 2.5, -1.5), (2.8, 0.
 k.camera("East", (4.7, 1.4, 0.0), (4.6, 2.8, 3.6), (6.6, 2.5, 1.5), (1.8, 0.4, -0.4), fov=64)
 k.spawn("from_convoy", (-6.1, 0.05, 0.0), (1, 0))
 k.spawn("from_switch", (6.1, 0.05, 0.0), (-1, 0))
+k.spawn("from_drain", (-3.0, 0.05, 0.6), (0, -1))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoExit', (5.9, 0, 0.0), ['Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.', 'Leo: Al final hay una puerta. Arriba está la casa de cambios.', 'Leo: Sigue por el túnel hasta la salida; al otro lado está la casa de cambios.'])
 k.save(REPO + "/levels/tracks/underpass.tscn")

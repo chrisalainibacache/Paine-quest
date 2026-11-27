@@ -52,6 +52,7 @@ jobs:
           "$GODOT" --headless --path . -s res://tests/levels_test.gd
           "$GODOT" --headless --path . -s res://tests/enemies_test.gd
           "$GODOT" --headless --path . -s res://tests/vertical_test.gd
+          "$GODOT" --headless --path . -s res://tests/chapter2_test.gd
           python3 tools/audit_detail.py --check
 
       - name: Capturar el arma en juego y al disparar

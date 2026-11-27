@@ -32,6 +32,8 @@ const LABELS := {
     "convoy_side": "COSTADO DEL CONVOY", "underpass": "PASO BAJO NIVEL", "switch_house": "CASA DE CAMBIOS",
     "bridge": "PUENTE DEL MAIPO", "checkpoint": "CONTROL MILITAR", "field": "POTRERO",
     "station": "ESTACIÓN DE BUIN", "warehouse": "BODEGA AGRÍCOLA", "vineyard": "VIÑA", "shed": "GALPÓN",
+    "sala_locomotora": "SALA DE LA LOCOMOTORA", "galpon_carga": "GALPÓN DE CARGA", "pasarela_convoy": "PASARELA DEL CONVOY",
+    "cuarto_drenaje": "CUARTO DE DRENAJE",
     "maestranza_acceso": "ACCESO A LA MAESTRANZA", "maestranza_guardia": "PUESTO DE GUARDIA",
     "maestranza_enfermeria": "ENFERMERÍA", "maestranza_taller": "TALLER DE MANTENIMIENTO",
     "maestranza_vestuario": "VESTUARIO", "maestranza_pasillo_cuarentena": "PASILLO DE CUARENTENA",

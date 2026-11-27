@@ -330,6 +330,18 @@ reach = 1.3
 target_room = "res://levels/tracks/switch_house.tscn"
 target_spawn = "from_underpass"
 
+[node name="ToDrain" type="Node3D" parent="Interactables"]
+position = Vector3(-3, 0, 1.4)
+script = ExtResource("19_door")
+reach = 1.3
+target_room = "res://levels/tracks/cuarto_drenaje.tscn"
+target_spawn = "from_underpass"
+lock_id = "tracks_shortcut_drain"
+prompt = "SUBIR"
+metal_door = true
+one_way = true
+one_way_origin = false
+
 [node name="Ammo" type="Node3D" parent="Interactables"]
 position = Vector3(-1.5, 0, -1.5)
 script = ExtResource("20_pickup")
@@ -386,6 +398,10 @@ rotation = Vector3(0, -1.5708, 0)
 position = Vector3(6.1, 0.05, 0)
 rotation = Vector3(0, 1.5708, 0)
 
+[node name="from_drain" type="Marker3D" parent="Spawns"]
+position = Vector3(-3, 0.05, 0.6)
+rotation = Vector3(0, 0, 0)
+
 [node name="LeoExit" type="Marker3D" parent="."]
 position = Vector3(5.9, 0, 0)
 script = ExtResource("29_leo_hint")
@@ -399,8 +415,8 @@ script = ExtResource("28_camera_zone")
 shape = SubResource("BoxShape3D_4")
 
 [node name="Camera" type="Camera3D" parent="Cameras/Cam1"]
-position = Vector3(5.8833, 0.9, -0.7)
-rotation = Vector3(-0.3179, 1.6991, 0)
+position = Vector3(6.8833, 0.9, -0.7)
+rotation = Vector3(-0.2716, 1.6793, 0)
 fov = 56
 near = 0.1
 far = 60.0

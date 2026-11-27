@@ -48,6 +48,13 @@ k.door("ToWagon", (5.4, 0, 1.55), T % "wagon_interior", "from_derailed", prompt=
 k.examine("Cab", (6.6, 0, 0.3), ["La cabina de la locomotora está aplastada contra el suelo.", "El asiento del maquinista está vacío. Hay sangre en la palanca de freno."], reach=1.4)
 k.examine("Jackknife", (6.9, 0, 1.3), ["Un vagón de carga se metió a la fuerza en el túnel. Por aquí no se puede pasar.", "Tendré que cruzar por dentro del coche de pasajeros."], reach=1.3)
 k.pickup("RifleAmmo", (-6.4, 0.0, -0.3), "ammo_rifle", 15, rot=(0, 0.6, 0))
+# Ala A: la locomotora (cabina de inspección). Ala B/C: se llega por el coche de pasajeros y el costado del convoy.
+k.door("ToLocomotive", (-3.2, 0, -0.6), T % "sala_locomotora", "from_hub", prompt="ENTRAR", reach=1.3, marker="LOCOMOTORA")
+# Retorno desde la pasarela del convoy: solo se abre desde el otro lado (atajo).
+k.door("ToWalkway", (-8.4, 0, -0.8), T % "pasarela_convoy", "from_hub", prompt="SUBIR", reach=1.3,
+       lock_id="tracks_shortcut_walkway", one_way=True, one_way_origin=False, metal_door=True)
+# El mapa de la zona está en el equipaje del coche, al inicio del recorrido (REGISTRAR), no en el piso.
+k.container("LostLuggage", (-2.0, 0, 2.15), "cap2_hub_locker", item_ids=("map_tracks",), counts=(1,), reach=1.4)
 # Infectados.
 k.infected("Heavy", (-0.5, 0.05, 1.5), yaw=-math.pi / 2, state="feeding", heavy=True)
 k.infected("Lying", (-4.6, 0.05, 0.4), yaw=1.0, state="lying", kind="infected_pale")
@@ -58,6 +65,8 @@ k.camera("Mid", (0.0, 1.5, 0.4), (8.8, 3.0, 11.2), (-4.0, 4.8, 3.6), (3.0, 0.4, 
 k.camera("East", (8.6, 1.5, 0.4), (8.8, 3.0, 11.2), (3.5, 4.8, 3.6), (9.5, 0.4, 0.6), fov=58)
 k.spawn("from_track_north", (-11.5, 0.05, TZ), (1, 0))
 k.spawn("from_wagon", (4.4, 0.05, 0.9), (-1, 0))
+k.spawn("from_locomotive", (-3.2, 0.05, 0.3), (0, 1))
+k.spawn("from_walkway", (-7.6, 0.05, 0.6), (1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoWagon', (4.6, 0, 1.25), ['Leo: Por fuera no se pasa: el vagón de carga cerró el túnel.', 'Leo: Hay que subirse al coche de pasajeros y cruzarlo por dentro. Se sube por el estribo.'])
 k.save(REPO + "/levels/tracks/derailed_train.tscn")

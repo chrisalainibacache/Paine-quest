@@ -33,8 +33,15 @@ k.note("EngineerNote", (-1.6, 0.47, 1.6), "engineer_note", paper_rot=(0, 0.4, 0)
 k.pickup("Shells", (1.4, 0.0, 2.1), "ammo_shells", 6, rot=(0, 0.5, 0))
 k.pickup("Rocket", (-0.6, 0.0, 2.1), "ammo_rockets", 1, rot=(0, 1.4, 0))
 k.pickup("Handroll", (2.5, 0.77, -1.0), "handroll", rot=(0, 0.3, 0))
-k.examine("Levers", (0.0, 0, -1.6), ["El bastidor de cambios. Todas las palancas apuntan al desvío.", "Así fue como el maquinista frenó el tren."], reach=1.3)
+# Cambio de vías: tres palancas en el orden del plano (desvío, freno, norte); la clavija del drenaje encaja en el bastidor.
+k.lever_sequence("SwitchSequence", (0.0, 0, -1.7), "cap2_signal_levers", reach=1.6)
+for lever_id, x in (("desvio", -1.2), ("freno", 0.0), ("norte", 1.2)):
+    k.lever("Switch" + lever_id.capitalize(), (x, 0, -1.9), "cap2_signal_levers", lever_id, unlock_id="tracks_line", reach=1.2)
+k.fuse_box("SignalSocket", (1.9, 0, -1.3), "cap2_signal_socket", unlock_id="tracks_pin", fuse_item="signal_pin", reach=1.4)
+k.examine("SwitchPlan", (-2.2, 0, -1.3), ["Plano de cambios: DESVÍO · FRENO · NORTE.", "El tren fue enviado al ramal para que el coche 3 no llegara a Alameda. La línea norte queda libre cuando el cambio vuelve a N."], reach=1.3)
 k.interact("TrackExit", "chapter_exit", (2.6, 0, 0.6), reach="1.3", chapter="2",
+           required_flags='PackedStringArray("unlocked:tracks_fire_out", "unlocked:tracks_power", "unlocked:tracks_pin", "unlocked:tracks_line")',
+           blocked_text='"Todavía faltan pasos: apagar el incendio de la locomotora, devolver la energía, instalar la clavija y alinear el cambio."',
            question='"Afuera, la vía sigue hacia el norte, hacia Santiago. Empieza a aclarar.\\n¿Seguir caminando con Leo?"')
 k.infected("Engineer", (-2.0, 0.36, 1.6), yaw=1.57, state="corpse", kind="infected_worker")
 # Cámaras.

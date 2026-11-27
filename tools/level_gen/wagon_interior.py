@@ -38,7 +38,11 @@ k.decal("Footprints", "blood_footprints", (-3.6, 0.014, 0.0), (1.6, 0.7), "up")
 # Interactuables.
 k.door("ToDerailed", (-6.6, 0, 0.0), T % "derailed_train", "from_wagon", prompt="SALIR", reach=1.2)
 k.door("ToConvoy", (6.6, 0, 0.0), T % "convoy_side", "from_wagon", prompt="SALIR", reach=1.2)
-k.pickup("EngineerKey", (-3.3, 0.5, -0.85), "engineer_key", rot=(0, 0.6, 0))
+# La llave del maquinista ya no está a la vista: va en un estuche cerrado con la hora del último registro de la planilla (0648).
+k.code_lock("ToolCaseCode", (-3.3, 0, -0.85), "cap2_code_0648", unlock_id="tool_case", reach=1.3)
+k.container("ToolCase", (-3.3, 0.5, -0.85), "cap2_tool_case", item_ids=("engineer_key",), counts=(1,),
+            required_flag="puzzle:cap2_code_0648:code_solved", reach=1.3)
+k.examine("BrokenClock", (-4.4, 0, -0.9), ["Un reloj digital roto sobre la puerta: marca 06:48.", "La hora quedó congelada cuando se cortó la luz del vagón."], reach=1.2)
 # Escopeta del carabinero sentado, apoyada junto al asiento.
 k.pickup("CarabinerosShotgun", (-5.5, 0.62, 0.9), "shotgun", rot=(0, 0.7, 0), sets_flag="found:shotgun")
 k.note("ConductorLog", (-2.9, 0.5, -0.55), "conductor_log", paper_rot=(0, 1.2, 0), paper_scale=0.6, reach=1.3)
@@ -55,7 +59,7 @@ k.camera("East", (4.7, 1.25, 0.0), (4.6, 2.5, 2.7), (6.6, 2.2, 1.05), (1.8, 0.5,
 k.spawn("from_derailed", (-6.2, 0.05, 0.0), (1, 0))
 k.spawn("from_convoy", (6.2, 0.05, 0.0), (-1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
-k.leo_hint('LeoKey', (-3.3, 0, -0.3), ['Leo: En ese asiento. El conductor dejó una llave: tiene el sello de EFE.', 'Leo: Él quería que alguien siguiera. Seamos nosotras.', 'Leo: Recoge la llave del asiento y sal por la puerta del vagón hacia el costado del convoy.'], hide_item='engineer_key')
+k.leo_hint('LeoKey', (-3.3, 0, -0.3), ['Leo: Bajo ese asiento hay un estuche con candado de números.', 'Leo: La hora quedó escrita en dos lugares.', 'Leo: Compara la planilla del conductor con el reloj roto: el código es 0648. La llave abre la reja del paso bajo nivel.'])
 k.leo_hint('LeoExit', (6.0, 0, 0.0), ['Leo: Ya la tienes. Salgamos por el otro lado.', 'Leo: Sal por la puerta del extremo este hacia el costado del convoy.'], show_item='engineer_key', hide_if='unlocked:underpass_gate')
 k.save(REPO + "/levels/tracks/wagon_interior.tscn")
 print("wagon interior ok")

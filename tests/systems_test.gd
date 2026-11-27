@@ -904,6 +904,9 @@ func _chapter_two() -> void:
     SceneLoader.go_to("res://levels/tracks/switch_house.tscn", "from_underpass")
     await _seconds(1.4)
     var exit: Interactable = main.room.get_node("Interactables/TrackExit")
+    _check(not exit.call("requirements_met"), "capítulo 2: la salida exige los cuatro pasos (incendio, energía, clavija, cambio)")
+    for step in ["unlocked:tracks_fire_out", "unlocked:tracks_power", "unlocked:tracks_pin", "unlocked:tracks_line"]:
+        GameState.set_flag(step)
     player.interaction.use(exit)
     await _frames(4)
     Dialogue.choose(0)
@@ -1264,8 +1267,8 @@ func _zone_maps() -> void:
         "P12: SceneLoader registra la sala al entrar")
     _check(station != null and station.is_valid() and station.rooms.size() == 10 and station.grid_size == Vector2i(4, 3),
         "P15: mapa de estación contiene diez salas y una cuadrícula 4×3 válida")
-    _check(tracks != null and tracks.is_valid() and tracks.rooms.size() == 6,
-        "P12: mapa de vías contiene seis salas y un grafo válido")
+    _check(tracks != null and tracks.is_valid() and tracks.rooms.size() == 10,
+        "P12: mapa de vías contiene diez salas y un grafo válido")
     _check(buin != null and buin.is_valid() and buin.rooms.size() == 7,
         "P12: mapa de Buin contiene siete salas y un grafo válido")
     _check(maestranza != null and maestranza.is_valid() and maestranza.rooms.size() == 7,

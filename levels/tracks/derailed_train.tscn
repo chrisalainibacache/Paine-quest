@@ -23,12 +23,14 @@
 [ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="21_examine_spot"]
 [ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="22_pickup"]
 [ext_resource type="Resource" path="res://data/items/ammo_rifle.tres" id="23_ammo_rifle"]
-[ext_resource type="Resource" path="res://data/enemies/infected_heavy.tres" id="24_infected_hea"]
-[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="25_infected"]
-[ext_resource type="Resource" path="res://data/enemies/infected_pale.tres" id="26_infected_pal"]
-[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="27_infected_wor"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="28_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="29_leo_hint"]
+[ext_resource type="Resource" path="res://data/puzzles/cap2_hub_locker.tres" id="24_cap2_hub_loc"]
+[ext_resource type="Script" path="res://levels/kit/interact/container.gd" id="25_container"]
+[ext_resource type="Resource" path="res://data/enemies/infected_heavy.tres" id="26_infected_hea"]
+[ext_resource type="PackedScene" path="res://actors/enemies/infected.tscn" id="27_infected"]
+[ext_resource type="Resource" path="res://data/enemies/infected_pale.tres" id="28_infected_pal"]
+[ext_resource type="Resource" path="res://data/enemies/infected_worker.tres" id="29_infected_wor"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="30_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="31_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -384,24 +386,53 @@ item = ExtResource("23_ammo_rifle")
 count = 15
 model_rotation = Vector3(0, 0.6, 0)
 
+[node name="ToLocomotive" type="Node3D" parent="Interactables"]
+position = Vector3(-3.2, 0, -0.6)
+script = ExtResource("20_door")
+reach = 1.3
+target_room = "res://levels/tracks/sala_locomotora.tscn"
+target_spawn = "from_hub"
+prompt = "ENTRAR"
+marker_text = "LOCOMOTORA"
+
+[node name="ToWalkway" type="Node3D" parent="Interactables"]
+position = Vector3(-8.4, 0, -0.8)
+script = ExtResource("20_door")
+reach = 1.3
+target_room = "res://levels/tracks/pasarela_convoy.tscn"
+target_spawn = "from_hub"
+lock_id = "tracks_shortcut_walkway"
+prompt = "SUBIR"
+metal_door = true
+one_way = true
+one_way_origin = false
+
+[node name="LostLuggage" type="Node3D" parent="Interactables"]
+position = Vector3(-2, 0, 2.15)
+script = ExtResource("25_container")
+puzzle = ExtResource("24_cap2_hub_loc")
+content_item_ids = PackedStringArray("map_tracks")
+counts = PackedInt32Array(1)
+reach = 1.4
+
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Heavy" parent="Enemies" instance=ExtResource("25_infected")]
+[node name="Heavy" parent="Enemies" instance=ExtResource("27_infected")]
 position = Vector3(-0.5, 0.05, 1.5)
 rotation = Vector3(0, -1.5708, 0)
-data = ExtResource("24_infected_hea")
+data = ExtResource("26_infected_hea")
 start_state = "feeding"
 
-[node name="Lying" parent="Enemies" instance=ExtResource("25_infected")]
+[node name="Lying" parent="Enemies" instance=ExtResource("27_infected")]
 position = Vector3(-4.6, 0.05, 0.4)
 rotation = Vector3(0, 1, 0)
-data = ExtResource("26_infected_pal")
+data = ExtResource("28_infected_pal")
 start_state = "lying"
 
-[node name="Body" parent="Enemies" instance=ExtResource("25_infected")]
+[node name="Body" parent="Enemies" instance=ExtResource("27_infected")]
 position = Vector3(2.2, 0.05, 1.9)
 rotation = Vector3(0, 2, 0)
-data = ExtResource("27_infected_wor")
+data = ExtResource("29_infected_wor")
 start_state = "corpse"
 
 [node name="Cameras" type="Node3D" parent="."]
@@ -416,14 +447,22 @@ rotation = Vector3(0, -1.5708, 0)
 position = Vector3(4.4, 0.05, 0.9)
 rotation = Vector3(0, 1.5708, 0)
 
+[node name="from_locomotive" type="Marker3D" parent="Spawns"]
+position = Vector3(-3.2, 0.05, 0.3)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="from_walkway" type="Marker3D" parent="Spawns"]
+position = Vector3(-7.6, 0.05, 0.6)
+rotation = Vector3(0, -1.5708, 0)
+
 [node name="LeoWagon" type="Marker3D" parent="."]
 position = Vector3(4.6, 0, 1.25)
-script = ExtResource("29_leo_hint")
+script = ExtResource("31_leo_hint")
 lines = PackedStringArray("Leo: Por fuera no se pasa: el vagón de carga cerró el túnel.", "Leo: Hay que subirse al coche de pasajeros y cruzarlo por dentro. Se sube por el estribo.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-9.4583, 1.5, 0.9375)
-script = ExtResource("28_camera_zone")
+script = ExtResource("30_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_3")
@@ -437,7 +476,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(-2.625, 1.5, 0.9375)
-script = ExtResource("28_camera_zone")
+script = ExtResource("30_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_4")
@@ -451,7 +490,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(4.2083, 1.5, 0.9375)
-script = ExtResource("28_camera_zone")
+script = ExtResource("30_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_5")
@@ -465,7 +504,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(-9.4583, 1.5, 4.3125)
-script = ExtResource("28_camera_zone")
+script = ExtResource("30_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_6")
