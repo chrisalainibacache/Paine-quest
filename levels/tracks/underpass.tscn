@@ -407,6 +407,34 @@ position = Vector3(5.9, 0, 0)
 script = ExtResource("29_leo_hint")
 lines = PackedStringArray("Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.", "Leo: Al final hay una puerta. Arriba está la casa de cambios.", "Leo: Sigue por el túnel hasta la salida; al otro lado está la casa de cambios.")
 
+[node name="FrameDrainPanel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-3, 1.1, 1.76)
+script = ExtResource("2_kit_block")
+size = Vector3(1, 2.2, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FrameDrainFrameL" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-3.56, 1.2, 1.74)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="FrameDrainFrameR" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-2.44, 1.2, 1.74)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="FrameDrainLintel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-3, 2.45, 1.74)
+script = ExtResource("2_kit_block")
+size = Vector3(1.22, 0.1, 0.1)
+surface = ExtResource("7_wood")
+solid = false
+
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-4.5833, 1.5, 0)
 script = ExtResource("28_camera_zone")

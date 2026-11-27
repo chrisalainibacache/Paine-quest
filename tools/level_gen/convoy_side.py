@@ -56,5 +56,6 @@ k.spawn("from_underpass", (X1 - 1.4, 0.05, 1.6), (-1, 0))
 k.spawn("from_shed", (3.0, 0.05, 2.3), (0, -1))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoGate', (X1 - 1.6, 0, 1.6), ['Leo: La reja del paso bajo nivel. La llave del maquinista la abre.', 'Leo: Abajo está oscuro. No importa: yo veo en la oscuridad. Tú sigue mis ojos.', 'Leo: Acércate a la reja del paso bajo nivel y usa la llave del maquinista.'], hide_if='unlocked:underpass_gate')
+k.door_frame("FrameShed", 3.0, 3.38, "x", width=1.4, wall_side=-1, panel="metal", group="Interactables")
 k.save(REPO + "/levels/tracks/convoy_side.tscn")
 print("convoy ok")

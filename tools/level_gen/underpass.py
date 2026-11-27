@@ -47,5 +47,6 @@ k.spawn("from_switch", (6.1, 0.05, 0.0), (-1, 0))
 k.spawn("from_drain", (-3.0, 0.05, 0.6), (0, -1))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoExit', (5.9, 0, 0.0), ['Leo: No veas el fondo, mira mis ojos. Corren rápido, pero yo los oigo antes.', 'Leo: Al final hay una puerta. Arriba está la casa de cambios.', 'Leo: Sigue por el túnel hasta la salida; al otro lado está la casa de cambios.'])
+k.door_frame("FrameDrain", -3.0, 1.8, "x", width=1.0, wall_side=-1, panel="metal", group="Interactables")
 k.save(REPO + "/levels/tracks/underpass.tscn")
 print("underpass ok")

@@ -57,15 +57,10 @@ def dress(k, x0, x1, z0, z1, h, theme="workshop", seed=1, sq=(1.0, 1.0), avoid=(
         k.block("Seam%d" % i, "Detail", P(x0 + i * W / 7.0, 0.012, cz), (0.04, 0.01, D - 0.2), "soot", solid=False)
     for i in range(1, 4):
         k.block("SeamZ%d" % i, "Detail", P(cx, 0.012, z0 + i * D / 4.0), (W - 0.2, 0.01, 0.04), "soot", solid=False)
-    # --- Techo: vigas cada 1,5 m y viga maestra ---
-    for i in range(int(W // 1.5)):
-        x = x0 + 0.9 + i * 1.5
-        k.block("Beam%d" % i, "Detail", P(x, h - 0.16, cz), (0.14, 0.22, D - 0.2), "metal", solid=False)
-    k.block("Girder", "Detail", P(cx, h - 0.4, cz), (W - 0.2, 0.18, 0.2), "metal", solid=False)
     # --- Instalaciones: tubería, lámparas colgantes, extintor, aviso ---
     k.prop("PipeRack", "Detail", "pipe_rack", P(cx - 0.5, 0, z0 + 0.12), rot=(0, 0, 0))
     for i, x in enumerate((x0 + W * 0.28, x0 + W * 0.72)):
-        k.prop("HangLamp%d" % i, "Detail", "hanging_lamp", P(x, h - 0.1, cz + (1.0 if i else -1.0)))
+        k.light("CeilLight%d" % i, "Lights", P(x, h - 0.5, cz + (1.0 if i else -1.0)), (1.0, 0.84, 0.6), 0.9, 6.5)   # foco de techo sin malla: no tapa la cámara
     for i, x in enumerate((x0 + W * 0.18, cx, x0 + W * 0.82)):
         k.prop("WallLantern%d" % i, "Detail", "wall_lantern", P(x, 2.35, z0 + 0.1), rot=(0, 0, 0))
     k.prop("Extinguisher", "Detail", "extinguisher", P(x0 + 0.5, 0.35, z1 - 0.2), rot=(0, math.pi, 0))

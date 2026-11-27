@@ -148,10 +148,14 @@ s = Scene(); s.node("CableDrum", "Node3D")
 wood = smat(s, (0.45, 0.32, 0.18), 0.9); cable = smat(s, (0.08, 0.08, 0.09), 0.5)
 cyl(s, "Disc1", ".", 0.42, 0.04, wood, (0, 0.42, -0.3), rot=(math.pi / 2, 0, 0), seg=14); cyl(s, "Disc2", ".", 0.42, 0.04, wood, (0, 0.42, 0.3), rot=(math.pi / 2, 0, 0), seg=14)
 cyl(s, "Core", ".", 0.28, 0.56, cable, (0, 0.42, 0), rot=(math.pi / 2, 0, 0), seg=12)
+s.node("Col", "StaticBody3D", ".", position=v3((0, 0.42, 0)))
+s.node("Shape", "CollisionShape3D", "Col", shape=s.subres("CylinderShape3D", {"radius": "0.42", "height": "0.84"}))
 s.save(OUT + "cable_drum.tscn")
 
 s = Scene(); s.node("Tire", "Node3D")
 mesh(s, "Ring", ".", "TorusMesh", {"inner_radius": "0.16", "outer_radius": "0.34", "rings": "12", "ring_segments": "8"}, smat(s, (0.06, 0.06, 0.06), 0.9), (0, 0.17, 0))
+s.node("Col", "StaticBody3D", ".", position=v3((0, 0.17, 0)))
+s.node("Shape", "CollisionShape3D", "Col", shape=s.subres("CylinderShape3D", {"radius": "0.34", "height": "0.34"}))
 s.save(OUT + "tire.tscn")
 
 # --- Escalera de mano apoyada

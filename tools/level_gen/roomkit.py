@@ -218,21 +218,21 @@ class Kit:
                                  ("W", (x0 + 0.02, 0.6, cz), (0.04, 1.2, D)), ("E", (x1 - 0.02, 0.6, cz), (0.04, 1.2, D))]:
                 self.block("Wainscot" + n, "Shell", pos, size, wainscot, solid=False)
 
-    def door_frame(self, name, x, z, axis, width=1.1, wall_side=1, panel="planks"):
+    def door_frame(self, name, x, z, axis, width=1.1, wall_side=1, panel="planks", group="Doors", base_y=0.0):
         """Puerta dibujada en un muro. axis 'x' = muro a lo largo de X (norte/sur); 'z' = muro este/oeste.
         wall_side: hacia dónde queda la sala respecto del muro (+1/-1) para separar del muro."""
-        g = "Doors"
+        g = group
         off = 0.04 * wall_side
         if axis == "x":
-            self.block(name + "Panel", g, (x, 1.1, z + off), (width, 2.2, 0.06), panel, solid=False)
-            self.block(name + "FrameL", g, (x - width / 2 - 0.06, 1.2, z + off * 1.5), (0.1, 2.4, 0.1), "wood", solid=False)
-            self.block(name + "FrameR", g, (x + width / 2 + 0.06, 1.2, z + off * 1.5), (0.1, 2.4, 0.1), "wood", solid=False)
-            self.block(name + "Lintel", g, (x, 2.45, z + off * 1.5), (width + 0.22, 0.1, 0.1), "wood", solid=False)
+            self.block(name + "Panel", g, (x, base_y + 1.1, z + off), (width, 2.2, 0.06), panel, solid=False)
+            self.block(name + "FrameL", g, (x - width / 2 - 0.06, base_y + 1.2, z + off * 1.5), (0.1, 2.4, 0.1), "wood", solid=False)
+            self.block(name + "FrameR", g, (x + width / 2 + 0.06, base_y + 1.2, z + off * 1.5), (0.1, 2.4, 0.1), "wood", solid=False)
+            self.block(name + "Lintel", g, (x, base_y + 2.45, z + off * 1.5), (width + 0.22, 0.1, 0.1), "wood", solid=False)
         else:
-            self.block(name + "Panel", g, (x + off, 1.1, z), (0.06, 2.2, width), panel, solid=False)
-            self.block(name + "FrameL", g, (x + off * 1.5, 1.2, z - width / 2 - 0.06), (0.1, 2.4, 0.1), "wood", solid=False)
-            self.block(name + "FrameR", g, (x + off * 1.5, 1.2, z + width / 2 + 0.06), (0.1, 2.4, 0.1), "wood", solid=False)
-            self.block(name + "Lintel", g, (x + off * 1.5, 2.45, z), (0.1, 0.1, width + 0.22), "wood", solid=False)
+            self.block(name + "Panel", g, (x + off, base_y + 1.1, z), (0.06, 2.2, width), panel, solid=False)
+            self.block(name + "FrameL", g, (x + off * 1.5, base_y + 1.2, z - width / 2 - 0.06), (0.1, 2.4, 0.1), "wood", solid=False)
+            self.block(name + "FrameR", g, (x + off * 1.5, base_y + 1.2, z + width / 2 + 0.06), (0.1, 2.4, 0.1), "wood", solid=False)
+            self.block(name + "Lintel", g, (x + off * 1.5, base_y + 2.45, z), (0.1, 0.1, width + 0.22), "wood", solid=False)
 
     def leo_hint(self, name, pos, lines, **conditions):
         add_leo_hint(self.s, name, pos, lines, **conditions)

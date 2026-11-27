@@ -614,6 +614,34 @@ script = ExtResource("30_leo_hint")
 lines = PackedStringArray("Leo: La reja del paso bajo nivel. La llave del maquinista la abre.", "Leo: Abajo está oscuro. No importa: yo veo en la oscuridad. Tú sigue mis ojos.", "Leo: Acércate a la reja del paso bajo nivel y usa la llave del maquinista.")
 hide_if_flag = "unlocked:underpass_gate"
 
+[node name="FrameShedPanel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(3, 1.1, 3.34)
+script = ExtResource("2_kit_block")
+size = Vector3(1.4, 2.2, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FrameShedFrameL" type="StaticBody3D" parent="Interactables"]
+position = Vector3(2.24, 1.2, 3.32)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="FrameShedFrameR" type="StaticBody3D" parent="Interactables"]
+position = Vector3(3.76, 1.2, 3.32)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="FrameShedLintel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(3, 2.45, 3.32)
+script = ExtResource("2_kit_block")
+size = Vector3(1.62, 0.1, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-9.625, 1.5, 0.5)
 script = ExtResource("29_camera_zone")

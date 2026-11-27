@@ -10,10 +10,10 @@ H = 3.1
 k.shell(-4.5, 4.5, -4.0, 4.0, H, floor="concrete_floor", wall="concrete_wall",
         ceiling="concrete_wall", wainscot="tiles_wall", walls={"E": "old_bricks_wall"})
 # Planta en U: dos brazos técnicos y un tablero central protegido.
-k.block("UWallNorth", "Architecture", (0.0, 1.5, -2.1), (7.0, 3.0, 0.18), "old_bricks_wall")
-k.block("UWallWest", "Architecture", (-3.4, 1.5, -0.1), (0.18, 3.0, 4.0), "concrete_wall")
-k.block("UWallEast", "Architecture", (3.4, 1.5, -0.1), (0.18, 3.0, 4.0), "concrete_wall")
-k.block("UWallReturn", "Architecture", (0.0, 1.5, 1.8), (3.0, 3.0, 0.18), "concrete_wall")
+k.block("UWallNorth", "Architecture", (0.0, 0.75, -2.1), (7.0, 1.5, 0.18), "old_bricks_wall")
+k.block("UWallWest", "Architecture", (-3.4, 0.75, -0.1), (0.18, 1.5, 4.0), "concrete_wall")
+k.block("UWallEast", "Architecture", (3.4, 0.75, -0.1), (0.18, 1.5, 4.0), "concrete_wall")
+k.block("UWallReturn", "Architecture", (0.0, 0.75, 1.8), (3.0, 1.5, 0.18), "concrete_wall")
 # Tablero de señales, transformadores y canaletas.
 k.block("PowerBoard", "Electrical", (0.0, 1.5, -3.75), (2.4, 2.2, 0.18), "metal")
 for index, x in enumerate((-0.85, 0.0, 0.85)):

@@ -1021,6 +1021,34 @@ lines = PackedStringArray("Leo: Ya tienes la llave. Ábrelo, Isabella. Yo voy co
 hide_if_flag = "unlocked:gate_south"
 show_if_item = "gate_key"
 
+[node name="ServicePanel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-6.92, 1.1, 0.5)
+script = ExtResource("2_kit_block")
+size = Vector3(0.06, 2.2, 1.1)
+surface = ExtResource("8_metal")
+solid = false
+
+[node name="ServiceFrameA" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-6.9, 1.18, -0.1)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.36, 0.1)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="ServiceFrameB" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-6.9, 1.18, 1.1)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.36, 0.1)
+surface = ExtResource("7_wood")
+solid = false
+
+[node name="ServiceLintel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-6.9, 2.32, 0.5)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 0.1, 1.32)
+surface = ExtResource("7_wood")
+solid = false
+
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-4.5833, 1.5, 0.4375)
 script = ExtResource("29_camera_zone")

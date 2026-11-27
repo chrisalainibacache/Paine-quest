@@ -27,5 +27,8 @@ k.leo_hint("LeoWalkway", (-6.0, 2.6, 0.0), [
     "Leo: Hay otra manera de volver abajo, si sabes dónde mirar.",
     "Leo: Sigue la pasarela hasta el cuarto de drenaje; la puerta del medio te devuelve al patio."])
 detail.dress(k, -9.7, 9.7, -1.8, 1.8, H, theme="corridor", seed=603, extra=26, base_y=2.6)
+k.door_frame("FrameShed", -9.55, 0.0, "z", width=1.2, wall_side=1, panel="metal", group="Interactables", base_y=2.6)
+k.door_frame("FrameDrain", 9.55, 0.0, "z", width=1.2, wall_side=-1, panel="metal", group="Interactables", base_y=2.6)
+k.door_frame("FrameHub", 0.0, 1.62, "x", width=1.2, wall_side=-1, panel="metal", group="Interactables", base_y=2.6)
 k.save(REPO + "/levels/tracks/pasarela_convoy.tscn")
 print("pasarela_convoy ok")

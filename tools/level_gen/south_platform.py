@@ -14,8 +14,8 @@ k.s.node("Track", "Node3D", "Ground", position=v3((0, -1.0, -3.3)), script=k.s.r
 k.block("BackWall", "Walls", (0, 2.0, 5.05), (12.6, 4.0, 0.3), "old_bricks_wall")
 k.block("RetainingWall", "Walls", (0, 1.25, -5.45), (12.6, 4.5, 0.3), "old_bricks_wall")
 # Ala de servicios que forma la L y separa el túnel de la zona de carga.
-k.block("LPartition", "Walls", (-3.8, 1.35, 1.0), (0.18, 2.7, 4.0), "old_bricks_wall")
-k.block("LPartitionReturn", "Walls", (-2.0, 1.35, -0.8), (3.6, 2.7, 0.18), "concrete_wall")
+k.block("LPartition", "Walls", (-3.8, 0.75, 1.0), (0.18, 1.5, 4.0), "old_bricks_wall")
+k.block("LPartitionReturn", "Walls", (-2.0, 0.75, -0.8), (3.6, 1.5, 0.18), "concrete_wall")
 # Túneles de la vía: al este sigue hacia el norte, con un resplandor rojo al fondo.
 from tunnels import carve
 carve(k.block, k.prop, -1, -6.0, -3.3, -1.0, -1.0, 3.6, -5.4, 5.4, "bricks_wall", prefix="WestTunnel")
@@ -56,12 +56,16 @@ for i, (x, z, sz, seed) in enumerate([(3.6, 0.6, 1.7, 2.2), (-3.4, 2.6, 1.0, 5.8
 k.prop("LampWest", "Lights", "sodium_lamp", (-3.0, 3.34, 2.2))
 k.prop("LampEast", "Lights", "sodium_lamp", (3.0, 3.34, 2.2))
 # Interactuables.
-k.door("GateToNorth", (-5.6, 0, 2.0), "res://levels/station/platform.tscn", "from_south_platform",
+k.door_frame("FrameGate", -5.9, 2.0, "z", width=1.2, wall_side=1, panel="metal")
+k.door("GateToNorth", (-5.5, 0, 2.0), "res://levels/station/platform.tscn", "from_south_platform",
        lock_id="station_shortcut_1", prompt="VOLVER", metal_door=True, one_way=True, one_way_origin=True)
-k.door("door_sur_bodega", (-4.4, 0, 1.0), "res://levels/station/storeroom.tscn", "from_south_platform",
+k.door_frame("FrameBodega", -4.4, 4.9, "x", width=1.1, wall_side=-1, panel="metal")
+k.door("door_sur_bodega", (-4.4, 0, 4.5), "res://levels/station/storeroom.tscn", "from_south_platform",
        key="gate_key", lock_id="gate_south", prompt="VOLVER", metal_door=True)
-k.door("door_sur_maquinas", (1.0, 0, 1.0), "res://levels/station/sala_maquinas.tscn", "from_south_platform", prompt="VOLVER")
-k.door("door_sur_cabina", (4.6, 0, 1.0), "res://levels/station/cabina_senales.tscn", "from_south_platform",
+k.door_frame("FrameMaquinas", -1.6, 4.9, "x", width=1.1, wall_side=-1, panel="planks")
+k.door("door_sur_maquinas", (-1.6, 0, 4.5), "res://levels/station/sala_maquinas.tscn", "from_south_platform", prompt="VOLVER")
+k.door_frame("FrameCabina", 3.3, 4.9, "x", width=1.1, wall_side=-1, panel="planks")
+k.door("door_sur_cabina", (3.3, 0, 4.5), "res://levels/station/cabina_senales.tscn", "from_south_platform",
        lock_id="station_power", requires_flag=True, prompt="VOLVER",
        locked_text="La cabina no tiene energía. Primero hay que activar los fusibles.")
 k.pickup("Ammo", (0.4, 0.0, 4.35), "ammo_9mm", 10, rot=(0, 2.6, 0))
@@ -89,10 +93,10 @@ k.decal("Oil", "oil_stain", (1.0, 0.014, -0.4), 1.2, "up", rot=1.3)
 # Cámaras.
 k.camera("West", (-3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (2.6, 3.2, 4.3), (-4.2, 0.3, 0.9), fov=58)
 k.camera("East", (3.0, 1.5, 1.6), (6.0, 3.0, 6.0), (-2.6, 3.2, 4.3), (4.4, 0.0, -0.6), fov=58)
-k.spawn("from_north_platform", (-5.1, 0.05, 2.0), (1, 0))
-k.spawn("from_storeroom", (-4.6, 0.05, 1.0), (1, 0))
-k.spawn("from_machine_room", (1.0, 0.05, 1.0), (-1, 0))
-k.spawn("from_signal_cabin", (4.3, 0.05, 1.0), (-1, 0))
+k.spawn("from_north_platform", (-5.0, 0.05, 2.0), (1, 0))
+k.spawn("from_storeroom", (-4.4, 0.05, 3.7), (0, -1))
+k.spawn("from_machine_room", (-1.6, 0.05, 3.7), (0, -1))
+k.spawn("from_signal_cabin", (3.3, 0.05, 3.7), (0, -1))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoTracks', (4.3, 0, -0.75), ['Leo: La vía va hacia el norte. Hacia Santiago. Hacia Paz.', 'Leo: No va a venir ningún tren. Pero yo camino rápido, y tú también.', 'Leo: Avanza por el andén hasta el túnel del extremo este, donde brilla el resplandor rojo, y toca SEGUIR para bajar a la vía.'])
 detail.dress(k, -5.5, 5.5, -5.0, 5.0, 3.8, theme="corridor", seed=508,

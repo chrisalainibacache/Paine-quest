@@ -460,6 +460,62 @@ position = Vector3(4.6, 0, 1.25)
 script = ExtResource("31_leo_hint")
 lines = PackedStringArray("Leo: Por fuera no se pasa: el vagón de carga cerró el túnel.", "Leo: Hay que subirse al coche de pasajeros y cruzarlo por dentro. Se sube por el estribo.")
 
+[node name="FrameLocoPanel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-3.2, 1.1, -0.41)
+script = ExtResource("2_kit_block")
+size = Vector3(1.1, 2.2, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FrameLocoFrameL" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-3.81, 1.2, -0.39)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="FrameLocoFrameR" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-2.59, 1.2, -0.39)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="FrameLocoLintel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-3.2, 2.45, -0.39)
+script = ExtResource("2_kit_block")
+size = Vector3(1.32, 0.1, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="FrameWalkwayPanel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-8.4, 1.1, -0.41)
+script = ExtResource("2_kit_block")
+size = Vector3(1, 2.2, 0.06)
+surface = ExtResource("6_metal")
+solid = false
+
+[node name="FrameWalkwayFrameL" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-8.96, 1.2, -0.39)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="FrameWalkwayFrameR" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-7.84, 1.2, -0.39)
+script = ExtResource("2_kit_block")
+size = Vector3(0.1, 2.4, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
+[node name="FrameWalkwayLintel" type="StaticBody3D" parent="Interactables"]
+position = Vector3(-8.4, 2.45, -0.39)
+script = ExtResource("2_kit_block")
+size = Vector3(1.22, 0.1, 0.1)
+surface = ExtResource("5_wood")
+solid = false
+
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-9.4583, 1.5, 0.9375)
 script = ExtResource("30_camera_zone")

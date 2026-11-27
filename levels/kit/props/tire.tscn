@@ -11,9 +11,19 @@ outer_radius = 0.34
 rings = 12
 ring_segments = 8
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3"]
+radius = 0.34
+height = 0.34
+
 [node name="Tire" type="Node3D"]
 
 [node name="Ring" type="MeshInstance3D" parent="."]
 position = Vector3(0, 0.17, 0)
 mesh = SubResource("TorusMesh_2")
 material_override = SubResource("StandardMaterial3D_1")
+
+[node name="Col" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.17, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="Col"]
+shape = SubResource("CylinderShape3D_3")

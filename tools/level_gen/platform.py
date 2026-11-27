@@ -184,5 +184,9 @@ from roomkit import add_leo_hint
 add_leo_hint(s, 'LeoWaitingRoom', (3.0, 0, 4.2), ['Leo: Isabella, aquí afuera no. Adentro hay luz.', 'Leo: Huele a pólvora... Alguien disparó en la estación. Busquemos de dónde salieron esas balas.', 'Leo: Entra a la sala de espera; allí empezamos a buscar de dónde salieron las balas.'], hide_if='found:pistol')
 add_leo_hint(s, 'LeoGateKey', (5.9, 0, 2.6), ['Leo: El portón del andén sur. La cadena es nueva: alguien lo cerró hace poco.', 'Leo: Las llaves se guardan donde guardan todo: en la bodega, al fondo del pasillo de servicio.', 'Leo: Entra primero a la sala de espera; sigue a boletería, pasillo de servicio y bodega.'], show_if='found:pistol', hide_if='unlocked:gate_south', hide_item='gate_key')
 add_leo_hint(s, 'LeoGateOpen', (5.9, 0, 2.6), ['Leo: Ya tienes la llave. Ábrelo, Isabella. Yo voy contigo.', 'Leo: Acércate al portón del andén sur y usa la llave.'], show_item='gate_key', hide_if='unlocked:gate_south')
+# Puerta de servicio al pasillo (muro oeste): marco dibujado en Interactables (no entra al prerender; se ve en el juego).
+for _n, _pos, _sz, _m in [("ServicePanel", (-6.92, 1.1, 0.5), (0.06, 2.2, 1.1), "metal"), ("ServiceFrameA", (-6.9, 1.18, -0.1), (0.1, 2.36, 0.1), "wood"),
+                          ("ServiceFrameB", (-6.9, 1.18, 1.1), (0.1, 2.36, 0.1), "wood"), ("ServiceLintel", (-6.9, 2.32, 0.5), (0.1, 0.1, 1.32), "wood")]:
+    block(_n, "Interactables", _pos, _sz, _m, solid=False)
 s.save(REPO + "/levels/station/platform.tscn")
 print("platform ok")

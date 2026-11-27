@@ -90,5 +90,6 @@ own_props = [
 ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.45, 0.45, 0.45)))
+k.door_frame("FrameMachines", 0.5, -1.0, "x", width=1.1, wall_side=1, panel="metal", group="Interactables")
 k.save(REPO + "/levels/station/service_corridor.tscn")
 print("corridor ok")

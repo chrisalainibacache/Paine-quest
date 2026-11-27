@@ -69,5 +69,7 @@ k.spawn("from_locomotive", (-3.2, 0.05, 0.3), (0, 1))
 k.spawn("from_walkway", (-7.6, 0.05, 0.6), (1, 0))
 # Pistas de Leo: adonde guía a Isabella cuando se queda quieta y qué le explica.
 k.leo_hint('LeoWagon', (4.6, 0, 1.25), ['Leo: Por fuera no se pasa: el vagón de carga cerró el túnel.', 'Leo: Hay que subirse al coche de pasajeros y cruzarlo por dentro. Se sube por el estribo.'])
+k.door_frame("FrameLoco", -3.2, -0.45, "x", width=1.1, wall_side=1, panel="metal", group="Interactables")
+k.door_frame("FrameWalkway", -8.4, -0.45, "x", width=1.0, wall_side=1, panel="metal", group="Interactables")
 k.save(REPO + "/levels/tracks/derailed_train.tscn")
 print("derailed ok")

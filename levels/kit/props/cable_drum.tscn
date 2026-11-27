@@ -28,6 +28,10 @@ bottom_radius = 0.28
 height = 0.56
 radial_segments = 12
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6"]
+radius = 0.42
+height = 0.84
+
 [node name="CableDrum" type="Node3D"]
 
 [node name="Disc1" type="MeshInstance3D" parent="."]
@@ -47,3 +51,9 @@ position = Vector3(0, 0.42, 0)
 rotation = Vector3(1.5708, 0, 0)
 mesh = SubResource("CylinderMesh_5")
 material_override = SubResource("StandardMaterial3D_2")
+
+[node name="Col" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.42, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="Col"]
+shape = SubResource("CylinderShape3D_6")

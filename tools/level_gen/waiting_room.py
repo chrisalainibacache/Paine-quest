@@ -47,8 +47,8 @@ block("SouthWall", "Shell", (0, H / 2, D / 2 + 0.15), (W + 0.6, H, 0.3), "plaste
 block("WestWall", "Shell", (-W / 2 - 0.15, H / 2, 0), (0.3, H, D), "plaster_wall")
 block("EastWall", "Shell", (W / 2 + 0.15, H / 2, 0), (0.3, H, D), "plaster_wall")
 # L interior: un recodo de servicios y una línea de visión corta hacia la boletería.
-block("LPartition", "Shell", (1.4, 1.45, 1.15), (0.18, 2.9, 3.8), "old_bricks_wall")
-block("LPartitionReturn", "Shell", (0.0, 1.45, -0.75), (2.8, 2.9, 0.18), "plaster_wall")
+block("LPartition", "Shell", (1.4, 0.75, 1.15), (0.18, 1.5, 3.8), "old_bricks_wall")
+block("LPartitionReturn", "Shell", (0.0, 0.75, -0.75), (2.8, 1.5, 0.18), "plaster_wall")
 # Zócalo de azulejos y guardapolvo en todo el perímetro.
 for name, pos, size in [("N", (0, 0.6, -D / 2 + 0.02), (W, 1.2, 0.04)), ("S", (0, 0.6, D / 2 - 0.02), (W, 1.2, 0.04)),
                         ("W", (-W / 2 + 0.02, 0.6, 0), (0.04, 1.2, D)), ("E", (W / 2 - 0.02, 0.6, 0), (0.04, 1.2, D))]:
@@ -176,5 +176,9 @@ detail_adapter = SceneKitAdapter(s, block, prop)
 detail.dress(detail_adapter, -4.2, 4.2, -3.2, 3.2, H, theme="corridor", seed=506,
              avoid=[(-2.5, 3.15, 1.0), (2.9, -3.15, 1.0), (-4.2, -0.4, 0.9),
                     (0.0, 0.0, 1.2), (3.2, 1.4, 1.0)])
+# Puerta a los baños (muro oeste): marco dibujado en Interactables.
+for _n, _pos, _sz, _m in [("BanosPanel", (-W / 2 + 0.06, 1.1, -0.4), (0.06, 2.2, 1.0), "planks"), ("BanosFrameA", (-W / 2 + 0.07, 1.18, -0.95), (0.1, 2.36, 0.1), "wood"),
+                          ("BanosFrameB", (-W / 2 + 0.07, 1.18, 0.15), (0.1, 2.36, 0.1), "wood"), ("BanosLintel", (-W / 2 + 0.07, 2.32, -0.4), (0.1, 0.1, 1.22), "wood")]:
+    block(_n, "Interactables", _pos, _sz, _m, solid=False)
 s.save(REPO + "/levels/station/waiting_room.tscn")
 print("waiting room ok")
