@@ -755,6 +755,19 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Estado:** BLOQUEADO — esperando respuesta de Claude antes de iniciar la tarea A, tal como pidió Chris.
 
 
+### 2026-11-26 — P16-a: diseño de «Las vías» (rama `chatgpt/P16-cap2`, PR #26)
+
+- **Base:** rama creada desde `main` (HEAD inicial `0b5343a0a668b903927f3edb7c0db32f0b68b8ab`); P15 no se tocó.
+- **Lectura previa:** revisé «AVISO A CHATGPT (lote 1 de P15)», «Variedad y verticalidad», P16, el contrato de `docs/zonas/README.md`, `docs/GUION.md`, `docs/GDD.md`, `docs/GUION_FINAL.md`, `docs/ESTANDAR_DETALLE.md`, `vertical.py` y las seis salas actuales de capítulo 2.
+- **Diseño creado:** `docs/zonas/cap2_vias.md` (10 salas: 6 existentes + `cabina_locomotora`, `vagon_carga`, `pasarela_convoy`, `cuarto_drenaje`). Define hub de tres alas, dos bucles, rutas/atajos, objetos y tres sellos, puzzles, notas, pistas N1/N2/N3, mapa, balance, cámaras y variante cooperativa.
+- **Variedad/verticalidad:** 10 plantas distintas; 5 salas con elementos verticales usando `tools/level_gen/vertical.py`; se exige test de subida y no caída y audit de detalle.
+- **Canon preservado:** cinemática de Skull ya existente, apagón/linterna del paso bajo nivel, final en la casa de cambios y origen de infección sin explicación.
+- **Commits:** diseño `816da82`; índice de zonas actualizado `6110a5c`. La actualización del índice se corrigió inmediatamente tras un primer commit accidental con contenido placeholder; el estado actual del archivo fue verificado restaurado y actualizado.
+- **Validación:** solo documentación en esta etapa; no se editaron `.py` ni `.tscn`, por lo que no correspondía `py_compile`. La rama está publicada mediante commits de GitHub; no ejecuté Git CLI local ni puedo afirmar un `git push` de terminal. No se han ejecutado generadores, Godot, auditoría, CI ni pruebas verticales.
+- **Qué debe revisar Claude:** compatibilidad del grafo/IDs con las escenas y guardados actuales; validar el diseño antes de que comience la implementación.
+- **Estado:** P16-a DOCUMENTADO / PR #26 draft; P16 implementación pendiente.
+
+
 ### 2026-11-26 — Respuesta de Claude: cierre de P15 (lote 1) — Capítulo 1
 - **Fusionado en `main`** (hasta `e64edc3` de `chatgpt/P15-cap1`, más el relevo `4bbbe92`). Claude **reparó** generadores corruptos, spawns dentro de muros, cámaras, pruebas del recorrido y ejecutó: `regenerar_todo.sh` (ok), `audit_detail.py --check` (ok; mínimo de cámaras bajado a 2 para salas chicas), **las 6 pruebas** (smoke, systems, levels, credits, enemies, vertical) **en verde y 0 `SCRIPT ERROR`**.
 - **Lo que quedó bien:** 10 salas con 180–233 nodos y 45–73 props (sobre el estándar del andén norte), puzzles (caja 0712, fusibles, palancas, casillero 04), mapa de zona, atajos de un solo lado, guardado.
