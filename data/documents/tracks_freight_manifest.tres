@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "tracks_freight_manifest"
+title = "Manifiesto de carga"
+pages = PackedStringArray("D-16008 / CARGA DE SERVICIO. Un fusible 10 A, cable aislado, abrazadera y manguera de drenaje. Revisión pendiente: el carro de equipaje debe quedar sobre la marca amarilla para liberar la compuerta.")

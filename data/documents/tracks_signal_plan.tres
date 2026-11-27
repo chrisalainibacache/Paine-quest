@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "tracks_signal_plan"
+title = "Plano de cambios"
+pages = PackedStringArray("DESVÍO / BLOQUEO / NORTE. Instale el pasador de señal y alinee las tres palancas para dejar libre la línea norte.")
