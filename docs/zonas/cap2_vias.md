@@ -54,17 +54,17 @@ El capítulo no termina en el tren. El jugador rodea los restos a pie, atraviesa
 
 Conexiones concretas y puertas:
 1. `track_north ↔ derailed_train`: puerta de servicio existente; `track_north` es entrada y no se vuelve a la estación.
-2. `derailed_train ↔ sala_locomotora`: puerta de acceso al lateral de la locomotora.
+2. `derailed_train ↔ sala_locomotora`: puerta de acceso abierta al lateral de la sala de máquinas.
 3. `sala_locomotora ↔ wagon_interior`: paso estrecho por el fuelle/puerta de conexión.
 4. `derailed_train ↔ wagon_interior`: conservar el acceso existente por el estribo.
 5. `wagon_interior ↔ convoy_side`: conservar el cruce por el coche.
 6. `derailed_train ↔ convoy_side`: conservar el acceso lateral existente; funciona como tercer brazo del hub.
-7. `convoy_side ↔ galpon_carga`: acceso a la carga por una puerta lateral.
-8. `galpon_carga ↔ pasarela_convoy`: subir a la plataforma superior del vagón.
+7. `convoy_side ↔ galpon_carga`: acceso a la bodega por una puerta lateral.
+8. `galpon_carga ↔ pasarela_convoy`: subir al entrepiso y a la pasarela superior.
 9. `pasarela_convoy ↔ derailed_train`: retorno elevado al hub; balcón con vista al descarrilamiento.
 10. `pasarela_convoy ↔ cuarto_drenaje`: acceso superior de mantenimiento.
 11. `convoy_side ↔ underpass`: conservar `underpass_gate` como reja lateral, abierta desde dentro o con `engineer_key` desde fuera; es un atajo opcional y no bloquea el paso principal.
-12. `underpass ↔ cuarto_drenaje`: puerta de mantenimiento, abre desde el lado del drenaje.
+12. `underpass ↔ cuarto_drenaje`: puerta de mantenimiento accesible desde el paso bajo nivel; la compuerta de retorno se libera desde el lado del drenaje.
 13. `cuarto_drenaje ↔ switch_house`: conexión de servicio.
 14. `switch_house`: conservar la salida de capítulo hacia la vía norte; el final requiere los tres flags de paso.
 15. `derailed_train ↔ underpass`: escalera de servicio abierta desde el hub; permite iniciar el ala C sin llave, sello ni energía. `underpass_gate` queda como atajo lateral opcional.
@@ -93,7 +93,7 @@ Ambos se abren desde el lado opuesto y quedan persistentes. El portón de `under
 
 ### Retroceso premiado (≥3)
 1. Tras apagar el incendio, se puede registrar el compartimento de herramientas de la sala de máquinas.
-2. Tras restaurar energía, se activa el armario de señalización en el convoy.
+2. Tras instalar el fusible local de B, se activa el armario de señalización del convoy.
 3. Tras encontrar el diagrama de palancas, se puede volver al cambio de vía y abrir el contenedor de contrapesos.
 4. Con la escotilla abierta, volver al paso bajo nivel permite recoger la caja opcional de munición sin cruzar de nuevo todo el tren.
 
@@ -106,17 +106,13 @@ Medidas propuestas en metros; se ajustan al espacio real del generador y a las c
 | `track_north` | 18×9 / 5.5 | Trinchera irregular en Y; desvío, ramal y puerta de servicio. |
 | `derailed_train` (hub) | 26×11 / 5.8 | Patio largo; escalera sobre el vagón volcado y plataforma superior. |
 | `sala_locomotora` | 9×7 / 3.4 | Sala de máquinas/inspección en L; pasarela técnica a 2.1 m. |
-| `sala_locomotora` | Mira las válvulas del panel y luego la pasarela. | «El fuego no se apaga golpeándolo.» | «Corta el combustible en orden 2, 3 y 1.» |
-| `wagon_interior` | 14×3.3 / 2.5 | Pasillo estrecho y angosto; asientos arrancados y fuelle de conexión. |
+| `wagon_interior` | 14×3.3 / 2.5 | Pasillo estrecho; asientos arrancados y fuelle de conexión. |
 | `convoy_side` | 26×7.5 / 5.5 | Pasillo exterior largo entre vagones; sin duplicar la planta del hub. |
-| `galpon_carga` | 18×6 / 6.2 | Bodega ferroviaria junto a la vía; interior útil de ~3 m y entrepiso a 2.7 m. |
-| `galpon_carga` | Mira el tablero local y después el carro de contrapeso. | «La carga todavía guarda corriente.» | «Registra el fusible 10 A e instálalo en el tablero del galpón; el carro abre el opcional.» |
+| `galpon_carga` | 18×6 / 6.2 | Bodega junto a la vía; altura útil interior ~3 m y entrepiso a 2.7 m. |
 | `pasarela_convoy` | 20×4 / 5.6 | Pasarela elevada con balcón mirando al hub y acceso a drenaje. |
-| `underpass` | 14×3.6 / 3.2 | Paso bajo nivel largo; escalones/desnivel en ambos extremos. |
+| `underpass` | 14×3.6 / 3.2 | Paso bajo nivel largo; escalones y desnivel en ambos extremos. |
 | `cuarto_drenaje` | 8×6 / 3.4 | Sala pequeña en L, canal y bomba manual con gabinete de señales. |
-| `underpass` | Se sienta junto al acceso directo desde el patio y luego mira la luz roja. | «La linterna no es un adorno aquí.» | «Entra por la escalera abierta del hub; la reja lateral es un atajo opcional.» |
-| `cuarto_drenaje` | Mira el canal, la bomba manual y el gabinete. | «Primero escucha el agua; después busca el pasador.» | «Vacía el canal manualmente, registra `signal_pin` y llévalo a la casa de cambios.» |
-| `switch_house` | 6×5 / 2.8 | Caseta compacta segura, conserva máquina de escribir y salida. |
+| `switch_house` | 6×5 / 2.8 | Caseta compacta segura; conserva máquina de escribir y salida. |
 
 ### Uso de `tools/level_gen/vertical.py`
 - `derailed_train`: `vertical.stairs(... rise=2.4)` a una plataforma de observación sobre el vagón; no bloquea el paso inferior.
@@ -167,16 +163,15 @@ Cada sala tiene al menos una pista activa, sin flechas amarillas permanentes den
 | Sala | N1 (mirada/maullido) | N2 (≤12 palabras, vaga) | N3 (solo AYUDA, explícita) |
 |---|---|---|---|
 | `track_north` | Mira la puerta de servicio y luego el ramal. | «El tren no está al final de la vía principal.» | «Entra por la puerta de servicio y rodea el vagón volcado.» |
-| `derailed_train` | Se sienta junto al paso entre locomotora y coche. | «Hay más de una forma de cruzar estos restos.» | «Explora sala de máquinas, coche y costado; vuelve al patio entre alas.» |
-| `sala_locomotora` | Mira el panel de válvulas y la escalera. | «Jorge dejó un orden antes de irse.» | «Lee el diagrama y acciona las palancas 2, 3 y 1.» |
+| `derailed_train` | Se sienta junto al casillero del mapa y mira las tres salidas. | «Hay más de una forma de cruzar estos restos.» | «Registra el mapa y explora las tres alas desde el patio.» |
+| `sala_locomotora` | Mira las válvulas del panel y luego la pasarela. | «El fuego no se apaga golpeándolo.» | «Corta el combustible en orden 2, 3 y 1.» |
 | `wagon_interior` | Mira el estuche bajo el asiento. | «La hora quedó escrita en dos lugares.» | «Compara planilla y reloj; el código es 0648.» |
-| `convoy_side` | Mira el candado y luego la pasarela. | «El camino bajo también tiene una vuelta arriba.» | «Busca la llave en el coche o accede por la pasarela elevada.» |
-| `galpon_carga` | Mira el manifiesto y la estiba alta. | «Lo pesado puede abrir algo que una llave no abre.» | «Registra el manifiesto, consigue el fusible y mueve el carro al contrapeso.» |
-| `pasarela_convoy` | Mira el balcón y el acceso al drenaje. | «Desde arriba se ve otra manera de volver.» | «Cruza la pasarela; abre el retorno al HUB y baja al cuarto de drenaje.» |
-| `underpass` | Se sienta junto a la luz de emergencia, no al fondo oscuro. | «La linterna no es un adorno aquí.» | «Avanza con la linterna, evita a los rápidos y busca el pestillo interior.» |
-| `cuarto_drenaje` | Mira el canal y el tablero apagado. | «Primero escucha el agua; después sigue el cable.» | «Combina cable y alicate, instala el fusible y vacía el canal con el sifón.» |
-| `switch_house` | Mira la máquina de escribir y luego las palancas. | «El amanecer espera al otro lado de tres decisiones.» | «Guarda, completa los tres sellos y alinea las palancas para salir.» |
-
+| `convoy_side` | Mira la reja lateral y luego la puerta de carga. | «El camino bajo también tiene una vuelta arriba.» | «La reja es opcional; cruza por el pasillo abierto y la pasarela.» |
+| `galpon_carga` | Mira el tablero local y después el carro de contrapeso. | «La carga todavía guarda corriente.» | «Registra el fusible 10 A e instálalo en el tablero del galpón; el carro abre el opcional.» |
+| `pasarela_convoy` | Mira el balcón y el acceso alto al drenaje. | «Desde arriba se ve otra manera de volver.» | «Cruza la pasarela; vuelve al hub o baja al cuarto de drenaje.» |
+| `underpass` | Se sienta junto al acceso directo desde el patio y luego mira la luz roja. | «La linterna no es un adorno aquí.» | «Entra por la escalera abierta del hub; la reja lateral es un atajo opcional.» |
+| `cuarto_drenaje` | Mira el canal, la bomba manual y el gabinete. | «Primero escucha el agua; después busca el pasador.» | «Vacía el canal manualmente, registra `signal_pin` y llévalo a la casa de cambios.» |
+| `switch_house` | Mira la máquina de escribir y luego las palancas. | «El amanecer espera al otro lado de tres decisiones.» | «Instala `signal_pin`, alinea las palancas y guarda antes de salir.» |
 N1 no revela texto. N2 solo aparece según el temporizador de progreso P12. N3 nunca se invoca automáticamente.
 
 ## 8. Mapa de zona
