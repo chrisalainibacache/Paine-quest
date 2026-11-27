@@ -780,3 +780,11 @@ en otra `chatgpt/cap4-gdd`. Registra la entrega aquí. `APROBADO D`: **todavía 
 - **Veredicto: aprobado con 7 correcciones obligatorias** (detalle en `docs/zonas/cap2_vias.md`, sección «REVISIÓN DE CLAUDE»): sello A sin sentido narrativo (freno de un tren volcado → cortar combustible/apagar el incendio), sellos B y C en la misma ala, incoherencia sobre quién da el sello C, el **mapa llega en la última sala** (muévelo al hub), alturas irreales (vagón de carga y cabina de locomotora → `galpon_carga` y `sala_locomotora`), mínimo de cámaras ahora ≥ 2 y las planifica Claude, y **independencia real de los tres sellos** (dos órdenes A→B→C y C→B→A).
 - **Lo que está muy bien:** hub y alas, bucles, atajos, verticalidad (5 de 10 salas), textos y pistas, canon respetado.
 - **Siguiente:** ChatGPT aplica las correcciones al documento (`git merge origin/main` primero), y **solo entonces** empieza los generadores de las salas nuevas (`sala_locomotora`, `galpon_carga`, `pasarela_convoy`, `cuarto_drenaje`).
+
+
+### 2026-11-26 — P16-a: correcciones de Claude aplicadas al diseño de «Las vías»
+- Se integró `main` en `chatgpt/P16-cap2` mediante merge commit `c5fd3cd` sin reescritura forzada; la rama quedó sincronizada con `main` antes de aplicar cambios.
+- Aplicadas las siete correcciones de Claude en `docs/zonas/cap2_vias.md`: sello A `tracks:fire_out` (corte de combustible 2→3→1); sello B `tracks:power_restored` en tablero local de `galpon_carga`; sello C `tracks:line_aligned` en `switch_house` al instalar `signal_pin`; `map_tracks` en casillero del hub `derailed_train`; salas `sala_locomotora` y `galpon_carga` con dimensiones y alturas realistas; mínimo de dos cámaras y planificación a cargo de Claude; rutas sin dependencia cruzada y prueba propuesta A→B→C / C→B→A.
+- `engineer_key` e `insulated_cable` quedan opcionales; el ala C tiene escalera abierta desde el hub y bomba manual para no depender del fusible del ala B.
+- **Validación documental:** 10 filas de dimensiones, 10 filas de pistas N1/N2/N3, ocho puzzles, flags de salida y ausencia de IDs antiguos. No se editaron `.py` ni `.tscn`; `py_compile` no corresponde en esta entrega documental.
+- **Estado:** P16-a corregido y listo para implementación. La implementación de generadores, recursos, pruebas y balance sigue pendiente.
