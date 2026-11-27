@@ -18,7 +18,7 @@ vertical.balcony(k, "Loft", -2.0, 8.0, -2.9, -0.9, y=2.7, rail_sides="SE", gap=(
 vertical.stairs(k, "LoftStairs", -6.5, -1.9, "+x", width=1.3, rise=2.7)
 k.door("ToWalkway", (7.4, 2.7, -1.9), T % "pasarela_convoy", "from_shed", prompt="SUBIR", reach=1.3, marker="PASARELA")
 k.container("CargoStock", (5.4, 2.7, -2.5), "cap2_cargo_stock", item_ids=("fuse_10a",), counts=(1,), reach=1.3)
-k.examine("Manifest", (-3.6, 0, 2.4), ["Manifiesto D-16008, carga de servicio: un fusible 10 A, cable aislado, abrazadera y manguera.", "«Fusible en la estiba alta. Tablero de carga junto a la puerta.»"], reach=1.4)
+k.note("Manifest", (-3.6, 0.9, 2.4), "cargo_manifest", paper_scale=0.7, reach=1.4)
 k.fuse_box("CargoPanel", (-7.4, 0, -2.4), "cap2_cargo_panel", unlock_id="tracks_power", fuse_item="fuse_10a", reach=1.5)
 k.infected("Stowaway", (3.0, 0.05, 1.5), yaw=2.6)
 k.pickup("ShedShells", (6.5, 0.0, 2.2), "ammo_shells", 4)

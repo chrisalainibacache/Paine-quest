@@ -38,7 +38,7 @@ k.lever_sequence("SwitchSequence", (0.0, 0, -1.7), "cap2_signal_levers", reach=1
 for lever_id, x in (("desvio", -1.2), ("freno", 0.0), ("norte", 1.2)):
     k.lever("Switch" + lever_id.capitalize(), (x, 0, -1.9), "cap2_signal_levers", lever_id, unlock_id="tracks_line", reach=1.2)
 k.fuse_box("SignalSocket", (1.9, 0, -1.3), "cap2_signal_socket", unlock_id="tracks_pin", fuse_item="signal_pin", reach=1.4)
-k.examine("SwitchPlan", (-2.2, 0, -1.3), ["Plano de cambios: DESVÍO · FRENO · NORTE.", "El tren fue enviado al ramal para que el coche 3 no llegara a Alameda. La línea norte queda libre cuando el cambio vuelve a N."], reach=1.3)
+k.note("SwitchPlan", (-2.2, 0.9, -1.3), "switch_plan", paper_scale=0.7, reach=1.4)
 k.interact("TrackExit", "chapter_exit", (2.6, 0, 0.6), reach="1.3", chapter="2",
            required_flags='PackedStringArray("unlocked:tracks_fire_out", "unlocked:tracks_power", "unlocked:tracks_pin", "unlocked:tracks_line")',
            blocked_text='"Todavía faltan pasos: apagar el incendio de la locomotora, devolver la energía, instalar la clavija y alinear el cambio."',

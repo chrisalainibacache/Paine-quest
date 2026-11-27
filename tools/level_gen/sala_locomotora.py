@@ -20,7 +20,7 @@ vertical.stairs(k, "CatwalkStairs", -3.1, -2.6, "+x", width=1.3, rise=2.1)
 k.lever_sequence("FuelSequence", (0.0, 0, 3.0), "cap2_fire_valves", reach=1.6)
 for lever_id, x in (("1", -1.6), ("2", 0.0), ("3", 1.6)):
     k.lever("Valve" + lever_id, (x, 0, 3.0), "cap2_fire_valves", lever_id, unlock_id="tracks_fire_out", reach=1.2)
-k.examine("ServicePlate", (-0.8, 0, 3.0), ["Placa de servicio: CORTE DE COMBUSTIBLE.", "2 AISLAR · 3 CORTAR · 1 CONFIRMAR. Si el testigo sigue rojo, no se toque nada más."], reach=1.4)
+k.note("ServicePlate", (-0.8, 0.9, 2.9), "loco_fuel_plate", paper_scale=0.7, reach=1.4)
 k.examine("MaintenanceNote", (2.9, 2.1, -2.6), ["Parte del maquinista, 6:46: tras el choque, el combustible prendió la cabina.", "«Primero aislar, después cortar, al final confirmar. Que nadie abra la puerta de atrás.» — J. Muñoz"], reach=1.4)
 k.container("ToolCompartment", (2.6, 2.1, -2.7), "cap2_loco_cache", item_ids=("ammo_9mm", "handroll"), counts=(10, 1),
             required_flag="unlocked:tracks_fire_out", reach=1.3)

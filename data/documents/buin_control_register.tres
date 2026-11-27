@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "buin_control_register"
+title = "Registro del control"
+pages = PackedStringArray("CONTROL SANITARIO BUIN — Viernes, 21:00. El acceso al patio queda habilitado cuando el parte de traslado está registrado y la barrera vuelve a posición de cierre. La carpeta de servicio se abre con la hora del aviso. — Control militar")
