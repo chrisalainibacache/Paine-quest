@@ -1,3 +1,16 @@
+### 2026-11-27 — P17: diseño del capítulo 3 (rama chatgpt/P17-cap3)
+
+- **Base:** rama creada desde main en a3a6601663779a387531fe349705f87fdfa1c741; P16 no se modificó.
+- **Tarea 1 — Diseño:** docs/zonas/cap3_buin.md, contrato de 13 secciones: 11 salas (7 existentes + 4 nuevas), hub station, tres alas/sellos independientes, mapa ASCII, puertas con estado inicial, dos órdenes de sello, dos rutas por objetivo, bucles, atajos, retroceso premiado, variedad/verticalidad, 8 puzzles, mapa, balance, textos, propuesta de cámaras, cooperativo y preguntas para Claude.
+- **Tarea 2 — Datos:** cinco documentos nuevos del capítulo 2 y seis del capítulo 3 en data/documents/*.tres, con formato DocumentData y páginas para teléfono. Se corrigió la ruta alternativa de field al control para que sea alcanzable.
+- **Tarea 3 — Leo:** tabla N1/N2/N3 para las 11 salas, con objetos, puertas, flags y rutas exactas; N2 máximo 12 palabras y N3 solo AYUDA.
+- **Archivos:** docs/zonas/cap3_buin.md; data/documents/loco_fuel_plate.tres, cargo_manifest.tres, crossing_drain_note.tres, signal_cabinet_label.tres, switch_plan.tres, buin_control_register.tres, buin_irrigation_plan.tres, buin_pump_log.tres, buin_harvest_manifest.tres, buin_radio_battery_note.tres, buin_vineyard_shift_note.tres.
+- **Pruebas:** no se editó código, escena ni generador; py_compile no aplica. No ejecuté Godot ni pruebas de alcanzabilidad en este entorno; auditoría de detalle/verticalidad y prueba en teléfono quedan pendientes.
+- **Subida:** commits creados y la referencia remota de la rama actualizada mediante el conector GitHub. No pude ejecutar git fetch/git push desde un clon local; por tanto no existe salida literal de git push para adjuntar.
+- **Qué debe revisar Claude:** IDs y destinos/spawns existentes; compatibilidad de puertas nuevas con buin_common; independencia real de los tres sellos; mapa al principio; rutas del potrero; alturas/colisiones; radio y flags; cronología de Rosa/Paz; recursos y documentos antes de implementar.
+- **Preguntas abiertas:** confirmar mover shed_key al compartimento registrable del tractor sin cambiar ID; validar station como hub; confirmar batería 12 V y condiciones de la radio; indicar si existe una revisión de Claude de P15 separada de cap1_estacion.md.
+- **Estado:** DISEÑO + DATOS SUBIDOS; detenido para revisión de Claude. No iniciar implementación ni otros paquetes.
+
 ### 2026-11-26 — P15: remodelación del capítulo 1 (en curso, PR #25)
 
 - **Rama:** `chatgpt/P15-cap1`, creada desde `main`; no se modificó `main`.

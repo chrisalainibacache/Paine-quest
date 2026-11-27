@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "buin_vineyard_shift_note"
+title = "Nota del turno de viña"
+pages = PackedStringArray("Sábado, 6:35. El pestillo de retorno se traba desde el lado del galpón. La barra solo se alcanza desde la pasarela de mantenimiento. La llave del galpón está en la bodega, dentro del compartimento del tractor.")

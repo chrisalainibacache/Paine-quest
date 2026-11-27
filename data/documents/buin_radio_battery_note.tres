@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "buin_radio_battery_note"
+title = "Etiqueta de batería"
+pages = PackedStringArray("RADIO PORTÁTIL — Batería de servicio: 12 V. Revisar polaridad antes de instalar. No forzar los contactos. La radio de enlace quedó en el galpón de la viña; la batería no debe retirarse hasta estabilizar la bomba. — Comunicaciones")
