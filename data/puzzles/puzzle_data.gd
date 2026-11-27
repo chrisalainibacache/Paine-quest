@@ -15,6 +15,8 @@ enum PuzzleType { CODE_LOCK, FUSE_BOX, LEVER_SEQUENCE, CONTAINER }
 @export var required_items: PackedStringArray = []
 ## Cantidad mínima requerida cuando el puzzle trabaja con unidades.
 @export_range(0, 32, 1) var required_count: int = 0
+## Bandera de éxito del capítulo; si está vacía, el puzzle solo conserva su estado propio.
+@export var success_flag: String = ""
 
 
 func is_valid() -> bool:
