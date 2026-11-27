@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PuzzleData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/puzzles/puzzle_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "tracks_fuse_panel"
+puzzle_type = 1
+required_items = PackedStringArray("fuse_10a")
+success_flag = "tracks:power_restored"

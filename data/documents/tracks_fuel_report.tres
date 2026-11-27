@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "tracks_fuel_report"
+title = "Parte de mantenimiento"
+pages = PackedStringArray("6:46. Después del impacto, la línea de combustible quedó abierta. El fuego alcanzó el lateral de la locomotora; la llave de corte sigue accesible. Cierren las válvulas según la placa, sin mover la locomotora. — J. Muñoz")
