@@ -10,7 +10,7 @@ extends Interactable
 @export_multiline var solved_text: String = "La energía volvió."
 
 func _init() -> void:
-    prompt = "INSTALAR FUSIBLES"
+    prompt = "INSTALAR COMPONENTE"
     reach = 1.4
 
 
@@ -61,6 +61,8 @@ func interact(_player: Player) -> void:
         PuzzleState.set_fuse_installed(puzzle.id, "%s:%d" % [item.id, index])
 
     GameState.set_flag("puzzle:" + puzzle.id + ":fuse_solved")
+    if not puzzle.success_flag.is_empty():
+        GameState.set_flag(puzzle.success_flag)
     if not unlock_id.is_empty():
         GameState.set_flag("unlocked:" + unlock_id)
     Sfx.play("unlock", global_position, -4.0)
