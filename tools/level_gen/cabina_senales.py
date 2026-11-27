@@ -71,8 +71,7 @@ own_props = [
     ("Lantern", "wall_lantern", (-3.8, 2.2, 1.8)), ("Clock", "wall_clock", (0.0, 2.3, 3.8)),
     ("PipeRack", "pipe_rack", (-3.8, 0.0, -2.6)), ("Extinguisher", "extinguisher", (3.5, 0.0, -2.6)),
     ("Sign", "station_sign", (0.0, 2.2, 3.8)), ("Poster", "travel_poster", (-3.8, 1.5, 0.0)),
-    ("Paper", "paper", (-1.5, 1.0, -1.8)), ("KeyProp", "key", (-1.2, 1.0, -1.8)),
-    ("AmmoBox", "ammo_box", (2.2, 0.0, -2.8)), ("Crate", "crate", (3.0, 0.0, -2.8)),
+    ("Crate", "crate", (3.0, 0.0, -2.8)),
     ("Plant", "plant_pot", (-3.2, 0.0, 2.8)), ("Bench", "bench", (3.0, 0.0, 2.0)),
 ]
 for prop_name, scene_name, prop_pos in own_props:

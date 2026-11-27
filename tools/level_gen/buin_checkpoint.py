@@ -1,6 +1,7 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from buin_common import *
+import vertical
 # Control militar de Buin: carpas, sacos de arena, un camión y la barrera. Los
 # soldados se convirtieron aquí mismo. En la carpa, la orden del día.
 k = Kit("Checkpoint", "Control militar", ambience="military")
@@ -22,8 +23,8 @@ k.prop("Barrier", "Props", "barrier", (0.5, 0, -1.9), rot=(0, 0, 0))
 for i, (x, z, r) in enumerate([(-1.2, -2.6, 0.0), (-1.2, 2.6, 0.0), (6.0, -3.6, 0.3), (-6.8, 3.6, 0.3)]):
     k.prop("Sandbags%d" % i, "Props", "sandbags", (x, 0, z), rot=(0, r, 0))
 # Foco apagado y bidones.
-k.block("FloodPole", "Props", (2.2, 2.0, -4.4), (0.14, 4.0, 0.14), "olive")
-k.block("FloodHead", "Props", (2.2, 3.9, -4.2), (0.6, 0.4, 0.3), "olive", solid=False)
+k.block("FloodPole", "Props", (-0.4, 2.0, -4.4), (0.14, 4.0, 0.14), "olive")
+k.block("FloodHead", "Props", (-0.4, 3.9, -4.2), (0.6, 0.4, 0.3), "olive", solid=False)
 for i, (x, z) in enumerate([(7.6, -0.4), (8.0, 0.4), (7.7, 1.2)]):
     k.block("Drum%d" % i, "Props", (x, 0.45, z), (0.55, 0.9, 0.55), "olive")
 k.decal("Pool", "blood_pool", (-2.6, 0.02, 0.6), 1.6, "up")
@@ -37,11 +38,24 @@ k.door("ToStation", (8.4, 0, -2.6), B % "station", "from_checkpoint", prompt="SE
 k.label("StationSign", "Details", (8.97, 2.6, -2.6), "ESTACIÓN BUIN →", 34, (0.9, 0.88, 0.8), rot=(0, -math.pi / 2, 0))
 k.note("Order", (-4.7, 0.78, -3.6), "military_order", paper_rot=(0, 0.3, 0), paper_scale=0.7, reach=1.4)
 k.interact("Typewriter", "typewriter", (-6.2, 0.78, -3.6), reach="1.3")
+k.note("Register", (-4.0, 0.78, -3.8), "buin_control_register", paper_rot=(0, -0.2, 0), paper_scale=0.7, reach=1.2)
 k.storage_chest("StorageChest", (2.0, 0.45, 0.0))
 k.examine("TruckBed", (4.6, 0, 1.8), ["La caja del camión está llena de camillas.", "Todas tienen correas. Para los brazos y para las piernas."], reach=1.3)
 k.pickup("RifleAmmo", (6.5, 0.0, -2.8), "ammo_rifle", 20, rot=(0, 0.3, 0))
 k.pickup("Grenades", (-6.8, 0.0, 0.9), "ammo_grenades", 2, rot=(0, 1.2, 0))
-k.pickup("Handroll", (-3.6, 0.32, -3.1), "handroll", rot=(0, 0.5, 0))
+# Carpeta de control (código = hora de la orden y del reloj de campaña) y su efecto: la barrera se levanta.
+k.interact("ControlFolder", "code_lock", (-5.4, 0.78, -3.6), puzzle=k._puzzle_resource("buin_control_code"), unlock_id='"buin_control_clear"',
+           solved_text='"Se registra el parte. Afuera, el motor de la barrera zumba y el brazo sube."', reach="1.4")
+k.label("FolderLabel", "Details", (-5.4, 1.15, -3.6), "CONTROL", 18, (0.85, 0.78, 0.6))
+k.examine("CampClock", (1.8, 0, 3.4), ["Un reloj de campaña clavado a un poste. Se detuvo a las 21:00.", "Alguien anotó debajo, a lápiz: «Cierre del control»."], reach=1.4)
+k.interact("BarrierLift", "flag_lift", (0.5, 0, -1.9), flag='"unlocked:buin_control_clear"', target_name='"Barrier"')
+# Armario de suministros: se registra después de despejar el control (la sanación que antes estaba en el suelo).
+k.container("SupplyLocker", (-7.8, 0, -1.6), "buin_control_cache", item_ids=("handroll", "ammo_9mm"), counts=(1, 8), required_flag="unlocked:buin_control_clear", reach=1.3)
+k.label("LockerLabel", "Details", (-7.8, 1.9, -1.6), "SUMINISTROS", 18, (0.85, 0.78, 0.6))
+# Plataforma de observación (2,2 m) en el rincón noreste, con escalera desde el oeste.
+vertical.balcony(k, "Lookout", 4.6, 8.8, -4.9, -3.7, y=2.2, rail_sides="S", columns=True)
+vertical.stairs(k, "LookoutStairs", 1.0, -4.3, "+x", width=1.1, rise=2.2)
+k.pickup("LookoutAmmo", (7.4, 2.2, -4.3), "ammo_rifle", 10, rot=(0, 0.3, 0))
 # Infectados: soldados con casco (aguantan más).
 k.infected("Soldier1", (1.8, 0.05, 0.8), yaw=-math.pi / 2, kind="infected_soldier")
 k.infected("Soldier2", (-2.6, 0.05, 0.6), yaw=1.2, state="feeding", kind="infected_soldier")
@@ -49,9 +63,11 @@ k.infected("Civilian", (6.2, 0.05, 0.2), yaw=-math.pi / 2, state="lying")
 k.infected("Body", (-3.0, 0.05, 1.6), yaw=0.3, state="corpse", kind="infected_worker")
 # Cámaras.
 k.camera("West", (-4.5, 1.5, 0.0), (9.0, 3.0, 10.0), (0.6, 4.2, 4.4), (-5.0, 0.4, -1.4), fov=60)
-k.camera("East", (4.5, 1.5, 0.0), (9.0, 3.0, 10.0), (-0.8, 4.2, -4.4), (5.0, 0.4, 0.6), fov=60)
+k.camera("East", (4.5, 1.6, 0.0), (9.0, 3.2, 10.0), (-0.8, 4.2, -4.4), (5.0, 0.4, 0.6), fov=60)
 k.spawn("from_bridge", (-7.6, 0.05, 0.0), (1, 0))
 k.spawn("from_station", (7.6, 0.05, -2.6), (-1, 0))
+k.spawn("from_field", (-7.6, 0.05, 2.4), (1, 0))
+k.door("door_checkpoint_field", (-8.4, 0, 2.4), B % "field", "from_checkpoint", prompt="SEGUIR", reach=1.4, marker="POTRERO")
 k.leo_hint("LeoTent", (-4.6, 0, -2.2), ["Leo: En la carpa hay papeles con sellos. Léelos, Isabella.", "Leo: Y esa máquina de escribir sirve igual que las otras.", "Leo: Usa la máquina de escribir junto a la carpa para guardar antes de avanzar."], hide_if="read:military_order")
 k.leo_hint("LeoStation", (7.5, 0, -2.6), ["Leo: La estación de Buin está por ahí.", "Leo: Los soldados tienen casco. Apúntales al cuerpo y no te quedes cerca.", "Leo: Cuando despejes el paso, usa la puerta SEGUIR hacia la ESTACIÓN DE BUIN."])
 k.save(REPO + "/levels/buin/checkpoint.tscn")

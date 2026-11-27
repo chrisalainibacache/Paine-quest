@@ -87,6 +87,7 @@ own_props = [
     ("Shelf", "shelf_unit", (-1.0, 0.0, 3.8)), ("NoticeBoard", "notice_board", (0.4, 0.0, 3.8)),
     ("Extinguisher", "extinguisher", (2.8, 0.0, 3.8)), ("WallClock", "wall_clock", (3.8, 2.2, 3.8)),
     ("Radio", "field_radio", (-2.0, 0.8, 3.8)), ("Crate", "crate", (3.4, 0.0, -0.65)),
+    ("Plant", "plant_pot", (4.7, 0.0, 3.8)), ("Barrel", "oil_barrel", (-4.5, 0.0, 3.8)),
 ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.45, 0.45, 0.45)))

@@ -55,6 +55,7 @@
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="53_blood_pool"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/locker_row.tscn" id="54_locker_row"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/field_radio.tscn" id="55_field_radio"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/plant_pot.tscn" id="56_plant_pot"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -1084,6 +1085,14 @@ scale = Vector3(0.45, 0.45, 0.45)
 
 [node name="Crate" parent="DetailProps" instance=ExtResource("46_crate")]
 position = Vector3(3.4, 0, -0.65)
+scale = Vector3(0.45, 0.45, 0.45)
+
+[node name="Plant" parent="DetailProps" instance=ExtResource("56_plant_pot")]
+position = Vector3(4.7, 0, 3.8)
+scale = Vector3(0.45, 0.45, 0.45)
+
+[node name="Barrel" parent="DetailProps" instance=ExtResource("44_oil_barrel")]
+position = Vector3(-4.5, 0, 3.8)
 scale = Vector3(0.45, 0.45, 0.45)
 
 [node name="FrameMachinesPanel" type="StaticBody3D" parent="Interactables"]

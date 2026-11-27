@@ -68,8 +68,7 @@ own_props = [
     ("Bench", "park_bench", (2.9, 0.0, 2.0)), ("Poster", "travel_poster", (-4.2, 1.4, 0.5)),
     ("Sign", "station_sign", (4.2, 1.8, 0.8)), ("Desk", "typewriter_desk", (-1.8, 0.0, -3.2)),
     ("CrateA", "crate", (2.8, 0.0, -3.2)), ("CrateB", "crate", (3.4, 0.0, -3.2)),
-    ("Paper", "paper", (-1.5, 0.9, 0.8)), ("KeyProp", "key", (-1.2, 0.9, 0.8)),
-    ("AmmoBox", "ammo_box", (1.7, 0.0, -3.2)), ("Vending", "vending_machine", (4.0, 0.0, 2.8)),
+    ("Vending", "vending_machine", (4.0, 0.0, 2.8)),
 ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "Props", scene_name, prop_pos, scale=v3((0.48, 0.48, 0.48)))

@@ -953,6 +953,21 @@ locked_text = "El portón del galpón. Tiene un candado grande y alguien lo tran
 prompt = "ABRIR"
 metal_door = true
 
+[node name="door_vineyard_walkway" type="Node3D" parent="Interactables"]
+position = Vector3(7.2, 0, -4.3)
+script = ExtResource("14_door")
+reach = 1.4
+target_room = "res://levels/buin/pasarela_vina.tscn"
+target_spawn = "from_vineyard"
+prompt = "SUBIR"
+marker_text = "PASARELA DE LA VIÑA"
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_walkway" type="Marker3D" parent="Spawns"]
+position = Vector3(7.2, 0.05, -3.5)
+rotation = Vector3(0, 3.1416, 0)
+
 [node name="Grapes" type="Node3D" parent="Interactables"]
 position = Vector3(-3, 0, -1.2)
 script = ExtResource("16_examine_spot")
@@ -997,8 +1012,6 @@ data = ExtResource("23_infected_fas")
 start_state = "feeding"
 
 [node name="Cameras" type="Node3D" parent="."]
-
-[node name="Spawns" type="Node3D" parent="."]
 
 [node name="from_field" type="Marker3D" parent="Spawns"]
 position = Vector3(-8.6, 0.05, 0)

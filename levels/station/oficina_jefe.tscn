@@ -35,23 +35,21 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/typewriter_desk.tscn" id="33_typewriter_d"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/vending_machine.tscn" id="34_vending_mach"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/station_sign.tscn" id="35_station_sign"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/paper.tscn" id="36_paper"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/ammo_box.tscn" id="37_ammo_box"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/seat_pair.tscn" id="38_seat_pair"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/plant_pot.tscn" id="39_plant_pot"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/travel_poster.tscn" id="40_travel_poste"]
-[ext_resource type="Script" path="res://levels/kit/flicker_light.gd" id="41_flicker_ligh"]
-[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="42_door"]
-[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="43_examine_spot"]
-[ext_resource type="Resource" path="res://data/puzzles/station_office_coat.tres" id="44_station_offi"]
-[ext_resource type="Script" path="res://levels/kit/interact/container.gd" id="45_container"]
-[ext_resource type="Resource" path="res://data/puzzles/station_office_archive.tres" id="46_station_offi"]
-[ext_resource type="Resource" path="res://data/items/office_key.tres" id="47_office_key"]
-[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="48_note"]
-[ext_resource type="Resource" path="res://data/documents/station_fuse_inventory.tres" id="49_station_fuse"]
-[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="50_paper"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="51_leo_hint"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="52_camera_zone"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/seat_pair.tscn" id="36_seat_pair"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/plant_pot.tscn" id="37_plant_pot"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/travel_poster.tscn" id="38_travel_poste"]
+[ext_resource type="Script" path="res://levels/kit/flicker_light.gd" id="39_flicker_ligh"]
+[ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="40_door"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="41_examine_spot"]
+[ext_resource type="Resource" path="res://data/puzzles/station_office_coat.tres" id="42_station_offi"]
+[ext_resource type="Script" path="res://levels/kit/interact/container.gd" id="43_container"]
+[ext_resource type="Resource" path="res://data/puzzles/station_office_archive.tres" id="44_station_offi"]
+[ext_resource type="Resource" path="res://data/items/office_key.tres" id="45_office_key"]
+[ext_resource type="Script" path="res://levels/kit/interact/note.gd" id="46_note"]
+[ext_resource type="Resource" path="res://data/documents/station_fuse_inventory.tres" id="47_station_fuse"]
+[ext_resource type="PackedScene" path="res://levels/kit/items/paper.tscn" id="48_paper"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="49_leo_hint"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="50_camera_zone"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -993,23 +991,15 @@ scale = Vector3(0.48, 0.48, 0.48)
 position = Vector3(-3, 0, -3)
 scale = Vector3(0.48, 0.48, 0.48)
 
-[node name="PaperStack" parent="Props" instance=ExtResource("36_paper")]
-position = Vector3(-1.4, 0.9, 0.7)
-scale = Vector3(0.48, 0.48, 0.48)
-
-[node name="AmmoBox" parent="Props" instance=ExtResource("37_ammo_box")]
-position = Vector3(0.8, 0, -3)
-scale = Vector3(0.48, 0.48, 0.48)
-
-[node name="WaitingSeat" parent="Props" instance=ExtResource("38_seat_pair")]
+[node name="WaitingSeat" parent="Props" instance=ExtResource("36_seat_pair")]
 position = Vector3(2.4, 0, -3)
 scale = Vector3(0.48, 0.48, 0.48)
 
-[node name="Plant" parent="Props" instance=ExtResource("39_plant_pot")]
+[node name="Plant" parent="Props" instance=ExtResource("37_plant_pot")]
 position = Vector3(-3.6, 0, 2.2)
 scale = Vector3(0.48, 0.48, 0.48)
 
-[node name="Poster" parent="Props" instance=ExtResource("40_travel_poste")]
+[node name="Poster" parent="Props" instance=ExtResource("38_travel_poste")]
 position = Vector3(-4.8, 1.5, 3.82)
 scale = Vector3(0.48, 0.48, 0.48)
 
@@ -1094,7 +1084,7 @@ position = Vector3(1.2, 2.5, -3.1)
 light_color = Color(0.6, 0.72, 1, 1)
 light_energy = 0.75
 omni_range = 4
-script = ExtResource("41_flicker_ligh")
+script = ExtResource("39_flicker_ligh")
 
 [node name="HallLight" type="OmniLight3D" parent="Lights"]
 position = Vector3(3.8, 2.5, 1.5)
@@ -1107,7 +1097,7 @@ position = Vector3(-4.2, 2.4, -1.4)
 light_color = Color(0.65, 0.08, 0.05, 1)
 light_energy = 0.6
 omni_range = 3.5
-script = ExtResource("41_flicker_ligh")
+script = ExtResource("39_flicker_ligh")
 
 [node name="Doors" type="Node3D" parent="."]
 
@@ -1199,21 +1189,21 @@ solid = false
 
 [node name="door_boleteria_oficina" type="Node3D" parent="Interactables"]
 position = Vector3(-2, 0, 3.6)
-script = ExtResource("42_door")
+script = ExtResource("40_door")
 reach = 1.3
 target_room = "res://levels/station/ticket_office.tscn"
 target_spawn = "from_office"
 
 [node name="door_oficina_cabina" type="Node3D" parent="Interactables"]
 position = Vector3(4.6, 0, 0)
-script = ExtResource("42_door")
+script = ExtResource("40_door")
 reach = 1.3
 target_room = "res://levels/station/cabina_senales.tscn"
 target_spawn = "from_office"
 
 [node name="door_oficina_maquinas" type="Node3D" parent="Interactables"]
 position = Vector3(0, 0, -3.6)
-script = ExtResource("42_door")
+script = ExtResource("40_door")
 reach = 1.3
 target_room = "res://levels/station/sala_maquinas.tscn"
 target_spawn = "from_office"
@@ -1238,40 +1228,40 @@ rotation = Vector3(0, -1.5708, 0)
 
 [node name="ChiefDesk" type="Node3D" parent="Interactables"]
 position = Vector3(-1.5, 0, 0.8)
-script = ExtResource("43_examine_spot")
+script = ExtResource("41_examine_spot")
 reach = 1.4
 lines = PackedStringArray("El escritorio del jefe de estación.", "Los documentos están revueltos. Hay marcas de que alguien buscó algo a oscuras.")
 
 [node name="Coat" type="Node3D" parent="Interactables"]
 position = Vector3(-4.2, 0, -1.4)
-script = ExtResource("45_container")
-puzzle = ExtResource("44_station_offi")
+script = ExtResource("43_container")
+puzzle = ExtResource("42_station_offi")
 content_item_ids = PackedStringArray("office_key")
 counts = PackedInt32Array(1)
 reach = 1.3
 
 [node name="Archive" type="Node3D" parent="Interactables"]
 position = Vector3(1, 0, -3.25)
-script = ExtResource("45_container")
-puzzle = ExtResource("46_station_offi")
+script = ExtResource("43_container")
+puzzle = ExtResource("44_station_offi")
 content_item_ids = PackedStringArray("map_station", "fuse_station_b")
 counts = PackedInt32Array(1, 1)
 reach = 1.3
-key_item = ExtResource("47_office_key")
+key_item = ExtResource("45_office_key")
 lock_id = "office_archive"
 
 [node name="OfficeInventory" type="Node3D" parent="Interactables"]
 position = Vector3(-0.5, 0.95, 0.7)
-script = ExtResource("48_note")
-document = ExtResource("49_station_fuse")
+script = ExtResource("46_note")
+document = ExtResource("47_station_fuse")
 reach = 1.4
 
-[node name="Paper" parent="Interactables/OfficeInventory" instance=ExtResource("50_paper")]
+[node name="Paper" parent="Interactables/OfficeInventory" instance=ExtResource("48_paper")]
 rotation = Vector3(0, 0.2, 0)
 
 [node name="LeoOfficeMap" type="Marker3D" parent="."]
 position = Vector3(-3.8, 0, -1.4)
-script = ExtResource("51_leo_hint")
+script = ExtResource("49_leo_hint")
 lines = PackedStringArray("Leo: El jefe guardaba los planos en el archivador, no en el suelo.", "Leo: La oficina conecta con las señales y con la sala de máquinas.", "Leo: Registra el archivador de la oficina para encontrar el mapa de la estación.")
 
 [node name="Stain0" parent="Decals" instance=ExtResource("20_decal")]
@@ -1409,7 +1399,7 @@ size = Vector2(1.1, 1.1)
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-3.25, 1.5, -2.5833)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_4")
@@ -1423,7 +1413,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, -2.5833)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_5")
@@ -1437,7 +1427,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(3.25, 1.5, -2.5833)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_6")
@@ -1451,7 +1441,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(-3.25, 1.5, 0)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_7")
@@ -1465,7 +1455,7 @@ far = 60.0
 
 [node name="Cam5" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, 0)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam5"]
 shape = SubResource("BoxShape3D_8")
@@ -1479,7 +1469,7 @@ far = 60.0
 
 [node name="Cam6" type="Area3D" parent="Cameras"]
 position = Vector3(3.25, 1.5, 0)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam6"]
 shape = SubResource("BoxShape3D_9")
@@ -1493,7 +1483,7 @@ far = 60.0
 
 [node name="Cam7" type="Area3D" parent="Cameras"]
 position = Vector3(-3.25, 1.5, 2.5833)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam7"]
 shape = SubResource("BoxShape3D_10")
@@ -1507,7 +1497,7 @@ far = 60.0
 
 [node name="Cam8" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, 2.5833)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam8"]
 shape = SubResource("BoxShape3D_11")
@@ -1521,7 +1511,7 @@ far = 60.0
 
 [node name="Cam9" type="Area3D" parent="Cameras"]
 position = Vector3(3.25, 1.5, 2.5833)
-script = ExtResource("52_camera_zone")
+script = ExtResource("50_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam9"]
 shape = SubResource("BoxShape3D_12")

@@ -54,10 +54,7 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/travel_poster.tscn" id="52_travel_poste"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/station_sign.tscn" id="53_station_sign"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/crate.tscn" id="54_crate"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/paper.tscn" id="55_paper"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/key.tscn" id="56_key"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/ammo_box.tscn" id="57_ammo_box"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/bench.tscn" id="58_bench"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/bench.tscn" id="55_bench"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -1181,19 +1178,7 @@ scale = Vector3(0.42, 0.42, 0.42)
 position = Vector3(3.2, 0, -3)
 scale = Vector3(0.42, 0.42, 0.42)
 
-[node name="Paper" parent="DetailProps" instance=ExtResource("55_paper")]
-position = Vector3(-3.2, 0.9, -0.3)
-scale = Vector3(0.42, 0.42, 0.42)
-
-[node name="KeyProp" parent="DetailProps" instance=ExtResource("56_key")]
-position = Vector3(-3, 0.9, -0.3)
-scale = Vector3(0.42, 0.42, 0.42)
-
-[node name="AmmoBox" parent="DetailProps" instance=ExtResource("57_ammo_box")]
-position = Vector3(2.4, 0, -3)
-scale = Vector3(0.42, 0.42, 0.42)
-
-[node name="Bench" parent="DetailProps" instance=ExtResource("58_bench")]
+[node name="Bench" parent="DetailProps" instance=ExtResource("55_bench")]
 position = Vector3(3, 0, 2)
 scale = Vector3(0.42, 0.42, 0.42)
 

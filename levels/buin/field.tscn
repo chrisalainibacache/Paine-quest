@@ -14,11 +14,12 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/decal.tscn" id="12_decal"]
 [ext_resource type="Texture2D" path="res://assets/environment/decals/blood_pool.png" id="13_blood_pool"]
 [ext_resource type="Script" path="res://levels/kit/interact/door.gd" id="14_door"]
-[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="15_pickup"]
-[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="16_ammo_9mm"]
-[ext_resource type="Resource" path="res://data/items/handroll.tres" id="17_handroll"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="18_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="19_leo_hint"]
+[ext_resource type="Script" path="res://levels/kit/interact/examine_spot.gd" id="15_examine_spot"]
+[ext_resource type="Script" path="res://levels/kit/interact/pickup.gd" id="16_pickup"]
+[ext_resource type="Resource" path="res://data/items/ammo_9mm.tres" id="17_ammo_9mm"]
+[ext_resource type="Resource" path="res://data/items/handroll.tres" id="18_handroll"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="19_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/leo_hint.gd" id="20_leo_hint"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -1046,23 +1047,68 @@ pixel_size = 0.004
 modulate = Color(0.9, 0.86, 0.75, 1)
 outline_size = 0
 
+[node name="door_field_warehouse" type="Node3D" parent="Interactables"]
+position = Vector3(-4.6, 0, 5.2)
+script = ExtResource("14_door")
+reach = 1.4
+target_room = "res://levels/buin/warehouse.tscn"
+target_spawn = "from_field"
+prompt = "ENTRAR"
+marker_text = "BODEGA AGRÍCOLA"
+
+[node name="door_field_canal" type="Node3D" parent="Interactables"]
+position = Vector3(5, 0, -5.2)
+script = ExtResource("14_door")
+reach = 1.4
+target_room = "res://levels/buin/canal_riego.tscn"
+target_spawn = "from_field"
+prompt = "SEGUIR"
+marker_text = "CANAL DE RIEGO"
+
+[node name="door_field_checkpoint" type="Node3D" parent="Interactables"]
+position = Vector3(-4.5, 0, -5.2)
+script = ExtResource("14_door")
+reach = 1.4
+target_room = "res://levels/buin/checkpoint.tscn"
+target_spawn = "from_field"
+prompt = "SEGUIR"
+marker_text = "CONTROL MILITAR"
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_warehouse" type="Marker3D" parent="Spawns"]
+position = Vector3(-4.6, 0.05, 4.3)
+rotation = Vector3(0, 0, 0)
+
+[node name="from_canal" type="Marker3D" parent="Spawns"]
+position = Vector3(5, 0.05, -4.3)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="from_checkpoint" type="Marker3D" parent="Spawns"]
+position = Vector3(-4.5, 0.05, -4.3)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="GiantPrint" type="Node3D" parent="Interactables"]
+position = Vector3(3.6, 0, -1.2)
+script = ExtResource("15_examine_spot")
+reach = 1.6
+lines = PackedStringArray("Una huella en el barro, más ancha que un camión. El borde está húmedo.", "Más allá, entre los árboles, hay ramas quebradas a seis metros de altura.", "Leo bufa con el pelo erizado. Lo que sea que pasó por aquí ya no está.")
+
 [node name="Ammo" type="Node3D" parent="Interactables"]
 position = Vector3(2, 0, 4.8)
-script = ExtResource("15_pickup")
-item = ExtResource("16_ammo_9mm")
+script = ExtResource("16_pickup")
+item = ExtResource("17_ammo_9mm")
 count = 20
 model_rotation = Vector3(0, 0.6, 0)
 
 [node name="Handroll" type="Node3D" parent="Interactables"]
 position = Vector3(-2.4, 0, -4.8)
-script = ExtResource("15_pickup")
-item = ExtResource("17_handroll")
+script = ExtResource("16_pickup")
+item = ExtResource("18_handroll")
 count = 1
 model_rotation = Vector3(0, 1, 0)
 
 [node name="Cameras" type="Node3D" parent="."]
-
-[node name="Spawns" type="Node3D" parent="."]
 
 [node name="from_station" type="Marker3D" parent="Spawns"]
 position = Vector3(-8.6, 0.05, 0)
@@ -1074,12 +1120,12 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="LeoQuiet" type="Marker3D" parent="."]
 position = Vector3(2.5, 0, 0)
-script = ExtResource("19_leo_hint")
-lines = PackedStringArray("Leo: Todo despejado... demasiado despejado, Isabella.", "Leo: No me gusta. Camina conmigo.", "Leo: Avanza por el potrero hasta la puerta SEGUIR hacia la viña.")
+script = ExtResource("20_leo_hint")
+lines = PackedStringArray("Leo: Todo despejado... demasiado despejado. Mira las ramas rotas.", "Leo: No sigas la huella: mira lo que dejó. Hay tres salidas.", "Leo: Hacia la viña por SEGUIR, la bodega al suroeste, el canal de riego al noreste.")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-6.5833, 1.5, -3)
-script = ExtResource("18_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_12")
@@ -1093,7 +1139,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, -3)
-script = ExtResource("18_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_13")
@@ -1107,7 +1153,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(6.5833, 1.5, -3)
-script = ExtResource("18_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_14")
@@ -1121,7 +1167,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(-6.5833, 1.5, 3)
-script = ExtResource("18_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_15")
@@ -1135,7 +1181,7 @@ far = 60.0
 
 [node name="Cam5" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, 3)
-script = ExtResource("18_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam5"]
 shape = SubResource("BoxShape3D_16")
@@ -1149,7 +1195,7 @@ far = 60.0
 
 [node name="Cam6" type="Area3D" parent="Cameras"]
 position = Vector3(6.5833, 1.5, 3)
-script = ExtResource("18_camera_zone")
+script = ExtResource("19_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam6"]
 shape = SubResource("BoxShape3D_17")

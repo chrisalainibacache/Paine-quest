@@ -48,8 +48,6 @@ own_props = [
     ("StationSign", "station_sign", (0.0, 2.3, 3.6)),
     ("ArchiveCrate", "crate", (-3.8, 0.0, -3.0)),
     ("ArchiveCrate2", "crate", (-3.0, 0.0, -3.0)),
-    ("PaperStack", "paper", (-1.4, 0.9, 0.7)),
-    ("AmmoBox", "ammo_box", (0.8, 0.0, -3.0)),
     ("WaitingSeat", "seat_pair", (2.4, 0.0, -3.0)),
     ("Plant", "plant_pot", (-3.6, 0.0, 2.2)),
     ("Poster", "travel_poster", (-4.8, 1.5, 3.82)),

@@ -80,8 +80,7 @@ own_props = [
     ("PipeRack", "pipe_rack", (2.8, 0.0, -1.2)), ("WallClock", "wall_clock", (0.0, 2.2, 2.8)),
     ("Radio", "field_radio", (-1.8, 0.9, 2.4)), ("TravelPoster", "travel_poster", (-3.3, 1.5, 1.5)),
     ("StationSign", "station_sign", (3.2, 1.8, 2.2)), ("Plant", "plant_pot", (2.8, 0.0, 2.4)),
-    ("Paper", "paper", (2.2, 0.9, 2.2)), ("AmmoBox", "ammo_box", (-1.0, 0.0, 2.4)),
-]
+    ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.45, 0.45, 0.45)))
 k.save(REPO + "/levels/station/storeroom.tscn")

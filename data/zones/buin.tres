@@ -7,60 +7,94 @@ script = ExtResource("1_map")
 id = "buin"
 display_name = "BUIN"
 map_item_id = "map_buin"
-grid_size = Vector2i(4, 2)
-rooms = Array[Dictionary]([{
-"id": "buin_bridge",
-"name": "Puente de acceso",
-"scene_path": "res://levels/buin/buin_bridge.tscn",
-"grid_position": Vector2i(0, 1),
-"connections": PackedStringArray("buin_checkpoint"),
-"doors": Array[Dictionary]([{"label": "Control de acceso", "target": "buin_checkpoint", "key_item_id": "", "lock_id": "", "one_way": false}])
-},
+grid_size = Vector2i(4, 4)
+rooms = Array[Dictionary]([
 {
-"id": "buin_checkpoint",
-"name": "Control de acceso",
-"scene_path": "res://levels/buin/buin_checkpoint.tscn",
-"grid_position": Vector2i(1, 1),
-"connections": PackedStringArray("buin_bridge", "buin_station"),
-"doors": Array[Dictionary]([{"label": "Puente de acceso", "target": "buin_bridge", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Estación de Buin", "target": "buin_station", "key_item_id": "", "lock_id": "", "one_way": false}])
-},
-{
-"id": "buin_station",
-"name": "Estación de Buin",
-"scene_path": "res://levels/buin/buin_station.tscn",
-"grid_position": Vector2i(2, 1),
-"connections": PackedStringArray("buin_checkpoint", "buin_field", "buin_warehouse"),
-"doors": Array[Dictionary]([{"label": "Control de acceso", "target": "buin_checkpoint", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Campo", "target": "buin_field", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Bodega", "target": "buin_warehouse", "key_item_id": "", "lock_id": "", "one_way": false}])
-},
-{
-"id": "buin_field",
-"name": "Campo",
-"scene_path": "res://levels/buin/buin_field.tscn",
-"grid_position": Vector2i(2, 0),
-"connections": PackedStringArray("buin_station", "buin_vineyard"),
-"doors": Array[Dictionary]([{"label": "Estación de Buin", "target": "buin_station", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Viñedo", "target": "buin_vineyard", "key_item_id": "", "lock_id": "", "one_way": false}])
-},
-{
-"id": "buin_vineyard",
-"name": "Viñedo",
-"scene_path": "res://levels/buin/buin_vineyard.tscn",
-"grid_position": Vector2i(1, 0),
-"connections": PackedStringArray("buin_field", "buin_shed"),
-"doors": Array[Dictionary]([{"label": "Campo", "target": "buin_field", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Galpón", "target": "buin_shed", "key_item_id": "shed_key", "lock_id": "shed_door", "one_way": false}])
-},
-{
-"id": "buin_warehouse",
-"name": "Bodega de Buin",
-"scene_path": "res://levels/buin/buin_warehouse.tscn",
-"grid_position": Vector2i(3, 1),
-"connections": PackedStringArray("buin_station"),
-"doors": Array[Dictionary]([{"label": "Estación de Buin", "target": "buin_station", "key_item_id": "", "lock_id": "", "one_way": false}])
-},
-{
-"id": "buin_shed",
-"name": "Galpón",
-"scene_path": "res://levels/buin/buin_shed.tscn",
+"id": "bridge",
+"name": "Puente del Maipo",
+"scene_path": "res://levels/buin/bridge.tscn",
 "grid_position": Vector2i(0, 0),
-"connections": PackedStringArray("buin_vineyard"),
-"doors": Array[Dictionary]([{"label": "Viñedo", "target": "buin_vineyard", "key_item_id": "shed_key", "lock_id": "shed_door", "one_way": false}])
-}])
+"connections": PackedStringArray("checkpoint"),
+"doors": Array[Dictionary]([{"label": "Control militar", "target": "checkpoint", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "checkpoint",
+"name": "Control militar",
+"scene_path": "res://levels/buin/checkpoint.tscn",
+"grid_position": Vector2i(1, 0),
+"connections": PackedStringArray("bridge", "station"),
+"doors": Array[Dictionary]([{"label": "Puente del Maipo", "target": "bridge", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Estación de Buin", "target": "station", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "warehouse",
+"name": "Bodega agrícola",
+"scene_path": "res://levels/buin/warehouse.tscn",
+"grid_position": Vector2i(0, 1),
+"connections": PackedStringArray("station", "field", "patio_cosecha"),
+"doors": Array[Dictionary]([{"label": "Estación de Buin", "target": "station", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Potrero", "target": "field", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Patio de cosecha", "target": "patio_cosecha", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "station",
+"name": "Estación de Buin",
+"scene_path": "res://levels/buin/station.tscn",
+"grid_position": Vector2i(1, 1),
+"connections": PackedStringArray("checkpoint", "warehouse", "field"),
+"doors": Array[Dictionary]([{"label": "Control militar", "target": "checkpoint", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Bodega agrícola", "target": "warehouse", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Potrero", "target": "field", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "field",
+"name": "Potrero",
+"scene_path": "res://levels/buin/field.tscn",
+"grid_position": Vector2i(2, 1),
+"connections": PackedStringArray("station", "vineyard", "warehouse", "canal_riego", "checkpoint"),
+"doors": Array[Dictionary]([{"label": "Estación de Buin", "target": "station", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Viña Santa Rosa", "target": "vineyard", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Bodega agrícola", "target": "warehouse", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Canal de riego", "target": "canal_riego", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Control militar", "target": "checkpoint", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "canal_riego",
+"name": "Canal de riego",
+"scene_path": "res://levels/buin/canal_riego.tscn",
+"grid_position": Vector2i(3, 1),
+"connections": PackedStringArray("field", "caseta_bomba"),
+"doors": Array[Dictionary]([{"label": "Potrero", "target": "field", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Caseta de bombas", "target": "caseta_bomba", "key_item_id": "", "lock_id": "buin_canal", "one_way": false}])
+},
+{
+"id": "patio_cosecha",
+"name": "Patio de cosecha",
+"scene_path": "res://levels/buin/patio_cosecha.tscn",
+"grid_position": Vector2i(0, 2),
+"connections": PackedStringArray("warehouse", "pasarela_vina", "shed"),
+"doors": Array[Dictionary]([{"label": "Bodega agrícola", "target": "warehouse", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Pasarela de la viña", "target": "pasarela_vina", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Galpón de la viña", "target": "shed", "key_item_id": "", "lock_id": "buin_shortcut_patio_shed", "one_way": true}])
+},
+{
+"id": "vineyard",
+"name": "Viña Santa Rosa",
+"scene_path": "res://levels/buin/vineyard.tscn",
+"grid_position": Vector2i(2, 2),
+"connections": PackedStringArray("field", "shed", "pasarela_vina"),
+"doors": Array[Dictionary]([{"label": "Potrero", "target": "field", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Galpón de la viña", "target": "shed", "key_item_id": "shed_key", "lock_id": "shed_door", "one_way": false}, {"label": "Pasarela de la viña", "target": "pasarela_vina", "key_item_id": "", "lock_id": "", "one_way": false}])
+},
+{
+"id": "caseta_bomba",
+"name": "Caseta de bombas",
+"scene_path": "res://levels/buin/caseta_bomba.tscn",
+"grid_position": Vector2i(3, 2),
+"connections": PackedStringArray("canal_riego", "station"),
+"doors": Array[Dictionary]([{"label": "Canal de riego", "target": "canal_riego", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Estación de Buin", "target": "station", "key_item_id": "", "lock_id": "buin_shortcut_pump_station", "one_way": true}])
+},
+{
+"id": "pasarela_vina",
+"name": "Pasarela de la viña",
+"scene_path": "res://levels/buin/pasarela_vina.tscn",
+"grid_position": Vector2i(1, 3),
+"connections": PackedStringArray("vineyard", "patio_cosecha", "canal_riego"),
+"doors": Array[Dictionary]([{"label": "Viña Santa Rosa", "target": "vineyard", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Patio de cosecha", "target": "patio_cosecha", "key_item_id": "", "lock_id": "", "one_way": false}, {"label": "Canal de riego", "target": "canal_riego", "key_item_id": "", "lock_id": "buin_shortcut_walkway_canal", "one_way": true}])
+},
+{
+"id": "shed",
+"name": "Galpón de la viña",
+"scene_path": "res://levels/buin/shed.tscn",
+"grid_position": Vector2i(2, 3),
+"connections": PackedStringArray("vineyard"),
+"doors": Array[Dictionary]([{"label": "Viña Santa Rosa", "target": "vineyard", "key_item_id": "", "lock_id": "", "one_way": false}])
+}
+])

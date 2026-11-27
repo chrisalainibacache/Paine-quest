@@ -1,15 +1,18 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from buin_common import *
+import detail
+import vertical
 # Estación de Buin: el hall de la boletería, convertido en sala de espera del
 # "tren sanitario". En el muro, la lista de los que subieron.
 k = Kit("BuinStation", "Estación de Buin", ambience="day_fields")
 k.env((0.08, 0.08, 0.09), (0.62, 0.6, 0.58), 0.95, (0.25, 0.25, 0.27), 0.03)
-X0, X1, Z0, Z1, H = -5.0, 5.0, -3.5, 3.5, 3.6
+X0, X1, Z0, Z1, H = -5.0, 5.0, -3.5, 3.5, 4.2
 k.shell(X0, X1, Z0, Z1, H, floor="tiles_wall", wall="plaster_wall", ceiling="concrete_wall", wainscot="wood")
 k.door_frame("ToCheckpoint", X0, 1.6, "z", width=1.2, wall_side=1, panel="planks")
 k.door_frame("ToWarehouse", -1.5, Z0, "x", width=1.2, wall_side=1, panel="metal")
 k.door_frame("ToVineyard", X1, -1.4, "z", width=1.2, wall_side=-1, panel="planks")
+k.door_frame("ToPumpFrame", 1.8, Z0, "x", width=1.1, wall_side=1, panel="metal")
 k.label("NameBoard", "Details", (0.0, 3.0, 3.46), "B U I N", 60, (0.9, 0.86, 0.75), rot=(0, math.pi, 0))
 k.label("WarehouseSign", "Details", (-1.5, 2.6, -3.46), "BODEGA AGRÍCOLA", 26, (0.85, 0.82, 0.7))
 k.label("VineyardSign", "Details", (4.96, 2.6, -1.4), "VIÑA SANTA ROSA", 26, (0.85, 0.82, 0.7), rot=(0, -math.pi / 2, 0))
@@ -32,15 +35,26 @@ k.door("ToWarehouse", (-1.5, 0, -3.1), B % "warehouse", "from_station", prompt="
 k.door("ToVineyard", (4.6, 0, -1.4), B % "field", "from_station", prompt="SALIR", reach=1.3)
 k.note("List", (-3.2, 1.12, -2.55), "evacuee_list", paper_rot=(0, 0.2, 0), paper_scale=0.7, reach=1.3)
 k.examine("Clock", (-4.4, 0, -1.0), ["El reloj de la estación marca las 4:10.", "La hora en que salió el tren sanitario."], reach=1.3)
-k.pickup("Ammo", (3.9, 0.0, 2.9), "ammo_9mm", 15, rot=(0, 0.8, 0))
-k.infected("Feeder", (-0.6, 0.05, 2.2), yaw=2.6, state="feeding")
+k.pickup("Ammo", (3.9, 1.8, 2.9), "ammo_9mm", 15, rot=(0, 0.8, 0))
+# Balcón del archivo (1,8 m) sobre el lado sur, con escalera desde el oeste.
+vertical.balcony(k, "Archive", 1.5, 4.9, 2.3, 3.4, y=1.8, rail_sides="N", columns=True)
+vertical.stairs(k, "ArchiveStairs", -1.5, 2.85, "+x", width=1.1, rise=1.8)
+# Mapa de la zona en el archivador de atención (se obtiene al llegar).
+k.container("AttendanceCabinet", (-4.4, 0, -0.3), "buin_station_map", item_ids=("map_buin",), counts=(1,), reach=1.3)
+k.label("CabinetLabel", "Details", (-4.9, 1.7, -0.3), "ATENCIÓN", 22, (0.85, 0.82, 0.7), rot=(0, math.pi / 2, 0))
+# Atajo A: la puerta de servicio de la caseta de bombas llega aquí; desde la estación solo se ve cerrada.
+k.door("door_station_pump", (1.8, 0, -3.1), B % "caseta_bomba", "from_station", prompt="ABRIR", reach=1.3,
+       lock_id="buin_shortcut_pump_station", one_way=True, one_way_origin=False, metal_door=True)
+k.spawn("from_pump", (1.8, 0.05, -2.6), (0, 1))
+k.infected("Feeder", (-1.0, 0.05, 0.3), yaw=2.6, state="feeding")
 k.infected("Lying", (2.6, 0.05, 0.4), yaw=1.0, state="lying", kind="infected_pale")
 k.camera("West", (-2.5, 1.5, 0.0), (5.0, 3.0, 7.0), (2.0, 3.2, 3.0), (-3.4, 0.4, -1.0), fov=64)
-k.camera("East", (2.5, 1.5, 0.0), (5.0, 3.0, 7.0), (-2.0, 3.2, -3.0), (3.4, 0.4, 1.2), fov=64)
+k.camera("East", (2.5, 1.7, 0.0), (5.0, 3.4, 7.0), (-2.0, 3.2, -3.0), (3.4, 0.4, 1.2), fov=64)
 k.spawn("from_checkpoint", (-4.1, 0.05, 1.6), (1, 0))
 k.spawn("from_warehouse", (-1.5, 0.05, -2.6), (0, 1))
 k.spawn("from_field", (4.1, 0.05, -1.4), (-1, 0))
 k.leo_hint("LeoWarehouse", (-1.5, 0, -2.5), ["Leo: La lista en el mesón dice quiénes subieron al tren. Léela.", "Leo: Y por esa puerta huele a tierra mojada y a tractor. Ahí guardan las llaves del campo.", "Leo: Entra por la puerta ENTRAR a la bodega agrícola y busca la llave del campo."], hide_item="shed_key")
 k.leo_hint("LeoVineyard", (4.0, 0, -1.4), ["Leo: Ya tienes la llave del galpón. La viña está por aquí.", "Leo: Rosa está allá, Isabella. La huelo desde aquí.", "Leo: Sal por la puerta SALIR hacia el potrero; desde allí cruza a la viña."], show_item="shed_key")
+detail.dress(k, -4.7, 4.7, -3.2, 3.2, H, theme="office", seed=711, extra=22, avoid_rects=[(-1.8, 5.0, 2.0, 3.5)])
 k.save(REPO + "/levels/buin/station.tscn")
 print("buin station ok")

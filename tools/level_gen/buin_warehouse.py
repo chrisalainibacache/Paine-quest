@@ -1,6 +1,8 @@
 import sys, math, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 from buin_common import *
+import detail
+import vertical
 # Bodega agrícola (sin luz: Isabella usa la linterna). Sacos, cajones y un tractor
 # viejo; la llave del galpón cuelga del tractor, con la carta de Ana.
 k = Kit("Warehouse", "Bodega agrícola", dark=True, ambience="barn")
@@ -8,6 +10,8 @@ k.env((0.0, 0.0, 0.0), (0.3, 0.29, 0.27), 0.7, (0.04, 0.04, 0.04), 0.05)
 X0, X1, Z0, Z1, H = -6.0, 6.0, -4.0, 4.0, 4.4
 k.shell(X0, X1, Z0, Z1, H, floor="concrete_floor", wall="bricks_wall", ceiling="planks")
 k.door_frame("ToStation", -1.5, Z1, "x", width=1.4, wall_side=-1, panel="metal")
+k.door_frame("ToFieldFrame", X1, -2.0, "z", width=1.4, wall_side=-1, panel="planks")
+k.door_frame("ToPatioFrame", 4.2, Z0, "x", width=1.4, wall_side=1, panel="planks")
 for i in range(4):
     k.block("Rafter%d" % i, "Shell", (X0 + 2.4 + i * 2.4, H - 0.3, 0), (0.2, 0.3, Z1 - Z0), "wood", solid=False)
 # Rayos de luz por las rendijas del techo.
@@ -26,18 +30,27 @@ k.decal("Pool", "blood_pool", (-1.0, 0.012, -0.5), 1.4, "up")
 k.decal("Drag", "blood_drag", (0.5, 0.012, 1.2), (2.4, 0.8), "up", rot=0.9)
 # Interactuables.
 k.door("ToStation", (-1.5, 0, 3.6), B % "station", "from_warehouse", prompt="SALIR", reach=1.3)
-k.pickup("ShedKey", (1.9, 1.3, -1.6), "shed_key", rot=(0, 0.5, 0))
+k.container("TractorCompartment", (2.4, 0, -0.5), "buin_tractor_cache", item_ids=("shed_key",), counts=(1,), reach=1.3)
+k.door("door_warehouse_field", (5.6, 0, -2.0), B % "field", "from_warehouse", prompt="SALIR", reach=1.3, marker="POTRERO")
+k.door("door_warehouse_patio", (4.2, 0, -3.6), B % "patio_cosecha", "from_warehouse", prompt="ENTRAR", reach=1.3, marker="PATIO DE COSECHA")
+k.spawn("from_field", (5.0, 0.05, -2.0), (-1, 0))
+k.spawn("from_patio", (4.2, 0.05, -3.0), (0, 1))
+# Entrepiso de carga (2,1 m) al noroeste, con escalera desde el este.
+vertical.balcony(k, "Mezzanine", -5.9, -3.6, -3.9, -0.6, y=2.1, rail_sides="SE", gap=("E", -1.8, -0.6))
+vertical.stairs(k, "MezzanineStairs", -0.4, -1.2, "-x", width=1.1, rise=2.1)
+k.pickup("LoftShells", (-5.0, 2.1, -2.4), "ammo_shells", 4, rot=(0, 0.4, 0))
 k.note("Letter", (3.0, 1.5, -1.3), "worker_letter", paper_rot=(0, 0.6, 0), paper_scale=0.6, reach=1.5)
 k.pickup("Shells", (-4.3, 0.85, -3.0), "ammo_shells", 6, rot=(0, 0.2, 0))
 k.pickup("Sushi", (-4.2, 0.85, 2.8), "sushi", rot=(0, 1.0, 0))
 k.examine("Calendar", (5.5, 0, 2.5), ["Un calendario de la viña. Viernes marcado con lápiz rojo:", "«Vendimia. Llegan los temporeros de Paine.»"], reach=1.2)
 k.infected("Runner1", (4.0, 0.05, 2.4), yaw=-2.2, kind="infected_fast")
-k.infected("Runner2", (-3.0, 0.05, 0.6), yaw=1.2, kind="infected_fast", state="lying")
+k.infected("Runner2", (-2.5, 0.05, 0.9), yaw=1.2, kind="infected_fast", state="lying")
 k.infected("Body", (0.6, 0.05, -2.8), yaw=0.4, state="corpse", kind="infected_worker")
-k.camera("West", (-3.0, 1.5, 0.0), (6.0, 3.0, 8.0), (1.6, 3.8, 3.4), (-3.4, 0.3, -1.0), fov=62)
+k.camera("West", (-3.0, 2.2, 0.0), (6.0, 4.4, 8.0), (1.6, 3.8, 3.4), (-3.4, 0.3, -1.0), fov=62)
 k.camera("East", (3.0, 1.5, 0.0), (6.0, 3.0, 8.0), (-1.4, 3.8, 3.4), (3.6, 0.3, -1.2), fov=62)
 k.spawn("from_station", (-1.5, 0.05, 3.1), (0, -1))
 k.leo_hint("LeoTractor", (2.2, 0, -0.4), ["Leo: Aquí adentro no ves nada. Yo sí: sígueme.", "Leo: En el tractor cuelga una llave grande... y hay una carta. Alguien la dejó para nosotras.", "Leo: Revisa el tractor, recoge la llave grande y lee la carta que dejaron para nosotras."], hide_item="shed_key")
 k.leo_hint("LeoOut", (-1.5, 0, 2.9), ["Leo: Ya la tienes. Salgamos de aquí, que esos corren.", "Leo: Sal por la puerta SALIR; volverás a la ESTACIÓN DE BUIN."], show_item="shed_key")
+detail.dress(k, -5.7, 5.7, -3.7, 3.7, H, theme="storage", seed=712, extra=8, avoid_rects=[(-6.0, -3.5, -4.0, -0.5), (-0.6, 3.2, -2.0, -0.7)])
 k.save(REPO + "/levels/buin/warehouse.tscn")
 print("warehouse ok")

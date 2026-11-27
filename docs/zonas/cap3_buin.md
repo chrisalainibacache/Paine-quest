@@ -12,6 +12,17 @@ Veredicto: **aprobado.** Aplica bien el contrato (mapa al principio en el hub, t
 3. **Radio:** la batería de 12 V es el objeto de paso del sello C; la radio exige además `buin:control_clear` y `buin:rosa_found` (se conserva el texto de Paz tal cual).
 4. **IDs protegidos** se respetan; el `shed_key` pasa de pickup a contenedor (REGISTRAR) conservando su ID.
 
+## IMPLEMENTACIÓN DE CLAUDE (2026-11-27)
+Capítulo 3 construido y probado (`tests/chapter3_test.gd`: sellos en su ala, 11 salas alcanzables sin objetos, radio con los 3 sellos en cualquier orden).
+- **11 salas**; la estación es el hub y su mapa (`map_buin`) está en el archivador de atención. Zona generada por `tools/level_gen/zone_buin.py`.
+- **Sello A:** carpeta de control (`ControlFolder`, código **2100** = hora de `military_order` + reloj de campaña) → `unlocked:buin_control_clear`; la **barrera se levanta** (`levels/kit/interact/flag_lift.gd`) y el armario de suministros del control abre (retroceso premiado).
+- **Sello B:** `shed_key` está en el compartimento del tractor (contenedor, sin pickup); la puerta de la viña la exige y la voz de Rosa (`talked:rosa`) es el sello.
+- **Sello C:** canal (compuerta→desagüe, `unlocked:buin_canal`) abre la caseta; válvulas retorno→canal→bomba (`unlocked:buin_pump`) abren el gabinete con `radio_cell`; el zócalo del galpón (`buin_radio_socket`) da `unlocked:buin_radio_power`.
+- **Radio:** `chapter_exit` exige `talked:rosa`, `unlocked:buin_control_clear` y `unlocked:buin_radio_power` (texto de Paz intacto).
+- **Atajos de un solo lado:** caseta→estación (`buin_shortcut_pump_station`), patio→galpón (`buin_shortcut_patio_shed`), pasarela→canal (`buin_shortcut_walkway_canal`).
+- **Verticalidad en 8 salas:** balcón del archivo (estación), plataforma de observación (control), entrepiso (bodega), altillo (galpón), pasarela de mantenimiento (canal), plataforma de válvulas (caseta), plataforma de carga (patio) y la pasarela de la viña.
+- **Desviaciones del diseño:** alturas de techo subidas para que haya cabeza libre (canal 4,6 m, estación 4,2 m); el sifón opcional (manguera+abrazadera) y el carro de peso se sustituyen por palancas («marca» → «portón») que abren la caja de cosecha del patio; el pestillo de la pasarela es la propia trampilla de un solo lado; `field` y `vineyard` (prerenderizados) solo reciben puertas (Interactables) y una huella examinable, sin geometría nueva ni silueta.
+
 ## 1. Resumen de la zona
 
 Sábado, 6:50. Isabella y Leo cruzan el puente del Maipo y llegan al control militar. Tras atravesarlo, entran a la estación de Buin, convertida en sala de espera del tren sanitario. La estación pasa a ser el **hub** de la zona: desde allí se puede volver al control o explorar las alas agrícola y de riego en cualquier orden.

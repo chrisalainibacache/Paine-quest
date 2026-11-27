@@ -34,6 +34,7 @@ const LABELS := {
     "station": "ESTACIÓN DE BUIN", "warehouse": "BODEGA AGRÍCOLA", "vineyard": "VIÑA", "shed": "GALPÓN",
     "sala_locomotora": "SALA DE LA LOCOMOTORA", "galpon_carga": "GALPÓN DE CARGA", "pasarela_convoy": "PASARELA DEL CONVOY",
     "cuarto_drenaje": "CUARTO DE DRENAJE",
+    "canal_riego": "CANAL DE RIEGO", "caseta_bomba": "CASETA DE BOMBAS", "patio_cosecha": "PATIO DE COSECHA", "pasarela_vina": "PASARELA DE LA VIÑA",
     "maestranza_acceso": "ACCESO A LA MAESTRANZA", "maestranza_guardia": "PUESTO DE GUARDIA",
     "maestranza_enfermeria": "ENFERMERÍA", "maestranza_taller": "TALLER DE MANTENIMIENTO",
     "maestranza_vestuario": "VESTUARIO", "maestranza_pasillo_cuarentena": "PASILLO DE CUARENTENA",

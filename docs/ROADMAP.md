@@ -86,8 +86,11 @@ paso bajo nivel y casa de cambios.
 
 ## Hito 6 — Capítulo 3: Buin (completo)
 
-Siete salas, en la mañana del sábado: puente del Maipo, control militar, estación de Buin,
-bodega agrícola, potrero, viña Santa Rosa y galpón.
+**Rehecho el 2026-11-27 (no lineal):** 11 salas con la estación como hub y tres sellos independientes
+(control despejado, Rosa localizada, radio alimentada), tres atajos de un solo lado y verticalidad en 8 salas.
+Detalle en `docs/zonas/cap3_buin.md` (sección «Implementación de Claude»). Salas: puente del Maipo, control militar,
+estación de Buin, bodega agrícola, potrero, viña Santa Rosa, galpón, canal de riego, caseta de bombas, patio de cosecha
+y pasarela de la viña.
 
 - [x] El puente conduce al control militar abandonado.
 - [x] Soldados infectados con casco y chaleco; la orden del día revela que el tren sanitario

@@ -59,8 +59,6 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/travel_poster.tscn" id="57_travel_poste"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/station_sign.tscn" id="58_station_sign"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/plant_pot.tscn" id="59_plant_pot"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/paper.tscn" id="60_paper"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/ammo_box.tscn" id="61_ammo_box"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -1066,14 +1064,6 @@ scale = Vector3(0.45, 0.45, 0.45)
 
 [node name="Plant" parent="DetailProps" instance=ExtResource("59_plant_pot")]
 position = Vector3(2.8, 0, 2.4)
-scale = Vector3(0.45, 0.45, 0.45)
-
-[node name="Paper" parent="DetailProps" instance=ExtResource("60_paper")]
-position = Vector3(2.2, 0.9, 2.2)
-scale = Vector3(0.45, 0.45, 0.45)
-
-[node name="AmmoBox" parent="DetailProps" instance=ExtResource("61_ammo_box")]
-position = Vector3(-1, 0, 2.4)
 scale = Vector3(0.45, 0.45, 0.45)
 
 [node name="Cam1" type="Area3D" parent="Cameras"]

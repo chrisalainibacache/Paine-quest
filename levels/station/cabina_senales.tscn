@@ -47,14 +47,11 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/hanging_lamp.tscn" id="45_hanging_lamp"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/station_sign.tscn" id="46_station_sign"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/travel_poster.tscn" id="47_travel_poste"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/paper.tscn" id="48_paper"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/key.tscn" id="49_key"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/ammo_box.tscn" id="50_ammo_box"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/crate.tscn" id="51_crate"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/plant_pot.tscn" id="52_plant_pot"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/bench.tscn" id="53_bench"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="54_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/flicker_light.gd" id="55_flicker_ligh"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/crate.tscn" id="48_crate"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/plant_pot.tscn" id="49_plant_pot"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/bench.tscn" id="50_bench"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="51_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/flicker_light.gd" id="52_flicker_ligh"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -997,27 +994,15 @@ scale = Vector3(0.48, 0.48, 0.48)
 position = Vector3(-3.8, 1.5, 0)
 scale = Vector3(0.48, 0.48, 0.48)
 
-[node name="Paper" parent="Props" instance=ExtResource("48_paper")]
-position = Vector3(-1.5, 1, -1.8)
-scale = Vector3(0.48, 0.48, 0.48)
-
-[node name="KeyProp" parent="Props" instance=ExtResource("49_key")]
-position = Vector3(-1.2, 1, -1.8)
-scale = Vector3(0.48, 0.48, 0.48)
-
-[node name="AmmoBox" parent="Props" instance=ExtResource("50_ammo_box")]
-position = Vector3(2.2, 0, -2.8)
-scale = Vector3(0.48, 0.48, 0.48)
-
-[node name="Crate" parent="Props" instance=ExtResource("51_crate")]
+[node name="Crate" parent="Props" instance=ExtResource("48_crate")]
 position = Vector3(3, 0, -2.8)
 scale = Vector3(0.48, 0.48, 0.48)
 
-[node name="Plant" parent="Props" instance=ExtResource("52_plant_pot")]
+[node name="Plant" parent="Props" instance=ExtResource("49_plant_pot")]
 position = Vector3(-3.2, 0, 2.8)
 scale = Vector3(0.48, 0.48, 0.48)
 
-[node name="Bench" parent="Props" instance=ExtResource("53_bench")]
+[node name="Bench" parent="Props" instance=ExtResource("50_bench")]
 position = Vector3(3, 0, 2)
 scale = Vector3(0.48, 0.48, 0.48)
 
@@ -1034,18 +1019,18 @@ position = Vector3(3, 2.5, -2.5)
 light_color = Color(0.58, 0.72, 1, 1)
 light_energy = 0.75
 omni_range = 4
-script = ExtResource("55_flicker_ligh")
+script = ExtResource("52_flicker_ligh")
 
 [node name="SignalEmergency" type="OmniLight3D" parent="Lights"]
 position = Vector3(0, 2.2, 0)
 light_color = Color(0.65, 0.08, 0.05, 1)
 light_energy = 0.5
 omni_range = 3
-script = ExtResource("55_flicker_ligh")
+script = ExtResource("52_flicker_ligh")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-2.5833, 1.5, -2)
-script = ExtResource("54_camera_zone")
+script = ExtResource("51_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_4")
@@ -1059,7 +1044,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, -2)
-script = ExtResource("54_camera_zone")
+script = ExtResource("51_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_5")
@@ -1073,7 +1058,7 @@ far = 60.0
 
 [node name="Cam3" type="Area3D" parent="Cameras"]
 position = Vector3(2.5833, 1.5, -2)
-script = ExtResource("54_camera_zone")
+script = ExtResource("51_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam3"]
 shape = SubResource("BoxShape3D_6")
@@ -1087,7 +1072,7 @@ far = 60.0
 
 [node name="Cam4" type="Area3D" parent="Cameras"]
 position = Vector3(-2.5833, 1.5, 2)
-script = ExtResource("54_camera_zone")
+script = ExtResource("51_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam4"]
 shape = SubResource("BoxShape3D_7")
@@ -1101,7 +1086,7 @@ far = 60.0
 
 [node name="Cam5" type="Area3D" parent="Cameras"]
 position = Vector3(0, 1.5, 2)
-script = ExtResource("54_camera_zone")
+script = ExtResource("51_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam5"]
 shape = SubResource("BoxShape3D_8")
@@ -1115,7 +1100,7 @@ far = 60.0
 
 [node name="Cam6" type="Area3D" parent="Cameras"]
 position = Vector3(2.5833, 1.5, 2)
-script = ExtResource("54_camera_zone")
+script = ExtResource("51_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam6"]
 shape = SubResource("BoxShape3D_9")

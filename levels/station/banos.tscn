@@ -47,12 +47,9 @@
 [ext_resource type="PackedScene" path="res://levels/kit/props/travel_poster.tscn" id="45_travel_poste"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/station_sign.tscn" id="46_station_sign"]
 [ext_resource type="PackedScene" path="res://levels/kit/props/typewriter_desk.tscn" id="47_typewriter_d"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/paper.tscn" id="48_paper"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/key.tscn" id="49_key"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/ammo_box.tscn" id="50_ammo_box"]
-[ext_resource type="PackedScene" path="res://levels/kit/props/vending_machine.tscn" id="51_vending_mach"]
-[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="52_camera_zone"]
-[ext_resource type="Script" path="res://levels/kit/flicker_light.gd" id="53_flicker_ligh"]
+[ext_resource type="PackedScene" path="res://levels/kit/props/vending_machine.tscn" id="48_vending_mach"]
+[ext_resource type="Script" path="res://levels/kit/camera_zone.gd" id="49_camera_zone"]
+[ext_resource type="Script" path="res://levels/kit/flicker_light.gd" id="50_flicker_ligh"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -993,19 +990,7 @@ scale = Vector3(0.48, 0.48, 0.48)
 position = Vector3(3.4, 0, -3.2)
 scale = Vector3(0.48, 0.48, 0.48)
 
-[node name="Paper" parent="Props" instance=ExtResource("48_paper")]
-position = Vector3(-1.5, 0.9, 0.8)
-scale = Vector3(0.48, 0.48, 0.48)
-
-[node name="KeyProp" parent="Props" instance=ExtResource("49_key")]
-position = Vector3(-1.2, 0.9, 0.8)
-scale = Vector3(0.48, 0.48, 0.48)
-
-[node name="AmmoBox" parent="Props" instance=ExtResource("50_ammo_box")]
-position = Vector3(1.7, 0, -3.2)
-scale = Vector3(0.48, 0.48, 0.48)
-
-[node name="Vending" parent="Props" instance=ExtResource("51_vending_mach")]
+[node name="Vending" parent="Props" instance=ExtResource("48_vending_mach")]
 position = Vector3(4, 0, 2.8)
 scale = Vector3(0.48, 0.48, 0.48)
 
@@ -1022,18 +1007,18 @@ position = Vector3(3, 2.4, -2.5)
 light_color = Color(0.58, 0.72, 1, 1)
 light_energy = 0.75
 omni_range = 4
-script = ExtResource("53_flicker_ligh")
+script = ExtResource("50_flicker_ligh")
 
 [node name="BathroomEmergency" type="OmniLight3D" parent="Lights"]
 position = Vector3(0, 2.2, 0)
 light_color = Color(0.65, 0.08, 0.05, 1)
 light_energy = 0.5
 omni_range = 3
-script = ExtResource("53_flicker_ligh")
+script = ExtResource("50_flicker_ligh")
 
 [node name="Cam1" type="Area3D" parent="Cameras"]
 position = Vector3(-2.25, 1.5, 0.625)
-script = ExtResource("52_camera_zone")
+script = ExtResource("49_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam1"]
 shape = SubResource("BoxShape3D_7")
@@ -1047,7 +1032,7 @@ far = 60.0
 
 [node name="Cam2" type="Area3D" parent="Cameras"]
 position = Vector3(2.25, 1.5, 0.625)
-script = ExtResource("52_camera_zone")
+script = ExtResource("49_camera_zone")
 
 [node name="Zone" type="CollisionShape3D" parent="Cameras/Cam2"]
 shape = SubResource("BoxShape3D_8")

@@ -67,8 +67,7 @@ own_props = [
     ("LampA", "hanging_lamp", (-1.8, 2.7, 0.5)), ("LampB", "hanging_lamp", (1.8, 2.7, 0.5)),
     ("PipeRack", "pipe_rack", (-4.0, 0.0, 0.8)), ("Extinguisher", "extinguisher", (4.0, 0.0, -2.8)),
     ("WallClock", "wall_clock", (2.2, 2.3, 3.8)), ("Sign", "station_sign", (-1.0, 2.3, 3.8)),
-    ("AmmoBox", "ammo_box", (1.8, 0.0, -2.8)), ("Paper", "paper", (-1.8, 1.0, -2.8)),
-]
+    ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "Props", scene_name, prop_pos, scale=v3((0.48, 0.48, 0.48)))
 camera_specs = [

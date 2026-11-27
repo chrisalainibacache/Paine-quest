@@ -81,8 +81,7 @@ own_props = [
     ("WallClock", "wall_clock", (0.0, 2.3, 3.4)), ("Plant", "plant_pot", (3.2, 0.0, 2.4)),
     ("TravelPoster", "travel_poster", (-3.8, 1.5, 1.0)), ("StationSign", "station_sign", (0.0, 2.2, 3.4)),
     ("CrateA", "crate", (2.8, 0.0, -3.0)), ("CrateB", "crate", (3.2, 0.0, -3.0)),
-    ("Paper", "paper", (-3.2, 0.9, -0.3)), ("KeyProp", "key", (-3.0, 0.9, -0.3)),
-    ("AmmoBox", "ammo_box", (2.4, 0.0, -3.0)), ("Bench", "bench", (3.0, 0.0, 2.0)),
+    ("Bench", "bench", (3.0, 0.0, 2.0)),
 ]
 for prop_name, scene_name, prop_pos in own_props:
     k.prop(prop_name, "DetailProps", scene_name, prop_pos, scale=v3((0.42, 0.42, 0.42)))

@@ -1269,8 +1269,8 @@ func _zone_maps() -> void:
         "P15: mapa de estación contiene diez salas y una cuadrícula 4×3 válida")
     _check(tracks != null and tracks.is_valid() and tracks.rooms.size() == 10,
         "P12: mapa de vías contiene diez salas y un grafo válido")
-    _check(buin != null and buin.is_valid() and buin.rooms.size() == 7,
-        "P12: mapa de Buin contiene siete salas y un grafo válido")
+    _check(buin != null and buin.is_valid() and buin.rooms.size() == 11,
+        "P12: mapa de Buin contiene once salas y un grafo válido")
     _check(maestranza != null and maestranza.is_valid() and maestranza.rooms.size() == 7,
         "P12: mapa de Maestranza contiene siete salas y un grafo válido")
 
