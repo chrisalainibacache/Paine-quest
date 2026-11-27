@@ -49,9 +49,7 @@ for i, x in enumerate((-6.6, -2.9, 0.7, 4.3, 6.85)):
     block("Pilaster%d" % i, "Walls", (x, 1.8, 5.27), (0.32, 3.6, 0.06), "paint_red", solid=False)
 block("Baseboard", "Walls", (0, 0.08, 5.27), (14.0, 0.16, 0.08), "concrete_wall", solid=False)
 block("RetainingWall", "Walls", (0, 1.25, -5.45), (14.6, 4.5, 0.3), "old_bricks_wall")
-# Recodo interior que rompe la línea de visión y crea una pequeña ala de servicio.
-block("LPartition", "Walls", (-4.5, 1.35, -0.2), (0.18, 2.7, 5.0), "old_bricks_wall")
-block("LPartitionReturn", "Walls", (-3.0, 1.35, -2.7), (3.0, 2.7, 0.18), "plaster_wall")
+# (Sin tabiques interiores: el andén norte está prerenderizado; cualquier muro nuevo taparía a Isabella. Ver docs/ESTANDAR_DETALLE.md.)
 # Los muros de los extremos tienen el hueco del túnel por donde sigue la vía.
 from tunnels import carve
 carve(block, prop, -1, -7.0, -3.3, -1.0, -1.0, 3.6, -5.6, 5.6, "concrete_wall", prefix="WestTunnel")
