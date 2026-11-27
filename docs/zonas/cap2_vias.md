@@ -15,9 +15,9 @@ Isabella y Leo salen del andén sur de Paine pasada la medianoche. La vía se di
 
 El capítulo no termina en el tren. El jugador rodea los restos a pie, atraviesa el convoy, recupera acceso al paso bajo nivel en apagón y llega a la casa de cambios. Allí guarda y decide seguir por la vía hacia el norte al amanecer, rumbo a Buin.
 
-**Objetivo principal:** restaurar tres condiciones ferroviarias independientes y abrir la salida de la casa de cambios:
+**Objetivo principal:** completar tres condiciones ferroviarias independientes y abrir la salida de la casa de cambios:
 - cortar el combustible y apagar el incendio de la locomotora;
-- restaurar la alimentación del sistema de drenaje/servicio;
+- restaurar la alimentación local del convoy y sus servicios mediante el tablero del galpón de carga;
 - alinear el cambio de vía para dejar libre el recorrido norte.
 
 **Hub no lineal:** el patio del descarrilamiento (`derailed_train`). Desde ahí se accede a tres alas y se vuelve varias veces. No se exige completar las alas en orden.
@@ -32,7 +32,7 @@ El capítulo no termina en el tren. El jugador rodea los restos a pie, atraviesa
 - Nuevas: `sala_locomotora`, `galpon_carga`, `pasarela_convoy`, `cuarto_drenaje`.
 
 ```text
-                       [A: CABINA LOCOMOTORA]
+                       [A: SALA DE MÁQUINAS]
                        (corte de combustible / sello A)
                               |
 [track_north] ---> [HUB: DERAILED_TRAIN] ---- [WAGON_INTERIOR]
@@ -40,7 +40,7 @@ El capítulo no termina en el tren. El jugador rodea los restos a pie, atraviesa
                         |        \                |
                         |         [CONVOY_SIDE] ---+
                         |            |  \
-                        |            |   [VAGON_CARGA]
+                         [GALPÓN DE CARGA]
                         |            |       |
                         |            |   [PASARELA_CONVOY] --- vuelta al HUB
                         |            |       |
@@ -63,13 +63,13 @@ Conexiones concretas y puertas:
 8. `galpon_carga ↔ pasarela_convoy`: subir a la plataforma superior del vagón.
 9. `pasarela_convoy ↔ derailed_train`: retorno elevado al hub; balcón con vista al descarrilamiento.
 10. `pasarela_convoy ↔ cuarto_drenaje`: acceso superior de mantenimiento.
-11. `convoy_side ↔ underpass`: conservar `underpass_gate`; inicialmente se abre con `engineer_key` o desde el lado interior por el atajo.
+11. `convoy_side ↔ underpass`: conservar `underpass_gate` como reja lateral, abierta desde dentro o con `engineer_key` desde fuera; es un atajo opcional y no bloquea el paso principal.
 12. `underpass ↔ cuarto_drenaje`: puerta de mantenimiento, abre desde el lado del drenaje.
 13. `cuarto_drenaje ↔ switch_house`: conexión de servicio.
 14. `switch_house`: conservar la salida de capítulo hacia la vía norte; el final requiere los tres flags de paso.
 15. `derailed_train ↔ underpass`: escalera de servicio abierta desde el hub; permite iniciar el ala C sin llave, sello ni energía. `underpass_gate` queda como atajo lateral opcional.
 
-Los enlaces 2–4, 7–10 y 12–13 se implementan en los generadores de las salas indicadas. No editar `.tscn` a mano.
+Los enlaces 2–4, 7–10, 12–13 y 15 se implementan en los generadores de las salas indicadas. No editar `.tscn` a mano.
 
 ## 3. Hub, tres alas, bucles y atajos
 
@@ -88,7 +88,7 @@ El jugador puede empezar A, B o C. Las tres alas tienen entrada abierta desde el
 
 ### Atajos unidireccionales
 - **Atajo A — compuerta del fuelle:** se abre desde el lado de sala de máquinas/wagon interior y crea un retorno rápido al hub.
-- **Atajo B — escotilla de drenaje:** se libera desde cuarto_drenaje hacia underpass/convoy_side; evita volver por la pasarela.
+- **Atajo B — escotilla de drenaje:** se libera desde `cuarto_drenaje` hacia `underpass`/`convoy_side`; evita volver por la pasarela.
 Ambos se abren desde el lado opuesto y quedan persistentes. El portón de `underpass_gate` conserva el comportamiento de llave/atajo desde el lado interior.
 
 ### Retroceso premiado (≥3)
@@ -105,11 +105,15 @@ Medidas propuestas en metros; se ajustan al espacio real del generador y a las c
 |---|---:|---|
 | `track_north` | 18×9 / 5.5 | Trinchera irregular en Y; desvío, ramal y puerta de servicio. |
 | `derailed_train` (hub) | 26×11 / 5.8 | Patio largo; escalera sobre el vagón volcado y plataforma superior. |
+| `sala_locomotora` | 9×7 / 3.4 | Sala de máquinas/inspección en L; pasarela técnica a 2.1 m. |
 | `sala_locomotora` | Mira las válvulas del panel y luego la pasarela. | «El fuego no se apaga golpeándolo.» | «Corta el combustible en orden 2, 3 y 1.» |
 | `wagon_interior` | 14×3.3 / 2.5 | Pasillo estrecho y angosto; asientos arrancados y fuelle de conexión. |
 | `convoy_side` | 26×7.5 / 5.5 | Pasillo exterior largo entre vagones; sin duplicar la planta del hub. |
+| `galpon_carga` | 18×6 / 6.2 | Bodega ferroviaria junto a la vía; interior útil de ~3 m y entrepiso a 2.7 m. |
 | `galpon_carga` | Mira el tablero local y después el carro de contrapeso. | «La carga todavía guarda corriente.» | «Registra el fusible 10 A e instálalo en el tablero del galpón; el carro abre el opcional.» |
 | `pasarela_convoy` | 20×4 / 5.6 | Pasarela elevada con balcón mirando al hub y acceso a drenaje. |
+| `underpass` | 14×3.6 / 3.2 | Paso bajo nivel largo; escalones/desnivel en ambos extremos. |
+| `cuarto_drenaje` | 8×6 / 3.4 | Sala pequeña en L, canal y bomba manual con gabinete de señales. |
 | `underpass` | Se sienta junto al acceso directo desde el patio y luego mira la luz roja. | «La linterna no es un adorno aquí.» | «Entra por la escalera abierta del hub; la reja lateral es un atajo opcional.» |
 | `cuarto_drenaje` | Mira el canal, la bomba manual y el gabinete. | «Primero escucha el agua; después busca el pasador.» | «Vacía el canal manualmente, registra `signal_pin` y llévalo a la casa de cambios.» |
 | `switch_house` | 6×5 / 2.8 | Caseta compacta segura, conserva máquina de escribir y salida. |
