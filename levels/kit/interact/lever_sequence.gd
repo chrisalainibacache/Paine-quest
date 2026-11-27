@@ -50,6 +50,8 @@ static func register_lever(definition: PuzzleData, lever_id: String, unlock_id: 
         return Result.RESULT_PROGRESS
 
     GameState.set_flag("puzzle:" + definition.id + ":lever_solved")
+    if not definition.success_flag.is_empty():
+        GameState.set_flag(definition.success_flag)
     if not unlock_id.is_empty():
         GameState.set_flag("unlocked:" + unlock_id)
     return Result.RESULT_SOLVED
