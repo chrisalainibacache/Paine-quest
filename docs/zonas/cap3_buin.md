@@ -73,7 +73,7 @@ La radio conserva exactamente su función narrativa: Paz pregunta por sobrevivie
 | `field / ToVineyard` | `vineyard` | Abierta | Conservar; salida a viña. |
 | `field / door_field_warehouse` | `warehouse` | Abierta | Nueva; salida exploratoria del potrero. |
 | `field / door_field_canal` | `canal_riego` | Abierta | Nueva; tercera salida de exploración. |
-| `field / door_field_checkpoint` | `checkpoint` | Cerrada desde el lado del potrero | Nueva ruta rural larga; abre desde checkpoint, no requisito del sello A. |
+| `field / door_field_checkpoint` | `checkpoint` | Abierta | Nueva ruta rural larga; no es requisito para completar el sello A. |
 | `vineyard / ToStation` | `field` | Abierta | Conservar ID y destino actual; retorno. |
 | `vineyard / ToShed` | `shed` | Cerrada; requiere `shed_key`, lock `shed_door` | Conservar ID, llave y lock. |
 | `vineyard / door_vineyard_walkway` | `pasarela_vina` | Abierta | Nueva; acceso elevado. |

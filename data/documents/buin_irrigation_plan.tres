@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DocumentData" format=3]
+
+[ext_resource type="Script" path="res://data/documents/document_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "buin_irrigation_plan"
+title = "Plano del riego"
+pages = PackedStringArray("CANAL DE RIEGO — El registro bajo queda junto a la compuerta norte. Para vaciarlo, conecte manguera y abrazadera antes de abrir el desagüe. La pasarela alta conduce a la caseta de bombas. — Mantención")
