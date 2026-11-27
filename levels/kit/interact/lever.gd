@@ -5,6 +5,7 @@ extends Interactable
 @export var puzzle: PuzzleData
 @export var lever_id: String = ""
 @export var unlock_id: String = ""
+@export var required_flag: String = ""
 
 func _init() -> void:
     prompt = "ACCIONAR"
@@ -12,7 +13,8 @@ func _init() -> void:
 
 
 func can_interact() -> bool:
-    return puzzle != null and puzzle.is_valid() and not LeverSequence.is_solved(puzzle)
+    return puzzle != null and puzzle.is_valid() and not LeverSequence.is_solved(puzzle) \
+            and (required_flag.is_empty() or GameState.has_flag(required_flag))
 
 
 func interact(_player: Player) -> void:
